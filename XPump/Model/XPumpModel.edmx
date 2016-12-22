@@ -1,0 +1,717 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="xpumpModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="nozzle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="remark" Type="varchar" MaxLength="50" />
+          <Property Name="isactive" Type="bool" Nullable="false" />
+          <Property Name="tank_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pricelist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="unitpr" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="stmas_id" Type="int" Nullable="false" />
+          <Property Name="pricetag_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pricetag">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="starttime" Type="time" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="saleshistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="saldat" Type="date" Nullable="false" />
+          <Property Name="mitbeg" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="mitend" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="salqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="salval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="shift_id" Type="int" Nullable="false" />
+          <Property Name="nozzle_id" Type="int" Nullable="false" />
+          <Property Name="stmas_id" Type="int" Nullable="false" />
+          <Property Name="pricetag_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="salessummary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="saldat" Type="date" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="dtest" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="dother" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="totqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="totval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="ddisc" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="netval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="salvat" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="purvat" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="shift_id" Type="int" Nullable="false" />
+          <Property Name="stmas_id" Type="int" Nullable="false" />
+          <Property Name="pricetag_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="shift">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="starttime" Type="time" Precision="0" Nullable="false" />
+          <Property Name="endtime" Type="time" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="stmas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="remark" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tank">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="remark" Type="varchar" MaxLength="50" />
+          <Property Name="isactive" Type="bool" Nullable="false" />
+          <Property Name="stmas_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk-nozzle-tank_id">
+          <End Role="tank" Type="Self.tank" Multiplicity="1" />
+          <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tank">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nozzle">
+              <PropertyRef Name="tank_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-pricelist-pricetag_id">
+          <End Role="pricetag" Type="Self.pricetag" Multiplicity="1" />
+          <End Role="pricelist" Type="Self.pricelist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pricetag">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pricelist">
+              <PropertyRef Name="pricetag_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-pricelist-stmas_id">
+          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="pricelist" Type="Self.pricelist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pricelist">
+              <PropertyRef Name="stmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-saleshistory-nozzle_id">
+          <End Role="nozzle" Type="Self.nozzle" Multiplicity="1" />
+          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nozzle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="saleshistory">
+              <PropertyRef Name="nozzle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-saleshistory-pricetag_id">
+          <End Role="pricetag" Type="Self.pricetag" Multiplicity="1" />
+          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pricetag">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="saleshistory">
+              <PropertyRef Name="pricetag_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-saleshistory-shift_id">
+          <End Role="shift" Type="Self.shift" Multiplicity="1" />
+          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shift">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="saleshistory">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-saleshistory-stmas_id">
+          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="saleshistory">
+              <PropertyRef Name="stmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-salessummary-pricetag_id">
+          <End Role="pricetag" Type="Self.pricetag" Multiplicity="1" />
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pricetag">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salessummary">
+              <PropertyRef Name="pricetag_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-salessummary-shift_id">
+          <End Role="shift" Type="Self.shift" Multiplicity="1" />
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shift">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salessummary">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-salessummary-stmas_id">
+          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salessummary">
+              <PropertyRef Name="stmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-tank-stmas_id">
+          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="tank" Type="Self.tank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tank">
+              <PropertyRef Name="stmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="xpumpModelStoreContainer">
+          <EntitySet Name="nozzle" EntityType="Self.nozzle" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="pricelist" EntityType="Self.pricelist" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="pricetag" EntityType="Self.pricetag" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="saleshistory" EntityType="Self.saleshistory" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="salessummary" EntityType="Self.salessummary" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="shift" EntityType="Self.shift" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="stmas" EntityType="Self.stmas" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
+          <AssociationSet Name="fk-nozzle-tank_id" Association="Self.fk-nozzle-tank_id">
+            <End Role="tank" EntitySet="tank" />
+            <End Role="nozzle" EntitySet="nozzle" />
+          </AssociationSet>
+          <AssociationSet Name="fk-pricelist-pricetag_id" Association="Self.fk-pricelist-pricetag_id">
+            <End Role="pricetag" EntitySet="pricetag" />
+            <End Role="pricelist" EntitySet="pricelist" />
+          </AssociationSet>
+          <AssociationSet Name="fk-pricelist-stmas_id" Association="Self.fk-pricelist-stmas_id">
+            <End Role="stmas" EntitySet="stmas" />
+            <End Role="pricelist" EntitySet="pricelist" />
+          </AssociationSet>
+          <AssociationSet Name="fk-saleshistory-nozzle_id" Association="Self.fk-saleshistory-nozzle_id">
+            <End Role="nozzle" EntitySet="nozzle" />
+            <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk-saleshistory-pricetag_id" Association="Self.fk-saleshistory-pricetag_id">
+            <End Role="pricetag" EntitySet="pricetag" />
+            <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk-saleshistory-shift_id" Association="Self.fk-saleshistory-shift_id">
+            <End Role="shift" EntitySet="shift" />
+            <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk-saleshistory-stmas_id" Association="Self.fk-saleshistory-stmas_id">
+            <End Role="stmas" EntitySet="stmas" />
+            <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk-salessummary-pricetag_id" Association="Self.fk-salessummary-pricetag_id">
+            <End Role="pricetag" EntitySet="pricetag" />
+            <End Role="salessummary" EntitySet="salessummary" />
+          </AssociationSet>
+          <AssociationSet Name="fk-salessummary-shift_id" Association="Self.fk-salessummary-shift_id">
+            <End Role="shift" EntitySet="shift" />
+            <End Role="salessummary" EntitySet="salessummary" />
+          </AssociationSet>
+          <AssociationSet Name="fk-salessummary-stmas_id" Association="Self.fk-salessummary-stmas_id">
+            <End Role="stmas" EntitySet="stmas" />
+            <End Role="salessummary" EntitySet="salessummary" />
+          </AssociationSet>
+          <AssociationSet Name="fk-tank-stmas_id" Association="Self.fk-tank-stmas_id">
+            <End Role="stmas" EntitySet="stmas" />
+            <End Role="tank" EntitySet="tank" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="xpumpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="nozzle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isactive" Type="Boolean" Nullable="false" />
+          <Property Name="tank_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tank" Relationship="Self.fk_nozzle_tank_id" FromRole="nozzle" ToRole="tank" />
+          <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_nozzle_id" FromRole="nozzle" ToRole="saleshistory" />
+        </EntityType>
+        <EntityType Name="pricelist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="unitpr" Type="Decimal" Nullable="false" />
+          <Property Name="stmas_id" Type="Int32" Nullable="false" />
+          <Property Name="pricetag_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="pricetag" Relationship="Self.fk_pricelist_pricetag_id" FromRole="pricelist" ToRole="pricetag" />
+          <NavigationProperty Name="stmas" Relationship="Self.fk_pricelist_stmas_id" FromRole="pricelist" ToRole="stmas" />
+        </EntityType>
+        <EntityType Name="pricetag">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="starttime" Type="Time" Nullable="false" />
+          <NavigationProperty Name="pricelist" Relationship="Self.fk_pricelist_pricetag_id" FromRole="pricetag" ToRole="pricelist" />
+          <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_pricetag_id" FromRole="pricetag" ToRole="saleshistory" />
+          <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_pricetag_id" FromRole="pricetag" ToRole="salessummary" />
+        </EntityType>
+        <EntityType Name="saleshistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="saldat" Type="DateTime" Nullable="false" />
+          <Property Name="mitbeg" Type="Decimal" Nullable="false" />
+          <Property Name="mitend" Type="Decimal" Nullable="false" />
+          <Property Name="salqty" Type="Decimal" Nullable="false" />
+          <Property Name="salval" Type="Decimal" Nullable="false" />
+          <Property Name="shift_id" Type="Int32" Nullable="false" />
+          <Property Name="nozzle_id" Type="Int32" Nullable="false" />
+          <Property Name="stmas_id" Type="Int32" Nullable="false" />
+          <Property Name="pricetag_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="nozzle" Relationship="Self.fk_saleshistory_nozzle_id" FromRole="saleshistory" ToRole="nozzle" />
+          <NavigationProperty Name="pricetag" Relationship="Self.fk_saleshistory_pricetag_id" FromRole="saleshistory" ToRole="pricetag" />
+          <NavigationProperty Name="shift" Relationship="Self.fk_saleshistory_shift_id" FromRole="saleshistory" ToRole="shift" />
+          <NavigationProperty Name="stmas" Relationship="Self.fk_saleshistory_stmas_id" FromRole="saleshistory" ToRole="stmas" />
+        </EntityType>
+        <EntityType Name="salessummary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="saldat" Type="DateTime" Nullable="false" />
+          <Property Name="total" Type="Decimal" Nullable="false" />
+          <Property Name="dtest" Type="Decimal" Nullable="false" />
+          <Property Name="dother" Type="Decimal" Nullable="false" />
+          <Property Name="totqty" Type="Decimal" Nullable="false" />
+          <Property Name="totval" Type="Decimal" Nullable="false" />
+          <Property Name="ddisc" Type="Decimal" Nullable="false" />
+          <Property Name="netval" Type="Decimal" Nullable="false" />
+          <Property Name="salvat" Type="Decimal" Nullable="false" />
+          <Property Name="purvat" Type="Decimal" Nullable="false" />
+          <Property Name="shift_id" Type="Int32" Nullable="false" />
+          <Property Name="stmas_id" Type="Int32" Nullable="false" />
+          <Property Name="pricetag_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="pricetag" Relationship="Self.fk_salessummary_pricetag_id" FromRole="salessummary" ToRole="pricetag" />
+          <NavigationProperty Name="shift" Relationship="Self.fk_salessummary_shift_id" FromRole="salessummary" ToRole="shift" />
+          <NavigationProperty Name="stmas" Relationship="Self.fk_salessummary_stmas_id" FromRole="salessummary" ToRole="stmas" />
+        </EntityType>
+        <EntityType Name="shift">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="starttime" Type="Time" Nullable="false" />
+          <Property Name="endtime" Type="Time" Nullable="false" />
+          <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_shift_id" FromRole="shift" ToRole="saleshistory" />
+          <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shift_id" FromRole="shift" ToRole="salessummary" />
+        </EntityType>
+        <EntityType Name="stmas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="pricelist" Relationship="Self.fk_pricelist_stmas_id" FromRole="stmas" ToRole="pricelist" />
+          <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_stmas_id" FromRole="stmas" ToRole="saleshistory" />
+          <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_stmas_id" FromRole="stmas" ToRole="salessummary" />
+          <NavigationProperty Name="tank" Relationship="Self.fk_tank_stmas_id" FromRole="stmas" ToRole="tank" />
+        </EntityType>
+        <EntityType Name="tank">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isactive" Type="Boolean" Nullable="false" />
+          <Property Name="stmas_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="nozzle" Relationship="Self.fk_nozzle_tank_id" FromRole="tank" ToRole="nozzle" />
+          <NavigationProperty Name="stmas" Relationship="Self.fk_tank_stmas_id" FromRole="tank" ToRole="stmas" />
+        </EntityType>
+        <Association Name="fk_nozzle_tank_id">
+          <End Role="tank" Type="Self.tank" Multiplicity="1" />
+          <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tank">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nozzle">
+              <PropertyRef Name="tank_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_saleshistory_nozzle_id">
+          <End Role="nozzle" Type="Self.nozzle" Multiplicity="1" />
+          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nozzle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="saleshistory">
+              <PropertyRef Name="nozzle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pricelist_pricetag_id">
+          <End Role="pricetag" Type="Self.pricetag" Multiplicity="1" />
+          <End Role="pricelist" Type="Self.pricelist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pricetag">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pricelist">
+              <PropertyRef Name="pricetag_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pricelist_stmas_id">
+          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="pricelist" Type="Self.pricelist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pricelist">
+              <PropertyRef Name="stmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_saleshistory_pricetag_id">
+          <End Role="pricetag" Type="Self.pricetag" Multiplicity="1" />
+          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pricetag">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="saleshistory">
+              <PropertyRef Name="pricetag_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salessummary_pricetag_id">
+          <End Role="pricetag" Type="Self.pricetag" Multiplicity="1" />
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pricetag">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salessummary">
+              <PropertyRef Name="pricetag_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_saleshistory_shift_id">
+          <End Role="shift" Type="Self.shift" Multiplicity="1" />
+          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shift">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="saleshistory">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_saleshistory_stmas_id">
+          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="saleshistory">
+              <PropertyRef Name="stmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salessummary_shift_id">
+          <End Role="shift" Type="Self.shift" Multiplicity="1" />
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shift">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salessummary">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salessummary_stmas_id">
+          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salessummary">
+              <PropertyRef Name="stmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tank_stmas_id">
+          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="tank" Type="Self.tank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tank">
+              <PropertyRef Name="stmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="xpumpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="nozzle" EntityType="Self.nozzle" />
+          <EntitySet Name="pricelist" EntityType="Self.pricelist" />
+          <EntitySet Name="pricetag" EntityType="Self.pricetag" />
+          <EntitySet Name="saleshistory" EntityType="Self.saleshistory" />
+          <EntitySet Name="salessummary" EntityType="Self.salessummary" />
+          <EntitySet Name="shift" EntityType="Self.shift" />
+          <EntitySet Name="stmas" EntityType="Self.stmas" />
+          <EntitySet Name="tank" EntityType="Self.tank" />
+          <AssociationSet Name="fk_nozzle_tank_id" Association="Self.fk_nozzle_tank_id">
+            <End Role="tank" EntitySet="tank" />
+            <End Role="nozzle" EntitySet="nozzle" />
+          </AssociationSet>
+          <AssociationSet Name="fk_saleshistory_nozzle_id" Association="Self.fk_saleshistory_nozzle_id">
+            <End Role="nozzle" EntitySet="nozzle" />
+            <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pricelist_pricetag_id" Association="Self.fk_pricelist_pricetag_id">
+            <End Role="pricetag" EntitySet="pricetag" />
+            <End Role="pricelist" EntitySet="pricelist" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pricelist_stmas_id" Association="Self.fk_pricelist_stmas_id">
+            <End Role="stmas" EntitySet="stmas" />
+            <End Role="pricelist" EntitySet="pricelist" />
+          </AssociationSet>
+          <AssociationSet Name="fk_saleshistory_pricetag_id" Association="Self.fk_saleshistory_pricetag_id">
+            <End Role="pricetag" EntitySet="pricetag" />
+            <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salessummary_pricetag_id" Association="Self.fk_salessummary_pricetag_id">
+            <End Role="pricetag" EntitySet="pricetag" />
+            <End Role="salessummary" EntitySet="salessummary" />
+          </AssociationSet>
+          <AssociationSet Name="fk_saleshistory_shift_id" Association="Self.fk_saleshistory_shift_id">
+            <End Role="shift" EntitySet="shift" />
+            <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_saleshistory_stmas_id" Association="Self.fk_saleshistory_stmas_id">
+            <End Role="stmas" EntitySet="stmas" />
+            <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salessummary_shift_id" Association="Self.fk_salessummary_shift_id">
+            <End Role="shift" EntitySet="shift" />
+            <End Role="salessummary" EntitySet="salessummary" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salessummary_stmas_id" Association="Self.fk_salessummary_stmas_id">
+            <End Role="stmas" EntitySet="stmas" />
+            <End Role="salessummary" EntitySet="salessummary" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tank_stmas_id" Association="Self.fk_tank_stmas_id">
+            <End Role="stmas" EntitySet="stmas" />
+            <End Role="tank" EntitySet="tank" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="xpumpModelStoreContainer" CdmEntityContainer="xpumpEntities">
+          <EntitySetMapping Name="nozzle">
+            <EntityTypeMapping TypeName="xpumpModel.nozzle">
+              <MappingFragment StoreEntitySet="nozzle">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="isactive" ColumnName="isactive" />
+                <ScalarProperty Name="tank_id" ColumnName="tank_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pricelist">
+            <EntityTypeMapping TypeName="xpumpModel.pricelist">
+              <MappingFragment StoreEntitySet="pricelist">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="unitpr" ColumnName="unitpr" />
+                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
+                <ScalarProperty Name="pricetag_id" ColumnName="pricetag_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pricetag">
+            <EntityTypeMapping TypeName="xpumpModel.pricetag">
+              <MappingFragment StoreEntitySet="pricetag">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="starttime" ColumnName="starttime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="saleshistory">
+            <EntityTypeMapping TypeName="xpumpModel.saleshistory">
+              <MappingFragment StoreEntitySet="saleshistory">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="saldat" ColumnName="saldat" />
+                <ScalarProperty Name="mitbeg" ColumnName="mitbeg" />
+                <ScalarProperty Name="mitend" ColumnName="mitend" />
+                <ScalarProperty Name="salqty" ColumnName="salqty" />
+                <ScalarProperty Name="salval" ColumnName="salval" />
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
+                <ScalarProperty Name="nozzle_id" ColumnName="nozzle_id" />
+                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
+                <ScalarProperty Name="pricetag_id" ColumnName="pricetag_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salessummary">
+            <EntityTypeMapping TypeName="xpumpModel.salessummary">
+              <MappingFragment StoreEntitySet="salessummary">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="saldat" ColumnName="saldat" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="dtest" ColumnName="dtest" />
+                <ScalarProperty Name="dother" ColumnName="dother" />
+                <ScalarProperty Name="totqty" ColumnName="totqty" />
+                <ScalarProperty Name="totval" ColumnName="totval" />
+                <ScalarProperty Name="ddisc" ColumnName="ddisc" />
+                <ScalarProperty Name="netval" ColumnName="netval" />
+                <ScalarProperty Name="salvat" ColumnName="salvat" />
+                <ScalarProperty Name="purvat" ColumnName="purvat" />
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
+                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
+                <ScalarProperty Name="pricetag_id" ColumnName="pricetag_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shift">
+            <EntityTypeMapping TypeName="xpumpModel.shift">
+              <MappingFragment StoreEntitySet="shift">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="starttime" ColumnName="starttime" />
+                <ScalarProperty Name="endtime" ColumnName="endtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stmas">
+            <EntityTypeMapping TypeName="xpumpModel.stmas">
+              <MappingFragment StoreEntitySet="stmas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tank">
+            <EntityTypeMapping TypeName="xpumpModel.tank">
+              <MappingFragment StoreEntitySet="tank">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="isactive" ColumnName="isactive" />
+                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
