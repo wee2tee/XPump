@@ -23,8 +23,10 @@ namespace XPump.Model
     
         public int id { get; set; }
         public string name { get; set; }
+        public string description { get; set; }
         public System.TimeSpan starttime { get; set; }
         public System.TimeSpan endtime { get; set; }
+        public string remark { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<saleshistory> saleshistory { get; set; }

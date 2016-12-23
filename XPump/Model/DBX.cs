@@ -17,7 +17,18 @@ namespace XPump.Model
         public const string member_db_pwd = "12345";
         public const int member_db_port = 3306;
 
-        public static xpumpEntities DataSet(string server_name, string user_name, string password, string database_name, int port = 3306)
+        private string server_name;
+        public string ServerName { get { return this.server_name; } }
+        private string db_name;
+        public string DbName { get { return this.db_name; } }
+        private string db_userid;
+        public string DbUserId { get { return this.db_userid; } }
+        private string db_password;
+        public string DbPassword { get { return this.db_password; } }
+        public int port_no;
+        public int PortNo { get { return this.port_no; } }
+
+        public DBX(string server_name, string db_userid, string db_password, string db_name, int port_no = 3306)
         {
             //string cloud_server = "localhost";
             //string cloud_db_name = "sn";
@@ -42,8 +53,22 @@ namespace XPump.Model
 
             //return new xpumpEntities(contextConnectionString);
 
+            this.server_name = server_name;
+            this.db_name = db_name;
+            this.db_userid = db_userid;
+            this.db_password = db_password;
+            this.port_no = port_no;
+        }
 
-            return new xpumpEntities("metadata=res://*/Model.XPumpModels.csdl|res://*/Model.XPumpModels.ssdl|res://*/Model.XPumpModels.msl;provider=MySql.Data.MySqlClient;provider connection string=\"Data Source=" + server_name + ";Initial Catalog=" + database_name + ";Persist Security Info=True;User ID=" + user_name + ";Password=" + password + ";charset=utf8\"");
+        public xpumpEntities GetDBEntities()
+        {
+            return new xpumpEntities("metadata=res://*/Model.XPumpModel.csdl|res://*/Model.XPumpModel.ssdl|res://*/Model.XPumpModel.msl;provider=MySql.Data.MySqlClient;provider connection string=\"Data Source=" + this.server_name + ";Initial Catalog=" + this.db_name + ";Persist Security Info=True;User ID=" + this.db_userid + ";Password=" + this.db_password + ";charset=utf8\"");
+        }
+
+        public static xpumpEntities DataSet()
+        {
+            DBX db_context = new DBX("localhost", "root", "12345", "xpump");
+            return db_context.GetDBEntities();
         }
     }
 }

@@ -42,12 +42,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AppResource.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="XBrowseBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XBrowseBox.Designer.cs">
+      <DependentUpon>XBrowseBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="XDatagrid.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="XDatagrid.Designer.cs">
       <DependentUpon>XDatagrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="XTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XBrowseBox.resx">
+      <DependentUpon>XBrowseBox.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
