@@ -155,7 +155,7 @@ namespace XPump.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap loading_small {
             get {
-                object obj = ResourceManager.GetObject("loading-small", resourceCulture);
+                object obj = ResourceManager.GetObject("loading_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

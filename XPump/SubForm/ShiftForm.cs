@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using XPump.Model;
 using XPump.Misc;
 using CC;
+using System.Resources;
 
 namespace XPump.SubForm
 {
@@ -54,12 +55,35 @@ namespace XPump.SubForm
             }
         }
 
+        private void ResetControlState()
+        {
+
+        }
+
+        private void ValidateControlState()
+        {
+
+        }
+
         private void ShowInlineControl(XDatagrid dgv, int row_index, int column_index)
         {
             if (dgv.CurrentCell == null)
                 return;
 
-            this.inline_control = new XTextBox();
+            if(column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_start.DataPropertyName).First().Index || column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_end.DataPropertyName).First().Index)
+            {
+                this.inline_control = new XTimePicker();
+                ((XTimePicker)this.inline_control).Text = ((TimeSpan)dgv.Rows[row_index].Cells[column_index].Value).ToString(@"hh\:mm\:ss");
+            }
+            else
+            {
+                this.inline_control = new XTextBox();
+                ((XTextBox)this.inline_control).Text = (string)dgv.Rows[row_index].Cells[column_index].Value;
+                ((XTextBox)this.inline_control).TextChanged += delegate
+                {
+
+                };
+            }
             this.dgv.Tag = new InlineControlGridPosition() { RowIndex = row_index, ColumnIndex = column_index };
             this.SetInlineControlPosition();
             this.dgv.Parent.Controls.Add(this.inline_control);
@@ -87,7 +111,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode != FORM_MODE_LIST.READ)
             {
-                if (MessageBox.Show("close", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                if (MessageBox.Show(StringResource.Msg("0001"), "Message # 0001", MessageBoxButtons.OKCancel) != DialogResult.OK)
                 {
                     e.Cancel = true;
                     return;
@@ -119,11 +143,19 @@ namespace XPump.SubForm
 
             this.dgv.CurrentCell = this.dgv.Rows[this.shift_list.Count - 1].Cells["col_name"];
             this.ShowInlineControl(this.dgv, this.dgv.CurrentCell.RowIndex, this.dgv.CurrentCell.ColumnIndex);
+            this.form_mode = FORM_MODE_LIST.ADD;
+            this.ResetControlState();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (this.dgv.CurrentCell == null)
+                return;
 
+            this.temp_shift = ((shift)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_shift"].Value).ToViewModel();
+            this.ShowInlineControl(this.dgv, this.dgv.CurrentCell.RowIndex, this.dgv.CurrentCell.ColumnIndex);
+            this.form_mode = FORM_MODE_LIST.EDIT;
+            this.ResetControlState();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -133,12 +165,28 @@ namespace XPump.SubForm
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-
+            this.RemoveInlineControl();
+            this.form_mode = FORM_MODE_LIST.READ;
+            this.ResetControlState();
+            this.btnRefresh.PerformClick();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if(this.form_mode == FORM_MODE_LIST.ADD)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    db.shift.Add(this.temp_shift.shift);
+                    db.SaveChanges();
+                }
+                return;
+            }
 
+            if(this.form_mode == FORM_MODE_LIST.EDIT)
+            {
+
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -161,10 +209,17 @@ namespace XPump.SubForm
             if (((XDatagrid)sender).CurrentCell == null)
                 return;
 
-            if(((XDatagrid)sender).Tag != null && (((XDatagrid)sender).Tag.GetType() == typeof(InlineControlGridPosition)))
+            if(((XDatagrid)sender).Tag != null && (((XDatagrid)sender).Tag.GetType() == typeof(InlineControlGridPosition))) // If (XDatagrid)sender.Tag storing a details of inline control
             {
-                if(((InlineControlGridPosition)((XDatagrid)sender).Tag).RowIndex == ((XDatagrid)sender).CurrentCell.RowIndex)
+                if(((InlineControlGridPosition)((XDatagrid)sender).Tag).RowIndex == ((XDatagrid)sender).CurrentCell.RowIndex) // If current cell changed in same row
                 {
+                    this.RemoveInlineControl();
+                    this.ShowInlineControl((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).CurrentCell.ColumnIndex);
+                }
+                else // If current cell changed in another row
+                {
+                    // save to DB
+                    
                     this.RemoveInlineControl();
                     this.ShowInlineControl((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).CurrentCell.ColumnIndex);
                 }

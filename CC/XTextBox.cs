@@ -38,6 +38,14 @@ namespace CC
             this.BackColor = Color.White;
         }
 
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    base.OnPaint(e);
+        //    Console.WriteLine(" .. >> parent is " + this.Parent.Name);
+        //    Rectangle rect = this.Parent.Bounds;
+        //    e.Graphics.DrawRectangle(new Pen(Color.Blue), rect.X - 2, rect.Y - 2, rect.Width + 4, rect.Height + 4);
+        //}
+
         //protected override void OnReadOnlyChanged(EventArgs e)
         //{
         //    base.OnReadOnlyChanged(e);

@@ -1,0 +1,12 @@
+﻿[
+  {
+    "msgID": "0001",
+    "message_th": "ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก",
+    "message_en": "Adding/editing data will not save."
+  },
+  {
+    "msgID": "0002",
+    "message_th": "ค้นหาข้อมูลไม่พบ",
+    "message_en":  "Data not found."
+  }
+]
