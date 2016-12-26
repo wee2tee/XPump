@@ -112,6 +112,7 @@
             this.MnuTank.Name = "MnuTank";
             this.MnuTank.Size = new System.Drawing.Size(195, 22);
             this.MnuTank.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
+            this.MnuTank.Click += new System.EventHandler(this.MnuTank_Click);
             // 
             // MnuNozzle
             // 

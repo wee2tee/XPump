@@ -36,7 +36,7 @@
             // 
             this._btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._btnBrowse.Image = global::CC.Properties.Resources.zoom;
+            this._btnBrowse.Image = global::CC.Properties.Resources.zoom_16;
             this._btnBrowse.Location = new System.Drawing.Point(90, -1);
             this._btnBrowse.Margin = new System.Windows.Forms.Padding(0);
             this._btnBrowse.Name = "_btnBrowse";

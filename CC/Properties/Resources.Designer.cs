@@ -63,9 +63,39 @@ namespace CC.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap zoom {
+        internal static System.Drawing.Bitmap calendar_16 {
             get {
-                object obj = ResourceManager.GetObject("zoom", resourceCulture);
+                object obj = ResourceManager.GetObject("calendar_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cancel_16 {
+            get {
+                object obj = ResourceManager.GetObject("cancel_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ok_16 {
+            get {
+                object obj = ResourceManager.GetObject("ok_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap zoom_16 {
+            get {
+                object obj = ResourceManager.GetObject("zoom_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

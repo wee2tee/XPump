@@ -56,6 +56,7 @@
             this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_shift = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.xDatePicker1 = new CC.XDatePicker();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
@@ -101,6 +102,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.xDatePicker1);
             this.panel1.Controls.Add(this.dgv);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 43);
@@ -252,19 +254,18 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
             this.dgv.FillEmptyRow = false;
             this.dgv.FocusedRowBorderRedLine = true;
-            this.dgv.Location = new System.Drawing.Point(0, 0);
+            this.dgv.Location = new System.Drawing.Point(77, 135);
             this.dgv.MultiSelect = false;
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(676, 350);
+            this.dgv.Size = new System.Drawing.Size(599, 215);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 1;
             this.dgv.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseClick);
@@ -341,6 +342,15 @@
             this.col_shift.ReadOnly = true;
             this.col_shift.Visible = false;
             // 
+            // xDatePicker1
+            // 
+            this.xDatePicker1.Location = new System.Drawing.Point(208, 27);
+            this.xDatePicker1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.xDatePicker1.Name = "xDatePicker1";
+            this.xDatePicker1.SelectedDate = null;
+            this.xDatePicker1.Size = new System.Drawing.Size(120, 94);
+            this.xDatePicker1.TabIndex = 2;
+            // 
             // ShiftForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -391,5 +401,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_remark;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_state;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_shift;
+        private CC.XDatePicker xDatePicker1;
     }
 }

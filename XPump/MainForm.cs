@@ -41,6 +41,11 @@ namespace XPump
             shift.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = shift, docPrefix = string.Empty });
         }
+
+        private void MnuTank_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 
     public class ChildFormDetail

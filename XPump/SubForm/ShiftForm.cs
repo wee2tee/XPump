@@ -70,25 +70,44 @@ namespace XPump.SubForm
             if (dgv.CurrentCell == null)
                 return;
 
-            if(column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_start.DataPropertyName).First().Index || column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_end.DataPropertyName).First().Index)
-            {
-                this.inline_control = new XTimePicker();
-                ((XTimePicker)this.inline_control).Text = ((TimeSpan)dgv.Rows[row_index].Cells[column_index].Value).ToString(@"hh\:mm\:ss");
-            }
-            else
-            {
-                this.inline_control = new XTextBox();
-                ((XTextBox)this.inline_control).Text = (string)dgv.Rows[row_index].Cells[column_index].Value;
-                ((XTextBox)this.inline_control).TextChanged += delegate
-                {
+            shift shift = (shift)dgv.Rows[row_index].Cells["col_shift"].Value;
+            if (shift == null)
+                return;
 
-                };
+            if (column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_start.DataPropertyName).First().Index)
+            {
+                //this.inline_control = new XTimePicker();
+                //((XTimePicker)this.inline_control).Text = ((TimeSpan)dgv.Rows[row_index].Cells[column_index].Value).ToString(@"hh\:mm\:ss");
+                this.inline_control = dgv.Rows[row_index].Cells[column_index].CreateXTimePickerEdit(shift, "starttime");
             }
+
+            if (column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_end.DataPropertyName).First().Index)
+            {
+                //this.inline_control = new XTimePicker();
+                //((XTimePicker)this.inline_control).Text = ((TimeSpan)dgv.Rows[row_index].Cells[column_index].Value).ToString(@"hh\:mm\:ss");
+                this.inline_control = dgv.Rows[row_index].Cells[column_index].CreateXTimePickerEdit(shift, "endtime");
+            }
+
+            if(column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_name.DataPropertyName).First().Index)
+            {
+                this.inline_control = dgv.Rows[row_index].Cells[column_index].CreateXTextBoxEdit(shift, "name");
+            }
+
+            if (column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_desc.DataPropertyName).First().Index)
+            {
+                this.inline_control = dgv.Rows[row_index].Cells[column_index].CreateXTextBoxEdit(shift, "description");
+            }
+            
             this.dgv.Tag = new InlineControlGridPosition() { RowIndex = row_index, ColumnIndex = column_index };
-            this.SetInlineControlPosition();
+            this.inline_control.SetInlineControlPosition(this.dgv);
             this.dgv.Parent.Controls.Add(this.inline_control);
             this.inline_control.BringToFront();
             this.inline_control.Focus();
+        }
+
+        private void CreateInlineControl()
+        {
+
         }
 
         private void RemoveInlineControl()
@@ -98,14 +117,14 @@ namespace XPump.SubForm
             this.dgv.Tag = null;
         }
 
-        private void SetInlineControlPosition()
-        {
-            if(this.inline_control != null || (this.dgv.Tag != null && (this.dgv.Tag.GetType() == typeof(InlineControlGridPosition))))
-            {
-                Rectangle rect = this.dgv.GetCellDisplayRectangle(((InlineControlGridPosition)this.dgv.Tag).ColumnIndex, ((InlineControlGridPosition)this.dgv.Tag).RowIndex, true);
-                this.inline_control.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 5);
-            }
-        }
+        //private void SetInlineControlPosition()
+        //{
+        //    if(this.inline_control != null || (this.dgv.Tag != null && (this.dgv.Tag.GetType() == typeof(InlineControlGridPosition))))
+        //    {
+        //        Rectangle rect = this.dgv.GetCellDisplayRectangle(((InlineControlGridPosition)this.dgv.Tag).ColumnIndex, ((InlineControlGridPosition)this.dgv.Tag).RowIndex, true);
+        //        this.inline_control.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 5);
+        //    }
+        //}
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
@@ -124,17 +143,25 @@ namespace XPump.SubForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            this.temp_shift = new shiftVM
+            this.temp_shift = new shift()
             {
+                //id = -1,
+                //name = string.Empty,
+                //description = string.Empty,
+                //starttime = new TimeSpan(0, 0, 0),
+                //endtime = new TimeSpan(0, 0, 0),
+                //remark = string.Empty,
                 id = -1,
-                name = string.Empty,
-                description = string.Empty,
+                name = string.Empty + "abc",
+                description = string.Empty + "def",
                 starttime = new TimeSpan(0, 0, 0),
                 endtime = new TimeSpan(0, 0, 0),
                 remark = string.Empty,
-                shift = null,
-                record_state = RECORD_STATE.NEW,
-            };
+                saleshistory = null,
+                salessummary = null
+            }.ToViewModel();
+
+            this.temp_shift.record_state = RECORD_STATE.NEW;
 
             this.shift_list.Add(this.temp_shift);
 
@@ -219,7 +246,6 @@ namespace XPump.SubForm
                 else // If current cell changed in another row
                 {
                     // save to DB
-                    
                     this.RemoveInlineControl();
                     this.ShowInlineControl((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).CurrentCell.ColumnIndex);
                 }
@@ -228,7 +254,9 @@ namespace XPump.SubForm
 
         private void dgv_Resize(object sender, EventArgs e)
         {
-            this.SetInlineControlPosition();
+            this.inline_control.SetInlineControlPosition((XDatagrid)sender);
         }
+
+        
     }
 }
