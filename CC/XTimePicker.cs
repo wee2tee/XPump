@@ -11,6 +11,8 @@ namespace CC
 {
     public partial class XTimePicker : DateTimePicker
     {
+        //const int WM_ERASEBKGND = 0x14;
+
         public XTimePicker()
         {
             InitializeComponent();
@@ -24,5 +26,18 @@ namespace CC
             base.OnPaint(pe);
             Console.WriteLine(" .. painted");
         }
+
+        //protected override void WndProc(ref System.Windows.Forms.Message m)
+        //{
+        //    if (m.Msg == WM_ERASEBKGND)
+        //    {
+        //        Graphics g = Graphics.FromHdc(m.WParam);
+        //        g.FillRectangle(new SolidBrush(AppResource.EditableControlBackColor), ClientRectangle);
+        //        g.Dispose();
+        //        return;
+        //    }
+
+        //    base.WndProc(ref m);
+        //}
     }
 }

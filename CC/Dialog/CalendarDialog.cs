@@ -11,27 +11,24 @@ namespace CC.Dialog
 {
     public partial class CalendarDialog : Form
     {
-        private DateTime? init_date;
         public DateTime? selected_date = null;
-
-        public CalendarDialog(DateTime? init_date)
+        private XDatePicker xdate_picker;
+        
+        public CalendarDialog()
         {
             InitializeComponent();
-            this.init_date = init_date;
+        }
+
+        public CalendarDialog(XDatePicker xdate_picker)
+            : this()
+        {
+            this.xdate_picker = xdate_picker;
+            this.calendar.SelectionStart = xdate_picker._SelectedDate != null ? xdate_picker._SelectedDate.Value : DateTime.Now;
         }
 
         private void CalendarDialog_Load(object sender, EventArgs e)
         {
-            if (this.init_date != null)
-            {
-                this.calendar.SelectionStart = this.init_date.Value;
-                this.calendar.SelectionEnd = this.init_date.Value;
-            }
-            else
-            {
-                this.calendar.SelectionStart = DateTime.Now;
-                this.calendar.SelectionEnd = DateTime.Now;
-            }
+            
         }
 
         private void calendar_DateChanged(object sender, DateRangeEventArgs e)
@@ -59,6 +56,17 @@ namespace CC.Dialog
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            this.xdate_picker._SelectedDate = this.selected_date;
+            this.Dispose();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

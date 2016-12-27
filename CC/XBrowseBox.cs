@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using CC.Dialog;
 
 namespace CC
 {
@@ -37,6 +38,15 @@ namespace CC
                 this._btnBrowse.Enabled = !value;
             }
         }
+
+        private Object list_object;
+        //public Object _ListObject
+        //{
+        //    get
+        //    {
+        //        return this.list_object;
+        //    }
+        //}
 
         public XBrowseBox()
         {
@@ -76,51 +86,10 @@ namespace CC
             };
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            //base.OnPaint(e);
-            //if (this.is_read_only)
-            //{
-            //    this.DrawText();
-            //}
-
-            //if(!this._readonly && this.Focused)
-            //{
-            //    this.BackColor = AppResource.EditableControlBackColor;
-            //}
-            //else
-            //{
-            //    this.BackColor = Color.White;
-            //}
-        }
-
-
-
-        //private void DrawText()
-        //{
-        //    using (Font font = new Font("tahoma", 9.75f))
-        //    {
-        //        using (SolidBrush brush = new SolidBrush(Color.Black))
-        //        {
-        //            this.CreateGraphics().DrawString(this._text, font, brush, this.ClientRectangle, str_format_left);
-        //        }
-        //    }
-        //}
-
         protected override void OnGotFocus(EventArgs e)
         {
             base.OnGotFocus(e);
             this._textBox.Focus();
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.F6)
-            {
-                this._btnBrowse.PerformClick();
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void _textBox_TextChanged(object sender, EventArgs e)
@@ -135,23 +104,39 @@ namespace CC
 
         private void _btnBrowse_Click(object sender, EventArgs e)
         {
-            this._textBox.Focus();
-
-            MessageBox.Show("clicked");
+            ListDialog ld = new ListDialog(this.ParentForm, this.list_object);
+            ld.ShowDialog();
+            
+            //this._textBox.Focus();
         }
 
         private void _btnBrowse_Enter(object sender, EventArgs e)
         {
-            if (this._readonly)
-            {
+            //if (this._readonly)
+            //{
                 this.BackColor = Color.White;
                 this._textBox.BackColor = Color.White;
-            }
-            else
+            //}
+            //else
+            //{
+            //    this.BackColor = AppResource.EditableControlBackColor;
+            //    this._textBox.BackColor = AppResource.EditableControlBackColor;
+            //}
+        }
+
+        public void SetListObject(Object list_object)
+        {
+            this.list_object = list_object;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.F6)
             {
-                this.BackColor = AppResource.EditableControlBackColor;
-                this._textBox.BackColor = AppResource.EditableControlBackColor;
+                this._btnBrowse.PerformClick();
+                return true;
             }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

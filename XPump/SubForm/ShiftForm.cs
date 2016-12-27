@@ -45,6 +45,11 @@ namespace XPump.SubForm
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.shift_list;
 
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                List<shiftVM> list_shift = db.shift.ToList().ToViewModel();
+                this.xBrowseBox1.SetListObject(list_shift.Select(s => new { ไอดี = s.id, ชื่อย่อ = s.name }));
+            }
         }
 
         public List<shift> GetShiftList()
@@ -117,15 +122,6 @@ namespace XPump.SubForm
             this.dgv.Tag = null;
         }
 
-        //private void SetInlineControlPosition()
-        //{
-        //    if(this.inline_control != null || (this.dgv.Tag != null && (this.dgv.Tag.GetType() == typeof(InlineControlGridPosition))))
-        //    {
-        //        Rectangle rect = this.dgv.GetCellDisplayRectangle(((InlineControlGridPosition)this.dgv.Tag).ColumnIndex, ((InlineControlGridPosition)this.dgv.Tag).RowIndex, true);
-        //        this.inline_control.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 5);
-        //    }
-        //}
-
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if(this.form_mode != FORM_MODE_LIST.READ)
@@ -145,12 +141,6 @@ namespace XPump.SubForm
         {
             this.temp_shift = new shift()
             {
-                //id = -1,
-                //name = string.Empty,
-                //description = string.Empty,
-                //starttime = new TimeSpan(0, 0, 0),
-                //endtime = new TimeSpan(0, 0, 0),
-                //remark = string.Empty,
                 id = -1,
                 name = string.Empty + "abc",
                 description = string.Empty + "def",
