@@ -20,6 +20,7 @@ namespace CC
             set
             {
                 this.row_border_redline = value;
+                this.ResetColor();
             }
         }
 
@@ -122,6 +123,24 @@ namespace CC
             //}
 
             //this.Rows.Add(row);
+        }
+
+        private void ResetColor()
+        {
+            if (this.row_border_redline)
+            {
+                this.DefaultCellStyle.BackColor = Color.White;
+                this.DefaultCellStyle.ForeColor = Color.Black;
+                this.DefaultCellStyle.SelectionBackColor = Color.White;
+                this.DefaultCellStyle.SelectionForeColor = Color.Black;
+            }
+            else
+            {
+                this.DefaultCellStyle.BackColor = Color.FromKnownColor(KnownColor.Window);
+                this.DefaultCellStyle.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
+                this.DefaultCellStyle.SelectionBackColor = Color.FromKnownColor(KnownColor.Highlight);
+                this.DefaultCellStyle.SelectionForeColor = Color.FromKnownColor(KnownColor.HighlightText);
+            }
         }
 
         private void AttachEventHandler()

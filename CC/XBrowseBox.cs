@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using CC.Dialog;
+using System.Reflection;
 
 namespace CC
 {
@@ -39,21 +40,30 @@ namespace CC
             }
         }
 
+        private string list_dialog_title;
         private Object list_object;
-        //public Object _ListObject
-        //{
-        //    get
-        //    {
-        //        return this.list_object;
-        //    }
-        //}
+        public string FieldNameTextBoxShow;
 
         public XBrowseBox()
         {
             InitializeComponent();
+            this.list_object = new object();
         }
 
-        private void CustomBrowseField_Load(object sender, EventArgs e)
+        /** Create browse box with list selection dialog
+         *param name="list_dialog_title" Windows title for list dialog
+         * param name="list_object" Object list to show in list dialog
+         * param name="column_collection" Gridview column collection to show in list dialog
+         * param name="field_name_textbox_show" Field name of object to show in textbox after selected **/
+        public XBrowseBox(string list_dialog_title, object list_object, string field_name_textbox_show)
+            : this()
+        {
+            this.list_dialog_title = list_dialog_title;
+            this.list_object = list_object;
+            this.FieldNameTextBoxShow = field_name_textbox_show;
+        }
+
+        private void XBrowseBox_Load(object sender, EventArgs e)
         {
             this.TabStop = true;
             
@@ -104,24 +114,21 @@ namespace CC
 
         private void _btnBrowse_Click(object sender, EventArgs e)
         {
-            ListDialog ld = new ListDialog(this.ParentForm, this.list_object);
-            ld.ShowDialog();
+            ListDialog ld = new ListDialog(this.ParentForm, this, this.list_dialog_title, this.list_object);
+            if(ld.ShowDialog() == DialogResult.OK)
+            {
+                var shown_text = ld.selected_row.Cells[this.FieldNameTextBoxShow].Value;
+                this._textBox.Text = shown_text.ToString();
+                this._textBox.SelectionStart = this._textBox.Text.Length;
+            }
             
-            //this._textBox.Focus();
+            this._textBox.Focus();
         }
 
         private void _btnBrowse_Enter(object sender, EventArgs e)
         {
-            //if (this._readonly)
-            //{
-                this.BackColor = Color.White;
-                this._textBox.BackColor = Color.White;
-            //}
-            //else
-            //{
-            //    this.BackColor = AppResource.EditableControlBackColor;
-            //    this._textBox.BackColor = AppResource.EditableControlBackColor;
-            //}
+            this.BackColor = Color.White;
+            this._textBox.BackColor = Color.White;
         }
 
         public void SetListObject(Object list_object)
@@ -133,6 +140,7 @@ namespace CC
         {
             if (keyData == Keys.F6)
             {
+                this._btnBrowse.Focus();
                 this._btnBrowse.PerformClick();
                 return true;
             }

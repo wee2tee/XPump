@@ -71,14 +71,14 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "XBrowseBox";
             this.Size = new System.Drawing.Size(118, 23);
-            this.Load += new System.EventHandler(this.CustomBrowseField_Load);
+            this.Load += new System.EventHandler(this.XBrowseBox_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private XTextBox _textBox;
         public System.Windows.Forms.Button _btnBrowse;
+        public XTextBox _textBox;
     }
 }

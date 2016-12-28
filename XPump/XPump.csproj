@@ -134,6 +134,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubForm\ShiftAddEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\ShiftAddEditForm.Designer.cs">
+      <DependentUpon>ShiftAddEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\ShiftForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SubForm\ShiftAddEditForm.resx">
+      <DependentUpon>ShiftAddEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\ShiftForm.resx">
       <DependentUpon>ShiftForm.cs</DependentUpon>
     </EmbeddedResource>

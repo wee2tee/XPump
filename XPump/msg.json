@@ -6,7 +6,12 @@
   },
   {
     "msgID": "0002",
-    "message_th": "ค้นหาข้อมูลไม่พบ",
-    "message_en":  "Data not found."
+    "message_th": "ค้นหาข้อมูลที่ต้องการแก้ไขไม่พบ, อาจมีผู้ใช้รายอื่นลบข้อมูลดังกล่าวไปแล้ว",
+    "message_en": "Data not found."
+  },
+  {
+    "msgID": "0003",
+    "message_th": "ลบข้อมูลที่เลือก, ทำต่อหรือไม่?",
+    "message_en": "Confirm delete data, continue?"
   }
 ]
