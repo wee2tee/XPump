@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="xpumpModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="xpumpModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="nozzle">
           <Key>
             <PropertyRef Name="id" />
@@ -14,7 +14,7 @@
           <Property Name="description" Type="varchar" MaxLength="50" />
           <Property Name="remark" Type="varchar" MaxLength="50" />
           <Property Name="isactive" Type="bool" Nullable="false" />
-          <Property Name="tank_id" Type="int" Nullable="false" />
+          <Property Name="tank_id" Type="int" />
         </EntityType>
         <EntityType Name="pricelist">
           <Key>
@@ -96,10 +96,10 @@
           <Property Name="description" Type="varchar" MaxLength="50" />
           <Property Name="remark" Type="varchar" MaxLength="50" />
           <Property Name="isactive" Type="bool" Nullable="false" />
-          <Property Name="stmas_id" Type="int" Nullable="false" />
+          <Property Name="stmas_id" Type="int" />
         </EntityType>
         <Association Name="fk-nozzle-tank_id">
-          <End Role="tank" Type="Self.tank" Multiplicity="1" />
+          <End Role="tank" Type="Self.tank" Multiplicity="0..1" />
           <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tank">
@@ -219,7 +219,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk-tank-stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="stmas" Type="Self.stmas" Multiplicity="0..1" />
           <End Role="tank" Type="Self.tank" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="stmas">
@@ -284,7 +284,8 @@
             <End Role="tank" EntitySet="tank" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="xpumpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -297,7 +298,7 @@
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isactive" Type="Boolean" Nullable="false" />
-          <Property Name="tank_id" Type="Int32" Nullable="false" />
+          <Property Name="tank_id" Type="Int32" />
           <NavigationProperty Name="tank" Relationship="Self.fk_nozzle_tank_id" FromRole="nozzle" ToRole="tank" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_nozzle_id" FromRole="nozzle" ToRole="saleshistory" />
         </EntityType>
@@ -373,9 +374,9 @@
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="starttime" Type="Time" Nullable="false" />
           <Property Name="endtime" Type="Time" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_shift_id" FromRole="shift" ToRole="saleshistory" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shift_id" FromRole="shift" ToRole="salessummary" />
-          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="stmas">
           <Key>
@@ -399,12 +400,12 @@
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isactive" Type="Boolean" Nullable="false" />
-          <Property Name="stmas_id" Type="Int32" Nullable="false" />
+          <Property Name="stmas_id" Type="Int32" />
           <NavigationProperty Name="nozzle" Relationship="Self.fk_nozzle_tank_id" FromRole="tank" ToRole="nozzle" />
           <NavigationProperty Name="stmas" Relationship="Self.fk_tank_stmas_id" FromRole="tank" ToRole="stmas" />
         </EntityType>
         <Association Name="fk_nozzle_tank_id">
-          <End Role="tank" Type="Self.tank" Multiplicity="1" />
+          <End Role="tank" Type="Self.tank" Multiplicity="0..1" />
           <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tank">
@@ -524,7 +525,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_tank_stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="stmas" Type="Self.stmas" Multiplicity="0..1" />
           <End Role="tank" Type="Self.tank" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="stmas">
@@ -665,12 +666,12 @@
           <EntitySetMapping Name="shift">
             <EntityTypeMapping TypeName="xpumpModel.shift">
               <MappingFragment StoreEntitySet="shift">
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="starttime" ColumnName="starttime" />
                 <ScalarProperty Name="endtime" ColumnName="endtime" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

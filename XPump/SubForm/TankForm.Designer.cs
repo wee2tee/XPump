@@ -1,6 +1,6 @@
 ﻿namespace XPump.SubForm
 {
-    partial class ShiftForm
+    partial class TankForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,34 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnFirst = new System.Windows.Forms.ToolStripButton();
             this.btnPrevious = new System.Windows.Forms.ToolStripButton();
             this.btnNext = new System.Windows.Forms.ToolStripButton();
             this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.dgv = new CC.XDatagrid();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_start = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_end = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_shift = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
@@ -81,32 +77,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(634, 43);
-            this.toolStrip1.TabIndex = 0;
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 43);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 43);
-            this.toolStripSeparator1.Visible = false;
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.dgv);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 43);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(634, 368);
-            this.panel1.TabIndex = 2;
+            this.toolStrip1.TabIndex = 1;
             // 
             // btnAdd
             // 
@@ -117,7 +88,6 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(36, 40);
             this.btnAdd.Text = "เพิ่มข้อมูล <Alt+A>";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnEdit
             // 
@@ -128,7 +98,6 @@
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(36, 40);
             this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -139,7 +108,11 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(36, 40);
             this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 43);
             // 
             // btnStop
             // 
@@ -150,7 +123,6 @@
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(36, 40);
             this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnSave
             // 
@@ -161,7 +133,12 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(36, 40);
             this.btnSave.Text = "บันทึกข้อมูล <F9>";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 43);
+            this.toolStripSeparator1.Visible = false;
             // 
             // btnFirst
             // 
@@ -207,6 +184,11 @@
             this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
             this.btnLast.Visible = false;
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
+            // 
             // btnRefresh
             // 
             this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -216,7 +198,15 @@
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(36, 40);
             this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.dgv);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 43);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(634, 368);
+            this.panel1.TabIndex = 3;
             // 
             // dgv
             // 
@@ -225,25 +215,23 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
+            this.col_isactive,
             this.col_name,
-            this.col_start,
-            this.col_end,
             this.col_desc,
             this.col_remark,
-            this.col_state,
-            this.col_shift});
+            this.col_tank});
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -267,10 +255,6 @@
             this.dgv.Size = new System.Drawing.Size(634, 368);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 1;
-            this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
-            this.dgv.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseClick);
-            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
-            this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
             // 
             // col_id
             // 
@@ -280,35 +264,19 @@
             this.col_id.ReadOnly = true;
             this.col_id.Visible = false;
             // 
+            // col_isactive
+            // 
+            this.col_isactive.DataPropertyName = "isactive";
+            this.col_isactive.HeaderText = "ใช้งาน";
+            this.col_isactive.Name = "col_isactive";
+            this.col_isactive.ReadOnly = true;
+            // 
             // col_name
             // 
             this.col_name.DataPropertyName = "name";
-            this.col_name.HeaderText = "ชื่อผลัด";
-            this.col_name.MinimumWidth = 100;
+            this.col_name.HeaderText = "รหัส";
             this.col_name.Name = "col_name";
             this.col_name.ReadOnly = true;
-            // 
-            // col_start
-            // 
-            this.col_start.DataPropertyName = "starttime";
-            dataGridViewCellStyle2.NullValue = null;
-            this.col_start.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_start.HeaderText = "เวลาเริ่มต้น";
-            this.col_start.MinimumWidth = 80;
-            this.col_start.Name = "col_start";
-            this.col_start.ReadOnly = true;
-            this.col_start.Width = 80;
-            // 
-            // col_end
-            // 
-            this.col_end.DataPropertyName = "endtime";
-            dataGridViewCellStyle3.NullValue = null;
-            this.col_end.DefaultCellStyle = dataGridViewCellStyle3;
-            this.col_end.HeaderText = "เวลาสิ้นสุด";
-            this.col_end.MinimumWidth = 80;
-            this.col_end.Name = "col_end";
-            this.col_end.ReadOnly = true;
-            this.col_end.Width = 80;
             // 
             // col_desc
             // 
@@ -326,23 +294,15 @@
             this.col_remark.ReadOnly = true;
             this.col_remark.Visible = false;
             // 
-            // col_state
+            // col_tank
             // 
-            this.col_state.DataPropertyName = "record_state";
-            this.col_state.HeaderText = "Record State";
-            this.col_state.Name = "col_state";
-            this.col_state.ReadOnly = true;
-            this.col_state.Visible = false;
+            this.col_tank.DataPropertyName = "tank";
+            this.col_tank.HeaderText = "Tank";
+            this.col_tank.Name = "col_tank";
+            this.col_tank.ReadOnly = true;
+            this.col_tank.Visible = false;
             // 
-            // col_shift
-            // 
-            this.col_shift.DataPropertyName = "shift";
-            this.col_shift.HeaderText = "Shift";
-            this.col_shift.Name = "col_shift";
-            this.col_shift.ReadOnly = true;
-            this.col_shift.Visible = false;
-            // 
-            // ShiftForm
+            // TankForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -352,11 +312,10 @@
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "ShiftForm";
+            this.Name = "TankForm";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "กำหนดผลัดพนักงาน";
-            this.Load += new System.EventHandler(this.ShiftForm_Load);
+            this.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
+            this.Load += new System.EventHandler(this.TankForm_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -371,26 +330,24 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnAdd;
         private System.Windows.Forms.ToolStripButton btnEdit;
+        private System.Windows.Forms.ToolStripButton btnDelete;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnStop;
         private System.Windows.Forms.ToolStripButton btnSave;
-        private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnFirst;
         private System.Windows.Forms.ToolStripButton btnPrevious;
         private System.Windows.Forms.ToolStripButton btnNext;
         private System.Windows.Forms.ToolStripButton btnLast;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnRefresh;
-        private CC.XDatagrid dgv;
         private System.Windows.Forms.Panel panel1;
+        private CC.XDatagrid dgv;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_isactive;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_start;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_end;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_desc;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_remark;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_state;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_shift;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tank;
     }
 }

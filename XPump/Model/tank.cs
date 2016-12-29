@@ -25,7 +25,7 @@ namespace XPump.Model
         public string description { get; set; }
         public string remark { get; set; }
         public bool isactive { get; set; }
-        public int stmas_id { get; set; }
+        public Nullable<int> stmas_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<nozzle> nozzle { get; set; }

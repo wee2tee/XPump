@@ -1,6 +1,7 @@
 ﻿using CC;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace XPump.Misc
                 endtime = shift.endtime,
                 remark = shift.remark,
 
-                record_state = shift.id > -1 ? RECORD_STATE.EXISTING : RECORD_STATE.NEW,
+                //record_state = shift.id > -1 ? RECORD_STATE.EXISTING : RECORD_STATE.NEW,
                 shift = shift
             };
 
@@ -69,6 +70,61 @@ namespace XPump.Misc
             }
 
             return s;
+        }
+
+        public static tankVM ToViewModel(this tank tank)
+        {
+            if (tank == null)
+                return null;
+
+            tankVM t = new tankVM
+            {
+                id = tank.id,
+                name = tank.name,
+                description = tank.description,
+                remark = tank.remark,
+                isactive = tank.isactive,
+                tank = tank
+            };
+
+            return t;
+        }
+
+        public static List<tankVM> ToViewModel(this IEnumerable<tank> tank_list)
+        {
+            List<tankVM> t = new List<tankVM>();
+            foreach (var tank in tank_list)
+            {
+                t.Add(tank.ToViewModel());
+            }
+
+            return t;
+        }
+
+        public static void SetControlState(this Component comp, FORM_MODE_LIST[] form_mode_to_enable, FORM_MODE_LIST form_mode)
+        {
+            if (form_mode_to_enable.ToList().Where(fm => fm == form_mode).Count() > 0)
+            {
+                if (comp is ToolStripButton)
+                {
+                    ((ToolStripButton)comp).Enabled = true; return;
+                }
+                if (comp is DataGridView)
+                {
+                    ((DataGridView)comp).Enabled = true; return;
+                }
+            }
+            else
+            {
+                if (comp is ToolStripButton)
+                {
+                    ((ToolStripButton)comp).Enabled = false; return;
+                }
+                if (comp is DataGridView)
+                {
+                    ((DataGridView)comp).Enabled = false; return;
+                }
+            }
         }
 
         public static XTextBox CreateXTextBoxEdit(this DataGridViewCell dgv_cell, object affected_object, string affected_field)
@@ -101,12 +157,21 @@ namespace XPump.Misc
             return null;
         }
 
-        public static void SetInlineControlPosition(this Control inline_control, DataGridView dgv)
+        //public static void SetInlineControlPosition(this Control inline_control, DataGridView dgv)
+        //{
+        //    if (inline_control != null && (dgv.Tag != null && (dgv.Tag.GetType() == typeof(InlineControlGridPosition))))
+        //    {
+        //        Rectangle rect = dgv.GetCellDisplayRectangle(((InlineControlGridPosition)dgv.Tag).ColumnIndex, ((InlineControlGridPosition)dgv.Tag).RowIndex, true);
+        //        inline_control.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 5);
+        //    }
+        //}
+
+        public static void SetInlineControlPosition(this Control inline_control, DataGridView dgv, int row_index, int column_index)
         {
-            if (inline_control != null || (dgv.Tag != null && (dgv.Tag.GetType() == typeof(InlineControlGridPosition))))
+            if(inline_control != null)
             {
-                Rectangle rect = dgv.GetCellDisplayRectangle(((InlineControlGridPosition)dgv.Tag).ColumnIndex, ((InlineControlGridPosition)dgv.Tag).RowIndex, true);
-                inline_control.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 5);
+                Rectangle rect = dgv.GetCellDisplayRectangle(column_index, row_index, true);
+                inline_control.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 1);
             }
         }
     }

@@ -66,6 +66,12 @@
     <Compile Include="XBrowseBox.Designer.cs">
       <DependentUpon>XBrowseBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="XComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XComboBox.Designer.cs">
+      <DependentUpon>XComboBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="XDatagrid.cs">
       <SubType>Component</SubType>
     </Compile>

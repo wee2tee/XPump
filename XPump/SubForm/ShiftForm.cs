@@ -10,6 +10,10 @@ using XPump.Model;
 using XPump.Misc;
 using CC;
 using System.Resources;
+using System.Data.SqlClient;
+using System.Data.Entity.Core;
+using MySql.Data.MySqlClient;
+using System.Data.Entity.Infrastructure;
 
 namespace XPump.SubForm
 {
@@ -19,8 +23,11 @@ namespace XPump.SubForm
         private BindingSource bs;
         private List<shiftVM> shift_list;
         private FORM_MODE_LIST form_mode;
-        private shiftVM temp_shift; // model for create new shift
-        private Control inline_control; // control for add/edit inline form
+        private shiftVM temp_shift; // model for add/edit shift
+        private XTextBox inline_name; // inline control for name
+        private XTimePicker inline_start; // inline control for start time
+        private XTimePicker inline_end; // inline control for end time
+        private XTextBox inline_desc; // inline control for description
 
         public ShiftForm()
         {
@@ -45,15 +52,6 @@ namespace XPump.SubForm
             this.shift_list = this.GetShiftList().ToViewModel();
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.shift_list;
-
-            //using (xpumpEntities db = DBX.DataSet())
-            //{
-            //    List<shiftVM> list_shift = db.shift.ToList().ToViewModel();
-            //    var list_obj = list_shift.Select(s => new { id = s.id, ชื่อย่อ = s.name, เวลาเริ่มต้น = s.starttime, เวลาสิ้นสุด = s.endtime, คำอธิบายเพิ่มเติม = s.description });
-            //    XBrowseBox xb = new XBrowseBox("Shift selector.", list_obj, "ชื่อย่อ");
-            //    xb.SetBounds(0, 0, xb.Width, xb.Height);
-            //    this.panel1.Controls.Add(xb);
-            //}
         }
 
         public List<shift> GetShiftList()
@@ -66,83 +64,83 @@ namespace XPump.SubForm
 
         private void ResetControlState()
         {
-            this.ValidateControlState(this.btnAdd, new FORM_MODE_LIST[] { FORM_MODE_LIST.READ });
-            this.ValidateControlState(this.btnEdit, new FORM_MODE_LIST[] { FORM_MODE_LIST.READ });
-            this.ValidateControlState(this.btnDelete, new FORM_MODE_LIST[] { FORM_MODE_LIST.READ });
-            this.ValidateControlState(this.btnStop, new FORM_MODE_LIST[] { FORM_MODE_LIST.ADD, FORM_MODE_LIST.EDIT });
-            this.ValidateControlState(this.btnSave, new FORM_MODE_LIST[] { FORM_MODE_LIST.ADD, FORM_MODE_LIST.EDIT });
-            this.ValidateControlState(this.btnRefresh, new FORM_MODE_LIST[] { FORM_MODE_LIST.READ });
+            this.btnAdd.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
+            this.btnEdit.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
+            this.btnDelete.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
+            this.btnStop.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.ADD, FORM_MODE_LIST.EDIT }, this.form_mode);
+            this.btnSave.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.ADD, FORM_MODE_LIST.EDIT }, this.form_mode);
+            this.btnRefresh.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
+            this.dgv.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
         }
 
-        private void ValidateControlState(Component comp, FORM_MODE_LIST[] form_mode_to_enable)
+        private void ShowInlineControl(int row_index)
         {
-            if(form_mode_to_enable.ToList().Where(fm => fm == this.form_mode).Count() > 0)
-            {
-                if(comp is ToolStripButton)
-                {
-                    ((ToolStripButton)comp).Enabled = true; return;
-                }
-            }
-            else
-            {
-                if(comp is ToolStripButton)
-                {
-                    ((ToolStripButton)comp).Enabled = false; return;
-                }
-            }
-        }
-
-        private void ShowInlineControl(XDatagrid dgv, int row_index, int column_index)
-        {
-            if (dgv.CurrentCell == null)
+            if (this.dgv.CurrentCell == null)
                 return;
-
-            //shift shift = (shift)dgv.Rows[row_index].Cells["col_shift"].Value;
-            //if (shift == null)
-            //    return;
 
             if (this.temp_shift == null)
                 return;
 
-            if (column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_start.DataPropertyName).First().Index)
-            {
-                //this.inline_control = new XTimePicker();
-                //((XTimePicker)this.inline_control).Text = ((TimeSpan)dgv.Rows[row_index].Cells[column_index].Value).ToString(@"hh\:mm\:ss");
-                this.inline_control = dgv.Rows[row_index].Cells[column_index].CreateXTimePickerEdit(this.temp_shift.shift, "starttime");
-            }
+            int col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index;
+            this.inline_name = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_shift.shift, "name");
+            this.inline_name.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
-            if (column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_end.DataPropertyName).First().Index)
-            {
-                //this.inline_control = new XTimePicker();
-                //((XTimePicker)this.inline_control).Text = ((TimeSpan)dgv.Rows[row_index].Cells[column_index].Value).ToString(@"hh\:mm\:ss");
-                this.inline_control = dgv.Rows[row_index].Cells[column_index].CreateXTimePickerEdit(this.temp_shift.shift, "endtime");
-            }
+            col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_start.DataPropertyName).First().Index;
+            this.inline_start = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTimePickerEdit(this.temp_shift.shift, "starttime");
+            this.inline_start.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
-            if(column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_name.DataPropertyName).First().Index)
-            {
-                this.inline_control = dgv.Rows[row_index].Cells[column_index].CreateXTextBoxEdit(this.temp_shift.shift, "name");
-            }
+            col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_end.DataPropertyName).First().Index;
+            this.inline_end = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTimePickerEdit(this.temp_shift.shift, "endtime");
+            this.inline_end.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
-            if (column_index == this.dgv.Columns.Cast<DataGridViewColumn>().Where(col => col.DataPropertyName == this.col_desc.DataPropertyName).First().Index)
+            col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().Index;
+            this.inline_desc = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_shift.shift, "description");
+            this.inline_desc.SetInlineControlPosition(this.dgv, row_index, col_ndx);
+
+            if (this.form_mode == FORM_MODE_LIST.ADD)
+                this.dgv.Parent.Controls.Add(this.inline_name);
+            this.dgv.Parent.Controls.Add(this.inline_start);
+            this.dgv.Parent.Controls.Add(this.inline_end);
+            this.dgv.Parent.Controls.Add(this.inline_desc);
+            this.inline_name.BringToFront();
+            this.inline_start.BringToFront();
+            this.inline_end.BringToFront();
+            this.inline_desc.BringToFront();
+            if(this.form_mode == FORM_MODE_LIST.ADD)
             {
-                this.inline_control = dgv.Rows[row_index].Cells[column_index].CreateXTextBoxEdit(this.temp_shift.shift, "description");
+                this.inline_name.Focus();
             }
-            
-            this.dgv.Tag = new InlineControlGridPosition() { RowIndex = row_index, ColumnIndex = column_index };
-            this.inline_control.SetInlineControlPosition(this.dgv);
-            this.dgv.Parent.Controls.Add(this.inline_control);
-            this.inline_control.BringToFront();
-            this.inline_control.Focus();
+            else
+            {
+                this.inline_start.Focus();
+            }
         }
 
         private void RemoveInlineControl()
         {
-            if (this.inline_control == null)
-                return;
+            if (this.inline_name != null)
+            {
+                this.inline_name.Dispose();
+                this.inline_name = null;
+            }
+            
+            if(this.inline_start != null)
+            {
+                this.inline_start.Dispose();
+                this.inline_start = null;
+            }
 
-            this.inline_control.Dispose();
-            this.inline_control = null;
-            this.dgv.Tag = null;
+            if(this.inline_end != null)
+            {
+                this.inline_end.Dispose();
+                this.inline_end = null;
+            }
+
+            if(this.inline_desc != null)
+            {
+                this.inline_desc.Dispose();
+                this.inline_desc = null;
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -162,31 +160,27 @@ namespace XPump.SubForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            ShiftAddEditForm add_form = new ShiftAddEditForm();
-            add_form.ShowDialog();
-            //this.temp_shift = new shift()
-            //{
-            //    id = -1,
-            //    name = string.Empty,
-            //    description = string.Empty,
-            //    starttime = new TimeSpan(0, 0, 0),
-            //    endtime = new TimeSpan(0, 0, 0),
-            //    remark = string.Empty,
-            //    saleshistory = null,
-            //    salessummary = null
-            //}.ToViewModel();
+            this.temp_shift = new shift()
+            {
+                id = -1,
+                name = string.Empty,
+                description = string.Empty,
+                starttime = new TimeSpan(0, 0, 0),
+                endtime = new TimeSpan(0, 0, 0),
+                remark = string.Empty,
+                saleshistory = null,
+                salessummary = null
+            }.ToViewModel();
 
-            //this.temp_shift.record_state = RECORD_STATE.NEW;
+            this.shift_list.Add(this.temp_shift);
 
-            //this.shift_list.Add(this.temp_shift);
+            this.bs.ResetBindings(true);
+            this.bs.DataSource = this.shift_list;
 
-            //this.bs.ResetBindings(true);
-            //this.bs.DataSource = this.shift_list;
-
-            //this.dgv.CurrentCell = this.dgv.Rows[this.shift_list.Count - 1].Cells["col_name"];
-            //this.ShowInlineControl(this.dgv, this.dgv.CurrentCell.RowIndex, this.dgv.CurrentCell.ColumnIndex);
-            //this.form_mode = FORM_MODE_LIST.ADD;
-            //this.ResetControlState();
+            this.dgv.CurrentCell = this.dgv.Rows[this.shift_list.Count - 1].Cells["col_name"];
+            this.form_mode = FORM_MODE_LIST.ADD;
+            this.ResetControlState();
+            this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -195,9 +189,9 @@ namespace XPump.SubForm
                 return;
 
             this.temp_shift = ((shift)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_shift"].Value).ToViewModel();
-            this.ShowInlineControl(this.dgv, this.dgv.CurrentCell.RowIndex, this.dgv.CurrentCell.ColumnIndex);
             this.form_mode = FORM_MODE_LIST.EDIT;
             this.ResetControlState();
+            this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -237,9 +231,7 @@ namespace XPump.SubForm
                 {
                     MessageBox.Show("กรุณาป้อนชื่อผลัด");
 
-                    //this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_name"].Selected = true;
-                    //Console.WriteLine(" .. >>>> temp_shift.id = " + this.temp_shift.id);
-                    //this.dgv.CurrentCell = this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells["col_id"].Value == this.temp_shift.id).First().Cells["col_desc"];
+                    this.inline_name.Focus();
                     return;
                 }
 
@@ -255,9 +247,13 @@ namespace XPump.SubForm
                         this.btnRefresh.PerformClick();
                         this.btnAdd.PerformClick();
                     }
-                    catch (Exception ex)
+                    catch (DbUpdateException ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (ex.InnerException.Message.Contains("Duplicate entry") || ex.InnerException.InnerException.Message.Contains("Duplicate entry"))
+                        {
+                            MessageBox.Show("ชื่อผลัด \"" + this.temp_shift.shift.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            this.inline_name.Focus();
+                        }
                     }
                 }
                 return;
@@ -302,17 +298,42 @@ namespace XPump.SubForm
             this.bs.DataSource = this.shift_list;
         }
 
+        private void dgv_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex == -1 && e.Button == MouseButtons.Left/* && this.form_mode == FORM_MODE_LIST.READ*/)
+            {
+                ((XDatagrid)sender).SortByColumn<shiftVM>(e.ColumnIndex);
+                return;
+            }
+        }
+
+        private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.btnEdit.PerformClick();
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index)
+            {
+                this.inline_name.Focus();
+            }
+            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_start.DataPropertyName).First().Index)
+            {
+                this.inline_start.Focus();
+            }
+            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_end.DataPropertyName).First().Index)
+            {
+                this.inline_end.Focus();
+            }
+            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().Index)
+            {
+                this.inline_desc.Focus();
+            }
+        }
+
         private void dgv_MouseClick(object sender, MouseEventArgs e)
         {
             int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
             int col_index = ((XDatagrid)sender).HitTest(e.X, e.Y).ColumnIndex;
 
-            if (row_index == -1 && e.Button == MouseButtons.Left && this.form_mode == FORM_MODE_LIST.READ)
-            {
-                ((XDatagrid)sender).SortByColumn<shiftVM>(col_index);
-            }
-
-            if (this.form_mode == FORM_MODE_LIST.READ && e.Button == MouseButtons.Right && row_index > -1)
+            if (e.Button == MouseButtons.Right && row_index > -1)
             {
                 ((XDatagrid)sender).Rows[row_index].Cells[col_index].Selected = true;
 
@@ -342,31 +363,12 @@ namespace XPump.SubForm
             }
         }
 
-        private void dgv_CurrentCellChanged(object sender, EventArgs e)
-        {
-            Console.WriteLine(" .. >>> current_cell changed");
-            if (((XDatagrid)sender).CurrentCell == null)
-                return;
-
-            if(((XDatagrid)sender).Tag != null && (((XDatagrid)sender).Tag.GetType() == typeof(InlineControlGridPosition))) // If (XDatagrid)sender.Tag storing a details of inline control
-            {
-                if(((InlineControlGridPosition)((XDatagrid)sender).Tag).RowIndex == ((XDatagrid)sender).CurrentCell.RowIndex) // If current cell changed in same row
-                {
-                    this.RemoveInlineControl();
-                    this.ShowInlineControl((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).CurrentCell.ColumnIndex);
-                }
-                else // If current cell changed in another row
-                {
-                    this.btnSave.PerformClick();
-                    //this.RemoveInlineControl();
-                    //this.ShowInlineControl((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).CurrentCell.ColumnIndex);
-                }
-            }
-        }
-
         private void dgv_Resize(object sender, EventArgs e)
         {
-            this.inline_control.SetInlineControlPosition((XDatagrid)sender);
+            this.inline_name.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index);
+            this.inline_start.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_start.DataPropertyName).First().Index);
+            this.inline_end.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_end.DataPropertyName).First().Index);
+            this.inline_desc.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().Index);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -395,9 +397,16 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if(keyData == Keys.Enter)
+            if(keyData == Keys.Enter && (this.form_mode == FORM_MODE_LIST.ADD || this.form_mode == FORM_MODE_LIST.EDIT))
             {
+                if (this.inline_desc.Focused)
+                {
+                    this.btnSave.PerformClick();
+                    return true;
+                }
 
+                SendKeys.Send("{TAB}");
+                return true;
             }
 
             if(keyData == Keys.Escape)
@@ -413,15 +422,6 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void dgv_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            Console.WriteLine("... >> row validating");
-            //if (((string)((XDatagrid)sender).Rows[e.RowIndex].Cells["col_name"].Value).Trim().Length == 0)
-            //    e.Cancel = true;
-            if (this.form_mode == FORM_MODE_LIST.ADD || this.form_mode == FORM_MODE_LIST.EDIT)
-                e.Cancel = true;
         }
     }
 }

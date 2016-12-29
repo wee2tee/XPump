@@ -44,7 +44,16 @@ namespace XPump
 
         private void MnuTank_Click(object sender, EventArgs e)
         {
-            
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(TankForm)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(TankForm)).First().form.Activate();
+                return;
+            }
+
+            TankForm tank = new TankForm(this);
+            tank.MdiParent = this;
+            tank.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = tank, docPrefix = string.Empty });
         }
     }
 

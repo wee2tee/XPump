@@ -23,6 +23,7 @@ namespace XPump.Model
         public xpumpEntities(string connection_string)
             : base(connection_string)
         {
+
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
