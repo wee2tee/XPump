@@ -37,6 +37,17 @@ namespace XPump.Misc
         public int ColumnIndex { get; set; }
     }
 
+    public class XComboBoxItem
+    {
+        public string Text { get; set; }
+        public object Value { get; set; }
+
+        public override string ToString()
+        {
+            return this.Text;
+        }
+    }
+
     // Extension Method
     public static class Helper
     {
@@ -152,6 +163,42 @@ namespace XPump.Misc
             return xtime;
         }
 
+        public static XComboBox CreateXComboBoxTrueFalseEdit(this DataGridViewCell dgv_cell, object affected_object, string affected_field)
+        {
+            XComboBox xcb = new XComboBox();
+            xcb.Items.Add(new XComboBoxItem
+            {
+                Text = "ใช้งาน",
+                Value = true
+            });
+            xcb.Items.Add(new XComboBoxItem
+            {
+                Text = "ไม่ใช้งาน",
+                Value = false
+            });
+            xcb.SelectedValueChanged += delegate
+            {
+                var selected_value = (object)((XComboBoxItem)xcb.SelectedItem).Value;
+                affected_object.GetType().GetProperty(affected_field).SetValue(affected_object, selected_value, null);
+            };
+            return xcb;
+        }
+
+        public static XComboBox CreateXComboBoxEdit(this DataGridViewCell dgv_cell, List<XComboBoxItem> item_list, object affected_object, string affected_field)
+        {
+            XComboBox xcb = new XComboBox();
+            foreach (var item in item_list)
+            {
+                xcb.Items.Add(item);
+            }
+            xcb.SelectedValueChanged += delegate
+            {
+                var selected_value = (object)((XComboBoxItem)xcb.SelectedItem).Value;
+                affected_object.GetType().GetProperty(affected_field).SetValue(affected_object, selected_value, null);
+            };
+            return xcb;
+        }
+        
         public static XBrowseBox CreateXBrowseBoxEdit(this DataGridViewCell dgv_cell, object affected_object, string affected_field)
         {
             return null;

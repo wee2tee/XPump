@@ -78,7 +78,82 @@ namespace XPump.SubForm
             this.inline_name = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_tank.tank, "name");
             this.inline_name.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
-            col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_isactive)
+            col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_isactive.DataPropertyName).First().Index;
+            this.inline_isactive = this.dgv.Rows[row_index].Cells[col_ndx].CreateXComboBoxTrueFalseEdit(this.temp_tank, "isactive");
+            this.inline_isactive.SetInlineControlPosition(this.dgv, row_index, col_ndx);
+
+            if (this.form_mode == FORM_MODE_LIST.ADD)
+                this.dgv.Parent.Controls.Add(this.inline_name);
+            this.dgv.Parent.Controls.Add(this.inline_isactive);
+            this.inline_name.BringToFront();
+            this.inline_isactive.BringToFront();
+            if(this.form_mode == FORM_MODE_LIST.ADD)
+            {
+                this.inline_name.Focus();
+            }
+            else
+            {
+                this.inline_isactive.Focus();
+            }
+        }
+
+        private void RemoveInlineControl()
+        {
+            if(this.inline_name != null)
+            {
+                this.inline_name.Dispose();
+                this.inline_name = null;
+            }
+
+            if(this.inline_desc != null)
+            {
+                this.inline_desc.Dispose();
+                this.inline_desc = null;
+            }
+
+            if (this.inline_isactive != null)
+            {
+                this.inline_isactive.Dispose();
+                this.inline_isactive = null;
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if(this.form_mode != FORM_MODE_LIST.READ)
+            {
+                if (MessageBox.Show(StringResource.Msg("0001"), "Message # 0001", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
+            this.main_form.opened_child_form.Remove(this.main_form.opened_child_form.Where(f => f.form.GetType() == this.GetType()).First());
+            base.OnFormClosing(e);
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            this.temp_tank = new tank()
+            {
+                id = -1,
+                name = string.Empty,
+                description = string.Empty,
+                isactive = true,
+                remark = string.Empty,
+                stmas_id = null
+            }.ToViewModel();
+
+            this.tank_list.Add(this.temp_tank);
+
+            this.bs.ResetBindings(true);
+            this.bs.DataSource = this.tank_list;
+
+            this.dgv.CurrentCell = this.dgv.Rows[this.tank_list.Count - 1].Cells["col_name"];
+            this.form_mode = FORM_MODE_LIST.ADD;
+            this.ResetControlState();
+            this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
         }
     }
 }
