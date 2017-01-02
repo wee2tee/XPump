@@ -28,5 +28,13 @@ namespace XPump.Model
         public bool isactive { get; set; }
 
         public tank tank { get; set; }
+
+        public string _isactive
+        {
+            get
+            {
+                return this.isactive ? "ใช้งาน" : "ไม่ใช้งาน";
+            }
+        }
     }
 }

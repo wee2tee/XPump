@@ -47,9 +47,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgv = new CC.XDatagrid();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col__isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
@@ -60,6 +61,7 @@
             // toolStrip1
             // 
             this.toolStrip1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAdd,
             this.btnEdit,
@@ -99,6 +101,7 @@
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(36, 40);
             this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -109,6 +112,7 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(36, 40);
             this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // toolStripSeparator3
             // 
@@ -124,6 +128,7 @@
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(36, 40);
             this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnSave
             // 
@@ -134,6 +139,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(36, 40);
             this.btnSave.Text = "บันทึกข้อมูล <F9>";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // toolStripSeparator1
             // 
@@ -199,6 +205,7 @@
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(36, 40);
             this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // panel1
             // 
@@ -228,9 +235,10 @@
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
-            this.col_isactive,
             this.col_name,
             this.col_desc,
+            this.col__isactive,
+            this.col_isactive,
             this.col_remark,
             this.col_tank});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -256,6 +264,10 @@
             this.dgv.Size = new System.Drawing.Size(634, 368);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 1;
+            this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
+            this.dgv.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseClick);
+            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
+            this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
             // 
             // col_id
             // 
@@ -264,13 +276,6 @@
             this.col_id.Name = "col_id";
             this.col_id.ReadOnly = true;
             this.col_id.Visible = false;
-            // 
-            // col_isactive
-            // 
-            this.col_isactive.DataPropertyName = "isactive";
-            this.col_isactive.HeaderText = "ใช้งาน";
-            this.col_isactive.Name = "col_isactive";
-            this.col_isactive.ReadOnly = true;
             // 
             // col_name
             // 
@@ -286,6 +291,21 @@
             this.col_desc.HeaderText = "รายละเอียด";
             this.col_desc.Name = "col_desc";
             this.col_desc.ReadOnly = true;
+            // 
+            // col__isactive
+            // 
+            this.col__isactive.DataPropertyName = "_isactive";
+            this.col__isactive.HeaderText = "ใช้งาน";
+            this.col__isactive.Name = "col__isactive";
+            this.col__isactive.ReadOnly = true;
+            // 
+            // col_isactive
+            // 
+            this.col_isactive.DataPropertyName = "isactive";
+            this.col_isactive.HeaderText = "IsActive";
+            this.col_isactive.Name = "col_isactive";
+            this.col_isactive.ReadOnly = true;
+            this.col_isactive.Visible = false;
             // 
             // col_remark
             // 
@@ -305,7 +325,7 @@
             // 
             // TankForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 411);
             this.Controls.Add(this.panel1);
@@ -345,9 +365,10 @@
         private System.Windows.Forms.Panel panel1;
         private CC.XDatagrid dgv;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_isactive;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_desc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col__isactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_isactive;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_remark;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_tank;
     }

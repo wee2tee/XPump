@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using XPump.Model;
 using XPump.Misc;
 using CC;
+using System.Data.Entity.Infrastructure;
 
 namespace XPump.SubForm
 {
@@ -64,6 +65,7 @@ namespace XPump.SubForm
             this.btnStop.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.ADD, FORM_MODE_LIST.EDIT }, this.form_mode);
             this.btnSave.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.ADD, FORM_MODE_LIST.EDIT }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
+            this.dgv.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
         }
 
         private void ShowInlineControl(int row_index)
@@ -76,24 +78,32 @@ namespace XPump.SubForm
 
             int col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index;
             this.inline_name = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_tank.tank, "name");
+            this.inline_name.CharacterCasing = CharacterCasing.Upper;
             this.inline_name.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
-            col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_isactive.DataPropertyName).First().Index;
-            this.inline_isactive = this.dgv.Rows[row_index].Cells[col_ndx].CreateXComboBoxTrueFalseEdit(this.temp_tank, "isactive");
+            col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().Index;
+            this.inline_desc = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_tank.tank, "description");
+            this.inline_desc.SetInlineControlPosition(this.dgv, row_index, col_ndx);
+
+            col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col__isactive.DataPropertyName).First().Index;
+            this.inline_isactive = this.dgv.Rows[row_index].Cells[col_ndx].CreateXComboBoxTrueFalseEdit(this.temp_tank.tank, "isactive");
+            this.inline_isactive.DropDownStyle = ComboBoxStyle.DropDown;
             this.inline_isactive.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
             if (this.form_mode == FORM_MODE_LIST.ADD)
                 this.dgv.Parent.Controls.Add(this.inline_name);
+            this.dgv.Parent.Controls.Add(this.inline_desc);
             this.dgv.Parent.Controls.Add(this.inline_isactive);
             this.inline_name.BringToFront();
+            this.inline_desc.BringToFront();
             this.inline_isactive.BringToFront();
-            if(this.form_mode == FORM_MODE_LIST.ADD)
+            if (this.form_mode == FORM_MODE_LIST.ADD)
             {
                 this.inline_name.Focus();
             }
             else
             {
-                this.inline_isactive.Focus();
+                this.inline_desc.Focus();
             }
         }
 
@@ -154,6 +164,243 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE_LIST.ADD;
             this.ResetControlState();
             this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (this.dgv.CurrentCell == null)
+                return;
+
+            this.temp_tank = ((tank)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_tank"].Value).ToViewModel();
+            this.form_mode = FORM_MODE_LIST.EDIT;
+            this.ResetControlState();
+            this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show(StringResource.Msg("0003"), "Message # 0003", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        tank tank_to_delete = db.tank.Find(((tank)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_tank"].Value).id);
+                        db.tank.Remove(tank_to_delete);
+                        db.SaveChanges();
+                        this.btnRefresh.PerformClick();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            this.RemoveInlineControl();
+            this.form_mode = FORM_MODE_LIST.READ;
+            this.ResetControlState();
+            this.btnRefresh.PerformClick();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if(this.form_mode == FORM_MODE_LIST.ADD)
+            {
+                if(this.temp_tank.tank.name.Trim().Length == 0)
+                {
+                    MessageBox.Show("กรุณาป้อนรหัส");
+                    this.inline_name.Focus();
+                    return;
+                }
+
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        db.tank.Add(this.temp_tank.tank);
+                        db.SaveChanges();
+                        this.RemoveInlineControl();
+                        this.form_mode = FORM_MODE_LIST.READ;
+                        this.ResetControlState();
+                        this.btnRefresh.PerformClick();
+                        this.btnAdd.PerformClick();
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        if (ex.InnerException.Message.Contains("Duplicate entry") || ex.InnerException.InnerException.Message.Contains("Duplicate entry"))
+                        {
+                            MessageBox.Show("รหัส \"" + this.temp_tank.tank.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            this.inline_name.Focus();
+                        }
+                    }
+                }
+                return;
+            }
+
+            if(this.form_mode == FORM_MODE_LIST.EDIT)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        tank tank = db.tank.Find(this.temp_tank.id);
+                        if(tank == null)
+                        {
+                            MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+
+                        tank.name = this.temp_tank.tank.name;
+                        tank.description = this.temp_tank.tank.description;
+                        tank.isactive = this.temp_tank.tank.isactive;
+                        tank.remark = this.temp_tank.tank.remark;
+                        db.SaveChanges();
+                        this.RemoveInlineControl();
+                        this.form_mode = FORM_MODE_LIST.READ;
+                        this.ResetControlState();
+                        this.btnRefresh.PerformClick();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                return;
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.tank_list = this.GetTankList().ToViewModel();
+            this.bs.ResetBindings(true);
+            this.bs.DataSource = this.tank_list;
+        }
+
+        private void dgv_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if(e.RowIndex == -1 && e.Button == MouseButtons.Left)
+            {
+                ((XDatagrid)sender).SortByColumn<tankVM>(e.ColumnIndex);
+                return;
+            }
+        }
+
+        private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            this.btnEdit.PerformClick();
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index)
+            {
+                this.inline_name.Focus();
+            }
+            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().Index)
+            {
+                this.inline_desc.Focus();
+            }
+            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_isactive.DataPropertyName).First().Index)
+            {
+                this.inline_isactive.Focus();
+            }
+        }
+
+        private void dgv_MouseClick(object sender, MouseEventArgs e)
+        {
+            int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+            int col_index = ((XDatagrid)sender).HitTest(e.X, e.Y).ColumnIndex;
+
+            if(e.Button == MouseButtons.Right && row_index > -1)
+            {
+                ((XDatagrid)sender).Rows[row_index].Cells[col_index].Selected = true;
+
+                ContextMenu cm = new ContextMenu();
+                MenuItem mnu_add = new MenuItem("เพิ่ม <Alt+A>");
+                mnu_add.Click += delegate
+                {
+                    this.btnAdd.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_add);
+
+                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
+                mnu_edit.Click += delegate
+                {
+                    this.btnEdit.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_edit);
+
+                MenuItem mnu_delete = new MenuItem("ลบ <Alt+D>");
+                mnu_delete.Click += delegate
+                {
+                    this.btnDelete.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_delete);
+
+                cm.Show((XDatagrid)sender, new Point(e.X, e.Y));
+            }
+        }
+
+        private void dgv_Resize(object sender, EventArgs e)
+        {
+            this.inline_name.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index);
+            this.inline_desc.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().Index);
+            this.inline_isactive.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_isactive.DataPropertyName).First().Index);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Alt | Keys.A))
+            {
+                this.btnAdd.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.E))
+            {
+                this.btnEdit.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.D))
+            {
+                this.btnDelete.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnStop.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.F9)
+            {
+                this.btnSave.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.F5))
+            {
+                this.btnRefresh.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Enter && (this.form_mode == FORM_MODE_LIST.ADD || this.form_mode == FORM_MODE_LIST.EDIT))
+            {
+                if (this.inline_isactive.Focused)
+                {
+                    this.btnSave.PerformClick();
+                    return true;
+                }
+
+                SendKeys.Send("{TAB}");
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

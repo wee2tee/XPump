@@ -176,6 +176,7 @@ namespace XPump.Misc
                 Text = "ไม่ใช้งาน",
                 Value = false
             });
+            xcb.SelectedItem = xcb.Items.Cast<XComboBoxItem>().Where(i => (bool)i.Value == (bool)affected_object.GetType().GetProperty(affected_field).GetValue(affected_object, null)).First();
             xcb.SelectedValueChanged += delegate
             {
                 var selected_value = (object)((XComboBoxItem)xcb.SelectedItem).Value;
