@@ -87,7 +87,7 @@ namespace XPump.SubForm
 
             col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col__isactive.DataPropertyName).First().Index;
             this.inline_isactive = this.dgv.Rows[row_index].Cells[col_ndx].CreateXComboBoxTrueFalseEdit(this.temp_tank.tank, "isactive");
-            this.inline_isactive.DropDownStyle = ComboBoxStyle.DropDown;
+            this.inline_isactive.DropDownStyle = ComboBoxStyle.DropDownList;
             this.inline_isactive.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
             if (this.form_mode == FORM_MODE_LIST.ADD)
@@ -302,7 +302,7 @@ namespace XPump.SubForm
             {
                 this.inline_desc.Focus();
             }
-            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_isactive.DataPropertyName).First().Index)
+            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col__isactive.DataPropertyName).First().Index)
             {
                 this.inline_isactive.Focus();
             }
@@ -347,7 +347,7 @@ namespace XPump.SubForm
         {
             this.inline_name.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index);
             this.inline_desc.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().Index);
-            this.inline_isactive.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_isactive.DataPropertyName).First().Index);
+            this.inline_isactive.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col__isactive.DataPropertyName).First().Index);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
