@@ -55,6 +55,34 @@ namespace XPump
             tank.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = tank, docPrefix = string.Empty });
         }
+
+        private void MnuNozzle_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(NozzleForm)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(NozzleForm)).First().form.Activate();
+                return;
+            }
+
+            NozzleForm nozzle = new NozzleForm(this);
+            nozzle.MdiParent = this;
+            nozzle.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = nozzle, docPrefix = string.Empty });
+        }
+
+        private void MnuStmas_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(StmasForm)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(StmasForm)).First().form.Activate();
+                return;
+            }
+
+            StmasForm stmas = new StmasForm(this);
+            stmas.MdiParent = this;
+            stmas.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = stmas, docPrefix = string.Empty });
+        }
     }
 
     public class ChildFormDetail

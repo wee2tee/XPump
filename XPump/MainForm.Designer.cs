@@ -83,6 +83,7 @@
             this.MnuStmas.Name = "MnuStmas";
             this.MnuStmas.Size = new System.Drawing.Size(168, 22);
             this.MnuStmas.Text = "รายละเอียดสินค้า";
+            this.MnuStmas.Click += new System.EventHandler(this.MnuStmas_Click);
             // 
             // MnuPrice
             // 
@@ -119,6 +120,7 @@
             this.MnuNozzle.Name = "MnuNozzle";
             this.MnuNozzle.Size = new System.Drawing.Size(195, 22);
             this.MnuNozzle.Text = "กำหนดหัวจ่ายน้ำมัน";
+            this.MnuNozzle.Click += new System.EventHandler(this.MnuNozzle_Click);
             // 
             // statusStrip1
             // 

@@ -325,7 +325,7 @@
             // 
             // TankForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 411);
             this.Controls.Add(this.panel1);
@@ -335,6 +335,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "TankForm";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
             this.Load += new System.EventHandler(this.TankForm_Load);
             this.toolStrip1.ResumeLayout(false);

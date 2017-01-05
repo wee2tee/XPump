@@ -112,6 +112,35 @@ namespace XPump.Misc
             return t;
         }
 
+        public static nozzleVM ToViewModel(this nozzle nozzle)
+        {
+            if (nozzle == null)
+                return null;
+
+            nozzleVM n = new nozzleVM
+            {
+                id = nozzle.id,
+                name = nozzle.name,
+                description = nozzle.description,
+                remark = nozzle.remark,
+                isactive = nozzle.isactive,
+                nozzle = nozzle
+            };
+
+            return n;
+        }
+
+        public static List<nozzleVM> ToViewModel(this IEnumerable<nozzle> nozzle_list)
+        {
+            List<nozzleVM> n = new List<nozzleVM>();
+            foreach (var nozzle in nozzle_list)
+            {
+                n.Add(nozzle.ToViewModel());
+            }
+
+            return n;
+        }
+
         public static void SetControlState(this Component comp, FORM_MODE_LIST[] form_mode_to_enable, FORM_MODE_LIST form_mode)
         {
             if (form_mode_to_enable.ToList().Where(fm => fm == form_mode).Count() > 0)

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 24, 2016 at 06:01 AM
+-- Generation Time: Dec 30, 2016 at 05:01 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.5.24
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `nozzle` (
   `description` varchar(50) DEFAULT NULL,
   `remark` varchar(50) DEFAULT NULL,
   `isactive` tinyint(1) NOT NULL DEFAULT '1',
-  `tank_id` int(11) NOT NULL
+  `tank_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -115,15 +115,17 @@ CREATE TABLE IF NOT EXISTS `shift` (
   `starttime` time NOT NULL,
   `endtime` time NOT NULL,
   `remark` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `shift`
 --
 
 INSERT INTO `shift` (`id`, `name`, `description`, `starttime`, `endtime`, `remark`) VALUES
-(1, 'ผลัด 1', NULL, '06:00:00', '13:59:59', NULL),
-(2, 'ผลัด 2', NULL, '14:00:00', '21:59:59', NULL);
+(1, 'ผลัด 1', '', '06:00:00', '13:59:59', NULL),
+(7, 'ผลัด 2.', '', '14:00:00', '21:59:59', ''),
+(8, 'ผลัด 3', '', '22:00:00', '05:59:59', ''),
+(43, 'ผลัด 4', 'ทดสอบ', '15:59:00', '18:59:00', '');
 
 -- --------------------------------------------------------
 
@@ -150,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `tank` (
   `description` varchar(50) DEFAULT NULL,
   `remark` varchar(50) DEFAULT NULL,
   `isactive` tinyint(1) NOT NULL DEFAULT '1',
-  `stmas_id` int(11) NOT NULL
+  `stmas_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -257,7 +259,7 @@ ALTER TABLE `salessummary`
 -- AUTO_INCREMENT for table `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `stmas`
 --

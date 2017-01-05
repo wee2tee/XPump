@@ -146,6 +146,12 @@
     <Compile Include="SubForm\ShiftForm.Designer.cs">
       <DependentUpon>ShiftForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\StmasForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\StmasForm.Designer.cs">
+      <DependentUpon>StmasForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\TankForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\ShiftForm.resx">
       <DependentUpon>ShiftForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\StmasForm.resx">
+      <DependentUpon>StmasForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\TankForm.resx">
       <DependentUpon>TankForm.cs</DependentUpon>

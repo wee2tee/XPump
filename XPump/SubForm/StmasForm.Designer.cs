@@ -1,6 +1,6 @@
 ﻿namespace XPump.SubForm
 {
-    partial class ShiftForm
+    partial class StmasForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -46,19 +42,18 @@
             this.btnLast = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.dgv = new CC.XDatagrid();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_start = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_end = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_shift = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtRemark = new CC.XTextEdit();
+            this.txtDescription = new CC.XTextEdit();
+            this.txtName = new CC.XTextEdit();
             this.toolStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -81,8 +76,8 @@
             this.btnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(634, 43);
-            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Size = new System.Drawing.Size(664, 43);
+            this.toolStrip1.TabIndex = 2;
             // 
             // btnAdd
             // 
@@ -93,7 +88,6 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(36, 40);
             this.btnAdd.Text = "เพิ่มข้อมูล <Alt+A>";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnEdit
             // 
@@ -104,7 +98,6 @@
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(36, 40);
             this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -115,7 +108,6 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(36, 40);
             this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // toolStripSeparator3
             // 
@@ -131,7 +123,6 @@
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(36, 40);
             this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnSave
             // 
@@ -142,7 +133,6 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(36, 40);
             this.btnSave.Text = "บันทึกข้อมูล <F9>";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // toolStripSeparator1
             // 
@@ -208,160 +198,145 @@
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(36, 40);
             this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // panel1
+            // tabControl1
             // 
-            this.panel1.Controls.Add(this.dgv);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 43);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(634, 368);
-            this.panel1.TabIndex = 2;
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(6, 134);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(653, 301);
+            this.tabControl1.TabIndex = 3;
             // 
-            // dgv
+            // tabPage1
             // 
-            this.dgv.AllowSortByColumnHeaderClicked = true;
-            this.dgv.AllowUserToAddRows = false;
-            this.dgv.AllowUserToDeleteRows = false;
-            this.dgv.AllowUserToResizeColumns = false;
-            this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgv.ColumnHeadersHeight = 28;
-            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_id,
-            this.col_name,
-            this.col_start,
-            this.col_end,
-            this.col_desc,
-            this.col_remark,
-            this.col_state,
-            this.col_shift});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgv.EnableHeadersVisualStyles = false;
-            this.dgv.FillEmptyRow = false;
-            this.dgv.FocusedRowBorderRedLine = true;
-            this.dgv.Location = new System.Drawing.Point(0, 0);
-            this.dgv.MultiSelect = false;
-            this.dgv.Name = "dgv";
-            this.dgv.ReadOnly = true;
-            this.dgv.RowHeadersVisible = false;
-            this.dgv.RowTemplate.Height = 26;
-            this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(634, 368);
-            this.dgv.StandardTab = true;
-            this.dgv.TabIndex = 1;
-            this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
-            this.dgv.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseClick);
-            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
-            this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(645, 272);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "แท๊งค์เก็บน้ำมันชนิดนี้";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // col_id
+            // tabPage2
             // 
-            this.col_id.DataPropertyName = "id";
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(645, 272);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "หัวจ่ายสำหรับน้ำมันชนิดนี้";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // col_name
+            // tabPage3
             // 
-            this.col_name.DataPropertyName = "name";
-            this.col_name.HeaderText = "ชื่อผลัด";
-            this.col_name.MinimumWidth = 100;
-            this.col_name.Name = "col_name";
-            this.col_name.ReadOnly = true;
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(645, 272);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "ราคาขายน้ำมันชนิดนี้";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // col_start
+            // label1
             // 
-            this.col_start.DataPropertyName = "starttime";
-            dataGridViewCellStyle2.NullValue = null;
-            this.col_start.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_start.HeaderText = "เวลาเริ่มต้น";
-            this.col_start.MinimumWidth = 80;
-            this.col_start.Name = "col_start";
-            this.col_start.ReadOnly = true;
-            this.col_start.Width = 80;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(57, 55);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 16);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "รหัส";
             // 
-            // col_end
+            // label2
             // 
-            this.col_end.DataPropertyName = "endtime";
-            dataGridViewCellStyle3.NullValue = null;
-            this.col_end.DefaultCellStyle = dataGridViewCellStyle3;
-            this.col_end.HeaderText = "เวลาสิ้นสุด";
-            this.col_end.MinimumWidth = 80;
-            this.col_end.Name = "col_end";
-            this.col_end.ReadOnly = true;
-            this.col_end.Width = 80;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 81);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 16);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "รายละเอียด";
             // 
-            // col_desc
+            // label3
             // 
-            this.col_desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_desc.DataPropertyName = "description";
-            this.col_desc.HeaderText = "รายละเอียด";
-            this.col_desc.Name = "col_desc";
-            this.col_desc.ReadOnly = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 107);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 16);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "หมายเหตุ";
             // 
-            // col_remark
+            // txtRemark
             // 
-            this.col_remark.DataPropertyName = "remark";
-            this.col_remark.HeaderText = "Remark";
-            this.col_remark.Name = "col_remark";
-            this.col_remark.ReadOnly = true;
-            this.col_remark.Visible = false;
+            this.txtRemark._MaxLength = 50;
+            this.txtRemark._ReadOnly = true;
+            this.txtRemark._Text = null;
+            this.txtRemark.BackColor = System.Drawing.Color.White;
+            this.txtRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRemark.Location = new System.Drawing.Point(91, 104);
+            this.txtRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtRemark.Name = "txtRemark";
+            this.txtRemark.Size = new System.Drawing.Size(466, 23);
+            this.txtRemark.TabIndex = 5;
+            this.txtRemark.TabStop = false;
             // 
-            // col_state
+            // txtDescription
             // 
-            this.col_state.DataPropertyName = "record_state";
-            this.col_state.HeaderText = "Record State";
-            this.col_state.Name = "col_state";
-            this.col_state.ReadOnly = true;
-            this.col_state.Visible = false;
+            this.txtDescription._MaxLength = 50;
+            this.txtDescription._ReadOnly = true;
+            this.txtDescription._Text = null;
+            this.txtDescription.BackColor = System.Drawing.Color.White;
+            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDescription.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDescription.Location = new System.Drawing.Point(91, 78);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(466, 23);
+            this.txtDescription.TabIndex = 5;
+            this.txtDescription.TabStop = false;
             // 
-            // col_shift
+            // txtName
             // 
-            this.col_shift.DataPropertyName = "shift";
-            this.col_shift.HeaderText = "Shift";
-            this.col_shift.Name = "col_shift";
-            this.col_shift.ReadOnly = true;
-            this.col_shift.Visible = false;
+            this.txtName._MaxLength = 20;
+            this.txtName._ReadOnly = true;
+            this.txtName._Text = null;
+            this.txtName.BackColor = System.Drawing.Color.White;
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtName.Location = new System.Drawing.Point(91, 52);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(90, 23);
+            this.txtName.TabIndex = 5;
+            this.txtName.TabStop = false;
             // 
-            // ShiftForm
+            // StmasForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 411);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(664, 441);
+            this.Controls.Add(this.txtRemark);
+            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.txtName);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "ShiftForm";
+            this.Name = "StmasForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "กำหนดผลัดพนักงาน";
-            this.Load += new System.EventHandler(this.ShiftForm_Load);
+            this.Text = "รายละเอียดสินค้า";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -372,26 +347,26 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnAdd;
         private System.Windows.Forms.ToolStripButton btnEdit;
+        private System.Windows.Forms.ToolStripButton btnDelete;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnStop;
         private System.Windows.Forms.ToolStripButton btnSave;
-        private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnFirst;
         private System.Windows.Forms.ToolStripButton btnPrevious;
         private System.Windows.Forms.ToolStripButton btnNext;
         private System.Windows.Forms.ToolStripButton btnLast;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnRefresh;
-        private CC.XDatagrid dgv;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_start;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_end;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_desc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_remark;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_state;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_shift;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label1;
+        private CC.XTextEdit txtName;
+        private System.Windows.Forms.Label label2;
+        private CC.XTextEdit txtDescription;
+        private System.Windows.Forms.Label label3;
+        private CC.XTextEdit txtRemark;
     }
 }

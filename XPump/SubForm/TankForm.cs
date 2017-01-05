@@ -49,7 +49,7 @@ namespace XPump.SubForm
             this.bs.DataSource = this.tank_list;
         }
 
-        private List<tank> GetTankList()
+        public List<tank> GetTankList()
         {
             using (xpumpEntities db = DBX.DataSet())
             {
@@ -66,6 +66,11 @@ namespace XPump.SubForm
             this.btnSave.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.ADD, FORM_MODE_LIST.EDIT }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
             this.dgv.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
+
+            if (this.dgv.Enabled)
+            {
+                this.dgv.Focus();
+            }
         }
 
         private void ShowInlineControl(int row_index)
@@ -78,11 +83,12 @@ namespace XPump.SubForm
 
             int col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index;
             this.inline_name = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_tank.tank, "name");
-            this.inline_name.CharacterCasing = CharacterCasing.Upper;
+            this.inline_name.MaxLength = 20;
             this.inline_name.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
             col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().Index;
             this.inline_desc = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_tank.tank, "description");
+            this.inline_desc.MaxLength = 50;
             this.inline_desc.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
             col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col__isactive.DataPropertyName).First().Index;
@@ -231,7 +237,7 @@ namespace XPump.SubForm
                     }
                     catch (DbUpdateException ex)
                     {
-                        if (ex.InnerException.Message.Contains("Duplicate entry") || ex.InnerException.InnerException.Message.Contains("Duplicate entry"))
+                        if (ex.InnerException.Message.ToLower().Contains("Duplicate entry") || ex.InnerException.InnerException.Message.ToLower().Contains("Duplicate entry"))
                         {
                             MessageBox.Show("รหัส \"" + this.temp_tank.tank.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             this.inline_name.Focus();
@@ -251,6 +257,7 @@ namespace XPump.SubForm
                         if(tank == null)
                         {
                             MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
                         }
 
                         tank.name = this.temp_tank.tank.name;
@@ -297,14 +304,17 @@ namespace XPump.SubForm
             if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index)
             {
                 this.inline_name.Focus();
+                return;
             }
             if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().Index)
             {
                 this.inline_desc.Focus();
+                return;
             }
             if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col__isactive.DataPropertyName).First().Index)
             {
                 this.inline_isactive.Focus();
+                return;
             }
         }
 
@@ -390,7 +400,7 @@ namespace XPump.SubForm
 
             if(keyData == Keys.Enter && (this.form_mode == FORM_MODE_LIST.ADD || this.form_mode == FORM_MODE_LIST.EDIT))
             {
-                if (this.inline_isactive.Focused)
+                if (this.inline_isactive != null && this.inline_isactive.Focused)
                 {
                     this.btnSave.PerformClick();
                     return true;

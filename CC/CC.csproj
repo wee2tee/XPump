@@ -87,6 +87,12 @@
     <Compile Include="XTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="XTextEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XTextEdit.Designer.cs">
+      <DependentUpon>XTextEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="XTimePicker.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="XDatePicker.resx">
       <DependentUpon>XDatePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XTextEdit.resx">
+      <DependentUpon>XTextEdit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

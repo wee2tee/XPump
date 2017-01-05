@@ -18,6 +18,12 @@ namespace CC
             
         }
 
+        protected override void OnCreateControl()
+        {
+            base.OnCreateControl();
+            this.BackColor = Color.White;
+        }
+
         protected override void OnGotFocus(EventArgs e)
         {
             base.OnGotFocus(e);
@@ -36,6 +42,26 @@ namespace CC
         {
             base.OnLostFocus(e);
             this.BackColor = Color.White;
+        }
+
+        protected override void OnReadOnlyChanged(EventArgs e)
+        {
+            base.OnReadOnlyChanged(e);
+            if (this.ReadOnly)
+            {
+                this.BackColor = Color.White;
+            }
+            else
+            {
+                if (this.Focused)
+                {
+                    this.BackColor = AppResource.EditableControlBackColor;
+                }
+                else
+                {
+                    this.BackColor = Color.White;
+                }
+            }
         }
 
         //protected override void OnPaint(PaintEventArgs e)

@@ -37,4 +37,23 @@ namespace XPump.Model
             }
         }
     }
+
+    public class nozzleVM
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public string remark { get; set; }
+        public bool isactive { get; set; }
+
+        public nozzle nozzle { get; set; }
+
+        public string _isactive
+        {
+            get
+            {
+                return this.isactive ? "ใช้งาน" : "ไม่ใช้งาน";
+            }
+        }
+    }
 }
