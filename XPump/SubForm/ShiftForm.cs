@@ -22,7 +22,7 @@ namespace XPump.SubForm
         private MainForm main_form;
         private BindingSource bs;
         private List<shiftVM> shift_list;
-        private FORM_MODE_LIST form_mode;
+        private FORM_MODE form_mode;
         private shiftVM temp_shift; // model for add/edit shift
         private XTextBox inline_name; // inline control for name
         private XTimePicker inline_start; // inline control for start time
@@ -42,7 +42,7 @@ namespace XPump.SubForm
 
         private void ShiftForm_Load(object sender, EventArgs e)
         {
-            this.form_mode = FORM_MODE_LIST.READ;
+            this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
             this.bs = new BindingSource();
@@ -64,13 +64,13 @@ namespace XPump.SubForm
 
         private void ResetControlState()
         {
-            this.btnAdd.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
-            this.btnEdit.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
-            this.btnDelete.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
-            this.btnStop.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.ADD, FORM_MODE_LIST.EDIT }, this.form_mode);
-            this.btnSave.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.ADD, FORM_MODE_LIST.EDIT }, this.form_mode);
-            this.btnRefresh.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
-            this.dgv.SetControlState(new FORM_MODE_LIST[] { FORM_MODE_LIST.READ }, this.form_mode);
+            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             if (this.dgv.Enabled)
             {
@@ -104,7 +104,7 @@ namespace XPump.SubForm
             this.inline_desc.MaxLength = 50;
             this.inline_desc.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
-            if (this.form_mode == FORM_MODE_LIST.ADD)
+            if (this.form_mode == FORM_MODE.ADD)
                 this.dgv.Parent.Controls.Add(this.inline_name);
             this.dgv.Parent.Controls.Add(this.inline_start);
             this.dgv.Parent.Controls.Add(this.inline_end);
@@ -113,7 +113,7 @@ namespace XPump.SubForm
             this.inline_start.BringToFront();
             this.inline_end.BringToFront();
             this.inline_desc.BringToFront();
-            if(this.form_mode == FORM_MODE_LIST.ADD)
+            if(this.form_mode == FORM_MODE.ADD)
             {
                 this.inline_name.Focus();
             }
@@ -152,7 +152,7 @@ namespace XPump.SubForm
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            if(this.form_mode != FORM_MODE_LIST.READ)
+            if(this.form_mode != FORM_MODE.READ)
             {
                 if (MessageBox.Show(StringResource.Msg("0001"), "Message # 0001", MessageBoxButtons.OKCancel) != DialogResult.OK)
                 {
@@ -185,7 +185,7 @@ namespace XPump.SubForm
             this.bs.DataSource = this.shift_list;
 
             this.dgv.CurrentCell = this.dgv.Rows[this.shift_list.Count - 1].Cells["col_name"];
-            this.form_mode = FORM_MODE_LIST.ADD;
+            this.form_mode = FORM_MODE.ADD;
             this.ResetControlState();
             this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
         }
@@ -196,7 +196,7 @@ namespace XPump.SubForm
                 return;
 
             this.temp_shift = ((shift)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_shift"].Value).ToViewModel();
-            this.form_mode = FORM_MODE_LIST.EDIT;
+            this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
             this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
         }
@@ -225,14 +225,14 @@ namespace XPump.SubForm
         private void btnStop_Click(object sender, EventArgs e)
         {
             this.RemoveInlineControl();
-            this.form_mode = FORM_MODE_LIST.READ;
+            this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
             this.btnRefresh.PerformClick();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(this.form_mode == FORM_MODE_LIST.ADD)
+            if(this.form_mode == FORM_MODE.ADD)
             {
                 if(this.temp_shift.shift.name.Trim().Length == 0)
                 {
@@ -249,7 +249,7 @@ namespace XPump.SubForm
                         db.shift.Add(this.temp_shift.shift);
                         db.SaveChanges();
                         this.RemoveInlineControl();
-                        this.form_mode = FORM_MODE_LIST.READ;
+                        this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
                         this.btnRefresh.PerformClick();
                         this.btnAdd.PerformClick();
@@ -266,7 +266,7 @@ namespace XPump.SubForm
                 return;
             }
 
-            if(this.form_mode == FORM_MODE_LIST.EDIT)
+            if(this.form_mode == FORM_MODE.EDIT)
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
@@ -286,7 +286,7 @@ namespace XPump.SubForm
                         shift.remark = this.temp_shift.shift.remark;
                         db.SaveChanges();
                         this.RemoveInlineControl();
-                        this.form_mode = FORM_MODE_LIST.READ;
+                        this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
                         this.btnRefresh.PerformClick();
                     }
@@ -408,7 +408,7 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if(keyData == Keys.Enter && (this.form_mode == FORM_MODE_LIST.ADD || this.form_mode == FORM_MODE_LIST.EDIT))
+            if(keyData == Keys.Enter && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT))
             {
                 if (this.inline_desc.Focused)
                 {

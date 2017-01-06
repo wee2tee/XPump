@@ -12,16 +12,24 @@ using XPump.Model;
 namespace XPump.Misc
 {
     // ENUM
-    public enum FORM_MODE_MD
-    {
+    //public enum FORM_MODE_MD
+    //{
+    //    READ,
+    //    ADD,
+    //    EDIT,
+    //    READ_ITEM,
+    //    ADD_ITEM,
+    //    EDIT_ITEM
+    //}
 
-    }
-
-    public enum FORM_MODE_LIST
+    public enum FORM_MODE
     {
         READ,
         ADD,
-        EDIT
+        EDIT,
+        READ_ITEM,
+        ADD_ITEM,
+        EDIT_ITEM
     }
 
     public enum RECORD_STATE : int
@@ -141,7 +149,7 @@ namespace XPump.Misc
             return n;
         }
 
-        public static void SetControlState(this Component comp, FORM_MODE_LIST[] form_mode_to_enable, FORM_MODE_LIST form_mode)
+        public static void SetControlState(this Component comp, FORM_MODE[] form_mode_to_enable, FORM_MODE form_mode)
         {
             if (form_mode_to_enable.ToList().Where(fm => fm == form_mode).Count() > 0)
             {
@@ -152,6 +160,10 @@ namespace XPump.Misc
                 if (comp is DataGridView)
                 {
                     ((DataGridView)comp).Enabled = true; return;
+                }
+                if (comp is XTextEdit)
+                {
+                    ((XTextEdit)comp)._ReadOnly = false; return;
                 }
             }
             else
@@ -164,8 +176,46 @@ namespace XPump.Misc
                 {
                     ((DataGridView)comp).Enabled = false; return;
                 }
+                if (comp is XTextEdit)
+                {
+                    ((XTextEdit)comp)._ReadOnly = true; return;
+                }
             }
         }
+
+        //public static void SetControlState(this Component comp, FORM_MODE_MD[] form_mode_to_enable, FORM_MODE_MD form_mode)
+        //{
+        //    if (form_mode_to_enable.ToList().Where(fm => fm == form_mode).Count() > 0)
+        //    {
+        //        if (comp is ToolStripButton)
+        //        {
+        //            ((ToolStripButton)comp).Enabled = true; return;
+        //        }
+        //        if (comp is DataGridView)
+        //        {
+        //            ((DataGridView)comp).Enabled = true; return;
+        //        }
+        //        if(comp is XTextEdit)
+        //        {
+        //            ((XTextEdit)comp)._ReadOnly = false; return;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (comp is ToolStripButton)
+        //        {
+        //            ((ToolStripButton)comp).Enabled = false; return;
+        //        }
+        //        if (comp is DataGridView)
+        //        {
+        //            ((DataGridView)comp).Enabled = false; return;
+        //        }
+        //        if(comp is XTextEdit)
+        //        {
+        //            ((XTextEdit)comp)._ReadOnly = true; return;
+        //        }
+        //    }
+        //}
 
         public static XTextBox CreateXTextBoxEdit(this DataGridViewCell dgv_cell, object affected_object, string affected_field)
         {

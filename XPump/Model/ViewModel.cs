@@ -56,4 +56,14 @@ namespace XPump.Model
             }
         }
     }
+
+    public class stmasVM
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public string remark { get; set; }
+
+        public stmas stmas { get; set; }
+    }
 }

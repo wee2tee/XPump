@@ -295,7 +295,7 @@
             // col__isactive
             // 
             this.col__isactive.DataPropertyName = "_isactive";
-            this.col__isactive.HeaderText = "ใช้งาน";
+            this.col__isactive.HeaderText = "ใช้งาน?";
             this.col__isactive.Name = "col__isactive";
             this.col__isactive.ReadOnly = true;
             // 

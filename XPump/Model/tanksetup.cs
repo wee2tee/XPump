@@ -12,21 +12,17 @@ namespace XPump.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class tank
+    public partial class tanksetup
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tank()
-        {
-            this.section = new HashSet<section>();
-        }
-    
         public int id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string remark { get; set; }
+        public System.DateTime date { get; set; }
+        public int section_id { get; set; }
+        public int stmas_id { get; set; }
+        public int nozzle_id { get; set; }
         public bool isactive { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<section> section { get; set; }
+        public virtual nozzle nozzle { get; set; }
+        public virtual section section { get; set; }
+        public virtual stmas stmas { get; set; }
     }
 }

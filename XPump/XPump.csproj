@@ -107,6 +107,9 @@
     <Compile Include="Model\salessummary.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\section.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\shift.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
@@ -114,6 +117,9 @@
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\tank.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\tanksetup.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ViewModel.cs" />
