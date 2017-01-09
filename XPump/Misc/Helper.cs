@@ -38,6 +38,12 @@ namespace XPump.Misc
         NEW = 1
     }
 
+    public enum INQUIRY
+    {
+        ALL,
+        REST
+    }
+
     // Miscellenous class
     public class InlineControlGridPosition
     {
@@ -147,6 +153,34 @@ namespace XPump.Misc
             }
 
             return n;
+        }
+
+        public static stmasVM ToViewModel(this stmas stmas)
+        {
+            if (stmas == null)
+                return null;
+
+            stmasVM s = new stmasVM
+            {
+                id = stmas.id,
+                name = stmas.name,
+                description = stmas.description,
+                remark = stmas.remark,
+                stmas = stmas
+            };
+
+            return s;
+        }
+
+        public static List<stmasVM> ToViewModel(this IEnumerable<stmas> stmas_list)
+        {
+            List<stmasVM> s = new List<stmasVM>();
+            foreach (var stmas in stmas_list)
+            {
+                s.Add(stmas.ToViewModel());
+            }
+
+            return s;
         }
 
         public static void SetControlState(this Component comp, FORM_MODE[] form_mode_to_enable, FORM_MODE form_mode)

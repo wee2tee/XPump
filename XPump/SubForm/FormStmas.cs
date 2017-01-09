@@ -375,12 +375,28 @@ namespace XPump.SubForm
 
         private void btnInquiryAll_Click(object sender, EventArgs e)
         {
-
+            DialogInquiryStmas dlg = new DialogInquiryStmas();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                if(dlg.selected_id > 0)
+                {
+                    this.curr_stmas = this.GetStmas(dlg.selected_id);
+                    this.FillForm();
+                }
+            }
         }
 
         private void btnInquiryRest_Click(object sender, EventArgs e)
         {
-
+            DialogInquiryStmas dlg = new DialogInquiryStmas(this.curr_stmas);
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                if (dlg.selected_id > 0)
+                {
+                    this.curr_stmas = this.GetStmas(dlg.selected_id);
+                    this.FillForm();
+                }
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

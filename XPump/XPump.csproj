@@ -140,6 +140,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubForm\DialogInquiryStmas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogInquiryStmas.Designer.cs">
+      <DependentUpon>DialogInquiryStmas.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogSimpleSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +189,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SubForm\DialogInquiryStmas.resx">
+      <DependentUpon>DialogInquiryStmas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </EmbeddedResource>
