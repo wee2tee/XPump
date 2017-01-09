@@ -17,7 +17,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace XPump.SubForm
 {
-    public partial class ShiftForm : Form
+    public partial class FormShift : Form
     {
         private MainForm main_form;
         private BindingSource bs;
@@ -29,12 +29,12 @@ namespace XPump.SubForm
         private XTimePicker inline_end; // inline control for end time
         private XTextBox inline_desc; // inline control for description
 
-        public ShiftForm()
+        public FormShift()
         {
             InitializeComponent();
         }
 
-        public ShiftForm(MainForm main_form)
+        public FormShift(MainForm main_form)
             : this()
         {
             this.main_form = main_form;
@@ -210,6 +210,13 @@ namespace XPump.SubForm
                     try
                     {
                         shift shift_to_delete = db.shift.Find(((shift)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_shift"].Value).id);
+
+                        if(shift_to_delete == null)
+                        {
+                            MessageBox.Show(StringResource.Msg("0004"), "Message # 0004", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
                         db.shift.Remove(shift_to_delete);
                         db.SaveChanges();
                         this.btnRefresh.PerformClick();

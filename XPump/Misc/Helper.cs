@@ -157,6 +157,10 @@ namespace XPump.Misc
                 {
                     ((ToolStripButton)comp).Enabled = true; return;
                 }
+                if(comp is ToolStripSplitButton)
+                {
+                    ((ToolStripSplitButton)comp).Enabled = true; return;
+                }
                 if (comp is DataGridView)
                 {
                     ((DataGridView)comp).Enabled = true; return;
@@ -171,6 +175,10 @@ namespace XPump.Misc
                 if (comp is ToolStripButton)
                 {
                     ((ToolStripButton)comp).Enabled = false; return;
+                }
+                if (comp is ToolStripSplitButton)
+                {
+                    ((ToolStripSplitButton)comp).Enabled = false; return;
                 }
                 if (comp is DataGridView)
                 {

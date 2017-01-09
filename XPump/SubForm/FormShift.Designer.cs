@@ -1,6 +1,6 @@
 ﻿namespace XPump.SubForm
 {
-    partial class ShiftForm
+    partial class FormShift
     {
         /// <summary>
         /// Required designer variable.

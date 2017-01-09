@@ -1,6 +1,6 @@
 ﻿namespace XPump.SubForm
 {
-    partial class TankForm
+    partial class FormTank
     {
         /// <summary>
         /// Required designer variable.

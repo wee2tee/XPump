@@ -13,47 +13,47 @@ using System.Data.Entity.Infrastructure;
 
 namespace XPump.SubForm
 {
-    public partial class NozzleForm : Form
+    public partial class FormTank : Form
     {
         private MainForm main_form;
         private BindingSource bs;
-        private List<nozzleVM> nozzle_list;
+        private List<tankVM> tank_list;
         private FORM_MODE form_mode;
-        private nozzleVM temp_nozzle; // model for add/edit nozzle
+        private tankVM temp_tank; // model for add/edit tank
         private XTextBox inline_name; // inline control for name
         private XTextBox inline_desc; // inline control for description
         private XComboBox inline_isactive; // inline control for isactive
 
-        public NozzleForm()
+        public FormTank()
         {
             InitializeComponent();
         }
 
-        public NozzleForm(MainForm main_form)
+        public FormTank(MainForm main_form)
             : this()
         {
             this.main_form = main_form;
         }
 
-        private void NozzleForm_Load(object sender, EventArgs e)
+        private void TankForm_Load(object sender, EventArgs e)
         {
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
             this.bs = new BindingSource();
-            this.bs.DataSource = this.nozzle_list;
+            this.bs.DataSource = this.tank_list;
             this.dgv.DataSource = this.bs;
 
-            this.nozzle_list = this.GetNozzleList().ToViewModel();
+            this.tank_list = this.GetTankList().ToViewModel();
             this.bs.ResetBindings(true);
-            this.bs.DataSource = this.nozzle_list;
+            this.bs.DataSource = this.tank_list;
         }
 
-        public List<nozzle> GetNozzleList()
+        public List<tank> GetTankList()
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.nozzle.Include("saleshistory").ToList();
+                return db.tank.ToList();
             }
         }
 
@@ -78,21 +78,21 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            if (this.temp_nozzle == null)
+            if (this.temp_tank == null)
                 return;
 
             int col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index;
-            this.inline_name = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_nozzle.nozzle, "name");
+            this.inline_name = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_tank.tank, "name");
             this.inline_name.MaxLength = 20;
             this.inline_name.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
             col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().Index;
-            this.inline_desc = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_nozzle.nozzle, "description");
+            this.inline_desc = this.dgv.Rows[row_index].Cells[col_ndx].CreateXTextBoxEdit(this.temp_tank.tank, "description");
             this.inline_desc.MaxLength = 50;
             this.inline_desc.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
             col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col__isactive.DataPropertyName).First().Index;
-            this.inline_isactive = this.dgv.Rows[row_index].Cells[col_ndx].CreateXComboBoxTrueFalseEdit(this.temp_nozzle.nozzle, "isactive");
+            this.inline_isactive = this.dgv.Rows[row_index].Cells[col_ndx].CreateXComboBoxTrueFalseEdit(this.temp_tank.tank, "isactive");
             this.inline_isactive.DropDownStyle = ComboBoxStyle.DropDownList;
             this.inline_isactive.SetInlineControlPosition(this.dgv, row_index, col_ndx);
 
@@ -115,13 +115,13 @@ namespace XPump.SubForm
 
         private void RemoveInlineControl()
         {
-            if (this.inline_name != null)
+            if(this.inline_name != null)
             {
                 this.inline_name.Dispose();
                 this.inline_name = null;
             }
 
-            if (this.inline_desc != null)
+            if(this.inline_desc != null)
             {
                 this.inline_desc.Dispose();
                 this.inline_desc = null;
@@ -138,7 +138,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode != FORM_MODE.READ)
             {
-                if(MessageBox.Show(StringResource.Msg("0001"), "Message # 0001", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                if (MessageBox.Show(StringResource.Msg("0001"), "Message # 0001", MessageBoxButtons.OKCancel) != DialogResult.OK)
                 {
                     e.Cancel = true;
                     return;
@@ -151,7 +151,7 @@ namespace XPump.SubForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            this.temp_nozzle = new nozzle()
+            this.temp_tank = new tank()
             {
                 id = -1,
                 name = string.Empty,
@@ -160,12 +160,12 @@ namespace XPump.SubForm
                 remark = string.Empty,
             }.ToViewModel();
 
-            this.nozzle_list.Add(this.temp_nozzle);
+            this.tank_list.Add(this.temp_tank);
 
             this.bs.ResetBindings(true);
-            this.bs.DataSource = this.nozzle_list;
+            this.bs.DataSource = this.tank_list;
 
-            this.dgv.CurrentCell = this.dgv.Rows[this.nozzle_list.Count - 1].Cells["col_name"];
+            this.dgv.CurrentCell = this.dgv.Rows[this.tank_list.Count - 1].Cells["col_name"];
             this.form_mode = FORM_MODE.ADD;
             this.ResetControlState();
             this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
@@ -176,7 +176,7 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            this.temp_nozzle = ((nozzle)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_nozzle"].Value).ToViewModel();
+            this.temp_tank = ((tank)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_tank"].Value).ToViewModel();
             this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
             this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
@@ -190,8 +190,15 @@ namespace XPump.SubForm
                 {
                     try
                     {
-                        nozzle nozzle_to_delete = db.nozzle.Find(((nozzle)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_nozzle"].Value).id);
-                        db.nozzle.Remove(nozzle_to_delete);
+                        tank tank_to_delete = db.tank.Find(((tank)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_tank"].Value).id);
+
+                        if(tank_to_delete == null)
+                        {
+                            MessageBox.Show(StringResource.Msg("0004"), "Message # 0004", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
+                        db.tank.Remove(tank_to_delete);
                         db.SaveChanges();
                         this.btnRefresh.PerformClick();
                     }
@@ -215,7 +222,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode == FORM_MODE.ADD)
             {
-                if(this.temp_nozzle.nozzle.name.Trim().Length == 0)
+                if(this.temp_tank.tank.name.Trim().Length == 0)
                 {
                     MessageBox.Show("กรุณาป้อนรหัส");
                     this.inline_name.Focus();
@@ -226,7 +233,7 @@ namespace XPump.SubForm
                 {
                     try
                     {
-                        db.nozzle.Add(this.temp_nozzle.nozzle);
+                        db.tank.Add(this.temp_tank.tank);
                         db.SaveChanges();
                         this.RemoveInlineControl();
                         this.form_mode = FORM_MODE.READ;
@@ -236,9 +243,9 @@ namespace XPump.SubForm
                     }
                     catch (DbUpdateException ex)
                     {
-                        if (ex.InnerException.Message.ToLower().Contains("duplicate entry") || ex.InnerException.InnerException.Message.ToLower().Contains("duplicate entry"))
+                        if (ex.InnerException.Message.ToLower().Contains("Duplicate entry") || ex.InnerException.InnerException.Message.ToLower().Contains("Duplicate entry"))
                         {
-                            MessageBox.Show("รหัส \"" + this.temp_nozzle.nozzle.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MessageBox.Show("รหัส \"" + this.temp_tank.tank.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             this.inline_name.Focus();
                         }
                     }
@@ -252,17 +259,17 @@ namespace XPump.SubForm
                 {
                     try
                     {
-                        nozzle nozzle = db.nozzle.Find(this.temp_nozzle.id);
-                        if(nozzle == null)
+                        tank tank = db.tank.Find(this.temp_tank.id);
+                        if(tank == null)
                         {
                             MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
-                        nozzle.name = this.temp_nozzle.nozzle.name;
-                        nozzle.description = this.temp_nozzle.nozzle.description;
-                        nozzle.isactive = this.temp_nozzle.nozzle.isactive;
-                        nozzle.remark = this.temp_nozzle.nozzle.remark;
+                        tank.name = this.temp_tank.tank.name;
+                        tank.description = this.temp_tank.tank.description;
+                        tank.isactive = this.temp_tank.tank.isactive;
+                        tank.remark = this.temp_tank.tank.remark;
                         db.SaveChanges();
                         this.RemoveInlineControl();
                         this.form_mode = FORM_MODE.READ;
@@ -280,16 +287,16 @@ namespace XPump.SubForm
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            this.nozzle_list = this.GetNozzleList().ToViewModel();
+            this.tank_list = this.GetTankList().ToViewModel();
             this.bs.ResetBindings(true);
-            this.bs.DataSource = this.nozzle_list;
+            this.bs.DataSource = this.tank_list;
         }
 
         private void dgv_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.RowIndex == -1 && e.Button == MouseButtons.Left)
+            if(e.RowIndex == -1 && e.Button == MouseButtons.Left)
             {
-                ((XDatagrid)sender).SortByColumn<nozzleVM>(e.ColumnIndex);
+                ((XDatagrid)sender).SortByColumn<tankVM>(e.ColumnIndex);
                 return;
             }
         }
@@ -310,7 +317,7 @@ namespace XPump.SubForm
                 this.inline_desc.Focus();
                 return;
             }
-            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_isactive.DataPropertyName).First().Index)
+            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col__isactive.DataPropertyName).First().Index)
             {
                 this.inline_isactive.Focus();
                 return;
@@ -361,19 +368,19 @@ namespace XPump.SubForm
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if(keyData == (Keys.Alt | Keys.A))
+            if (keyData == (Keys.Alt | Keys.A))
             {
                 this.btnAdd.PerformClick();
                 return true;
             }
 
-            if(keyData == (Keys.Alt | Keys.E))
+            if (keyData == (Keys.Alt | Keys.E))
             {
                 this.btnEdit.PerformClick();
                 return true;
             }
 
-            if(keyData == (Keys.Alt | Keys.D))
+            if (keyData == (Keys.Alt | Keys.D))
             {
                 this.btnDelete.PerformClick();
                 return true;

@@ -1,6 +1,6 @@
 ﻿namespace XPump.SubForm
 {
-    partial class NozzleForm
+    partial class FormNozzle
     {
         /// <summary>
         /// Required designer variable.

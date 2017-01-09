@@ -30,13 +30,13 @@ namespace XPump
 
         private void MnuShift_Click(object sender, EventArgs e)
         {
-            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(ShiftForm)).FirstOrDefault() != null)
+            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShift)).FirstOrDefault() != null)
             {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(ShiftForm)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShift)).First().form.Activate();
                 return;
             }
 
-            ShiftForm shift = new ShiftForm(this);
+            FormShift shift = new FormShift(this);
             shift.MdiParent = this;
             shift.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = shift, docPrefix = string.Empty });
@@ -44,13 +44,13 @@ namespace XPump
 
         private void MnuTank_Click(object sender, EventArgs e)
         {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(TankForm)).FirstOrDefault() != null)
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTank)).FirstOrDefault() != null)
             {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(TankForm)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTank)).First().form.Activate();
                 return;
             }
 
-            TankForm tank = new TankForm(this);
+            FormTank tank = new FormTank(this);
             tank.MdiParent = this;
             tank.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = tank, docPrefix = string.Empty });
@@ -58,27 +58,32 @@ namespace XPump
 
         private void MnuNozzle_Click(object sender, EventArgs e)
         {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(NozzleForm)).FirstOrDefault() != null)
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormNozzle)).FirstOrDefault() != null)
             {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(NozzleForm)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormNozzle)).First().form.Activate();
                 return;
             }
 
-            NozzleForm nozzle = new NozzleForm(this);
+            FormNozzle nozzle = new FormNozzle(this);
             nozzle.MdiParent = this;
             nozzle.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = nozzle, docPrefix = string.Empty });
         }
 
+        private void mnuTankSetup_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void MnuStmas_Click(object sender, EventArgs e)
         {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(StmasForm)).FirstOrDefault() != null)
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormStmas)).FirstOrDefault() != null)
             {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(StmasForm)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormStmas)).First().form.Activate();
                 return;
             }
 
-            StmasForm stmas = new StmasForm(this);
+            FormStmas stmas = new FormStmas(this);
             stmas.MdiParent = this;
             stmas.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = stmas, docPrefix = string.Empty });

@@ -83,6 +83,10 @@ namespace CC
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            if (this.read_only)
+            {
+                TextRenderer.DrawText(e.Graphics, this.text, this.textBox1.Font, new Point(0, 3), this.textBox1.ForeColor);
+            }
         }
 
         private void XTextEdit_Load(object sender, EventArgs e)
@@ -119,7 +123,9 @@ namespace CC
 
             if (this.read_only)
             {
-                TextRenderer.DrawText(this.CreateGraphics(), this.textBox1.Text, this.textBox1.Font, new Point(0, 3), this.textBox1.ForeColor);
+                this.BackColor = Color.White;
+                this.textBox1.BackColor = Color.White;
+                this.Refresh();
             }
 
             if (!this.read_only)
@@ -131,6 +137,10 @@ namespace CC
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             this.text = ((TextBox)sender).Text;
+            if (this.read_only)
+            {
+                this.Refresh();
+            }
         }
     }
 }

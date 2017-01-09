@@ -140,29 +140,35 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubForm\NozzleForm.cs">
+    <Compile Include="SubForm\DialogSimpleSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForm\NozzleForm.Designer.cs">
-      <DependentUpon>NozzleForm.cs</DependentUpon>
+    <Compile Include="SubForm\DialogSimpleSearch.Designer.cs">
+      <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForm\ShiftForm.cs">
+    <Compile Include="SubForm\FormNozzle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForm\ShiftForm.Designer.cs">
-      <DependentUpon>ShiftForm.cs</DependentUpon>
+    <Compile Include="SubForm\FormNozzle.Designer.cs">
+      <DependentUpon>FormNozzle.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForm\StmasForm.cs">
+    <Compile Include="SubForm\FormShift.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForm\StmasForm.Designer.cs">
-      <DependentUpon>StmasForm.cs</DependentUpon>
+    <Compile Include="SubForm\FormShift.Designer.cs">
+      <DependentUpon>FormShift.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForm\TankForm.cs">
+    <Compile Include="SubForm\FormStmas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForm\TankForm.Designer.cs">
-      <DependentUpon>TankForm.cs</DependentUpon>
+    <Compile Include="SubForm\FormStmas.Designer.cs">
+      <DependentUpon>FormStmas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormTank.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormTank.Designer.cs">
+      <DependentUpon>FormTank.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -177,17 +183,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SubForm\NozzleForm.resx">
-      <DependentUpon>NozzleForm.cs</DependentUpon>
+    <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
+      <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\ShiftForm.resx">
-      <DependentUpon>ShiftForm.cs</DependentUpon>
+    <EmbeddedResource Include="SubForm\FormNozzle.resx">
+      <DependentUpon>FormNozzle.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\StmasForm.resx">
-      <DependentUpon>StmasForm.cs</DependentUpon>
+    <EmbeddedResource Include="SubForm\FormShift.resx">
+      <DependentUpon>FormShift.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\TankForm.resx">
-      <DependentUpon>TankForm.cs</DependentUpon>
+    <EmbeddedResource Include="SubForm\FormStmas.resx">
+      <DependentUpon>FormStmas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormTank.resx">
+      <DependentUpon>FormTank.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="Model\XPumpModel.edmx">
