@@ -203,6 +203,10 @@ namespace XPump.Misc
                 {
                     ((XTextEdit)comp)._ReadOnly = false; return;
                 }
+                if(comp is XDropdownList)
+                {
+                    ((XDropdownList)comp)._ReadOnly = false; return;
+                }
             }
             else
             {
@@ -221,6 +225,10 @@ namespace XPump.Misc
                 if (comp is XTextEdit)
                 {
                     ((XTextEdit)comp)._ReadOnly = true; return;
+                }
+                if (comp is XDropdownList)
+                {
+                    ((XDropdownList)comp)._ReadOnly = true; return;
                 }
             }
         }

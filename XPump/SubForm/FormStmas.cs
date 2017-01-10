@@ -499,6 +499,18 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if(keyData == (Keys.Control | Keys.L))
+            {
+                this.btnInquiryAll.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.L))
+            {
+                this.btnInquiryRest.PerformClick();
+                return true;
+            }
+
             if(keyData == Keys.PageUp)
             {
                 this.btnPrevious.PerformClick();

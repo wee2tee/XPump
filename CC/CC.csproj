@@ -84,6 +84,12 @@
     <Compile Include="XDatePicker.Designer.cs">
       <DependentUpon>XDatePicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="XDropdownList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XDropdownList.Designer.cs">
+      <DependentUpon>XDropdownList.cs</DependentUpon>
+    </Compile>
     <Compile Include="XTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="XDatePicker.resx">
       <DependentUpon>XDatePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XDropdownList.resx">
+      <DependentUpon>XDropdownList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XTextEdit.resx">
       <DependentUpon>XTextEdit.cs</DependentUpon>

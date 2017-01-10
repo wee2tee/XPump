@@ -116,6 +116,7 @@ namespace CC
         protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
         {
             base.OnDataBindingComplete(e);
+            
             //DataGridViewRow row = new DataGridViewRow();
             //foreach (DataGridViewColumn col in this.Columns)
             //{

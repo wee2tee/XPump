@@ -41,6 +41,11 @@ namespace XPump.SubForm
                 this.bs.DataSource = this.stmas_list;
                 this.dgv.DataSource = this.bs;
             }
+
+            if (this.dgv.AllowSortByColumnHeaderClicked)
+            {
+                this.dgv.SortByColumn<stmasVM>(this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index);
+            }
         }
 
         private void dgv_SelectionChanged(object sender, EventArgs e)
@@ -53,16 +58,84 @@ namespace XPump.SubForm
 
         private void dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            if (this.stmas_list.Count > 0)
+                this.btnOK.Enabled = true;
+
             if(this.initial_stmas != null)
             {
                 DataGridViewRow selected_row = ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells["col_id"].Value == this.initial_stmas.id).FirstOrDefault();
 
-                Console.WriteLine(" .. >> selected_row index : " + selected_row.Index);
                 if(selected_row != null)
                 {
                     ((XDatagrid)sender).Rows[selected_row.Index].Cells[1].Selected = true;
-                    //((XDatagrid)sender).Refresh();
                 }
+            }
+        }
+
+        private void dgv_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if(e.RowIndex == -1 && e.Button == MouseButtons.Left)
+            {
+                ((XDatagrid)sender).SortByColumn<stmasVM>(e.ColumnIndex);
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            DialogInlineSearch dis = new DialogInlineSearch();
+            dis.SetBounds(this.PointToScreen(Point.Empty).X, this.PointToScreen(Point.Empty).Y + this.ClientRectangle.Height - dis.Height, dis.Width, dis.Height);
+            if (dis.ShowDialog() == DialogResult.OK)
+            {
+                int sort_col_index = this.dgv.SortColumn;
+
+                DataGridViewRow searched_row = this.dgv.Rows.Cast<DataGridViewRow>().Where(r => ((string)r.Cells[sort_col_index].Value).CompareTo(dis.keyword) > -1).OrderBy(r => (string)r.Cells[sort_col_index].Value).FirstOrDefault();
+
+
+                if (searched_row == null)
+                {
+                    return;
+                }
+
+                this.dgv.Rows[searched_row.Index].Cells[sort_col_index].Selected = true;
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.Enter && this.selected_id > -1)
+            {
+                this.btnOK.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnCancel.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgv_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Back)
+                return;
+
+            DialogInlineSearch dis = new DialogInlineSearch(e.KeyChar.ToString());
+            dis.SetBounds(this.PointToScreen(Point.Empty).X, this.PointToScreen(Point.Empty).Y + this.ClientRectangle.Height - dis.Height, dis.Width, dis.Height);
+            if (dis.ShowDialog() == DialogResult.OK)
+            {
+                int sort_col_index = ((XDatagrid)sender).SortColumn;
+
+                DataGridViewRow searched_row = ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => ((string)r.Cells[sort_col_index].Value).CompareTo(dis.keyword) > -1).OrderBy(r => (string)r.Cells[sort_col_index].Value).FirstOrDefault();
+
+                if (searched_row == null)
+                {
+                    return;
+                }
+
+                ((XDatagrid)sender).Rows[searched_row.Index].Cells[sort_col_index].Selected = true;
             }
         }
     }
