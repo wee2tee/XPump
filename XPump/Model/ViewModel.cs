@@ -38,6 +38,38 @@ namespace XPump.Model
         }
     }
 
+    public class sectionVM
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public decimal capacity { get; set; }
+        public int tank_id { get; set; }
+        public int stmas_id { get; set; }
+        
+        public string stkcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
+                }
+            }
+        }
+        public string stkdes
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
+                }
+            }
+        }
+
+        public section section { get; set; }
+    }
+
     public class nozzleVM
     {
         public int id { get; set; }

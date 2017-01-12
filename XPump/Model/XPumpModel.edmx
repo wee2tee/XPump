@@ -14,6 +14,7 @@
           <Property Name="description" Type="varchar" MaxLength="50" />
           <Property Name="remark" Type="varchar" MaxLength="50" />
           <Property Name="isactive" Type="bool" Nullable="false" />
+          <Property Name="section_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="pricelist">
           <Key>
@@ -74,6 +75,7 @@
           <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="capacity" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="tank_id" Type="int" Nullable="false" />
+          <Property Name="stmas_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="shift">
           <Key>
@@ -101,21 +103,24 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="startdate" Type="date" Nullable="false" />
+          <Property Name="enddate" Type="date" />
           <Property Name="description" Type="varchar" MaxLength="50" />
           <Property Name="remark" Type="varchar" MaxLength="50" />
           <Property Name="isactive" Type="bool" Nullable="false" />
         </EntityType>
-        <EntityType Name="tanksetup">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
-          <Property Name="section_id" Type="int" Nullable="false" />
-          <Property Name="stmas_id" Type="int" Nullable="false" />
-          <Property Name="nozzle_id" Type="int" Nullable="false" />
-          <Property Name="isactive" Type="bool" Nullable="false" />
-        </EntityType>
+        <Association Name="fk-nozzle-section_id">
+          <End Role="section" Type="Self.section" Multiplicity="1" />
+          <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="section">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nozzle">
+              <PropertyRef Name="section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk-pricelist-pricetag_id">
           <End Role="pricetag" Type="Self.pricetag" Multiplicity="1" />
           <End Role="pricelist" Type="Self.pricelist" Multiplicity="*" />
@@ -224,6 +229,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk-section-stmas_id">
+          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="section" Type="Self.section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="section">
+              <PropertyRef Name="stmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk-section-tank_id">
           <End Role="tank" Type="Self.tank" Multiplicity="1" />
           <End Role="section" Type="Self.section" Multiplicity="*" />
@@ -233,42 +250,6 @@
             </Principal>
             <Dependent Role="section">
               <PropertyRef Name="tank_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk-tanksetup-nozzle_id">
-          <End Role="nozzle" Type="Self.nozzle" Multiplicity="1" />
-          <End Role="tanksetup" Type="Self.tanksetup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="nozzle">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tanksetup">
-              <PropertyRef Name="nozzle_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk-tanksetup-section_id">
-          <End Role="section" Type="Self.section" Multiplicity="1" />
-          <End Role="tanksetup" Type="Self.tanksetup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="section">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tanksetup">
-              <PropertyRef Name="section_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk-tanksetup-stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="tanksetup" Type="Self.tanksetup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="stmas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tanksetup">
-              <PropertyRef Name="stmas_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -282,7 +263,10 @@
           <EntitySet Name="shift" EntityType="Self.shift" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="stmas" EntityType="Self.stmas" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="tanksetup" EntityType="Self.tanksetup" Schema="xpump" store:Type="Tables" />
+          <AssociationSet Name="fk-nozzle-section_id" Association="Self.fk-nozzle-section_id">
+            <End Role="section" EntitySet="section" />
+            <End Role="nozzle" EntitySet="nozzle" />
+          </AssociationSet>
           <AssociationSet Name="fk-pricelist-pricetag_id" Association="Self.fk-pricelist-pricetag_id">
             <End Role="pricetag" EntitySet="pricetag" />
             <End Role="pricelist" EntitySet="pricelist" />
@@ -319,21 +303,13 @@
             <End Role="stmas" EntitySet="stmas" />
             <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
+          <AssociationSet Name="fk-section-stmas_id" Association="Self.fk-section-stmas_id">
+            <End Role="stmas" EntitySet="stmas" />
+            <End Role="section" EntitySet="section" />
+          </AssociationSet>
           <AssociationSet Name="fk-section-tank_id" Association="Self.fk-section-tank_id">
             <End Role="tank" EntitySet="tank" />
             <End Role="section" EntitySet="section" />
-          </AssociationSet>
-          <AssociationSet Name="fk-tanksetup-nozzle_id" Association="Self.fk-tanksetup-nozzle_id">
-            <End Role="nozzle" EntitySet="nozzle" />
-            <End Role="tanksetup" EntitySet="tanksetup" />
-          </AssociationSet>
-          <AssociationSet Name="fk-tanksetup-section_id" Association="Self.fk-tanksetup-section_id">
-            <End Role="section" EntitySet="section" />
-            <End Role="tanksetup" EntitySet="tanksetup" />
-          </AssociationSet>
-          <AssociationSet Name="fk-tanksetup-stmas_id" Association="Self.fk-tanksetup-stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="tanksetup" EntitySet="tanksetup" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -350,8 +326,9 @@
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isactive" Type="Boolean" Nullable="false" />
+          <Property Name="section_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="section" Relationship="Self.fk_nozzle_section_id" FromRole="nozzle" ToRole="section" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_nozzle_id" FromRole="nozzle" ToRole="saleshistory" />
-          <NavigationProperty Name="tanksetup" Relationship="Self.fk_tanksetup_nozzle_id" FromRole="nozzle" ToRole="tanksetup" />
         </EntityType>
         <EntityType Name="pricelist">
           <Key>
@@ -424,8 +401,10 @@
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="capacity" Type="Decimal" Nullable="false" />
           <Property Name="tank_id" Type="Int32" Nullable="false" />
+          <Property Name="stmas_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="nozzle" Relationship="Self.fk_nozzle_section_id" FromRole="section" ToRole="nozzle" />
+          <NavigationProperty Name="stmas" Relationship="Self.fk_section_stmas_id" FromRole="section" ToRole="stmas" />
           <NavigationProperty Name="tank" Relationship="Self.fk_section_tank_id" FromRole="section" ToRole="tank" />
-          <NavigationProperty Name="tanksetup" Relationship="Self.fk_tanksetup_section_id" FromRole="section" ToRole="tanksetup" />
         </EntityType>
         <EntityType Name="shift">
           <Key>
@@ -451,7 +430,7 @@
           <NavigationProperty Name="pricelist" Relationship="Self.fk_pricelist_stmas_id" FromRole="stmas" ToRole="pricelist" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_stmas_id" FromRole="stmas" ToRole="saleshistory" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_stmas_id" FromRole="stmas" ToRole="salessummary" />
-          <NavigationProperty Name="tanksetup" Relationship="Self.fk_tanksetup_stmas_id" FromRole="stmas" ToRole="tanksetup" />
+          <NavigationProperty Name="section" Relationship="Self.fk_section_stmas_id" FromRole="stmas" ToRole="section" />
         </EntityType>
         <EntityType Name="tank">
           <Key>
@@ -459,25 +438,25 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="startdate" Type="DateTime" Nullable="false" />
+          <Property Name="enddate" Type="DateTime" />
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isactive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="section" Relationship="Self.fk_section_tank_id" FromRole="tank" ToRole="section" />
         </EntityType>
-        <EntityType Name="tanksetup">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="date" Type="DateTime" Nullable="false" />
-          <Property Name="section_id" Type="Int32" Nullable="false" />
-          <Property Name="stmas_id" Type="Int32" Nullable="false" />
-          <Property Name="nozzle_id" Type="Int32" Nullable="false" />
-          <Property Name="isactive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="nozzle" Relationship="Self.fk_tanksetup_nozzle_id" FromRole="tanksetup" ToRole="nozzle" />
-          <NavigationProperty Name="section" Relationship="Self.fk_tanksetup_section_id" FromRole="tanksetup" ToRole="section" />
-          <NavigationProperty Name="stmas" Relationship="Self.fk_tanksetup_stmas_id" FromRole="tanksetup" ToRole="stmas" />
-        </EntityType>
+        <Association Name="fk_nozzle_section_id">
+          <End Role="section" Type="Self.section" Multiplicity="1" />
+          <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="section">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nozzle">
+              <PropertyRef Name="section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_saleshistory_nozzle_id">
           <End Role="nozzle" Type="Self.nozzle" Multiplicity="1" />
           <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
@@ -486,18 +465,6 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="saleshistory">
-              <PropertyRef Name="nozzle_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tanksetup_nozzle_id">
-          <End Role="nozzle" Type="Self.nozzle" Multiplicity="1" />
-          <End Role="tanksetup" Type="Self.tanksetup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="nozzle">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tanksetup">
               <PropertyRef Name="nozzle_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -598,6 +565,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_section_stmas_id">
+          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
+          <End Role="section" Type="Self.section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="section">
+              <PropertyRef Name="stmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_section_tank_id">
           <End Role="tank" Type="Self.tank" Multiplicity="1" />
           <End Role="section" Type="Self.section" Multiplicity="*" />
@@ -607,30 +586,6 @@
             </Principal>
             <Dependent Role="section">
               <PropertyRef Name="tank_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tanksetup_section_id">
-          <End Role="section" Type="Self.section" Multiplicity="1" />
-          <End Role="tanksetup" Type="Self.tanksetup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="section">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tanksetup">
-              <PropertyRef Name="section_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tanksetup_stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="tanksetup" Type="Self.tanksetup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="stmas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tanksetup">
-              <PropertyRef Name="stmas_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -644,14 +599,13 @@
           <EntitySet Name="shift" EntityType="Self.shift" />
           <EntitySet Name="stmas" EntityType="Self.stmas" />
           <EntitySet Name="tank" EntityType="Self.tank" />
-          <EntitySet Name="tanksetup" EntityType="Self.tanksetup" />
+          <AssociationSet Name="fk_nozzle_section_id" Association="Self.fk_nozzle_section_id">
+            <End Role="section" EntitySet="section" />
+            <End Role="nozzle" EntitySet="nozzle" />
+          </AssociationSet>
           <AssociationSet Name="fk_saleshistory_nozzle_id" Association="Self.fk_saleshistory_nozzle_id">
             <End Role="nozzle" EntitySet="nozzle" />
             <End Role="saleshistory" EntitySet="saleshistory" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tanksetup_nozzle_id" Association="Self.fk_tanksetup_nozzle_id">
-            <End Role="nozzle" EntitySet="nozzle" />
-            <End Role="tanksetup" EntitySet="tanksetup" />
           </AssociationSet>
           <AssociationSet Name="fk_pricelist_pricetag_id" Association="Self.fk_pricelist_pricetag_id">
             <End Role="pricetag" EntitySet="pricetag" />
@@ -685,17 +639,13 @@
             <End Role="stmas" EntitySet="stmas" />
             <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
+          <AssociationSet Name="fk_section_stmas_id" Association="Self.fk_section_stmas_id">
+            <End Role="stmas" EntitySet="stmas" />
+            <End Role="section" EntitySet="section" />
+          </AssociationSet>
           <AssociationSet Name="fk_section_tank_id" Association="Self.fk_section_tank_id">
             <End Role="tank" EntitySet="tank" />
             <End Role="section" EntitySet="section" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tanksetup_section_id" Association="Self.fk_tanksetup_section_id">
-            <End Role="section" EntitySet="section" />
-            <End Role="tanksetup" EntitySet="tanksetup" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tanksetup_stmas_id" Association="Self.fk_tanksetup_stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="tanksetup" EntitySet="tanksetup" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -712,6 +662,7 @@
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="remark" ColumnName="remark" />
                 <ScalarProperty Name="isactive" ColumnName="isactive" />
+                <ScalarProperty Name="section_id" ColumnName="section_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -777,6 +728,7 @@
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="capacity" ColumnName="capacity" />
                 <ScalarProperty Name="tank_id" ColumnName="tank_id" />
+                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -807,20 +759,10 @@
               <MappingFragment StoreEntitySet="tank">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="enddate" ColumnName="enddate" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="isactive" ColumnName="isactive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tanksetup">
-            <EntityTypeMapping TypeName="xpumpModel.tanksetup">
-              <MappingFragment StoreEntitySet="tanksetup">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="section_id" ColumnName="section_id" />
-                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
-                <ScalarProperty Name="nozzle_id" ColumnName="nozzle_id" />
                 <ScalarProperty Name="isactive" ColumnName="isactive" />
               </MappingFragment>
             </EntityTypeMapping>

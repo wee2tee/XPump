@@ -17,16 +17,18 @@ namespace XPump.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public section()
         {
-            this.tanksetup = new HashSet<tanksetup>();
+            this.nozzle = new HashSet<nozzle>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
         public decimal capacity { get; set; }
         public int tank_id { get; set; }
+        public int stmas_id { get; set; }
     
-        public virtual tank tank { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tanksetup> tanksetup { get; set; }
+        public virtual ICollection<nozzle> nozzle { get; set; }
+        public virtual stmas stmas { get; set; }
+        public virtual tank tank { get; set; }
     }
 }

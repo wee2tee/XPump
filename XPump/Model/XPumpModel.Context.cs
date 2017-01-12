@@ -21,7 +21,7 @@ namespace XPump.Model
         }
     
         public xpumpEntities(string connection_string)
-            : base(connection_string)
+            : base()
         {
         }
 
@@ -39,6 +39,5 @@ namespace XPump.Model
         public virtual DbSet<shift> shift { get; set; }
         public virtual DbSet<stmas> stmas { get; set; }
         public virtual DbSet<tank> tank { get; set; }
-        public virtual DbSet<tanksetup> tanksetup { get; set; }
     }
 }

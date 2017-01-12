@@ -13,6 +13,8 @@ namespace CC.Dialog
     {
         public DateTime? selected_date = null;
         private XDatePicker xdate_picker;
+        private DateTime? lastclick_time = null;
+        private DateTime? lastselect_datetime = null;
         
         public CalendarDialog()
         {
@@ -67,6 +69,32 @@ namespace CC.Dialog
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void calendar_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.lastclick_time.HasValue && this.lastselect_datetime.HasValue)
+            {
+                if (((DateTime.Now - this.lastclick_time.Value).TotalMilliseconds < SystemInformation.DoubleClickTime) && this.lastselect_datetime.Value == this.calendar.SelectionStart)
+                {
+                    this.lastselect_datetime = null;
+                    this.lastclick_time = null;
+                    this.btnOK.PerformClick();
+                    return;
+                }
+                else
+                {
+                    this.lastselect_datetime = this.calendar.SelectionStart;
+                    this.lastclick_time = DateTime.Now;
+                    return;
+                }
+            }
+            else
+            {
+                this.lastselect_datetime = this.calendar.SelectionStart;
+                this.lastclick_time = DateTime.Now;
+                return;
+            }
         }
     }
 }

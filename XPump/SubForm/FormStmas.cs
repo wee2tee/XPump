@@ -118,7 +118,7 @@ namespace XPump.SubForm
             {
                 try
                 {
-                    return db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("tanksetup").Where(s => s.id == stmas_id).FirstOrDefault();
+                    return db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").Where(s => s.id == stmas_id).FirstOrDefault();
                 }
                 catch (Exception ex)
                 {
@@ -293,7 +293,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                this.curr_stmas = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("tanksetup").OrderBy(s => s.name).FirstOrDefault();
+                this.curr_stmas = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").OrderBy(s => s.name).FirstOrDefault();
                 this.FillForm();
             }
         }
@@ -302,7 +302,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("tanksetup").Where(s => s.name.CompareTo(this.curr_stmas.name) < 0).OrderByDescending(s => s.name).FirstOrDefault();
+                stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").Where(s => s.name.CompareTo(this.curr_stmas.name) < 0).OrderByDescending(s => s.name).FirstOrDefault();
 
                 if (tmp == null)
                     return;
@@ -316,7 +316,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("tanksetup").Where(s => s.name.CompareTo(this.curr_stmas.name) > 0).OrderBy(s => s.name).FirstOrDefault();
+                stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").Where(s => s.name.CompareTo(this.curr_stmas.name) > 0).OrderBy(s => s.name).FirstOrDefault();
 
                 if (tmp == null)
                     return;
@@ -330,7 +330,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("tanksetup").OrderByDescending(s => s.name).FirstOrDefault();
+                stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").OrderByDescending(s => s.name).FirstOrDefault();
 
                 if(tmp != null)
                 {
@@ -358,7 +358,7 @@ namespace XPump.SubForm
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
-                    stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("tanksetup").Where(s => s.name.CompareTo(search.keyword) > -1).OrderBy(s => s.name).FirstOrDefault();
+                    stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").Where(s => s.name.CompareTo(search.keyword) > -1).OrderBy(s => s.name).FirstOrDefault();
 
                     if(tmp == null)
                     {

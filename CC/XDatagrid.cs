@@ -113,17 +113,22 @@ namespace CC
             this.AttachEventHandler();
         }
 
-        protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
+        protected override void OnLeave(EventArgs e)
         {
-            base.OnDataBindingComplete(e);
-            
-            //DataGridViewRow row = new DataGridViewRow();
-            //foreach (DataGridViewColumn col in this.Columns)
-            //{
-            //    row.Cells[col.Index].Value = null;
-            //}
+            base.OnLeave(e);
+            if (this.row_border_redline)
+            {
+                this.Refresh();
+            }
+        }
 
-            //this.Rows.Add(row);
+        protected override void OnGotFocus(EventArgs e)
+        {
+            base.OnGotFocus(e);
+            if (this.row_border_redline)
+            {
+                this.Refresh();
+            }
         }
 
         private void ResetColor()
@@ -146,10 +151,8 @@ namespace CC
 
         private void AttachEventHandler()
         {
-            //if (this.row_border_redline)
-            //{
-                this.Paint += new PaintEventHandler(this.DgvPainted);
-            //}
+            this.Paint += new PaintEventHandler(this.DgvPainted);
+
             if (this.allow_sort_by_column_header_clicked)
             {
                 this.CellPainting += new DataGridViewCellPaintingEventHandler(this.DrawColumnHeaderSortSign);
@@ -209,6 +212,9 @@ namespace CC
                 return;
 
             if (this.CurrentCell == null)
+                return;
+
+            if (!this.Focused)
                 return;
 
             Rectangle rect = this.GetRowDisplayRectangle(this.CurrentCell.RowIndex, true);

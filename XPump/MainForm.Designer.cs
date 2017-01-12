@@ -38,7 +38,6 @@
             this.MnuShift = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuTank = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuNozzle = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuTankSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -96,9 +95,8 @@
             // 
             this.ToolStripSetup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuShift,
-            this.MnuTank,
             this.MnuNozzle,
-            this.mnuTankSetup});
+            this.MnuTank});
             this.ToolStripSetup.Name = "ToolStripSetup";
             this.ToolStripSetup.Size = new System.Drawing.Size(66, 20);
             this.ToolStripSetup.Text = "เริ่มระบบ";
@@ -106,30 +104,23 @@
             // MnuShift
             // 
             this.MnuShift.Name = "MnuShift";
-            this.MnuShift.Size = new System.Drawing.Size(222, 22);
+            this.MnuShift.Size = new System.Drawing.Size(195, 22);
             this.MnuShift.Text = "กำหนดผลัดพนักงาน";
             this.MnuShift.Click += new System.EventHandler(this.MnuShift_Click);
             // 
             // MnuTank
             // 
             this.MnuTank.Name = "MnuTank";
-            this.MnuTank.Size = new System.Drawing.Size(222, 22);
+            this.MnuTank.Size = new System.Drawing.Size(195, 22);
             this.MnuTank.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
             this.MnuTank.Click += new System.EventHandler(this.MnuTank_Click);
             // 
             // MnuNozzle
             // 
             this.MnuNozzle.Name = "MnuNozzle";
-            this.MnuNozzle.Size = new System.Drawing.Size(222, 22);
+            this.MnuNozzle.Size = new System.Drawing.Size(195, 22);
             this.MnuNozzle.Text = "กำหนดหัวจ่ายน้ำมัน";
             this.MnuNozzle.Click += new System.EventHandler(this.MnuNozzle_Click);
-            // 
-            // mnuTankSetup
-            // 
-            this.mnuTankSetup.Name = "mnuTankSetup";
-            this.mnuTankSetup.Size = new System.Drawing.Size(222, 22);
-            this.mnuTankSetup.Text = "ตั้งค่าแท๊งค์และหัวจ่ายน้ำมัน";
-            this.mnuTankSetup.Click += new System.EventHandler(this.mnuTankSetup_Click);
             // 
             // statusStrip1
             // 
@@ -175,7 +166,6 @@
         private System.Windows.Forms.ToolStripMenuItem MnuTank;
         private System.Windows.Forms.ToolStripMenuItem MnuNozzle;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripMenuItem mnuTankSetup;
     }
 }
 

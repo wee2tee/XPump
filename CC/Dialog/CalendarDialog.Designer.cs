@@ -42,6 +42,7 @@
             this.calendar.Name = "calendar";
             this.calendar.TabIndex = 0;
             this.calendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.calendar_DateChanged);
+            this.calendar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.calendar_MouseDown);
             // 
             // btnCancel
             // 

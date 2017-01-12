@@ -18,7 +18,6 @@ namespace XPump.Model
         public nozzle()
         {
             this.saleshistory = new HashSet<saleshistory>();
-            this.tanksetup = new HashSet<tanksetup>();
         }
     
         public int id { get; set; }
@@ -26,10 +25,10 @@ namespace XPump.Model
         public string description { get; set; }
         public string remark { get; set; }
         public bool isactive { get; set; }
+        public int section_id { get; set; }
     
+        public virtual section section { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<saleshistory> saleshistory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tanksetup> tanksetup { get; set; }
     }
 }

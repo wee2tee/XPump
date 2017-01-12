@@ -126,6 +126,35 @@ namespace XPump.Misc
             return t;
         }
 
+        public static sectionVM ToViewModel(this section section)
+        {
+            if (section == null)
+                return null;
+
+            sectionVM s = new sectionVM
+            {
+                id = section.id,
+                name = section.name,
+                capacity = section.capacity,
+                tank_id = section.tank_id,
+                stmas_id = section.stmas_id,
+                section = section
+            };
+
+            return s;
+        }
+
+        public static List<sectionVM> ToViewModel(this IEnumerable<section> section_list)
+        {
+            List<sectionVM> s = new List<sectionVM>();
+            foreach (var item in section_list)
+            {
+                s.Add(item.ToViewModel());
+            }
+
+            return s;
+        }
+
         public static nozzleVM ToViewModel(this nozzle nozzle)
         {
             if (nozzle == null)
@@ -195,6 +224,14 @@ namespace XPump.Misc
                 {
                     ((ToolStripSplitButton)comp).Enabled = true; return;
                 }
+                if(comp is ToolStripDropDownButton)
+                {
+                    ((ToolStripDropDownButton)comp).Enabled = true; return;
+                }
+                if(comp is ToolStripMenuItem)
+                {
+                    ((ToolStripMenuItem)comp).Enabled = true; return;
+                }
                 if (comp is DataGridView)
                 {
                     ((DataGridView)comp).Enabled = true; return;
@@ -207,6 +244,10 @@ namespace XPump.Misc
                 {
                     ((XDropdownList)comp)._ReadOnly = false; return;
                 }
+                if(comp is XDatePicker)
+                {
+                    ((XDatePicker)comp)._ReadOnly = false; return;
+                }
             }
             else
             {
@@ -217,6 +258,14 @@ namespace XPump.Misc
                 if (comp is ToolStripSplitButton)
                 {
                     ((ToolStripSplitButton)comp).Enabled = false; return;
+                }
+                if (comp is ToolStripDropDownButton)
+                {
+                    ((ToolStripDropDownButton)comp).Enabled = false; return;
+                }
+                if (comp is ToolStripMenuItem)
+                {
+                    ((ToolStripMenuItem)comp).Enabled = false; return;
                 }
                 if (comp is DataGridView)
                 {
@@ -229,6 +278,10 @@ namespace XPump.Misc
                 if (comp is XDropdownList)
                 {
                     ((XDropdownList)comp)._ReadOnly = true; return;
+                }
+                if (comp is XDatePicker)
+                {
+                    ((XDatePicker)comp)._ReadOnly = true; return;
                 }
             }
         }

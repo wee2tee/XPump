@@ -44,23 +44,23 @@ namespace XPump
 
         private void MnuTank_Click(object sender, EventArgs e)
         {
-            //if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTank_Old)).FirstOrDefault() != null)
+            //if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTank)).FirstOrDefault() != null)
             //{
-            //    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTank_Old)).First().form.Activate();
+            //    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTank)).First().form.Activate();
             //    return;
             //}
 
-            //FormTank_Old tank = new FormTank_Old(this);
+            //FormTank tank = new FormTank(this);
             //tank.MdiParent = this;
             //tank.Show();
             //this.opened_child_form.Add(new ChildFormDetail() { form = tank, docPrefix = string.Empty });
-            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTank)).FirstOrDefault() != null)
+            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankSetup)).FirstOrDefault() != null)
             {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTank)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankSetup)).First().form.Activate();
                 return;
             }
 
-            FormTank tank = new FormTank(this);
+            FormTankSetup tank = new FormTankSetup(this);
             tank.MdiParent = this;
             tank.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = tank, docPrefix = string.Empty });
@@ -78,11 +78,6 @@ namespace XPump
             nozzle.MdiParent = this;
             nozzle.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = nozzle, docPrefix = string.Empty });
-        }
-
-        private void mnuTankSetup_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void MnuStmas_Click(object sender, EventArgs e)

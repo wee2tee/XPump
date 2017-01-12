@@ -119,9 +119,6 @@
     <Compile Include="Model\tank.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\tanksetup.cs">
-      <DependentUpon>XPumpModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\ViewModel.cs" />
     <Compile Include="Model\XPumpModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -176,23 +173,17 @@
     <Compile Include="SubForm\FormStmas.Designer.cs">
       <DependentUpon>FormStmas.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForm\FormTank.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\FormTank.Designer.cs">
-      <DependentUpon>FormTank.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SubForm\FormTank_Old.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\FormTank_Old.Designer.cs">
-      <DependentUpon>FormTank_Old.cs</DependentUpon>
-    </Compile>
     <Compile Include="SubForm\FormTankSetup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SubForm\FormTankSetup.Designer.cs">
       <DependentUpon>FormTankSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormTank.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormTank.Designer.cs">
+      <DependentUpon>FormTank.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -225,14 +216,11 @@
     <EmbeddedResource Include="SubForm\FormStmas.resx">
       <DependentUpon>FormStmas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\FormTank.resx">
-      <DependentUpon>FormTank.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\FormTank_Old.resx">
-      <DependentUpon>FormTank_Old.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormTankSetup.resx">
       <DependentUpon>FormTankSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormTank.resx">
+      <DependentUpon>FormTank.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="Model\XPumpModel.edmx">
@@ -301,6 +289,16 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_16x16.png" />
+    <None Include="Resources\trash_16x16.png" />
+    <None Include="Resources\stop_16x16.png" />
+    <None Include="Resources\save_16x16.png" />
+    <None Include="Resources\reload_16x16.png" />
+    <None Include="Resources\plus_16x16.png" />
+    <None Include="Resources\edit_16x16.png" />
+    <None Include="Resources\delete_16x16.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model\XPumpModel.Context.tt">

@@ -23,6 +23,15 @@ namespace CC
             set
             {
                 this.selected_date = value;
+                if (this.selected_date.HasValue)
+                    this.txtDate.Text = this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat);
+
+                this._SelectedDate_Changed(this, new EventArgs());
+
+                if (this.is_read_only)
+                {
+                    this.Refresh();
+                }
             }
         }
 
@@ -43,7 +52,13 @@ namespace CC
             }
             set
             {
+                string str_date = this.selected_date.HasValue ? this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat) : "  /  /    ";
+                this.txtDate.Text = str_date;
                 this.is_read_only = value;
+                this.btnShowCalendar.Enabled = !value;
+                this.txtDate.Visible = !value;
+
+                this.Refresh();
             }
         }
 
@@ -58,6 +73,23 @@ namespace CC
         {
             base.OnCreateControl();
             this.BackColor = Color.White;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (this.is_read_only)
+            {
+                this.BackColor = Color.White;
+                this.txtDate.BackColor = Color.White;
+            }
+
+            base.OnPaint(e);
+            if (this.is_read_only)
+            {
+                string str_date = this.selected_date.HasValue ? this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat) : "  /  /    ";
+
+                TextRenderer.DrawText(e.Graphics, str_date, this.txtDate.Font, new Point(0, 2), this.txtDate.ForeColor);
+            }
         }
 
         private void btnShowCalendar_Click(object sender, EventArgs e)
@@ -75,8 +107,6 @@ namespace CC
                 };
                 this.calendar.Show();
             }
-
-            Console.WriteLine(" .. >> is_calendar_shown = " + this._IsCalendarShown);
         }
 
         public void ShowCalendar()
@@ -116,11 +146,11 @@ namespace CC
             DateTime d;
             if(DateTime.TryParse(this.txtDate.Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out d))
             {
-                this.selected_date = d;
+                this._SelectedDate = d;
             }
             else
             {
-                this.selected_date = null;
+                this._SelectedDate = null;
             }
         }
 
@@ -133,6 +163,13 @@ namespace CC
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        public event EventHandler _SelectedDateChanged;
+        protected void _SelectedDate_Changed(object sender, EventArgs e)
+        {
+            if (this._SelectedDateChanged != null)
+                this._SelectedDateChanged(this, e);
         }
     }
 }
