@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -26,6 +27,12 @@ namespace XPump
             {
                 db.stmas.ToList();
             }
+
+            //Console.WriteLine(" .. >>>>>> 321.456 {0:#,##0.00}" + string.Format("{0:#,##0.00} ", 321.456));
+            //Console.WriteLine(" .. >>>>>> 654321.456 {0:#,##0.00}" + string.Format("{0:#,##0.00} ", 654321.456));
+            //Console.WriteLine(" .. >>>>>> 7654321.456 {0:#,##0.00}" + string.Format("{0:#,##0.00} ", 7654321.456));
+            //Console.WriteLine(" .. -----------------------------..");
+            //Console.WriteLine(" .. >>>>>> 9987654321.456 {0:#,#0.00}" + string.Format(CultureInfo.CurrentCulture,"{0:#,#0} ", 9987654321.656));
         }
 
         private void MnuShift_Click(object sender, EventArgs e)

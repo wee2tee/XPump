@@ -44,6 +44,8 @@ namespace CC
         private Object list_object;
         public string FieldNameTextBoxShow;
 
+        public event EventHandler ButtonClick;
+
         public XBrowseBox()
         {
             InitializeComponent();
@@ -112,17 +114,27 @@ namespace CC
             this._readonly = ((TextBox)sender).ReadOnly;
         }
 
-        private void _btnBrowse_Click(object sender, EventArgs e)
+        protected void _btnBrowse_Click(object sender, EventArgs e)
         {
-            ListDialog ld = new ListDialog(this.ParentForm, this, this.list_dialog_title, this.list_object);
-            if(ld.ShowDialog() == DialogResult.OK)
+            if(this.ButtonClick != null)
             {
-                var shown_text = ld.selected_row.Cells[this.FieldNameTextBoxShow].Value;
-                this._textBox.Text = shown_text.ToString();
-                this._textBox.SelectionStart = this._textBox.Text.Length;
+                this.ButtonClick(this, e);
             }
-            
-            this._textBox.Focus();
+            else
+            {
+                if (this.list_object != null)
+                {
+                    ListDialog ld = new ListDialog(this.ParentForm, this, this.list_dialog_title, this.list_object);
+                    if (ld.ShowDialog() == DialogResult.OK)
+                    {
+                        var shown_text = ld.selected_row.Cells[this.FieldNameTextBoxShow].Value;
+                        this._textBox.Text = shown_text.ToString();
+                        this._textBox.SelectionStart = this._textBox.Text.Length;
+                    }
+
+                    this._textBox.Focus();
+                }
+            }
         }
 
         private void _btnBrowse_Enter(object sender, EventArgs e)

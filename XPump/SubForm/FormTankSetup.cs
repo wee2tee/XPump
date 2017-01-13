@@ -22,7 +22,11 @@ namespace XPump.SubForm
         private nozzle temp_nozzle;
         private BindingSource bs_section;
         private BindingSource bs_nozzle;
-        private XTextBox inline_name;
+        private XTextBox inline_section_name;
+        private XTextBox inline_section_stkcod;
+
+        private XTextBox inline_nozzle_name;
+        private XTextBox inline_nozzle_desc;
 
         public FormTankSetup()
         {
@@ -52,7 +56,6 @@ namespace XPump.SubForm
             this.BindingCustomControlEventHandler();
 
             this.btnLast.PerformClick();
-            
         }
 
         private void BindingCustomControlEventHandler()

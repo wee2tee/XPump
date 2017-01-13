@@ -49,6 +49,7 @@
             this.txtDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDate.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtDate.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
             this.txtDate.Location = new System.Drawing.Point(3, 3);
             this.txtDate.Mask = "00/00/0000";
             this.txtDate.Name = "txtDate";
