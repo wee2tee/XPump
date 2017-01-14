@@ -12,16 +12,16 @@ namespace CC
 {
     public partial class XNumEdit : XTextEdit
     {
-        private int total_digit;
-        public int _TotalDigit
+        private int maximum_value;
+        public int _MaximumValue
         {
             get
             {
-                return this.total_digit;
+                return this.maximum_value;
             }
             set
             {
-                this.total_digit = value;
+                this.maximum_value = value;
             }
         }
 
@@ -67,6 +67,8 @@ namespace CC
         //    }
         //}
 
+        private string num_format = "{0:#,#0}";
+
         private decimal edit_value = 0m;
         public decimal _Value
         {
@@ -80,8 +82,8 @@ namespace CC
             }
         }
 
-        //private int last_caret_position_from_right = 0;
-        private int last_caret_position = 0;
+        private int last_caret_position_from_right = 0;
+        //private int last_char_count = 0;
 
         public XNumEdit()
         {
@@ -90,17 +92,42 @@ namespace CC
 
         protected override void OnPaint(PaintEventArgs pe)
         {
-            this.textBox1.Text = string.Format(CultureInfo.CurrentCulture, "{0:#0.00}", this.edit_value);
+            num_format = "{0:#,#0";
+            if(this.decimal_digit > 0)
+            {
+                num_format += ".";
+                for (int i = 0; i < this.decimal_digit; i++)
+                {
+                    num_format += "0";
+                }
+                num_format += "}";
+            }
+            else
+            {
+                num_format += "}";
+            }
+
+            this.textBox1.Text = string.Format(CultureInfo.CurrentCulture, this.num_format, this.edit_value);
 
             base.OnPaint(pe);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            string textbox_str = ((TextBox)sender).Text;
+            if(this.decimal_digit > 0) // validate decimal digit
+            {
+                if (textbox_str.Contains("."))
+                {
+                    if(textbox_str.Split('.')[1].Length > this.decimal_digit)
+                    {
+                        textbox_str = textbox_str.Split('.')[0] + "." + textbox_str.Split('.')[1].Substring(0, this.decimal_digit);
+                    }
+                }
+            }
 
             decimal result;
-
-            if(decimal.TryParse(((TextBox)sender).Text.Replace(",", ""), out result))
+            if(decimal.TryParse(textbox_str.Replace(",", ""), out result))
             {
                 this.edit_value = result;
             }
@@ -108,29 +135,38 @@ namespace CC
             {
                 this.edit_value = 0m;
             }
-            
-            ((TextBox)sender).Text = string.Format(CultureInfo.CurrentCulture, "{0:#0.00}", this.edit_value);
 
+            ((TextBox)sender).Text = string.Format(CultureInfo.CurrentCulture, this.num_format, this.edit_value);
             
-            //int pos_count = 0;
-            //for (int i = 0; i < ((TextBox)sender).Text.ToCharArray().Count(); i++)
-            //{
-            //    if(((TextBox)sender).Text.ToCharArray()[i].ToString() == ",")
-            //    {
-            //        continue;
-            //    }
-            //    pos_count++;
-            //    if(pos_count == this.last_caret_position)
-            //    {
-            //        ((TextBox)sender).SelectionStart = i + 1;
-            //        return;
-            //    }
-            //}
+            // move the caret to target position
+            if(this.decimal_digit > 0) // if decimal digit is used
+            {
+                if (this.last_caret_position_from_right <= this.decimal_digit) // last position after decimal
+                {
+                    if (((TextBox)sender).Text.Length > ((TextBox)sender).Text.Length - this.last_caret_position_from_right)
+                    {
+                        ((TextBox)sender).SelectionStart = (((TextBox)sender).Text.Length - this.last_caret_position_from_right) + 1;
+                    }
+                    else
+                    {
+                        ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
+                    }
+                }
+                else // last position before decimal
+                {
+
+                }
+            }
+            else // if decimal digit is unused
+            {
+
+            }
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            //this.last_caret_position = ((TextBox)sender).Text.Substring(0, ((TextBox)sender).SelectionStart).Replace(",", "").ToCharArray().Count();
+            this.last_caret_position_from_right = ((TextBox)sender).Text.Length - ((TextBox)sender).SelectionStart;
+            
 
             List<Keys> allow_keys;
 
@@ -163,6 +199,8 @@ namespace CC
                     Keys.Right,
                     Keys.Up,
                     Keys.Down,
+                    Keys.Shift,
+                    Keys.Control,
                     Keys.Insert,
                     Keys.Delete,
                     Keys.Enter,
@@ -201,6 +239,8 @@ namespace CC
                     Keys.Right,
                     Keys.Up,
                     Keys.Down,
+                    Keys.Shift,
+                    Keys.Control,
                     Keys.Insert,
                     Keys.Delete,
                     Keys.Enter,
@@ -255,13 +295,6 @@ namespace CC
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
             Console.WriteLine(".. >>> KeyUp");
-
-
-
-            //decimal result = this.edit_value;
-            //decimal.TryParse(((TextBox)sender).Text.Replace(",", ""), out result);
-
-            //((TextBox)sender).Text = string.Format(CultureInfo.CurrentCulture, "{0:#,##0.00}", result);
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

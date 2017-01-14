@@ -444,24 +444,24 @@
             // 
             // xNumEdit1
             // 
-            this.xNumEdit1._DecimalDigit = 3;
+            this.xNumEdit1._DecimalDigit = 0;
             this.xNumEdit1._MaxLength = 32767;
             this.xNumEdit1._ReadOnly = false;
-            this.xNumEdit1._Text = "123.45";
-            this.xNumEdit1._TotalDigit = 10;
+            this.xNumEdit1._Text = "123";
+            this.xNumEdit1._MaximumValue = 10;
             this.xNumEdit1._UseThoundsandSeparate = false;
             this.xNumEdit1._Value = new decimal(new int[] {
-            12345,
+            123,
             0,
             0,
-            131072});
+            0});
             this.xNumEdit1.BackColor = System.Drawing.Color.White;
             this.xNumEdit1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.xNumEdit1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.xNumEdit1.Location = new System.Drawing.Point(617, 164);
             this.xNumEdit1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.xNumEdit1.Name = "xNumEdit1";
-            this.xNumEdit1.Size = new System.Drawing.Size(90, 23);
+            this.xNumEdit1.Size = new System.Drawing.Size(184, 23);
             this.xNumEdit1.TabIndex = 18;
             // 
             // dtEndDate
