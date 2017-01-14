@@ -36,8 +36,8 @@
             this.MnuPrice = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuShift = new System.Windows.Forms.ToolStripMenuItem();
-            this.MnuTank = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuNozzle = new System.Windows.Forms.ToolStripMenuItem();
+            this.MnuTank = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +51,7 @@
             this.ToolStripSetup});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(876, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1012, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -108,13 +108,6 @@
             this.MnuShift.Text = "กำหนดผลัดพนักงาน";
             this.MnuShift.Click += new System.EventHandler(this.MnuShift_Click);
             // 
-            // MnuTank
-            // 
-            this.MnuTank.Name = "MnuTank";
-            this.MnuTank.Size = new System.Drawing.Size(195, 22);
-            this.MnuTank.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
-            this.MnuTank.Click += new System.EventHandler(this.MnuTank_Click);
-            // 
             // MnuNozzle
             // 
             this.MnuNozzle.Name = "MnuNozzle";
@@ -122,11 +115,18 @@
             this.MnuNozzle.Text = "กำหนดหัวจ่ายน้ำมัน";
             this.MnuNozzle.Click += new System.EventHandler(this.MnuNozzle_Click);
             // 
+            // MnuTank
+            // 
+            this.MnuTank.Name = "MnuTank";
+            this.MnuTank.Size = new System.Drawing.Size(195, 22);
+            this.MnuTank.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
+            this.MnuTank.Click += new System.EventHandler(this.MnuTank_Click);
+            // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 556);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 645);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(876, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1012, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -134,7 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(876, 578);
+            this.ClientSize = new System.Drawing.Size(1012, 667);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
