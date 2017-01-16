@@ -417,7 +417,7 @@ namespace XPump.SubForm
         private void button1_Click(object sender, EventArgs e)
         {
             this.xNumEdit1._ReadOnly = !this.xNumEdit1._ReadOnly;
-            MessageBox.Show(this.xNumEdit1._Value.ToString());
+            //MessageBox.Show(this.xNumEdit1._Value.ToString());
         }
     }
 }

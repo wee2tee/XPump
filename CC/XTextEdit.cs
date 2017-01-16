@@ -37,6 +37,19 @@ namespace CC
             }
         }
 
+        private HorizontalAlignment text_align = HorizontalAlignment.Left;
+        public HorizontalAlignment _TextAlign
+        {
+            get
+            {
+                return this.textBox1.TextAlign;
+            }
+            set
+            {
+                this.textBox1.TextAlign = value;
+            }
+        }
+
         public int _MaxLength
         {
             get
@@ -85,7 +98,21 @@ namespace CC
             base.OnPaint(e);
             if (this.read_only)
             {
-                TextRenderer.DrawText(e.Graphics, this.text, this.textBox1.Font, new Point(0, 3), this.textBox1.ForeColor);
+                TextFormatFlags flag;
+                if (this._TextAlign == HorizontalAlignment.Right)
+                {
+                    flag = TextFormatFlags.VerticalCenter | TextFormatFlags.Right | TextFormatFlags.NoClipping;
+                }
+                else if (this._TextAlign == HorizontalAlignment.Center)
+                {
+                    flag = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.NoClipping;
+                }
+                else
+                {
+                    flag = TextFormatFlags.VerticalCenter | TextFormatFlags.Left | TextFormatFlags.NoClipping;
+                }
+
+                TextRenderer.DrawText(e.Graphics, this.text, this.textBox1.Font, e.ClipRectangle, this.textBox1.ForeColor, flag);
             }
         }
 
