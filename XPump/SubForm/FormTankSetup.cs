@@ -19,14 +19,14 @@ namespace XPump.SubForm
         private tank curr_tank;
         private tank temp_tank;
         private section temp_section;
-        private nozzle temp_nozzle;
+        //private nozzle temp_nozzle;
         private BindingSource bs_section;
-        private BindingSource bs_nozzle;
-        private XTextBox inline_section_name;
-        private XTextBox inline_section_stkcod;
 
-        private XTextBox inline_nozzle_name;
-        private XTextBox inline_nozzle_desc;
+        private XTextBox inline_name;
+        private XBrowseBox inline_stkcod;
+        private XNumEdit inline_capacity;
+        private XBrowseBox inline_nozzle;
+
 
         public FormTankSetup()
         {
@@ -50,8 +50,6 @@ namespace XPump.SubForm
 
             this.bs_section = new BindingSource();
             this.dgvSection.DataSource = this.bs_section;
-            this.bs_nozzle = new BindingSource();
-            this.dgvNozzle.DataSource = this.bs_nozzle;
 
             this.BindingCustomControlEventHandler();
 
@@ -113,8 +111,6 @@ namespace XPump.SubForm
             this.btnInquiryAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryRest.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnItemF7.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnItemF8.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             /* Form control */
@@ -171,7 +167,48 @@ namespace XPump.SubForm
             this.ddIsactive._SelectedItem = this.ddIsactive._Items.Cast<XDropdownListItem>().Where(i => (bool)i.Value == tank.isactive).First();
 
             this.bs_section.ResetBindings(true);
-            this.bs_section.DataSource = tank.section.ToList().ToViewModel();
+            var sections = tank.section.ToList().ToViewModel();
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    sections.Add(new section
+            //    {
+            //        id = -1,
+            //        name = string.Empty,
+            //        capacity = 0m,
+            //        stmas_id = 0,
+            //        tank_id = 0
+            //    }.ToViewModel());
+            //}
+
+            this.bs_section.DataSource = sections;
+        }
+
+        private void ShowInlineForm(int row_index)
+        {
+            Rectangle row_rect = this.dgvSection.GetRowDisplayRectangle(row_index, true);
+            using (Graphics g = this.dgvSection.CreateGraphics())
+            {
+                using (Pen p = new Pen(Color.Red))
+                {
+                    g.DrawLine(p, row_rect.X, row_rect.Y, row_rect.X + row_rect.Width, row_rect.Y);
+                }
+            }
+
+            int col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_name.DataPropertyName).First().Index;
+
+            this.inline_name = this.dgvSection.Rows[row_index].Cells[col_index].CreateXTextBoxEdit(this.temp_section, "name");
+            this.inline_name.SetInlineControlPosition(this.dgvSection, row_index, col_index);
+            this.dgvSection.Parent.Controls.Add(this.inline_name);
+
+            this.dgvSection.SendToBack();
+            this.inline_name.BringToFront();
+
+            this.inline_stkcod = new XBrowseBox();
+
+            this.inline_capacity = new XNumEdit();
+
+            this.inline_nozzle = new XBrowseBox();
+
         }
 
         private void PerformEdit(object sender, EventArgs e)
@@ -185,22 +222,6 @@ namespace XPump.SubForm
             }
 
             ((Control)sender).Focus();
-        }
-
-        private void dgvSection_SelectionChanged(object sender, EventArgs e)
-        {
-            this.dgvNozzle.Rows.Clear();
-
-            if (((XDatagrid)sender).CurrentCell == null)
-                return;
-
-            int section_id = (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells["col_section_id"].Value;
-
-            using (xpumpEntities db = DBX.DataSet())
-            {
-                this.bs_nozzle.ResetBindings(true);
-                this.bs_nozzle.DataSource = db.nozzle.Where(n => n.section_id == section_id).ToList().ToViewModel();
-            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -378,16 +399,9 @@ namespace XPump.SubForm
 
         }
 
-        private void btnItemF8_Click(object sender, EventArgs e)
+        private void btnItem_Click(object sender, EventArgs e)
         {
             this.dgvSection.Focus();
-            this.form_mode = FORM_MODE.READ_ITEM;
-            this.ResetControlState();
-        }
-
-        private void btnItemF7_Click(object sender, EventArgs e)
-        {
-            this.dgvNozzle.Focus();
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
         }
@@ -399,25 +413,57 @@ namespace XPump.SubForm
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if(keyData == Keys.F7)
-            {
-                this.btnItemF7.PerformClick();
-                return true;
-            }
-
             if(keyData == Keys.F8)
             {
-                this.btnItemF8.PerformClick();
+                this.btnItem.PerformClick();
                 return true;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void dgvSection_Paint(object sender, PaintEventArgs e)
         {
-            this.xNumEdit1._ReadOnly = !this.xNumEdit1._ReadOnly;
-            //MessageBox.Show(this.xNumEdit1._Value.ToString());
+            //Rectangle rect = ((XDatagrid)sender).GetCellDisplayRectangle(1, this.curr_tank.section.Count, true);
+            //this.inline_btn_add_section = new Button();
+            //this.inline_btn_add_section.Text = "<< Add new >>";
+            //this.inline_btn_add_section.SetBounds(rect.X, rect.Y, rect.Width, rect.Height);
+            //((XDatagrid)sender).Parent.Controls.Add(this.inline_btn_add_section);
+            //this.inline_btn_add_section.BringToFront();
+        }
+
+        private void dgvSection_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+                int col_index = ((XDatagrid)sender).HitTest(e.X, e.Y).ColumnIndex;
+
+                if(row_index > -1)
+                {
+                    Console.WriteLine(" ... >>> data row");
+                }
+                else
+                {
+                    Console.WriteLine(" ... >>> not a data row");
+                }
+
+            }
+        }
+
+        private void btnAddSection_Click(object sender, EventArgs e)
+        {
+            this.temp_section = new section
+            {
+                id = -1,
+                name = string.Empty,
+                capacity = 0m,
+                stmas_id = 0,
+                tank_id = 0
+            };
+            this.curr_tank.section.Add(this.temp_section);
+            this.FillForm();
+            this.ShowInlineForm(0);
         }
     }
 }

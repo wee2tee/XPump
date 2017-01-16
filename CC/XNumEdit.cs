@@ -12,8 +12,8 @@ namespace CC
 {
     public partial class XNumEdit : XTextEdit
     {
-        private int maximum_value;
-        public int _MaximumValue
+        private decimal maximum_value = 999999999.9999m;
+        public decimal _MaximumValue
         {
             get
             {
@@ -25,7 +25,7 @@ namespace CC
             }
         }
 
-        private int decimal_digit;
+        private int decimal_digit = 2;
         public int _DecimalDigit
         {
             get
@@ -38,7 +38,7 @@ namespace CC
             }
         }
 
-        private bool use_thoundsand_separate;
+        private bool use_thoundsand_separate = true;
         public bool _UseThoundsandSeparate
         {
             get
@@ -51,6 +51,17 @@ namespace CC
             }
         }
 
+        public new int _MaxLength
+        {
+            get
+            {
+                return base._MaxLength;
+            }
+            set
+            {
+                return;
+            }
+        }
         //public new int _MaxLength
         //{
         //    get
@@ -67,7 +78,7 @@ namespace CC
         //    }
         //}
 
-        private string num_format = "{0:#,#0}";
+        private string num_format;
 
         private decimal edit_value = 0m;
         public decimal _Value
@@ -79,6 +90,7 @@ namespace CC
             set
             {
                 this.edit_value = value;
+                this.Refresh();
             }
         }
 
@@ -91,23 +103,25 @@ namespace CC
         public XNumEdit()
         {
             InitializeComponent();
+            base._MaxLength = 30;
+            this.num_format = this._UseThoundsandSeparate ? "{0:#,#0}" : "{0:0}";
         }
 
         protected override void OnPaint(PaintEventArgs pe)
         {
-            num_format = "{0:#,#0";
+            this.num_format = this._UseThoundsandSeparate ? "{0:#,#0" : "{0:0";
             if (this.decimal_digit > 0)
             {
-                num_format += ".";
+                this.num_format += ".";
                 for (int i = 0; i < this.decimal_digit; i++)
                 {
-                    num_format += "0";
+                    this.num_format += "0";
                 }
-                num_format += "}";
+                this.num_format += "}";
             }
             else
             {
-                num_format += "}";
+                this.num_format += "}";
             }
 
             this.textBox1.Text = string.Format(CultureInfo.CurrentCulture, this.num_format, this.edit_value);
@@ -220,7 +234,14 @@ namespace CC
                     Keys.Enter,
                     Keys.Back,
                     Keys.Home,
-                    Keys.End
+                    Keys.End,
+                    (Keys.Shift | Keys.Left),
+                    (Keys.Shift | Keys.Right),
+                    (Keys.Shift | Keys.Home),
+                    (Keys.Shift | Keys.End),
+                    (Keys.Control | Keys.C),
+                    (Keys.Control | Keys.V),
+                    (Keys.Control | Keys.X)
                 };
             }
             else
@@ -260,7 +281,14 @@ namespace CC
                     Keys.Enter,
                     Keys.Back,
                     Keys.Home,
-                    Keys.End
+                    Keys.End,
+                    (Keys.Shift | Keys.Left),
+                    (Keys.Shift | Keys.Right),
+                    (Keys.Shift | Keys.Home),
+                    (Keys.Shift | Keys.End),
+                    (Keys.Control | Keys.C),
+                    (Keys.Control | Keys.V),
+                    (Keys.Control | Keys.X)
                 };
             }
 
@@ -329,6 +357,11 @@ namespace CC
                 return true;
             }
 
+            if(keyData == (Keys.Control | Keys.C) || keyData == (Keys.Control | Keys.V) || keyData == (Keys.Control | Keys.X))
+            {
+                return false;
+            }
+
             if (keyData == Keys.Delete && !(this.textBox1.Text.Contains(".") && this.textBox1.SelectionStart == this.textBox1.Text.IndexOf(".") || this.textBox1.Text.Contains(".") && this.textBox1.SelectionStart == this.textBox1.Text.IndexOf(",")))
             {
                 this.addition_digit = 1;
@@ -339,16 +372,10 @@ namespace CC
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
-            Console.WriteLine(".. >>> KeyUp");
             this.addition_digit = 0;
             this.decimal_decrease_by_back = false;
             this.decimal_decrease_by_del = false;
         }
-
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Console.WriteLine(".. >>> KeyPress");
-            Console.WriteLine(".. >>> textbox text : " + ((TextBox)sender).Text);
-        }
+        
     }
 }

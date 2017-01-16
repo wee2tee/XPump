@@ -1,6 +1,6 @@
 ﻿namespace CC
 {
-    partial class XNumEdit
+    partial class XNumTextEdit
     {
         /// <summary>
         /// Required designer variable.
@@ -32,15 +32,13 @@
             // 
             // textBox1
             // 
-            this.textBox1.Size = new System.Drawing.Size(81, 16);
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
-            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
             // 
-            // XNumEdit
+            // XNumTextEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
-            this.Name = "XNumEdit";
+            this.Name = "XNumTextEdit";
             this.ResumeLayout(false);
             this.PerformLayout();
 

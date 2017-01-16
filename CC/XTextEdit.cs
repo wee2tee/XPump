@@ -21,6 +21,7 @@ namespace CC
             set
             {
                 this.textBox1.ReadOnly = value;
+                this.Refresh();
             }
         }
 

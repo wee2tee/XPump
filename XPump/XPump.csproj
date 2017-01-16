@@ -311,6 +311,12 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\stop_16.png" />
+    <None Include="Resources\save_16.png" />
+    <None Include="Resources\edit_16.png" />
+    <None Include="Resources\add_16.png" />
+    <None Include="Resources\Add Property-20.png" />
+    <None Include="Resources\add_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

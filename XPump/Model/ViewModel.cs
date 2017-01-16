@@ -56,6 +56,7 @@ namespace XPump.Model
                 }
             }
         }
+
         public string stkdes
         {
             get
@@ -63,6 +64,17 @@ namespace XPump.Model
                 using (xpumpEntities db = DBX.DataSet())
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
+                }
+            }
+        }
+
+        public int nozzlecount
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.nozzle.Where(n => n.section_id == this.id).Count();
                 }
             }
         }
