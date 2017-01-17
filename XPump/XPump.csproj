@@ -149,6 +149,12 @@
     <Compile Include="SubForm\DialogInquiryStmas.Designer.cs">
       <DependentUpon>DialogInquiryStmas.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogNozzle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogNozzle.Designer.cs">
+      <DependentUpon>DialogNozzle.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogSimpleSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogInquiryStmas.resx">
       <DependentUpon>DialogInquiryStmas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogNozzle.resx">
+      <DependentUpon>DialogNozzle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
@@ -311,6 +320,7 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\delete_16.png" />
     <None Include="Resources\stop_16.png" />
     <None Include="Resources\save_16.png" />
     <None Include="Resources\edit_16.png" />

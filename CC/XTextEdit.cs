@@ -72,6 +72,8 @@ namespace CC
             }
         }
 
+        public event EventHandler _TextChanged;
+
         public XTextEdit()
         {
             InitializeComponent();
@@ -168,6 +170,10 @@ namespace CC
             if (this.read_only)
             {
                 this.Refresh();
+            }
+            if(this._TextChanged != null)
+            {
+                this._TextChanged(this, e);
             }
         }
     }

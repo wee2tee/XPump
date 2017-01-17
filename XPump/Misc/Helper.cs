@@ -232,6 +232,10 @@ namespace XPump.Misc
                 {
                     ((ToolStripMenuItem)comp).Enabled = true; return;
                 }
+                if(comp is Button)
+                {
+                    ((Button)comp).Enabled = true; return;
+                }
                 if (comp is DataGridView)
                 {
                     ((DataGridView)comp).Enabled = true; return;
@@ -266,6 +270,10 @@ namespace XPump.Misc
                 if (comp is ToolStripMenuItem)
                 {
                     ((ToolStripMenuItem)comp).Enabled = false; return;
+                }
+                if (comp is Button)
+                {
+                    ((Button)comp).Enabled = false; return;
                 }
                 if (comp is DataGridView)
                 {
@@ -401,7 +409,7 @@ namespace XPump.Misc
             if(inline_control != null)
             {
                 Rectangle rect = dgv.GetCellDisplayRectangle(column_index, row_index, true);
-                inline_control.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 1);
+                inline_control.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 3);
             }
         }
     }

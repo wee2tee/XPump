@@ -40,6 +40,27 @@ namespace CC
             }
         }
 
+        public HorizontalAlignment _TextAlign
+        {
+            get
+            {
+                return this._textBox.TextAlign;
+            }
+            set
+            {
+                this._textBox.TextAlign = value;
+            }
+        }
+
+        private bool focused;
+        public bool _Focused
+        {
+            get
+            {
+                return this.focused;
+            }
+        }
+
         private string list_dialog_title;
         private Object list_object;
         public string FieldNameTextBoxShow;
@@ -49,7 +70,6 @@ namespace CC
         public XBrowseBox()
         {
             InitializeComponent();
-            this.list_object = new object();
         }
 
         /** Create browse box with list selection dialog
@@ -62,56 +82,94 @@ namespace CC
         {
             this.list_dialog_title = list_dialog_title;
             this.list_object = list_object;
+            //this.list_object = new object();
             this.FieldNameTextBoxShow = field_name_textbox_show;
-        }
-
-        private void XBrowseBox_Load(object sender, EventArgs e)
-        {
-            this.TabStop = true;
-            
         }
 
         protected override void OnCreateControl()
         {
-            //base.OnCreateControl();
-            //this.BackColor = Color.White;
-            //this.btn_width = this._btnBrowse.ClientSize.Width - 2;
-            //this.HideButton();
+            base.OnCreateControl();
+            this.Height = 23;
 
+            this.TabStop = true;
             this._textBox.GotFocus += delegate
             {
-                if (this._readonly)
+                if (this._ReadOnly)
                 {
                     this.BackColor = Color.White;
                     this._textBox.BackColor = Color.White;
+                    this.focused = false;
                 }
                 else
                 {
                     this.BackColor = AppResource.EditableControlBackColor;
                     this._textBox.BackColor = AppResource.EditableControlBackColor;
+                    this.focused = true;
                 }
             };
             this._textBox.Leave += delegate
             {
                 this.BackColor = Color.White;
                 this._textBox.BackColor = Color.White;
+                this.focused = false;
             };
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            if (this._ReadOnly)
+            {
+                TextFormatFlags flag;
+                if (this._TextAlign == HorizontalAlignment.Right)
+                {
+                    flag = TextFormatFlags.VerticalCenter | TextFormatFlags.Right | TextFormatFlags.NoClipping;
+                }
+                else if (this._TextAlign == HorizontalAlignment.Center)
+                {
+                    flag = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.NoClipping;
+                }
+                else
+                {
+                    flag = TextFormatFlags.VerticalCenter | TextFormatFlags.Left | TextFormatFlags.NoClipping;
+                }
+
+                TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, e.ClipRectangle, this._textBox.ForeColor, flag);
+            }
         }
 
         protected override void OnGotFocus(EventArgs e)
         {
             base.OnGotFocus(e);
-            this._textBox.Focus();
+            if (!this._ReadOnly)
+            {
+                this._textBox.Focus();
+            }
         }
 
         private void _textBox_TextChanged(object sender, EventArgs e)
         {
             this._text = ((TextBox)sender).Text;
+
+            if (this._ReadOnly)
+            {
+                this.Refresh();
+            }
         }
 
         private void _textBox_ReadOnlyChanged(object sender, EventArgs e)
         {
             this._readonly = ((TextBox)sender).ReadOnly;
+            this.TabStop = this._ReadOnly ? false : true;
+            ((TextBox)sender).Visible = ((TextBox)sender).ReadOnly ? false : true;
+
+            if (this._ReadOnly)
+            {
+                this.BackColor = Color.White;
+                this._textBox.BackColor = Color.White;
+            }
+
+            this.Refresh();
         }
 
         protected void _btnBrowse_Click(object sender, EventArgs e)

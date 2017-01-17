@@ -41,6 +41,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.Name = "XNumEdit";
+            this.Load += new System.EventHandler(this.XNumEdit_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

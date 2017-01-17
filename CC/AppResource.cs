@@ -8,6 +8,7 @@ namespace CC
 {
     public class AppResource
     {
-        public static Color EditableControlBackColor { get { return Color.FromArgb(146, 255, 86); } }
+        //public static Color EditableControlBackColor { get { return Color.FromArgb(146, 255, 86); } }
+        public static Color EditableControlBackColor { get { return Color.FromArgb(204, 254, 176); } }
     }
 }

@@ -62,21 +62,6 @@ namespace CC
                 return;
             }
         }
-        //public new int _MaxLength
-        //{
-        //    get
-        //    {
-        //        return this.total_digit;
-        //    }
-        //}
-
-        //public new string _Text
-        //{
-        //    get
-        //    {
-        //        return string.Format(CultureInfo.CurrentCulture, "{0:#,#0.00}", this.edit_value);
-        //    }
-        //}
 
         private string num_format;
 
@@ -89,20 +74,51 @@ namespace CC
             }
             set
             {
-                this.edit_value = value;
+                if(value > this._MaximumValue)
+                {
+                    this.edit_value = this._MaximumValue;
+                }
+                else
+                {
+                    this.edit_value = value;
+                }
+
+                this.text_before_changed = this.textBox1.Text;
+
+                if(this._ValueChanged != null)
+                {
+                    this._ValueChanged(this, new EventArgs());
+                }
+
                 this.Refresh();
             }
         }
+
+        public event EventHandler _ValueChanged;
 
         private int last_caret_position_from_right = 0;
         private int last_char_count = 0;
         private int addition_digit = 0; // addition digit when delete with delete button
         private bool decimal_decrease_by_del = false;
         private bool decimal_decrease_by_back = false;
+        private string text_before_changed = string.Empty;
 
         public XNumEdit()
         {
             InitializeComponent();
+        }
+
+        public XNumEdit(int decimal_digit, bool use_thoundsand_separator, decimal maximum_value, HorizontalAlignment text_alignment)
+            : this()
+        {
+            this._DecimalDigit = decimal_digit;
+            this._UseThoundsandSeparate = use_thoundsand_separate;
+            this._MaximumValue = maximum_value;
+            this._TextAlign = text_alignment;
+        }
+
+        private void XNumEdit_Load(object sender, EventArgs e)
+        {
             base._MaxLength = 30;
             this.num_format = this._UseThoundsandSeparate ? "{0:#,#0}" : "{0:0}";
         }
@@ -132,6 +148,28 @@ namespace CC
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             string textbox_str = ((TextBox)sender).Text;
+
+            if(textbox_str.Length == 1)
+            {
+                if (textbox_str == "." && this._DecimalDigit > 0)
+                {
+                    ((TextBox)sender).Text = string.Format(this.num_format, 0);
+                    this._Value = 0m;
+                    ((TextBox)sender).SelectionStart = 2;
+                    return;
+                }
+
+                decimal test_dec = 0m;
+                decimal.TryParse(textbox_str, out test_dec);
+                if (test_dec >= 0 && test_dec <= 9)
+                {
+                    ((TextBox)sender).Text = string.Format(this.num_format, test_dec);
+                    this._Value = test_dec;
+                    ((TextBox)sender).SelectionStart = 1;
+                    return;
+                }
+            }
+
             if (this.decimal_digit > 0) // validate decimal digit
             {
                 if (textbox_str.Contains("."))
@@ -146,14 +184,19 @@ namespace CC
             decimal result;
             if (decimal.TryParse(textbox_str.Replace(",", ""), out result))
             {
-                this.edit_value = result;
+                this._Value = result;
             }
             else
             {
-                this.edit_value = 0m;
+                this._Value = 0m;
             }
 
-            ((TextBox)sender).Text = string.Format(CultureInfo.CurrentCulture, this.num_format, this.edit_value);
+            if(result > this._MaximumValue)
+            {
+                ((TextBox)sender).Text = this.text_before_changed;
+            }
+
+            ((TextBox)sender).Text = string.Format(CultureInfo.CurrentCulture, this.num_format, this._Value);
 
             bool is_decrease_char_count = ((TextBox)sender).Text.Length < this.last_char_count ? true : false;
 
@@ -182,6 +225,14 @@ namespace CC
                     catch
                     {
                         ((TextBox)sender).SelectionStart = 0;
+                        //if (this._DecimalDigit > 0) // use decimal digit
+                        //{
+                        //    ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.IndexOf(".");
+                        //}
+                        //else
+                        //{
+                        //    ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
+                        //}
                     }
                 }
                 else
@@ -300,7 +351,7 @@ namespace CC
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Decimal)
+            if (keyData == Keys.Decimal && (this.textBox1.SelectionLength < this.textBox1.Text.Length))
             {
                 if (this.decimal_digit > 0) // if this instance allow to put a decimal digit
                 {
@@ -376,6 +427,5 @@ namespace CC
             this.decimal_decrease_by_back = false;
             this.decimal_decrease_by_del = false;
         }
-        
     }
 }
