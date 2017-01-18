@@ -54,6 +54,7 @@
             this.Name = "XTextEdit";
             this.Size = new System.Drawing.Size(90, 23);
             this.Load += new System.EventHandler(this.XTextEdit_Load);
+            this.Resize += new System.EventHandler(this.XTextEdit_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 

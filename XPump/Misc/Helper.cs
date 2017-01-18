@@ -242,15 +242,15 @@ namespace XPump.Misc
                 }
                 if (comp is XTextEdit)
                 {
-                    ((XTextEdit)comp)._ReadOnly = false; return;
+                    ((XTextEdit)comp)._ReadOnly = false; /*((XTextEdit)comp).Enabled = true;*/ return;
                 }
                 if(comp is XDropdownList)
                 {
-                    ((XDropdownList)comp)._ReadOnly = false; return;
+                    ((XDropdownList)comp)._ReadOnly = false; /*((XDropdownList)comp).Enabled = true;*/ return;
                 }
                 if(comp is XDatePicker)
                 {
-                    ((XDatePicker)comp)._ReadOnly = false; return;
+                    ((XDatePicker)comp)._ReadOnly = false; /*((XDatePicker)comp).Enabled = true;*/ return;
                 }
             }
             else
@@ -281,15 +281,15 @@ namespace XPump.Misc
                 }
                 if (comp is XTextEdit)
                 {
-                    ((XTextEdit)comp)._ReadOnly = true; return;
+                    ((XTextEdit)comp)._ReadOnly = true; /*((XTextEdit)comp).Enabled = false;*/ return;
                 }
                 if (comp is XDropdownList)
                 {
-                    ((XDropdownList)comp)._ReadOnly = true; return;
+                    ((XDropdownList)comp)._ReadOnly = true; /*((XDropdownList)comp).Enabled = false;*/ return;
                 }
                 if (comp is XDatePicker)
                 {
-                    ((XDatePicker)comp)._ReadOnly = true; return;
+                    ((XDatePicker)comp)._ReadOnly = true; /*((XDatePicker)comp).Enabled = false;*/ return;
                 }
             }
         }

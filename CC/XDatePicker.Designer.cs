@@ -41,6 +41,7 @@
             this.btnShowCalendar.Name = "btnShowCalendar";
             this.btnShowCalendar.Size = new System.Drawing.Size(24, 23);
             this.btnShowCalendar.TabIndex = 2;
+            this.btnShowCalendar.TabStop = false;
             this.btnShowCalendar.UseVisualStyleBackColor = true;
             this.btnShowCalendar.Click += new System.EventHandler(this.btnShowCalendar_Click);
             // 

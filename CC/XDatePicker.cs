@@ -24,7 +24,13 @@ namespace CC
             {
                 this.selected_date = value;
                 if (this.selected_date.HasValue)
+                {
                     this.txtDate.Text = this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat);
+                }
+                else
+                {
+                    this.txtDate.Text = "  /  /    ";
+                }
 
                 this._SelectedDate_Changed(this, new EventArgs());
 

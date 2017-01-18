@@ -17,11 +17,16 @@
   {
     "msgID": "0004",
     "message_th": "ค้นหาข้อมูลที่ต้องการลบไม่พบ, อาจมีผู้ใช้รายอื่นลบข้อมูลดังกล่าวไปแล้ว",
-    "message_en": "Data not found, maybe deleted by another user."
+    "message_en": "Data not found, maybe it was deleted by another user."
   },
   {
     "msgID": "0005",
     "message_th": "ค้นหาข้อมูลไม่พบ",
     "message_en": "Data not found."
+  },
+  {
+    "msgID": "0006",
+    "message_th": "ไม่สามารถค้นหาแท๊งค์ที่ท่านกำลังแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว",
+    "message_en": "Tank not found, maybe it was deleted by another user."
   }
 ]

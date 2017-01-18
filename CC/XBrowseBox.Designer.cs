@@ -28,9 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._btnBrowse = new System.Windows.Forms.Button();
             this._textBox = new System.Windows.Forms.TextBox();
+            this._btnBrowse = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // _textBox
+            // 
+            this._textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._textBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this._textBox.Location = new System.Drawing.Point(3, 4);
+            this._textBox.Name = "_textBox";
+            this._textBox.Size = new System.Drawing.Size(86, 16);
+            this._textBox.TabIndex = 56;
+            this._textBox.ReadOnlyChanged += new System.EventHandler(this._textBox_ReadOnlyChanged);
+            this._textBox.TextChanged += new System.EventHandler(this._textBox_TextChanged);
             // 
             // _btnBrowse
             // 
@@ -47,26 +59,14 @@
             this._btnBrowse.Click += new System.EventHandler(this._btnBrowse_Click);
             this._btnBrowse.Enter += new System.EventHandler(this._btnBrowse_Enter);
             // 
-            // _textBox
-            // 
-            this._textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this._textBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this._textBox.Location = new System.Drawing.Point(3, 2);
-            this._textBox.Name = "_textBox";
-            this._textBox.Size = new System.Drawing.Size(86, 16);
-            this._textBox.TabIndex = 56;
-            this._textBox.ReadOnlyChanged += new System.EventHandler(this._textBox_ReadOnlyChanged);
-            this._textBox.TextChanged += new System.EventHandler(this._textBox_TextChanged);
-            // 
             // XBrowseBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this._textBox);
             this.Controls.Add(this._btnBrowse);
+            this.Controls.Add(this._textBox);
             this.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

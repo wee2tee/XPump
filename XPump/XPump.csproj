@@ -320,6 +320,8 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\nozzle2_16.png" />
+    <None Include="Resources\nozzle_16.png" />
     <None Include="Resources\delete_16.png" />
     <None Include="Resources\stop_16.png" />
     <None Include="Resources\save_16.png" />

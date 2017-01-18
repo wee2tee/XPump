@@ -12,7 +12,7 @@ namespace CC
 {
     public partial class XNumEdit : XTextEdit
     {
-        private decimal maximum_value = 999999999.9999m;
+        private decimal maximum_value = 999999999999.9999m;
         public decimal _MaximumValue
         {
             get
@@ -63,7 +63,7 @@ namespace CC
             }
         }
 
-        private string num_format;
+        private string num_format = "{0:0}";
 
         private decimal edit_value = 0m;
         public decimal _Value

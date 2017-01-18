@@ -52,6 +52,50 @@ namespace CC
             }
         }
 
+        public BorderStyle _BorderStyle
+        {
+            get
+            {
+                return this.BorderStyle;
+            }
+            set
+            {
+                this.BorderStyle = value;
+
+                if (this._UseImage)
+                {
+                    if (value == BorderStyle.Fixed3D)
+                    {
+                        this._btnBrowse.Image = CC.Properties.Resources.zoom_12;
+                    }
+                    else if (value == BorderStyle.FixedSingle)
+                    {
+                        this._btnBrowse.Image = CC.Properties.Resources.zoom_14;
+                    }
+                    else if (value == BorderStyle.None)
+                    {
+                        this._btnBrowse.Image = CC.Properties.Resources.zoom_16;
+                    }
+                }
+
+                this.Refresh();
+            }
+        }
+
+        private bool use_image = true;
+        public bool _UseImage
+        {
+            get
+            {
+                return this.use_image;
+            }
+            set
+            {
+                this.use_image = value;
+                this.Refresh();
+            }
+        }
+
         private bool focused;
         public bool _Focused
         {
@@ -118,23 +162,55 @@ namespace CC
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
+            if (!this._UseImage)
+                this._btnBrowse.Image = null;
+
+            if(this._BorderStyle == BorderStyle.Fixed3D)
+            {
+                this._textBox.Location = new Point(1, 2);
+            }
+            else if (this._BorderStyle == BorderStyle.FixedSingle)
+            {
+                this._textBox.Location = new Point(2, 3);
+            }
+            else if(this._BorderStyle == BorderStyle.None)
+            {
+                this._textBox.Location = new Point(3, 4);
+            }
+
             if (this._ReadOnly)
             {
                 TextFormatFlags flag;
                 if (this._TextAlign == HorizontalAlignment.Right)
                 {
-                    flag = TextFormatFlags.VerticalCenter | TextFormatFlags.Right | TextFormatFlags.NoClipping;
+                    flag = TextFormatFlags.Top | TextFormatFlags.Right | TextFormatFlags.NoClipping | TextFormatFlags.SingleLine;
                 }
                 else if (this._TextAlign == HorizontalAlignment.Center)
                 {
-                    flag = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.NoClipping;
+                    flag = TextFormatFlags.Top | TextFormatFlags.HorizontalCenter | TextFormatFlags.NoClipping | TextFormatFlags.SingleLine;
                 }
                 else
                 {
-                    flag = TextFormatFlags.VerticalCenter | TextFormatFlags.Left | TextFormatFlags.NoClipping;
+                    flag = TextFormatFlags.Top | TextFormatFlags.Left | TextFormatFlags.NoClipping | TextFormatFlags.SingleLine;
                 }
 
-                TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, e.ClipRectangle, this._textBox.ForeColor, flag);
+                //TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y + 2, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
+                if (this._BorderStyle == BorderStyle.Fixed3D)
+                {
+                    TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X - 2, e.ClipRectangle.Y + 2, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
+                    return;
+                }
+                else if(this._BorderStyle == BorderStyle.FixedSingle)
+                {
+                    TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X - 1, e.ClipRectangle.Y + 3, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
+                    return;
+                }
+                else if(this._BorderStyle == BorderStyle.None)
+                {
+                    TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y + 4, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
+                    return;
+                }
             }
         }
 

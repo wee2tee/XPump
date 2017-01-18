@@ -32,6 +32,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.Location = new System.Drawing.Point(3, 3);
             this.textBox1.Size = new System.Drawing.Size(81, 16);
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);

@@ -19,7 +19,6 @@ namespace CC
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
-
         }
 
         protected override void OnGotFocus(EventArgs e)

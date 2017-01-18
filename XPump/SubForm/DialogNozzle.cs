@@ -23,20 +23,20 @@ namespace XPump.SubForm
         private XTextEdit inline_desc;
         private XComboBox inline_isactive;
 
-        private List<nozzle> nozzle_list;
         private BindingSource bs;
+        private List<nozzle> list_nozzle;
 
-
-        public DialogNozzle()
-        {
-            InitializeComponent();
-        }
+        //public DialogNozzle()
+        //{
+        //    InitializeComponent();
+        //}
 
         public DialogNozzle(MainForm main_form, section section_object)
-            : this()
         {
+            InitializeComponent();
             this.main_form = main_form;
             this.section = section_object;
+            //this.section.nozzle = new List<nozzle>();
         }
 
         private void DialogNozzle_Load(object sender, EventArgs e)
@@ -50,6 +50,20 @@ namespace XPump.SubForm
                     this.lblTank.Text = this.tank.name + " / " + this.tank.description;
                     this.lblSection.Text = this.section.name;
                 }
+                else
+                {
+                    MessageBox.Show(StringResource.Msg("0006"), "Message # 0006", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+                    return;
+                }
+
+                this.list_nozzle = db.nozzle.Where(n => n.section_id == this.section.id).ToList();
+
+
+                this.bs = new BindingSource();
+                this.bs.DataSource = this.list_nozzle.ToViewModel();
+                this.dgv.DataSource = this.bs;
             }
         }
 

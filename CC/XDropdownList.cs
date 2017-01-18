@@ -49,6 +49,8 @@ namespace CC
             }
         }
 
+        public event EventHandler _SelectedItemChanged;
+
         public XDropdownList()
         {
             InitializeComponent();
@@ -114,6 +116,9 @@ namespace CC
         {
             if (this.read_only)
                 this.Refresh();
+
+            if (this._SelectedItemChanged != null)
+                this._SelectedItemChanged(this, e);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
