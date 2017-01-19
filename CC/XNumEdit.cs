@@ -121,6 +121,18 @@ namespace CC
         {
             base._MaxLength = 30;
             this.num_format = this._UseThoundsandSeparate ? "{0:#,#0}" : "{0:0}";
+
+            this.textBox1.Enter += delegate
+            {
+                if(this.decimal_digit > 0 && this.textBox1.Text.Contains("."))
+                {
+                    this.textBox1.SelectionStart = this.textBox1.Text.IndexOf(".");
+                }
+                else
+                {
+                    this.textBox1.SelectionStart = this.textBox1.Text.Length;
+                }
+            };
         }
 
         protected override void OnPaint(PaintEventArgs pe)

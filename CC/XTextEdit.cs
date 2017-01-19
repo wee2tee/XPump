@@ -210,6 +210,11 @@ namespace CC
 
         private void XTextEdit_Load(object sender, EventArgs e)
         {
+            this.textBox1.Enter += delegate
+            {
+                this.textBox1.SelectionStart = this.textBox1.Text.Length;
+            };
+
             this.textBox1.GotFocus += delegate
             {
                 if (this.read_only)

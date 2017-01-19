@@ -129,6 +129,7 @@ namespace CC
                 {
                     this.txtDate.BackColor = AppResource.EditableControlBackColor;
                     this.BackColor = AppResource.EditableControlBackColor;
+                    this.txtDate.SelectionStart = 0;
                     this.focused = true;
                 }
                 else

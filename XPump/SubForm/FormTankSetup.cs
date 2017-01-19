@@ -793,8 +793,6 @@ namespace XPump.SubForm
 
         private void btnSaveItem_Click(object sender, EventArgs e)
         {
-            //Console.WriteLine(this.temp_section.tank_id);
-            //Console.WriteLine(this.temp_section.stmas_id);
             if (this.temp_section == null)
                 return;
 
@@ -830,7 +828,7 @@ namespace XPump.SubForm
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
-
+                    
                 }
 
                 return;
