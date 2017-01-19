@@ -100,6 +100,8 @@ namespace CC
         }
 
         public event EventHandler _TextChanged;
+        public event EventHandler _GotFocus;
+        public event EventHandler _Leave;
 
         public XTextEdit()
         {
@@ -215,7 +217,7 @@ namespace CC
                 this.textBox1.SelectionStart = this.textBox1.Text.Length;
             };
 
-            this.textBox1.GotFocus += delegate
+            this.textBox1.GotFocus += delegate(object sender_obj, EventArgs e_obj)
             {
                 if (this.read_only)
                 {
@@ -229,13 +231,23 @@ namespace CC
                     this.textBox1.BackColor = AppResource.EditableControlBackColor;
                     this.focused = true;
                 }
+
+                if (this._GotFocus != null)
+                {
+                    this._GotFocus(this, e_obj);
+                }
             };
 
-            this.textBox1.Leave += delegate
+            this.textBox1.Leave += delegate(object sender_obj, EventArgs e_obj)
             {
                 this.BackColor = Color.White;
                 this.textBox1.BackColor = Color.White;
                 this.focused = false;
+
+                if(this._Leave != null)
+                {
+                    this._Leave(this, e_obj);
+                }
             };
         }
 

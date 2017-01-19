@@ -109,7 +109,9 @@ namespace CC
         private Object list_object;
         public string FieldNameTextBoxShow;
 
-        public event EventHandler ButtonClick;
+        public event EventHandler _ButtonClick;
+        public event EventHandler _GotFocus;
+        public event EventHandler _Leave;
 
         public XBrowseBox()
         {
@@ -136,7 +138,7 @@ namespace CC
             this.Height = 23;
 
             this.TabStop = true;
-            this._textBox.GotFocus += delegate
+            this._textBox.GotFocus += delegate(object sender_obj, EventArgs e_obj)
             {
                 if (this._ReadOnly)
                 {
@@ -151,12 +153,22 @@ namespace CC
                     this._textBox.SelectionStart = this._textBox.Text.Length;
                     this.focused = true;
                 }
+
+                if(this._GotFocus != null)
+                {
+                    this._GotFocus(this, e_obj);
+                }
             };
-            this._textBox.Leave += delegate
+            this._textBox.Leave += delegate(object sender_obj, EventArgs e_obj)
             {
                 this.BackColor = Color.White;
                 this._textBox.BackColor = Color.White;
                 this.focused = false;
+
+                if(this._Leave != null)
+                {
+                    this._Leave(this, e_obj);
+                }
             };
         }
 
@@ -251,9 +263,9 @@ namespace CC
 
         protected void _btnBrowse_Click(object sender, EventArgs e)
         {
-            if(this.ButtonClick != null)
+            if(this._ButtonClick != null)
             {
-                this.ButtonClick(this, e);
+                this._ButtonClick(this, e);
             }
             else
             {
@@ -281,6 +293,11 @@ namespace CC
         public void SetListObject(Object list_object)
         {
             this.list_object = list_object;
+        }
+
+        public void PerformButtonClick()
+        {
+            this._btnBrowse.PerformClick();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

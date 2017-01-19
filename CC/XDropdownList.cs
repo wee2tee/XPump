@@ -60,6 +60,8 @@ namespace CC
         }
 
         public event EventHandler _SelectedItemChanged;
+        public event EventHandler _GotFocus;
+        public event EventHandler _Leave;
 
         public XDropdownList()
         {
@@ -87,7 +89,7 @@ namespace CC
 
         private void XDropdownList_Load(object sender, EventArgs e)
         {
-            this.comboBox1.GotFocus += delegate
+            this.comboBox1.GotFocus += delegate(object sender_obj, EventArgs e_obj)
             {
                 if (this.read_only)
                 {
@@ -101,13 +103,23 @@ namespace CC
                     this.comboBox1.BackColor = AppResource.EditableControlBackColor;
                     this._focused = true;
                 }
+
+                if(this._GotFocus != null)
+                {
+                    this._GotFocus(this, e_obj);
+                }
             };
 
-            this.comboBox1.Leave += delegate
+            this.comboBox1.Leave += delegate(object sender_obj, EventArgs e_obj)
             {
                 this.BackColor = Color.White;
                 this.comboBox1.BackColor = Color.White;
                 this._focused = false;
+
+                if(this._Leave != null)
+                {
+                    this._Leave(this, e_obj);
+                }
             };
         }
 

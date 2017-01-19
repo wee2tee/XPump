@@ -71,6 +71,10 @@ namespace CC
 
         public CalendarDialog calendar;
 
+        public event EventHandler _SelectedDateChanged;
+        public event EventHandler _GotFocus;
+        public event EventHandler _Leave;
+
         public XDatePicker()
         {
             InitializeComponent();
@@ -123,7 +127,7 @@ namespace CC
 
         private void XDatePicker_Load(object sender, EventArgs e)
         {
-            this.txtDate.GotFocus += delegate
+            this.txtDate.GotFocus += delegate(object sender_obj, EventArgs e_obj)
             {
                 if(!this.is_read_only && this.txtDate.Focused)
                 {
@@ -138,13 +142,23 @@ namespace CC
                     this.BackColor = Color.White;
                     this.focused = false;
                 }
+
+                if(this._GotFocus != null)
+                {
+                    this._GotFocus(this, e_obj);
+                }
             };
 
-            this.txtDate.LostFocus += delegate
+            this.txtDate.LostFocus += delegate(object sender_obj, EventArgs e_obj)
             {
                 this.txtDate.BackColor = Color.White;
                 this.BackColor = Color.White;
                 this.focused = false;
+
+                if(this._Leave != null)
+                {
+                    this._Leave(this, e_obj);
+                }
             };
         }
 
@@ -173,7 +187,6 @@ namespace CC
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        public event EventHandler _SelectedDateChanged;
         protected void _SelectedDate_Changed(object sender, EventArgs e)
         {
             if (this._SelectedDateChanged != null)

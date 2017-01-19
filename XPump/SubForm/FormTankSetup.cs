@@ -306,7 +306,7 @@ namespace XPump.SubForm
             this.inline_stkcod = new XBrowseBox();
             this.inline_stkcod._Text = this.temp_section.stkcod;
             this.inline_stkcod.BorderStyle = BorderStyle.None;
-            this.inline_stkcod.ButtonClick += delegate
+            this.inline_stkcod._ButtonClick += delegate
             {
                 DialogInquiryStmas dlg = new DialogInquiryStmas();
                 if (dlg.ShowDialog() == DialogResult.OK)
@@ -315,7 +315,6 @@ namespace XPump.SubForm
                     {
                         using (xpumpEntities db = DBX.DataSet())
                         {
-                            //this.temp_section.stmas_id = dlg.selected_id;
                             this.temp_section.section.stmas_id = dlg.selected_id;
                             this.inline_stkcod._Text = db.stmas.Find(dlg.selected_id).name;
                             this.inline_stkdes._Text = db.stmas.Find(dlg.selected_id).description;
@@ -323,6 +322,33 @@ namespace XPump.SubForm
                     }
                 }
                 this.inline_stkcod._textBox.Focus();
+            };
+            this.inline_stkcod._GotFocus += delegate
+            {
+                this.ValidateAddEditSection();
+            };
+            this.inline_stkcod._Leave += delegate
+            {
+                if (this.temp_section != null)
+                {
+                    using (xpumpEntities db = DBX.DataSet())
+                    {
+                        stmas tmp_stmas = db.stmas.Where(s => s.name == this.inline_stkcod._Text).FirstOrDefault();
+
+                        if (tmp_stmas == null)
+                        {
+                            this.temp_section.section.stmas_id = -1;
+                            this.inline_stkcod._Text = string.Empty;
+                            this.inline_stkdes._Text = string.Empty;
+                        }
+                        else
+                        {
+                            this.temp_section.section.stmas_id = tmp_stmas.id;
+                            this.inline_stkcod._Text = tmp_stmas.name;
+                            this.inline_stkdes._Text = tmp_stmas.description;
+                        }
+                    }
+                }
             };
             this.inline_stkcod.SetInlineControlPosition(this.dgvSection, row_index, col_index);
             this.dgvSection.Parent.Controls.Add(this.inline_stkcod);
@@ -346,29 +372,15 @@ namespace XPump.SubForm
             {
                 if(this.temp_section != null)
                 {
-                    //this.temp_section.capacity = this.inline_capacity._Value;
                     this.temp_section.section.capacity = this.inline_capacity._Value;
                 }
             };
+            this.inline_capacity._GotFocus += delegate
+            {
+                this.ValidateAddEditSection();
+            };
             this.inline_capacity.SetInlineControlPosition(this.dgvSection, row_index, col_index);
             this.dgvSection.Parent.Controls.Add(this.inline_capacity);
-
-            /* inline nozzle */
-            //col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index;
-            //this.inline_nozzle = new XBrowseBox();
-            //this.inline_nozzle._Text = this.temp_section.nozzlecount.ToString();
-            //this.inline_nozzle.BorderStyle = BorderStyle.None;
-            //this.inline_nozzle._TextAlign = HorizontalAlignment.Right;
-            //this.inline_nozzle._btnBrowse.Image = null;
-            //this.inline_nozzle._btnBrowse.Text = "...";
-            //this.inline_nozzle.ButtonClick += delegate
-            //{
-            //    DialogNozzle noz = new DialogNozzle(this.main_form, this.temp_section.section);
-            //    noz.ShowDialog();
-            //    this.inline_nozzle._Text = this.temp_section.section.nozzle.Count.ToString();
-            //};
-            //this.inline_nozzle.SetInlineControlPosition(this.dgvSection, row_index, col_index);
-            //this.dgvSection.Parent.Controls.Add(this.inline_nozzle);
 
             this.inline_nozzlecount.Visible = false;
 
@@ -399,6 +411,25 @@ namespace XPump.SubForm
             {
                 this.inline_capacity.Dispose();
                 this.inline_capacity = null;
+            }
+        }
+
+        private void ValidateAddEditSection()
+        {
+            if (this.temp_section == null)
+                return;
+
+            if(this.temp_section.section.name.Trim().Length == 0 && this.inline_name != null && !this.inline_name._Focused)
+            {
+                this.inline_name.Focus();
+                return;
+            }
+
+            if(this.temp_section.section.stmas_id == -1 && this.inline_stkcod != null && !this.inline_stkcod._Focused)
+            {
+                this.inline_stkcod.Focus();
+                this.inline_stkcod.PerformButtonClick();
+                return;
             }
         }
 
@@ -814,10 +845,9 @@ namespace XPump.SubForm
                 {
                     db.section.Add(this.temp_section.section);
                     db.SaveChanges();
+                    this.curr_tank = this.GetTank(this.curr_tank.id);
+                    this.FillForm();
                     this.btnStopItem.PerformClick();
-                    this.btnStop.PerformClick();
-                    this.btnRefresh.PerformClick();
-                    this.btnItem.PerformClick();
                     this.btnAddItem.PerformClick();
                 }
 
@@ -828,7 +858,24 @@ namespace XPump.SubForm
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
-                    
+                    section section_to_update = db.section.Find(this.temp_section.id);
+
+                    if(section_to_update == null)
+                    {
+                        MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        this.inline_capacity.Focus();
+                        return;
+                    }
+
+                    section_to_update.name = this.temp_section.section.name;
+                    section_to_update.stmas_id = this.temp_section.section.stmas_id;
+                    section_to_update.tank_id = this.temp_section.section.tank_id;
+                    section_to_update.capacity = this.temp_section.section.capacity;
+
+                    db.SaveChanges();
+                    this.curr_tank = this.GetTank(this.curr_tank.id);
+                    this.FillForm();
+                    this.btnStopItem.PerformClick();
                 }
 
                 return;
