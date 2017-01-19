@@ -181,6 +181,74 @@ namespace XPump.SubForm
             }
         }
 
+        private tank GetFirstTank()
+        {
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                tank tank = db.tank.Include("section").OrderBy(t => t.name).FirstOrDefault();
+
+                if (tank != null)
+                {
+                    return tank;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private tank GetPreviousTank()
+        {
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                tank tank = db.tank.Include("section").Where(t => t.name.CompareTo(this.curr_tank.name) < 0).OrderByDescending(t => t.name).FirstOrDefault();
+
+                if (tank != null)
+                {
+                    return tank;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private tank GetNextTank()
+        {
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                tank tank = db.tank.Include("section").Where(t => t.name.CompareTo(this.curr_tank.name) > 0).OrderBy(t => t.name).FirstOrDefault();
+
+                if (tank != null)
+                {
+                    return tank;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private tank GetLastTank()
+        {
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                tank tmp = db.tank.Include("section").OrderByDescending(t => t.name).FirstOrDefault();
+
+                if (tmp != null)
+                {
+                    return tmp;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         private void FillForm(tank tank_to_fill = null)
         {
             tank tank = tank_to_fill != null ? tank_to_fill : this.curr_tank;
@@ -196,7 +264,7 @@ namespace XPump.SubForm
             this.ddIsactive._SelectedItem = this.ddIsactive._Items.Cast<XDropdownListItem>().Where(i => (bool)i.Value == tank.isactive).First();
 
             this.bs_section.ResetBindings(true);
-            var sections = tank.section.ToList().OrderBy(s => s.name).ToViewModel();
+            var sections = tank.section.ToList().ToViewModel().OrderBy(s => s.state).ThenBy(s => s.name).ToList();
 
             this.bs_section.DataSource = sections;
         }
@@ -223,7 +291,11 @@ namespace XPump.SubForm
                 this.inline_name._TextChanged += delegate
                 {
                     if (this.temp_section != null)
-                        this.temp_section.name = this.inline_name._Text;
+                    {
+                        //this.temp_section.name = this.inline_name._Text;
+                        this.temp_section.section.name = this.inline_name._Text;
+                    }
+
                 };
                 this.inline_name.SetInlineControlPosition(this.dgvSection, row_index, col_index);
                 this.dgvSection.Parent.Controls.Add(this.inline_name);
@@ -243,7 +315,8 @@ namespace XPump.SubForm
                     {
                         using (xpumpEntities db = DBX.DataSet())
                         {
-                            this.temp_section.stmas_id = dlg.selected_id;
+                            //this.temp_section.stmas_id = dlg.selected_id;
+                            this.temp_section.section.stmas_id = dlg.selected_id;
                             this.inline_stkcod._Text = db.stmas.Find(dlg.selected_id).name;
                             this.inline_stkdes._Text = db.stmas.Find(dlg.selected_id).description;
                         }
@@ -273,7 +346,8 @@ namespace XPump.SubForm
             {
                 if(this.temp_section != null)
                 {
-                    this.temp_section.capacity = this.inline_capacity._Value;
+                    //this.temp_section.capacity = this.inline_capacity._Value;
+                    this.temp_section.section.capacity = this.inline_capacity._Value;
                 }
             };
             this.inline_capacity.SetInlineControlPosition(this.dgvSection, row_index, col_index);
@@ -419,7 +493,7 @@ namespace XPump.SubForm
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (this.curr_tank == null)
+            if (this.curr_tank == null || this.curr_tank.id == -1)
                 return;
 
             using (xpumpEntities db = DBX.DataSet())
@@ -442,7 +516,33 @@ namespace XPump.SubForm
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (this.curr_tank == null)
+                return;
 
+            if (MessageBox.Show(StringResource.Msg("0003"), "Message # 0003", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                return;
+
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                try
+                {
+                    tank tank_to_delete = db.tank.Find(this.curr_tank.id);
+
+                    if (tank_to_delete == null)
+                    {
+                        MessageBox.Show(StringResource.Msg("0004"), "Message # 0004", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
+                    db.tank.Remove(tank_to_delete);
+                    db.SaveChanges();
+                    this.btnRefresh.PerformClick();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -543,84 +643,74 @@ namespace XPump.SubForm
 
         private void btnFirst_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            tank tmp = this.GetFirstTank();
+            if(tmp != null)
             {
-                tank tmp = db.tank.Include("section").OrderBy(t => t.name).FirstOrDefault();
-
-                if(tmp != null)
-                {
-                    this.curr_tank = tmp;
-                }
-                else
-                {
-                    this.curr_tank = new tank
-                    {
-                        id = -1,
-                        name = string.Empty,
-                        description = string.Empty,
-                        remark = string.Empty,
-                        isactive = false
-                    };
-                }
-
-                this.FillForm();
+                this.curr_tank = tmp;
             }
+            else
+            {
+                this.curr_tank = new tank
+                {
+                    id = -1,
+                    name = string.Empty,
+                    description = string.Empty,
+                    remark = string.Empty,
+                    isactive = false
+                };
+            }
+
+            this.FillForm();
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            tank tmp = this.GetPreviousTank();
+            if(tmp != null)
             {
-                tank tmp = db.tank.Include("section").Where(t => t.name.CompareTo(this.curr_tank.name) < 0).OrderByDescending(t => t.name).FirstOrDefault();
-
-                if (tmp == null)
-                    return;
-
                 this.curr_tank = tmp;
                 this.FillForm();
+            }
+            else
+            {
+                this.btnFirst.PerformClick();
             }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            tank tmp = this.GetNextTank();
+            if(tmp != null)
             {
-                tank tmp = db.tank.Include("section").Where(t => t.name.CompareTo(this.curr_tank.name) > 0).OrderBy(t => t.name).FirstOrDefault();
-
-                if (tmp == null)
-                    return;
-
                 this.curr_tank = tmp;
                 this.FillForm();
+            }
+            else
+            {
+                this.btnLast.PerformClick();
             }
         }
 
         private void btnLast_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            tank tmp = this.GetLastTank();
+            if(tmp != null)
             {
-                tank tmp = db.tank.Include("section").OrderByDescending(t => t.name).FirstOrDefault();
-
-                if(tmp != null)
-                {
-                    this.curr_tank = tmp;
-                }
-                else
-                {
-                    this.curr_tank = new tank
-                    {
-                        id = -1,
-                        name = string.Empty,
-                        startdate = DateTime.Now,
-                        enddate = null,
-                        description = string.Empty,
-                        remark = string.Empty,
-                        isactive = false
-                    };
-                }
-
-                this.FillForm();
+                this.curr_tank = tmp;
             }
+            else
+            {
+                this.curr_tank = new tank
+                {
+                    id = -1,
+                    name = string.Empty,
+                    description = string.Empty,
+                    remark = string.Empty,
+                    isactive = false
+                };
+            }
+
+            this.FillForm();
         }
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
@@ -652,8 +742,17 @@ namespace XPump.SubForm
             if (this.curr_tank == null)
                 return;
 
-            this.curr_tank = this.GetTank(this.curr_tank.id);
-            this.FillForm();
+            tank tmp = this.GetTank(this.curr_tank.id);
+
+            if(tmp != null)
+            {
+                this.curr_tank = tmp;
+                this.FillForm();
+            }
+            else
+            {
+                this.btnNext.PerformClick();
+            }
         }
 
         private void btnAddItem_Click(object sender, EventArgs e)
@@ -663,8 +762,8 @@ namespace XPump.SubForm
                 id = -1,
                 name = string.Empty,
                 capacity = 0m,
-                stmas_id = 0,
-                tank_id = this.curr_tank.id
+                stmas_id = -1,
+                tank_id = this.curr_tank.id,
             }.ToViewModel();
             this.curr_tank.section.Add(this.temp_section.section);
             this.FillForm();
@@ -694,8 +793,48 @@ namespace XPump.SubForm
 
         private void btnSaveItem_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(this.temp_section.tank_id);
-            Console.WriteLine(this.temp_section.stmas_id);
+            //Console.WriteLine(this.temp_section.tank_id);
+            //Console.WriteLine(this.temp_section.stmas_id);
+            if (this.temp_section == null)
+                return;
+
+            if(this.temp_section.section.name.Trim().Length == 0 && this.inline_name != null)
+            {
+                this.inline_name.Focus();
+                return;
+            }
+
+            if(this.temp_section.section.stmas_id == -1 && this.inline_stkcod != null)
+            {
+                this.inline_stkcod.Focus();
+                return;
+            }
+
+            if(this.form_mode == FORM_MODE.ADD_ITEM)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    db.section.Add(this.temp_section.section);
+                    db.SaveChanges();
+                    this.btnStopItem.PerformClick();
+                    this.btnStop.PerformClick();
+                    this.btnRefresh.PerformClick();
+                    this.btnItem.PerformClick();
+                    this.btnAddItem.PerformClick();
+                }
+
+                return;
+            }
+
+            if(this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+
+                }
+
+                return;
+            }
         }
 
         private void btnStopItem_Click(object sender, EventArgs e)
@@ -713,6 +852,18 @@ namespace XPump.SubForm
         {
             if (keyData == Keys.Enter && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM))
             {
+                if (this.ddIsactive._Focused)
+                {
+                    this.btnSave.PerformClick();
+                    return true;
+                }
+
+                if (this.inline_capacity != null && this.inline_capacity._Focused)
+                {
+                    this.btnSaveItem.PerformClick();
+                    return true;
+                }
+
                 SendKeys.Send("{TAB}");
                 return true;
             }
@@ -773,7 +924,7 @@ namespace XPump.SubForm
                 return;
             }
 
-            if(this.inline_nozzlecount != null)
+            if (this.inline_nozzlecount != null)
             {
                 int col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index;
                 Rectangle rect = ((XDatagrid)sender).GetCellDisplayRectangle(col_index, ((XDatagrid)sender).CurrentCell.RowIndex, true);

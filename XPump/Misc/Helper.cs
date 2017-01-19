@@ -138,7 +138,7 @@ namespace XPump.Misc
                 capacity = section.capacity,
                 tank_id = section.tank_id,
                 stmas_id = section.stmas_id,
-                section = section
+                section = section,
             };
 
             return s;

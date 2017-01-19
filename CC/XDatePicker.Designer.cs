@@ -59,6 +59,7 @@
             this.txtDate.TabIndex = 3;
             this.txtDate.ValidatingType = typeof(System.DateTime);
             this.txtDate.TextChanged += new System.EventHandler(this.txtDate_TextChanged);
+            this.txtDate.Leave += new System.EventHandler(this.txtDate_Leave);
             // 
             // XDatePicker
             // 

@@ -23,14 +23,6 @@ namespace CC
             set
             {
                 this.selected_date = value;
-                if (this.selected_date.HasValue)
-                {
-                    this.txtDate.Text = this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat);
-                }
-                else
-                {
-                    this.txtDate.Text = "  /  /    ";
-                }
 
                 this._SelectedDate_Changed(this, new EventArgs());
 
@@ -38,6 +30,15 @@ namespace CC
                 {
                     this.Refresh();
                 }
+            }
+        }
+
+        private bool focused;
+        public bool _Focused
+        {
+            get
+            {
+                return this.focused;
             }
         }
 
@@ -128,11 +129,13 @@ namespace CC
                 {
                     this.txtDate.BackColor = AppResource.EditableControlBackColor;
                     this.BackColor = AppResource.EditableControlBackColor;
+                    this.focused = true;
                 }
                 else
                 {
                     this.txtDate.BackColor = Color.White;
                     this.BackColor = Color.White;
+                    this.focused = false;
                 }
             };
 
@@ -140,30 +143,28 @@ namespace CC
             {
                 this.txtDate.BackColor = Color.White;
                 this.BackColor = Color.White;
-                if(this.selected_date == null)
-                {
-                    this.txtDate.Text = "";
-                }
+                this.focused = false;
             };
         }
 
         private void txtDate_TextChanged(object sender, EventArgs e)
         {
-            DateTime d;
-            if(DateTime.TryParse(this.txtDate.Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out d))
-            {
-                this._SelectedDate = d;
-            }
-            else
-            {
-                this._SelectedDate = null;
-            }
+            //DateTime d;
+            //if(DateTime.TryParse(this.txtDate.Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out d))
+            //{
+            //    this._SelectedDate = d;
+            //}
+            //else
+            //{
+            //    this._SelectedDate = null;
+            //}
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if(keyData == Keys.F6)
             {
+                this.btnShowCalendar.Focus();
                 this.btnShowCalendar.PerformClick();
                 return true;
             }
@@ -176,6 +177,29 @@ namespace CC
         {
             if (this._SelectedDateChanged != null)
                 this._SelectedDateChanged(this, e);
+
+            
+            if (this.selected_date.HasValue)
+            {
+                this.txtDate.Text = this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
+            }
+            else
+            {
+                this.txtDate.Text = "  /  /    ";
+            }
+        }
+
+        private void txtDate_Leave(object sender, EventArgs e)
+        {
+            DateTime d;
+            if (DateTime.TryParse(this.txtDate.Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out d))
+            {
+                this._SelectedDate = d;
+            }
+            else
+            {
+                this._SelectedDate = null;
+            }
         }
     }
 }

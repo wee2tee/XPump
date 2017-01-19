@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -62,15 +62,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvSection = new CC.XDatagrid();
-            this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_nozzlecount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_tank_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddItem = new System.Windows.Forms.Button();
             this.btnDeleteItem = new System.Windows.Forms.Button();
             this.btnEditItem = new System.Windows.Forms.Button();
@@ -82,6 +73,16 @@
             this.txtRemark = new CC.XTextEdit();
             this.txtDesc = new CC.XTextEdit();
             this.txtName = new CC.XTextEdit();
+            this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_nozzlecount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_tank_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -396,14 +397,14 @@
             this.dgvSection.AllowUserToDeleteRows = false;
             this.dgvSection.AllowUserToResizeColumns = false;
             this.dgvSection.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvSection.ColumnHeadersHeight = 28;
             this.dgvSection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvSection.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -415,15 +416,16 @@
             this.col_section_nozzlecount,
             this.col_section_tank_id,
             this.col_section_section,
-            this.col_section_stmas_id});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle4;
+            this.col_section_stmas_id,
+            this.col_section_state});
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvSection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSection.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvSection.EnableHeadersVisualStyles = false;
@@ -442,88 +444,6 @@
             this.dgvSection.SelectionChanged += new System.EventHandler(this.dgvSection_SelectionChanged);
             this.dgvSection.Resize += new System.EventHandler(this.dgvSection_Resize);
             // 
-            // col_section_id
-            // 
-            this.col_section_id.DataPropertyName = "id";
-            this.col_section_id.HeaderText = "ID";
-            this.col_section_id.Name = "col_section_id";
-            this.col_section_id.ReadOnly = true;
-            this.col_section_id.Visible = false;
-            // 
-            // col_section_name
-            // 
-            this.col_section_name.DataPropertyName = "name";
-            this.col_section_name.HeaderText = "รหัสช่องเก็บน้ำมัน";
-            this.col_section_name.MinimumWidth = 120;
-            this.col_section_name.Name = "col_section_name";
-            this.col_section_name.ReadOnly = true;
-            this.col_section_name.Width = 120;
-            // 
-            // col_section_stkcod
-            // 
-            this.col_section_stkcod.DataPropertyName = "stkcod";
-            this.col_section_stkcod.HeaderText = "รหัสสินค้า";
-            this.col_section_stkcod.MinimumWidth = 150;
-            this.col_section_stkcod.Name = "col_section_stkcod";
-            this.col_section_stkcod.ReadOnly = true;
-            this.col_section_stkcod.Width = 150;
-            // 
-            // col_section_stkdes
-            // 
-            this.col_section_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_section_stkdes.DataPropertyName = "stkdes";
-            this.col_section_stkdes.HeaderText = "รายละเอียด";
-            this.col_section_stkdes.Name = "col_section_stkdes";
-            this.col_section_stkdes.ReadOnly = true;
-            // 
-            // col_section_capacity
-            // 
-            this.col_section_capacity.DataPropertyName = "capacity";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = "0";
-            this.col_section_capacity.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_section_capacity.HeaderText = "ปริมาตร(ลิตร)";
-            this.col_section_capacity.MinimumWidth = 100;
-            this.col_section_capacity.Name = "col_section_capacity";
-            this.col_section_capacity.ReadOnly = true;
-            // 
-            // col_section_nozzlecount
-            // 
-            this.col_section_nozzlecount.DataPropertyName = "nozzlecount";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N0";
-            dataGridViewCellStyle3.NullValue = null;
-            this.col_section_nozzlecount.DefaultCellStyle = dataGridViewCellStyle3;
-            this.col_section_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
-            this.col_section_nozzlecount.MinimumWidth = 100;
-            this.col_section_nozzlecount.Name = "col_section_nozzlecount";
-            this.col_section_nozzlecount.ReadOnly = true;
-            // 
-            // col_section_tank_id
-            // 
-            this.col_section_tank_id.DataPropertyName = "tank_id";
-            this.col_section_tank_id.HeaderText = "Tank_id";
-            this.col_section_tank_id.Name = "col_section_tank_id";
-            this.col_section_tank_id.ReadOnly = true;
-            this.col_section_tank_id.Visible = false;
-            // 
-            // col_section_section
-            // 
-            this.col_section_section.DataPropertyName = "section";
-            this.col_section_section.HeaderText = "Section";
-            this.col_section_section.Name = "col_section_section";
-            this.col_section_section.ReadOnly = true;
-            this.col_section_section.Visible = false;
-            // 
-            // col_section_stmas_id
-            // 
-            this.col_section_stmas_id.DataPropertyName = "stmas_id";
-            this.col_section_stmas_id.HeaderText = "Stmas_id";
-            this.col_section_stmas_id.Name = "col_section_stmas_id";
-            this.col_section_stmas_id.ReadOnly = true;
-            this.col_section_stmas_id.Visible = false;
-            // 
             // btnAddItem
             // 
             this.btnAddItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -533,7 +453,7 @@
             this.btnAddItem.Location = new System.Drawing.Point(408, 2);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(50, 24);
-            this.btnAddItem.TabIndex = 1;
+            this.btnAddItem.TabIndex = 6;
             this.btnAddItem.Text = "เพิ่ม";
             this.btnAddItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAddItem.UseVisualStyleBackColor = true;
@@ -548,7 +468,7 @@
             this.btnDeleteItem.Location = new System.Drawing.Point(517, 2);
             this.btnDeleteItem.Name = "btnDeleteItem";
             this.btnDeleteItem.Size = new System.Drawing.Size(45, 24);
-            this.btnDeleteItem.TabIndex = 1;
+            this.btnDeleteItem.TabIndex = 8;
             this.btnDeleteItem.Text = "ลบ";
             this.btnDeleteItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDeleteItem.UseVisualStyleBackColor = true;
@@ -563,7 +483,7 @@
             this.btnEditItem.Location = new System.Drawing.Point(459, 2);
             this.btnEditItem.Name = "btnEditItem";
             this.btnEditItem.Size = new System.Drawing.Size(57, 24);
-            this.btnEditItem.TabIndex = 1;
+            this.btnEditItem.TabIndex = 7;
             this.btnEditItem.Text = "แก้ไข";
             this.btnEditItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEditItem.UseVisualStyleBackColor = true;
@@ -578,7 +498,7 @@
             this.btnStopItem.Location = new System.Drawing.Point(634, 2);
             this.btnStopItem.Name = "btnStopItem";
             this.btnStopItem.Size = new System.Drawing.Size(129, 24);
-            this.btnStopItem.TabIndex = 1;
+            this.btnStopItem.TabIndex = 10;
             this.btnStopItem.Text = "ยกเลิกการเพิ่ม/แก้ไข";
             this.btnStopItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnStopItem.UseVisualStyleBackColor = true;
@@ -593,7 +513,7 @@
             this.btnSaveItem.Location = new System.Drawing.Point(573, 2);
             this.btnSaveItem.Name = "btnSaveItem";
             this.btnSaveItem.Size = new System.Drawing.Size(60, 24);
-            this.btnSaveItem.TabIndex = 1;
+            this.btnSaveItem.TabIndex = 9;
             this.btnSaveItem.Text = "บันทึก";
             this.btnSaveItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSaveItem.UseVisualStyleBackColor = true;
@@ -694,6 +614,96 @@
             this.txtName.DoubleClick += new System.EventHandler(this.PerformEdit);
             this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
             // 
+            // col_section_id
+            // 
+            this.col_section_id.DataPropertyName = "id";
+            this.col_section_id.HeaderText = "ID";
+            this.col_section_id.Name = "col_section_id";
+            this.col_section_id.ReadOnly = true;
+            this.col_section_id.Visible = false;
+            // 
+            // col_section_name
+            // 
+            this.col_section_name.DataPropertyName = "name";
+            this.col_section_name.HeaderText = "รหัสช่องเก็บน้ำมัน";
+            this.col_section_name.MinimumWidth = 120;
+            this.col_section_name.Name = "col_section_name";
+            this.col_section_name.ReadOnly = true;
+            this.col_section_name.Width = 120;
+            // 
+            // col_section_stkcod
+            // 
+            this.col_section_stkcod.DataPropertyName = "stkcod";
+            this.col_section_stkcod.HeaderText = "รหัสสินค้า";
+            this.col_section_stkcod.MinimumWidth = 150;
+            this.col_section_stkcod.Name = "col_section_stkcod";
+            this.col_section_stkcod.ReadOnly = true;
+            this.col_section_stkcod.Width = 150;
+            // 
+            // col_section_stkdes
+            // 
+            this.col_section_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_section_stkdes.DataPropertyName = "stkdes";
+            this.col_section_stkdes.HeaderText = "รายละเอียด";
+            this.col_section_stkdes.Name = "col_section_stkdes";
+            this.col_section_stkdes.ReadOnly = true;
+            // 
+            // col_section_capacity
+            // 
+            this.col_section_capacity.DataPropertyName = "capacity";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N2";
+            dataGridViewCellStyle6.NullValue = "0";
+            this.col_section_capacity.DefaultCellStyle = dataGridViewCellStyle6;
+            this.col_section_capacity.HeaderText = "ปริมาตร(ลิตร)";
+            this.col_section_capacity.MinimumWidth = 100;
+            this.col_section_capacity.Name = "col_section_capacity";
+            this.col_section_capacity.ReadOnly = true;
+            // 
+            // col_section_nozzlecount
+            // 
+            this.col_section_nozzlecount.DataPropertyName = "nozzlecount";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "N0";
+            dataGridViewCellStyle7.NullValue = null;
+            this.col_section_nozzlecount.DefaultCellStyle = dataGridViewCellStyle7;
+            this.col_section_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
+            this.col_section_nozzlecount.MinimumWidth = 100;
+            this.col_section_nozzlecount.Name = "col_section_nozzlecount";
+            this.col_section_nozzlecount.ReadOnly = true;
+            // 
+            // col_section_tank_id
+            // 
+            this.col_section_tank_id.DataPropertyName = "tank_id";
+            this.col_section_tank_id.HeaderText = "Tank_id";
+            this.col_section_tank_id.Name = "col_section_tank_id";
+            this.col_section_tank_id.ReadOnly = true;
+            this.col_section_tank_id.Visible = false;
+            // 
+            // col_section_section
+            // 
+            this.col_section_section.DataPropertyName = "section";
+            this.col_section_section.HeaderText = "Section";
+            this.col_section_section.Name = "col_section_section";
+            this.col_section_section.ReadOnly = true;
+            this.col_section_section.Visible = false;
+            // 
+            // col_section_stmas_id
+            // 
+            this.col_section_stmas_id.DataPropertyName = "stmas_id";
+            this.col_section_stmas_id.HeaderText = "Stmas_id";
+            this.col_section_stmas_id.Name = "col_section_stmas_id";
+            this.col_section_stmas_id.ReadOnly = true;
+            this.col_section_stmas_id.Visible = false;
+            // 
+            // col_section_state
+            // 
+            this.col_section_state.DataPropertyName = "state";
+            this.col_section_state.HeaderText = "State";
+            this.col_section_state.Name = "col_section_state";
+            this.col_section_state.ReadOnly = true;
+            this.col_section_state.Visible = false;
+            // 
             // FormTankSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -786,5 +796,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_tank_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_section;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_stmas_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_section_state;
     }
 }

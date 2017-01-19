@@ -80,6 +80,13 @@ namespace XPump.Model
         }
 
         public section section { get; set; }
+        public int state
+        {
+            get
+            {
+                return this.id > -1 ? 0 : 1;
+            }
+        }
     }
 
     public class nozzleVM

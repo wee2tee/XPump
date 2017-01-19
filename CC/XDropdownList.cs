@@ -26,6 +26,16 @@ namespace CC
             }
         }
 
+        private bool _focused;
+        public bool _Focused
+        {
+            get
+            {
+                return this._focused;
+            }
+        }
+
+
         public XDropdownListItem _SelectedItem
         {
             get
@@ -83,11 +93,13 @@ namespace CC
                 {
                     this.BackColor = Color.White;
                     this.comboBox1.BackColor = Color.White;
+                    this._focused = false;
                 }
                 else
                 {
                     this.BackColor = AppResource.EditableControlBackColor;
                     this.comboBox1.BackColor = AppResource.EditableControlBackColor;
+                    this._focused = true;
                 }
             };
 
@@ -95,6 +107,7 @@ namespace CC
             {
                 this.BackColor = Color.White;
                 this.comboBox1.BackColor = Color.White;
+                this._focused = false;
             };
         }
 
