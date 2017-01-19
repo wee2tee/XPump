@@ -69,8 +69,11 @@ namespace XPump.SubForm
                     return;
 
                 section section = (section)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells["col_section_section"].Value;
-                DialogNozzle noz = new DialogNozzle(this.main_form, section);
-                noz.ShowDialog();
+                DialogNozzle noz = new DialogNozzle(this.main_form, this, section);
+                if(noz.ShowDialog() == DialogResult.OK)
+                {
+                    this.dgvSection.Refresh();
+                }
             };
             this.dgvSection.Parent.Controls.Add(this.inline_nozzlecount);
             this.inline_nozzlecount.BringToFront();
@@ -542,6 +545,7 @@ namespace XPump.SubForm
                 this.ResetControlState();
                 this.FillForm(this.temp_tank);
                 this.txtDesc.Focus();
+                this.txtName.Enabled = false;
             }
         }
 
@@ -599,6 +603,7 @@ namespace XPump.SubForm
                 this.ResetControlState();
                 this.temp_tank = null;
                 this.FillForm();
+                this.txtName.Enabled = true;
                 return;
             }
         }
@@ -624,6 +629,7 @@ namespace XPump.SubForm
                         this.curr_tank = this.GetTank(this.temp_tank.id);
                         this.FillForm();
                         this.temp_tank = null;
+                        this.dgvSection.Focus();
                     }
                     catch (DbUpdateException ex)
                     {
@@ -662,6 +668,8 @@ namespace XPump.SubForm
                         this.ResetControlState();
                         this.btnRefresh.PerformClick();
                         this.temp_tank = null;
+                        this.txtName.Enabled = true;
+                        this.dgvSection.Focus();
                     }
                     catch (Exception ex)
                     {
@@ -746,7 +754,30 @@ namespace XPump.SubForm
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
         {
+            DialogSimpleSearch dlg = new DialogSimpleSearch("รหัสแท๊งค์", "");
+            if(dlg.ShowDialog() == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    tank tmp = db.tank.Where(t => t.name.CompareTo(dlg.keyword) > -1).OrderBy(t => t.name).FirstOrDefault();
 
+                    if(tmp != null)
+                    {
+                        if(tmp.name != dlg.keyword)
+                        {
+                            if (MessageBox.Show(StringResource.Msg("0007"), "Message # 0007", MessageBoxButtons.OKCancel, MessageBoxIcon.None) != DialogResult.OK)
+                                return;
+                        }
+
+                        this.curr_tank = tmp;
+                        this.FillForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show(StringResource.Msg("0005"), "Message # 0005", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                }
+            }
         }
 
         private void btnInquiryAll_Click(object sender, EventArgs e)
@@ -876,6 +907,7 @@ namespace XPump.SubForm
                     this.curr_tank = this.GetTank(this.curr_tank.id);
                     this.FillForm();
                     this.btnStopItem.PerformClick();
+                    this.dgvSection.Focus();
                 }
 
                 return;
@@ -891,6 +923,7 @@ namespace XPump.SubForm
 
             this.curr_tank = this.GetTank(this.curr_tank.id);
             this.FillForm();
+            this.dgvSection.Focus();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -913,7 +946,12 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if(keyData == Keys.Escape)
+            if (keyData == Keys.Enter && (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM) && this.dgvSection.Focused)
+            {
+                return true;
+            }
+
+            if (keyData == Keys.Escape)
             {
                 this.btnStop.PerformClick();
                 this.btnStopItem.PerformClick();
@@ -923,30 +961,84 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if(keyData == Keys.F8)
+            if (keyData == Keys.F8)
             {
                 this.btnItem.PerformClick();
                 return true;
             }
 
-            if(keyData == (Keys.Alt | Keys.A))
+            if (keyData == (Keys.Alt | Keys.A))
             {
                 this.btnAddItem.PerformClick();
                 this.btnAdd.PerformClick();
                 return true;
             }
 
-            if(keyData == (Keys.Alt | Keys.E))
+            if (keyData == (Keys.Alt | Keys.E))
             {
                 this.btnEditItem.PerformClick();
                 this.btnEdit.PerformClick();
                 return true;
             }
 
-            if(keyData == (Keys.Alt | Keys.D))
+            if (keyData == (Keys.Alt | Keys.D))
             {
                 this.btnDeleteItem.PerformClick();
                 this.btnDelete.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.PageUp)
+            {
+                this.btnPrevious.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.PageDown)
+            {
+                this.btnNext.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.Home))
+            {
+                this.btnFirst.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.End))
+            {
+                this.btnLast.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.S))
+            {
+                this.btnSearch.PerformButtonClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.L))
+            {
+                this.btnInquiryAll.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.L))
+            {
+                this.btnInquiryRest.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.F5))
+            {
+                this.btnRefresh.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Shift | Keys.F4))
+            {
+                this.Close();
                 return true;
             }
 
@@ -987,6 +1079,11 @@ namespace XPump.SubForm
                     ((XTextEdit)sender).Focus();
                 }
             }
+        }
+
+        public void RefreshDgvSection()
+        {
+            this.dgvSection.Refresh();
         }
     }
 }

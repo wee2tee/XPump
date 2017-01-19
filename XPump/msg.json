@@ -28,5 +28,10 @@
     "msgID": "0006",
     "message_th": "ไม่สามารถค้นหาแท๊งค์ที่ท่านกำลังแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว",
     "message_en": "Tank not found, maybe it was deleted by another user."
+  },
+  {
+    "msgID": "0007",
+    "message_th": "ค้นหาข้อมูลไม่พบ, ต้องการข้อมูลถัดไปหรือไม่",
+    "message_en":  "Data not found, show next data instead?"
   }
 ]
