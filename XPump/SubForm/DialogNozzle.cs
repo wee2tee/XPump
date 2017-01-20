@@ -276,7 +276,7 @@ namespace XPump.SubForm
 
             nozzle tmp = (nozzle)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_nozzle"].Value;
 
-            if (MessageBox.Show("ลบรหัสหัวจ่าย \"" + tmp.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            if (MessageBox.Show("ลบรหัสหัวจ่าย \"" + tmp.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
 
             try

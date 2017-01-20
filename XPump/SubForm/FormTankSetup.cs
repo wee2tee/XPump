@@ -741,6 +741,8 @@ namespace XPump.SubForm
                     id = -1,
                     name = string.Empty,
                     description = string.Empty,
+                    startdate = DateTime.Now,
+                    enddate = null,
                     remark = string.Empty,
                     isactive = false
                 };
