@@ -62,6 +62,7 @@ namespace XPump.SubForm
             this.inline_nozzlecount.Text = "";
             this.inline_nozzlecount.Image = XPump.Properties.Resources.nozzle2_16;
             this.inline_nozzlecount.ImageAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(this.inline_nozzlecount, "แก้ไขจำนวนหัวจ่ายน้ำมัน <Ctrl+N>");
             this.inline_nozzlecount.Visible = false;
             this.inline_nozzlecount.Click += delegate
             {
@@ -158,7 +159,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode != FORM_MODE.READ && this.form_mode != FORM_MODE.READ_ITEM)
             {
-                if(MessageBox.Show(StringResource.Msg("0001"), "Message # 0001", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                if(MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
                 {
                     e.Cancel = true;
                     return;
@@ -267,9 +268,10 @@ namespace XPump.SubForm
             this.ddIsactive._SelectedItem = this.ddIsactive._Items.Cast<XDropdownListItem>().Where(i => (bool)i.Value == tank.isactive).First();
 
             this.bs_section.ResetBindings(true);
-            var sections = tank.section.ToList().ToViewModel().OrderBy(s => s.state).ThenBy(s => s.name).ToList();
+            var sections = tank.section.ToList().ToViewModel().OrderBy(s => s.state).ThenBy(s => s.id).ToList();
 
             this.bs_section.DataSource = sections;
+            this.dgvSection.Focus();
         }
 
         private void ShowInlineForm(int row_index)
@@ -530,13 +532,16 @@ namespace XPump.SubForm
             if (this.curr_tank == null || this.curr_tank.id == -1)
                 return;
 
+            this.inline_nozzlecount.Enabled = false;
+
             using (xpumpEntities db = DBX.DataSet())
             {
                 tank tmp = this.GetTank(this.curr_tank.id);
                 
                 if(tmp == null)
                 {
-                    MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("ค้นหารหัสแท๊งค์ \"" + this.curr_tank.name + "\" ไม่พบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    this.btnRefresh.PerformClick();
                     return;
                 }
 
@@ -554,28 +559,21 @@ namespace XPump.SubForm
             if (this.curr_tank == null)
                 return;
 
-            if (MessageBox.Show(StringResource.Msg("0003"), "Message # 0003", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            if (MessageBox.Show("ลบรหัสแท๊งค์ \"" + this.curr_tank.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
 
             using (xpumpEntities db = DBX.DataSet())
             {
                 try
                 {
-                    tank tank_to_delete = db.tank.Find(this.curr_tank.id);
-
-                    if (tank_to_delete == null)
-                    {
-                        MessageBox.Show(StringResource.Msg("0004"), "Message # 0004", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        return;
-                    }
-
-                    db.tank.Remove(tank_to_delete);
+                    db.tank.Remove(db.tank.Find(this.curr_tank.id));
                     db.SaveChanges();
                     this.btnRefresh.PerformClick();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ex.ShowMessage("รหัส", this.curr_tank.name);
+                    this.btnRefresh.PerformClick();
                 }
             }
         }
@@ -592,6 +590,7 @@ namespace XPump.SubForm
                 this.toolStrip1.Focus();
                 this.form_mode = FORM_MODE.READ;
                 this.ResetControlState();
+                this.btnRefresh.PerformClick();
 
                 this.panel2.Refresh();
                 return;
@@ -604,6 +603,7 @@ namespace XPump.SubForm
                 this.temp_tank = null;
                 this.FillForm();
                 this.txtName.Enabled = true;
+                this.inline_nozzlecount.Enabled = true;
                 return;
             }
         }
@@ -631,13 +631,9 @@ namespace XPump.SubForm
                         this.temp_tank = null;
                         this.dgvSection.Focus();
                     }
-                    catch (DbUpdateException ex)
+                    catch(Exception ex)
                     {
-                        if (ex.InnerException.Message.ToLower().Contains("duplicate entry") || ex.InnerException.InnerException.Message.ToLower().Contains("duplicate entry"))
-                        {
-                            MessageBox.Show("รหัส \"" + this.temp_tank.name + "\" มีอยู่แล้วในระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            this.txtName.Focus();
-                        }
+                        ex.ShowMessage("รหัส", this.temp_tank.name);
                     }
                 }
                 return;
@@ -652,7 +648,7 @@ namespace XPump.SubForm
                         tank tank_to_update = db.tank.Find(this.temp_tank.id);
                         if(tank_to_update == null)
                         {
-                            MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MessageBox.Show("ค้นหารหัส \"" + this.temp_tank.name + "\" เพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
@@ -669,11 +665,12 @@ namespace XPump.SubForm
                         this.btnRefresh.PerformClick();
                         this.temp_tank = null;
                         this.txtName.Enabled = true;
+                        this.inline_nozzlecount.Enabled = true;
                         this.dgvSection.Focus();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        ex.ShowMessage("รหัส", this.temp_tank.name);
                     }
                 }
                 return;
@@ -765,7 +762,7 @@ namespace XPump.SubForm
                     {
                         if(tmp.name != dlg.keyword)
                         {
-                            if (MessageBox.Show(StringResource.Msg("0007"), "Message # 0007", MessageBoxButtons.OKCancel, MessageBoxIcon.None) != DialogResult.OK)
+                            if (MessageBox.Show("ค้นหาข้อมูลไม่พบ, ต้องการข้อมูลถัดไปหรือไม่", "", MessageBoxButtons.OKCancel, MessageBoxIcon.None) != DialogResult.OK)
                                 return;
                         }
 
@@ -774,7 +771,7 @@ namespace XPump.SubForm
                     }
                     else
                     {
-                        MessageBox.Show(StringResource.Msg("0005"), "Message # 0005", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("ค้นหาข้อมูลไม่พบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
             }
@@ -850,7 +847,29 @@ namespace XPump.SubForm
 
         private void btnDeleteItem_Click(object sender, EventArgs e)
         {
+            if (this.dgvSection.CurrentCell == null)
+                return;
 
+            section tmp = (section)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells["col_section_section"].Value;
+
+            if (MessageBox.Show("ลบรหัสช่องเก็บน้ำมัน \"" + tmp.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                return;
+
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                try
+                {
+                    db.section.Remove(db.section.Find(tmp.id));
+                    db.SaveChanges();
+                    this.curr_tank = this.GetTank(this.curr_tank.id);
+                    this.FillForm();
+
+                }
+                catch (Exception ex)
+                {
+                    ex.ShowMessage("รหัส", tmp.name, "รหัสแท๊งค์", this.curr_tank.name);
+                }
+            }
         }
 
         private void btnSaveItem_Click(object sender, EventArgs e)
@@ -874,12 +893,19 @@ namespace XPump.SubForm
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
-                    db.section.Add(this.temp_section.section);
-                    db.SaveChanges();
-                    this.curr_tank = this.GetTank(this.curr_tank.id);
-                    this.FillForm();
-                    this.btnStopItem.PerformClick();
-                    this.btnAddItem.PerformClick();
+                    try
+                    {
+                        db.section.Add(this.temp_section.section);
+                        db.SaveChanges();
+                        this.curr_tank = this.GetTank(this.curr_tank.id);
+                        this.FillForm();
+                        this.btnStopItem.PerformClick();
+                        this.btnAddItem.PerformClick();
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.ShowMessage("รหัส", this.temp_section.name, "รหัสแท๊งค์", this.curr_tank.name);
+                    }
                 }
 
                 return;
@@ -889,25 +915,32 @@ namespace XPump.SubForm
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
-                    section section_to_update = db.section.Find(this.temp_section.id);
-
-                    if(section_to_update == null)
+                    try
                     {
-                        MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        this.inline_capacity.Focus();
-                        return;
+                        section section_to_update = db.section.Find(this.temp_section.id);
+
+                        if (section_to_update == null)
+                        {
+                            MessageBox.Show("ค้นหารหัส \"" + this.temp_section.name + "\" เพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            this.inline_capacity.Focus();
+                            return;
+                        }
+
+                        section_to_update.name = this.temp_section.section.name;
+                        section_to_update.stmas_id = this.temp_section.section.stmas_id;
+                        section_to_update.tank_id = this.temp_section.section.tank_id;
+                        section_to_update.capacity = this.temp_section.section.capacity;
+
+                        db.SaveChanges();
+                        this.curr_tank = this.GetTank(this.curr_tank.id);
+                        this.FillForm();
+                        this.btnStopItem.PerformClick();
+                        this.dgvSection.Focus();
                     }
-
-                    section_to_update.name = this.temp_section.section.name;
-                    section_to_update.stmas_id = this.temp_section.section.stmas_id;
-                    section_to_update.tank_id = this.temp_section.section.tank_id;
-                    section_to_update.capacity = this.temp_section.section.capacity;
-
-                    db.SaveChanges();
-                    this.curr_tank = this.GetTank(this.curr_tank.id);
-                    this.FillForm();
-                    this.btnStopItem.PerformClick();
-                    this.dgvSection.Focus();
+                    catch (Exception ex)
+                    {
+                        ex.ShowMessage("รหัส", this.temp_section.name, "รหัสแท๊งค์", this.curr_tank.name);
+                    }
                 }
 
                 return;
@@ -921,9 +954,32 @@ namespace XPump.SubForm
             this.RemoveInlineForm();
             this.temp_section = null;
 
-            this.curr_tank = this.GetTank(this.curr_tank.id);
-            this.FillForm();
-            this.dgvSection.Focus();
+            tank tmp = this.GetTank(this.curr_tank.id);
+            if (tmp != null)
+            {
+                this.curr_tank = tmp;
+                this.FillForm();
+                this.dgvSection.Focus();
+                return;
+            }
+
+            tmp = this.GetNextTank();
+            if (tmp != null)
+            {
+                this.curr_tank = tmp;
+                this.FillForm();
+                this.dgvSection.Focus();
+                return;
+            }
+
+            tmp = this.GetLastTank();
+            if(tmp != null)
+            {
+                this.curr_tank = tmp;
+                this.FillForm();
+                this.dgvSection.Focus();
+                return;
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -964,6 +1020,12 @@ namespace XPump.SubForm
             if (keyData == Keys.F8)
             {
                 this.btnItem.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.F9)
+            {
+                this.btnSave.PerformClick();
                 return true;
             }
 
@@ -1042,6 +1104,12 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if(keyData == (Keys.Control | Keys.Space) && (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM) && this.inline_nozzlecount.Visible)
+            {
+                this.inline_nozzlecount.PerformClick();
+                return true;
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -1050,6 +1118,7 @@ namespace XPump.SubForm
             if (((XDatagrid)sender).Rows.Count == 0)
             {
                 this.inline_nozzlecount.Visible = false;
+                return;
             }
 
             if (((XDatagrid)sender).CurrentCell == null)
@@ -1084,6 +1153,62 @@ namespace XPump.SubForm
         public void RefreshDgvSection()
         {
             this.dgvSection.Refresh();
+        }
+
+        private void dgvSection_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if(e.RowIndex > -1)
+            {
+                this.btnItem.PerformClick();
+                this.btnEditItem.PerformClick();
+
+                if(((XDatagrid)sender).Columns[e.ColumnIndex].DataPropertyName == this.col_section_capacity.DataPropertyName)
+                {
+                    this.inline_capacity.Focus();
+                    return;
+                }
+            }
+        }
+
+        private void dgvSection_MouseClick(object sender, MouseEventArgs e)
+        {
+            int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+
+            if (e.Button == MouseButtons.Right && row_index > -1)
+            {
+                this.btnItem.PerformClick();
+
+                ((XDatagrid)sender).Rows[row_index].Cells["col_section_name"].Selected = true;
+                this.dgvSection_SelectionChanged(sender, new EventArgs());
+
+                ContextMenu cm = new ContextMenu();
+
+                MenuItem mnu_add = new MenuItem();
+                mnu_add.Text = "เพิ่ม <Alt+A>";
+                mnu_add.Click += delegate
+                {
+                    this.btnAddItem.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_add);
+
+                MenuItem mnu_edit = new MenuItem();
+                mnu_edit.Text = "แก้ไข <Alt+E>";
+                mnu_edit.Click += delegate
+                {
+                    this.btnEditItem.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_edit);
+
+                MenuItem mnu_delete = new MenuItem();
+                mnu_delete.Text = "ลบ <Alt+D>";
+                mnu_delete.Click += delegate
+                {
+                    this.btnDeleteItem.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_delete);
+
+                cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
+            }
         }
     }
 }

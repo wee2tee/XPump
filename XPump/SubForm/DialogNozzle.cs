@@ -44,8 +44,17 @@ namespace XPump.SubForm
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            base.OnClosing(e);
+            if(this.form_mode != FORM_MODE.READ_ITEM)
+            {
+                if(MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
             this.DialogResult = DialogResult.OK;
+            base.OnClosing(e);
         }
 
         private void DialogNozzle_Load(object sender, EventArgs e)
@@ -55,20 +64,25 @@ namespace XPump.SubForm
 
             using (xpumpEntities db = DBX.DataSet())
             {
-                this.tank = db.tank.Find(this.section.tank_id);
-
-                if(this.tank != null)
+                this.section = db.section.Find(this.section.id);
+                if (this.section == null)
                 {
-                    this.lblTank.Text = this.tank.name + " / " + this.tank.description;
-                    this.lblSection.Text = this.section.name;
-                }
-                else
-                {
-                    MessageBox.Show(StringResource.Msg("0006"), "Message # 0006", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("ไม่สามารถค้นหาช่องเก็บน้ำมันที่ต้องการแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     this.DialogResult = DialogResult.Cancel;
                     this.Close();
                     return;
                 }
+                this.lblSection.Text = this.section.name;
+
+                this.tank = db.tank.Find(this.section.tank_id);
+                if(this.tank == null)
+                {
+                    MessageBox.Show("ไม่สามารถค้นหาแท๊งค์ที่ต้องการแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+                    return;
+                }
+                this.lblTank.Text = this.tank.name + " / " + this.tank.description;
 
                 this.list_nozzle = this.GetNozzleList();
 
@@ -260,24 +274,16 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            if (MessageBox.Show(StringResource.Msg("0003"), "Message # 0003", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
-                return;
-
             nozzle tmp = (nozzle)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_nozzle"].Value;
+
+            if (MessageBox.Show("ลบรหัสหัวจ่าย \"" + tmp.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                return;
 
             try
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
-                    nozzle nozzle_to_delete = db.nozzle.Find(tmp.id);
-
-                    if (nozzle_to_delete == null)
-                    {
-                        MessageBox.Show(StringResource.Msg("0004"), "Message # 0004", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        return;
-                    }
-
-                    db.nozzle.Remove(nozzle_to_delete);
+                    db.nozzle.Remove(db.nozzle.Find(tmp.id));
                     db.SaveChanges();
 
                     this.list_nozzle = this.GetNozzleList();
@@ -289,7 +295,7 @@ namespace XPump.SubForm
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ex.ShowMessage("รหัส", tmp.name, "รหัสช่องเก็บน้ำมัน", this.section.name);
             }
         }
 
@@ -334,14 +340,18 @@ namespace XPump.SubForm
                         this.btnStopItem.PerformClick();
                         this.btnAddItem.PerformClick();
                     }
-                    catch (DbUpdateException ex)
+                    catch(Exception ex)
                     {
-                        if (ex.InnerException.Message.ToLower().Contains("duplicate entry") || ex.InnerException.InnerException.Message.ToLower().Contains("duplicate entry"))
-                        {
-                            MessageBox.Show("รหัส \"" + this.temp_nozzle.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            this.inline_name.Focus();
-                        }
+                        ex.ShowMessage("รหัส", this.temp_nozzle.name, "รหัสช่องเก็บน้ำมัน", this.section.name);
                     }
+                    //catch (DbUpdateException ex)
+                    //{
+                    //    if (ex.InnerException.Message.ToLower().Contains("duplicate entry") || ex.InnerException.InnerException.Message.ToLower().Contains("duplicate entry"))
+                    //    {
+                    //        MessageBox.Show("รหัส \"" + this.temp_nozzle.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //        this.inline_name.Focus();
+                    //    }
+                    //}
                 }
 
                 return;
@@ -376,7 +386,8 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ex.ShowMessage("รหัส", this.temp_nozzle.name, "รหัสช่องเก็บน้ำมัน", this.section.name);
+                        //MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
 
@@ -405,7 +416,14 @@ namespace XPump.SubForm
 
             if(keyData == Keys.Escape)
             {
-                this.btnStopItem.PerformClick();
+                if (this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    this.btnStopItem.PerformClick();
+                    return true;
+                }
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
                 return true;
             }
 
@@ -434,6 +452,58 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgv_MouseClick(object sender, MouseEventArgs e)
+        {
+            int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+
+            if(e.Button == MouseButtons.Right && row_index > -1)
+            {
+                ((XDatagrid)sender).Rows[row_index].Cells["col_name"].Selected = true;
+                
+                ContextMenu cm = new ContextMenu();
+
+                MenuItem mnu_add = new MenuItem();
+                mnu_add.Text = "เพิ่ม <Alt+A>";
+                mnu_add.Click += delegate
+                {
+                    this.btnAddItem.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_add);
+
+                MenuItem mnu_edit = new MenuItem();
+                mnu_edit.Text = "แก้ไข <Alt+E>";
+                mnu_edit.Click += delegate
+                {
+                    this.btnEditItem.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_edit);
+
+                MenuItem mnu_delete = new MenuItem();
+                mnu_delete.Text = "ลบ <Alt+D>";
+                mnu_delete.Click += delegate
+                {
+                    this.btnDeleteItem.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_delete);
+
+                cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
+            }
+        }
+
+        private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex > -1)
+            {
+                this.btnEditItem.PerformClick();
+
+                if(((XDatagrid)sender).Columns[e.ColumnIndex].DataPropertyName == this.col__isactive.DataPropertyName)
+                {
+                    this.inline_isactive.Focus();
+                    return;
+                }
+            }
         }
     }
 }

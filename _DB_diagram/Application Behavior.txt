@@ -1,0 +1,81 @@
+[Master-Details Form]
+	var current_data = Master record data;
+
+	[Master]
+		- Add
+			- Success 
+				-> Load latest data to stored as current_data
+					-> Display add form to continue adding new data
+			- Fail
+				- Duplicate unique value
+					-> Alert, wait for stop|continue adding
+				- Parent row(fk constraint) is deleted by another users, so this current data is deleted too
+					-> Alert, wait for stop|continue adding
+
+		- Update
+			- Success
+				 -> Load edited data to stored as current_data
+					-> Show current_data
+
+			- Fail
+				- Editing data is deleted by another users
+					-> Alert, wait for stop|continue editing
+				- Parent row(fk constraint) is deleted by another users, so this current_data is deleted too
+					-> Alert, wait for stop|continue editing
+
+		- Delete
+			- Success
+				-> Load next data to stored as current_data
+					-> Show current_data
+
+			- Fail
+				- Deleting data is deleted by another users
+					-> Load next data to stored as current_data
+						-> Show current_data
+
+		- Stop Add/Edit -> Clear add|edit form
+					- Current data is exist on DB
+						-> Load current data from DB to stored as current_data
+							-> Show current data
+					- Current data is deleted from DB
+						-> Load next data to stored as current_data
+							-> Show current_data
+
+
+	[Details]
+		- Add
+			- Success
+				-> Load latest data to stored as current_data
+					-> Show current_data
+						-> Display add form to continue adding new data
+			- Fail
+				- Duplicate unique value
+					-> Alert, wait for stop|continue adding
+				- Parent row(fk constraint) is deleted by another users, so this current data is deleted too
+					-> Alert, wait for stop|continue adding
+
+		- Update
+			- Success
+				-> Load edited data to stored as current_data
+					-> Show current_data
+
+			- Fail
+				- Editing data is deleted by another users
+					-> Alert, wait for stop|continue editing
+				- Parent row(fk constraint) is deleted by another users, so this current_data is deleted too
+					-> Alert, wait for stop|continue editing
+
+		- Delete
+			- Success
+				-> Load current data from DB to stored as current_data
+					-> Show current_data
+			- Fail
+				- Deleting data is deleted by another users
+					-> Alert, do nothing
+		
+		- Stop Add/Edit -> Clear add|edit form
+
+
+
+
+

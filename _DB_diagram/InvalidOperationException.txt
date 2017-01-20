@@ -1,0 +1,3 @@
+﻿# Delete row that is not exist #
+# InvalidOperationException.Message #
+"The object cannot be deleted because it was not found in the ObjectStateManager."

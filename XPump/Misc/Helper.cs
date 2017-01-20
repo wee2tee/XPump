@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity.Infrastructure;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -411,6 +412,61 @@ namespace XPump.Misc
                 Rectangle rect = dgv.GetCellDisplayRectangle(column_index, row_index, true);
                 inline_control.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 3);
             }
+        }
+
+        /// <summary>
+        ///     Displays a message box with a message of Exception(especialy for DbUpdateException).
+        /// </summary>
+        /// <param name="exception_key">
+        ///     The text to display as a DB error key, such as a duplicate field name in case duplicate entry.
+        /// </param>
+        /// <param name="exception_value">
+        ///     The text to display as a DB error value.
+        /// </param>
+        /// <param name="exception_parent_key">
+        ///     The text to display as a DB error key of parent table(foreign key contraint), in case add/update a child row while parent row is deleted.
+        /// </param>
+        /// <param name="exception_parent_value">
+        ///     The text to display as a DB error value of parent table.
+        /// </param>
+        public static void ShowMessage(this Exception ex, string exception_key, string exception_value, string exception_parent_key = "", string exception_parent_value = "")
+        {
+            if(ex is DbUpdateException)
+            {
+                string message = string.Empty; ;
+
+                // adding a duplicate unique value
+                if (ex.InnerException.InnerException.Message.ToLower().Contains("duplicate entry"))
+                {
+                    message = string.Format("{0} \"{1}\" มีอยู่แล้วในระบบ", exception_key, exception_value);
+                }
+
+                // adding/updating a child row while parent row(foreign key constraint) is deleted
+                if (ex.InnerException.InnerException.Message.ToLower().Contains("cannot add or update a child row"))
+                {
+                    message = string.Format("{0} \"{1}\" ไม่มีอยู่ในระบบ, ไม่สามารถแก้ไขได้", exception_parent_key, exception_parent_value);
+                }
+
+                // delete a parent row while a child row(foreign key constraint) is exist
+                if (ex.InnerException.InnerException.Message.ToLower().Contains("cannot delete or update a parent row"))
+                {
+                    message = string.Format("{0} \"{1}\" ยังไม่สามารถลบได้ เนื่องจากมีการนำไปใช้งานแล้ว", exception_key, exception_value);
+                }
+
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+            else if(ex is ArgumentNullException)
+            {
+                if(ex.Message.ToLower().Contains("value cannot be null") && ex.StackTrace.ToLower().Contains(".remove("))
+                {
+                    MessageBox.Show(string.Format("{0} \"{1}\" ไม่มีอยู่ในระบบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", exception_key, exception_value));
+                    return;
+                }
+            }
+
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

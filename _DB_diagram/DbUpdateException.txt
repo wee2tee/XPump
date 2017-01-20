@@ -1,0 +1,12 @@
+﻿# Add new row with an existing unique value
+# DbUpdateException.InnerException.InnerException.Message #
+{"Duplicate entry 'Tank-F' for key 'unq-tank-name'"}
+
+# Add child row while parent row is deleted #
+# DbUpdateException.InnerException.InnerException.Message #
+{"Cannot add or update a child row: a foreign key constraint fails (\"xpump\".\"section\", CONSTRAINT \"fk-section-tank_id\" FOREIGN KEY (\"tank_id\") REFERENCES \"tank\" (\"id\") ON DELETE NO ACTION ON UPDATE NO ACTION)"}
+
+
+# Delete parent row while child row is exist #
+# DbUpdateException.InnerException.InnerException.Message #
+{"Cannot delete or update a parent row: a foreign key constraint fails (`xpump`.`nozzle`, CONSTRAINT `fk-nozzle-section_id` FOREIGN KEY (`section_id`) REFERENCES `section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)"}
