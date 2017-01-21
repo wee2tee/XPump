@@ -988,7 +988,7 @@ namespace XPump.SubForm
         {
             if (keyData == Keys.Enter && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM))
             {
-                if (this.ddIsactive._Focused)
+                if (this.txtRemark._Focused /*this.ddIsactive._Focused*/)
                 {
                     this.btnSave.PerformClick();
                     return true;

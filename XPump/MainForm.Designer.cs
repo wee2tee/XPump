@@ -113,6 +113,7 @@
             this.MnuNozzle.Name = "MnuNozzle";
             this.MnuNozzle.Size = new System.Drawing.Size(195, 22);
             this.MnuNozzle.Text = "กำหนดหัวจ่ายน้ำมัน";
+            this.MnuNozzle.Visible = false;
             this.MnuNozzle.Click += new System.EventHandler(this.MnuNozzle_Click);
             // 
             // MnuTank

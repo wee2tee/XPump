@@ -10,19 +10,21 @@ using XPump.Model;
 using XPump.Misc;
 using CC;
 using System.Data.Entity.Infrastructure;
+using System.Globalization;
 
 namespace XPump.SubForm
 {
     public partial class FormStmas : Form
     {
         private MainForm main_form;
-        private BindingSource bs_tank;
+        private BindingSource bs_section;
         private BindingSource bs_nozzle;
         private BindingSource bs_price;
         private stmas curr_stmas; // current displayed stmas
         private stmas temp_stmas;
         private FORM_MODE form_mode;
-        private bool curr_tank_only, curr_nozzle_only, curr_price_only;
+        //private bool curr_tank_only, curr_nozzle_only, curr_price_only;
+        private bool current_only = true;
 
         public FormStmas()
         {
@@ -40,10 +42,12 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
-            this.bs_tank = new BindingSource();
+            this.chkCurrentOnly.Checked = this.current_only;
+
+            this.bs_section = new BindingSource();
             this.bs_nozzle = new BindingSource();
             this.bs_price = new BindingSource();
-            this.dgvTank.DataSource = this.bs_tank;
+            this.dgvTank.DataSource = this.bs_section;
             this.dgvNozzle.DataSource = this.bs_nozzle;
             this.dgvPrice.DataSource = this.bs_price;
 
@@ -127,6 +131,26 @@ namespace XPump.SubForm
             }
         }
 
+        public List<nozzle> GetNozzleBySectionList(IEnumerable<section> section_list)
+        {
+            if (section_list == null)
+                return new List<nozzle>();
+
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                try
+                {
+                    var sec = section_list.ToViewModel().Where(s => !s.end_date.HasValue || s.end_date.Value.ToString("yyyyMMdd", CultureInfo.CurrentCulture).CompareTo(DateTime.Now.ToString("yyyyMMdd", CultureInfo.CurrentCulture)) >= 0).Select(s => s.id).ToArray<int>();
+                    var nozzle = db.nozzle.Where(n => sec.Contains(n.section_id)).ToList();
+                    return nozzle;
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
         private void FillForm(stmas stmas_to_fill = null)
         {
             stmas stmas = stmas_to_fill != null ? stmas_to_fill : this.curr_stmas;
@@ -138,17 +162,31 @@ namespace XPump.SubForm
             this.txtDescription._Text = stmas.description;
             this.txtRemark._Text = stmas.remark;
 
-            //this.bs_tank.ResetBindings(true);
-            //this.bs_tank.DataSource = stmas.tanksetup.ToList();
+            this.bs_section.ResetBindings(true);
+            this.bs_section.DataSource = stmas.section.ToViewModel().Where(s => !s.end_date.HasValue || s.end_date.Value.ToString("yyyyMMdd", CultureInfo.CurrentCulture).CompareTo(DateTime.Now.ToString("yyyyMMdd", CultureInfo.CurrentCulture)) >= 0).ToList();
 
-            this.btnEdit.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            this.btnDelete.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            this.btnFirst.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            this.btnPrevious.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            this.btnNext.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            this.btnLast.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            this.btnRefresh.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            this.btnSearch.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
+            this.bs_nozzle.ResetBindings(true);
+            this.bs_nozzle.DataSource = this.GetNozzleBySectionList(stmas.section).ToViewModel();
+
+            //this.btnEdit.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
+            //this.btnDelete.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
+            //this.btnFirst.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
+            //this.btnPrevious.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
+            //this.btnNext.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
+            //this.btnLast.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
+            //this.btnRefresh.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
+            //this.btnSearch.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
+        }
+
+        private void dgvTank_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_tank_name.DataPropertyName).First().Index].DisplayIndex = 0;
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_name.DataPropertyName).First().Index].DisplayIndex = 1;
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_capacity.DataPropertyName).First().Index].DisplayIndex = 2;
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_start.DataPropertyName).First().Index].DisplayIndex = 3;
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_end.DataPropertyName).First().Index].DisplayIndex = 4;
+
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_capacity.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -440,20 +478,20 @@ namespace XPump.SubForm
             
         }
 
-        private void chkCurrTank_CheckedChanged(object sender, EventArgs e)
-        {
-            this.curr_tank_only = ((CheckBox)sender).Checked;
-        }
+        //private void chkCurrTank_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    this.curr_tank_only = ((CheckBox)sender).Checked;
+        //}
 
-        private void chkCurrNozzle_CheckedChanged(object sender, EventArgs e)
-        {
-            this.curr_nozzle_only = ((CheckBox)sender).Checked;
-        }
+        //private void chkCurrNozzle_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    this.curr_nozzle_only = ((CheckBox)sender).Checked;
+        //}
 
-        private void chkCurrPrice_CheckedChanged(object sender, EventArgs e)
-        {
-            this.curr_price_only = ((CheckBox)sender).Checked;
-        }
+        //private void chkCurrPrice_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    this.curr_price_only = ((CheckBox)sender).Checked;
+        //}
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {

@@ -68,6 +68,39 @@ namespace XPump.Model
             }
         }
 
+        public string tank_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.tank.Find(this.tank_id) != null ? db.tank.Find(this.tank_id).name : string.Empty;
+                }
+            }
+        }
+
+        public DateTime start_date
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.tank.Find(this.tank_id) != null ? db.tank.Find(this.tank_id).startdate : DateTime.Now;
+                }
+            }
+        }
+
+        public DateTime? end_date
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.tank.Find(this.tank_id) != null ? db.tank.Find(this.tank_id).enddate : null;
+                }
+            }
+        }
+
         public int nozzlecount
         {
             get
