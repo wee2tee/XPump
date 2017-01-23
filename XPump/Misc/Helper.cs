@@ -214,6 +214,33 @@ namespace XPump.Misc
             return s;
         }
 
+        public static pricelistVM ToViewModel(this pricelist price)
+        {
+            if (price == null)
+                return null;
+
+            pricelistVM p = new pricelistVM
+            {
+                id = price.id,
+                unitpr = price.unitpr,
+                pricetag_id = price.pricetag_id,
+                stmas_id = price.stmas_id,
+            };
+            return p;
+        }
+
+        public static List<pricelistVM> ToViewModel(this IEnumerable<pricelist> pricelist)
+        {
+            List<pricelistVM> p = new List<pricelistVM>();
+
+            foreach (var item in pricelist)
+            {
+                p.Add(item.ToViewModel());
+            }
+
+            return p;
+        }
+
         public static void SetControlState(this Component comp, FORM_MODE[] form_mode_to_enable, FORM_MODE form_mode)
         {
             if (form_mode_to_enable.ToList().Where(fm => fm == form_mode).Count() > 0)
@@ -233,6 +260,10 @@ namespace XPump.Misc
                 if(comp is ToolStripMenuItem)
                 {
                     ((ToolStripMenuItem)comp).Enabled = true; return;
+                }
+                if(comp is TabControl)
+                {
+                    ((TabControl)comp).Enabled = true; return;
                 }
                 if(comp is Button)
                 {
@@ -272,6 +303,10 @@ namespace XPump.Misc
                 if (comp is ToolStripMenuItem)
                 {
                     ((ToolStripMenuItem)comp).Enabled = false; return;
+                }
+                if(comp is TabControl)
+                {
+                    ((TabControl)comp).Enabled = false; return;
                 }
                 if (comp is Button)
                 {

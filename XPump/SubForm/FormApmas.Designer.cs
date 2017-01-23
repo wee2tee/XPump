@@ -47,12 +47,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgv = new CC.XDatagrid();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col__isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_supcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_supnam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_aptrn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
@@ -235,12 +232,9 @@
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
-            this.col_name,
-            this.col_desc,
-            this.col__isactive,
-            this.col_isactive,
-            this.col_remark,
-            this.col_tank});
+            this.col_supcod,
+            this.col_supnam,
+            this.col_aptrn});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -277,53 +271,30 @@
             this.col_id.ReadOnly = true;
             this.col_id.Visible = false;
             // 
-            // col_name
+            // col_supcod
             // 
-            this.col_name.DataPropertyName = "name";
-            this.col_name.HeaderText = "รหัส";
-            this.col_name.Name = "col_name";
-            this.col_name.ReadOnly = true;
+            this.col_supcod.DataPropertyName = "supcod";
+            this.col_supcod.HeaderText = "รหัส";
+            this.col_supcod.Name = "col_supcod";
+            this.col_supcod.ReadOnly = true;
             // 
-            // col_desc
+            // col_supnam
             // 
-            this.col_desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_desc.DataPropertyName = "description";
-            this.col_desc.HeaderText = "รายละเอียด";
-            this.col_desc.Name = "col_desc";
-            this.col_desc.ReadOnly = true;
+            this.col_supnam.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_supnam.DataPropertyName = "supnam";
+            this.col_supnam.HeaderText = "รายละเอียด";
+            this.col_supnam.Name = "col_supnam";
+            this.col_supnam.ReadOnly = true;
             // 
-            // col__isactive
+            // col_aptrn
             // 
-            this.col__isactive.DataPropertyName = "_isactive";
-            this.col__isactive.HeaderText = "ใช้งาน?";
-            this.col__isactive.Name = "col__isactive";
-            this.col__isactive.ReadOnly = true;
+            this.col_aptrn.DataPropertyName = "aptrn";
+            this.col_aptrn.HeaderText = "Aptrn";
+            this.col_aptrn.Name = "col_aptrn";
+            this.col_aptrn.ReadOnly = true;
+            this.col_aptrn.Visible = false;
             // 
-            // col_isactive
-            // 
-            this.col_isactive.DataPropertyName = "isactive";
-            this.col_isactive.HeaderText = "IsActive";
-            this.col_isactive.Name = "col_isactive";
-            this.col_isactive.ReadOnly = true;
-            this.col_isactive.Visible = false;
-            // 
-            // col_remark
-            // 
-            this.col_remark.DataPropertyName = "remark";
-            this.col_remark.HeaderText = "Remark";
-            this.col_remark.Name = "col_remark";
-            this.col_remark.ReadOnly = true;
-            this.col_remark.Visible = false;
-            // 
-            // col_tank
-            // 
-            this.col_tank.DataPropertyName = "tank";
-            this.col_tank.HeaderText = "Tank";
-            this.col_tank.Name = "col_tank";
-            this.col_tank.ReadOnly = true;
-            this.col_tank.Visible = false;
-            // 
-            // FormTank
+            // FormApmas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -333,11 +304,11 @@
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "FormTank";
+            this.Name = "FormApmas";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "รายชื่อผู้ค้าน้ำมัน";
-            this.Load += new System.EventHandler(this.TankForm_Load);
+            this.Load += new System.EventHandler(this.FormApmas_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -366,11 +337,8 @@
         private System.Windows.Forms.Panel panel1;
         private CC.XDatagrid dgv;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_desc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col__isactive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_isactive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_remark;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_supcod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_supnam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_aptrn;
     }
 }

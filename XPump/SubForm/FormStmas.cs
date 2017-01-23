@@ -96,16 +96,14 @@ namespace XPump.SubForm
             this.txtName.SetControlState(new FORM_MODE[] { FORM_MODE.ADD }, this.form_mode);
             this.txtDescription.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.txtRemark.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
-            //this.chkCurrTankOnly.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            //this.chkCurrNozzleOnly.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            //this.chkCurrPriceOnly.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.tabControl1.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if(this.form_mode != FORM_MODE.READ)
             {
-                if (MessageBox.Show(StringResource.Msg("0001"), "Message # 0001", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                if (MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
                 {
                     e.Cancel = true;
                     return;
@@ -167,26 +165,45 @@ namespace XPump.SubForm
 
             this.bs_nozzle.ResetBindings(true);
             this.bs_nozzle.DataSource = this.GetNozzleBySectionList(stmas.section).ToViewModel();
-
-            //this.btnEdit.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            //this.btnDelete.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            //this.btnFirst.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            //this.btnPrevious.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            //this.btnNext.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            //this.btnLast.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            //this.btnRefresh.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
-            //this.btnSearch.Enabled = this.form_mode == FORM_MODE.READ && this.curr_stmas.id > 0 ? true : false;
         }
 
         private void dgvTank_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_tank_name.DataPropertyName).First().Index].DisplayIndex = 0;
             ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_name.DataPropertyName).First().Index].DisplayIndex = 1;
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_capacity.DataPropertyName).First().Index].DisplayIndex = 2;
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_start.DataPropertyName).First().Index].DisplayIndex = 3;
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_end.DataPropertyName).First().Index].DisplayIndex = 4;
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index].DisplayIndex = 2;
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begbal.DataPropertyName).First().Index].DisplayIndex = 3;
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_totbal.DataPropertyName).First().Index].DisplayIndex = 4;
 
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_capacity.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begbal.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_totbal.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+        }
+
+        private void dgvTank_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index)
+            {
+                this.tabControl1.SelectedTab = this.tabPage2;
+                return;
+            }
+        }
+
+        private void PerformEdit(object sender, EventArgs e)
+        {
+            this.btnEdit.PerformClick();
+            this.txtName.Focus();
+            
+            if(((Control)sender) == this.txtName)
+            {
+                this.txtDescription.Focus();
+                return;
+            }
+
+            ((Control)sender).Focus();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -199,6 +216,7 @@ namespace XPump.SubForm
                 remark = string.Empty,
             };
 
+            this.tabControl1.SelectedTab = this.tabPage1;
             this.txtRemark.Focus();
             this.form_mode = FORM_MODE.ADD;
             this.ResetControlState();
@@ -218,40 +236,36 @@ namespace XPump.SubForm
 
                 if(tmp == null)
                 {
-                    MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("ค้นหาสินค้ารหัส \"" + this.curr_stmas.name + "\" ไม่พบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    this.btnRefresh.PerformClick();
                     return;
                 }
 
+                this.tabControl1.SelectedTab = this.tabPage1;
                 this.temp_stmas = tmp;
                 this.form_mode = FORM_MODE.EDIT;
                 this.ResetControlState();
                 this.FillForm(this.temp_stmas);
                 this.txtDescription.Focus();
+                this.txtName.Enabled = false;
             }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(StringResource.Msg("0003"), "Message # 0003", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if (MessageBox.Show("ลบรหัสสินค้า \"" + this.curr_stmas.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
                     try
                     {
-                        stmas stmas_to_delete = db.stmas.Find(this.curr_stmas.id);
-                        if(stmas_to_delete == null)
-                        {
-                            MessageBox.Show(StringResource.Msg("0004"), "Message # 0004", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
-
-                        db.stmas.Remove(stmas_to_delete);
+                        db.stmas.Remove(this.GetStmas(this.curr_stmas.id));
                         db.SaveChanges();
                         this.btnRefresh.PerformClick();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ex.ShowMessage("รหัสสินค้า", this.curr_stmas.name);
                     }
                 }
             }
@@ -262,6 +276,7 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
             this.FillForm();
+            this.txtName.Enabled = true;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -282,14 +297,11 @@ namespace XPump.SubForm
                         this.curr_stmas = this.GetStmas(this.temp_stmas.id);
                         this.FillForm();
                         this.btnAdd.PerformClick();
+                        this.txtName.Enabled = true;
                     }
-                    catch (DbUpdateException ex)
+                    catch (Exception ex)
                     {
-                        if (ex.InnerException.Message.ToLower().Contains("duplicate entry") || ex.InnerException.InnerException.Message.ToLower().Contains("duplicate entry"))
-                        {
-                            MessageBox.Show("รหัส \"" + this.temp_stmas.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            this.txtName.Focus();
-                        }
+                        ex.ShowMessage("รหัสสินค้า", this.temp_stmas.name);
                     }
                 }
 
@@ -305,7 +317,7 @@ namespace XPump.SubForm
                         stmas stmas = db.stmas.Find(this.temp_stmas.id);
                         if(stmas == null)
                         {
-                            MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MessageBox.Show("ค้นหารหัสสินค้า \"" + this.temp_stmas.name + "\" เพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
@@ -316,10 +328,11 @@ namespace XPump.SubForm
                         this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
                         this.btnRefresh.PerformClick();
+                        this.txtName.Enabled = true;
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ex.ShowMessage("รหัสสินค้า", this.temp_stmas.name);
                     }
                 }
 
@@ -400,7 +413,7 @@ namespace XPump.SubForm
 
                     if(tmp == null)
                     {
-                        MessageBox.Show(StringResource.Msg("0005"), "Message # 0005", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("ค้นหาข้อมูลไม่พบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                     else
                     {
@@ -477,21 +490,6 @@ namespace XPump.SubForm
             }
             
         }
-
-        //private void chkCurrTank_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    this.curr_tank_only = ((CheckBox)sender).Checked;
-        //}
-
-        //private void chkCurrNozzle_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    this.curr_nozzle_only = ((CheckBox)sender).Checked;
-        //}
-
-        //private void chkCurrPrice_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    this.curr_price_only = ((CheckBox)sender).Checked;
-        //}
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {

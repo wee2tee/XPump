@@ -151,4 +151,56 @@ namespace XPump.Model
 
         public stmas stmas { get; set; }
     }
+
+    public class pricelistVM
+    {
+        public int id { get; set; }
+        public decimal unitpr { get; set; }
+        public int stmas_id { get; set; }
+        public int pricetag_id { get; set; }
+
+        public DateTime date
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.pricetag.Find(this.pricetag_id).date;
+                }
+            }
+        }
+
+        public TimeSpan starttime
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.pricetag.Find(this.pricetag_id).starttime;
+                }
+            }
+        }
+
+        public string stkcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id).name;
+                }
+            }
+        }
+
+        public string stkdes
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id).description;
+                }
+            }
+        }
+    }
 }

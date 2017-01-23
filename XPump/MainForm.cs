@@ -73,20 +73,6 @@ namespace XPump
             this.opened_child_form.Add(new ChildFormDetail() { form = tank, docPrefix = string.Empty });
         }
 
-        private void MnuNozzle_Click(object sender, EventArgs e)
-        {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormNozzle)).FirstOrDefault() != null)
-            {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormNozzle)).First().form.Activate();
-                return;
-            }
-
-            FormNozzle nozzle = new FormNozzle(this);
-            nozzle.MdiParent = this;
-            nozzle.Show();
-            this.opened_child_form.Add(new ChildFormDetail() { form = nozzle, docPrefix = string.Empty });
-        }
-
         private void MnuStmas_Click(object sender, EventArgs e)
         {
             if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormStmas)).FirstOrDefault() != null)
@@ -99,6 +85,34 @@ namespace XPump
             stmas.MdiParent = this;
             stmas.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = stmas, docPrefix = string.Empty });
+        }
+
+        private void รายชอผคานำมนToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormApmas)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormApmas)).First().form.Activate();
+                return;
+            }
+
+            FormApmas apmas = new FormApmas(this);
+            apmas.MdiParent = this;
+            apmas.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = apmas, docPrefix = string.Empty });
+        }
+
+        private void MnuPrice_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormPrice)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormPrice)).First().form.Activate();
+                return;
+            }
+
+            FormPrice price = new FormPrice(this);
+            price.MdiParent = this;
+            price.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = price, docPrefix = string.Empty });
         }
     }
 

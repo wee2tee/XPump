@@ -30,9 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -79,7 +80,8 @@
             this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_begbal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_totbal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_nozzlecount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_tank_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -418,7 +420,8 @@
             this.col_section_name,
             this.col_section_stkcod,
             this.col_section_stkdes,
-            this.col_section_capacity,
+            this.col_section_begbal,
+            this.col_section_totbal,
             this.col_section_nozzlecount,
             this.col_section_tank_id,
             this.col_section_section,
@@ -427,14 +430,14 @@
             this.col_section_start_date,
             this.col_section_end_date,
             this.col_section_state});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvSection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSection.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvSection.EnableHeadersVisualStyles = false;
@@ -451,6 +454,7 @@
             this.dgvSection.StandardTab = true;
             this.dgvSection.TabIndex = 0;
             this.dgvSection.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSection_CellMouseDoubleClick);
+            this.dgvSection.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvSection_DataBindingComplete);
             this.dgvSection.SelectionChanged += new System.EventHandler(this.dgvSection_SelectionChanged);
             this.dgvSection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSection_MouseClick);
             this.dgvSection.Resize += new System.EventHandler(this.dgvSection_Resize);
@@ -660,25 +664,36 @@
             this.col_section_stkdes.Name = "col_section_stkdes";
             this.col_section_stkdes.ReadOnly = true;
             // 
-            // col_section_capacity
+            // col_section_begbal
             // 
-            this.col_section_capacity.DataPropertyName = "capacity";
+            this.col_section_begbal.DataPropertyName = "begbal";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle2.Format = "N2";
             dataGridViewCellStyle2.NullValue = "0";
-            this.col_section_capacity.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_section_capacity.HeaderText = "ปริมาตร(ลิตร)";
-            this.col_section_capacity.MinimumWidth = 100;
-            this.col_section_capacity.Name = "col_section_capacity";
-            this.col_section_capacity.ReadOnly = true;
+            this.col_section_begbal.DefaultCellStyle = dataGridViewCellStyle2;
+            this.col_section_begbal.HeaderText = "ยกมา (ลิตร)";
+            this.col_section_begbal.MinimumWidth = 100;
+            this.col_section_begbal.Name = "col_section_begbal";
+            this.col_section_begbal.ReadOnly = true;
+            // 
+            // col_section_totbal
+            // 
+            this.col_section_totbal.DataPropertyName = "totbal";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.col_section_totbal.DefaultCellStyle = dataGridViewCellStyle3;
+            this.col_section_totbal.HeaderText = "คงเหลือ (ลิตร)";
+            this.col_section_totbal.Name = "col_section_totbal";
+            this.col_section_totbal.ReadOnly = true;
             // 
             // col_section_nozzlecount
             // 
             this.col_section_nozzlecount.DataPropertyName = "nozzlecount";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N0";
-            dataGridViewCellStyle3.NullValue = null;
-            this.col_section_nozzlecount.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N0";
+            dataGridViewCellStyle4.NullValue = null;
+            this.col_section_nozzlecount.DefaultCellStyle = dataGridViewCellStyle4;
             this.col_section_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
             this.col_section_nozzlecount.MinimumWidth = 100;
             this.col_section_nozzlecount.Name = "col_section_nozzlecount";
@@ -828,7 +843,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_stkcod;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_stkdes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_section_capacity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_section_begbal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_section_totbal;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_nozzlecount;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_tank_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_section;

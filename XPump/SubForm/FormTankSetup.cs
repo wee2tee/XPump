@@ -47,7 +47,7 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
-            this.col_section_capacity.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.col_section_begbal.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
             this.ddIsactive._Items.Add(new XDropdownListItem { Text = "ใช้งาน", Value = true });
             this.ddIsactive._Items.Add(new XDropdownListItem { Text = "ไม่ใช้งาน", Value = false });
 
@@ -369,7 +369,7 @@ namespace XPump.SubForm
             this.dgvSection.Parent.Controls.Add(this.inline_stkdes);
 
             /* inline capacity */
-            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_capacity.DataPropertyName).First().Index;
+            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begbal.DataPropertyName).First().Index;
             this.inline_capacity = new XNumEdit(2, true, 999999.99m, HorizontalAlignment.Right);
             this.inline_capacity._Value = this.temp_section.begbal;
             this.inline_capacity.BorderStyle = BorderStyle.None;
@@ -494,7 +494,7 @@ namespace XPump.SubForm
 
             if (this.inline_capacity != null)
             {
-                col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_capacity.DataPropertyName).First().Index;
+                col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begbal.DataPropertyName).First().Index;
                 this.inline_capacity.SetInlineControlPosition((XDatagrid)sender, row_index, col_index);
             }
 
@@ -1164,12 +1164,22 @@ namespace XPump.SubForm
                 this.btnItem.PerformClick();
                 this.btnEditItem.PerformClick();
 
-                if(((XDatagrid)sender).Columns[e.ColumnIndex].DataPropertyName == this.col_section_capacity.DataPropertyName)
+                if(((XDatagrid)sender).Columns[e.ColumnIndex].DataPropertyName == this.col_section_begbal.DataPropertyName)
                 {
                     this.inline_capacity.Focus();
                     return;
                 }
             }
+        }
+
+        private void dgvSection_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begbal.DataPropertyName).First().HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begbal.DataPropertyName).First().HeaderCell.Style.Padding = new Padding(0, 0, 3, 0);
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_totbal.DataPropertyName).First().HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_totbal.DataPropertyName).First().HeaderCell.Style.Padding = new Padding(0, 0, 3, 0);
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().HeaderCell.Style.Padding = new Padding(0, 0, 3, 0);
         }
 
         private void dgvSection_MouseClick(object sender, MouseEventArgs e)

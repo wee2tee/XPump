@@ -31,17 +31,16 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripDailyTransaction = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuShiftTransaction = new System.Windows.Forms.ToolStripMenuItem();
+            this.บนทกรายการรบเขานำมนToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.รายชอผคานำมนToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripStock = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuStmas = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuPrice = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuShift = new System.Windows.Forms.ToolStripMenuItem();
-            this.MnuNozzle = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuTank = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.รายชอผคานำมนToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.บนทกรายการรบเขานำมนToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,6 +74,24 @@
             this.MnuShiftTransaction.Size = new System.Drawing.Size(228, 22);
             this.MnuShiftTransaction.Text = "บันทึกรายการขายประจำผลัด";
             // 
+            // บนทกรายการรบเขานำมนToolStripMenuItem
+            // 
+            this.บนทกรายการรบเขานำมนToolStripMenuItem.Name = "บนทกรายการรบเขานำมนToolStripMenuItem";
+            this.บนทกรายการรบเขานำมนToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.บนทกรายการรบเขานำมนToolStripMenuItem.Text = "บันทึกรายการรับเข้าน้ำมัน";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(225, 6);
+            // 
+            // รายชอผคานำมนToolStripMenuItem
+            // 
+            this.รายชอผคานำมนToolStripMenuItem.Name = "รายชอผคานำมนToolStripMenuItem";
+            this.รายชอผคานำมนToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.รายชอผคานำมนToolStripMenuItem.Text = "รายชื่อผู้ค้าน้ำมัน";
+            this.รายชอผคานำมนToolStripMenuItem.Click += new System.EventHandler(this.รายชอผคานำมนToolStripMenuItem_Click);
+            // 
             // ToolStripStock
             // 
             this.ToolStripStock.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -96,12 +113,12 @@
             this.MnuPrice.Name = "MnuPrice";
             this.MnuPrice.Size = new System.Drawing.Size(168, 22);
             this.MnuPrice.Text = "กำหนดราคาขาย";
+            this.MnuPrice.Click += new System.EventHandler(this.MnuPrice_Click);
             // 
             // ToolStripSetup
             // 
             this.ToolStripSetup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuShift,
-            this.MnuNozzle,
             this.MnuTank});
             this.ToolStripSetup.Name = "ToolStripSetup";
             this.ToolStripSetup.Size = new System.Drawing.Size(66, 20);
@@ -113,14 +130,6 @@
             this.MnuShift.Size = new System.Drawing.Size(195, 22);
             this.MnuShift.Text = "กำหนดผลัดพนักงาน";
             this.MnuShift.Click += new System.EventHandler(this.MnuShift_Click);
-            // 
-            // MnuNozzle
-            // 
-            this.MnuNozzle.Name = "MnuNozzle";
-            this.MnuNozzle.Size = new System.Drawing.Size(195, 22);
-            this.MnuNozzle.Text = "กำหนดหัวจ่ายน้ำมัน";
-            this.MnuNozzle.Visible = false;
-            this.MnuNozzle.Click += new System.EventHandler(this.MnuNozzle_Click);
             // 
             // MnuTank
             // 
@@ -136,23 +145,6 @@
             this.statusStrip1.Size = new System.Drawing.Size(1012, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(225, 6);
-            // 
-            // รายชอผคานำมนToolStripMenuItem
-            // 
-            this.รายชอผคานำมนToolStripMenuItem.Name = "รายชอผคานำมนToolStripMenuItem";
-            this.รายชอผคานำมนToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.รายชอผคานำมนToolStripMenuItem.Text = "รายชื่อผู้ค้าน้ำมัน";
-            // 
-            // บนทกรายการรบเขานำมนToolStripMenuItem
-            // 
-            this.บนทกรายการรบเขานำมนToolStripMenuItem.Name = "บนทกรายการรบเขานำมนToolStripMenuItem";
-            this.บนทกรายการรบเขานำมนToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.บนทกรายการรบเขานำมนToolStripMenuItem.Text = "บันทึกรายการรับเข้าน้ำมัน";
             // 
             // MainForm
             // 
@@ -188,7 +180,6 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripSetup;
         private System.Windows.Forms.ToolStripMenuItem MnuShift;
         private System.Windows.Forms.ToolStripMenuItem MnuTank;
-        private System.Windows.Forms.ToolStripMenuItem MnuNozzle;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripMenuItem บนทกรายการรบเขานำมนToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

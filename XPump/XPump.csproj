@@ -170,11 +170,17 @@
     <Compile Include="SubForm\DialogSimpleSearch.Designer.cs">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForm\FormNozzle.cs">
+    <Compile Include="SubForm\FormPrice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForm\FormNozzle.Designer.cs">
-      <DependentUpon>FormNozzle.cs</DependentUpon>
+    <Compile Include="SubForm\FormPrice.Designer.cs">
+      <DependentUpon>FormPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\_FormNozzle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\_FormNozzle.Designer.cs">
+      <DependentUpon>_FormNozzle.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm\FormShift.cs">
       <SubType>Form</SubType>
@@ -225,8 +231,11 @@
     <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\FormNozzle.resx">
-      <DependentUpon>FormNozzle.cs</DependentUpon>
+    <EmbeddedResource Include="SubForm\FormPrice.resx">
+      <DependentUpon>FormPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\_FormNozzle.resx">
+      <DependentUpon>_FormNozzle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormShift.resx">
       <DependentUpon>FormShift.cs</DependentUpon>
