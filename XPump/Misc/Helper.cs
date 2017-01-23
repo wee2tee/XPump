@@ -136,7 +136,8 @@ namespace XPump.Misc
             {
                 id = section.id,
                 name = section.name,
-                capacity = section.capacity,
+                begbal = section.begbal,
+                totbal = section.totbal,
                 tank_id = section.tank_id,
                 stmas_id = section.stmas_id,
                 section = section,

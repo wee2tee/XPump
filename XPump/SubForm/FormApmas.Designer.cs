@@ -1,6 +1,6 @@
 ﻿namespace XPump.SubForm
 {
-    partial class FormTank
+    partial class FormApmas
     {
         /// <summary>
         /// Required designer variable.
@@ -323,7 +323,7 @@
             this.col_tank.ReadOnly = true;
             this.col_tank.Visible = false;
             // 
-            // TankForm
+            // FormTank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -333,10 +333,10 @@
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "TankForm";
+            this.Name = "FormTank";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
+            this.Text = "รายชื่อผู้ค้าน้ำมัน";
             this.Load += new System.EventHandler(this.TankForm_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

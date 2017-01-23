@@ -91,6 +91,12 @@
     </Compile>
     <Compile Include="Misc\Helper.cs" />
     <Compile Include="Misc\StringResource.cs" />
+    <Compile Include="Model\apmas.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\aptrn.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\DBX.cs" />
     <Compile Include="Model\nozzle.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
@@ -111,6 +117,9 @@
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\shift.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\stcrd.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\stmas.cs">
@@ -185,11 +194,11 @@
     <Compile Include="SubForm\FormTankSetup.Designer.cs">
       <DependentUpon>FormTankSetup.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForm\FormTank.cs">
+    <Compile Include="SubForm\FormApmas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForm\FormTank.Designer.cs">
-      <DependentUpon>FormTank.cs</DependentUpon>
+    <Compile Include="SubForm\FormApmas.Designer.cs">
+      <DependentUpon>FormApmas.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -228,8 +237,8 @@
     <EmbeddedResource Include="SubForm\FormTankSetup.resx">
       <DependentUpon>FormTankSetup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\FormTank.resx">
-      <DependentUpon>FormTank.cs</DependentUpon>
+    <EmbeddedResource Include="SubForm\FormApmas.resx">
+      <DependentUpon>FormApmas.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="Model\XPumpModel.edmx">
@@ -310,6 +319,17 @@
     <None Include="Resources\delete_16x16.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\nozzle2_16.png" />
+    <None Include="Resources\nozzle_16.png" />
+    <None Include="Resources\delete_16.png" />
+    <None Include="Resources\stop_16.png" />
+    <None Include="Resources\save_16.png" />
+    <None Include="Resources\edit_16.png" />
+    <None Include="Resources\add_16.png" />
+    <None Include="Resources\Add Property-20.png" />
+    <None Include="Resources\add_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\XPumpModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>XPumpModel.edmx</DependentUpon>
@@ -320,15 +340,6 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
-    <None Include="Resources\nozzle2_16.png" />
-    <None Include="Resources\nozzle_16.png" />
-    <None Include="Resources\delete_16.png" />
-    <None Include="Resources\stop_16.png" />
-    <None Include="Resources\save_16.png" />
-    <None Include="Resources\edit_16.png" />
-    <None Include="Resources\add_16.png" />
-    <None Include="Resources\Add Property-20.png" />
-    <None Include="Resources\add_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

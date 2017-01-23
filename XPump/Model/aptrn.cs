@@ -12,26 +12,23 @@ namespace XPump.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class section
+    public partial class aptrn
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public section()
+        public aptrn()
         {
-            this.nozzle = new HashSet<nozzle>();
             this.stcrd = new HashSet<stcrd>();
         }
     
         public int id { get; set; }
-        public string name { get; set; }
-        public decimal begbal { get; set; }
-        public decimal totbal { get; set; }
-        public int tank_id { get; set; }
-        public int stmas_id { get; set; }
+        public string docnum { get; set; }
+        public System.DateTime docdat { get; set; }
+        public string vatnum { get; set; }
+        public Nullable<System.DateTime> vatdat { get; set; }
+        public decimal vatrat { get; set; }
+        public int apmas_id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<nozzle> nozzle { get; set; }
-        public virtual stmas stmas { get; set; }
-        public virtual tank tank { get; set; }
+        public virtual apmas apmas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<stcrd> stcrd { get; set; }
     }

@@ -21,7 +21,7 @@ namespace XPump.Model
         }
     
         public xpumpEntities(string connection_string)
-            : base()
+            : base(connection_string)
         {
         }
 
@@ -30,6 +30,8 @@ namespace XPump.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<apmas> apmas { get; set; }
+        public virtual DbSet<aptrn> aptrn { get; set; }
         public virtual DbSet<nozzle> nozzle { get; set; }
         public virtual DbSet<pricelist> pricelist { get; set; }
         public virtual DbSet<pricetag> pricetag { get; set; }
@@ -37,6 +39,7 @@ namespace XPump.Model
         public virtual DbSet<salessummary> salessummary { get; set; }
         public virtual DbSet<section> section { get; set; }
         public virtual DbSet<shift> shift { get; set; }
+        public virtual DbSet<stcrd> stcrd { get; set; }
         public virtual DbSet<stmas> stmas { get; set; }
         public virtual DbSet<tank> tank { get; set; }
     }

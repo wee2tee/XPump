@@ -42,7 +42,8 @@ namespace XPump.Model
     {
         public int id { get; set; }
         public string name { get; set; }
-        public decimal capacity { get; set; }
+        public decimal begbal { get; set; }
+        public decimal totbal { get; set; }
         public int tank_id { get; set; }
         public int stmas_id { get; set; }
         

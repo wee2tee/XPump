@@ -371,13 +371,13 @@ namespace XPump.SubForm
             /* inline capacity */
             col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_capacity.DataPropertyName).First().Index;
             this.inline_capacity = new XNumEdit(2, true, 999999.99m, HorizontalAlignment.Right);
-            this.inline_capacity._Value = this.temp_section.capacity;
+            this.inline_capacity._Value = this.temp_section.begbal;
             this.inline_capacity.BorderStyle = BorderStyle.None;
             this.inline_capacity._ValueChanged += delegate
             {
                 if(this.temp_section != null)
                 {
-                    this.temp_section.section.capacity = this.inline_capacity._Value;
+                    this.temp_section.section.begbal = this.inline_capacity._Value;
                 }
             };
             this.inline_capacity._GotFocus += delegate
@@ -822,7 +822,7 @@ namespace XPump.SubForm
             {
                 id = -1,
                 name = string.Empty,
-                capacity = 0m,
+                begbal = 0m,
                 stmas_id = -1,
                 tank_id = this.curr_tank.id,
             }.ToViewModel();
@@ -931,7 +931,7 @@ namespace XPump.SubForm
                         section_to_update.name = this.temp_section.section.name;
                         section_to_update.stmas_id = this.temp_section.section.stmas_id;
                         section_to_update.tank_id = this.temp_section.section.tank_id;
-                        section_to_update.capacity = this.temp_section.section.capacity;
+                        section_to_update.begbal = this.temp_section.section.begbal;
 
                         db.SaveChanges();
                         this.curr_tank = this.GetTank(this.curr_tank.id);

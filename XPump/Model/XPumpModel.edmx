@@ -5,6 +5,26 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="xpumpModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="apmas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supcod" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="supnam" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aptrn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="docnum" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="docdat" Type="date" Nullable="false" />
+          <Property Name="vatnum" Type="varchar" MaxLength="50" />
+          <Property Name="vatdat" Type="date" />
+          <Property Name="vatrat" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="apmas_id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="nozzle">
           <Key>
             <PropertyRef Name="id" />
@@ -73,7 +93,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="capacity" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="begbal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="totbal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="tank_id" Type="int" Nullable="false" />
           <Property Name="stmas_id" Type="int" Nullable="false" />
         </EntityType>
@@ -87,6 +108,17 @@
           <Property Name="starttime" Type="time" Precision="0" Nullable="false" />
           <Property Name="endtime" Type="time" Precision="0" Nullable="false" />
           <Property Name="remark" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="stcrd">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="trnqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="trnval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="vatamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="aptrn_id" Type="int" Nullable="false" />
+          <Property Name="section_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="stmas">
           <Key>
@@ -109,6 +141,18 @@
           <Property Name="remark" Type="varchar" MaxLength="50" />
           <Property Name="isactive" Type="bool" Nullable="false" />
         </EntityType>
+        <Association Name="fk-aptrn-apmas_id">
+          <End Role="apmas" Type="Self.apmas" Multiplicity="1" />
+          <End Role="aptrn" Type="Self.aptrn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="apmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="aptrn">
+              <PropertyRef Name="apmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk-nozzle-section_id">
           <End Role="section" Type="Self.section" Multiplicity="1" />
           <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
@@ -253,7 +297,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk-stcrd-aptrn_id">
+          <End Role="aptrn" Type="Self.aptrn" Multiplicity="1" />
+          <End Role="stcrd" Type="Self.stcrd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aptrn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stcrd">
+              <PropertyRef Name="aptrn_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-stcrd-section_id">
+          <End Role="section" Type="Self.section" Multiplicity="1" />
+          <End Role="stcrd" Type="Self.stcrd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="section">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stcrd">
+              <PropertyRef Name="section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="xpumpModelStoreContainer">
+          <EntitySet Name="apmas" EntityType="Self.apmas" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="aptrn" EntityType="Self.aptrn" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="nozzle" EntityType="Self.nozzle" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="pricelist" EntityType="Self.pricelist" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="pricetag" EntityType="Self.pricetag" Schema="xpump" store:Type="Tables" />
@@ -261,8 +331,13 @@
           <EntitySet Name="salessummary" EntityType="Self.salessummary" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="section" EntityType="Self.section" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="shift" EntityType="Self.shift" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="stcrd" EntityType="Self.stcrd" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="stmas" EntityType="Self.stmas" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
+          <AssociationSet Name="fk-aptrn-apmas_id" Association="Self.fk-aptrn-apmas_id">
+            <End Role="apmas" EntitySet="apmas" />
+            <End Role="aptrn" EntitySet="aptrn" />
+          </AssociationSet>
           <AssociationSet Name="fk-nozzle-section_id" Association="Self.fk-nozzle-section_id">
             <End Role="section" EntitySet="section" />
             <End Role="nozzle" EntitySet="nozzle" />
@@ -311,12 +386,43 @@
             <End Role="tank" EntitySet="tank" />
             <End Role="section" EntitySet="section" />
           </AssociationSet>
+          <AssociationSet Name="fk-stcrd-aptrn_id" Association="Self.fk-stcrd-aptrn_id">
+            <End Role="aptrn" EntitySet="aptrn" />
+            <End Role="stcrd" EntitySet="stcrd" />
+          </AssociationSet>
+          <AssociationSet Name="fk-stcrd-section_id" Association="Self.fk-stcrd-section_id">
+            <End Role="section" EntitySet="section" />
+            <End Role="stcrd" EntitySet="stcrd" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="xpumpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="apmas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supcod" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="supnam" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="aptrn" Relationship="Self.fk_aptrn_apmas_id" FromRole="apmas" ToRole="aptrn" />
+        </EntityType>
+        <EntityType Name="aptrn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="docnum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="docdat" Type="DateTime" Nullable="false" />
+          <Property Name="vatnum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vatdat" Type="DateTime" />
+          <Property Name="vatrat" Type="Decimal" Nullable="false" />
+          <Property Name="apmas_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="apmas" Relationship="Self.fk_aptrn_apmas_id" FromRole="aptrn" ToRole="apmas" />
+          <NavigationProperty Name="stcrd" Relationship="Self.fk_stcrd_aptrn_id" FromRole="aptrn" ToRole="stcrd" />
+        </EntityType>
         <EntityType Name="nozzle">
           <Key>
             <PropertyRef Name="id" />
@@ -399,12 +505,14 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="capacity" Type="Decimal" Nullable="false" />
+          <Property Name="begbal" Type="Decimal" Nullable="false" />
+          <Property Name="totbal" Type="Decimal" Nullable="false" />
           <Property Name="tank_id" Type="Int32" Nullable="false" />
           <Property Name="stmas_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="nozzle" Relationship="Self.fk_nozzle_section_id" FromRole="section" ToRole="nozzle" />
           <NavigationProperty Name="stmas" Relationship="Self.fk_section_stmas_id" FromRole="section" ToRole="stmas" />
           <NavigationProperty Name="tank" Relationship="Self.fk_section_tank_id" FromRole="section" ToRole="tank" />
+          <NavigationProperty Name="stcrd" Relationship="Self.fk_stcrd_section_id" FromRole="section" ToRole="stcrd" />
         </EntityType>
         <EntityType Name="shift">
           <Key>
@@ -418,6 +526,19 @@
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_shift_id" FromRole="shift" ToRole="saleshistory" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shift_id" FromRole="shift" ToRole="salessummary" />
+        </EntityType>
+        <EntityType Name="stcrd">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="trnqty" Type="Decimal" Nullable="false" />
+          <Property Name="trnval" Type="Decimal" Nullable="false" />
+          <Property Name="vatamt" Type="Decimal" Nullable="false" />
+          <Property Name="aptrn_id" Type="Int32" Nullable="false" />
+          <Property Name="section_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="aptrn" Relationship="Self.fk_stcrd_aptrn_id" FromRole="stcrd" ToRole="aptrn" />
+          <NavigationProperty Name="section" Relationship="Self.fk_stcrd_section_id" FromRole="stcrd" ToRole="section" />
         </EntityType>
         <EntityType Name="stmas">
           <Key>
@@ -445,6 +566,30 @@
           <Property Name="isactive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="section" Relationship="Self.fk_section_tank_id" FromRole="tank" ToRole="section" />
         </EntityType>
+        <Association Name="fk_aptrn_apmas_id">
+          <End Role="apmas" Type="Self.apmas" Multiplicity="1" />
+          <End Role="aptrn" Type="Self.aptrn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="apmas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="aptrn">
+              <PropertyRef Name="apmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_stcrd_aptrn_id">
+          <End Role="aptrn" Type="Self.aptrn" Multiplicity="1" />
+          <End Role="stcrd" Type="Self.stcrd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aptrn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stcrd">
+              <PropertyRef Name="aptrn_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_nozzle_section_id">
           <End Role="section" Type="Self.section" Multiplicity="1" />
           <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
@@ -589,7 +734,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_stcrd_section_id">
+          <End Role="section" Type="Self.section" Multiplicity="1" />
+          <End Role="stcrd" Type="Self.stcrd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="section">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stcrd">
+              <PropertyRef Name="section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="xpumpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="apmas" EntityType="Self.apmas" />
+          <EntitySet Name="aptrn" EntityType="Self.aptrn" />
           <EntitySet Name="nozzle" EntityType="Self.nozzle" />
           <EntitySet Name="pricelist" EntityType="Self.pricelist" />
           <EntitySet Name="pricetag" EntityType="Self.pricetag" />
@@ -597,8 +756,17 @@
           <EntitySet Name="salessummary" EntityType="Self.salessummary" />
           <EntitySet Name="section" EntityType="Self.section" />
           <EntitySet Name="shift" EntityType="Self.shift" />
+          <EntitySet Name="stcrd" EntityType="Self.stcrd" />
           <EntitySet Name="stmas" EntityType="Self.stmas" />
           <EntitySet Name="tank" EntityType="Self.tank" />
+          <AssociationSet Name="fk_aptrn_apmas_id" Association="Self.fk_aptrn_apmas_id">
+            <End Role="apmas" EntitySet="apmas" />
+            <End Role="aptrn" EntitySet="aptrn" />
+          </AssociationSet>
+          <AssociationSet Name="fk_stcrd_aptrn_id" Association="Self.fk_stcrd_aptrn_id">
+            <End Role="aptrn" EntitySet="aptrn" />
+            <End Role="stcrd" EntitySet="stcrd" />
+          </AssociationSet>
           <AssociationSet Name="fk_nozzle_section_id" Association="Self.fk_nozzle_section_id">
             <End Role="section" EntitySet="section" />
             <End Role="nozzle" EntitySet="nozzle" />
@@ -647,6 +815,10 @@
             <End Role="tank" EntitySet="tank" />
             <End Role="section" EntitySet="section" />
           </AssociationSet>
+          <AssociationSet Name="fk_stcrd_section_id" Association="Self.fk_stcrd_section_id">
+            <End Role="section" EntitySet="section" />
+            <End Role="stcrd" EntitySet="stcrd" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -654,6 +826,28 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="xpumpModelStoreContainer" CdmEntityContainer="xpumpEntities">
+          <EntitySetMapping Name="apmas">
+            <EntityTypeMapping TypeName="xpumpModel.apmas">
+              <MappingFragment StoreEntitySet="apmas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="supcod" ColumnName="supcod" />
+                <ScalarProperty Name="supnam" ColumnName="supnam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aptrn">
+            <EntityTypeMapping TypeName="xpumpModel.aptrn">
+              <MappingFragment StoreEntitySet="aptrn">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="docnum" ColumnName="docnum" />
+                <ScalarProperty Name="docdat" ColumnName="docdat" />
+                <ScalarProperty Name="vatnum" ColumnName="vatnum" />
+                <ScalarProperty Name="vatdat" ColumnName="vatdat" />
+                <ScalarProperty Name="vatrat" ColumnName="vatrat" />
+                <ScalarProperty Name="apmas_id" ColumnName="apmas_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="nozzle">
             <EntityTypeMapping TypeName="xpumpModel.nozzle">
               <MappingFragment StoreEntitySet="nozzle">
@@ -726,7 +920,8 @@
               <MappingFragment StoreEntitySet="section">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="begbal" ColumnName="begbal" />
+                <ScalarProperty Name="totbal" ColumnName="totbal" />
                 <ScalarProperty Name="tank_id" ColumnName="tank_id" />
                 <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
               </MappingFragment>
@@ -741,6 +936,18 @@
                 <ScalarProperty Name="starttime" ColumnName="starttime" />
                 <ScalarProperty Name="endtime" ColumnName="endtime" />
                 <ScalarProperty Name="remark" ColumnName="remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stcrd">
+            <EntityTypeMapping TypeName="xpumpModel.stcrd">
+              <MappingFragment StoreEntitySet="stcrd">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="trnqty" ColumnName="trnqty" />
+                <ScalarProperty Name="trnval" ColumnName="trnval" />
+                <ScalarProperty Name="vatamt" ColumnName="vatamt" />
+                <ScalarProperty Name="aptrn_id" ColumnName="aptrn_id" />
+                <ScalarProperty Name="section_id" ColumnName="section_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

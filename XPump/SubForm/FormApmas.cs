@@ -13,7 +13,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace XPump.SubForm
 {
-    public partial class FormTank : Form
+    public partial class FormApmas : Form
     {
         private MainForm main_form;
         private BindingSource bs;
@@ -24,12 +24,12 @@ namespace XPump.SubForm
         private XTextBox inline_desc; // inline control for description
         private XComboBox inline_isactive; // inline control for isactive
 
-        public FormTank()
+        public FormApmas()
         {
             InitializeComponent();
         }
 
-        public FormTank(MainForm main_form)
+        public FormApmas(MainForm main_form)
             : this()
         {
             this.main_form = main_form;
