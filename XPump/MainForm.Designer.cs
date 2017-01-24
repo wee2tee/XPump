@@ -73,6 +73,7 @@
             this.MnuShiftTransaction.Name = "MnuShiftTransaction";
             this.MnuShiftTransaction.Size = new System.Drawing.Size(228, 22);
             this.MnuShiftTransaction.Text = "บันทึกรายการขายประจำผลัด";
+            this.MnuShiftTransaction.Click += new System.EventHandler(this.MnuShiftTransaction_Click);
             // 
             // บนทกรายการรบเขานำมนToolStripMenuItem
             // 

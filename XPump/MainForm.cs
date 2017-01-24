@@ -103,16 +103,13 @@ namespace XPump
 
         private void MnuPrice_Click(object sender, EventArgs e)
         {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormPrice)).FirstOrDefault() != null)
-            {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormPrice)).First().form.Activate();
-                return;
-            }
+            
+        }
 
-            FormPrice price = new FormPrice(this);
-            price.MdiParent = this;
-            price.Show();
-            this.opened_child_form.Add(new ChildFormDetail() { form = price, docPrefix = string.Empty });
+        private void MnuShiftTransaction_Click(object sender, EventArgs e)
+        {
+            DialogPrice price = new DialogPrice(this);
+            price.ShowDialog();
         }
     }
 

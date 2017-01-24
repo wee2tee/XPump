@@ -223,7 +223,6 @@ namespace XPump.Misc
             {
                 id = price.id,
                 unitpr = price.unitpr,
-                pricetag_id = price.pricetag_id,
                 stmas_id = price.stmas_id,
             };
             return p;

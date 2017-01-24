@@ -27,9 +27,9 @@ namespace XPump.Model
         public decimal purvat { get; set; }
         public int shift_id { get; set; }
         public int stmas_id { get; set; }
-        public int pricetag_id { get; set; }
+        public int pricelist_id { get; set; }
     
-        public virtual pricetag pricetag { get; set; }
+        public virtual pricelist pricelist { get; set; }
         public virtual shift shift { get; set; }
         public virtual stmas stmas { get; set; }
     }

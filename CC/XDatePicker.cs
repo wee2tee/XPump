@@ -24,7 +24,7 @@ namespace CC
             {
                 this.selected_date = value;
 
-                this._SelectedDate_Changed(this, new EventArgs());
+                this.txtDate.Text = this._SelectedDate.HasValue ? this._SelectedDate.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat) : "  /  /    ";
 
                 if (this.is_read_only)
                 {
@@ -120,6 +120,12 @@ namespace CC
             }
         }
 
+        public void SetDate(DateTime? date)
+        {
+            this.selected_date = date;
+            this.txtDate.Text = this._SelectedDate.HasValue ? this._SelectedDate.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat) : "  /  /    ";
+        }
+
         public void ShowCalendar()
         {
             this.btnShowCalendar.PerformClick();
@@ -149,8 +155,9 @@ namespace CC
                 }
             };
 
-            this.txtDate.LostFocus += delegate(object sender_obj, EventArgs e_obj)
+            this.txtDate.Leave/*LostFocus*/ += delegate(object sender_obj, EventArgs e_obj)
             {
+                this.SetDate(this._SelectedDate);
                 this.txtDate.BackColor = Color.White;
                 this.BackColor = Color.White;
                 this.focused = false;
@@ -164,15 +171,18 @@ namespace CC
 
         private void txtDate_TextChanged(object sender, EventArgs e)
         {
-            //DateTime d;
-            //if(DateTime.TryParse(this.txtDate.Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out d))
-            //{
-            //    this._SelectedDate = d;
-            //}
-            //else
-            //{
-            //    this._SelectedDate = null;
-            //}
+            DateTime d;
+            if (DateTime.TryParse(((MaskedTextBox)sender).Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out d))
+            {
+                this.selected_date = d;
+            }
+            else
+            {
+                this.selected_date = null;
+            }
+
+            if (this._SelectedDateChanged != null)
+                this._SelectedDateChanged(this, e);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -191,29 +201,6 @@ namespace CC
         {
             if (this._SelectedDateChanged != null)
                 this._SelectedDateChanged(this, e);
-
-            
-            if (this.selected_date.HasValue)
-            {
-                this.txtDate.Text = this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
-            }
-            else
-            {
-                this.txtDate.Text = "  /  /    ";
-            }
-        }
-
-        private void txtDate_Leave(object sender, EventArgs e)
-        {
-            DateTime d;
-            if (DateTime.TryParse(this.txtDate.Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out d))
-            {
-                this._SelectedDate = d;
-            }
-            else
-            {
-                this._SelectedDate = null;
-            }
         }
     }
 }

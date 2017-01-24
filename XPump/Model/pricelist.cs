@@ -14,12 +14,22 @@ namespace XPump.Model
     
     public partial class pricelist
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public pricelist()
+        {
+            this.saleshistory = new HashSet<saleshistory>();
+            this.salessummary = new HashSet<salessummary>();
+        }
+    
         public int id { get; set; }
+        public System.DateTime date { get; set; }
         public decimal unitpr { get; set; }
         public int stmas_id { get; set; }
-        public int pricetag_id { get; set; }
     
-        public virtual pricetag pricetag { get; set; }
         public virtual stmas stmas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<saleshistory> saleshistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<salessummary> salessummary { get; set; }
     }
 }

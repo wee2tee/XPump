@@ -34,7 +34,6 @@ namespace XPump.Model
         public virtual DbSet<aptrn> aptrn { get; set; }
         public virtual DbSet<nozzle> nozzle { get; set; }
         public virtual DbSet<pricelist> pricelist { get; set; }
-        public virtual DbSet<pricetag> pricetag { get; set; }
         public virtual DbSet<saleshistory> saleshistory { get; set; }
         public virtual DbSet<salessummary> salessummary { get; set; }
         public virtual DbSet<section> section { get; set; }
