@@ -217,7 +217,7 @@ namespace CC
             //if (!this.Focused)
             //    return;
 
-            Rectangle rect = this.GetRowDisplayRectangle(this.CurrentCell.RowIndex, true);
+            Rectangle rect = this.GetRowDisplayRectangle(this.CurrentCell.RowIndex, false);
 
             using (Pen p = new Pen(Color.Red))
             {

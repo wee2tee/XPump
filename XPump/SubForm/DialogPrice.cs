@@ -16,12 +16,12 @@ namespace XPump.SubForm
     public partial class DialogPrice : Form
     {
         private MainForm main_form;
-        //public pricetag pricetag;
-        public List<pricelistVM> pricelist;
-        private List<stmas> stmas_list;
+        public List<stmasPriceVM> stmas_list;
+        private List<stmasPriceVM> temp_list;
         private BindingSource bs;
         private FORM_MODE form_mode;
         private XNumEdit inline_unitpr;
+        private XDatePicker inline_date;
 
         public DialogPrice(MainForm main_form)
         {
@@ -31,64 +31,182 @@ namespace XPump.SubForm
 
         private void DialogPrice_Load(object sender, EventArgs e)
         {
+            this.form_mode = FORM_MODE.READ_ITEM;
+            this.ResetControlState();
+            this.bs = new BindingSource();
             this.stmas_list = this.GetStmasList();
 
-            //pricetag tmp = this.GetLastPrice();
-            //if(tmp != null)
-            //{
-            //    this.pricetag = tmp;
-            //}
-            //else
-            //{
-            //    this.pricetag = new pricetag
-            //    {
-            //        id = -1,
-            //        date = DateTime.Now,
-            //        starttime = TimeSpan.Parse("0:0:0")
-            //    };
-            //}
-
-            this.bs = new BindingSource();
-            this.dgv.DataSource = this.bs;
             this.FillForm();
         }
 
-        //private pricetag GetLastPrice()
-        //{
-        //    using (xpumpEntities db = DBX.DataSet())
-        //    {
-        //        var t = db.pricetag.Include("pricelist").Where(p => DateTime.Now.ToString("yyyyMMdd", CultureInfo.CurrentCulture).CompareTo(p.date.ToString("yyyyMMdd", CultureInfo.CurrentCulture)) <= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).ToList().FirstOrDefault();
-
-        //        return t;
-        //    }
-        //}
-
-        private List<stmas> GetStmasList()
+        private List<stmasPriceVM> GetStmasList()
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.stmas.OrderBy(s => s.name).ToList();
+                return db.stmas.OrderBy(s => s.name).ToList().ToViewModel().ToPriceViewModel();
             }
         }
-        
-        private void FillForm()
-        {
-            //pricetag pricetag = pricetag_to_fill != null ? pricetag_to_fill : this.pricetag;
 
-            //this.dtDate._SelectedDate = pricetag.date;
-            
-            this.pricelist = new List<pricelistVM>();
-            for (int i = 0; i < this.stmas_list.Count; i++)
+        private void ResetControlState()
+        {
+            this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT_ITEM }, this.form_mode);
+            this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT_ITEM }, this.form_mode);
+
+            this.btnOK.SetControlVisibility(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnEdit.SetControlVisibility(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnSave.SetControlVisibility(new FORM_MODE[] { FORM_MODE.EDIT_ITEM }, this.form_mode);
+            this.btnCancel.SetControlVisibility(new FORM_MODE[] { FORM_MODE.EDIT_ITEM }, this.form_mode);
+
+            //this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+        }
+
+        private void FillForm(List<stmasPriceVM> list_to_fill = null)
+        {
+            List<stmasPriceVM> list = list_to_fill != null ? list_to_fill : this.stmas_list;
+
+            this.bs.ResetBindings(true);
+            this.bs.DataSource = list;
+            this.dgv.DataSource = this.bs;
+        }
+
+        private void ShowInlineForm(int row_index)
+        {
+            this.RemoveInlineForm();
+
+            int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_date.DataPropertyName).First().Index;
+
+            this.inline_date = new XDatePicker();
+            this.inline_date._SelectedDate = DateTime.Now;
+            this.inline_date._SelectedDateChanged += delegate
             {
-                var price = new pricelistVM
+                if(this.temp_list != null)
                 {
-                    id = -1,
-                    stmas_id = this.stmas_list[i].id,
-                    unitpr = 0m/*pricetag.pricelist.Where(p => p.stmas_id == this.stmas_list[i].id).FirstOrDefault() != null ? pricetag.pricelist.Where(p => p.stmas_id == this.stmas_list[i].id).First().unitpr : 0m*/
-                };
-                this.pricelist.Add(price);
+                    this.temp_list.Where(l => l.stmas_id == (int)this.dgv.Rows[row_index].Cells["col_stmas_id"].Value).First().date = this.inline_date._SelectedDate;
+                    this.dgv.Rows[row_index].Cells["col_date"].Value = this.inline_date._SelectedDate;
+                }
+            };
+            this.inline_date.SetInlineControlPosition(this.dgv, row_index, col_index);
+            this.dgv.Parent.Controls.Add(this.inline_date);
+
+            col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index;
+
+            this.inline_unitpr = new XNumEdit(2, true, 999999.99m, HorizontalAlignment.Right);
+            this.inline_unitpr._Value = (decimal)this.dgv.Rows[row_index].Cells["col_unitpr"].Value;
+            this.inline_unitpr._ValueChanged += delegate
+            {
+                if (this.temp_list != null)
+                {
+                    this.temp_list.Where(l => l.stmas_id == (int)this.dgv.Rows[row_index].Cells["col_stmas_id"].Value).First().unitpr = this.inline_unitpr._Value;
+                    this.dgv.Rows[row_index].Cells["col_unitpr"].Value = this.inline_unitpr._Value;
+                }
+            };
+            this.inline_unitpr.SetInlineControlPosition(this.dgv, row_index, col_index);
+            this.dgv.Parent.Controls.Add(this.inline_unitpr);
+
+            this.dgv.SendToBack();
+        }
+
+        private void RemoveInlineForm()
+        {
+            if(this.inline_date != null)
+            {
+                this.inline_date.Dispose();
+                this.inline_date = null;
             }
-            this.bs.DataSource = this.pricelist;
+
+            if(this.inline_unitpr != null)
+            {
+                this.inline_unitpr.Dispose();
+                this.inline_unitpr = null;
+            }
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (this.dgv.Rows.Count == 0)
+                return;
+
+            this.temp_list = this.stmas_list.ConvertAll(s => s);
+            foreach (var item in this.temp_list)
+            {
+                item.date = DateTime.Now;
+            }
+            this.FillForm(this.temp_list);
+
+            this.dgv.Rows[0].Cells["col_date"].Selected = true;
+            this.form_mode = FORM_MODE.EDIT_ITEM;
+            this.ResetControlState();
+            this.ShowInlineForm(this.dgv.CurrentCell.RowIndex);
+            this.inline_unitpr.Focus();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.RemoveInlineForm();
+            this.form_mode = FORM_MODE.READ_ITEM;
+            this.ResetControlState();
+            //this.stmas_list = this.GetStmasList();
+            //this.FillForm();
+            //this.temp_list = null;
+        }
+
+        private void dgv_SelectionChanged(object sender, EventArgs e)
+        {
+            //this.RemoveInlineForm();
+
+            if (((XDatagrid)sender).CurrentCell != null && this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                Console.WriteLine(" .. >> currencell.rowindex : " + ((XDatagrid)sender).CurrentCell.RowIndex);
+                
+                this.ShowInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
+
+                if (((XDatagrid)sender).CurrentCell.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_date.DataPropertyName).First().Index)
+                {
+                    this.inline_date.Focus();
+                }
+                else
+                {
+                    this.inline_unitpr.Focus();
+                }
+
+                return;
+            }
+        }
+
+        private void dgv_Scroll(object sender, ScrollEventArgs e)
+        {
+            //if(e.Type == ScrollEventType.EndScroll | (e.Type == ScrollEventType.SmallDecrement || e.Type == ScrollEventType.SmallIncrement || e.Type == ScrollEventType.LargeDecrement || e.Type == ScrollEventType.LargeIncrement))
+            //{
+            //    if (this.form_mode == FORM_MODE.EDIT_ITEM)
+            //    {
+            //        ((XDatagrid)sender).Rows[((XDatagrid)sender).FirstDisplayedScrollingRowIndex].Cells["col_unitpr"].Selected = true;
+            //        this.RemoveInlineForm();
+            //        this.ShowInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
+            //        this.inline_unitpr.Focus();
+            //    }
+            //}
+            this.RemoveInlineForm();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.Enter)
+            {
+                
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

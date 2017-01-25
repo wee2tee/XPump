@@ -259,7 +259,7 @@ namespace XPump.SubForm
                 {
                     try
                     {
-                        db.stmas.Remove(this.GetStmas(this.curr_stmas.id));
+                        db.stmas.Remove(db.stmas.Find(this.curr_stmas.id));
                         db.SaveChanges();
                         this.btnRefresh.PerformClick();
                     }

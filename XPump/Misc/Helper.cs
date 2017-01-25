@@ -214,6 +214,33 @@ namespace XPump.Misc
             return s;
         }
 
+        public static stmasPriceVM ToPriceViewModel(this stmasVM stmas_vm)
+        {
+            if (stmas_vm == null)
+                return null;
+
+            stmasPriceVM s = new stmasPriceVM
+            {
+                price_id = stmas_vm.price_id,
+                stmas_id = stmas_vm.id,
+                date = stmas_vm.price_date,
+                unitpr = stmas_vm.unitpr
+            };
+
+            return s;
+        }
+
+        public static List<stmasPriceVM> ToPriceViewModel(this IEnumerable<stmasVM> stmas_vm_list)
+        {
+            List<stmasPriceVM> s = new List<stmasPriceVM>();
+            foreach (var stmas_vm in stmas_vm_list)
+            {
+                s.Add(stmas_vm.ToPriceViewModel());
+            }
+
+            return s;
+        }
+        
         public static pricelistVM ToViewModel(this pricelist price)
         {
             if (price == null)
@@ -326,6 +353,24 @@ namespace XPump.Misc
                 if (comp is XDatePicker)
                 {
                     ((XDatePicker)comp)._ReadOnly = true; /*((XDatePicker)comp).Enabled = false;*/ return;
+                }
+            }
+        }
+
+        public static void SetControlVisibility(this Component comp, FORM_MODE[] form_mode_to_visible, FORM_MODE form_mode)
+        {
+            if(form_mode_to_visible.Where(fm => fm == form_mode).Count() > 0)
+            {
+                if(comp is Control)
+                {
+                    ((Control)comp).Visible = true; return;
+                }
+            }
+            else
+            {
+                if(comp is Control)
+                {
+                    ((Control)comp).Visible = false; return;
                 }
             }
         }
@@ -503,5 +548,6 @@ namespace XPump.Misc
 
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using XPump.Misc;
@@ -150,6 +151,109 @@ namespace XPump.Model
         public string remark { get; set; }
 
         public stmas stmas { get; set; }
+        public int price_id
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
+
+                    if (price != null)
+                    {
+                        return price.id;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+            }
+        }
+        public decimal unitpr
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
+
+                    if (price != null)
+                    {
+                        return price.unitpr;
+                    }
+                    else
+                    {
+                        return 0m;
+                    }
+                }
+            }
+        }
+        public DateTime? price_date
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
+
+                    if (price != null)
+                    {
+                        return price.date;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+    }
+
+    public class stmasPriceVM
+    {
+        public int price_id { get; set; }
+        public int stmas_id { get; set; }
+        public DateTime? date { get; set; }
+        public decimal unitpr { get; set; }
+
+        public string stkcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    stmas s = db.stmas.Find(this.stmas_id);
+                    if(s != null)
+                    {
+                        return s.name;
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
+
+        public string stkdes
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    stmas s = db.stmas.Find(this.stmas_id);
+                    if (s != null)
+                    {
+                        return s.description;
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
     }
 
     public class pricelistVM
