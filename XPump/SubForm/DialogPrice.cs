@@ -22,6 +22,7 @@ namespace XPump.SubForm
         private FORM_MODE form_mode;
         private XNumEdit inline_unitpr;
         private XDatePicker inline_date;
+        private int selected_row = -1;
 
         public DialogPrice(MainForm main_form)
         {
@@ -78,7 +79,7 @@ namespace XPump.SubForm
             int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_date.DataPropertyName).First().Index;
 
             this.inline_date = new XDatePicker();
-            this.inline_date._SelectedDate = DateTime.Now;
+            this.inline_date._SelectedDate = (DateTime)this.dgv.Rows[row_index].Cells["col_date"].Value;
             this.inline_date._SelectedDateChanged += delegate
             {
                 if(this.temp_list != null)
@@ -157,19 +158,36 @@ namespace XPump.SubForm
             this.RemoveInlineForm();
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
-            //this.stmas_list = this.GetStmasList();
-            //this.FillForm();
-            //this.temp_list = null;
+            this.stmas_list = this.GetStmasList();
+            this.FillForm();
+            this.temp_list = null;
         }
 
         private void dgv_SelectionChanged(object sender, EventArgs e)
         {
             //this.RemoveInlineForm();
+            //if (((XDatagrid)sender).CurrentCell != null && this.form_mode == FORM_MODE.EDIT_ITEM)
+            //{
+            //    this.ShowInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
 
+            //    if (((XDatagrid)sender).CurrentCell.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_date.DataPropertyName).First().Index)
+            //    {
+            //        this.inline_date.Focus();
+            //    }
+            //    else
+            //    {
+            //        this.inline_unitpr.Focus();
+            //    }
+
+            //    return;
+            //}
+        }
+
+        private void dgv_CurrentCellChanged(object sender, EventArgs e)
+        {
+            //this.RemoveInlineForm();
             if (((XDatagrid)sender).CurrentCell != null && this.form_mode == FORM_MODE.EDIT_ITEM)
             {
-                Console.WriteLine(" .. >> currencell.rowindex : " + ((XDatagrid)sender).CurrentCell.RowIndex);
-                
                 this.ShowInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
 
                 if (((XDatagrid)sender).CurrentCell.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_date.DataPropertyName).First().Index)
@@ -187,16 +205,6 @@ namespace XPump.SubForm
 
         private void dgv_Scroll(object sender, ScrollEventArgs e)
         {
-            //if(e.Type == ScrollEventType.EndScroll | (e.Type == ScrollEventType.SmallDecrement || e.Type == ScrollEventType.SmallIncrement || e.Type == ScrollEventType.LargeDecrement || e.Type == ScrollEventType.LargeIncrement))
-            //{
-            //    if (this.form_mode == FORM_MODE.EDIT_ITEM)
-            //    {
-            //        ((XDatagrid)sender).Rows[((XDatagrid)sender).FirstDisplayedScrollingRowIndex].Cells["col_unitpr"].Selected = true;
-            //        this.RemoveInlineForm();
-            //        this.ShowInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
-            //        this.inline_unitpr.Focus();
-            //    }
-            //}
             this.RemoveInlineForm();
         }
 
@@ -204,9 +212,42 @@ namespace XPump.SubForm
         {
             if(keyData == Keys.Enter)
             {
-                
+                if(this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    if (this.inline_date != null && this.inline_date._Focused)
+                    {
+                        if (this.inline_unitpr != null)
+                            this.inline_unitpr.Focus();
+                        return true;
+                    }
+
+                    if(this.inline_unitpr != null && this.inline_unitpr._Focused)
+                    {
+                        if (this.dgv.CurrentCell.RowIndex < this.dgv.Rows.Count - 1)
+                        {
+                            this.dgv.Rows[this.dgv.CurrentCell.RowIndex + 1].Cells["col_unitpr"].Selected = true;
+                            return true;
+                        }
+                        else
+                        {
+                            this.dgv.Rows[0].Cells["col_unitpr"].Selected = true;
+                            return true;
+                        }
+                            
+                    }
+                }
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgv_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if(e.RowIndex > -1 && this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                this.RemoveInlineForm();
+                this.ShowInlineForm(e.RowIndex);
+                this.inline_unitpr.Focus();
+            }
         }
     }
 }
