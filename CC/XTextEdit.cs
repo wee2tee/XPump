@@ -25,12 +25,13 @@ namespace CC
             }
         }
 
-        private string text;
+        //private string text;
         public string _Text
         {
             get
             {
-                return this.text;
+                //return this.text;
+                return this.textBox1.Text;
             }
             set
             {
@@ -180,30 +181,30 @@ namespace CC
                 {
                     if (this._BorderStyle == BorderStyle.Fixed3D)
                     {
-                        TextRenderer.DrawText(e.Graphics, this.text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X + 2, e.ClipRectangle.Y + 2, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
+                        TextRenderer.DrawText(e.Graphics, this.textBox1.Text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X + 2, e.ClipRectangle.Y + 2, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
                     }
                     else if (this._BorderStyle == BorderStyle.FixedSingle)
                     {
-                        TextRenderer.DrawText(e.Graphics, this.text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X + 1, e.ClipRectangle.Y + 3, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
+                        TextRenderer.DrawText(e.Graphics, this.textBox1.Text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X + 1, e.ClipRectangle.Y + 3, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
                     }
                     else if (this._BorderStyle == BorderStyle.None)
                     {
-                        TextRenderer.DrawText(e.Graphics, this.text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y + 4, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
+                        TextRenderer.DrawText(e.Graphics, this.textBox1.Text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y + 4, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
                     }
                 }
                 else
                 {
                     if (this._BorderStyle == BorderStyle.Fixed3D)
                     {
-                        TextRenderer.DrawText(e.Graphics, this.text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X - 2, e.ClipRectangle.Y + 2, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
+                        TextRenderer.DrawText(e.Graphics, this.textBox1.Text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X - 2, e.ClipRectangle.Y + 2, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
                     }
                     else if (this._BorderStyle == BorderStyle.FixedSingle)
                     {
-                        TextRenderer.DrawText(e.Graphics, this.text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X - 1, e.ClipRectangle.Y + 3, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
+                        TextRenderer.DrawText(e.Graphics, this.textBox1.Text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X - 1, e.ClipRectangle.Y + 3, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
                     }
                     else if (this._BorderStyle == BorderStyle.None)
                     {
-                        TextRenderer.DrawText(e.Graphics, this.text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y + 4, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
+                        TextRenderer.DrawText(e.Graphics, this.textBox1.Text, this.textBox1.Font, new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y + 4, e.ClipRectangle.Width, e.ClipRectangle.Height), this.textBox1.ForeColor, flag);
                     }
                 }
 
@@ -273,7 +274,7 @@ namespace CC
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            this.text = ((TextBox)sender).Text;
+            //this.text = ((TextBox)sender).Text;
             if (this.read_only)
             {
                 this.Refresh();

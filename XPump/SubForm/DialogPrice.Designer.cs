@@ -35,6 +35,8 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.inline_date = new CC.XDatePicker();
+            this.inline_unitpr = new CC.XNumEdit();
             this.dgv = new CC.XDatagrid();
             this.col_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,12 +55,12 @@
             this.btnEdit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnEdit.Image = global::XPump.Properties.Resources.edit_16;
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEdit.Location = new System.Drawing.Point(357, 133);
+            this.btnEdit.Location = new System.Drawing.Point(354, 287);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Padding = new System.Windows.Forms.Padding(3);
-            this.btnEdit.Size = new System.Drawing.Size(110, 35);
-            this.btnEdit.TabIndex = 0;
-            this.btnEdit.Text = "ปรับราคาใหม่";
+            this.btnEdit.Size = new System.Drawing.Size(161, 35);
+            this.btnEdit.TabIndex = 2;
+            this.btnEdit.Text = "ปรับราคาใหม่ <Alt+E>";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
@@ -68,12 +70,12 @@
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnOK.Image = global::XPump.Properties.Resources.ok_16;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(240, 133);
+            this.btnOK.Location = new System.Drawing.Point(201, 287);
             this.btnOK.Name = "btnOK";
             this.btnOK.Padding = new System.Windows.Forms.Padding(3);
-            this.btnOK.Size = new System.Drawing.Size(111, 35);
-            this.btnOK.TabIndex = 0;
-            this.btnOK.Text = "ใช้ราคาตามนี้";
+            this.btnOK.Size = new System.Drawing.Size(147, 35);
+            this.btnOK.TabIndex = 1;
+            this.btnOK.Text = "ใช้ราคาตามนี้ <F5>";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -83,11 +85,60 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.inline_date);
+            this.panel1.Controls.Add(this.inline_unitpr);
             this.panel1.Controls.Add(this.dgv);
             this.panel1.Location = new System.Drawing.Point(5, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(699, 110);
+            this.panel1.Size = new System.Drawing.Size(699, 264);
             this.panel1.TabIndex = 4;
+            // 
+            // inline_date
+            // 
+            this.inline_date._ReadOnly = false;
+            this.inline_date._SelectedDate = null;
+            this.inline_date.BackColor = System.Drawing.Color.White;
+            this.inline_date.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_date.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_date.Location = new System.Drawing.Point(36, 37);
+            this.inline_date.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_date.Name = "inline_date";
+            this.inline_date.Size = new System.Drawing.Size(103, 23);
+            this.inline_date.TabIndex = 5;
+            this.inline_date.Visible = false;
+            this.inline_date._SelectedDateChanged += new System.EventHandler(this.inline_date__SelectedDateChanged);
+            // 
+            // inline_unitpr
+            // 
+            this.inline_unitpr._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_unitpr._DecimalDigit = 2;
+            this.inline_unitpr._MaximumValue = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            131072});
+            this.inline_unitpr._MaxLength = 30;
+            this.inline_unitpr._ReadOnly = false;
+            this.inline_unitpr._SelectionLength = 0;
+            this.inline_unitpr._SelectionStart = 4;
+            this.inline_unitpr._Text = "0.00";
+            this.inline_unitpr._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_unitpr._UseThoundsandSeparate = true;
+            this.inline_unitpr._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_unitpr.BackColor = System.Drawing.Color.White;
+            this.inline_unitpr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_unitpr.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_unitpr.Location = new System.Drawing.Point(36, 64);
+            this.inline_unitpr.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_unitpr.Name = "inline_unitpr";
+            this.inline_unitpr.Size = new System.Drawing.Size(90, 23);
+            this.inline_unitpr.TabIndex = 6;
+            this.inline_unitpr.Visible = false;
+            this.inline_unitpr._ValueChanged += new System.EventHandler(this.inline_unitpr__ValueChanged);
             // 
             // dgv
             // 
@@ -133,13 +184,12 @@
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(699, 110);
+            this.dgv.Size = new System.Drawing.Size(699, 264);
             this.dgv.StandardTab = true;
-            this.dgv.TabIndex = 3;
-            this.dgv.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseClick);
+            this.dgv.TabIndex = 0;
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
             this.dgv.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_Scroll);
-            this.dgv.SelectionChanged += new System.EventHandler(this.dgv_SelectionChanged);
+            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             // 
             // col_stkcod
             // 
@@ -203,12 +253,12 @@
             this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSave.Image = global::XPump.Properties.Resources.save_16;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(175, 133);
+            this.btnSave.Location = new System.Drawing.Point(144, 287);
             this.btnSave.Name = "btnSave";
             this.btnSave.Padding = new System.Windows.Forms.Padding(3);
-            this.btnSave.Size = new System.Drawing.Size(204, 35);
-            this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "บันทึกข้อมูล และ ใช้ราคาตามนี้";
+            this.btnSave.Size = new System.Drawing.Size(241, 35);
+            this.btnSave.TabIndex = 3;
+            this.btnSave.Text = "บันทึกข้อมูล และ ใช้ราคาตามนี้ <F9>";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Visible = false;
@@ -219,12 +269,12 @@
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(385, 133);
+            this.btnCancel.Location = new System.Drawing.Point(391, 287);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(3);
-            this.btnCancel.Size = new System.Drawing.Size(143, 35);
-            this.btnCancel.TabIndex = 0;
-            this.btnCancel.Text = "ยกเลิกการปรับราคา";
+            this.btnCancel.Size = new System.Drawing.Size(186, 35);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "ยกเลิกการปรับราคา <Esc>";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Visible = false;
@@ -234,7 +284,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(709, 185);
+            this.ClientSize = new System.Drawing.Size(709, 339);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.panel1);
@@ -271,5 +321,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_unitpr;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stmas_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_price_id;
+        private CC.XNumEdit inline_unitpr;
+        private CC.XDatePicker inline_date;
     }
 }

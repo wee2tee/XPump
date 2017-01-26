@@ -109,7 +109,20 @@ namespace XPump
         private void MnuShiftTransaction_Click(object sender, EventArgs e)
         {
             DialogPrice price = new DialogPrice(this);
-            price.ShowDialog();
+            if(price.ShowDialog() == DialogResult.OK)
+            {
+                //string str = string.Empty;
+
+                //foreach (pricelist item in price.price_list)
+                //{
+                //    str += "id : " + item.id + ", date : " + item.date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + ", stmas_id : " + item.stmas_id + "\n";
+                //}
+
+                //MessageBox.Show(str);
+
+                FormShiftTransaction s = new FormShiftTransaction(this, price.price_list);
+                s.ShowDialog();
+            }
         }
     }
 

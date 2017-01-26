@@ -143,6 +143,20 @@ namespace XPump.Model
         }
     }
 
+    //public class nozzleTransVM
+    //{
+    //    public int id { get; set; }
+    //    public int shift_id { get; set; }
+    //    public int nozzle_id { get; set; }
+    //    public int stmas_id { get; set; }
+    //    public int pricelist_id { get; set; }
+    //    public DateTime saldate { get; set; }
+    //    public decimal mitbeg { get; set; }
+    //    public decimal mitend { get; set; }
+    //    public decimal salqty { get; set; }
+    //    public decimal salval { get; set; }
+    //}
+
     public class stmasVM
     {
         public int id { get; set; }

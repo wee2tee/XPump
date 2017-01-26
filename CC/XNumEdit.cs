@@ -63,6 +63,39 @@ namespace CC
             }
         }
 
+        //public new string _Text
+        //{
+        //    get
+        //    {
+        //        return this.textBox1.Text;
+        //    }
+        //}
+
+        public int _SelectionStart
+        {
+            get
+            {
+                return this.textBox1.SelectionStart;
+            }
+            set
+            {
+                //if (this.textBox1.Text != null && this.textBox1.Text.Length > value)
+                    this.textBox1.SelectionStart = value;
+            }
+        }
+
+        public int _SelectionLength
+        {
+            get
+            {
+                return this.textBox1.SelectionLength;
+            }
+            set
+            {
+                this.textBox1.SelectionLength = value;
+            }
+        }
+
         private string num_format = "{0:0}";
 
         private decimal edit_value = 0m;
@@ -95,6 +128,7 @@ namespace CC
         }
 
         public event EventHandler _ValueChanged;
+        public event EventHandler _GotFocus;
 
         private int last_caret_position_from_right = 0;
         private int last_char_count = 0;
@@ -122,7 +156,7 @@ namespace CC
             base._MaxLength = 30;
             this.num_format = this._UseThoundsandSeparate ? "{0:#,#0}" : "{0:0}";
 
-            this.textBox1.Enter += delegate
+            this.textBox1.GotFocus += delegate
             {
                 if(this.decimal_digit > 0 && this.textBox1.Text.Contains("."))
                 {
@@ -131,6 +165,11 @@ namespace CC
                 else
                 {
                     this.textBox1.SelectionStart = this.textBox1.Text.Length;
+                }
+
+                if (this._GotFocus != null)
+                {
+                    this._GotFocus(this, e);
                 }
             };
         }
