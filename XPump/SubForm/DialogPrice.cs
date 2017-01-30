@@ -122,7 +122,7 @@ namespace XPump.SubForm
                     {
                         pricelist p = new pricelist
                         {
-                            date = item.date.HasValue ? item.date.Value : DateTime.Now,
+                            date = item.price_date.HasValue ? item.price_date.Value : DateTime.Now,
                             stmas_id = item.stmas_id,
                             unitpr = item.unitpr
                         };
@@ -157,7 +157,7 @@ namespace XPump.SubForm
             foreach (var item in this.stmas_list)
             {
                 //item.unitpr = 0m;
-                item.date = DateTime.Now;
+                item.price_date = DateTime.Now;
             }
             this.FillForm();
 
@@ -218,7 +218,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode == FORM_MODE.EDIT_ITEM && this.inline_date.Visible)
             {
-                this.stmas_list.Where(l => l.stmas_id == (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_stmas_id"].Value).First().date = ((XDatePicker)sender)._SelectedDate;
+                this.stmas_list.Where(l => l.stmas_id == (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_stmas_id"].Value).First().price_date = ((XDatePicker)sender)._SelectedDate;
                 this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_date"].Value = ((XDatePicker)sender)._SelectedDate;
             }
         }

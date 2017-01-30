@@ -19,6 +19,7 @@ namespace XPump.Model
         {
             this.saleshistory = new HashSet<saleshistory>();
             this.salessummary = new HashSet<salessummary>();
+            this.shiftsales = new HashSet<shiftsales>();
         }
     
         public int id { get; set; }
@@ -32,5 +33,7 @@ namespace XPump.Model
         public virtual ICollection<saleshistory> saleshistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<salessummary> salessummary { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<shiftsales> shiftsales { get; set; }
     }
 }

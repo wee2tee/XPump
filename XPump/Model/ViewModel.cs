@@ -228,7 +228,7 @@ namespace XPump.Model
     {
         public int price_id { get; set; }
         public int stmas_id { get; set; }
-        public DateTime? date { get; set; }
+        public DateTime? price_date { get; set; }
         public decimal unitpr { get; set; }
 
         public string stkcod
@@ -268,6 +268,124 @@ namespace XPump.Model
                 }
             }
         }
+    }
+
+    //public class shiftsalesVM
+    //{
+    //    public int id { get; set; }
+    //    public DateTime saldat { get; set; }
+    //    public int shift_id { get; set; }
+
+    //    public string shift_name
+    //    {
+    //        get
+    //        {
+    //            using(xpumpEntities db = DBX.DataSet())
+    //            {
+    //                return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
+    //            }
+    //        }
+    //    }
+
+    //    public shiftsales shiftsales { get; set; }
+    //}
+
+    public class salessummaryVM
+    {
+        public int id { get; set; }
+        public System.DateTime saldat { get; set; }
+        public decimal total { get; set; }
+        public decimal dtest { get; set; }
+        public decimal dother { get; set; }
+        public decimal totqty { get; set; }
+        public decimal totval { get; set; }
+        public decimal ddisc { get; set; }
+        public decimal netval { get; set; }
+        public decimal salvat { get; set; }
+        public decimal purvat { get; set; }
+        public int shift_id { get; set; }
+        public int stmas_id { get; set; }
+        public int pricelist_id { get; set; }
+        public int shiftsales_id { get; set; }
+
+        public string shift_name
+        {
+            get
+            {
+                using(xpumpEntities db = DBX.DataSet())
+                {
+                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
+                }
+            }
+        }
+
+        public TimeSpan shift_start
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).starttime : TimeSpan.Parse("0:0:0");
+                }
+            }
+        }
+
+        public TimeSpan shift_end
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).endtime : TimeSpan.Parse("0:0:0");
+                }
+            }
+        }
+
+        public string stkcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
+                }
+            }
+        }
+
+        public string stkdes
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
+                }
+            }
+        }
+
+        public DateTime? price_date
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.pricelist.Find(this.pricelist_id) != null ? (DateTime?)db.pricelist.Find(this.pricelist_id).date : null;
+                }
+            }
+        }
+
+        public decimal unitpr
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.pricelist.Find(this.pricelist_id) != null ? db.pricelist.Find(this.pricelist_id).unitpr : 0m;
+                }
+            }
+        }
+
+        public salessummary salessummary { get; set; }
     }
 
     public class pricelistVM

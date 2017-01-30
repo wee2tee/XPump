@@ -108,21 +108,31 @@ namespace XPump
 
         private void MnuShiftTransaction_Click(object sender, EventArgs e)
         {
-            DialogPrice price = new DialogPrice(this);
-            if(price.ShowDialog() == DialogResult.OK)
+            //DialogPrice price = new DialogPrice(this);
+            //if(price.ShowDialog() == DialogResult.OK)
+            //{
+            //    //string str = string.Empty;
+
+            //    //foreach (pricelist item in price.price_list)
+            //    //{
+            //    //    str += "id : " + item.id + ", date : " + item.date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + ", stmas_id : " + item.stmas_id + "\n";
+            //    //}
+
+            //    //MessageBox.Show(str);
+
+            //    _FormShiftTransaction s = new _FormShiftTransaction(this, price.price_list);
+            //    s.ShowDialog();
+            //}
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShiftTransaction)).FirstOrDefault() != null)
             {
-                //string str = string.Empty;
-
-                //foreach (pricelist item in price.price_list)
-                //{
-                //    str += "id : " + item.id + ", date : " + item.date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + ", stmas_id : " + item.stmas_id + "\n";
-                //}
-
-                //MessageBox.Show(str);
-
-                FormShiftTransaction s = new FormShiftTransaction(this, price.price_list);
-                s.ShowDialog();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShiftTransaction)).First().form.Activate();
+                return;
             }
+
+            FormShiftTransaction trans = new FormShiftTransaction(this);
+            trans.MdiParent = this;
+            trans.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = trans, docPrefix = string.Empty });
         }
     }
 

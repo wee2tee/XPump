@@ -223,7 +223,7 @@ namespace XPump.Misc
             {
                 price_id = stmas_vm.price_id,
                 stmas_id = stmas_vm.id,
-                date = stmas_vm.price_date,
+                price_date = stmas_vm.price_date,
                 unitpr = stmas_vm.unitpr
             };
 
@@ -241,6 +241,33 @@ namespace XPump.Misc
             return s;
         }
         
+        //public static stmasSummaryTransactionVM ToSummaryVM(this stmasVM stmas_vm)
+        //{
+        //    if (stmas_vm == null)
+        //        return null;
+
+        //    stmasSummaryTransactionVM s = new stmasSummaryTransactionVM
+        //    {
+        //        price_id = stmas_vm.price_id,
+        //        stmas_id = stmas_vm.id,
+        //        price_date = stmas_vm.price_date,
+        //        unitpr = stmas_vm.unitpr
+        //    };
+
+        //    return s;
+        //}
+
+        //public static List<stmasSummaryTransactionVM> ToSummaryVM(this IEnumerable<stmasVM> stmas_vm_list)
+        //{
+        //    List<stmasSummaryTransactionVM> s = new List<stmasSummaryTransactionVM>();
+        //    foreach (var stmas_vm in stmas_vm_list)
+        //    {
+        //        s.Add(stmas_vm.ToSummaryVM());
+        //    }
+
+        //    return s;
+        //}
+
         public static pricelistVM ToViewModel(this pricelist price)
         {
             if (price == null)
@@ -265,6 +292,72 @@ namespace XPump.Misc
             }
 
             return p;
+        }
+
+        //public static shiftsalesVM ToViewModel(this shiftsales shiftsales)
+        //{
+        //    if (shiftsales == null)
+        //        return null;
+
+        //    shiftsalesVM s = new shiftsalesVM
+        //    {
+        //        id = shiftsales.id,
+        //        saldat = shiftsales.saldat,
+        //        shift_id = shiftsales.shift_id,
+        //        shiftsales = shiftsales
+        //    };
+
+        //    return s;
+        //}
+
+        //public static List<shiftsalesVM> ToViewModel(this IEnumerable<shiftsales> shiftsales_list)
+        //{
+        //    List<shiftsalesVM> s = new List<shiftsalesVM>();
+
+        //    foreach (var item in shiftsales_list)
+        //    {
+        //        s.Add(item.ToViewModel());
+        //    }
+
+        //    return s;
+        //}
+
+        public static salessummaryVM ToViewModel(this salessummary sales)
+        {
+            if (sales == null)
+                return null;
+
+            salessummaryVM s = new salessummaryVM
+            {
+                id = sales.id,
+                saldat = sales.saldat,
+                total = sales.total,
+                dtest = sales.dtest,
+                dother = sales.dother,
+                totqty = sales.totqty,
+                totval = sales.totval,
+                ddisc = sales.ddisc,
+                netval = sales.netval,
+                salvat = sales.salvat,
+                purvat = sales.purvat,
+                shift_id = sales.shift_id,
+                stmas_id = sales.stmas_id,
+                pricelist_id = sales.pricelist_id,
+                shiftsales_id = sales.shiftsales_id
+            };
+
+            return s;
+        }
+
+        public static List<salessummaryVM> ToViewModel(this IEnumerable<salessummary> sales_list)
+        {
+            List<salessummaryVM> s = new List<salessummaryVM>();
+            foreach (var item in sales_list)
+            {
+                s.Add(item.ToViewModel());
+            }
+
+            return s;
         }
 
         public static void SetControlState(this Component comp, FORM_MODE[] form_mode_to_enable, FORM_MODE form_mode)
@@ -301,15 +394,19 @@ namespace XPump.Misc
                 }
                 if (comp is XTextEdit)
                 {
-                    ((XTextEdit)comp)._ReadOnly = false; /*((XTextEdit)comp).Enabled = true;*/ return;
+                    ((XTextEdit)comp)._ReadOnly = false; return;
                 }
                 if(comp is XDropdownList)
                 {
-                    ((XDropdownList)comp)._ReadOnly = false; /*((XDropdownList)comp).Enabled = true;*/ return;
+                    ((XDropdownList)comp)._ReadOnly = false; return;
                 }
                 if(comp is XDatePicker)
                 {
-                    ((XDatePicker)comp)._ReadOnly = false; /*((XDatePicker)comp).Enabled = true;*/ return;
+                    ((XDatePicker)comp)._ReadOnly = false; return;
+                }
+                if(comp is XBrowseBox)
+                {
+                    ((XBrowseBox)comp)._ReadOnly = false; return;
                 }
             }
             else
@@ -344,15 +441,19 @@ namespace XPump.Misc
                 }
                 if (comp is XTextEdit)
                 {
-                    ((XTextEdit)comp)._ReadOnly = true; /*((XTextEdit)comp).Enabled = false;*/ return;
+                    ((XTextEdit)comp)._ReadOnly = true; return;
                 }
                 if (comp is XDropdownList)
                 {
-                    ((XDropdownList)comp)._ReadOnly = true; /*((XDropdownList)comp).Enabled = false;*/ return;
+                    ((XDropdownList)comp)._ReadOnly = true; return;
                 }
                 if (comp is XDatePicker)
                 {
-                    ((XDatePicker)comp)._ReadOnly = true; /*((XDatePicker)comp).Enabled = false;*/ return;
+                    ((XDatePicker)comp)._ReadOnly = true; return;
+                }
+                if (comp is XBrowseBox)
+                {
+                    ((XBrowseBox)comp)._ReadOnly = true; return;
                 }
             }
         }

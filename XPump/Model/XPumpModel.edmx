@@ -42,7 +42,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
-          <Property Name="unitpr" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="unitpr" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="stmas_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="saleshistory">
@@ -59,6 +59,7 @@
           <Property Name="nozzle_id" Type="int" Nullable="false" />
           <Property Name="stmas_id" Type="int" Nullable="false" />
           <Property Name="pricelist_id" Type="int" Nullable="false" />
+          <Property Name="salessummary_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="salessummary">
           <Key>
@@ -78,6 +79,7 @@
           <Property Name="shift_id" Type="int" Nullable="false" />
           <Property Name="stmas_id" Type="int" Nullable="false" />
           <Property Name="pricelist_id" Type="int" Nullable="false" />
+          <Property Name="shiftsales_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="section">
           <Key>
@@ -100,6 +102,14 @@
           <Property Name="starttime" Type="time" Precision="0" Nullable="false" />
           <Property Name="endtime" Type="time" Precision="0" Nullable="false" />
           <Property Name="remark" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="shiftsales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="saldat" Type="date" Nullable="false" />
+          <Property Name="shift_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="stcrd">
           <Key>
@@ -193,6 +203,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk-saleshistory-salessummary_id">
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="1" />
+          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salessummary">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="saleshistory">
+              <PropertyRef Name="salessummary_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk-saleshistory-shift_id">
           <End Role="shift" Type="Self.shift" Multiplicity="1" />
           <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
@@ -241,6 +263,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk-salessummary-shiftsales_id">
+          <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="1" />
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shiftsales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salessummary">
+              <PropertyRef Name="shiftsales_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk-salessummary-stmas_id">
           <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
           <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
@@ -277,6 +311,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk-shiftsales-shift_id">
+          <End Role="shift" Type="Self.shift" Multiplicity="1" />
+          <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shift">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="shiftsales">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk-stcrd-aptrn_id">
           <End Role="aptrn" Type="Self.aptrn" Multiplicity="1" />
           <End Role="stcrd" Type="Self.stcrd" Multiplicity="*" />
@@ -310,6 +356,7 @@
           <EntitySet Name="salessummary" EntityType="Self.salessummary" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="section" EntityType="Self.section" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="shift" EntityType="Self.shift" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="shiftsales" EntityType="Self.shiftsales" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="stcrd" EntityType="Self.stcrd" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="stmas" EntityType="Self.stmas" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
@@ -333,6 +380,10 @@
             <End Role="pricelist" EntitySet="pricelist" />
             <End Role="saleshistory" EntitySet="saleshistory" />
           </AssociationSet>
+          <AssociationSet Name="fk-saleshistory-salessummary_id" Association="Self.fk-saleshistory-salessummary_id">
+            <End Role="salessummary" EntitySet="salessummary" />
+            <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
           <AssociationSet Name="fk-saleshistory-shift_id" Association="Self.fk-saleshistory-shift_id">
             <End Role="shift" EntitySet="shift" />
             <End Role="saleshistory" EntitySet="saleshistory" />
@@ -349,6 +400,10 @@
             <End Role="shift" EntitySet="shift" />
             <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
+          <AssociationSet Name="fk-salessummary-shiftsales_id" Association="Self.fk-salessummary-shiftsales_id">
+            <End Role="shiftsales" EntitySet="shiftsales" />
+            <End Role="salessummary" EntitySet="salessummary" />
+          </AssociationSet>
           <AssociationSet Name="fk-salessummary-stmas_id" Association="Self.fk-salessummary-stmas_id">
             <End Role="stmas" EntitySet="stmas" />
             <End Role="salessummary" EntitySet="salessummary" />
@@ -360,6 +415,10 @@
           <AssociationSet Name="fk-section-tank_id" Association="Self.fk-section-tank_id">
             <End Role="tank" EntitySet="tank" />
             <End Role="section" EntitySet="section" />
+          </AssociationSet>
+          <AssociationSet Name="fk-shiftsales-shift_id" Association="Self.fk-shiftsales-shift_id">
+            <End Role="shift" EntitySet="shift" />
+            <End Role="shiftsales" EntitySet="shiftsales" />
           </AssociationSet>
           <AssociationSet Name="fk-stcrd-aptrn_id" Association="Self.fk-stcrd-aptrn_id">
             <End Role="aptrn" EntitySet="aptrn" />
@@ -437,8 +496,10 @@
           <Property Name="nozzle_id" Type="Int32" Nullable="false" />
           <Property Name="stmas_id" Type="Int32" Nullable="false" />
           <Property Name="pricelist_id" Type="Int32" Nullable="false" />
+          <Property Name="salessummary_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="nozzle" Relationship="Self.fk_saleshistory_nozzle_id" FromRole="saleshistory" ToRole="nozzle" />
           <NavigationProperty Name="pricelist" Relationship="Self.fk_saleshistory_pricelist_id" FromRole="saleshistory" ToRole="pricelist" />
+          <NavigationProperty Name="salessummary" Relationship="Self.fk_saleshistory_salessummary_id" FromRole="saleshistory" ToRole="salessummary" />
           <NavigationProperty Name="shift" Relationship="Self.fk_saleshistory_shift_id" FromRole="saleshistory" ToRole="shift" />
           <NavigationProperty Name="stmas" Relationship="Self.fk_saleshistory_stmas_id" FromRole="saleshistory" ToRole="stmas" />
         </EntityType>
@@ -460,8 +521,11 @@
           <Property Name="shift_id" Type="Int32" Nullable="false" />
           <Property Name="stmas_id" Type="Int32" Nullable="false" />
           <Property Name="pricelist_id" Type="Int32" Nullable="false" />
+          <Property Name="shiftsales_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="pricelist" Relationship="Self.fk_salessummary_pricelist_id" FromRole="salessummary" ToRole="pricelist" />
+          <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_salessummary_id" FromRole="salessummary" ToRole="saleshistory" />
           <NavigationProperty Name="shift" Relationship="Self.fk_salessummary_shift_id" FromRole="salessummary" ToRole="shift" />
+          <NavigationProperty Name="shiftsales" Relationship="Self.fk_salessummary_shiftsales_id" FromRole="salessummary" ToRole="shiftsales" />
           <NavigationProperty Name="stmas" Relationship="Self.fk_salessummary_stmas_id" FromRole="salessummary" ToRole="stmas" />
         </EntityType>
         <EntityType Name="section">
@@ -491,6 +555,17 @@
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_shift_id" FromRole="shift" ToRole="saleshistory" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shift_id" FromRole="shift" ToRole="salessummary" />
+          <NavigationProperty Name="shiftsales" Relationship="Self.fk_shiftsales_shift_id" FromRole="shift" ToRole="shiftsales" />
+        </EntityType>
+        <EntityType Name="shiftsales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="saldat" Type="DateTime" Nullable="false" />
+          <Property Name="shift_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shiftsales_id" FromRole="shiftsales" ToRole="salessummary" />
+          <NavigationProperty Name="shift" Relationship="Self.fk_shiftsales_shift_id" FromRole="shiftsales" ToRole="shift" />
         </EntityType>
         <EntityType Name="stcrd">
           <Key>
@@ -615,6 +690,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_saleshistory_salessummary_id">
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="1" />
+          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salessummary">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="saleshistory">
+              <PropertyRef Name="salessummary_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_saleshistory_shift_id">
           <End Role="shift" Type="Self.shift" Multiplicity="1" />
           <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
@@ -648,6 +735,18 @@
             </Principal>
             <Dependent Role="salessummary">
               <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salessummary_shiftsales_id">
+          <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="1" />
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shiftsales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salessummary">
+              <PropertyRef Name="shiftsales_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -699,6 +798,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_shiftsales_shift_id">
+          <End Role="shift" Type="Self.shift" Multiplicity="1" />
+          <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shift">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="shiftsales">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="xpumpEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="apmas" EntityType="Self.apmas" />
           <EntitySet Name="aptrn" EntityType="Self.aptrn" />
@@ -708,6 +819,7 @@
           <EntitySet Name="salessummary" EntityType="Self.salessummary" />
           <EntitySet Name="section" EntityType="Self.section" />
           <EntitySet Name="shift" EntityType="Self.shift" />
+          <EntitySet Name="shiftsales" EntityType="Self.shiftsales" />
           <EntitySet Name="stcrd" EntityType="Self.stcrd" />
           <EntitySet Name="stmas" EntityType="Self.stmas" />
           <EntitySet Name="tank" EntityType="Self.tank" />
@@ -739,6 +851,10 @@
             <End Role="pricelist" EntitySet="pricelist" />
             <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
+          <AssociationSet Name="fk_saleshistory_salessummary_id" Association="Self.fk_saleshistory_salessummary_id">
+            <End Role="salessummary" EntitySet="salessummary" />
+            <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
           <AssociationSet Name="fk_saleshistory_shift_id" Association="Self.fk_saleshistory_shift_id">
             <End Role="shift" EntitySet="shift" />
             <End Role="saleshistory" EntitySet="saleshistory" />
@@ -749,6 +865,10 @@
           </AssociationSet>
           <AssociationSet Name="fk_salessummary_shift_id" Association="Self.fk_salessummary_shift_id">
             <End Role="shift" EntitySet="shift" />
+            <End Role="salessummary" EntitySet="salessummary" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salessummary_shiftsales_id" Association="Self.fk_salessummary_shiftsales_id">
+            <End Role="shiftsales" EntitySet="shiftsales" />
             <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
           <AssociationSet Name="fk_salessummary_stmas_id" Association="Self.fk_salessummary_stmas_id">
@@ -766,6 +886,10 @@
           <AssociationSet Name="fk_stcrd_section_id" Association="Self.fk_stcrd_section_id">
             <End Role="section" EntitySet="section" />
             <End Role="stcrd" EntitySet="stcrd" />
+          </AssociationSet>
+          <AssociationSet Name="fk_shiftsales_shift_id" Association="Self.fk_shiftsales_shift_id">
+            <End Role="shift" EntitySet="shift" />
+            <End Role="shiftsales" EntitySet="shiftsales" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -831,6 +955,7 @@
                 <ScalarProperty Name="nozzle_id" ColumnName="nozzle_id" />
                 <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
                 <ScalarProperty Name="pricelist_id" ColumnName="pricelist_id" />
+                <ScalarProperty Name="salessummary_id" ColumnName="salessummary_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -851,6 +976,7 @@
                 <ScalarProperty Name="shift_id" ColumnName="shift_id" />
                 <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
                 <ScalarProperty Name="pricelist_id" ColumnName="pricelist_id" />
+                <ScalarProperty Name="shiftsales_id" ColumnName="shiftsales_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -875,6 +1001,15 @@
                 <ScalarProperty Name="starttime" ColumnName="starttime" />
                 <ScalarProperty Name="endtime" ColumnName="endtime" />
                 <ScalarProperty Name="remark" ColumnName="remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shiftsales">
+            <EntityTypeMapping TypeName="xpumpModel.shiftsales">
+              <MappingFragment StoreEntitySet="shiftsales">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="saldat" ColumnName="saldat" />
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

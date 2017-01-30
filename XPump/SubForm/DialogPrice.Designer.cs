@@ -299,7 +299,7 @@
             this.Name = "DialogPrice";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ราคาน้ำมันวันนี้";
+            this.Text = "กำหนดราคาน้ำมัน";
             this.Load += new System.EventHandler(this.DialogPrice_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();

@@ -116,6 +116,9 @@
     <Compile Include="Model\shift.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\shiftsales.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\stcrd.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
@@ -167,6 +170,12 @@
     <Compile Include="SubForm\DialogPrice.Designer.cs">
       <DependentUpon>DialogPrice.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogShiftSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogShiftSelector.Designer.cs">
+      <DependentUpon>DialogShiftSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogSimpleSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +187,12 @@
     </Compile>
     <Compile Include="SubForm\FormShiftTransaction.Designer.cs">
       <DependentUpon>FormShiftTransaction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\_FormShiftTransaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\_FormShiftTransaction.Designer.cs">
+      <DependentUpon>_FormShiftTransaction.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm\_FormNozzle.cs">
       <SubType>Form</SubType>
@@ -234,11 +249,17 @@
     <EmbeddedResource Include="SubForm\DialogPrice.resx">
       <DependentUpon>DialogPrice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogShiftSelector.resx">
+      <DependentUpon>DialogShiftSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormShiftTransaction.resx">
       <DependentUpon>FormShiftTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\_FormShiftTransaction.resx">
+      <DependentUpon>_FormShiftTransaction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\_FormNozzle.resx">
       <DependentUpon>_FormNozzle.cs</DependentUpon>
@@ -346,6 +367,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ok_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_list_16.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model\XPumpModel.Context.tt">

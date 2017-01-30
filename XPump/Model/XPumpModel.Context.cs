@@ -38,6 +38,7 @@ namespace XPump.Model
         public virtual DbSet<salessummary> salessummary { get; set; }
         public virtual DbSet<section> section { get; set; }
         public virtual DbSet<shift> shift { get; set; }
+        public virtual DbSet<shiftsales> shiftsales { get; set; }
         public virtual DbSet<stcrd> stcrd { get; set; }
         public virtual DbSet<stmas> stmas { get; set; }
         public virtual DbSet<tank> tank { get; set; }
