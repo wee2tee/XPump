@@ -298,6 +298,16 @@ namespace XPump.Model
         public decimal dtest { get; set; }
         public decimal dother { get; set; }
         public decimal totqty { get; set; }
+        public decimal unitpr
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.pricelist.Find(this.pricelist_id) != null ? db.pricelist.Find(this.pricelist_id).unitpr : 0m;
+                }
+            }
+        }
         public decimal totval { get; set; }
         public decimal ddisc { get; set; }
         public decimal netval { get; set; }
@@ -374,16 +384,6 @@ namespace XPump.Model
             }
         }
 
-        public decimal unitpr
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet())
-                {
-                    return db.pricelist.Find(this.pricelist_id) != null ? db.pricelist.Find(this.pricelist_id).unitpr : 0m;
-                }
-            }
-        }
 
         public salessummary salessummary { get; set; }
     }

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using XPump.Model;
 using XPump.Misc;
 using CC;
+using System.Globalization;
 
 namespace XPump.SubForm
 {
@@ -18,6 +19,7 @@ namespace XPump.SubForm
         private shiftsales curr_shiftsales;
         private shiftsales tmp_shiftsales;
         private List<salessummaryVM> sales_list;
+        public salessummary curr_salessummary;
         private BindingSource bs;
         private FORM_MODE form_mode;
 
@@ -34,6 +36,8 @@ namespace XPump.SubForm
 
             this.bs = new BindingSource();
             this.dgv.DataSource = this.bs;
+
+            this.btnLast.PerformClick();
         }
 
         private void ResetControlState()
@@ -57,6 +61,10 @@ namespace XPump.SubForm
             /* Form control */
             this.brShift.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.dtSaldat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnSalesHistory.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.inline_unitpr.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.panel2.Refresh();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -78,7 +86,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.shiftsales.Include("salessummary").Where(s => s.id == id).FirstOrDefault();
+                return db.shiftsales.Include("salessummary").Include("shift").Where(s => s.id == id).FirstOrDefault();
             }
         }
 
@@ -86,22 +94,27 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.shiftsales.Include("salessummary").OrderBy(s => s.saldat).ThenBy(s => s.id).FirstOrDefault();
+                return db.shiftsales.Include("salessummary").Include("shift").OrderBy(s => s.saldat).ThenBy(s => s.id).FirstOrDefault();
             }
         }
 
         private shiftsales GetPrevious()
         {
-            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
-                return this.GetFirst();
-
             using (xpumpEntities db = DBX.DataSet())
             {
-                var id_list = db.salessummary.OrderByDescending(s => s.saldat).ThenByDescending(s => s.id).Select(s => s.id).ToList<int>();
+                if (db.shiftsales.Count() == 0)
+                    return null;
+
+
+                if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
+                return this.GetFirst();
+
+
+                var id_list = db.shiftsales.OrderBy(s => s.saldat).ThenBy(s => s.id).Select(s => s.id).ToList<int>();
 
                 if (id_list.IndexOf(this.curr_shiftsales.id) == -1)
                 {
-                    shiftsales tmp = db.shiftsales.OrderByDescending(s => s.saldat).ThenByDescending(s => s.id).Where(s => this.curr_shiftsales.saldat.CompareTo(s.saldat) == 0 || this.curr_shiftsales.saldat.CompareTo(s.saldat) > 0).FirstOrDefault();
+                    shiftsales tmp = db.shiftsales.Include("salessummary").Include("shift").OrderByDescending(s => s.saldat).ThenByDescending(s => s.id).Where(s => this.curr_shiftsales.saldat.CompareTo(s.saldat) == 0 || this.curr_shiftsales.saldat.CompareTo(s.saldat) > 0).FirstOrDefault();
 
                     if(tmp != null)
                     {
@@ -130,16 +143,19 @@ namespace XPump.SubForm
 
         private shiftsales GetNext()
         {
-            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
-                return this.GetLast();
-
             using (xpumpEntities db = DBX.DataSet())
             {
-                var id_list = db.salessummary.OrderBy(s => s.saldat).ThenBy(s => s.id).Select(s => s.id).ToList<int>();
+                if (db.shiftsales.Count() == 0)
+                    return null;
+
+                if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
+                return this.GetLast();
+
+                var id_list = db.shiftsales.OrderBy(s => s.saldat).ThenBy(s => s.id).Select(s => s.id).ToList<int>();
 
                 if (id_list.IndexOf(this.curr_shiftsales.id) == -1)
                 {
-                    shiftsales tmp = db.shiftsales.Include("salessummary").OrderBy(s => s.saldat).ThenBy(s => s.id).Where(s => this.curr_shiftsales.saldat.CompareTo(s.saldat) == 0 || this.curr_shiftsales.saldat.CompareTo(s.saldat) < 0).FirstOrDefault();
+                    shiftsales tmp = db.shiftsales.Include("salessummary").Include("shift").OrderBy(s => s.saldat).ThenBy(s => s.id).Where(s => this.curr_shiftsales.saldat.CompareTo(s.saldat) == 0 || this.curr_shiftsales.saldat.CompareTo(s.saldat) < 0).FirstOrDefault();
 
                     if(tmp != null)
                     {
@@ -151,14 +167,14 @@ namespace XPump.SubForm
                     }
                 }
                 
-                if (id_list.IndexOf(this.curr_shiftsales.id) == 0)
+                if (id_list.IndexOf(this.curr_shiftsales.id) == id_list.Count - 1)
                 {
                     return this.GetShiftSales(this.curr_shiftsales.id);
                 }
 
-                if (id_list.IndexOf(this.curr_shiftsales.id) > 0)
+                if (id_list.IndexOf(this.curr_shiftsales.id) < id_list.Count - 1)
                 {
-                    int target_index = id_list.IndexOf(this.curr_shiftsales.id) - 1;
+                    int target_index = id_list.IndexOf(this.curr_shiftsales.id) + 1;
                     return this.GetShiftSales(id_list[target_index]);
                 }
             }
@@ -170,13 +186,14 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.shiftsales.Include("salessummary").OrderByDescending(s => s.saldat).ThenByDescending(s => s.id).FirstOrDefault();
+                return db.shiftsales.Include("salessummary").Include("shift").OrderByDescending(s => s.saldat).ThenByDescending(s => s.id).FirstOrDefault();
             }
         }
 
         private void FillForm(shiftsales shift_sales = null)
         {
             shiftsales sales = shift_sales != null ? shift_sales : this.curr_shiftsales;
+            this.curr_salessummary = null;
 
             if(sales == null)
             {
@@ -198,13 +215,13 @@ namespace XPump.SubForm
 
         private void dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_stkcod.DataPropertyName).First().DisplayIndex = 0;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_stkdes.DataPropertyName).First().DisplayIndex = 1;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_totqty.DataPropertyName).First().DisplayIndex = 2;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().DisplayIndex = 3;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_totval.DataPropertyName).First().DisplayIndex = 4;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_ddisc.DataPropertyName).First().DisplayIndex = 5;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_netval.DataPropertyName).First().DisplayIndex = 6;
+            //((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_stkcod.DataPropertyName).First().DisplayIndex = 0;
+            //((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_stkdes.DataPropertyName).First().DisplayIndex = 1;
+            //((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_totqty.DataPropertyName).First().DisplayIndex = 2;
+            //((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().DisplayIndex = 3;
+            //((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_totval.DataPropertyName).First().DisplayIndex = 4;
+            //((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_ddisc.DataPropertyName).First().DisplayIndex = 5;
+            //((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_netval.DataPropertyName).First().DisplayIndex = 6;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -221,7 +238,7 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.ADD;
             this.ResetControlState();
             this.toolStrip1.Focus();
-            this.brShift.Focus();
+            this.dtSaldat.Focus();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -235,12 +252,38 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
             this.toolStrip1.Focus();
-            this.brShift.Focus();
+            this.dtSaldat.Focus();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
+                return;
 
+            if(MessageBox.Show("ลบบันทึกรายการขายประจำผลัด \"" + this.curr_shiftsales.shift.name + "\" วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + ", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        foreach (var s in db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).ToList())
+                        {
+                            int pricelist_id = s.pricelist_id;
+                            db.salessummary.Remove(s);
+                            db.pricelist.Remove(db.pricelist.Find(pricelist_id));
+                        }
+
+                        db.shiftsales.Remove(db.shiftsales.Find(this.curr_shiftsales.id));
+                        db.SaveChanges();
+
+                        this.btnRefresh.PerformClick();
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.ShowMessage("รายการนี้ ", "");
+                    }
+                }
+            }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -256,13 +299,78 @@ namespace XPump.SubForm
         {
             if(this.form_mode == FORM_MODE.ADD)
             {
+                DialogPrice price = new DialogPrice(this.main_form);
+                if (price.ShowDialog() != DialogResult.OK)
+                    return;
+
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        db.shiftsales.Add(this.tmp_shiftsales);
+                        foreach (stmas s in db.stmas.ToList())
+                        {
+                            db.salessummary.Add(new salessummary
+                            {
+                                saldat = this.tmp_shiftsales.saldat,
+                                total = 0m,
+                                dtest = 0m,
+                                dother = 0m,
+                                totqty = 0m,
+                                totval = 0m,
+                                ddisc = 0m,
+                                netval = 0m,
+                                salvat = 0m,
+                                purvat = 0m,
+                                shift_id = this.tmp_shiftsales.shift_id,
+                                stmas_id = s.id,
+                                pricelist_id = price.price_list.Where(p => p.stmas_id == s.id).FirstOrDefault() != null ? price.price_list.Where(p => p.stmas_id == s.id).First().id : -1,
+                                shiftsales_id = this.tmp_shiftsales.id
+                            });
+                        }
+
+                        db.SaveChanges();
+                        this.curr_shiftsales = this.GetShiftSales(this.tmp_shiftsales.id);
+                        this.FillForm();
+                        this.form_mode = FORM_MODE.READ_ITEM;
+                        this.ResetControlState();
+                        this.tmp_shiftsales = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
 
                 return;
             }
 
             if(this.form_mode == FORM_MODE.EDIT)
             {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        shiftsales shiftsales_to_update = db.shiftsales.Find(this.tmp_shiftsales.id);
+                        if(shiftsales_to_update == null)
+                        {
+                            MessageBox.Show("ค้นหารายการเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
 
+                        shiftsales_to_update.saldat = this.tmp_shiftsales.saldat;
+                        shiftsales_to_update.shift_id = this.tmp_shiftsales.shift_id;
+                        db.SaveChanges();
+
+                        this.form_mode = FORM_MODE.READ;
+                        this.ResetControlState();
+                        this.tmp_shiftsales = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
                 return;
             }
         }
@@ -270,21 +378,25 @@ namespace XPump.SubForm
         private void btnFirst_Click(object sender, EventArgs e)
         {
             this.curr_shiftsales = this.GetFirst();
+            this.FillForm();
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             this.curr_shiftsales = this.GetPrevious();
+            this.FillForm();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
             this.curr_shiftsales = this.GetNext();
+            this.FillForm();
         }
 
         private void btnLast_Click(object sender, EventArgs e)
         {
             this.curr_shiftsales = this.GetLast();
+            this.FillForm();
         }
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
@@ -304,12 +416,29 @@ namespace XPump.SubForm
 
         private void btnItem_Click(object sender, EventArgs e)
         {
+            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
+                return;
 
+            this.form_mode = FORM_MODE.READ_ITEM;
+            this.ResetControlState();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
+                return;
 
+            shiftsales tmp = this.GetShiftSales(this.curr_shiftsales.id);
+            if(tmp != null)
+            {
+                this.curr_shiftsales = tmp;
+                this.FillForm();
+                return;
+            }
+            else
+            {
+                this.btnNext.PerformClick();
+            }
         }
 
         private void dtSaldat__SelectedDateChanged(object sender, EventArgs e)
@@ -331,6 +460,8 @@ namespace XPump.SubForm
             if (this.tmp_shiftsales != null)
             {
                 DialogShiftSelector sel = new DialogShiftSelector(this.tmp_shiftsales.shift_id);
+                Point p = ((XBrowseBox)sender).PointToScreen(Point.Empty);
+                sel.SetBounds(p.X + ((XBrowseBox)sender).Width, p.Y, sel.Width, sel.Height);
                 if (sel.ShowDialog() == DialogResult.OK)
                 {
                     ((XBrowseBox)sender)._Text = sel.selected_shift.name;
@@ -342,11 +473,92 @@ namespace XPump.SubForm
 
         private void brShift__Leave(object sender, EventArgs e)
         {
-            if(this.tmp_shiftsales != null && this.tmp_shiftsales.shift_id < 0)
+            if(((XBrowseBox)sender)._Text.Trim().Length == 0)
             {
+                if (this.tmp_shiftsales != null)
+                    this.tmp_shiftsales.shift_id = -1;
+
                 ((XBrowseBox)sender).Focus();
-                //((XBrowseBox)sender).PerformButtonClick();
             }
+            else
+            {
+                string txt = ((XBrowseBox)sender)._Text;
+
+                shift shift = DialogShiftSelector.GetShiftList().Where(s => s.name == txt).FirstOrDefault();
+                if(shift != null)
+                {
+                    if (this.tmp_shiftsales != null)
+                        this.tmp_shiftsales.shift_id = shift.id;
+                }
+                else
+                {
+                    if (this.tmp_shiftsales != null)
+                        this.tmp_shiftsales.shift_id = -1;
+
+                    ((XBrowseBox)sender).Focus();
+                    ((XBrowseBox)sender).PerformButtonClick();
+                }
+
+            }
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+            if (this.form_mode == FORM_MODE.READ_ITEM || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                using (Pen p0 = new Pen(Color.LimeGreen))
+                {
+                    using (Pen p = new Pen(Color.PaleGreen))
+                    {
+                        e.Graphics.DrawRectangle(p0, e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
+                        e.Graphics.DrawRectangle(p, e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 3, e.ClipRectangle.Height - 3);
+                    }
+                }
+            }
+        }
+
+        private void dgv_SelectionChanged(object sender, EventArgs e)
+        {
+            if(this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM)
+            {
+                if (((XDatagrid)sender).CurrentCell == null)
+                {
+                    this.btnSalesHistory.Enabled = false;
+                    this.inline_unitpr.Visible = false;
+                    return;
+                }
+
+                this.curr_salessummary = (salessummary)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells["col_salessummary"].Value;
+                this.btnSalesHistory.Enabled = true;
+                int col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index;
+                int row_index = ((XDatagrid)sender).CurrentCell.RowIndex;
+
+                Rectangle rect = ((XDatagrid)sender).GetCellDisplayRectangle(col_index, row_index, false);
+                this.inline_unitpr.SetBounds(rect.X, rect.Y + 1, this.inline_unitpr.Width, rect.Height - 3);
+                this.inline_unitpr.Visible = true;
+            }
+            else
+            {
+                this.btnSalesHistory.Enabled = false;
+                this.inline_unitpr.Visible = false;
+            }
+        }
+
+        private void btnSalesHistory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void inline_unitpr_Click(object sender, EventArgs e)
+        {
+            if (this.dgv.CurrentCell == null)
+                return;
+
+            Rectangle rect = this.dgv.GetCellDisplayRectangle(this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index, this.dgv.CurrentCell.RowIndex, false);
+            
+            DialogEditPrice pr = new DialogEditPrice(this.curr_salessummary.ToViewModel().unitpr);
+            pr.SetBounds(this.dgv.PointToScreen(Point.Empty).X + rect.X, this.dgv.PointToScreen(Point.Empty).Y + rect.Y, rect.Width, pr.Height);
+            pr.ShowDialog();
         }
     }
 }

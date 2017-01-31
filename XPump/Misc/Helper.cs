@@ -343,7 +343,8 @@ namespace XPump.Misc
                 shift_id = sales.shift_id,
                 stmas_id = sales.stmas_id,
                 pricelist_id = sales.pricelist_id,
-                shiftsales_id = sales.shiftsales_id
+                shiftsales_id = sales.shiftsales_id,
+                salessummary = sales
             };
 
             return s;

@@ -13,7 +13,7 @@ namespace CC
 {
     public partial class XBrowseBox : UserControl
     {
-        private string _text;
+        private string _text = string.Empty;
         public string _Text
         {
             get
@@ -26,7 +26,7 @@ namespace CC
             }
         }
 
-        private bool _readonly;
+        private bool _readonly = false;
         public bool _ReadOnly
         {
             get
@@ -278,10 +278,10 @@ namespace CC
                         this._textBox.Text = shown_text.ToString();
                         this._textBox.SelectionStart = this._textBox.Text.Length;
                     }
-
-                    this._textBox.Focus();
                 }
             }
+
+            this._textBox.Focus();
         }
 
         private void _btnBrowse_Enter(object sender, EventArgs e)

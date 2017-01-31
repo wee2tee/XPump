@@ -33,15 +33,18 @@ namespace XPump.SubForm
             }
         }
 
+        public DialogShiftSelector(int initial_selected_shift_id, Point displayed_position)
+            : this(initial_selected_shift_id)
+        {
+            this.SetBounds(displayed_position.X, displayed_position.Y, this.Width, this.Height);
+        }
+
         private void DialogShiftSelector_Load(object sender, EventArgs e)
         {
-            using(xpumpEntities db = DBX.DataSet())
-            {
-                this.shift_list = db.shift.ToList().ToViewModel();
-                this.bs = new BindingSource();
-                this.bs.DataSource = this.shift_list;
-                this.dgv.DataSource = this.bs;
-            }
+            this.shift_list = GetShiftList().ToViewModel();
+            this.bs = new BindingSource();
+            this.bs.DataSource = this.shift_list;
+            this.dgv.DataSource = this.bs;
 
             if(this.initial_selected_shift != null)
             {
@@ -56,6 +59,41 @@ namespace XPump.SubForm
 
             this.selected_shift = (shift)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells["col_shift"].Value;
             this.btnOK.Enabled = true;
+        }
+
+        public static List<shift> GetShiftList()
+        {
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                var x = db.shift.ToList();
+                return db.shift.ToList();
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.Enter)
+            {
+                this.btnOK.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnCancel.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex > -1)
+            {
+                this.btnOK.PerformClick();
+                return;
+            }
         }
     }
 }
