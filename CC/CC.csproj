@@ -90,6 +90,12 @@
     <Compile Include="XDropdownList.Designer.cs">
       <DependentUpon>XDropdownList.cs</DependentUpon>
     </Compile>
+    <Compile Include="XInlineNumEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XInlineNumEdit.Designer.cs">
+      <DependentUpon>XInlineNumEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="XNumEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -137,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="XDropdownList.resx">
       <DependentUpon>XDropdownList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XInlineNumEdit.resx">
+      <DependentUpon>XInlineNumEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XNumEdit.resx">
       <DependentUpon>XNumEdit.cs</DependentUpon>

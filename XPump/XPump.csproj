@@ -170,6 +170,12 @@
     <Compile Include="SubForm\DialogNozzle.Designer.cs">
       <DependentUpon>DialogNozzle.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogNumEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogNumEdit.Designer.cs">
+      <DependentUpon>DialogNumEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogPrice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogNozzle.resx">
       <DependentUpon>DialogNozzle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogNumEdit.resx">
+      <DependentUpon>DialogNumEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogPrice.resx">
       <DependentUpon>DialogPrice.cs</DependentUpon>
