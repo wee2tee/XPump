@@ -63,6 +63,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.inline_btnEdit = new System.Windows.Forms.Button();
             this.dgv = new CC.XDatagrid();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.brShift = new CC.XBrowseBox();
+            this.dtSaldat = new CC.XDatePicker();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,6 +76,7 @@
             this.col_netval = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dtest = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dother = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_dothertxt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_salvat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_purvat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_shift_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,9 +90,6 @@
             this.saldat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_salessummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.brShift = new CC.XBrowseBox();
-            this.dtSaldat = new CC.XDatePicker();
             this.toolStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -404,6 +405,7 @@
             this.col_netval,
             this.col_dtest,
             this.col_dother,
+            this.col_dothertxt,
             this.col_salvat,
             this.col_purvat,
             this.col_shift_id,
@@ -444,6 +446,40 @@
             this.dgv.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_Scroll);
             this.dgv.SelectionChanged += new System.EventHandler(this.dgv_SelectionChanged);
             this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
+            // 
+            // brShift
+            // 
+            this.brShift._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.brShift._ReadOnly = false;
+            this.brShift._Text = "";
+            this.brShift._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.brShift._UseImage = true;
+            this.brShift.BackColor = System.Drawing.Color.White;
+            this.brShift.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.brShift.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.brShift.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.brShift.Location = new System.Drawing.Point(76, 83);
+            this.brShift.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.brShift.Name = "brShift";
+            this.brShift.Size = new System.Drawing.Size(178, 23);
+            this.brShift.TabIndex = 1;
+            this.brShift._ButtonClick += new System.EventHandler(this.brShift__ButtonClick);
+            this.brShift._Leave += new System.EventHandler(this.brShift__Leave);
+            // 
+            // dtSaldat
+            // 
+            this.dtSaldat._ReadOnly = false;
+            this.dtSaldat._SelectedDate = null;
+            this.dtSaldat.BackColor = System.Drawing.Color.White;
+            this.dtSaldat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtSaldat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtSaldat.Location = new System.Drawing.Point(76, 57);
+            this.dtSaldat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtSaldat.Name = "dtSaldat";
+            this.dtSaldat.Size = new System.Drawing.Size(103, 23);
+            this.dtSaldat.TabIndex = 0;
+            this.dtSaldat._SelectedDateChanged += new System.EventHandler(this.dtSaldat__SelectedDateChanged);
+            this.dtSaldat._Leave += new System.EventHandler(this.dtSaldat__Leave);
             // 
             // col_id
             // 
@@ -552,6 +588,14 @@
             this.col_dother.ReadOnly = true;
             this.col_dother.Visible = false;
             // 
+            // col_dothertxt
+            // 
+            this.col_dothertxt.DataPropertyName = "dothertxt";
+            this.col_dothertxt.HeaderText = "Deduct Other Text";
+            this.col_dothertxt.Name = "col_dothertxt";
+            this.col_dothertxt.ReadOnly = true;
+            this.col_dothertxt.Visible = false;
+            // 
             // col_salvat
             // 
             this.col_salvat.DataPropertyName = "salvat";
@@ -656,40 +700,6 @@
             this.col_salessummary.ReadOnly = true;
             this.col_salessummary.Visible = false;
             // 
-            // brShift
-            // 
-            this.brShift._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.brShift._ReadOnly = false;
-            this.brShift._Text = "";
-            this.brShift._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.brShift._UseImage = true;
-            this.brShift.BackColor = System.Drawing.Color.White;
-            this.brShift.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.brShift.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.brShift.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.brShift.Location = new System.Drawing.Point(76, 83);
-            this.brShift.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.brShift.Name = "brShift";
-            this.brShift.Size = new System.Drawing.Size(178, 23);
-            this.brShift.TabIndex = 1;
-            this.brShift._ButtonClick += new System.EventHandler(this.brShift__ButtonClick);
-            this.brShift._Leave += new System.EventHandler(this.brShift__Leave);
-            // 
-            // dtSaldat
-            // 
-            this.dtSaldat._ReadOnly = false;
-            this.dtSaldat._SelectedDate = null;
-            this.dtSaldat.BackColor = System.Drawing.Color.White;
-            this.dtSaldat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtSaldat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtSaldat.Location = new System.Drawing.Point(76, 57);
-            this.dtSaldat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtSaldat.Name = "dtSaldat";
-            this.dtSaldat.Size = new System.Drawing.Size(103, 23);
-            this.dtSaldat.TabIndex = 0;
-            this.dtSaldat._SelectedDateChanged += new System.EventHandler(this.dtSaldat__SelectedDateChanged);
-            this.dtSaldat._Leave += new System.EventHandler(this.dtSaldat__Leave);
-            // 
             // FormShiftTransaction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -750,6 +760,8 @@
         private System.Windows.Forms.Panel panel1;
         private CC.XDatagrid dgv;
         private System.Windows.Forms.Button btnSalesHistory;
+        private System.Windows.Forms.Button inline_btnEdit;
+        private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkcod;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkdes;
@@ -760,6 +772,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_netval;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dtest;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dother;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dothertxt;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salvat;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_purvat;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_shift_id;
@@ -773,7 +786,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn saldat;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_total;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salessummary;
-        private System.Windows.Forms.Button inline_btnEdit;
-        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

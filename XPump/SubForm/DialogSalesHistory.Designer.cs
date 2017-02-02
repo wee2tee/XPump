@@ -29,19 +29,35 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.xNumEdit8 = new CC.XNumEdit();
-            this.xNumEdit7 = new CC.XNumEdit();
-            this.xNumEdit14 = new CC.XNumEdit();
-            this.xNumEdit4 = new CC.XNumEdit();
-            this.xNumEdit13 = new CC.XNumEdit();
-            this.xNumEdit6 = new CC.XNumEdit();
-            this.xNumEdit12 = new CC.XNumEdit();
-            this.xNumEdit5 = new CC.XNumEdit();
-            this.xNumEdit10 = new CC.XNumEdit();
-            this.numTotal = new CC.XNumEdit();
-            this.xTextEdit1 = new CC.XTextEdit();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.inline_mit_start = new CC.XNumEdit();
+            this.inline_mit_end = new CC.XNumEdit();
+            this.dgvNozzle = new CC.XDatagrid();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblStkdes = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblSaleDate = new System.Windows.Forms.Label();
+            this.lblShiftName = new System.Windows.Forms.Label();
+            this.xDatagrid1 = new CC.XDatagrid();
+            this.label25 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.numPurvat = new CC.XNumEdit();
+            this.numDother = new CC.XNumEdit();
+            this.numDdisc = new CC.XNumEdit();
+            this.numDtest = new CC.XNumEdit();
+            this.txtDother = new CC.XTextEdit();
             this.label14 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -53,514 +69,38 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.lblSalvat = new System.Windows.Forms.Label();
+            this.lblNetval = new System.Windows.Forms.Label();
+            this.lblTotval = new System.Windows.Forms.Label();
+            this.lblNetqty = new System.Windows.Forms.Label();
+            this.lblTotqty = new System.Windows.Forms.Label();
+            this.lblTotal = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.inline_mit_start = new CC.XNumEdit();
-            this.inline_mit_end = new CC.XNumEdit();
-            this.dgvNozzle = new CC.XDatagrid();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnOK = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.lblStkdes = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblSaleDate = new System.Windows.Forms.Label();
-            this.lblShiftName = new System.Windows.Forms.Label();
-            this.lblUnitpr = new System.Windows.Forms.Label();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_saldat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_nozzle_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_mitbeg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_mitend = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_salqty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_unitpr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_salval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_shift_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_nozzle_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pricelist_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_salessummary_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_shift_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_saleshistory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNozzle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xDatagrid1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // xNumEdit8
-            // 
-            this.xNumEdit8._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit8._DecimalDigit = 2;
-            this.xNumEdit8._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.xNumEdit8._MaxLength = 30;
-            this.xNumEdit8._ReadOnly = false;
-            this.xNumEdit8._SelectionLength = 0;
-            this.xNumEdit8._SelectionStart = 4;
-            this.xNumEdit8._Text = "0.00";
-            this.xNumEdit8._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.xNumEdit8._UseThoundsandSeparate = true;
-            this.xNumEdit8._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.xNumEdit8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.xNumEdit8.BackColor = System.Drawing.Color.White;
-            this.xNumEdit8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xNumEdit8.Location = new System.Drawing.Point(651, 489);
-            this.xNumEdit8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xNumEdit8.Name = "xNumEdit8";
-            this.xNumEdit8.Size = new System.Drawing.Size(100, 23);
-            this.xNumEdit8.TabIndex = 38;
-            // 
-            // xNumEdit7
-            // 
-            this.xNumEdit7._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit7._DecimalDigit = 2;
-            this.xNumEdit7._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.xNumEdit7._MaxLength = 30;
-            this.xNumEdit7._ReadOnly = false;
-            this.xNumEdit7._SelectionLength = 0;
-            this.xNumEdit7._SelectionStart = 4;
-            this.xNumEdit7._Text = "0.00";
-            this.xNumEdit7._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.xNumEdit7._UseThoundsandSeparate = true;
-            this.xNumEdit7._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.xNumEdit7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.xNumEdit7.BackColor = System.Drawing.Color.White;
-            this.xNumEdit7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit7.Enabled = false;
-            this.xNumEdit7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xNumEdit7.Location = new System.Drawing.Point(651, 462);
-            this.xNumEdit7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xNumEdit7.Name = "xNumEdit7";
-            this.xNumEdit7.Size = new System.Drawing.Size(100, 23);
-            this.xNumEdit7.TabIndex = 37;
-            // 
-            // xNumEdit14
-            // 
-            this.xNumEdit14._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit14._DecimalDigit = 2;
-            this.xNumEdit14._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.xNumEdit14._MaxLength = 30;
-            this.xNumEdit14._ReadOnly = false;
-            this.xNumEdit14._SelectionLength = 0;
-            this.xNumEdit14._SelectionStart = 4;
-            this.xNumEdit14._Text = "0.00";
-            this.xNumEdit14._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.xNumEdit14._UseThoundsandSeparate = true;
-            this.xNumEdit14._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.xNumEdit14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.xNumEdit14.BackColor = System.Drawing.Color.White;
-            this.xNumEdit14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit14.Enabled = false;
-            this.xNumEdit14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xNumEdit14.Location = new System.Drawing.Point(547, 381);
-            this.xNumEdit14.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xNumEdit14.Name = "xNumEdit14";
-            this.xNumEdit14.Size = new System.Drawing.Size(100, 23);
-            this.xNumEdit14.TabIndex = 32;
-            // 
-            // xNumEdit4
-            // 
-            this.xNumEdit4._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit4._DecimalDigit = 2;
-            this.xNumEdit4._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.xNumEdit4._MaxLength = 30;
-            this.xNumEdit4._ReadOnly = false;
-            this.xNumEdit4._SelectionLength = 0;
-            this.xNumEdit4._SelectionStart = 4;
-            this.xNumEdit4._Text = "0.00";
-            this.xNumEdit4._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.xNumEdit4._UseThoundsandSeparate = true;
-            this.xNumEdit4._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.xNumEdit4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.xNumEdit4.BackColor = System.Drawing.Color.White;
-            this.xNumEdit4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit4.Enabled = false;
-            this.xNumEdit4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xNumEdit4.Location = new System.Drawing.Point(651, 381);
-            this.xNumEdit4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xNumEdit4.Name = "xNumEdit4";
-            this.xNumEdit4.Size = new System.Drawing.Size(100, 23);
-            this.xNumEdit4.TabIndex = 33;
-            // 
-            // xNumEdit13
-            // 
-            this.xNumEdit13._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit13._DecimalDigit = 2;
-            this.xNumEdit13._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.xNumEdit13._MaxLength = 30;
-            this.xNumEdit13._ReadOnly = false;
-            this.xNumEdit13._SelectionLength = 0;
-            this.xNumEdit13._SelectionStart = 4;
-            this.xNumEdit13._Text = "0.00";
-            this.xNumEdit13._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.xNumEdit13._UseThoundsandSeparate = true;
-            this.xNumEdit13._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.xNumEdit13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.xNumEdit13.BackColor = System.Drawing.Color.White;
-            this.xNumEdit13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit13.Enabled = false;
-            this.xNumEdit13.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xNumEdit13.Location = new System.Drawing.Point(547, 435);
-            this.xNumEdit13.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xNumEdit13.Name = "xNumEdit13";
-            this.xNumEdit13.Size = new System.Drawing.Size(100, 23);
-            this.xNumEdit13.TabIndex = 35;
-            // 
-            // xNumEdit6
-            // 
-            this.xNumEdit6._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit6._DecimalDigit = 2;
-            this.xNumEdit6._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.xNumEdit6._MaxLength = 30;
-            this.xNumEdit6._ReadOnly = false;
-            this.xNumEdit6._SelectionLength = 0;
-            this.xNumEdit6._SelectionStart = 4;
-            this.xNumEdit6._Text = "0.00";
-            this.xNumEdit6._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.xNumEdit6._UseThoundsandSeparate = true;
-            this.xNumEdit6._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.xNumEdit6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.xNumEdit6.BackColor = System.Drawing.Color.White;
-            this.xNumEdit6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit6.Enabled = false;
-            this.xNumEdit6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xNumEdit6.Location = new System.Drawing.Point(651, 435);
-            this.xNumEdit6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xNumEdit6.Name = "xNumEdit6";
-            this.xNumEdit6.Size = new System.Drawing.Size(100, 23);
-            this.xNumEdit6.TabIndex = 36;
-            // 
-            // xNumEdit12
-            // 
-            this.xNumEdit12._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit12._DecimalDigit = 2;
-            this.xNumEdit12._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.xNumEdit12._MaxLength = 30;
-            this.xNumEdit12._ReadOnly = false;
-            this.xNumEdit12._SelectionLength = 0;
-            this.xNumEdit12._SelectionStart = 4;
-            this.xNumEdit12._Text = "0.00";
-            this.xNumEdit12._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.xNumEdit12._UseThoundsandSeparate = true;
-            this.xNumEdit12._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.xNumEdit12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.xNumEdit12.BackColor = System.Drawing.Color.White;
-            this.xNumEdit12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xNumEdit12.Location = new System.Drawing.Point(547, 354);
-            this.xNumEdit12.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xNumEdit12.Name = "xNumEdit12";
-            this.xNumEdit12.Size = new System.Drawing.Size(100, 23);
-            this.xNumEdit12.TabIndex = 31;
-            // 
-            // xNumEdit5
-            // 
-            this.xNumEdit5._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit5._DecimalDigit = 2;
-            this.xNumEdit5._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.xNumEdit5._MaxLength = 30;
-            this.xNumEdit5._ReadOnly = false;
-            this.xNumEdit5._SelectionLength = 0;
-            this.xNumEdit5._SelectionStart = 4;
-            this.xNumEdit5._Text = "0.00";
-            this.xNumEdit5._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.xNumEdit5._UseThoundsandSeparate = true;
-            this.xNumEdit5._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.xNumEdit5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.xNumEdit5.BackColor = System.Drawing.Color.White;
-            this.xNumEdit5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xNumEdit5.Location = new System.Drawing.Point(651, 408);
-            this.xNumEdit5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xNumEdit5.Name = "xNumEdit5";
-            this.xNumEdit5.Size = new System.Drawing.Size(100, 23);
-            this.xNumEdit5.TabIndex = 34;
-            // 
-            // xNumEdit10
-            // 
-            this.xNumEdit10._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit10._DecimalDigit = 2;
-            this.xNumEdit10._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.xNumEdit10._MaxLength = 30;
-            this.xNumEdit10._ReadOnly = false;
-            this.xNumEdit10._SelectionLength = 0;
-            this.xNumEdit10._SelectionStart = 4;
-            this.xNumEdit10._Text = "0.00";
-            this.xNumEdit10._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.xNumEdit10._UseThoundsandSeparate = true;
-            this.xNumEdit10._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.xNumEdit10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.xNumEdit10.BackColor = System.Drawing.Color.White;
-            this.xNumEdit10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xNumEdit10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xNumEdit10.Location = new System.Drawing.Point(547, 327);
-            this.xNumEdit10.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xNumEdit10.Name = "xNumEdit10";
-            this.xNumEdit10.Size = new System.Drawing.Size(100, 23);
-            this.xNumEdit10.TabIndex = 29;
-            // 
-            // numTotal
-            // 
-            this.numTotal._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numTotal._DecimalDigit = 2;
-            this.numTotal._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.numTotal._MaxLength = 30;
-            this.numTotal._ReadOnly = false;
-            this.numTotal._SelectionLength = 0;
-            this.numTotal._SelectionStart = 4;
-            this.numTotal._Text = "0.00";
-            this.numTotal._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numTotal._UseThoundsandSeparate = true;
-            this.numTotal._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.numTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numTotal.BackColor = System.Drawing.Color.White;
-            this.numTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numTotal.Enabled = false;
-            this.numTotal.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numTotal.Location = new System.Drawing.Point(547, 300);
-            this.numTotal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numTotal.Name = "numTotal";
-            this.numTotal.Size = new System.Drawing.Size(100, 23);
-            this.numTotal.TabIndex = 28;
-            // 
-            // xTextEdit1
-            // 
-            this.xTextEdit1._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xTextEdit1._MaxLength = 32767;
-            this.xTextEdit1._ReadOnly = false;
-            this.xTextEdit1._Text = "";
-            this.xTextEdit1._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.xTextEdit1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.xTextEdit1.BackColor = System.Drawing.Color.White;
-            this.xTextEdit1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xTextEdit1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xTextEdit1.Location = new System.Drawing.Point(434, 354);
-            this.xTextEdit1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xTextEdit1.Name = "xTextEdit1";
-            this.xTextEdit1.Size = new System.Drawing.Size(90, 23);
-            this.xTextEdit1.TabIndex = 30;
-            // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label14.Location = new System.Drawing.Point(355, 411);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(24, 16);
-            this.label14.TabIndex = 26;
-            this.label14.Text = "หัก";
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label9.Location = new System.Drawing.Point(355, 357);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(24, 16);
-            this.label9.TabIndex = 25;
-            this.label9.Text = "หัก";
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label7.Location = new System.Drawing.Point(355, 330);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(24, 16);
-            this.label7.TabIndex = 24;
-            this.label7.Text = "หัก";
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label13.Location = new System.Drawing.Point(376, 411);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(124, 16);
-            this.label13.TabIndex = 23;
-            this.label13.Text = "ส่วนลดการค้าหน้าลาน";
-            // 
-            // label12
-            // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label12.Location = new System.Drawing.Point(340, 411);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(19, 16);
-            this.label12.TabIndex = 22;
-            this.label12.Text = "4.";
-            // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label17.Location = new System.Drawing.Point(404, 469);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(73, 13);
-            this.label17.TabIndex = 21;
-            this.label17.Text = "((5) x 7)/107)";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label16.Location = new System.Drawing.Point(340, 467);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(69, 16);
-            this.label16.TabIndex = 20;
-            this.label16.Text = "6. ภาษีขาย";
-            // 
-            // label18
-            // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label18.Location = new System.Drawing.Point(341, 493);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(163, 16);
-            this.label18.TabIndex = 19;
-            this.label18.Text = "7. ภาษีซื้อของน้ำมันเชื้อเพลิง";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label15.Location = new System.Drawing.Point(340, 438);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(93, 16);
-            this.label15.TabIndex = 18;
-            this.label15.Text = "5. ยอดขายสุทธิ";
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label11.Location = new System.Drawing.Point(340, 384);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(136, 16);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "3. รวมยอดขายประจำวัน";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label6.Location = new System.Drawing.Point(376, 330);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(125, 16);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "ยอดขายน้ำมันทดสอบ";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label8.Location = new System.Drawing.Point(376, 357);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 16);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "อื่น ๆ ระบุ";
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label10.Location = new System.Drawing.Point(340, 330);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(19, 16);
-            this.label10.TabIndex = 14;
-            this.label10.Text = "2.";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label5.Location = new System.Drawing.Point(341, 303);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 16);
-            this.label5.TabIndex = 27;
-            this.label5.Text = "1. รวม";
             // 
             // panel2
             // 
@@ -570,9 +110,9 @@
             this.panel2.Controls.Add(this.inline_mit_start);
             this.panel2.Controls.Add(this.inline_mit_end);
             this.panel2.Controls.Add(this.dgvNozzle);
-            this.panel2.Location = new System.Drawing.Point(6, 116);
+            this.panel2.Location = new System.Drawing.Point(6, 67);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(746, 180);
+            this.panel2.Size = new System.Drawing.Size(622, 179);
             this.panel2.TabIndex = 13;
             // 
             // inline_mit_start
@@ -600,11 +140,13 @@
             this.inline_mit_start.BackColor = System.Drawing.Color.White;
             this.inline_mit_start.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_mit_start.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_mit_start.Location = new System.Drawing.Point(557, 153);
+            this.inline_mit_start.Location = new System.Drawing.Point(172, 152);
             this.inline_mit_start.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_mit_start.Name = "inline_mit_start";
-            this.inline_mit_start.Size = new System.Drawing.Size(90, 23);
+            this.inline_mit_start.Size = new System.Drawing.Size(110, 23);
             this.inline_mit_start.TabIndex = 21;
+            this.inline_mit_start.Visible = false;
+            this.inline_mit_start._ValueChanged += new System.EventHandler(this.inline_mit_start__ValueChanged);
             // 
             // inline_mit_end
             // 
@@ -631,11 +173,13 @@
             this.inline_mit_end.BackColor = System.Drawing.Color.White;
             this.inline_mit_end.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_mit_end.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_mit_end.Location = new System.Drawing.Point(653, 153);
+            this.inline_mit_end.Location = new System.Drawing.Point(283, 152);
             this.inline_mit_end.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_mit_end.Name = "inline_mit_end";
-            this.inline_mit_end.Size = new System.Drawing.Size(90, 23);
+            this.inline_mit_end.Size = new System.Drawing.Size(110, 23);
             this.inline_mit_end.TabIndex = 22;
+            this.inline_mit_end.Visible = false;
+            this.inline_mit_end._ValueChanged += new System.EventHandler(this.inline_mit_end__ValueChanged);
             // 
             // dgvNozzle
             // 
@@ -644,29 +188,48 @@
             this.dgvNozzle.AllowUserToDeleteRows = false;
             this.dgvNozzle.AllowUserToResizeColumns = false;
             this.dgvNozzle.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvNozzle.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvNozzle.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvNozzle.ColumnHeadersHeight = 28;
             this.dgvNozzle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNozzle.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvNozzle.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_id,
+            this.col_saldat,
+            this.col_nozzle_name,
+            this.col_mitbeg,
+            this.col_mitend,
+            this.col_salqty,
+            this.col_unitpr,
+            this.col_salval,
+            this.col_shift_id,
+            this.col_nozzle_id,
+            this.col_stmas_id,
+            this.col_pricelist_id,
+            this.col_salessummary_id,
+            this.col_price_date,
+            this.col_shift_name,
+            this.col_stkcod,
+            this.col_stkdes,
+            this.col_saleshistory});
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvNozzle.DefaultCellStyle = dataGridViewCellStyle7;
             this.dgvNozzle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvNozzle.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvNozzle.EnableHeadersVisualStyles = false;
             this.dgvNozzle.FillEmptyRow = false;
-            this.dgvNozzle.FocusedRowBorderRedLine = false;
+            this.dgvNozzle.FocusedRowBorderRedLine = true;
             this.dgvNozzle.Location = new System.Drawing.Point(0, 0);
             this.dgvNozzle.MultiSelect = false;
             this.dgvNozzle.Name = "dgvNozzle";
@@ -674,163 +237,744 @@
             this.dgvNozzle.RowHeadersVisible = false;
             this.dgvNozzle.RowTemplate.Height = 26;
             this.dgvNozzle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNozzle.Size = new System.Drawing.Size(746, 180);
+            this.dgvNozzle.Size = new System.Drawing.Size(622, 179);
             this.dgvNozzle.StandardTab = true;
             this.dgvNozzle.TabIndex = 0;
+            this.dgvNozzle.CurrentCellChanged += new System.EventHandler(this.dgvNozzle_CurrentCellChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label1.Location = new System.Drawing.Point(25, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 16);
+            this.label1.Size = new System.Drawing.Size(62, 16);
             this.label1.TabIndex = 39;
             this.label1.Text = "วันที่ขาย :";
-            // 
-            // btnOK
-            // 
-            this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnOK.Image = global::XPump.Properties.Resources.save_16;
-            this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(250, 543);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Padding = new System.Windows.Forms.Padding(3);
-            this.btnOK.Size = new System.Drawing.Size(112, 32);
-            this.btnOK.TabIndex = 40;
-            this.btnOK.Text = "บันทึก <F9>";
-            this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnOK.UseVisualStyleBackColor = true;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
-            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(368, 543);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Padding = new System.Windows.Forms.Padding(3);
-            this.btnCancel.Size = new System.Drawing.Size(154, 32);
-            this.btnCancel.TabIndex = 40;
-            this.btnCancel.Text = "ปิด, ไม่บันทึก <Esc>";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // lblStkdes
             // 
             this.lblStkdes.AutoSize = true;
-            this.lblStkdes.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblStkdes.Location = new System.Drawing.Point(89, 65);
+            this.lblStkdes.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblStkdes.Location = new System.Drawing.Point(94, 43);
             this.lblStkdes.Name = "lblStkdes";
-            this.lblStkdes.Size = new System.Drawing.Size(26, 16);
+            this.lblStkdes.Size = new System.Drawing.Size(29, 16);
             this.lblStkdes.TabIndex = 39;
             this.lblStkdes.Text = "xxx";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label2.Location = new System.Drawing.Point(25, 90);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 16);
-            this.label2.TabIndex = 39;
-            this.label2.Text = "ราคาขาย/ลิตร :";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(25, 40);
+            this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label3.Location = new System.Drawing.Point(195, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 16);
+            this.label3.Size = new System.Drawing.Size(41, 16);
             this.label3.TabIndex = 39;
             this.label3.Text = "ผลัด :";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label4.Location = new System.Drawing.Point(25, 65);
+            this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label4.Location = new System.Drawing.Point(25, 43);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 16);
+            this.label4.Size = new System.Drawing.Size(47, 16);
             this.label4.TabIndex = 39;
             this.label4.Text = "สินค้า :";
             // 
             // lblSaleDate
             // 
             this.lblSaleDate.AutoSize = true;
-            this.lblSaleDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblSaleDate.Location = new System.Drawing.Point(98, 15);
+            this.lblSaleDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblSaleDate.Location = new System.Drawing.Point(94, 15);
             this.lblSaleDate.Name = "lblSaleDate";
-            this.lblSaleDate.Size = new System.Drawing.Size(26, 16);
+            this.lblSaleDate.Size = new System.Drawing.Size(29, 16);
             this.lblSaleDate.TabIndex = 39;
             this.lblSaleDate.Text = "xxx";
             // 
             // lblShiftName
             // 
             this.lblShiftName.AutoSize = true;
-            this.lblShiftName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblShiftName.Location = new System.Drawing.Point(94, 40);
+            this.lblShiftName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblShiftName.Location = new System.Drawing.Point(243, 15);
             this.lblShiftName.Name = "lblShiftName";
-            this.lblShiftName.Size = new System.Drawing.Size(26, 16);
+            this.lblShiftName.Size = new System.Drawing.Size(29, 16);
             this.lblShiftName.TabIndex = 39;
             this.lblShiftName.Text = "xxx";
             // 
-            // lblUnitpr
+            // xDatagrid1
             // 
-            this.lblUnitpr.AutoSize = true;
-            this.lblUnitpr.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblUnitpr.Location = new System.Drawing.Point(133, 90);
-            this.lblUnitpr.Name = "lblUnitpr";
-            this.lblUnitpr.Size = new System.Drawing.Size(26, 16);
-            this.lblUnitpr.TabIndex = 39;
-            this.lblUnitpr.Text = "xxx";
+            this.xDatagrid1.AllowSortByColumnHeaderClicked = false;
+            this.xDatagrid1.AllowUserToAddRows = false;
+            this.xDatagrid1.AllowUserToDeleteRows = false;
+            this.xDatagrid1.AllowUserToResizeColumns = false;
+            this.xDatagrid1.AllowUserToResizeRows = false;
+            this.xDatagrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.xDatagrid1.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.xDatagrid1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.xDatagrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.xDatagrid1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.xDatagrid1.EnableHeadersVisualStyles = false;
+            this.xDatagrid1.FillEmptyRow = false;
+            this.xDatagrid1.FocusedRowBorderRedLine = false;
+            this.xDatagrid1.Location = new System.Drawing.Point(6, 275);
+            this.xDatagrid1.MultiSelect = false;
+            this.xDatagrid1.Name = "xDatagrid1";
+            this.xDatagrid1.ReadOnly = true;
+            this.xDatagrid1.RowHeadersVisible = false;
+            this.xDatagrid1.RowTemplate.Height = 26;
+            this.xDatagrid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.xDatagrid1.Size = new System.Drawing.Size(206, 250);
+            this.xDatagrid1.StandardTab = true;
+            this.xDatagrid1.TabIndex = 41;
+            // 
+            // label25
+            // 
+            this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label25.Location = new System.Drawing.Point(63, 256);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(86, 16);
+            this.label25.TabIndex = 27;
+            this.label25.Text = "ราคาน้ำมันวันนี้";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btnCancel);
+            this.panel1.Controls.Add(this.btnOK);
+            this.panel1.Controls.Add(this.numPurvat);
+            this.panel1.Controls.Add(this.numDother);
+            this.panel1.Controls.Add(this.numDdisc);
+            this.panel1.Controls.Add(this.numDtest);
+            this.panel1.Controls.Add(this.txtDother);
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.label13);
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Controls.Add(this.label16);
+            this.panel1.Controls.Add(this.label18);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.lblSalvat);
+            this.panel1.Controls.Add(this.lblNetval);
+            this.panel1.Controls.Add(this.lblTotval);
+            this.panel1.Controls.Add(this.lblNetqty);
+            this.panel1.Controls.Add(this.lblTotqty);
+            this.panel1.Controls.Add(this.lblTotal);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Location = new System.Drawing.Point(216, 250);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(412, 275);
+            this.panel1.TabIndex = 42;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(216, 232);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(3);
+            this.btnCancel.Size = new System.Drawing.Size(63, 32);
+            this.btnCancel.TabIndex = 68;
+            this.btnCancel.Text = "ปิด";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnOK
+            // 
+            this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnOK.Enabled = false;
+            this.btnOK.Image = global::XPump.Properties.Resources.save_16;
+            this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOK.Location = new System.Drawing.Point(134, 232);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Padding = new System.Windows.Forms.Padding(3);
+            this.btnOK.Size = new System.Drawing.Size(78, 32);
+            this.btnOK.TabIndex = 67;
+            this.btnOK.Text = "บันทึก";
+            this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOK.UseVisualStyleBackColor = true;
+            // 
+            // numPurvat
+            // 
+            this.numPurvat._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numPurvat._DecimalDigit = 2;
+            this.numPurvat._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.numPurvat._MaxLength = 30;
+            this.numPurvat._ReadOnly = true;
+            this.numPurvat._SelectionLength = 0;
+            this.numPurvat._SelectionStart = 4;
+            this.numPurvat._Text = "0.00";
+            this.numPurvat._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numPurvat._UseThoundsandSeparate = true;
+            this.numPurvat._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.numPurvat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numPurvat.BackColor = System.Drawing.Color.White;
+            this.numPurvat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numPurvat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.numPurvat.Location = new System.Drawing.Point(297, 191);
+            this.numPurvat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numPurvat.Name = "numPurvat";
+            this.numPurvat.Size = new System.Drawing.Size(110, 23);
+            this.numPurvat.TabIndex = 66;
+            this.numPurvat.TabStop = false;
+            this.numPurvat._ValueChanged += new System.EventHandler(this.numPurvat__ValueChanged);
+            // 
+            // numDother
+            // 
+            this.numDother._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numDother._DecimalDigit = 2;
+            this.numDother._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.numDother._MaxLength = 30;
+            this.numDother._ReadOnly = true;
+            this.numDother._SelectionLength = 0;
+            this.numDother._SelectionStart = 4;
+            this.numDother._Text = "0.00";
+            this.numDother._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numDother._UseThoundsandSeparate = true;
+            this.numDother._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.numDother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numDother.BackColor = System.Drawing.Color.White;
+            this.numDother.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numDother.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.numDother.Location = new System.Drawing.Point(185, 56);
+            this.numDother.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numDother.Name = "numDother";
+            this.numDother.Size = new System.Drawing.Size(110, 23);
+            this.numDother.TabIndex = 64;
+            this.numDother.TabStop = false;
+            this.numDother._ValueChanged += new System.EventHandler(this.numDother__ValueChanged);
+            // 
+            // numDdisc
+            // 
+            this.numDdisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numDdisc._DecimalDigit = 2;
+            this.numDdisc._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.numDdisc._MaxLength = 30;
+            this.numDdisc._ReadOnly = true;
+            this.numDdisc._SelectionLength = 0;
+            this.numDdisc._SelectionStart = 4;
+            this.numDdisc._Text = "0.00";
+            this.numDdisc._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numDdisc._UseThoundsandSeparate = true;
+            this.numDdisc._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.numDdisc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numDdisc.BackColor = System.Drawing.Color.White;
+            this.numDdisc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numDdisc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.numDdisc.Location = new System.Drawing.Point(297, 110);
+            this.numDdisc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numDdisc.Name = "numDdisc";
+            this.numDdisc.Size = new System.Drawing.Size(110, 23);
+            this.numDdisc.TabIndex = 65;
+            this.numDdisc.TabStop = false;
+            this.numDdisc._ValueChanged += new System.EventHandler(this.numDdisc__ValueChanged);
+            // 
+            // numDtest
+            // 
+            this.numDtest._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numDtest._DecimalDigit = 2;
+            this.numDtest._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.numDtest._MaxLength = 30;
+            this.numDtest._ReadOnly = true;
+            this.numDtest._SelectionLength = 0;
+            this.numDtest._SelectionStart = 4;
+            this.numDtest._Text = "0.00";
+            this.numDtest._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numDtest._UseThoundsandSeparate = true;
+            this.numDtest._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.numDtest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numDtest.BackColor = System.Drawing.Color.White;
+            this.numDtest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numDtest.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.numDtest.Location = new System.Drawing.Point(185, 29);
+            this.numDtest.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numDtest.Name = "numDtest";
+            this.numDtest.Size = new System.Drawing.Size(110, 23);
+            this.numDtest.TabIndex = 62;
+            this.numDtest.TabStop = false;
+            this.numDtest._ValueChanged += new System.EventHandler(this.numDtest__ValueChanged);
+            // 
+            // txtDother
+            // 
+            this.txtDother._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDother._MaxLength = 32767;
+            this.txtDother._ReadOnly = true;
+            this.txtDother._Text = "";
+            this.txtDother._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtDother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDother.BackColor = System.Drawing.Color.White;
+            this.txtDother.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDother.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDother.Location = new System.Drawing.Point(101, 56);
+            this.txtDother.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtDother.Name = "txtDother";
+            this.txtDother.Size = new System.Drawing.Size(80, 23);
+            this.txtDother.TabIndex = 63;
+            this.txtDother.TabStop = false;
+            this.txtDother._TextChanged += new System.EventHandler(this.txtDother__TextChanged);
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label14.Location = new System.Drawing.Point(23, 113);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(24, 16);
+            this.label14.TabIndex = 60;
+            this.label14.Text = "หัก";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label9.Location = new System.Drawing.Point(23, 59);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(24, 16);
+            this.label9.TabIndex = 59;
+            this.label9.Text = "หัก";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label7.Location = new System.Drawing.Point(23, 32);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(24, 16);
+            this.label7.TabIndex = 58;
+            this.label7.Text = "หัก";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label13.Location = new System.Drawing.Point(44, 113);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(124, 16);
+            this.label13.TabIndex = 57;
+            this.label13.Text = "ส่วนลดการค้าหน้าลาน";
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label12.Location = new System.Drawing.Point(8, 113);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(19, 16);
+            this.label12.TabIndex = 56;
+            this.label12.Text = "4.";
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label17.Location = new System.Drawing.Point(73, 171);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(73, 13);
+            this.label17.TabIndex = 55;
+            this.label17.Text = "((5) x 7)/107)";
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label16.Location = new System.Drawing.Point(8, 169);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(69, 16);
+            this.label16.TabIndex = 54;
+            this.label16.Text = "6. ภาษีขาย";
+            // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label18.Location = new System.Drawing.Point(9, 195);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(163, 16);
+            this.label18.TabIndex = 53;
+            this.label18.Text = "7. ภาษีซื้อของน้ำมันเชื้อเพลิง";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label15.Location = new System.Drawing.Point(8, 140);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(93, 16);
+            this.label15.TabIndex = 52;
+            this.label15.Text = "5. ยอดขายสุทธิ";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label11.Location = new System.Drawing.Point(8, 86);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(136, 16);
+            this.label11.TabIndex = 51;
+            this.label11.Text = "3. รวมยอดขายประจำวัน";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label6.Location = new System.Drawing.Point(44, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(125, 16);
+            this.label6.TabIndex = 50;
+            this.label6.Text = "ยอดขายน้ำมันทดสอบ";
+            // 
+            // lblSalvat
+            // 
+            this.lblSalvat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSalvat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblSalvat.Location = new System.Drawing.Point(299, 167);
+            this.lblSalvat.Name = "lblSalvat";
+            this.lblSalvat.Size = new System.Drawing.Size(110, 17);
+            this.lblSalvat.TabIndex = 49;
+            this.lblSalvat.Text = "0.00";
+            this.lblSalvat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblNetval
+            // 
+            this.lblNetval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNetval.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblNetval.Location = new System.Drawing.Point(298, 140);
+            this.lblNetval.Name = "lblNetval";
+            this.lblNetval.Size = new System.Drawing.Size(110, 17);
+            this.lblNetval.TabIndex = 42;
+            this.lblNetval.Text = "0.00";
+            this.lblNetval.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblTotval
+            // 
+            this.lblTotval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotval.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblTotval.Location = new System.Drawing.Point(298, 86);
+            this.lblTotval.Name = "lblTotval";
+            this.lblTotval.Size = new System.Drawing.Size(110, 17);
+            this.lblTotval.TabIndex = 48;
+            this.lblTotval.Text = "0.00";
+            this.lblTotval.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblNetqty
+            // 
+            this.lblNetqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNetqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblNetqty.Location = new System.Drawing.Point(186, 140);
+            this.lblNetqty.Name = "lblNetqty";
+            this.lblNetqty.Size = new System.Drawing.Size(110, 17);
+            this.lblNetqty.TabIndex = 47;
+            this.lblNetqty.Text = "0.00";
+            this.lblNetqty.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblTotqty
+            // 
+            this.lblTotqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblTotqty.Location = new System.Drawing.Point(186, 86);
+            this.lblTotqty.Name = "lblTotqty";
+            this.lblTotqty.Size = new System.Drawing.Size(110, 17);
+            this.lblTotqty.TabIndex = 46;
+            this.lblTotqty.Text = "0.00";
+            this.lblTotqty.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotal.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblTotal.Location = new System.Drawing.Point(186, 5);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(110, 17);
+            this.lblTotal.TabIndex = 44;
+            this.lblTotal.Text = "0.00";
+            this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label8.Location = new System.Drawing.Point(44, 59);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(58, 16);
+            this.label8.TabIndex = 43;
+            this.label8.Text = "อื่น ๆ ระบุ";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label10.Location = new System.Drawing.Point(8, 32);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(19, 16);
+            this.label10.TabIndex = 41;
+            this.label10.Text = "2.";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label5.Location = new System.Drawing.Point(9, 5);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 16);
+            this.label5.TabIndex = 61;
+            this.label5.Text = "1. รวม";
+            // 
+            // col_id
+            // 
+            this.col_id.DataPropertyName = "id";
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
+            // 
+            // col_saldat
+            // 
+            this.col_saldat.DataPropertyName = "saldat";
+            this.col_saldat.HeaderText = "Sale Date";
+            this.col_saldat.Name = "col_saldat";
+            this.col_saldat.ReadOnly = true;
+            this.col_saldat.Visible = false;
+            // 
+            // col_nozzle_name
+            // 
+            this.col_nozzle_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_nozzle_name.DataPropertyName = "nozzle_name";
+            this.col_nozzle_name.HeaderText = "หัวจ่าย";
+            this.col_nozzle_name.MinimumWidth = 40;
+            this.col_nozzle_name.Name = "col_nozzle_name";
+            this.col_nozzle_name.ReadOnly = true;
+            // 
+            // col_mitbeg
+            // 
+            this.col_mitbeg.DataPropertyName = "mitbeg";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.col_mitbeg.DefaultCellStyle = dataGridViewCellStyle2;
+            this.col_mitbeg.HeaderText = "มิเตอร์เริ่มต้น";
+            this.col_mitbeg.MinimumWidth = 110;
+            this.col_mitbeg.Name = "col_mitbeg";
+            this.col_mitbeg.ReadOnly = true;
+            this.col_mitbeg.Width = 110;
+            // 
+            // col_mitend
+            // 
+            this.col_mitend.DataPropertyName = "mitend";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.col_mitend.DefaultCellStyle = dataGridViewCellStyle3;
+            this.col_mitend.HeaderText = "มิเตอร์สิ้นสุด";
+            this.col_mitend.MinimumWidth = 110;
+            this.col_mitend.Name = "col_mitend";
+            this.col_mitend.ReadOnly = true;
+            this.col_mitend.Width = 110;
+            // 
+            // col_salqty
+            // 
+            this.col_salqty.DataPropertyName = "salqty";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.col_salqty.DefaultCellStyle = dataGridViewCellStyle4;
+            this.col_salqty.HeaderText = "ปริมาณขาย(ลิตร)";
+            this.col_salqty.MinimumWidth = 110;
+            this.col_salqty.Name = "col_salqty";
+            this.col_salqty.ReadOnly = true;
+            this.col_salqty.Width = 110;
+            // 
+            // col_unitpr
+            // 
+            this.col_unitpr.DataPropertyName = "unitpr";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.col_unitpr.DefaultCellStyle = dataGridViewCellStyle5;
+            this.col_unitpr.HeaderText = "ราคาขาย/ลิตร";
+            this.col_unitpr.MinimumWidth = 110;
+            this.col_unitpr.Name = "col_unitpr";
+            this.col_unitpr.ReadOnly = true;
+            this.col_unitpr.Visible = false;
+            this.col_unitpr.Width = 110;
+            // 
+            // col_salval
+            // 
+            this.col_salval.DataPropertyName = "salval";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.col_salval.DefaultCellStyle = dataGridViewCellStyle6;
+            this.col_salval.HeaderText = "มูลค่าขาย(บาท)";
+            this.col_salval.MinimumWidth = 120;
+            this.col_salval.Name = "col_salval";
+            this.col_salval.ReadOnly = true;
+            this.col_salval.Width = 120;
+            // 
+            // col_shift_id
+            // 
+            this.col_shift_id.DataPropertyName = "shift_id";
+            this.col_shift_id.HeaderText = "Shift ID";
+            this.col_shift_id.Name = "col_shift_id";
+            this.col_shift_id.ReadOnly = true;
+            this.col_shift_id.Visible = false;
+            // 
+            // col_nozzle_id
+            // 
+            this.col_nozzle_id.DataPropertyName = "nozzle_id";
+            this.col_nozzle_id.HeaderText = "Nozzle ID";
+            this.col_nozzle_id.Name = "col_nozzle_id";
+            this.col_nozzle_id.ReadOnly = true;
+            this.col_nozzle_id.Visible = false;
+            // 
+            // col_stmas_id
+            // 
+            this.col_stmas_id.DataPropertyName = "stmas_id";
+            this.col_stmas_id.HeaderText = "Stmas ID";
+            this.col_stmas_id.Name = "col_stmas_id";
+            this.col_stmas_id.ReadOnly = true;
+            this.col_stmas_id.Visible = false;
+            // 
+            // col_pricelist_id
+            // 
+            this.col_pricelist_id.DataPropertyName = "pricelist_id";
+            this.col_pricelist_id.HeaderText = "Price List ID";
+            this.col_pricelist_id.Name = "col_pricelist_id";
+            this.col_pricelist_id.ReadOnly = true;
+            this.col_pricelist_id.Visible = false;
+            // 
+            // col_salessummary_id
+            // 
+            this.col_salessummary_id.DataPropertyName = "salessummary_id";
+            this.col_salessummary_id.HeaderText = "Sales Summary ID";
+            this.col_salessummary_id.Name = "col_salessummary_id";
+            this.col_salessummary_id.ReadOnly = true;
+            this.col_salessummary_id.Visible = false;
+            // 
+            // col_price_date
+            // 
+            this.col_price_date.DataPropertyName = "price_date";
+            this.col_price_date.HeaderText = "Price Date";
+            this.col_price_date.Name = "col_price_date";
+            this.col_price_date.ReadOnly = true;
+            this.col_price_date.Visible = false;
+            // 
+            // col_shift_name
+            // 
+            this.col_shift_name.DataPropertyName = "shift_name";
+            this.col_shift_name.HeaderText = "Shift Name";
+            this.col_shift_name.Name = "col_shift_name";
+            this.col_shift_name.ReadOnly = true;
+            this.col_shift_name.Visible = false;
+            // 
+            // col_stkcod
+            // 
+            this.col_stkcod.DataPropertyName = "stkcod";
+            this.col_stkcod.HeaderText = "Stock Code";
+            this.col_stkcod.Name = "col_stkcod";
+            this.col_stkcod.ReadOnly = true;
+            this.col_stkcod.Visible = false;
+            // 
+            // col_stkdes
+            // 
+            this.col_stkdes.DataPropertyName = "stkdes";
+            this.col_stkdes.HeaderText = "Stock Description";
+            this.col_stkdes.Name = "col_stkdes";
+            this.col_stkdes.ReadOnly = true;
+            this.col_stkdes.Visible = false;
+            // 
+            // col_saleshistory
+            // 
+            this.col_saleshistory.DataPropertyName = "saleshistory";
+            this.col_saleshistory.HeaderText = "Sales History";
+            this.col_saleshistory.Name = "col_saleshistory";
+            this.col_saleshistory.ReadOnly = true;
+            this.col_saleshistory.Visible = false;
             // 
             // DialogSalesHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 593);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnOK);
+            this.ClientSize = new System.Drawing.Size(634, 531);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.xDatagrid1);
             this.Controls.Add(this.lblShiftName);
             this.Controls.Add(this.lblSaleDate);
-            this.Controls.Add(this.lblUnitpr);
             this.Controls.Add(this.lblStkdes);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.xNumEdit8);
-            this.Controls.Add(this.xNumEdit7);
-            this.Controls.Add(this.xNumEdit14);
-            this.Controls.Add(this.xNumEdit4);
-            this.Controls.Add(this.xNumEdit13);
-            this.Controls.Add(this.xNumEdit6);
-            this.Controls.Add(this.xNumEdit12);
-            this.Controls.Add(this.xNumEdit5);
-            this.Controls.Add(this.xNumEdit10);
-            this.Controls.Add(this.numTotal);
-            this.Controls.Add(this.xTextEdit1);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.label16);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label25);
             this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(650, 570);
             this.Name = "DialogSalesHistory";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -838,24 +982,36 @@
             this.Load += new System.EventHandler(this.DialogSalesHistory_Load);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvNozzle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xDatagrid1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private CC.XNumEdit xNumEdit8;
-        private CC.XNumEdit xNumEdit7;
-        private CC.XNumEdit xNumEdit14;
-        private CC.XNumEdit xNumEdit4;
-        private CC.XNumEdit xNumEdit13;
-        private CC.XNumEdit xNumEdit6;
-        private CC.XNumEdit xNumEdit12;
-        private CC.XNumEdit xNumEdit5;
-        private CC.XNumEdit xNumEdit10;
-        private CC.XNumEdit numTotal;
-        private CC.XTextEdit xTextEdit1;
+        private System.Windows.Forms.Panel panel2;
+        private CC.XNumEdit inline_mit_start;
+        private CC.XNumEdit inline_mit_end;
+        private CC.XDatagrid dgvNozzle;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblStkdes;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblSaleDate;
+        private System.Windows.Forms.Label lblShiftName;
+        private CC.XDatagrid xDatagrid1;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
+        private CC.XNumEdit numPurvat;
+        private CC.XNumEdit numDother;
+        private CC.XNumEdit numDdisc;
+        private CC.XNumEdit numDtest;
+        private CC.XTextEdit txtDother;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
@@ -867,23 +1023,32 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblSalvat;
+        private System.Windows.Forms.Label lblNetval;
+        private System.Windows.Forms.Label lblTotval;
+        private System.Windows.Forms.Label lblNetqty;
+        private System.Windows.Forms.Label lblTotqty;
+        private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel2;
-        private CC.XNumEdit inline_mit_start;
-        private CC.XNumEdit inline_mit_end;
-        private CC.XDatagrid dgvNozzle;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label lblStkdes;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblSaleDate;
-        private System.Windows.Forms.Label lblShiftName;
-        private System.Windows.Forms.Label lblUnitpr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_saldat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_nozzle_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_mitbeg;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_mitend;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_salqty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_unitpr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_salval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_shift_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_nozzle_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_stmas_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pricelist_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_salessummary_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_price_date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_shift_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_stkcod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_stkdes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_saleshistory;
     }
 }

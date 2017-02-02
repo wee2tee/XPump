@@ -297,6 +297,7 @@ namespace XPump.Model
         public decimal total { get; set; }
         public decimal dtest { get; set; }
         public decimal dother { get; set; }
+        public string dothertxt { get; set; }
         public decimal totqty { get; set; }
         public decimal unitpr
         {
@@ -386,6 +387,93 @@ namespace XPump.Model
 
 
         public salessummary salessummary { get; set; }
+    }
+
+    public class saleshistoryVM
+    {
+        public int id { get; set; }
+        public System.DateTime saldat { get; set; }
+        public string nozzle_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.nozzle.Find(this.nozzle_id) != null ? db.nozzle.Find(this.nozzle_id).name : string.Empty;
+                }
+            }
+        }
+        public decimal mitbeg { get; set; }
+        public decimal mitend { get; set; }
+        public decimal salqty { get; set; }
+        public decimal unitpr
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.pricelist.Find(this.pricelist_id) != null ? db.pricelist.Find(this.pricelist_id).unitpr : 0m;
+                }
+            }
+        }
+        public decimal salval { get; set; }
+        public int shift_id { get; set; }
+        public int nozzle_id { get; set; }
+        public int stmas_id { get; set; }
+        public int pricelist_id { get; set; }
+        public int salessummary_id { get; set; }
+
+        public DateTime price_date
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.pricelist.Find(this.pricelist_id) != null ? db.pricelist.Find(this.pricelist_id).date : DateTime.Now;
+                }
+            }
+        }
+
+        public string shift_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
+                }
+            }
+        }
+
+        public string stkcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
+                }
+            }
+        }
+
+        public string stkdes
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
+                }
+            }
+        }
+
+        public saleshistory saleshistory { get; set; }
+
+        //public virtual nozzle nozzle { get; set; }
+        //public virtual pricelist pricelist { get; set; }
+        //public virtual salessummary salessummary { get; set; }
+        //public virtual shift shift { get; set; }
+        //public virtual stmas stmas { get; set; }
     }
 
     public class pricelistVM

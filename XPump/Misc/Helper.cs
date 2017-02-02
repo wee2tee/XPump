@@ -334,6 +334,7 @@ namespace XPump.Misc
                 total = sales.total,
                 dtest = sales.dtest,
                 dother = sales.dother,
+                dothertxt = sales.dothertxt,
                 totqty = sales.totqty,
                 totval = sales.totval,
                 ddisc = sales.ddisc,
@@ -354,6 +355,41 @@ namespace XPump.Misc
         {
             List<salessummaryVM> s = new List<salessummaryVM>();
             foreach (var item in sales_list)
+            {
+                s.Add(item.ToViewModel());
+            }
+
+            return s;
+        }
+
+        public static saleshistoryVM ToViewModel(this saleshistory saleshistory)
+        {
+            if (saleshistory == null)
+                return null;
+
+            saleshistoryVM s = new saleshistoryVM
+            {
+                id = saleshistory.id,
+                saldat = saleshistory.saldat,
+                mitbeg = saleshistory.mitbeg,
+                mitend = saleshistory.mitend,
+                salqty = saleshistory.salqty,
+                salval = saleshistory.salval,
+                shift_id = saleshistory.shift_id,
+                nozzle_id = saleshistory.nozzle_id,
+                stmas_id = saleshistory.stmas_id,
+                pricelist_id = saleshistory.pricelist_id,
+                salessummary_id = saleshistory.salessummary_id,
+                saleshistory = saleshistory
+            };
+
+            return s;
+        }
+
+        public static List<saleshistoryVM> ToViewModel(this IEnumerable<saleshistory> saleshistory_list)
+        {
+            List<saleshistoryVM> s = new List<saleshistoryVM>();
+            foreach (var item in saleshistory_list)
             {
                 s.Add(item.ToViewModel());
             }

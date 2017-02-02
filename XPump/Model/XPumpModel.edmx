@@ -70,6 +70,7 @@
           <Property Name="total" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="dtest" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="dother" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="dothertxt" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="totqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="totval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="ddisc" Type="decimal" Precision="14" Scale="2" Nullable="false" />
@@ -512,6 +513,7 @@
           <Property Name="total" Type="Decimal" Nullable="false" />
           <Property Name="dtest" Type="Decimal" Nullable="false" />
           <Property Name="dother" Type="Decimal" Nullable="false" />
+          <Property Name="dothertxt" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="totqty" Type="Decimal" Nullable="false" />
           <Property Name="totval" Type="Decimal" Nullable="false" />
           <Property Name="ddisc" Type="Decimal" Nullable="false" />
@@ -967,6 +969,7 @@
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="dtest" ColumnName="dtest" />
                 <ScalarProperty Name="dother" ColumnName="dother" />
+                <ScalarProperty Name="dothertxt" ColumnName="dothertxt" />
                 <ScalarProperty Name="totqty" ColumnName="totqty" />
                 <ScalarProperty Name="totval" ColumnName="totval" />
                 <ScalarProperty Name="ddisc" ColumnName="ddisc" />

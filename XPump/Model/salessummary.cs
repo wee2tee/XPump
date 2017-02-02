@@ -25,6 +25,7 @@ namespace XPump.Model
         public decimal total { get; set; }
         public decimal dtest { get; set; }
         public decimal dother { get; set; }
+        public string dothertxt { get; set; }
         public decimal totqty { get; set; }
         public decimal totval { get; set; }
         public decimal ddisc { get; set; }
