@@ -34,7 +34,8 @@ namespace XPump.SubForm
 
         private void DialogSalesHistory_Load(object sender, EventArgs e)
         {
-            this.form_mode = FORM_MODE.EDIT_ITEM;
+            this.form_mode = FORM_MODE.READ_ITEM;
+            this.ResetControlState();
 
             this.lblSaleDate.Text = this.salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
             this.lblShiftName.Text = this.salessummary.ToViewModel().shift_name;
@@ -43,9 +44,24 @@ namespace XPump.SubForm
             this.salessummary = this.GetSalesSummary(this.salessummary.id);
             this.saleshistory = this.salessummary.saleshistory.ToList();
             this.bs = new BindingSource();
-            this.bs.DataSource = this.saleshistory.ToViewModel();
             this.dgvNozzle.DataSource = this.bs;
+            this.FillDgv();
             this.FillSummary();
+
+            this.dgvNozzle.Focus();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if(this.form_mode ==  FORM_MODE.EDIT || this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                if(MessageBox.Show("ข้อมูลที่ท่านกำลังแก้ไขจะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+            base.OnFormClosing(e);
         }
 
         private salessummary GetSalesSummary(int id)
@@ -87,9 +103,34 @@ namespace XPump.SubForm
             }
         }
 
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+            if (this.form_mode == FORM_MODE.READ_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                using (Pen p0 = new Pen(Color.PaleGreen))
+                {
+                    using (Pen p = new Pen(Color.LimeGreen))
+                    {
+                        e.Graphics.DrawRectangle(p0, e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
+                        e.Graphics.DrawRectangle(p, e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 3, e.ClipRectangle.Height - 3);
+                    }
+                }
+            }
+        }
+
         private void ResetControlState()
         {
+            this.dgvNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
+            this.numDtest.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.numDother.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.numDdisc.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.numPurvat.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.txtDother.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
 
+            this.panel1.Refresh();
+            this.panel3.Refresh();
         }
 
         private void ShowInlineForm(int row_index)
@@ -107,6 +148,8 @@ namespace XPump.SubForm
             this.inline_mit_end.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 3);
             this.inline_mit_end._Value = this.tmp_saleshistory.mitend;
             this.inline_mit_end.Visible = true;
+
+            this.inline_mit_start.Focus();
         }
 
         private void RemoveInlineForm()
@@ -177,6 +220,19 @@ namespace XPump.SubForm
             }
         }
 
+        private void FillForm()
+        {
+            this.FillDgv();
+            this.FillSummary();
+        }
+
+        private void FillDgv()
+        {
+            this.saleshistory = this.salessummary.saleshistory.ToList();
+            this.bs.ResetBindings(true);
+            this.bs.DataSource = this.saleshistory.ToViewModel();
+        }
+
         private void FillSummary()
         {
             this.lblTotal.Text = string.Format("{0:#,#0.00}", this.salessummary.total);
@@ -185,6 +241,12 @@ namespace XPump.SubForm
             this.lblNetqty.Text = string.Format("{0:#,#0.00}", this.salessummary.totqty);
             this.lblNetval.Text = string.Format("{0:#,#0.00}", this.salessummary.netval);
             this.lblSalvat.Text = string.Format("{0:#,#0.00}", this.salessummary.salvat);
+
+            this.numDtest._Value = this.salessummary.dtest;
+            this.numDother._Value = this.salessummary.dother;
+            this.txtDother._Text = this.salessummary.dothertxt;
+            this.numDdisc._Value = this.salessummary.ddisc;
+            this.numPurvat._Value = this.salessummary.purvat;
         }
 
         private void numDtest__ValueChanged(object sender, EventArgs e)
@@ -232,12 +294,90 @@ namespace XPump.SubForm
             }
         }
 
+        private void PerformEditSummary(object sender, EventArgs e)
+        {
+            this.form_mode = FORM_MODE.EDIT;
+            this.ResetControlState();
+            this.btnCancel.Focus();
+
+            ((Control)sender).Focus();
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                try
+                {
+                    salessummary ss_to_update = db.salessummary.Find(this.salessummary.id);
+
+                    if (ss_to_update == null)
+                    {
+                        MessageBox.Show("ค้นหาข้อมูลเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
+                    ss_to_update.dtest = this.salessummary.dtest;
+                    ss_to_update.dother = this.salessummary.dother;
+                    ss_to_update.dothertxt = this.salessummary.dothertxt;
+                    ss_to_update.ddisc = this.salessummary.ddisc;
+                    ss_to_update.purvat = this.salessummary.purvat;
+
+                    ss_to_update.total = ss_to_update.saleshistory.Sum(s => s.salqty);
+                    ss_to_update.totqty = ss_to_update.total - ss_to_update.dtest - ss_to_update.dother;
+                    ss_to_update.totval = ss_to_update.totqty * ss_to_update.ToViewModel().unitpr;
+                    ss_to_update.netval = ss_to_update.totval - ss_to_update.ddisc;
+                    ss_to_update.salvat = (ss_to_update.netval * 7) / 107;
+
+                    db.SaveChanges();
+                    this.salessummary = this.GetSalesSummary(this.salessummary.id);
+                    this.form_mode = FORM_MODE.READ;
+                    this.ResetControlState();
+                    this.FillForm();
+                }
+                catch (Exception ex)
+                {
+                    ex.ShowMessage("ข้อมูลที่ท่านต้องการแก้ไข", "");
+                }
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.form_mode = FORM_MODE.READ;
+            this.ResetControlState();
+            this.salessummary = this.GetSalesSummary(this.salessummary.id);
+            this.FillForm();
+        }
+
+        private void dgvNozzle_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && ((XDatagrid)sender).CurrentCell != null)
+            {
+                if (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM)
+                {
+                    this.form_mode = FORM_MODE.EDIT_ITEM;
+                    this.ResetControlState();
+                    this.ShowInlineForm(e.RowIndex);
+                    return;
+                }
+                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.inline_mit_start.Visible)
+                {
+                    this.inline_mit_start.Focus();
+                }
+            }
+            
+        }
+
         private void dgvNozzle_CurrentCellChanged(object sender, EventArgs e)
         {
-            if (this.tmp_saleshistory != null)
 
-                if (((XDatagrid)sender).CurrentCell == null)
-                    return;
+
+            if (this.form_mode != FORM_MODE.EDIT_ITEM)
+                return;
+
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
 
             if (this.tmp_saleshistory == null)
             {
@@ -258,13 +398,10 @@ namespace XPump.SubForm
                 else
                 {
                     this.SaveTmpSalesHistory();
-                    
-
                     this.RemoveInlineForm();
                     this.form_mode = FORM_MODE.EDIT_ITEM;
                     this.ResetControlState();
                     this.ShowInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
-                    this.inline_mit_start.Focus();
                 }
             }
 
@@ -279,6 +416,102 @@ namespace XPump.SubForm
                 this.inline_mit_end.Focus();
                 return;
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == (Keys.Alt | Keys.E) && (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM))
+            {
+                if(this.dgvNozzle.Rows.Count == 0 || this.dgvNozzle.CurrentCell == null)
+                {
+                    this.form_mode = FORM_MODE.EDIT;
+                    this.ResetControlState();
+                    this.numDtest.Focus();
+                    return true;
+                }
+                
+                if(this.dgvNozzle.Rows.Count > 0 && this.dgvNozzle.CurrentCell != null)
+                {
+                    this.form_mode = FORM_MODE.EDIT_ITEM;
+                    this.ResetControlState();
+                    this.ShowInlineForm(this.dgvNozzle.CurrentCell.RowIndex);
+                    this.inline_mit_start.Focus();
+                    return true;
+                }
+            }
+
+            if(keyData == Keys.Enter)
+            {
+                if(this.inline_mit_start.Visible && this.inline_mit_end.Visible && this.inline_mit_start._Focused)
+                {
+                    this.inline_mit_end.Focus();
+                    return true;
+                }
+
+                if (this.inline_mit_start.Visible && this.inline_mit_end.Visible && this.inline_mit_end._Focused)
+                {
+                    if(this.dgvNozzle.CurrentCell.RowIndex < this.dgvNozzle.Rows.Count - 1)
+                    {
+                        this.dgvNozzle.Rows[this.dgvNozzle.CurrentCell.RowIndex + 1].Cells[this.col_nozzle_name.Name].Selected = true;
+                        return true;
+                    }
+                    else
+                    {
+                        this.SaveTmpSalesHistory();
+                        this.RemoveInlineForm();
+                        this.form_mode = FORM_MODE.EDIT;
+                        this.ResetControlState();
+                        this.numDtest.Focus();
+                        return true;
+                    }
+                }
+
+                if(this.form_mode == FORM_MODE.EDIT)
+                {
+                    if (this.numPurvat._Focused)
+                    {
+                        this.btnOK.PerformClick();
+                        return true;
+                    }
+
+                    SendKeys.Send("{TAB}");
+                    return true;
+                }
+            }
+            
+            if(keyData == Keys.Escape)
+            {
+                if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    this.form_mode = FORM_MODE.READ_ITEM;
+                    this.ResetControlState();
+                    this.RemoveInlineForm();
+
+                    this.FillDgv();
+                    return true;
+                }
+
+                if(this.form_mode == FORM_MODE.READ_ITEM)
+                {
+                    this.form_mode = FORM_MODE.READ;
+                    this.ResetControlState();
+                    return true;
+                }
+
+                if(this.form_mode == FORM_MODE.EDIT)
+                {
+                    this.btnCancel.PerformClick();
+                    return true;
+                }
+
+                if(this.form_mode == FORM_MODE.READ)
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }
