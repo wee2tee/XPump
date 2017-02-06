@@ -67,15 +67,10 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="saldat" Type="date" Nullable="false" />
-          <Property Name="total" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="dtest" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="dother" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="dothertxt" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="totqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="totval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="ddisc" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="netval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="salvat" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="purvat" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="shift_id" Type="int" Nullable="false" />
           <Property Name="stmas_id" Type="int" Nullable="false" />
@@ -510,15 +505,10 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="saldat" Type="DateTime" Nullable="false" />
-          <Property Name="total" Type="Decimal" Nullable="false" />
           <Property Name="dtest" Type="Decimal" Nullable="false" />
           <Property Name="dother" Type="Decimal" Nullable="false" />
           <Property Name="dothertxt" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="totqty" Type="Decimal" Nullable="false" />
-          <Property Name="totval" Type="Decimal" Nullable="false" />
           <Property Name="ddisc" Type="Decimal" Nullable="false" />
-          <Property Name="netval" Type="Decimal" Nullable="false" />
-          <Property Name="salvat" Type="Decimal" Nullable="false" />
           <Property Name="purvat" Type="Decimal" Nullable="false" />
           <Property Name="shift_id" Type="Int32" Nullable="false" />
           <Property Name="stmas_id" Type="Int32" Nullable="false" />
@@ -966,15 +956,10 @@
               <MappingFragment StoreEntitySet="salessummary">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
-                <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="dtest" ColumnName="dtest" />
                 <ScalarProperty Name="dother" ColumnName="dother" />
                 <ScalarProperty Name="dothertxt" ColumnName="dothertxt" />
-                <ScalarProperty Name="totqty" ColumnName="totqty" />
-                <ScalarProperty Name="totval" ColumnName="totval" />
                 <ScalarProperty Name="ddisc" ColumnName="ddisc" />
-                <ScalarProperty Name="netval" ColumnName="netval" />
-                <ScalarProperty Name="salvat" ColumnName="salvat" />
                 <ScalarProperty Name="purvat" ColumnName="purvat" />
                 <ScalarProperty Name="shift_id" ColumnName="shift_id" />
                 <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />

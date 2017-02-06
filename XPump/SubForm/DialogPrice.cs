@@ -159,6 +159,7 @@ namespace XPump.SubForm
                 //item.unitpr = 0m;
                 item.price_date = DateTime.Now;
             }
+            var x = this.stmas_list;
             this.FillForm();
 
             this.form_mode = FORM_MODE.EDIT_ITEM;

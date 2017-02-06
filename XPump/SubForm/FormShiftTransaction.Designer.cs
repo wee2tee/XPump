@@ -58,14 +58,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnSalesHistory = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.inline_btnSaleshistory = new System.Windows.Forms.Button();
             this.inline_btnEdit = new System.Windows.Forms.Button();
             this.dgv = new CC.XDatagrid();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.brShift = new CC.XBrowseBox();
-            this.dtSaldat = new CC.XDatePicker();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,6 +87,9 @@
             this.saldat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_salessummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.brShift = new CC.XBrowseBox();
+            this.dtSaldat = new CC.XDatePicker();
             this.toolStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -318,7 +318,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.btnSalesHistory);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Location = new System.Drawing.Point(4, 120);
@@ -327,37 +326,22 @@
             this.panel2.TabIndex = 18;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
-            // btnSalesHistory
-            // 
-            this.btnSalesHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSalesHistory.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnSalesHistory.Image = global::XPump.Properties.Resources.edit_list_16;
-            this.btnSalesHistory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalesHistory.Location = new System.Drawing.Point(759, 1);
-            this.btnSalesHistory.Name = "btnSalesHistory";
-            this.btnSalesHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.btnSalesHistory.Size = new System.Drawing.Size(140, 26);
-            this.btnSalesHistory.TabIndex = 19;
-            this.btnSalesHistory.Text = "บันทึกปริมาณการขาย";
-            this.btnSalesHistory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSalesHistory.UseVisualStyleBackColor = true;
-            this.btnSalesHistory.Click += new System.EventHandler(this.btnSalesHistory_Click);
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label8.Location = new System.Drawing.Point(5, 6);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(87, 16);
+            this.label8.Size = new System.Drawing.Size(127, 16);
             this.label8.TabIndex = 2;
-            this.label8.Text = "รายการสินค้า";
+            this.label8.Text = "รายการสินค้า <F8>";
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.inline_btnSaleshistory);
             this.panel1.Controls.Add(this.inline_btnEdit);
             this.panel1.Controls.Add(this.dgv);
             this.panel1.Location = new System.Drawing.Point(3, 29);
@@ -365,14 +349,26 @@
             this.panel1.Size = new System.Drawing.Size(895, 345);
             this.panel1.TabIndex = 1;
             // 
+            // inline_btnSaleshistory
+            // 
+            this.inline_btnSaleshistory.Image = global::XPump.Properties.Resources.edit_list_16;
+            this.inline_btnSaleshistory.Location = new System.Drawing.Point(255, 32);
+            this.inline_btnSaleshistory.Name = "inline_btnSaleshistory";
+            this.inline_btnSaleshistory.Size = new System.Drawing.Size(23, 25);
+            this.inline_btnSaleshistory.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.inline_btnSaleshistory, "บันทึกปริมาณการขาย <Ctrl+Space>");
+            this.inline_btnSaleshistory.UseVisualStyleBackColor = true;
+            this.inline_btnSaleshistory.Visible = false;
+            this.inline_btnSaleshistory.Click += new System.EventHandler(this.inline_btnSaleshistory_Click);
+            // 
             // inline_btnEdit
             // 
             this.inline_btnEdit.Image = global::XPump.Properties.Resources.edit_16;
-            this.inline_btnEdit.Location = new System.Drawing.Point(3, 32);
+            this.inline_btnEdit.Location = new System.Drawing.Point(374, 32);
             this.inline_btnEdit.Name = "inline_btnEdit";
             this.inline_btnEdit.Size = new System.Drawing.Size(23, 25);
             this.inline_btnEdit.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.inline_btnEdit, "แก้ไขราคาขาย");
+            this.toolTip1.SetToolTip(this.inline_btnEdit, "แก้ไขราคาขาย <Alt+E>");
             this.inline_btnEdit.UseVisualStyleBackColor = true;
             this.inline_btnEdit.Visible = false;
             this.inline_btnEdit.Click += new System.EventHandler(this.inline_unitpr_Click);
@@ -442,44 +438,11 @@
             this.dgv.Size = new System.Drawing.Size(895, 345);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
-            this.dgv.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_DataBindingComplete);
+            this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_Scroll);
             this.dgv.SelectionChanged += new System.EventHandler(this.dgv_SelectionChanged);
+            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
-            // 
-            // brShift
-            // 
-            this.brShift._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.brShift._ReadOnly = false;
-            this.brShift._Text = "";
-            this.brShift._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.brShift._UseImage = true;
-            this.brShift.BackColor = System.Drawing.Color.White;
-            this.brShift.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.brShift.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.brShift.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.brShift.Location = new System.Drawing.Point(76, 83);
-            this.brShift.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.brShift.Name = "brShift";
-            this.brShift.Size = new System.Drawing.Size(178, 23);
-            this.brShift.TabIndex = 1;
-            this.brShift._ButtonClick += new System.EventHandler(this.brShift__ButtonClick);
-            this.brShift._Leave += new System.EventHandler(this.brShift__Leave);
-            // 
-            // dtSaldat
-            // 
-            this.dtSaldat._ReadOnly = false;
-            this.dtSaldat._SelectedDate = null;
-            this.dtSaldat.BackColor = System.Drawing.Color.White;
-            this.dtSaldat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtSaldat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtSaldat.Location = new System.Drawing.Point(76, 57);
-            this.dtSaldat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtSaldat.Name = "dtSaldat";
-            this.dtSaldat.Size = new System.Drawing.Size(103, 23);
-            this.dtSaldat.TabIndex = 0;
-            this.dtSaldat._SelectedDateChanged += new System.EventHandler(this.dtSaldat__SelectedDateChanged);
-            this.dtSaldat._Leave += new System.EventHandler(this.dtSaldat__Leave);
             // 
             // col_id
             // 
@@ -700,6 +663,42 @@
             this.col_salessummary.ReadOnly = true;
             this.col_salessummary.Visible = false;
             // 
+            // brShift
+            // 
+            this.brShift._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.brShift._ReadOnly = false;
+            this.brShift._Text = "";
+            this.brShift._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.brShift._UseImage = true;
+            this.brShift.BackColor = System.Drawing.Color.White;
+            this.brShift.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.brShift.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.brShift.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.brShift.Location = new System.Drawing.Point(76, 83);
+            this.brShift.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.brShift.Name = "brShift";
+            this.brShift.Size = new System.Drawing.Size(178, 23);
+            this.brShift.TabIndex = 1;
+            this.brShift._ButtonClick += new System.EventHandler(this.brShift__ButtonClick);
+            this.brShift._Leave += new System.EventHandler(this.brShift__Leave);
+            this.brShift.DoubleClick += new System.EventHandler(this.PerformEdit);
+            // 
+            // dtSaldat
+            // 
+            this.dtSaldat._ReadOnly = false;
+            this.dtSaldat._SelectedDate = null;
+            this.dtSaldat.BackColor = System.Drawing.Color.White;
+            this.dtSaldat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtSaldat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtSaldat.Location = new System.Drawing.Point(76, 57);
+            this.dtSaldat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtSaldat.Name = "dtSaldat";
+            this.dtSaldat.Size = new System.Drawing.Size(103, 23);
+            this.dtSaldat.TabIndex = 0;
+            this.dtSaldat._SelectedDateChanged += new System.EventHandler(this.dtSaldat__SelectedDateChanged);
+            this.dtSaldat._Leave += new System.EventHandler(this.dtSaldat__Leave);
+            this.dtSaldat.DoubleClick += new System.EventHandler(this.PerformEdit);
+            // 
             // FormShiftTransaction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -759,7 +758,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;
         private CC.XDatagrid dgv;
-        private System.Windows.Forms.Button btnSalesHistory;
         private System.Windows.Forms.Button inline_btnEdit;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
@@ -786,5 +784,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn saldat;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_total;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salessummary;
+        private System.Windows.Forms.Button inline_btnSaleshistory;
     }
 }

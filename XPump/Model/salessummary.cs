@@ -22,15 +22,10 @@ namespace XPump.Model
     
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
-        public decimal total { get; set; }
         public decimal dtest { get; set; }
         public decimal dother { get; set; }
         public string dothertxt { get; set; }
-        public decimal totqty { get; set; }
-        public decimal totval { get; set; }
         public decimal ddisc { get; set; }
-        public decimal netval { get; set; }
-        public decimal salvat { get; set; }
         public decimal purvat { get; set; }
         public int shift_id { get; set; }
         public int stmas_id { get; set; }

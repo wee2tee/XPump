@@ -38,14 +38,14 @@
             this.inline_date = new CC.XDatePicker();
             this.inline_unitpr = new CC.XNumEdit();
             this.dgv = new CC.XDatagrid();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.col_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_unitpr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_price_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -191,6 +191,38 @@
             this.dgv.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_Scroll);
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnSave.Image = global::XPump.Properties.Resources.save_16;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(144, 287);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Padding = new System.Windows.Forms.Padding(3);
+            this.btnSave.Size = new System.Drawing.Size(241, 35);
+            this.btnSave.TabIndex = 3;
+            this.btnSave.Text = "บันทึกข้อมูล และ ใช้ราคาตามนี้ <F9>";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Visible = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(391, 287);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(3);
+            this.btnCancel.Size = new System.Drawing.Size(186, 35);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "ยกเลิกการปรับราคา <Esc>";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Visible = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // col_stkcod
             // 
             this.col_stkcod.DataPropertyName = "stkcod";
@@ -210,7 +242,7 @@
             // 
             // col_date
             // 
-            this.col_date.DataPropertyName = "date";
+            this.col_date.DataPropertyName = "price_date";
             dataGridViewCellStyle2.Format = "dd/MM/yyyy";
             this.col_date.DefaultCellStyle = dataGridViewCellStyle2;
             this.col_date.HeaderText = "วันที่กำหนดราคา";
@@ -248,38 +280,6 @@
             this.col_price_id.ReadOnly = true;
             this.col_price_id.Visible = false;
             // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnSave.Image = global::XPump.Properties.Resources.save_16;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(144, 287);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Padding = new System.Windows.Forms.Padding(3);
-            this.btnSave.Size = new System.Drawing.Size(241, 35);
-            this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "บันทึกข้อมูล และ ใช้ราคาตามนี้ <F9>";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Visible = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
-            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(391, 287);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Padding = new System.Windows.Forms.Padding(3);
-            this.btnCancel.Size = new System.Drawing.Size(186, 35);
-            this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "ยกเลิกการปรับราคา <Esc>";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Visible = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // DialogPrice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -315,13 +315,13 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private CC.XNumEdit inline_unitpr;
+        private CC.XDatePicker inline_date;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkcod;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkdes;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_date;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_unitpr;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stmas_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_price_id;
-        private CC.XNumEdit inline_unitpr;
-        private CC.XDatePicker inline_date;
     }
 }

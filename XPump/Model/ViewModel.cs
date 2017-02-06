@@ -294,11 +294,26 @@ namespace XPump.Model
     {
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
-        public decimal total { get; set; }
+        public decimal total
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.saleshistory.Where(s => s.salessummary_id == this.id).Count() > 0 ? db.saleshistory.Where(s => s.salessummary_id == this.id).Sum(s => s.salqty) : 0m;
+                }
+            }
+        }
         public decimal dtest { get; set; }
         public decimal dother { get; set; }
         public string dothertxt { get; set; }
-        public decimal totqty { get; set; }
+        public decimal totqty
+        {
+            get
+            {
+                return this.total - this.dtest - this.dother;
+            }
+        }
         public decimal unitpr
         {
             get
@@ -309,10 +324,28 @@ namespace XPump.Model
                 }
             }
         }
-        public decimal totval { get; set; }
+        public decimal totval
+        {
+            get
+            {
+                return this.totqty * this.unitpr;
+            }
+        }
         public decimal ddisc { get; set; }
-        public decimal netval { get; set; }
-        public decimal salvat { get; set; }
+        public decimal netval
+        {
+            get
+            {
+                return this.totval - this.ddisc;
+            }
+        }
+        public decimal salvat
+        {
+            get
+            {
+                return (this.netval * 7) / 107;
+            }
+        }
         public decimal purvat { get; set; }
         public int shift_id { get; set; }
         public int stmas_id { get; set; }

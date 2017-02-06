@@ -34,7 +34,7 @@ namespace XPump.SubForm
 
         private void DialogSalesHistory_Load(object sender, EventArgs e)
         {
-            this.form_mode = FORM_MODE.READ_ITEM;
+            this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
             this.lblSaleDate.Text = this.salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
@@ -107,9 +107,9 @@ namespace XPump.SubForm
         {
             if (this.form_mode == FORM_MODE.READ_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
             {
-                using (Pen p0 = new Pen(Color.PaleGreen))
+                using (Pen p0 = new Pen(Color.LimeGreen))
                 {
-                    using (Pen p = new Pen(Color.LimeGreen))
+                    using (Pen p = new Pen(Color.PaleGreen))
                     {
                         e.Graphics.DrawRectangle(p0, e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
                         e.Graphics.DrawRectangle(p, e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 3, e.ClipRectangle.Height - 3);
@@ -189,13 +189,6 @@ namespace XPump.SubForm
                         sh.salqty = this.tmp_saleshistory.salqty;
                         sh.salval = this.tmp_saleshistory.salval;
 
-                        salessummary ss = db.salessummary.Include("saleshistory").Where(s => s.id == sh.salessummary_id).First();
-                        ss.total = ss.saleshistory.Sum(s => s.salqty);
-                        ss.totqty = ss.total - ss.dtest - ss.dother;
-                        ss.totval = ss.totqty * ss.ToViewModel().unitpr;
-                        ss.netval = ss.totval - ss.ddisc;
-                        ss.salvat = (ss.netval * 7) / 107;
-
                         db.SaveChanges();
 
                         this.salessummary = this.GetSalesSummary(this.salessummary.id);
@@ -220,6 +213,49 @@ namespace XPump.SubForm
             }
         }
 
+        //public salessummary ReCalculateSalesSummary(salessummary latest_data_of_salessummary)
+        //{
+        //    using (xpumpEntities db = DBX.DataSet())
+        //    {
+        //        salessummary sales_to_cal = db.salessummary.Include("saleshistory").Where(s => s.id == latest_data_of_salessummary.id).FirstOrDefault();
+        //        if (sales_to_cal == null)
+        //            return null;
+
+        //        sales_to_cal.dtest = latest_data_of_salessummary.dtest;
+        //        sales_to_cal.dother = latest_data_of_salessummary.dother;
+        //        sales_to_cal.dothertxt = latest_data_of_salessummary.dothertxt;
+        //        sales_to_cal.ddisc = latest_data_of_salessummary.ddisc;
+        //        sales_to_cal.purvat = latest_data_of_salessummary.purvat;
+
+        //        return sales_to_cal;
+        //    }
+        //}
+
+        //public void UpdateSalesSummary(salessummary salessummary_to_update)
+        //{
+        //    using (xpumpEntities db = DBX.DataSet())
+        //    {
+        //        try
+        //        {
+        //            salessummary sales_to_update = db.salessummary.Find(salessummary_to_update.id);
+        //            if (sales_to_update == null)
+        //                return;
+
+        //            sales_to_update.dtest = salessummary_to_update.dtest;
+        //            sales_to_update.dother = salessummary_to_update.dother;
+        //            sales_to_update.dothertxt = salessummary_to_update.dothertxt;
+        //            sales_to_update.ddisc = salessummary_to_update.ddisc;
+        //            sales_to_update.purvat = salessummary_to_update.purvat;
+
+        //            db.SaveChanges();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ex.ShowMessage("", "");
+        //        }
+        //    }
+        //}
+
         private void FillForm()
         {
             this.FillDgv();
@@ -235,12 +271,12 @@ namespace XPump.SubForm
 
         private void FillSummary()
         {
-            this.lblTotal.Text = string.Format("{0:#,#0.00}", this.salessummary.total);
-            this.lblTotqty.Text = string.Format("{0:#,#0.00}", this.salessummary.totqty);
-            this.lblTotval.Text = string.Format("{0:#,#0.00}", this.salessummary.totval);
-            this.lblNetqty.Text = string.Format("{0:#,#0.00}", this.salessummary.totqty);
-            this.lblNetval.Text = string.Format("{0:#,#0.00}", this.salessummary.netval);
-            this.lblSalvat.Text = string.Format("{0:#,#0.00}", this.salessummary.salvat);
+            this.lblTotal.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().total);
+            this.lblTotqty.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().totqty);
+            this.lblTotval.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().totval);
+            this.lblNetqty.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().totqty);
+            this.lblNetval.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().netval);
+            this.lblSalvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().salvat);
 
             this.numDtest._Value = this.salessummary.dtest;
             this.numDother._Value = this.salessummary.dother;
@@ -307,39 +343,26 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                try
+                salessummary sales_to_update = db.salessummary.Find(this.salessummary.id);
+                if (sales_to_update == null)
                 {
-                    salessummary ss_to_update = db.salessummary.Find(this.salessummary.id);
-
-                    if (ss_to_update == null)
-                    {
-                        MessageBox.Show("ค้นหาข้อมูลเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        return;
-                    }
-
-                    ss_to_update.dtest = this.salessummary.dtest;
-                    ss_to_update.dother = this.salessummary.dother;
-                    ss_to_update.dothertxt = this.salessummary.dothertxt;
-                    ss_to_update.ddisc = this.salessummary.ddisc;
-                    ss_to_update.purvat = this.salessummary.purvat;
-
-                    ss_to_update.total = ss_to_update.saleshistory.Sum(s => s.salqty);
-                    ss_to_update.totqty = ss_to_update.total - ss_to_update.dtest - ss_to_update.dother;
-                    ss_to_update.totval = ss_to_update.totqty * ss_to_update.ToViewModel().unitpr;
-                    ss_to_update.netval = ss_to_update.totval - ss_to_update.ddisc;
-                    ss_to_update.salvat = (ss_to_update.netval * 7) / 107;
-
-                    db.SaveChanges();
-                    this.salessummary = this.GetSalesSummary(this.salessummary.id);
-                    this.form_mode = FORM_MODE.READ;
-                    this.ResetControlState();
-                    this.FillForm();
+                    MessageBox.Show("ค้นหาข้อมูลที่ต้องการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    ex.ShowMessage("ข้อมูลที่ท่านต้องการแก้ไข", "");
-                }
+
+                sales_to_update.dtest = this.salessummary.dtest;
+                sales_to_update.dother = this.salessummary.dother;
+                sales_to_update.dothertxt = this.salessummary.dothertxt;
+                sales_to_update.ddisc = this.salessummary.ddisc;
+                sales_to_update.purvat = this.salessummary.purvat;
+
+                db.SaveChanges();
             }
+
+            this.salessummary = this.GetSalesSummary(this.salessummary.id);
+            this.form_mode = FORM_MODE.READ;
+            this.ResetControlState();
+            this.FillForm();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -420,22 +443,35 @@ namespace XPump.SubForm
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if(keyData == (Keys.Alt | Keys.E) && (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM))
+            if(keyData == Keys.F8)
             {
-                if(this.dgvNozzle.Rows.Count == 0 || this.dgvNozzle.CurrentCell == null)
+                if(this.form_mode == FORM_MODE.READ)
+                {
+                    this.form_mode = FORM_MODE.READ_ITEM;
+                    this.ResetControlState();
+                    return true;
+                }
+            }
+
+            if(keyData == (Keys.Alt | Keys.E))
+            {
+                if(this.form_mode == FORM_MODE.READ)
                 {
                     this.form_mode = FORM_MODE.EDIT;
                     this.ResetControlState();
                     this.numDtest.Focus();
                     return true;
                 }
-                
-                if(this.dgvNozzle.Rows.Count > 0 && this.dgvNozzle.CurrentCell != null)
+
+                if(this.form_mode == FORM_MODE.READ_ITEM)
                 {
-                    this.form_mode = FORM_MODE.EDIT_ITEM;
-                    this.ResetControlState();
-                    this.ShowInlineForm(this.dgvNozzle.CurrentCell.RowIndex);
-                    this.inline_mit_start.Focus();
+                    if (this.dgvNozzle.Rows.Count > 0 && this.dgvNozzle.CurrentCell != null)
+                    {
+                        this.form_mode = FORM_MODE.EDIT_ITEM;
+                        this.ResetControlState();
+                        this.ShowInlineForm(this.dgvNozzle.CurrentCell.RowIndex);
+                        this.inline_mit_start.Focus();
+                    }
                     return true;
                 }
             }
