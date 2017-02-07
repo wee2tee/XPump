@@ -64,18 +64,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvSection = new CC.XDatagrid();
-            this.btnAddItem = new System.Windows.Forms.Button();
-            this.btnDeleteItem = new System.Windows.Forms.Button();
-            this.btnEditItem = new System.Windows.Forms.Button();
-            this.btnStopItem = new System.Windows.Forms.Button();
-            this.btnSaveItem = new System.Windows.Forms.Button();
-            this.dtEndDate = new CC.XDatePicker();
-            this.dtStartDate = new CC.XDatePicker();
-            this.ddIsactive = new CC.XDropdownList();
-            this.txtRemark = new CC.XTextEdit();
-            this.txtDesc = new CC.XTextEdit();
-            this.txtName = new CC.XTextEdit();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,6 +78,18 @@
             this.col_section_start_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_end_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAddItem = new System.Windows.Forms.Button();
+            this.btnDeleteItem = new System.Windows.Forms.Button();
+            this.btnEditItem = new System.Windows.Forms.Button();
+            this.btnStopItem = new System.Windows.Forms.Button();
+            this.btnSaveItem = new System.Windows.Forms.Button();
+            this.dtEndDate = new CC.XDatePicker();
+            this.dtStartDate = new CC.XDatePicker();
+            this.ddIsactive = new CC.XDropdownList();
+            this.txtRemark = new CC.XTextEdit();
+            this.txtDesc = new CC.XTextEdit();
+            this.txtName = new CC.XTextEdit();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -383,9 +383,9 @@
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label8.Location = new System.Drawing.Point(5, 6);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(89, 16);
+            this.label8.Size = new System.Drawing.Size(129, 16);
             this.label8.TabIndex = 2;
-            this.label8.Text = "ช่องเก็บน้ำมัน";
+            this.label8.Text = "ช่องเก็บน้ำมัน <F8>";
             // 
             // panel1
             // 
@@ -458,177 +458,6 @@
             this.dgvSection.SelectionChanged += new System.EventHandler(this.dgvSection_SelectionChanged);
             this.dgvSection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSection_MouseClick);
             this.dgvSection.Resize += new System.EventHandler(this.dgvSection_Resize);
-            // 
-            // btnAddItem
-            // 
-            this.btnAddItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnAddItem.Image = global::XPump.Properties.Resources.add_16;
-            this.btnAddItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddItem.Location = new System.Drawing.Point(408, 2);
-            this.btnAddItem.Name = "btnAddItem";
-            this.btnAddItem.Size = new System.Drawing.Size(50, 24);
-            this.btnAddItem.TabIndex = 6;
-            this.btnAddItem.Text = "เพิ่ม";
-            this.btnAddItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAddItem.UseVisualStyleBackColor = true;
-            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
-            // 
-            // btnDeleteItem
-            // 
-            this.btnDeleteItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnDeleteItem.Image = global::XPump.Properties.Resources.delete_16;
-            this.btnDeleteItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeleteItem.Location = new System.Drawing.Point(517, 2);
-            this.btnDeleteItem.Name = "btnDeleteItem";
-            this.btnDeleteItem.Size = new System.Drawing.Size(45, 24);
-            this.btnDeleteItem.TabIndex = 8;
-            this.btnDeleteItem.Text = "ลบ";
-            this.btnDeleteItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnDeleteItem.UseVisualStyleBackColor = true;
-            this.btnDeleteItem.Click += new System.EventHandler(this.btnDeleteItem_Click);
-            // 
-            // btnEditItem
-            // 
-            this.btnEditItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnEditItem.Image = global::XPump.Properties.Resources.edit_16;
-            this.btnEditItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditItem.Location = new System.Drawing.Point(459, 2);
-            this.btnEditItem.Name = "btnEditItem";
-            this.btnEditItem.Size = new System.Drawing.Size(57, 24);
-            this.btnEditItem.TabIndex = 7;
-            this.btnEditItem.Text = "แก้ไข";
-            this.btnEditItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEditItem.UseVisualStyleBackColor = true;
-            this.btnEditItem.Click += new System.EventHandler(this.btnEditItem_Click);
-            // 
-            // btnStopItem
-            // 
-            this.btnStopItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStopItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnStopItem.Image = global::XPump.Properties.Resources.stop_16;
-            this.btnStopItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStopItem.Location = new System.Drawing.Point(634, 2);
-            this.btnStopItem.Name = "btnStopItem";
-            this.btnStopItem.Size = new System.Drawing.Size(129, 24);
-            this.btnStopItem.TabIndex = 10;
-            this.btnStopItem.Text = "ยกเลิกการเพิ่ม/แก้ไข";
-            this.btnStopItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnStopItem.UseVisualStyleBackColor = true;
-            this.btnStopItem.Click += new System.EventHandler(this.btnStopItem_Click);
-            // 
-            // btnSaveItem
-            // 
-            this.btnSaveItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnSaveItem.Image = global::XPump.Properties.Resources.save_16;
-            this.btnSaveItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveItem.Location = new System.Drawing.Point(573, 2);
-            this.btnSaveItem.Name = "btnSaveItem";
-            this.btnSaveItem.Size = new System.Drawing.Size(60, 24);
-            this.btnSaveItem.TabIndex = 9;
-            this.btnSaveItem.Text = "บันทึก";
-            this.btnSaveItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSaveItem.UseVisualStyleBackColor = true;
-            this.btnSaveItem.Click += new System.EventHandler(this.btnSaveItem_Click);
-            // 
-            // dtEndDate
-            // 
-            this.dtEndDate._ReadOnly = false;
-            this.dtEndDate._SelectedDate = null;
-            this.dtEndDate.BackColor = System.Drawing.Color.White;
-            this.dtEndDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtEndDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtEndDate.Location = new System.Drawing.Point(104, 130);
-            this.dtEndDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtEndDate.Name = "dtEndDate";
-            this.dtEndDate.Size = new System.Drawing.Size(103, 23);
-            this.dtEndDate.TabIndex = 3;
-            this.dtEndDate.DoubleClick += new System.EventHandler(this.PerformEdit);
-            // 
-            // dtStartDate
-            // 
-            this.dtStartDate._ReadOnly = false;
-            this.dtStartDate._SelectedDate = null;
-            this.dtStartDate.BackColor = System.Drawing.Color.White;
-            this.dtStartDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtStartDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtStartDate.Location = new System.Drawing.Point(104, 104);
-            this.dtStartDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtStartDate.Name = "dtStartDate";
-            this.dtStartDate.Size = new System.Drawing.Size(103, 23);
-            this.dtStartDate.TabIndex = 2;
-            this.dtStartDate.DoubleClick += new System.EventHandler(this.PerformEdit);
-            // 
-            // ddIsactive
-            // 
-            this.ddIsactive._ReadOnly = true;
-            this.ddIsactive._SelectedItem = null;
-            this.ddIsactive.BackColor = System.Drawing.Color.White;
-            this.ddIsactive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ddIsactive.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.ddIsactive.Location = new System.Drawing.Point(641, 156);
-            this.ddIsactive.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ddIsactive.Name = "ddIsactive";
-            this.ddIsactive.Size = new System.Drawing.Size(103, 23);
-            this.ddIsactive.TabIndex = 5;
-            this.ddIsactive.TabStop = false;
-            this.ddIsactive.Visible = false;
-            this.ddIsactive.DoubleClick += new System.EventHandler(this.PerformEdit);
-            // 
-            // txtRemark
-            // 
-            this.txtRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRemark._MaxLength = 50;
-            this.txtRemark._ReadOnly = true;
-            this.txtRemark._Text = null;
-            this.txtRemark._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtRemark.BackColor = System.Drawing.Color.White;
-            this.txtRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRemark.Location = new System.Drawing.Point(104, 156);
-            this.txtRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(472, 23);
-            this.txtRemark.TabIndex = 4;
-            this.txtRemark.DoubleClick += new System.EventHandler(this.PerformEdit);
-            // 
-            // txtDesc
-            // 
-            this.txtDesc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDesc._MaxLength = 50;
-            this.txtDesc._ReadOnly = true;
-            this.txtDesc._Text = null;
-            this.txtDesc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtDesc.BackColor = System.Drawing.Color.White;
-            this.txtDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDesc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDesc.Location = new System.Drawing.Point(104, 78);
-            this.txtDesc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(472, 23);
-            this.txtDesc.TabIndex = 1;
-            this.txtDesc.DoubleClick += new System.EventHandler(this.PerformEdit);
-            // 
-            // txtName
-            // 
-            this.txtName._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName._MaxLength = 20;
-            this.txtName._ReadOnly = true;
-            this.txtName._Text = null;
-            this.txtName._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtName.BackColor = System.Drawing.Color.White;
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtName.Location = new System.Drawing.Point(104, 52);
-            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(180, 23);
-            this.txtName.TabIndex = 0;
-            this.txtName.DoubleClick += new System.EventHandler(this.PerformEdit);
-            this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
             // 
             // col_section_id
             // 
@@ -754,6 +583,177 @@
             this.col_section_state.Name = "col_section_state";
             this.col_section_state.ReadOnly = true;
             this.col_section_state.Visible = false;
+            // 
+            // btnAddItem
+            // 
+            this.btnAddItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAddItem.Image = global::XPump.Properties.Resources.add_16;
+            this.btnAddItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddItem.Location = new System.Drawing.Point(408, 2);
+            this.btnAddItem.Name = "btnAddItem";
+            this.btnAddItem.Size = new System.Drawing.Size(50, 24);
+            this.btnAddItem.TabIndex = 6;
+            this.btnAddItem.Text = "เพิ่ม";
+            this.btnAddItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddItem.UseVisualStyleBackColor = true;
+            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
+            // 
+            // btnDeleteItem
+            // 
+            this.btnDeleteItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDeleteItem.Image = global::XPump.Properties.Resources.delete_16;
+            this.btnDeleteItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteItem.Location = new System.Drawing.Point(517, 2);
+            this.btnDeleteItem.Name = "btnDeleteItem";
+            this.btnDeleteItem.Size = new System.Drawing.Size(45, 24);
+            this.btnDeleteItem.TabIndex = 8;
+            this.btnDeleteItem.Text = "ลบ";
+            this.btnDeleteItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDeleteItem.UseVisualStyleBackColor = true;
+            this.btnDeleteItem.Click += new System.EventHandler(this.btnDeleteItem_Click);
+            // 
+            // btnEditItem
+            // 
+            this.btnEditItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnEditItem.Image = global::XPump.Properties.Resources.edit_16;
+            this.btnEditItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEditItem.Location = new System.Drawing.Point(459, 2);
+            this.btnEditItem.Name = "btnEditItem";
+            this.btnEditItem.Size = new System.Drawing.Size(57, 24);
+            this.btnEditItem.TabIndex = 7;
+            this.btnEditItem.Text = "แก้ไข";
+            this.btnEditItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEditItem.UseVisualStyleBackColor = true;
+            this.btnEditItem.Click += new System.EventHandler(this.btnEditItem_Click);
+            // 
+            // btnStopItem
+            // 
+            this.btnStopItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStopItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnStopItem.Image = global::XPump.Properties.Resources.stop_16;
+            this.btnStopItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStopItem.Location = new System.Drawing.Point(634, 2);
+            this.btnStopItem.Name = "btnStopItem";
+            this.btnStopItem.Size = new System.Drawing.Size(129, 24);
+            this.btnStopItem.TabIndex = 10;
+            this.btnStopItem.Text = "ยกเลิกการเพิ่ม/แก้ไข";
+            this.btnStopItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnStopItem.UseVisualStyleBackColor = true;
+            this.btnStopItem.Click += new System.EventHandler(this.btnStopItem_Click);
+            // 
+            // btnSaveItem
+            // 
+            this.btnSaveItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSaveItem.Image = global::XPump.Properties.Resources.save_16;
+            this.btnSaveItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveItem.Location = new System.Drawing.Point(573, 2);
+            this.btnSaveItem.Name = "btnSaveItem";
+            this.btnSaveItem.Size = new System.Drawing.Size(60, 24);
+            this.btnSaveItem.TabIndex = 9;
+            this.btnSaveItem.Text = "บันทึก";
+            this.btnSaveItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveItem.UseVisualStyleBackColor = true;
+            this.btnSaveItem.Click += new System.EventHandler(this.btnSaveItem_Click);
+            // 
+            // dtEndDate
+            // 
+            this.dtEndDate._ReadOnly = false;
+            this.dtEndDate._SelectedDate = null;
+            this.dtEndDate.BackColor = System.Drawing.Color.White;
+            this.dtEndDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtEndDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtEndDate.Location = new System.Drawing.Point(104, 130);
+            this.dtEndDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtEndDate.Name = "dtEndDate";
+            this.dtEndDate.Size = new System.Drawing.Size(103, 23);
+            this.dtEndDate.TabIndex = 3;
+            this.dtEndDate.DoubleClick += new System.EventHandler(this.PerformEdit);
+            // 
+            // dtStartDate
+            // 
+            this.dtStartDate._ReadOnly = false;
+            this.dtStartDate._SelectedDate = null;
+            this.dtStartDate.BackColor = System.Drawing.Color.White;
+            this.dtStartDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtStartDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtStartDate.Location = new System.Drawing.Point(104, 104);
+            this.dtStartDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtStartDate.Name = "dtStartDate";
+            this.dtStartDate.Size = new System.Drawing.Size(103, 23);
+            this.dtStartDate.TabIndex = 2;
+            this.dtStartDate.DoubleClick += new System.EventHandler(this.PerformEdit);
+            // 
+            // ddIsactive
+            // 
+            this.ddIsactive._ReadOnly = true;
+            this.ddIsactive._SelectedItem = null;
+            this.ddIsactive.BackColor = System.Drawing.Color.White;
+            this.ddIsactive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ddIsactive.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.ddIsactive.Location = new System.Drawing.Point(641, 156);
+            this.ddIsactive.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ddIsactive.Name = "ddIsactive";
+            this.ddIsactive.Size = new System.Drawing.Size(103, 23);
+            this.ddIsactive.TabIndex = 5;
+            this.ddIsactive.TabStop = false;
+            this.ddIsactive.Visible = false;
+            this.ddIsactive.DoubleClick += new System.EventHandler(this.PerformEdit);
+            // 
+            // txtRemark
+            // 
+            this.txtRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRemark._MaxLength = 50;
+            this.txtRemark._ReadOnly = true;
+            this.txtRemark._Text = "";
+            this.txtRemark._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtRemark.BackColor = System.Drawing.Color.White;
+            this.txtRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRemark.Location = new System.Drawing.Point(104, 156);
+            this.txtRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtRemark.Name = "txtRemark";
+            this.txtRemark.Size = new System.Drawing.Size(472, 23);
+            this.txtRemark.TabIndex = 4;
+            this.txtRemark.DoubleClick += new System.EventHandler(this.PerformEdit);
+            // 
+            // txtDesc
+            // 
+            this.txtDesc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDesc._MaxLength = 50;
+            this.txtDesc._ReadOnly = true;
+            this.txtDesc._Text = "";
+            this.txtDesc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtDesc.BackColor = System.Drawing.Color.White;
+            this.txtDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDesc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDesc.Location = new System.Drawing.Point(104, 78);
+            this.txtDesc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtDesc.Name = "txtDesc";
+            this.txtDesc.Size = new System.Drawing.Size(472, 23);
+            this.txtDesc.TabIndex = 1;
+            this.txtDesc.DoubleClick += new System.EventHandler(this.PerformEdit);
+            // 
+            // txtName
+            // 
+            this.txtName._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName._MaxLength = 20;
+            this.txtName._ReadOnly = true;
+            this.txtName._Text = "";
+            this.txtName._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtName.BackColor = System.Drawing.Color.White;
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtName.Location = new System.Drawing.Point(104, 52);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(180, 23);
+            this.txtName.TabIndex = 0;
+            this.txtName.DoubleClick += new System.EventHandler(this.PerformEdit);
+            this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
             // 
             // FormTankSetup
             // 

@@ -18,11 +18,9 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="docnum" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="docdat" Type="date" Nullable="false" />
-          <Property Name="vatnum" Type="varchar" MaxLength="50" />
-          <Property Name="vatdat" Type="date" />
-          <Property Name="vatrat" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="rcvdat" Type="date" Nullable="false" />
+          <Property Name="vatnum" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="vatdat" Type="date" Nullable="false" />
           <Property Name="apmas_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="nozzle">
@@ -84,7 +82,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="begbal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="totbal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="tank_id" Type="int" Nullable="false" />
           <Property Name="stmas_id" Type="int" Nullable="false" />
         </EntityType>
@@ -444,11 +441,9 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="docnum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="docdat" Type="DateTime" Nullable="false" />
-          <Property Name="vatnum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="vatdat" Type="DateTime" />
-          <Property Name="vatrat" Type="Decimal" Nullable="false" />
+          <Property Name="rcvdat" Type="DateTime" Nullable="false" />
+          <Property Name="vatnum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="vatdat" Type="DateTime" Nullable="false" />
           <Property Name="apmas_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="apmas" Relationship="Self.fk_aptrn_apmas_id" FromRole="aptrn" ToRole="apmas" />
           <NavigationProperty Name="stcrd" Relationship="Self.fk_stcrd_aptrn_id" FromRole="aptrn" ToRole="stcrd" />
@@ -527,7 +522,6 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="begbal" Type="Decimal" Nullable="false" />
-          <Property Name="totbal" Type="Decimal" Nullable="false" />
           <Property Name="tank_id" Type="Int32" Nullable="false" />
           <Property Name="stmas_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="nozzle" Relationship="Self.fk_nozzle_section_id" FromRole="section" ToRole="nozzle" />
@@ -903,11 +897,9 @@
             <EntityTypeMapping TypeName="xpumpModel.aptrn">
               <MappingFragment StoreEntitySet="aptrn">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="docnum" ColumnName="docnum" />
-                <ScalarProperty Name="docdat" ColumnName="docdat" />
+                <ScalarProperty Name="rcvdat" ColumnName="rcvdat" />
                 <ScalarProperty Name="vatnum" ColumnName="vatnum" />
                 <ScalarProperty Name="vatdat" ColumnName="vatdat" />
-                <ScalarProperty Name="vatrat" ColumnName="vatrat" />
                 <ScalarProperty Name="apmas_id" ColumnName="apmas_id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -974,7 +966,6 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="begbal" ColumnName="begbal" />
-                <ScalarProperty Name="totbal" ColumnName="totbal" />
                 <ScalarProperty Name="tank_id" ColumnName="tank_id" />
                 <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
               </MappingFragment>

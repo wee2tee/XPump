@@ -200,6 +200,12 @@
     <Compile Include="SubForm\DialogSimpleSearch.Designer.cs">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\FormRcvStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormRcvStock.Designer.cs">
+      <DependentUpon>FormRcvStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\FormShiftTransaction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -281,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormRcvStock.resx">
+      <DependentUpon>FormRcvStock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormShiftTransaction.resx">
       <DependentUpon>FormShiftTransaction.cs</DependentUpon>

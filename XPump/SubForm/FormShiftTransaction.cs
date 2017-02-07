@@ -208,6 +208,7 @@ namespace XPump.SubForm
                 this.brShift._Text = db.shift.Find(sales.shift_id) != null ? db.shift.Find(sales.shift_id).name : string.Empty;
             }
             this.dtSaldat._SelectedDate = sales.saldat;
+
             this.sales_list = sales.salessummary.ToViewModel().OrderBy(s => s.stkcod).ToList();
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.sales_list;
@@ -415,6 +416,7 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
             this.dgv.Focus();
+            this.dgv_SelectionChanged(this.dgv, new EventArgs());
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

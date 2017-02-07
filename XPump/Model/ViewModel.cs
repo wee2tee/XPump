@@ -44,7 +44,18 @@ namespace XPump.Model
         public int id { get; set; }
         public string name { get; set; }
         public decimal begbal { get; set; }
-        public decimal totbal { get; set; }
+        public decimal totbal
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    int[] nozzle_ids = db.nozzle.Where(n => n.section_id == this.id).Select(n => n.id).ToArray<int>();
+
+                    return this.begbal - db.saleshistory.Where(s => nozzle_ids.Contains<int>(s.nozzle_id)).ToList().Sum(s => s.salqty);
+                }
+            }
+        }
         public int tank_id { get; set; }
         public int stmas_id { get; set; }
         
@@ -512,8 +523,6 @@ namespace XPump.Model
     public class pricelistVM
     {
         public int id { get; set; }
-        public DateTime date { get; set; }
-        public decimal unitpr { get; set; }
         public int stmas_id { get; set; }
 
         public string stkcod
@@ -537,5 +546,48 @@ namespace XPump.Model
                 }
             }
         }
+        public DateTime price_date { get; set; }
+        public decimal unitpr { get; set; }
+        public string currency
+        {
+            get
+            {
+                return "บาท";
+            }
+        }
+    }
+
+    public class aptrnVM
+    {
+        public int id { get; set; }
+        public DateTime? rcvdat { get; set; }
+        public string vatnum { get; set; }
+        public DateTime? vatdat { get; set; }
+        public int apmas_id { get; set; }
+
+        public string supcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.apmas.Where(a => a.id == this.apmas_id).FirstOrDefault() != null ? db.apmas.Where(a => a.id == this.apmas_id).First().supcod : string.Empty;
+                }
+            }
+        }
+
+        public string supnam
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.apmas.Where(a => a.id == this.apmas_id).FirstOrDefault() != null ? db.apmas.Where(a => a.id == this.apmas_id).First().supnam : string.Empty;
+                }
+            }
+        }
+
+        public aptrn aptrn { get; set; }
+
     }
 }

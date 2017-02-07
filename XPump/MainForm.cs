@@ -87,7 +87,7 @@ namespace XPump
             this.opened_child_form.Add(new ChildFormDetail() { form = stmas, docPrefix = string.Empty });
         }
 
-        private void รายชอผคานำมนToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mnuSupplier_Click(object sender, EventArgs e)
         {
             if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormApmas)).FirstOrDefault() != null)
             {
@@ -99,11 +99,6 @@ namespace XPump
             apmas.MdiParent = this;
             apmas.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = apmas, docPrefix = string.Empty });
-        }
-
-        private void MnuPrice_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void MnuShiftTransaction_Click(object sender, EventArgs e)
@@ -133,6 +128,13 @@ namespace XPump
             trans.MdiParent = this;
             trans.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = trans, docPrefix = string.Empty });
+        }
+
+        private void mnuRcvStock_Click(object sender, EventArgs e)
+        {
+            FormRcvStock st = new FormRcvStock(this);
+            st.MdiParent = this;
+            st.Show();
         }
     }
 

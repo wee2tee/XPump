@@ -137,7 +137,6 @@ namespace XPump.Misc
                 id = section.id,
                 name = section.name,
                 begbal = section.begbal,
-                totbal = section.totbal,
                 tank_id = section.tank_id,
                 stmas_id = section.stmas_id,
                 section = section,
@@ -294,6 +293,33 @@ namespace XPump.Misc
             return p;
         }
 
+        //public static dailyPriceVM ToDailyPriceViewModel(this pricelistVM price)
+        //{
+        //    if (price == null)
+        //        return null;
+
+        //    dailyPriceVM p = new dailyPriceVM
+        //    {
+        //        id = price.id,
+        //        unitpr = price.unitpr,
+        //        stmas_id = price.stmas_id
+        //    };
+
+        //    return p;
+        //}
+
+        //public static List<dailyPriceVM> ToDailyPriceViewModel(this IEnumerable<pricelistVM> pricelist)
+        //{
+        //    List<dailyPriceVM> p = new List<dailyPriceVM>();
+        //    foreach (var item in pricelist)
+        //    {
+        //        p.Add(item.ToDailyPriceViewModel());
+        //    }
+
+        //    return p;
+        //    //return ((IEnumerable<dailyPriceVM>)pricelist).ToList();
+        //}
+
         //public static shiftsalesVM ToViewModel(this shiftsales shiftsales)
         //{
         //    if (shiftsales == null)
@@ -390,6 +416,36 @@ namespace XPump.Misc
             }
 
             return s;
+        }
+
+        public static aptrnVM ToViewModel(this aptrn aptrn)
+        {
+            if (aptrn == null)
+                return null;
+
+            aptrnVM a = new aptrnVM
+            {
+                id = aptrn.id,
+                apmas_id = aptrn.apmas_id,
+                rcvdat = aptrn.rcvdat,
+                vatnum = aptrn.vatnum,
+                vatdat = aptrn.vatdat,
+                aptrn = aptrn
+            };
+
+            return a;
+        }
+
+        public static List<aptrnVM> ToViewModel(this IEnumerable<aptrn> aptrn_list)
+        {
+            List<aptrnVM> a = new List<aptrnVM>();
+
+            foreach (var item in aptrn_list)
+            {
+                a.Add(item.ToViewModel());
+            }
+
+            return a;
         }
 
         public static void SetControlState(this Component comp, FORM_MODE[] form_mode_to_enable, FORM_MODE form_mode)

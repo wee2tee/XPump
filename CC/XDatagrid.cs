@@ -87,7 +87,7 @@ namespace CC
             this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ColumnHeadersHeight = 28;
 
-            this.RowTemplate.Height = 26;
+            //this.RowTemplate.Height = 26;
 
             if (this.row_border_redline)
             {

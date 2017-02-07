@@ -153,6 +153,13 @@ namespace XPump.SubForm
             this.btnSaveItem.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnStopItem.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.dgvSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+
+            this.txtName.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+            this.txtDesc.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+            this.txtRemark.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+            this.dtStartDate.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+            this.dtEndDate.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -506,6 +513,91 @@ namespace XPump.SubForm
             }
         }
 
+        public static bool DeleteNozzle(nozzle nozzle_to_delete)
+        {
+            if (nozzle_to_delete == null)
+                return false;
+
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                try
+                {
+                    db.nozzle.Remove(db.nozzle.Find(nozzle_to_delete.id));
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    ex.ShowMessage("รหัสหัวจ่าย", nozzle_to_delete.name);
+                    return false;
+                }
+            }
+        }
+
+        public static bool DeleteSection(section section_to_delete)
+        {
+            if (section_to_delete == null)
+                return false;
+
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                foreach (nozzle noz in db.nozzle.Where(n => n.section_id == section_to_delete.id).ToList())
+                {
+                    if (!DeleteNozzle(noz))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                try
+                {
+                    db.section.Remove(db.section.Find(section_to_delete.id));
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    ex.ShowMessage("รหัสช่องเก็บน้ำมัน", section_to_delete.name);
+                    return false;
+                }
+            }
+        }
+
+        public static bool DeleteTank(tank tank_to_delete)
+        {
+            if (tank_to_delete == null)
+                return false;
+
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                foreach (section sec in db.section.Where(s => s.tank_id == tank_to_delete.id).ToList())
+                {
+                    if (!DeleteSection(sec))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                try
+                {
+                    db.tank.Remove(db.tank.Find(tank_to_delete.id));
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    ex.ShowMessage("รหัสแท๊งค์", tank_to_delete.name);
+                    return false;
+                }
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             this.temp_tank = new tank
@@ -559,23 +651,26 @@ namespace XPump.SubForm
             if (this.curr_tank == null)
                 return;
 
-            if (MessageBox.Show("ลบรหัสแท๊งค์ \"" + this.curr_tank.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+            if (MessageBox.Show("ลบรหัสแท๊งค์ \"" + this.curr_tank.name + "\" และช่องเก็บฯ/หัวจ่ายฯ ที่เกี่ยวข้อง, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
 
-            using (xpumpEntities db = DBX.DataSet())
-            {
-                try
-                {
-                    db.tank.Remove(db.tank.Find(this.curr_tank.id));
-                    db.SaveChanges();
-                    this.btnRefresh.PerformClick();
-                }
-                catch (Exception ex)
-                {
-                    ex.ShowMessage("รหัส", this.curr_tank.name);
-                    this.btnRefresh.PerformClick();
-                }
-            }
+            DeleteTank(this.curr_tank);
+            this.btnRefresh.PerformClick();
+
+            //using (xpumpEntities db = DBX.DataSet())
+            //{
+            //    try
+            //    {
+            //        db.tank.Remove(db.tank.Find(this.curr_tank.id));
+            //        db.SaveChanges();
+            //        this.btnRefresh.PerformClick();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ex.ShowMessage("รหัส", this.curr_tank.name);
+            //        this.btnRefresh.PerformClick();
+            //    }
+            //}
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -629,7 +724,9 @@ namespace XPump.SubForm
                         this.curr_tank = this.GetTank(this.temp_tank.id);
                         this.FillForm();
                         this.temp_tank = null;
-                        this.dgvSection.Focus();
+                        //this.dgvSection.Focus();
+                        this.btnItem.PerformClick();
+                        this.btnAddItem.PerformClick();
                     }
                     catch(Exception ex)
                     {
@@ -847,31 +944,62 @@ namespace XPump.SubForm
             this.inline_stkcod.Focus();
         }
 
+        //private void btnDeleteItem_Click(object sender, EventArgs e)
+        //{
+        //    if (this.dgvSection.CurrentCell == null)
+        //        return;
+
+        //    section tmp = (section)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells["col_section_section"].Value;
+
+        //    if (MessageBox.Show("ลบรหัสช่องเก็บน้ำมัน \"" + tmp.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+        //        return;
+
+        //    using (xpumpEntities db = DBX.DataSet())
+        //    {
+        //        try
+        //        {
+        //            db.section.Remove(db.section.Find(tmp.id));
+        //            db.SaveChanges();
+        //            this.curr_tank = this.GetTank(this.curr_tank.id);
+        //            this.FillForm();
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ex.ShowMessage("รหัส", tmp.name, "รหัสแท๊งค์", this.curr_tank.name);
+        //        }
+        //    }
+        //}
+
         private void btnDeleteItem_Click(object sender, EventArgs e)
         {
             if (this.dgvSection.CurrentCell == null)
                 return;
 
-            section tmp = (section)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells["col_section_section"].Value;
+            section section_to_delete = (section)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells["col_section_section"].Value;
 
-            if (MessageBox.Show("ลบรหัสช่องเก็บน้ำมัน \"" + tmp.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+            if (MessageBox.Show("ลบรหัสช่องเก็บน้ำมัน \"" + section_to_delete.name + "\" และหัวจ่ายฯ ที่เกี่ยวข้อง, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
 
-            using (xpumpEntities db = DBX.DataSet())
-            {
-                try
-                {
-                    db.section.Remove(db.section.Find(tmp.id));
-                    db.SaveChanges();
-                    this.curr_tank = this.GetTank(this.curr_tank.id);
-                    this.FillForm();
+            DeleteSection(section_to_delete);
+            this.curr_tank = this.GetTank(this.curr_tank.id);
+            this.FillForm();
 
-                }
-                catch (Exception ex)
-                {
-                    ex.ShowMessage("รหัส", tmp.name, "รหัสแท๊งค์", this.curr_tank.name);
-                }
-            }
+            //using (xpumpEntities db = DBX.DataSet())
+            //{
+            //    try
+            //    {
+            //        db.section.Remove(db.section.Find(tmp.id));
+            //        db.SaveChanges();
+            //        this.curr_tank = this.GetTank(this.curr_tank.id);
+            //        this.FillForm();
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ex.ShowMessage("รหัส", tmp.name, "รหัสแท๊งค์", this.curr_tank.name);
+            //    }
+            //}
         }
 
         private void btnSaveItem_Click(object sender, EventArgs e)

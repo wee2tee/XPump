@@ -16,9 +16,11 @@ namespace XPump.SubForm
     public partial class DialogSalesHistory : Form
     {
         private salessummary salessummary;
+        private List<pricelist> price_list;
         private List<saleshistory> saleshistory;
         private saleshistory tmp_saleshistory; // stored temporary data of editing saleshistory 
-        private BindingSource bs;
+        private BindingSource bs_sales;
+        private BindingSource bs_price;
         private FORM_MODE form_mode;
 
         public DialogSalesHistory()
@@ -43,9 +45,14 @@ namespace XPump.SubForm
 
             this.salessummary = this.GetSalesSummary(this.salessummary.id);
             this.saleshistory = this.salessummary.saleshistory.ToList();
-            this.bs = new BindingSource();
-            this.dgvNozzle.DataSource = this.bs;
-            this.FillDgv();
+            this.bs_sales = new BindingSource();
+            this.dgvNozzle.DataSource = this.bs_sales;
+            this.FillDgvSales();
+
+            this.bs_price = new BindingSource();
+            this.dgvPrice.DataSource = this.bs_price;
+            this.FillDgvPrice();
+
             this.FillSummary();
 
             this.dgvNozzle.Focus();
@@ -62,6 +69,15 @@ namespace XPump.SubForm
                 }
             }
             base.OnFormClosing(e);
+        }
+
+        private List<pricelist> GetPriceList()
+        {
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                int[] price_id_list = db.salessummary.Where(s => s.shiftsales_id == this.salessummary.shiftsales_id).Select(s => s.pricelist_id).ToArray();
+                return db.pricelist.Where(p => price_id_list.Contains<int>(p.id)).ToList();
+            }
         }
 
         private salessummary GetSalesSummary(int id)
@@ -258,15 +274,22 @@ namespace XPump.SubForm
 
         private void FillForm()
         {
-            this.FillDgv();
+            this.FillDgvSales();
             this.FillSummary();
         }
 
-        private void FillDgv()
+        private void FillDgvSales()
         {
             this.saleshistory = this.salessummary.saleshistory.ToList();
-            this.bs.ResetBindings(true);
-            this.bs.DataSource = this.saleshistory.ToViewModel();
+            this.bs_sales.ResetBindings(true);
+            this.bs_sales.DataSource = this.saleshistory.ToViewModel();
+        }
+
+        private void FillDgvPrice()
+        {
+            this.price_list = this.GetPriceList();
+            this.bs_price.ResetBindings(true);
+            this.bs_price.DataSource = this.price_list.ToViewModel();
         }
 
         private void FillSummary()
@@ -449,6 +472,7 @@ namespace XPump.SubForm
                 {
                     this.form_mode = FORM_MODE.READ_ITEM;
                     this.ResetControlState();
+                    this.dgvNozzle.Focus();
                     return true;
                 }
             }
@@ -521,9 +545,10 @@ namespace XPump.SubForm
                 {
                     this.form_mode = FORM_MODE.READ_ITEM;
                     this.ResetControlState();
+                    this.dgvNozzle.Focus();
                     this.RemoveInlineForm();
 
-                    this.FillDgv();
+                    this.FillDgvSales();
                     return true;
                 }
 
@@ -548,6 +573,19 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgvPrice_Paint(object sender, PaintEventArgs e)
+        {
+            foreach (DataGridViewRow row in ((XDatagrid)sender).Rows)
+            {
+                if ((int)row.Cells[this.col_price_id.Name].Value == this.salessummary.pricelist_id)
+                {
+                    row.DefaultCellStyle.Font = new Font("tahoma", 8f, FontStyle.Bold);
+                    row.DefaultCellStyle.SelectionForeColor = Color.Black;
+                    ((XDatagrid)sender).Rows[row.Index].Cells[this.col_price_stkcod.Name].Selected = true;
+                }
+            }
         }
     }
 }

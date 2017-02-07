@@ -21,11 +21,9 @@ namespace XPump.Model
         }
     
         public int id { get; set; }
-        public string docnum { get; set; }
-        public System.DateTime docdat { get; set; }
+        public System.DateTime rcvdat { get; set; }
         public string vatnum { get; set; }
-        public Nullable<System.DateTime> vatdat { get; set; }
-        public decimal vatrat { get; set; }
+        public System.DateTime vatdat { get; set; }
         public int apmas_id { get; set; }
     
         public virtual apmas apmas { get; set; }
