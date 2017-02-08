@@ -25,8 +25,10 @@ namespace XPump.Model
         public string vatnum { get; set; }
         public System.DateTime vatdat { get; set; }
         public int apmas_id { get; set; }
+        public int shift_id { get; set; }
     
         public virtual apmas apmas { get; set; }
+        public virtual shift shift { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<stcrd> stcrd { get; set; }
     }

@@ -20,8 +20,10 @@ namespace XPump.Model
         public decimal vatamt { get; set; }
         public int aptrn_id { get; set; }
         public int section_id { get; set; }
+        public int shift_id { get; set; }
     
         public virtual aptrn aptrn { get; set; }
         public virtual section section { get; set; }
+        public virtual shift shift { get; set; }
     }
 }

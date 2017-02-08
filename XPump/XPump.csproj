@@ -28,7 +28,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -97,6 +97,7 @@
     <Compile Include="Model\aptrn.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\DbfTable.cs" />
     <Compile Include="Model\DBX.cs" />
     <Compile Include="Model\nozzle.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
@@ -200,6 +201,18 @@
     <Compile Include="SubForm\DialogSimpleSearch.Designer.cs">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogStmasImportProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogStmasImportProgress.Designer.cs">
+      <DependentUpon>DialogStmasImportProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogStmasImportSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogStmasImportSelection.Designer.cs">
+      <DependentUpon>DialogStmasImportSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\FormRcvStock.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -287,6 +300,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogStmasImportProgress.resx">
+      <DependentUpon>DialogStmasImportProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogStmasImportSelection.resx">
+      <DependentUpon>DialogStmasImportSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormRcvStock.resx">
       <DependentUpon>FormRcvStock.cs</DependentUpon>
@@ -418,6 +437,9 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\db_import.png" />
+    <None Include="Resources\import_data1.png" />
+    <None Include="Resources\import_data.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

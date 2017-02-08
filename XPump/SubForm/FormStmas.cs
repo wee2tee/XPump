@@ -11,6 +11,7 @@ using XPump.Misc;
 using CC;
 using System.Data.Entity.Infrastructure;
 using System.Globalization;
+using System.Data.OleDb;
 
 namespace XPump.SubForm
 {
@@ -578,6 +579,18 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            DialogStmasImportSelection im = new DialogStmasImportSelection(this.main_form);
+            if(im.ShowDialog() == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    
+                }
+            }
         }
     }
 }

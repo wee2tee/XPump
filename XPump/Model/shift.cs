@@ -17,9 +17,11 @@ namespace XPump.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public shift()
         {
+            this.aptrn = new HashSet<aptrn>();
             this.saleshistory = new HashSet<saleshistory>();
             this.salessummary = new HashSet<salessummary>();
             this.shiftsales = new HashSet<shiftsales>();
+            this.stcrd = new HashSet<stcrd>();
         }
     
         public int id { get; set; }
@@ -30,10 +32,14 @@ namespace XPump.Model
         public string remark { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<aptrn> aptrn { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<saleshistory> saleshistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<salessummary> salessummary { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<shiftsales> shiftsales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<stcrd> stcrd { get; set; }
     }
 }

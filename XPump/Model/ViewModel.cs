@@ -564,6 +564,29 @@ namespace XPump.Model
         public string vatnum { get; set; }
         public DateTime? vatdat { get; set; }
         public int apmas_id { get; set; }
+        public int shift_id { get; set; }
+
+        public string shift_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
+                }
+            }
+        }
+
+        public string shift_desc
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).description : string.Empty;
+                }
+            }
+        }
 
         public string supcod
         {
@@ -588,6 +611,82 @@ namespace XPump.Model
         }
 
         public aptrn aptrn { get; set; }
+    }
 
+    public class stcrdVM
+    {
+        public int id { get; set; }
+        public decimal trnqty { get; set; }
+        public decimal trnval { get; set; }
+        public decimal vatamt { get; set; }
+        public int aptrn_id { get; set; }
+        public int section_id { get; set; }
+        public int shift_id { get; set; }
+
+        public DateTime? rcvdat
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.aptrn.Find(aptrn_id) != null ? (DateTime?) db.aptrn.Find(aptrn_id).rcvdat : null;
+                }
+            }
+        }
+
+        public string shift_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
+                }
+            }
+        }
+
+        public string section_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.section.Find(this.section_id) != null ? db.section.Find(this.section_id).name : string.Empty;
+                }
+            }
+        }
+
+        public string supcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        var sup_cod = db.apmas.Find(db.aptrn.Find(this.aptrn_id).apmas_id).supcod;
+                        return sup_cod;
+                    }
+                    catch (Exception)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
+
+        public stcrd stcrd { get; set; }
+    }
+
+    public class StmasDbfVM
+    {
+        public bool selected { get; set; }
+        public string stkcod { get; set; }
+        public string stkdes { get; set; }
+        public string stkdes2 { get; set; }
+        public string stktyp { get; set; }
+        public string remark { get; set; }
+
+        public StmasDbf StmasDbf { get; set; }
     }
 }

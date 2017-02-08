@@ -22,6 +22,7 @@
           <Property Name="vatnum" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="vatdat" Type="date" Nullable="false" />
           <Property Name="apmas_id" Type="int" Nullable="false" />
+          <Property Name="shift_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="nozzle">
           <Key>
@@ -114,6 +115,7 @@
           <Property Name="vatamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="aptrn_id" Type="int" Nullable="false" />
           <Property Name="section_id" Type="int" Nullable="false" />
+          <Property Name="shift_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="stmas">
           <Key>
@@ -145,6 +147,18 @@
             </Principal>
             <Dependent Role="aptrn">
               <PropertyRef Name="apmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-aptrn-shift_id">
+          <End Role="shift" Type="Self.shift" Multiplicity="1" />
+          <End Role="aptrn" Type="Self.aptrn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shift">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="aptrn">
+              <PropertyRef Name="shift_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -340,6 +354,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk-stcrd-shift_id">
+          <End Role="shift" Type="Self.shift" Multiplicity="1" />
+          <End Role="stcrd" Type="Self.stcrd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shift">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stcrd">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="xpumpModelStoreContainer">
           <EntitySet Name="apmas" EntityType="Self.apmas" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="aptrn" EntityType="Self.aptrn" Schema="xpump" store:Type="Tables" />
@@ -355,6 +381,10 @@
           <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
           <AssociationSet Name="fk-aptrn-apmas_id" Association="Self.fk-aptrn-apmas_id">
             <End Role="apmas" EntitySet="apmas" />
+            <End Role="aptrn" EntitySet="aptrn" />
+          </AssociationSet>
+          <AssociationSet Name="fk-aptrn-shift_id" Association="Self.fk-aptrn-shift_id">
+            <End Role="shift" EntitySet="shift" />
             <End Role="aptrn" EntitySet="aptrn" />
           </AssociationSet>
           <AssociationSet Name="fk-nozzle-section_id" Association="Self.fk-nozzle-section_id">
@@ -421,6 +451,10 @@
             <End Role="section" EntitySet="section" />
             <End Role="stcrd" EntitySet="stcrd" />
           </AssociationSet>
+          <AssociationSet Name="fk-stcrd-shift_id" Association="Self.fk-stcrd-shift_id">
+            <End Role="shift" EntitySet="shift" />
+            <End Role="stcrd" EntitySet="stcrd" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -445,7 +479,9 @@
           <Property Name="vatnum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="vatdat" Type="DateTime" Nullable="false" />
           <Property Name="apmas_id" Type="Int32" Nullable="false" />
+          <Property Name="shift_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="apmas" Relationship="Self.fk_aptrn_apmas_id" FromRole="aptrn" ToRole="apmas" />
+          <NavigationProperty Name="shift" Relationship="Self.fk_aptrn_shift_id" FromRole="aptrn" ToRole="shift" />
           <NavigationProperty Name="stcrd" Relationship="Self.fk_stcrd_aptrn_id" FromRole="aptrn" ToRole="stcrd" />
         </EntityType>
         <EntityType Name="nozzle">
@@ -539,9 +575,11 @@
           <Property Name="starttime" Type="Time" Nullable="false" />
           <Property Name="endtime" Type="Time" Nullable="false" />
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="aptrn" Relationship="Self.fk_aptrn_shift_id" FromRole="shift" ToRole="aptrn" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_shift_id" FromRole="shift" ToRole="saleshistory" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shift_id" FromRole="shift" ToRole="salessummary" />
           <NavigationProperty Name="shiftsales" Relationship="Self.fk_shiftsales_shift_id" FromRole="shift" ToRole="shiftsales" />
+          <NavigationProperty Name="stcrd" Relationship="Self.fk_stcrd_shift_id" FromRole="shift" ToRole="stcrd" />
         </EntityType>
         <EntityType Name="shiftsales">
           <Key>
@@ -563,8 +601,10 @@
           <Property Name="vatamt" Type="Decimal" Nullable="false" />
           <Property Name="aptrn_id" Type="Int32" Nullable="false" />
           <Property Name="section_id" Type="Int32" Nullable="false" />
+          <Property Name="shift_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="aptrn" Relationship="Self.fk_stcrd_aptrn_id" FromRole="stcrd" ToRole="aptrn" />
           <NavigationProperty Name="section" Relationship="Self.fk_stcrd_section_id" FromRole="stcrd" ToRole="section" />
+          <NavigationProperty Name="shift" Relationship="Self.fk_stcrd_shift_id" FromRole="stcrd" ToRole="shift" />
         </EntityType>
         <EntityType Name="stmas">
           <Key>
@@ -601,6 +641,18 @@
             </Principal>
             <Dependent Role="aptrn">
               <PropertyRef Name="apmas_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_aptrn_shift_id">
+          <End Role="shift" Type="Self.shift" Multiplicity="1" />
+          <End Role="aptrn" Type="Self.aptrn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shift">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="aptrn">
+              <PropertyRef Name="shift_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -796,6 +848,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_stcrd_shift_id">
+          <End Role="shift" Type="Self.shift" Multiplicity="1" />
+          <End Role="stcrd" Type="Self.stcrd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shift">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stcrd">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="xpumpEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="apmas" EntityType="Self.apmas" />
           <EntitySet Name="aptrn" EntityType="Self.aptrn" />
@@ -811,6 +875,10 @@
           <EntitySet Name="tank" EntityType="Self.tank" />
           <AssociationSet Name="fk_aptrn_apmas_id" Association="Self.fk_aptrn_apmas_id">
             <End Role="apmas" EntitySet="apmas" />
+            <End Role="aptrn" EntitySet="aptrn" />
+          </AssociationSet>
+          <AssociationSet Name="fk_aptrn_shift_id" Association="Self.fk_aptrn_shift_id">
+            <End Role="shift" EntitySet="shift" />
             <End Role="aptrn" EntitySet="aptrn" />
           </AssociationSet>
           <AssociationSet Name="fk_stcrd_aptrn_id" Association="Self.fk_stcrd_aptrn_id">
@@ -877,6 +945,10 @@
             <End Role="shift" EntitySet="shift" />
             <End Role="shiftsales" EntitySet="shiftsales" />
           </AssociationSet>
+          <AssociationSet Name="fk_stcrd_shift_id" Association="Self.fk_stcrd_shift_id">
+            <End Role="shift" EntitySet="shift" />
+            <End Role="stcrd" EntitySet="stcrd" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -901,6 +973,7 @@
                 <ScalarProperty Name="vatnum" ColumnName="vatnum" />
                 <ScalarProperty Name="vatdat" ColumnName="vatdat" />
                 <ScalarProperty Name="apmas_id" ColumnName="apmas_id" />
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1001,6 +1074,7 @@
                 <ScalarProperty Name="vatamt" ColumnName="vatamt" />
                 <ScalarProperty Name="aptrn_id" ColumnName="aptrn_id" />
                 <ScalarProperty Name="section_id" ColumnName="section_id" />
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
