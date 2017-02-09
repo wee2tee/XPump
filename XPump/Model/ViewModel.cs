@@ -15,7 +15,12 @@ namespace XPump.Model
         public TimeSpan starttime { get; set; }
         public TimeSpan endtime { get; set; }
         public string remark { get; set; }
-
+        public string saiprefix { get; set; }
+        public string shsprefix { get; set; }
+        public string sivprefix { get; set; }
+        public string paeprefix { get; set; }
+        public string phpprefix { get; set; }
+        public string prrprefix { get; set; }
         //public RECORD_STATE record_state { get; set; } // flag for 0 = existing data , 1 = being add new data
         public shift shift { get; set; }
     }

@@ -89,6 +89,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Misc\ConfigValue.cs" />
     <Compile Include="Misc\Helper.cs" />
     <Compile Include="Misc\StringResource.cs" />
     <Compile Include="Model\apmas.cs">
@@ -112,6 +113,9 @@
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\section.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\settings.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\shift.cs">
@@ -153,6 +157,12 @@
     <Compile Include="SubForm\DialogEditPrice.Designer.cs">
       <DependentUpon>DialogEditPrice.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogImportStmasConfirmReplace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogImportStmasConfirmReplace.Designer.cs">
+      <DependentUpon>DialogImportStmasConfirmReplace.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogInlineSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +199,18 @@
     <Compile Include="SubForm\DialogSalesHistory.Designer.cs">
       <DependentUpon>DialogSalesHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogSccompSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSccompSelection.Designer.cs">
+      <DependentUpon>DialogSccompSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSettings.Designer.cs">
+      <DependentUpon>DialogSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogShiftSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +222,12 @@
     </Compile>
     <Compile Include="SubForm\DialogSimpleSearch.Designer.cs">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogStmasChangeCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogStmasChangeCode.Designer.cs">
+      <DependentUpon>DialogStmasChangeCode.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm\DialogStmasImportProgress.cs">
       <SubType>Form</SubType>
@@ -277,6 +305,9 @@
     <EmbeddedResource Include="SubForm\DialogEditPrice.resx">
       <DependentUpon>DialogEditPrice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogImportStmasConfirmReplace.resx">
+      <DependentUpon>DialogImportStmasConfirmReplace.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogInlineSearch.resx">
       <DependentUpon>DialogInlineSearch.cs</DependentUpon>
     </EmbeddedResource>
@@ -295,11 +326,20 @@
     <EmbeddedResource Include="SubForm\DialogSalesHistory.resx">
       <DependentUpon>DialogSalesHistory.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSccompSelection.resx">
+      <DependentUpon>DialogSccompSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSettings.resx">
+      <DependentUpon>DialogSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogShiftSelector.resx">
       <DependentUpon>DialogShiftSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogStmasChangeCode.resx">
+      <DependentUpon>DialogStmasChangeCode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogStmasImportProgress.resx">
       <DependentUpon>DialogStmasImportProgress.cs</DependentUpon>
@@ -427,6 +467,13 @@
     <None Include="Resources\edit_list_16.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\rename1.png" />
+    <None Include="Resources\rename.png" />
+    <None Include="Resources\db_import.png" />
+    <None Include="Resources\import_data1.png" />
+    <None Include="Resources\import_data.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\XPumpModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>XPumpModel.edmx</DependentUpon>
@@ -437,9 +484,6 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
-    <None Include="Resources\db_import.png" />
-    <None Include="Resources\import_data1.png" />
-    <None Include="Resources\import_data.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

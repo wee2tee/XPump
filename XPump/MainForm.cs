@@ -136,6 +136,12 @@ namespace XPump
             st.MdiParent = this;
             st.Show();
         }
+
+        private void mnuSettings_Click(object sender, EventArgs e)
+        {
+            DialogSettings setting = new DialogSettings(this);
+            setting.ShowDialog();
+        }
     }
 
     public class ChildFormDetail

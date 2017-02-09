@@ -92,6 +92,8 @@ namespace XPump.SubForm
             this.btnLast.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnSearch.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnImport.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnRename.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             /*Form control*/
             this.txtName.SetControlState(new FORM_MODE[] { FORM_MODE.ADD }, this.form_mode);
@@ -560,6 +562,12 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if(keyData == (Keys.Control | Keys.G))
+            {
+                this.btnRename.PerformClick();
+                return true;
+            }
+
             if(keyData == Keys.Escape)
             {
                 this.btnStop.PerformClick();
@@ -586,10 +594,16 @@ namespace XPump.SubForm
             DialogStmasImportSelection im = new DialogStmasImportSelection(this.main_form);
             if(im.ShowDialog() == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
-                {
-                    
-                }
+                this.btnRefresh.PerformClick();
+            }
+        }
+
+        private void btnRename_Click(object sender, EventArgs e)
+        {
+            DialogStmasChangeCode chg = new DialogStmasChangeCode(this.main_form, this.curr_stmas);
+            if(chg.ShowDialog() == DialogResult.OK)
+            {
+                this.btnRefresh.PerformClick();
             }
         }
     }

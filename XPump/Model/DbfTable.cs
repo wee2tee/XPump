@@ -78,4 +78,14 @@ namespace XPump.Model
         public DateTime? inactdat { get; set; }
 
     }
+
+    public class SccompDbf
+    {
+        public string compnam { get; set; }
+        public string compcod { get; set; }
+        public string path { get; set; }
+        public DateTime? gendat { get; set; }
+        public string candel { get; set; }
+
+    }
 }

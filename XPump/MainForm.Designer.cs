@@ -34,10 +34,12 @@
             this.mnuRcvStock = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripStock = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuStmas = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSupplier = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.อนๆToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +48,8 @@
             this.menuStrip1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripDailyTransaction,
-            this.ToolStripStock});
+            this.ToolStripStock,
+            this.อนๆToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1012, 24);
@@ -94,6 +97,20 @@
             this.MnuStmas.Text = "รายละเอียดสินค้า";
             this.MnuStmas.Click += new System.EventHandler(this.MnuStmas_Click);
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(195, 22);
+            this.toolStripMenuItem2.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.MnuTank_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
+            this.toolStripMenuItem1.Text = "กำหนดผลัดพนักงาน";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.MnuShift_Click);
+            // 
             // mnuSupplier
             // 
             this.mnuSupplier.Name = "mnuSupplier";
@@ -109,19 +126,20 @@
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripMenuItem1
+            // อนๆToolStripMenuItem
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
-            this.toolStripMenuItem1.Text = "กำหนดผลัดพนักงาน";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.MnuShift_Click);
+            this.อนๆToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuSettings});
+            this.อนๆToolStripMenuItem.Name = "อนๆToolStripMenuItem";
+            this.อนๆToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.อนๆToolStripMenuItem.Text = "อื่น ๆ";
             // 
-            // toolStripMenuItem2
+            // mnuSettings
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(195, 22);
-            this.toolStripMenuItem2.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.MnuTank_Click);
+            this.mnuSettings.Name = "mnuSettings";
+            this.mnuSettings.Size = new System.Drawing.Size(152, 22);
+            this.mnuSettings.Text = "ตั้งค่าระบบ";
+            this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
             // 
             // MainForm
             // 
@@ -158,6 +176,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnuSupplier;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem อนๆToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuSettings;
     }
 }
 

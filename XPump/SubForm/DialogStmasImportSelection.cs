@@ -36,7 +36,7 @@ namespace XPump.SubForm
         {
             this.bs = new BindingSource();
             this.dgv.DataSource = this.bs;
-            this.stmasdbfvm_list = LoadStmasDbf().ToList().Where(s => s.stktyp == "0").ToViewModel();
+            this.stmasdbfvm_list = LoadStmasDbf().ToStmasList().Where(s => s.stktyp == "0").OrderBy(s => s.stkcod).ToViewModel();
             this.bs.DataSource = this.stmasdbfvm_list;
         }
 
@@ -162,7 +162,7 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            DialogStmasImportProgress progress = new DialogStmasImportProgress(this.selected_list);
+            DialogStmasImportProgress progress = new DialogStmasImportProgress(this.main_form, this.selected_list);
             progress.ShowDialog();
         }
     }

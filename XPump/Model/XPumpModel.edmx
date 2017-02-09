@@ -86,6 +86,13 @@
           <Property Name="tank_id" Type="int" Nullable="false" />
           <Property Name="stmas_id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="settings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="express_data_path" Type="text" Nullable="false" />
+        </EntityType>
         <EntityType Name="shift">
           <Key>
             <PropertyRef Name="id" />
@@ -96,6 +103,12 @@
           <Property Name="starttime" Type="time" Precision="0" Nullable="false" />
           <Property Name="endtime" Type="time" Precision="0" Nullable="false" />
           <Property Name="remark" Type="varchar" MaxLength="50" />
+          <Property Name="saiprefix" Type="varchar" MaxLength="2" />
+          <Property Name="shsprefix" Type="varchar" MaxLength="2" />
+          <Property Name="sivprefix" Type="varchar" MaxLength="2" />
+          <Property Name="paeprefix" Type="varchar" MaxLength="2" />
+          <Property Name="phpprefix" Type="varchar" MaxLength="2" />
+          <Property Name="prrprefix" Type="varchar" MaxLength="2" />
         </EntityType>
         <EntityType Name="shiftsales">
           <Key>
@@ -374,6 +387,7 @@
           <EntitySet Name="saleshistory" EntityType="Self.saleshistory" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="salessummary" EntityType="Self.salessummary" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="section" EntityType="Self.section" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="settings" EntityType="Self.settings" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="shift" EntityType="Self.shift" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="shiftsales" EntityType="Self.shiftsales" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="stcrd" EntityType="Self.stcrd" Schema="xpump" store:Type="Tables" />
@@ -565,6 +579,13 @@
           <NavigationProperty Name="tank" Relationship="Self.fk_section_tank_id" FromRole="section" ToRole="tank" />
           <NavigationProperty Name="stcrd" Relationship="Self.fk_stcrd_section_id" FromRole="section" ToRole="stcrd" />
         </EntityType>
+        <EntityType Name="settings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="express_data_path" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="shift">
           <Key>
             <PropertyRef Name="id" />
@@ -575,6 +596,12 @@
           <Property Name="starttime" Type="Time" Nullable="false" />
           <Property Name="endtime" Type="Time" Nullable="false" />
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="saiprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="shsprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="sivprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="paeprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="phpprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="prrprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="aptrn" Relationship="Self.fk_aptrn_shift_id" FromRole="shift" ToRole="aptrn" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_shift_id" FromRole="shift" ToRole="saleshistory" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shift_id" FromRole="shift" ToRole="salessummary" />
@@ -868,6 +895,7 @@
           <EntitySet Name="saleshistory" EntityType="Self.saleshistory" />
           <EntitySet Name="salessummary" EntityType="Self.salessummary" />
           <EntitySet Name="section" EntityType="Self.section" />
+          <EntitySet Name="settings" EntityType="Self.settings" />
           <EntitySet Name="shift" EntityType="Self.shift" />
           <EntitySet Name="shiftsales" EntityType="Self.shiftsales" />
           <EntitySet Name="stcrd" EntityType="Self.stcrd" />
@@ -1044,6 +1072,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="settings">
+            <EntityTypeMapping TypeName="xpumpModel.settings">
+              <MappingFragment StoreEntitySet="settings">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="express_data_path" ColumnName="express_data_path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="shift">
             <EntityTypeMapping TypeName="xpumpModel.shift">
               <MappingFragment StoreEntitySet="shift">
@@ -1053,6 +1089,12 @@
                 <ScalarProperty Name="starttime" ColumnName="starttime" />
                 <ScalarProperty Name="endtime" ColumnName="endtime" />
                 <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="saiprefix" ColumnName="saiprefix" />
+                <ScalarProperty Name="shsprefix" ColumnName="shsprefix" />
+                <ScalarProperty Name="sivprefix" ColumnName="sivprefix" />
+                <ScalarProperty Name="paeprefix" ColumnName="paeprefix" />
+                <ScalarProperty Name="phpprefix" ColumnName="phpprefix" />
+                <ScalarProperty Name="prrprefix" ColumnName="prrprefix" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

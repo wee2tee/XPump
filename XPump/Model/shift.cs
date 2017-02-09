@@ -30,6 +30,12 @@ namespace XPump.Model
         public System.TimeSpan starttime { get; set; }
         public System.TimeSpan endtime { get; set; }
         public string remark { get; set; }
+        public string saiprefix { get; set; }
+        public string shsprefix { get; set; }
+        public string sivprefix { get; set; }
+        public string paeprefix { get; set; }
+        public string phpprefix { get; set; }
+        public string prrprefix { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aptrn> aptrn { get; set; }

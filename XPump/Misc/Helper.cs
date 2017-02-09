@@ -480,14 +480,40 @@ namespace XPump.Misc
             return s;
         }
 
-        public static List<StmasDbf> ToList(this DataTable stmas_dbf)
+        public static List<SccompDbf> ToSccompList(this DataTable sccomp_dbf)
+        {
+            List<SccompDbf> sccomp = new List<SccompDbf>();
+
+            foreach (DataRow row in sccomp_dbf.Rows)
+            {
+                try
+                {
+                    SccompDbf s = new SccompDbf
+                    {
+                        compnam = row.Field<string>("compnam").Trim(),
+                        compcod = row.Field<string>("compcod").Trim(),
+                        path = row.Field<string>("path").Trim(),
+                        gendat = row.Field<DateTime?>("gendat"),
+                        candel = row.Field<string>("candel").Trim()
+                    };
+
+                    sccomp.Add(s);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+
+            return sccomp;
+        }
+
+        public static List<StmasDbf> ToStmasList(this DataTable stmas_dbf)
         {
             List<StmasDbf> stmas = new List<StmasDbf>();
 
             foreach (DataRow row in stmas_dbf.Rows)
             {
-                //Console.WriteLine(" .. >> numelem is null : " + row.IsNull("numelem"));
-
                 try
                 {
                     StmasDbf s = new StmasDbf
