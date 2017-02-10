@@ -37,9 +37,9 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSupplier = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.อนๆToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,6 +77,7 @@
             this.mnuRcvStock.Name = "mnuRcvStock";
             this.mnuRcvStock.Size = new System.Drawing.Size(228, 22);
             this.mnuRcvStock.Text = "บันทึกรายการรับเข้าน้ำมัน";
+            this.mnuRcvStock.Visible = false;
             this.mnuRcvStock.Click += new System.EventHandler(this.mnuRcvStock_Click);
             // 
             // ToolStripStock
@@ -116,15 +117,8 @@
             this.mnuSupplier.Name = "mnuSupplier";
             this.mnuSupplier.Size = new System.Drawing.Size(195, 22);
             this.mnuSupplier.Text = "รายชื่อผู้ค้าน้ำมัน";
+            this.mnuSupplier.Visible = false;
             this.mnuSupplier.Click += new System.EventHandler(this.mnuSupplier_Click);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 645);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1012, 22);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // อนๆToolStripMenuItem
             // 
@@ -137,9 +131,17 @@
             // mnuSettings
             // 
             this.mnuSettings.Name = "mnuSettings";
-            this.mnuSettings.Size = new System.Drawing.Size(152, 22);
+            this.mnuSettings.Size = new System.Drawing.Size(132, 22);
             this.mnuSettings.Text = "ตั้งค่าระบบ";
             this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 645);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1012, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
             // 
             // MainForm
             // 

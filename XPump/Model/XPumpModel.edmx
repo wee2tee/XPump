@@ -103,12 +103,12 @@
           <Property Name="starttime" Type="time" Precision="0" Nullable="false" />
           <Property Name="endtime" Type="time" Precision="0" Nullable="false" />
           <Property Name="remark" Type="varchar" MaxLength="50" />
-          <Property Name="saiprefix" Type="varchar" MaxLength="2" />
-          <Property Name="shsprefix" Type="varchar" MaxLength="2" />
-          <Property Name="sivprefix" Type="varchar" MaxLength="2" />
-          <Property Name="paeprefix" Type="varchar" MaxLength="2" />
-          <Property Name="phpprefix" Type="varchar" MaxLength="2" />
-          <Property Name="prrprefix" Type="varchar" MaxLength="2" />
+          <Property Name="saiprefix" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="shsprefix" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="sivprefix" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="paeprefix" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="phpprefix" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="prrprefix" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
         <EntityType Name="shiftsales">
           <Key>
@@ -596,12 +596,12 @@
           <Property Name="starttime" Type="Time" Nullable="false" />
           <Property Name="endtime" Type="Time" Nullable="false" />
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="saiprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="shsprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="sivprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="paeprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="phpprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="prrprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="saiprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="shsprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sivprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="paeprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phpprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prrprefix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="aptrn" Relationship="Self.fk_aptrn_shift_id" FromRole="shift" ToRole="aptrn" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_shift_id" FromRole="shift" ToRole="saleshistory" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shift_id" FromRole="shift" ToRole="salessummary" />

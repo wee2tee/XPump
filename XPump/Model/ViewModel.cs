@@ -14,13 +14,13 @@ namespace XPump.Model
         public string description { get; set; }
         public TimeSpan starttime { get; set; }
         public TimeSpan endtime { get; set; }
-        public string remark { get; set; }
         public string saiprefix { get; set; }
         public string shsprefix { get; set; }
         public string sivprefix { get; set; }
         public string paeprefix { get; set; }
         public string phpprefix { get; set; }
         public string prrprefix { get; set; }
+        public string remark { get; set; }
         //public RECORD_STATE record_state { get; set; } // flag for 0 = existing data , 1 = being add new data
         public shift shift { get; set; }
     }
@@ -693,5 +693,18 @@ namespace XPump.Model
         public string remark { get; set; }
 
         public StmasDbf StmasDbf { get; set; }
+    }
+
+    public class IsrunDbfVM
+    {
+        public string doctyp { get; set; }
+        public string doccod { get; set; }
+        public string shortnam { get; set; }
+        public string posdes { get; set; }
+        public string prefix { get; set; }
+        public string docnum { get; set; }
+        public string depcod { get; set; }
+
+        public IsrunDbf IsrunDbf { get; set; }
     }
 }

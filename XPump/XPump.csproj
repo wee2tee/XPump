@@ -379,9 +379,7 @@
     <None Include="Model\XPumpModel.edmx.diagram">
       <DependentUpon>XPumpModel.edmx</DependentUpon>
     </None>
-    <None Include="msg.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="msg.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

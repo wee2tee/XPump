@@ -26,6 +26,18 @@ namespace CC
             }
         }
 
+        public string _Text
+        {
+            get
+            {
+                return this.comboBox1.Text;
+            }
+            set
+            {
+                this.comboBox1.Text = value;
+            }
+        }
+
         private bool _focused;
         public bool _Focused
         {
@@ -34,7 +46,6 @@ namespace CC
                 return this._focused;
             }
         }
-
 
         public XDropdownListItem _SelectedItem
         {
@@ -152,6 +163,15 @@ namespace CC
             {
                 SendKeys.Send("{F4}");
                 return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                if (this.comboBox1.DroppedDown)
+                {
+                    this.comboBox1.DroppedDown = false;
+                    return true;
+                }
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }

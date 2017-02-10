@@ -71,12 +71,10 @@ namespace CC
         public XDatagrid()
         {
             InitializeComponent();
-        }
 
-        protected override void OnCreateControl()
-        {
-            base.OnCreateControl();
             
+            this.ColumnHeadersHeight = 28;
+            this.RowTemplate.Height = 26;
             this.AllowUserToAddRows = false;
             this.AllowUserToDeleteRows = false;
             this.AllowUserToOrderColumns = false;
@@ -84,10 +82,6 @@ namespace CC
             this.AllowUserToResizeRows = false;
 
             this.ColumnHeadersDefaultCellStyle.BackColor = Color.PeachPuff;
-            this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.ColumnHeadersHeight = 28;
-
-            //this.RowTemplate.Height = 26;
 
             if (this.row_border_redline)
             {
@@ -109,7 +103,13 @@ namespace CC
             this.RowHeadersVisible = false;
             this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.StandardTab = true;
+        }
 
+        protected override void OnCreateControl()
+        {
+            this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            base.OnCreateControl();
+            
             this.AttachEventHandler();
         }
 

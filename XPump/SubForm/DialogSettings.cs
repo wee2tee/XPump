@@ -74,39 +74,6 @@ namespace XPump.SubForm
             }
         }
 
-        public static DataTable LoadSccompDbf()
-        {
-            string secure_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\secure\";
-
-            if(!(Directory.Exists(secure_path) && File.Exists(secure_path + "sccomp.dbf")))
-            {
-                MessageBox.Show("ค้นหาแฟ้ม Sccomp.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return null;
-            }
-
-
-            DataTable YourResultSet = new DataTable();
-
-            OleDbConnection yourConnectionHandler = new OleDbConnection(
-                @"Provider=VFPOLEDB.1;Data Source=" + secure_path);
-
-            yourConnectionHandler.Open();
-
-            if (yourConnectionHandler.State == ConnectionState.Open)
-            {
-                string mySQL = "select * from Sccomp";  // dbf table name
-
-                OleDbCommand MyQuery = new OleDbCommand(mySQL, yourConnectionHandler);
-                OleDbDataAdapter DA = new OleDbDataAdapter(MyQuery);
-
-                DA.Fill(YourResultSet);
-
-                yourConnectionHandler.Close();
-            }
-
-            return YourResultSet;
-        }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             this.tmp_settings = GetSettings();
@@ -153,11 +120,11 @@ namespace XPump.SubForm
 
         private void btnBrowseExpressData_Click(object sender, EventArgs e)
         {
-            DataTable dt = LoadSccompDbf();
+            DataTable dt = DbfTable.Sccomp();
             if (dt == null)
                 return;
 
-            List<SccompDbf> sccomp = dt.ToSccompList();
+            List<SccompDbf> sccomp = dt.ToList<SccompDbf>();
 
             DialogSccompSelection sel = new DialogSccompSelection(this.main_form, sccomp);
             if (sel.ShowDialog() == DialogResult.OK)

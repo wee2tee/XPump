@@ -36,33 +36,42 @@ namespace XPump.SubForm
         {
             this.bs = new BindingSource();
             this.dgv.DataSource = this.bs;
-            this.stmasdbfvm_list = LoadStmasDbf().ToStmasList().Where(s => s.stktyp == "0").OrderBy(s => s.stkcod).ToViewModel();
+
+            DataTable dt = DbfTable.Stmas();
+            if (dt == null)
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+                return;
+            }
+
+            this.stmasdbfvm_list = dt.ToList<StmasDbf>().Where(s => s.stktyp == "0").OrderBy(s => s.stkcod).ToViewModel();
             this.bs.DataSource = this.stmasdbfvm_list;
         }
 
-        public static DataTable LoadStmasDbf()
-        {
-            DataTable YourResultSet = new DataTable();
+        //public static DataTable LoadStmasDbf()
+        //{
+        //    DataTable YourResultSet = new DataTable();
 
-            OleDbConnection yourConnectionHandler = new OleDbConnection(
-                @"Provider=VFPOLEDB.1;Data Source=D:\Express\ExpressI\chun\");
+        //    OleDbConnection yourConnectionHandler = new OleDbConnection(
+        //        @"Provider=VFPOLEDB.1;Data Source=D:\Express\ExpressI\chun\");
 
-            yourConnectionHandler.Open();
+        //    yourConnectionHandler.Open();
 
-            if (yourConnectionHandler.State == ConnectionState.Open)
-            {
-                string mySQL = "select * from Stmas";  // dbf table name
+        //    if (yourConnectionHandler.State == ConnectionState.Open)
+        //    {
+        //        string mySQL = "select * from Stmas";  // dbf table name
 
-                OleDbCommand MyQuery = new OleDbCommand(mySQL, yourConnectionHandler);
-                OleDbDataAdapter DA = new OleDbDataAdapter(MyQuery);
+        //        OleDbCommand MyQuery = new OleDbCommand(mySQL, yourConnectionHandler);
+        //        OleDbDataAdapter DA = new OleDbDataAdapter(MyQuery);
 
-                DA.Fill(YourResultSet);
+        //        DA.Fill(YourResultSet);
 
-                yourConnectionHandler.Close();
-            }
+        //        yourConnectionHandler.Close();
+        //    }
 
-            return YourResultSet;
-        }
+        //    return YourResultSet;
+        //}
 
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {

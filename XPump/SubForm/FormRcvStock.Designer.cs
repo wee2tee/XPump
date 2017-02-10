@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -50,6 +51,11 @@
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.inline_vatamt = new CC.XNumEdit();
+            this.inline_trnval = new CC.XNumEdit();
+            this.inline_trnqty = new CC.XNumEdit();
+            this.inline_stkcod = new CC.XTextEdit();
+            this.inline_section = new CC.XBrowseBox();
             this.dgv = new CC.XDatagrid();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -65,11 +71,6 @@
             this.btnEditItem = new System.Windows.Forms.Button();
             this.btnStopItem = new System.Windows.Forms.Button();
             this.btnSaveItem = new System.Windows.Forms.Button();
-            this.inline_section = new CC.XBrowseBox();
-            this.inline_stkcod = new CC.XTextEdit();
-            this.inline_trnqty = new CC.XNumEdit();
-            this.inline_trnval = new CC.XNumEdit();
-            this.inline_vatamt = new CC.XNumEdit();
             this.label2 = new System.Windows.Forms.Label();
             this.brShift = new CC.XBrowseBox();
             this.lblShift = new System.Windows.Forms.Label();
@@ -102,7 +103,7 @@
             this.btnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(737, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(781, 43);
             this.toolStrip1.TabIndex = 5;
             // 
             // btnAdd
@@ -271,7 +272,7 @@
             this.tabControl1.Location = new System.Drawing.Point(4, 180);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(731, 368);
+            this.tabControl1.Size = new System.Drawing.Size(775, 407);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPage1
@@ -285,10 +286,133 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(723, 339);
+            this.tabPage1.Size = new System.Drawing.Size(767, 378);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "รายการรับสินค้า <F8>";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // inline_vatamt
+            // 
+            this.inline_vatamt._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_vatamt._DecimalDigit = 2;
+            this.inline_vatamt._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.inline_vatamt._MaxLength = 30;
+            this.inline_vatamt._ReadOnly = false;
+            this.inline_vatamt._SelectionLength = 0;
+            this.inline_vatamt._SelectionStart = 4;
+            this.inline_vatamt._Text = "0.00";
+            this.inline_vatamt._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_vatamt._UseThoundsandSeparate = true;
+            this.inline_vatamt._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_vatamt.BackColor = System.Drawing.Color.White;
+            this.inline_vatamt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_vatamt.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_vatamt.Location = new System.Drawing.Point(505, 58);
+            this.inline_vatamt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_vatamt.Name = "inline_vatamt";
+            this.inline_vatamt.Size = new System.Drawing.Size(98, 23);
+            this.inline_vatamt.TabIndex = 3;
+            // 
+            // inline_trnval
+            // 
+            this.inline_trnval._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_trnval._DecimalDigit = 2;
+            this.inline_trnval._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.inline_trnval._MaxLength = 30;
+            this.inline_trnval._ReadOnly = false;
+            this.inline_trnval._SelectionLength = 0;
+            this.inline_trnval._SelectionStart = 4;
+            this.inline_trnval._Text = "0.00";
+            this.inline_trnval._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_trnval._UseThoundsandSeparate = true;
+            this.inline_trnval._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_trnval.BackColor = System.Drawing.Color.White;
+            this.inline_trnval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_trnval.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_trnval.Location = new System.Drawing.Point(401, 58);
+            this.inline_trnval.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_trnval.Name = "inline_trnval";
+            this.inline_trnval.Size = new System.Drawing.Size(98, 23);
+            this.inline_trnval.TabIndex = 3;
+            // 
+            // inline_trnqty
+            // 
+            this.inline_trnqty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_trnqty._DecimalDigit = 2;
+            this.inline_trnqty._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.inline_trnqty._MaxLength = 30;
+            this.inline_trnqty._ReadOnly = false;
+            this.inline_trnqty._SelectionLength = 0;
+            this.inline_trnqty._SelectionStart = 4;
+            this.inline_trnqty._Text = "0.00";
+            this.inline_trnqty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_trnqty._UseThoundsandSeparate = true;
+            this.inline_trnqty._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_trnqty.BackColor = System.Drawing.Color.White;
+            this.inline_trnqty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_trnqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_trnqty.Location = new System.Drawing.Point(295, 58);
+            this.inline_trnqty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_trnqty.Name = "inline_trnqty";
+            this.inline_trnqty.Size = new System.Drawing.Size(98, 23);
+            this.inline_trnqty.TabIndex = 3;
+            // 
+            // inline_stkcod
+            // 
+            this.inline_stkcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_stkcod._MaxLength = 32767;
+            this.inline_stkcod._ReadOnly = false;
+            this.inline_stkcod._Text = "";
+            this.inline_stkcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.inline_stkcod.BackColor = System.Drawing.Color.White;
+            this.inline_stkcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_stkcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_stkcod.Location = new System.Drawing.Point(157, 63);
+            this.inline_stkcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_stkcod.Name = "inline_stkcod";
+            this.inline_stkcod.Size = new System.Drawing.Size(90, 23);
+            this.inline_stkcod.TabIndex = 2;
+            // 
+            // inline_section
+            // 
+            this.inline_section._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_section._ReadOnly = false;
+            this.inline_section._Text = "";
+            this.inline_section._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.inline_section._UseImage = true;
+            this.inline_section.BackColor = System.Drawing.Color.White;
+            this.inline_section.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_section.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.inline_section.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_section.Location = new System.Drawing.Point(14, 57);
+            this.inline_section.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_section.Name = "inline_section";
+            this.inline_section.Size = new System.Drawing.Size(118, 23);
+            this.inline_section.TabIndex = 1;
             // 
             // dgv
             // 
@@ -307,6 +431,14 @@
             this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -318,7 +450,7 @@
             this.dgv.ReadOnly = true;
             this.dgv.RowHeadersVisible = false;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(717, 333);
+            this.dgv.Size = new System.Drawing.Size(761, 372);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
             // 
@@ -432,7 +564,7 @@
             this.btnAddItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnAddItem.Image = global::XPump.Properties.Resources.add_16;
             this.btnAddItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddItem.Location = new System.Drawing.Point(379, 179);
+            this.btnAddItem.Location = new System.Drawing.Point(423, 179);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(50, 24);
             this.btnAddItem.TabIndex = 14;
@@ -446,7 +578,7 @@
             this.btnDeleteItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnDeleteItem.Image = global::XPump.Properties.Resources.delete_16;
             this.btnDeleteItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeleteItem.Location = new System.Drawing.Point(488, 179);
+            this.btnDeleteItem.Location = new System.Drawing.Point(532, 179);
             this.btnDeleteItem.Name = "btnDeleteItem";
             this.btnDeleteItem.Size = new System.Drawing.Size(45, 24);
             this.btnDeleteItem.TabIndex = 16;
@@ -460,7 +592,7 @@
             this.btnEditItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnEditItem.Image = global::XPump.Properties.Resources.edit_16;
             this.btnEditItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditItem.Location = new System.Drawing.Point(430, 179);
+            this.btnEditItem.Location = new System.Drawing.Point(474, 179);
             this.btnEditItem.Name = "btnEditItem";
             this.btnEditItem.Size = new System.Drawing.Size(57, 24);
             this.btnEditItem.TabIndex = 15;
@@ -474,7 +606,7 @@
             this.btnStopItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnStopItem.Image = global::XPump.Properties.Resources.stop_16;
             this.btnStopItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStopItem.Location = new System.Drawing.Point(605, 179);
+            this.btnStopItem.Location = new System.Drawing.Point(649, 179);
             this.btnStopItem.Name = "btnStopItem";
             this.btnStopItem.Size = new System.Drawing.Size(129, 24);
             this.btnStopItem.TabIndex = 18;
@@ -488,136 +620,13 @@
             this.btnSaveItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSaveItem.Image = global::XPump.Properties.Resources.save_16;
             this.btnSaveItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveItem.Location = new System.Drawing.Point(544, 179);
+            this.btnSaveItem.Location = new System.Drawing.Point(588, 179);
             this.btnSaveItem.Name = "btnSaveItem";
             this.btnSaveItem.Size = new System.Drawing.Size(60, 24);
             this.btnSaveItem.TabIndex = 17;
             this.btnSaveItem.Text = "บันทึก";
             this.btnSaveItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSaveItem.UseVisualStyleBackColor = true;
-            // 
-            // inline_section
-            // 
-            this.inline_section._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_section._ReadOnly = false;
-            this.inline_section._Text = "";
-            this.inline_section._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.inline_section._UseImage = true;
-            this.inline_section.BackColor = System.Drawing.Color.White;
-            this.inline_section.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_section.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.inline_section.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_section.Location = new System.Drawing.Point(14, 57);
-            this.inline_section.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_section.Name = "inline_section";
-            this.inline_section.Size = new System.Drawing.Size(118, 23);
-            this.inline_section.TabIndex = 1;
-            // 
-            // inline_stkcod
-            // 
-            this.inline_stkcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_stkcod._MaxLength = 32767;
-            this.inline_stkcod._ReadOnly = false;
-            this.inline_stkcod._Text = "";
-            this.inline_stkcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.inline_stkcod.BackColor = System.Drawing.Color.White;
-            this.inline_stkcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_stkcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_stkcod.Location = new System.Drawing.Point(157, 63);
-            this.inline_stkcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_stkcod.Name = "inline_stkcod";
-            this.inline_stkcod.Size = new System.Drawing.Size(90, 23);
-            this.inline_stkcod.TabIndex = 2;
-            // 
-            // inline_trnqty
-            // 
-            this.inline_trnqty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_trnqty._DecimalDigit = 2;
-            this.inline_trnqty._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.inline_trnqty._MaxLength = 30;
-            this.inline_trnqty._ReadOnly = false;
-            this.inline_trnqty._SelectionLength = 0;
-            this.inline_trnqty._SelectionStart = 4;
-            this.inline_trnqty._Text = "0.00";
-            this.inline_trnqty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.inline_trnqty._UseThoundsandSeparate = true;
-            this.inline_trnqty._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.inline_trnqty.BackColor = System.Drawing.Color.White;
-            this.inline_trnqty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_trnqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_trnqty.Location = new System.Drawing.Point(295, 58);
-            this.inline_trnqty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_trnqty.Name = "inline_trnqty";
-            this.inline_trnqty.Size = new System.Drawing.Size(98, 23);
-            this.inline_trnqty.TabIndex = 3;
-            // 
-            // inline_trnval
-            // 
-            this.inline_trnval._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_trnval._DecimalDigit = 2;
-            this.inline_trnval._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.inline_trnval._MaxLength = 30;
-            this.inline_trnval._ReadOnly = false;
-            this.inline_trnval._SelectionLength = 0;
-            this.inline_trnval._SelectionStart = 4;
-            this.inline_trnval._Text = "0.00";
-            this.inline_trnval._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.inline_trnval._UseThoundsandSeparate = true;
-            this.inline_trnval._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.inline_trnval.BackColor = System.Drawing.Color.White;
-            this.inline_trnval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_trnval.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_trnval.Location = new System.Drawing.Point(401, 58);
-            this.inline_trnval.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_trnval.Name = "inline_trnval";
-            this.inline_trnval.Size = new System.Drawing.Size(98, 23);
-            this.inline_trnval.TabIndex = 3;
-            // 
-            // inline_vatamt
-            // 
-            this.inline_vatamt._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_vatamt._DecimalDigit = 2;
-            this.inline_vatamt._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.inline_vatamt._MaxLength = 30;
-            this.inline_vatamt._ReadOnly = false;
-            this.inline_vatamt._SelectionLength = 0;
-            this.inline_vatamt._SelectionStart = 4;
-            this.inline_vatamt._Text = "0.00";
-            this.inline_vatamt._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.inline_vatamt._UseThoundsandSeparate = true;
-            this.inline_vatamt._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.inline_vatamt.BackColor = System.Drawing.Color.White;
-            this.inline_vatamt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_vatamt.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_vatamt.Location = new System.Drawing.Point(505, 58);
-            this.inline_vatamt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_vatamt.Name = "inline_vatamt";
-            this.inline_vatamt.Size = new System.Drawing.Size(98, 23);
-            this.inline_vatamt.TabIndex = 3;
             // 
             // label2
             // 
@@ -658,7 +667,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 551);
+            this.ClientSize = new System.Drawing.Size(781, 590);
             this.Controls.Add(this.btnAddItem);
             this.Controls.Add(this.btnDeleteItem);
             this.Controls.Add(this.btnEditItem);
