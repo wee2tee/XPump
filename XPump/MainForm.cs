@@ -89,16 +89,7 @@ namespace XPump
 
         private void mnuSupplier_Click(object sender, EventArgs e)
         {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormApmas)).FirstOrDefault() != null)
-            {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormApmas)).First().form.Activate();
-                return;
-            }
-
-            FormApmas apmas = new FormApmas(this);
-            apmas.MdiParent = this;
-            apmas.Show();
-            this.opened_child_form.Add(new ChildFormDetail() { form = apmas, docPrefix = string.Empty });
+            
         }
 
         private void MnuShiftTransaction_Click(object sender, EventArgs e)
@@ -132,9 +123,7 @@ namespace XPump
 
         private void mnuRcvStock_Click(object sender, EventArgs e)
         {
-            FormRcvStock st = new FormRcvStock(this);
-            st.MdiParent = this;
-            st.Show();
+            
         }
 
         private void mnuSettings_Click(object sender, EventArgs e)

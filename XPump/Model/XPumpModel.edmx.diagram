@@ -4,23 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a47a9fee53b24f9ca21e92d72c16a5b0" Name="Diagram1">
-        <EntityTypeShape EntityType="xpumpModel.apmas" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.aptrn" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.nozzle" Width="1.5" PointX="3.75" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.pricelist" Width="1.5" PointX="3.75" PointY="27.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.saleshistory" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.salessummary" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.section" Width="1.5" PointX="6" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.settings" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.shift" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.shiftsales" Width="1.5" PointX="3" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.stcrd" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.stmas" Width="1.5" PointX="3.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.tank" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="xpumpModel.fk_aptrn_apmas_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_aptrn_shift_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_stcrd_aptrn_id" ManuallyRouted="false" />
+      <Diagram DiagramId="0be4193eef754aac99e8386afb60a46a" Name="Diagram1">
+        <EntityTypeShape EntityType="xpumpModel.nozzle" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.pricelist" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.saleshistory" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.salessummary" Width="1.5" PointX="8.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.section" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.settings" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.shift" Width="1.5" PointX="6" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.shiftsales" Width="1.5" PointX="6" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.stmas" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.tank" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
         <AssociationConnector Association="xpumpModel.fk_nozzle_section_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_saleshistory_nozzle_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_pricelist_stmas_id" ManuallyRouted="false" />
@@ -34,9 +28,7 @@
         <AssociationConnector Association="xpumpModel.fk_salessummary_stmas_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_section_stmas_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_section_tank_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_stcrd_section_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_shiftsales_shift_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_stcrd_shift_id" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -30,8 +30,6 @@ namespace XPump.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<apmas> apmas { get; set; }
-        public virtual DbSet<aptrn> aptrn { get; set; }
         public virtual DbSet<nozzle> nozzle { get; set; }
         public virtual DbSet<pricelist> pricelist { get; set; }
         public virtual DbSet<saleshistory> saleshistory { get; set; }
@@ -40,7 +38,6 @@ namespace XPump.Model
         public virtual DbSet<settings> settings { get; set; }
         public virtual DbSet<shift> shift { get; set; }
         public virtual DbSet<shiftsales> shiftsales { get; set; }
-        public virtual DbSet<stcrd> stcrd { get; set; }
         public virtual DbSet<stmas> stmas { get; set; }
         public virtual DbSet<tank> tank { get; set; }
     }

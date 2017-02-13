@@ -43,8 +43,6 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
-            this.chkCurrentOnly.Checked = this.current_only;
-
             this.bs_section = new BindingSource();
             this.bs_nozzle = new BindingSource();
             this.bs_price = new BindingSource();

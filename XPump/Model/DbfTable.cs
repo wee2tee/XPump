@@ -13,6 +13,8 @@ namespace XPump.Model
 {
     public class DbfTable
     {
+        
+
         public static DataTable Stmas()
         {
             settings settings = DialogSettings.GetSettings();
@@ -32,6 +34,10 @@ namespace XPump.Model
                 MessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return null;
             }
+            //var x = DBFHelper.DBFParse.ReadDBF(data_path + "stmas.dbf");
+            //MessageBox.Show(x.Rows.Count.ToString() + " loaded, Started at : " + xtime.ToString() + ", Completed at : " + DateTime.Now.ToString());
+            //return x;
+
 
             DataTable dt = new DataTable();
 
@@ -242,7 +248,7 @@ namespace XPump.Model
         public string accnum11 { get; set; }
         public string accnum12 { get; set; }
         public string flgvat { get; set; }
-        public int vatrat { get; set; }
+        public decimal vatrat { get; set; }
         public string srv_vattyp { get; set; }
         public string autoprn { get; set; }
         public string whichform { get; set; }

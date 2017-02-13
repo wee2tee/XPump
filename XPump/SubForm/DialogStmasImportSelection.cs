@@ -18,6 +18,8 @@ namespace XPump.SubForm
         private MainForm main_form;
         private BindingSource bs;
         private List<StmasDbfVM> stmasdbfvm_list;
+        //private DateTime xtime;
+
         public List<StmasDbfVM> selected_list
         {
             get
@@ -45,33 +47,9 @@ namespace XPump.SubForm
                 return;
             }
 
-            this.stmasdbfvm_list = dt.ToList<StmasDbf>().Where(s => s.stktyp == "0").OrderBy(s => s.stkcod).ToViewModel();
+            this.stmasdbfvm_list = dt.ToStmasList().Where(s => s.stktyp == "0").OrderBy(s => s.stkcod).ToViewModel();
             this.bs.DataSource = this.stmasdbfvm_list;
         }
-
-        //public static DataTable LoadStmasDbf()
-        //{
-        //    DataTable YourResultSet = new DataTable();
-
-        //    OleDbConnection yourConnectionHandler = new OleDbConnection(
-        //        @"Provider=VFPOLEDB.1;Data Source=D:\Express\ExpressI\chun\");
-
-        //    yourConnectionHandler.Open();
-
-        //    if (yourConnectionHandler.State == ConnectionState.Open)
-        //    {
-        //        string mySQL = "select * from Stmas";  // dbf table name
-
-        //        OleDbCommand MyQuery = new OleDbCommand(mySQL, yourConnectionHandler);
-        //        OleDbDataAdapter DA = new OleDbDataAdapter(MyQuery);
-
-        //        DA.Fill(YourResultSet);
-
-        //        yourConnectionHandler.Close();
-        //    }
-
-        //    return YourResultSet;
-        //}
 
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -104,22 +82,25 @@ namespace XPump.SubForm
         {
             if(((CheckBox)sender).CheckState == CheckState.Unchecked)
             {
-                for (int i = 0; i < this.dgv.Rows.Count; i++)
+                foreach (var item in this.stmasdbfvm_list)
                 {
-                    this.dgv.Rows[i].Cells[this.col_selected.Name].Value = false;
-                    this.stmasdbfvm_list[i].selected = false;
+                    item.selected = false;
                 }
+                ((CheckBox)sender).ThreeState = false;
+                this.bs.ResetBindings(true);
+
                 return;
             }
 
             if(((CheckBox)sender).CheckState == CheckState.Checked || ((CheckBox)sender).CheckState == CheckState.Indeterminate)
             {
-                for (int i = 0; i < this.dgv.Rows.Count; i++)
+                foreach (var item in this.stmasdbfvm_list)
                 {
-                    this.dgv.Rows[i].Cells[this.col_selected.Name].Value = true;
-                    this.stmasdbfvm_list[i].selected = true;
-                    
+                    item.selected = true;
                 }
+                ((CheckBox)sender).ThreeState = false;
+                this.bs.ResetBindings(true);
+
                 return;
             }
         }

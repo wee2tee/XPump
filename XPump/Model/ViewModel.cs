@@ -21,7 +21,6 @@ namespace XPump.Model
         public string phpprefix { get; set; }
         public string prrprefix { get; set; }
         public string remark { get; set; }
-        //public RECORD_STATE record_state { get; set; } // flag for 0 = existing data , 1 = being add new data
         public shift shift { get; set; }
     }
 
@@ -159,20 +158,6 @@ namespace XPump.Model
         }
     }
 
-    //public class nozzleTransVM
-    //{
-    //    public int id { get; set; }
-    //    public int shift_id { get; set; }
-    //    public int nozzle_id { get; set; }
-    //    public int stmas_id { get; set; }
-    //    public int pricelist_id { get; set; }
-    //    public DateTime saldate { get; set; }
-    //    public decimal mitbeg { get; set; }
-    //    public decimal mitend { get; set; }
-    //    public decimal salqty { get; set; }
-    //    public decimal salval { get; set; }
-    //}
-
     public class stmasVM
     {
         public int id { get; set; }
@@ -285,27 +270,7 @@ namespace XPump.Model
             }
         }
     }
-
-    //public class shiftsalesVM
-    //{
-    //    public int id { get; set; }
-    //    public DateTime saldat { get; set; }
-    //    public int shift_id { get; set; }
-
-    //    public string shift_name
-    //    {
-    //        get
-    //        {
-    //            using(xpumpEntities db = DBX.DataSet())
-    //            {
-    //                return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
-    //            }
-    //        }
-    //    }
-
-    //    public shiftsales shiftsales { get; set; }
-    //}
-
+    
     public class salessummaryVM
     {
         public int id { get; set; }
@@ -517,12 +482,6 @@ namespace XPump.Model
         }
 
         public saleshistory saleshistory { get; set; }
-
-        //public virtual nozzle nozzle { get; set; }
-        //public virtual pricelist pricelist { get; set; }
-        //public virtual salessummary salessummary { get; set; }
-        //public virtual shift shift { get; set; }
-        //public virtual stmas stmas { get; set; }
     }
 
     public class pricelistVM
@@ -560,127 +519,6 @@ namespace XPump.Model
                 return "บาท";
             }
         }
-    }
-
-    public class aptrnVM
-    {
-        public int id { get; set; }
-        public DateTime? rcvdat { get; set; }
-        public string vatnum { get; set; }
-        public DateTime? vatdat { get; set; }
-        public int apmas_id { get; set; }
-        public int shift_id { get; set; }
-
-        public string shift_name
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet())
-                {
-                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
-                }
-            }
-        }
-
-        public string shift_desc
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet())
-                {
-                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).description : string.Empty;
-                }
-            }
-        }
-
-        public string supcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet())
-                {
-                    return db.apmas.Where(a => a.id == this.apmas_id).FirstOrDefault() != null ? db.apmas.Where(a => a.id == this.apmas_id).First().supcod : string.Empty;
-                }
-            }
-        }
-
-        public string supnam
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet())
-                {
-                    return db.apmas.Where(a => a.id == this.apmas_id).FirstOrDefault() != null ? db.apmas.Where(a => a.id == this.apmas_id).First().supnam : string.Empty;
-                }
-            }
-        }
-
-        public aptrn aptrn { get; set; }
-    }
-
-    public class stcrdVM
-    {
-        public int id { get; set; }
-        public decimal trnqty { get; set; }
-        public decimal trnval { get; set; }
-        public decimal vatamt { get; set; }
-        public int aptrn_id { get; set; }
-        public int section_id { get; set; }
-        public int shift_id { get; set; }
-
-        public DateTime? rcvdat
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet())
-                {
-                    return db.aptrn.Find(aptrn_id) != null ? (DateTime?) db.aptrn.Find(aptrn_id).rcvdat : null;
-                }
-            }
-        }
-
-        public string shift_name
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet())
-                {
-                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
-                }
-            }
-        }
-
-        public string section_name
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet())
-                {
-                    return db.section.Find(this.section_id) != null ? db.section.Find(this.section_id).name : string.Empty;
-                }
-            }
-        }
-
-        public string supcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet())
-                {
-                    try
-                    {
-                        var sup_cod = db.apmas.Find(db.aptrn.Find(this.aptrn_id).apmas_id).supcod;
-                        return sup_cod;
-                    }
-                    catch (Exception)
-                    {
-                        return string.Empty;
-                    }
-                }
-            }
-        }
-
-        public stcrd stcrd { get; set; }
     }
 
     public class StmasDbfVM

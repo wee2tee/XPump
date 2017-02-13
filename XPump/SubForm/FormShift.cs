@@ -100,7 +100,7 @@ namespace XPump.SubForm
                 return;
             }
 
-            List<IsrunDbfVM> isrun = dt.ToList<IsrunDbf>().ToViewModel();
+            List<IsrunDbfVM> isrun = dt.ToIsrunList().ToViewModel(); //ToList<IsrunDbf>().ToViewModel();
 
             int col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index;
             this.inline_name.SetInlineControlPosition(this.dgv, row_index, col_ndx);
@@ -384,7 +384,7 @@ namespace XPump.SubForm
         {
             if (e.RowIndex == -1 && e.Button == MouseButtons.Left/* && this.form_mode == FORM_MODE_LIST.READ*/)
             {
-                ((XDatagrid)sender).SortByColumn<shiftVM>(e.ColumnIndex);
+                //((XDatagrid)sender).SortByColumn<shiftVM>(e.ColumnIndex);
                 return;
             }
             else

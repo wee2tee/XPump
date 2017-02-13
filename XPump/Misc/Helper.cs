@@ -14,17 +14,6 @@ using XPump.Model;
 
 namespace XPump.Misc
 {
-    // ENUM
-    //public enum FORM_MODE_MD
-    //{
-    //    READ,
-    //    ADD,
-    //    EDIT,
-    //    READ_ITEM,
-    //    ADD_ITEM,
-    //    EDIT_ITEM
-    //}
-
     public enum FORM_MODE
     {
         READ,
@@ -88,7 +77,6 @@ namespace XPump.Misc
                 shsprefix = shift.shsprefix,
                 sivprefix = shift.sivprefix,
 
-                //record_state = shift.id > -1 ? RECORD_STATE.EXISTING : RECORD_STATE.NEW,
                 shift = shift
             };
 
@@ -248,33 +236,6 @@ namespace XPump.Misc
             return s;
         }
         
-        //public static stmasSummaryTransactionVM ToSummaryVM(this stmasVM stmas_vm)
-        //{
-        //    if (stmas_vm == null)
-        //        return null;
-
-        //    stmasSummaryTransactionVM s = new stmasSummaryTransactionVM
-        //    {
-        //        price_id = stmas_vm.price_id,
-        //        stmas_id = stmas_vm.id,
-        //        price_date = stmas_vm.price_date,
-        //        unitpr = stmas_vm.unitpr
-        //    };
-
-        //    return s;
-        //}
-
-        //public static List<stmasSummaryTransactionVM> ToSummaryVM(this IEnumerable<stmasVM> stmas_vm_list)
-        //{
-        //    List<stmasSummaryTransactionVM> s = new List<stmasSummaryTransactionVM>();
-        //    foreach (var stmas_vm in stmas_vm_list)
-        //    {
-        //        s.Add(stmas_vm.ToSummaryVM());
-        //    }
-
-        //    return s;
-        //}
-
         public static pricelistVM ToViewModel(this pricelist price)
         {
             if (price == null)
@@ -300,61 +261,6 @@ namespace XPump.Misc
 
             return p;
         }
-
-        //public static dailyPriceVM ToDailyPriceViewModel(this pricelistVM price)
-        //{
-        //    if (price == null)
-        //        return null;
-
-        //    dailyPriceVM p = new dailyPriceVM
-        //    {
-        //        id = price.id,
-        //        unitpr = price.unitpr,
-        //        stmas_id = price.stmas_id
-        //    };
-
-        //    return p;
-        //}
-
-        //public static List<dailyPriceVM> ToDailyPriceViewModel(this IEnumerable<pricelistVM> pricelist)
-        //{
-        //    List<dailyPriceVM> p = new List<dailyPriceVM>();
-        //    foreach (var item in pricelist)
-        //    {
-        //        p.Add(item.ToDailyPriceViewModel());
-        //    }
-
-        //    return p;
-        //    //return ((IEnumerable<dailyPriceVM>)pricelist).ToList();
-        //}
-
-        //public static shiftsalesVM ToViewModel(this shiftsales shiftsales)
-        //{
-        //    if (shiftsales == null)
-        //        return null;
-
-        //    shiftsalesVM s = new shiftsalesVM
-        //    {
-        //        id = shiftsales.id,
-        //        saldat = shiftsales.saldat,
-        //        shift_id = shiftsales.shift_id,
-        //        shiftsales = shiftsales
-        //    };
-
-        //    return s;
-        //}
-
-        //public static List<shiftsalesVM> ToViewModel(this IEnumerable<shiftsales> shiftsales_list)
-        //{
-        //    List<shiftsalesVM> s = new List<shiftsalesVM>();
-
-        //    foreach (var item in shiftsales_list)
-        //    {
-        //        s.Add(item.ToViewModel());
-        //    }
-
-        //    return s;
-        //}
 
         public static salessummaryVM ToViewModel(this salessummary sales)
         {
@@ -426,107 +332,229 @@ namespace XPump.Misc
             return s;
         }
 
-        public static aptrnVM ToViewModel(this aptrn aptrn)
+        public static List<StmasDbf> ToStmasList(this DataTable stmas_dbf)
         {
-            if (aptrn == null)
-                return null;
+            List<StmasDbf> stmas = new List<StmasDbf>();
 
-            aptrnVM a = new aptrnVM
+            foreach (DataRow row in stmas_dbf.Rows)
             {
-                id = aptrn.id,
-                apmas_id = aptrn.apmas_id,
-                rcvdat = aptrn.rcvdat,
-                vatnum = aptrn.vatnum,
-                vatdat = aptrn.vatdat,
-                aptrn = aptrn
-            };
-
-            return a;
-        }
-
-        public static List<aptrnVM> ToViewModel(this IEnumerable<aptrn> aptrn_list)
-        {
-            List<aptrnVM> a = new List<aptrnVM>();
-
-            foreach (var item in aptrn_list)
-            {
-                a.Add(item.ToViewModel());
-            }
-
-            return a;
-        }
-
-        public static stcrdVM ToViewModel(this stcrd stcrd)
-        {
-            if (stcrd == null)
-                return null;
-
-            stcrdVM s = new stcrdVM
-            {
-                id = stcrd.id,
-                trnqty = stcrd.trnqty,
-                trnval = stcrd.trnval,
-                vatamt = stcrd.vatamt,
-                aptrn_id = stcrd.aptrn_id,
-                section_id = stcrd.section_id,
-                stcrd = stcrd
-            };
-
-            return s;
-        }
-
-        public static List<stcrdVM> ToViewModel(this IEnumerable<stcrd> stcrd_list)
-        {
-            List<stcrdVM> s = new List<stcrdVM>();
-
-            foreach (var item in stcrd_list)
-            {
-                s.Add(item.ToViewModel());
-            }
-
-            return s;
-        }
-
-        public static List<T> ToList<T>(this DataTable table) where T : class, new()
-        {
-            try
-            {
-                List<T> list = new List<T>();
-
-                foreach (var row in table.AsEnumerable())
+                try
                 {
-                    T obj = new T();
-
-                    foreach (var prop in obj.GetType().GetProperties())
+                    StmasDbf s = new StmasDbf
                     {
-                        try
-                        {
-                            PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
-                            if(propertyInfo.PropertyType == typeof(string))
-                            {
-                                propertyInfo.SetValue(obj, ((string)Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType)).Trim(), null);
-                            }
-                            else
-                            {
-                                propertyInfo.SetValue(obj, Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType), null);
-                            }
-                        }
-                        catch
-                        {
-                            continue;
-                        }
-                    }
-
-                    list.Add(obj);
+                        stkcod = row.Field<string>("stkcod"),
+                        stkdes = row.Field<string>("stkdes"),
+                        stkdes2 = row.Field<string>("stkdes2"),
+                        stktyp = row.Field<string>("stktyp"),
+                        stklev = row.Field<string>("stklev"),
+                        stkgrp = row.Field<string>("stkgrp"),
+                        barcod = row.Field<string>("barcod"),
+                        stkcods = row.Field<string>("stkcods"),
+                        acccod = row.Field<string>("acccod"),
+                        isinv = row.Field<string>("isinv"),
+                        stkclass = row.Field<string>("stkclass"),
+                        negallow = row.Field<string>("negallow"),
+                        qucod = row.Field<string>("qucod"),
+                        cqucod = row.Field<string>("cqucod"),
+                        cfactor = row.Field<double>("cfactor"),
+                        stnpr = row.Field<double>("stnpr"),
+                        ispur = row.Field<string>("ispur"),
+                        pqucod = row.Field<string>("pqucod"),
+                        pfactor = row.Field<double>("pfactor"),
+                        lpurqu = row.Field<string>("lpurqu"),
+                        lpurfac = row.Field<double>("lpurfac"),
+                        lpurpr = row.Field<double>("lpurpr"),
+                        lpdisc = row.Field<string>("lpdisc"),
+                        lpurdat = row.Field<DateTime?>("lpurdat"),
+                        supcod = row.Field<string>("supcod"),
+                        issal = row.Field<string>("issal"),
+                        squcod = row.Field<string>("squcod"),
+                        sfactor = row.Field<double>("sfactor"),
+                        sellpr1 = row.Field<double>("sellpr1"),
+                        sellpr2 = row.Field<double>("sellpr2"),
+                        sellpr3 = row.Field<double>("sellpr3"),
+                        sellpr4 = row.Field<double>("sellpr4"),
+                        sellpr5 = row.Field<double>("sellpr5"),
+                        tracksal = row.Field<string>("tracksal"),
+                        vatcod = row.Field<string>("vatcod"),
+                        iscom = row.Field<string>("iscom"),
+                        comrat = row.Field<string>("comrat"),
+                        lsellqu = row.Field<string>("lsellqu"),
+                        lsellfac = row.Field<double>("lsellfac"),
+                        lsellpr = row.Field<double>("lsellpr"),
+                        lsdisc = row.Field<string>("lsdisc"),
+                        lseldat = row.Field<DateTime?>("lseldat"),
+                        numelem = row.Field<decimal?>("numelem"),
+                        totbal = row.Field<double>("totbal"),
+                        totval = row.Field<double>("totval"),
+                        totreo = row.Field<double>("totreo"),
+                        totres = row.Field<double>("totres"),
+                        opnbal = row.Field<double>("opnbal"),
+                        unitpr = row.Field<double>("unitpr"),
+                        opnval = row.Field<double>("opnval"),
+                        lasupd = row.Field<DateTime?>("lasupd"),
+                        packing = row.Field<string>("packing"),
+                        mlotnum = row.Field<string>("mlotnum"),
+                        mrembal = row.Field<double>("mrembal"),
+                        mremval = row.Field<double>("mremval"),
+                        remark = row.Field<string>("remark"),
+                        dat1 = row.Field<DateTime?>("dat1"),
+                        dat2 = row.Field<DateTime?>("dat2"),
+                        num1 = row.Field<double>("num1"),
+                        str1 = row.Field<string>("str1"),
+                        str2 = row.Field<string>("str2"),
+                        str3 = row.Field<string>("str3"),
+                        str4 = row.Field<string>("str4"),
+                        creby = row.Field<string>("creby"),
+                        credat = row.Field<DateTime?>("credat"),
+                        userid = row.Field<string>("userid"),
+                        chgdat = row.Field<DateTime?>("chgdat"),
+                        status = row.Field<string>("status"),
+                        inactdat = row.Field<DateTime?>("inactdat")
+                    };
+                    stmas.Add(s);
                 }
+                catch (Exception ex)
+                {
+                    continue;
+                }
+            }
 
-                return list;
-            }
-            catch
-            {
-                return null;
-            }
+            return stmas;
         }
+
+        public static List<SccompDbf> ToSccompList(this DataTable sccomp_dbf)
+        {
+            List<SccompDbf> sccomp = new List<SccompDbf>();
+
+            foreach (DataRow row in sccomp_dbf.Rows)
+            {
+                try
+                {
+                    SccompDbf s = new SccompDbf
+                    {
+                        compnam = row.Field<string>("compnam").Trim(),
+                        compcod = row.Field<string>("compcod").Trim(),
+                        path = row.Field<string>("path").Trim(),
+                        gendat = row.Field<DateTime?>("gendat"),
+                        candel = row.Field<string>("candel").Trim()
+                    };
+
+                    sccomp.Add(s);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+
+            return sccomp;
+        }
+
+        public static List<IsrunDbf> ToIsrunList(this DataTable isrun_dbf)
+        {
+            List<IsrunDbf> isrun = new List<IsrunDbf>();
+
+            foreach (DataRow row in isrun_dbf.Rows)
+            {
+                try
+                {
+                    IsrunDbf i = new IsrunDbf
+                    {
+                        doctyp = !(row.IsNull("doctyp")) ? row.Field<string>("doctyp") : string.Empty,
+                        doccod = !(row.IsNull("doccod")) ? row.Field<string>("doccod") : string.Empty,
+                        shortnam = !(row.IsNull("shortnam")) ? row.Field<string>("shortnam") : string.Empty,
+                        posdes = !(row.IsNull("posdes")) ? row.Field<string>("posdes") : string.Empty,
+                        posdes2 = !(row.IsNull("posdes2")) ?  row.Field<string>("posdes2") : string.Empty,
+                        prefix = !(row.IsNull("prefix")) ? row.Field<string>("prefix") : string.Empty,
+                        docnum = !(row.IsNull("docnum")) ? row.Field<string>("docnum") : string.Empty,
+                        ismodify = !(row.IsNull("ismodify")) ? row.Field<bool>("ismodify") : false,
+                        depcod = !(row.IsNull("depcod")) ? row.Field<string>("depcod") : string.Empty,
+                        jnltyp = !(row.IsNull("jnltyp")) ? row.Field<string>("jnltyp") : string.Empty,
+                        jnlexp = !(row.IsNull("jnlexp")) ? row.Field<string>("jnlexp") : string.Empty,
+                        accnum01 = !(row.IsNull("accnum01")) ? row.Field<string>("accnum01") : string.Empty,
+                        accnum02 = !(row.IsNull("accnum02")) ? row.Field<string>("accnum02") : string.Empty,
+                        accnum03 = !(row.IsNull("accnum03")) ? row.Field<string>("accnum03") : string.Empty,
+                        accnum04 = !(row.IsNull("accnum04")) ? row.Field<string>("accnum04") : string.Empty,
+                        accnum05 = !(row.IsNull("accnum05")) ? row.Field<string>("accnum05") : string.Empty,
+                        accnum06 = !(row.IsNull("accnum06")) ? row.Field<string>("accnum06") : string.Empty,
+                        accnum07 = !(row.IsNull("accnum07")) ? row.Field<string>("accnum07") : string.Empty,
+                        accnum08 = !(row.IsNull("accnum08")) ? row.Field<string>("accnum08") : string.Empty,
+                        accnum09 = !(row.IsNull("accnum09")) ? row.Field<string>("accnum09") : string.Empty,
+                        accnum10 = !(row.IsNull("accnum10")) ? row.Field<string>("accnum10") : string.Empty,
+                        accnum11 = !(row.IsNull("accnum11")) ? row.Field<string>("accnum11") : string.Empty,
+                        accnum12 = !(row.IsNull("accnum12")) ? row.Field<string>("accnum12") : string.Empty,
+                        flgvat = !(row.IsNull("flgvat")) ? row.Field<string>("flgvat") : string.Empty,
+                        vatrat = !(row.IsNull("vatrat")) ? row.Field<decimal>("vatrat") : 0m,
+                        srv_vattyp = !(row.IsNull("srv_vattyp")) ? row.Field<string>("srv_vattyp") : string.Empty,
+                        autoprn = !(row.IsNull("autoprn")) ? row.Field<string>("autoprn") : string.Empty,
+                        whichform = !(row.IsNull("whichform")) ? row.Field<string>("whichform") : string.Empty,
+                        reprn_lev = !(row.IsNull("reprn_lev")) ? row.Field<string>("reprn_lev") : string.Empty,
+                        cancel_lev = !(row.IsNull("cancel_lev")) ? row.Field<string>("cancel_lev") : string.Empty,
+                        delete_lev = !(row.IsNull("delete_lev")) ? row.Field<string>("delete_lev") : string.Empty,
+                        approv_met = !(row.IsNull("approv_met")) ? row.Field<string>("approv_met") : string.Empty,
+                        approv_lev = !(row.IsNull("approv_lev")) ? row.Field<string>("approv_lev") : string.Empty,
+                        ovrlin_lev = !(row.IsNull("ovrlin_lev")) ? row.Field<string>("ovrlin_lev") : string.Empty,
+                        vat_initem = !(row.IsNull("vat_initem")) ? row.Field<string>("vat_initem") : string.Empty,
+                        loccod = !(row.IsNull("loccod")) ? row.Field<string>("loccod") : string.Empty,
+                        usebarcod = !(row.IsNull("usebarcod")) ? row.Field<string>("usebarcod") : string.Empty,
+                        pvatprorat = !(row.IsNull("pvatprorat")) ? row.Field<string>("pvatprorat") : string.Empty,
+                        reserve1 = !(row.IsNull("reserve1")) ? row.Field<string>("reserve1") : string.Empty,
+                        reserve2 = !(row.IsNull("reserve2")) ? row.Field<string>("reserve2") : string.Empty,
+                        reserve3 = !(row.IsNull("reserve3")) ? row.Field<double>("reserve3") : 0d
+                    };
+
+                    isrun.Add(i);
+                }
+                catch (Exception ex)
+                {
+                    continue;
+                }
+            }
+
+            return isrun;
+        }
+
+        //public static List<T> ToList<T>(this DataTable table) where T : class, new()
+        //{
+        //    try
+        //    {
+        //        List<T> list = new List<T>();
+
+        //        foreach (var row in table.AsEnumerable())
+        //        {
+        //            T obj = new T();
+
+        //            foreach (var prop in obj.GetType().GetProperties())
+        //            {
+        //                try
+        //                {
+        //                    PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+        //                    if(propertyInfo.PropertyType == typeof(string))
+        //                    {
+        //                        propertyInfo.SetValue(obj, ((string)Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType)).Trim(), null);
+        //                    }
+        //                    else
+        //                    {
+        //                        propertyInfo.SetValue(obj, Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType), null);
+        //                    }
+        //                }
+        //                catch
+        //                {
+        //                    continue;
+        //                }
+        //            }
+
+        //            list.Add(obj);
+        //        }
+
+        //        return list;
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
 
         public static StmasDbfVM ToViewModel(this StmasDbf stmasdbf)
         {
@@ -536,11 +564,11 @@ namespace XPump.Misc
             StmasDbfVM s = new StmasDbfVM
             {
                 selected = false,
-                stkcod = stmasdbf.stkcod,
-                stkdes = stmasdbf.stkdes,
-                stkdes2 = stmasdbf.stkdes2,
-                stktyp = stmasdbf.stktyp,
-                remark = stmasdbf.remark,
+                stkcod = stmasdbf.stkcod.Trim(),
+                stkdes = stmasdbf.stkdes.Trim(),
+                stkdes2 = stmasdbf.stkdes2.Trim(),
+                stktyp = stmasdbf.stktyp.Trim(),
+                remark = stmasdbf.remark.Trim(),
                 StmasDbf = stmasdbf
             };
 
@@ -706,40 +734,6 @@ namespace XPump.Misc
             }
         }
 
-        //public static void SetControlState(this Component comp, FORM_MODE_MD[] form_mode_to_enable, FORM_MODE_MD form_mode)
-        //{
-        //    if (form_mode_to_enable.ToList().Where(fm => fm == form_mode).Count() > 0)
-        //    {
-        //        if (comp is ToolStripButton)
-        //        {
-        //            ((ToolStripButton)comp).Enabled = true; return;
-        //        }
-        //        if (comp is DataGridView)
-        //        {
-        //            ((DataGridView)comp).Enabled = true; return;
-        //        }
-        //        if(comp is XTextEdit)
-        //        {
-        //            ((XTextEdit)comp)._ReadOnly = false; return;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (comp is ToolStripButton)
-        //        {
-        //            ((ToolStripButton)comp).Enabled = false; return;
-        //        }
-        //        if (comp is DataGridView)
-        //        {
-        //            ((DataGridView)comp).Enabled = false; return;
-        //        }
-        //        if(comp is XTextEdit)
-        //        {
-        //            ((XTextEdit)comp)._ReadOnly = true; return;
-        //        }
-        //    }
-        //}
-
         public static XTextBox CreateXTextBoxEdit(this DataGridViewCell dgv_cell, object affected_object, string affected_field)
         {
             XTextBox xtext = new XTextBox();
@@ -806,15 +800,6 @@ namespace XPump.Misc
         {
             return null;
         }
-
-        //public static void SetInlineControlPosition(this Control inline_control, DataGridView dgv)
-        //{
-        //    if (inline_control != null && (dgv.Tag != null && (dgv.Tag.GetType() == typeof(InlineControlGridPosition))))
-        //    {
-        //        Rectangle rect = dgv.GetCellDisplayRectangle(((InlineControlGridPosition)dgv.Tag).ColumnIndex, ((InlineControlGridPosition)dgv.Tag).RowIndex, true);
-        //        inline_control.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 5);
-        //    }
-        //}
 
         public static void SetInlineControlPosition(this Control inline_control, DataGridView dgv, int row_index, int column_index)
         {

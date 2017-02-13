@@ -124,7 +124,7 @@ namespace XPump.SubForm
             if (dt == null)
                 return;
 
-            List<SccompDbf> sccomp = dt.ToList<SccompDbf>();
+            List<SccompDbf> sccomp = dt.ToSccompList(); //ToList<SccompDbf>();
 
             DialogSccompSelection sel = new DialogSccompSelection(this.main_form, sccomp);
             if (sel.ShowDialog() == DialogResult.OK)
