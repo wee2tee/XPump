@@ -112,6 +112,7 @@ namespace CC
         public event EventHandler _ButtonClick;
         public event EventHandler _GotFocus;
         public event EventHandler _Leave;
+        public event EventHandler _DoubleClicked;
 
         public XBrowseBox()
         {
@@ -179,52 +180,52 @@ namespace CC
             if (!this._UseImage)
                 this._btnBrowse.Image = null;
 
-            if(this._BorderStyle == BorderStyle.Fixed3D)
-            {
-                this._textBox.Location = new Point(1, 2);
-            }
-            else if (this._BorderStyle == BorderStyle.FixedSingle)
-            {
-                this._textBox.Location = new Point(2, 3);
-            }
-            else if(this._BorderStyle == BorderStyle.None)
-            {
-                this._textBox.Location = new Point(3, 4);
-            }
+            //if(this._BorderStyle == BorderStyle.Fixed3D)
+            //{
+            //    this._textBox.Location = new Point(1, 2);
+            //}
+            //else if (this._BorderStyle == BorderStyle.FixedSingle)
+            //{
+            //    this._textBox.Location = new Point(2, 3);
+            //}
+            //else if(this._BorderStyle == BorderStyle.None)
+            //{
+            //    this._textBox.Location = new Point(3, 4);
+            //}
 
-            if (this._ReadOnly)
-            {
-                TextFormatFlags flag;
-                if (this._TextAlign == HorizontalAlignment.Right)
-                {
-                    flag = TextFormatFlags.Top | TextFormatFlags.Right | TextFormatFlags.NoClipping | TextFormatFlags.SingleLine;
-                }
-                else if (this._TextAlign == HorizontalAlignment.Center)
-                {
-                    flag = TextFormatFlags.Top | TextFormatFlags.HorizontalCenter | TextFormatFlags.NoClipping | TextFormatFlags.SingleLine;
-                }
-                else
-                {
-                    flag = TextFormatFlags.Top | TextFormatFlags.Left | TextFormatFlags.NoClipping | TextFormatFlags.SingleLine;
-                }
+            //if (this._ReadOnly)
+            //{
+            //    TextFormatFlags flag;
+            //    if (this._TextAlign == HorizontalAlignment.Right)
+            //    {
+            //        flag = TextFormatFlags.Top | TextFormatFlags.Right | TextFormatFlags.NoClipping | TextFormatFlags.SingleLine;
+            //    }
+            //    else if (this._TextAlign == HorizontalAlignment.Center)
+            //    {
+            //        flag = TextFormatFlags.Top | TextFormatFlags.HorizontalCenter | TextFormatFlags.NoClipping | TextFormatFlags.SingleLine;
+            //    }
+            //    else
+            //    {
+            //        flag = TextFormatFlags.Top | TextFormatFlags.Left | TextFormatFlags.NoClipping | TextFormatFlags.SingleLine;
+            //    }
 
-                //TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y + 2, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
-                if (this._BorderStyle == BorderStyle.Fixed3D)
-                {
-                    TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X - 2, e.ClipRectangle.Y + 2, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
-                    return;
-                }
-                else if(this._BorderStyle == BorderStyle.FixedSingle)
-                {
-                    TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X - 1, e.ClipRectangle.Y + 3, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
-                    return;
-                }
-                else if(this._BorderStyle == BorderStyle.None)
-                {
-                    TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y + 4, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
-                    return;
-                }
-            }
+            //    //TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y + 2, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
+            //    if (this._BorderStyle == BorderStyle.Fixed3D)
+            //    {
+            //        TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X - 2, e.ClipRectangle.Y + 2, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
+            //        return;
+            //    }
+            //    else if(this._BorderStyle == BorderStyle.FixedSingle)
+            //    {
+            //        TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X - 1, e.ClipRectangle.Y + 3, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
+            //        return;
+            //    }
+            //    else if(this._BorderStyle == BorderStyle.None)
+            //    {
+            //        TextRenderer.DrawText(e.Graphics, this._Text, this._textBox.Font, new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y + 4, e.ClipRectangle.Width, e.ClipRectangle.Height), this._textBox.ForeColor, flag);
+            //        return;
+            //    }
+            //}
         }
 
         protected override void OnGotFocus(EventArgs e)
@@ -239,6 +240,7 @@ namespace CC
         private void _textBox_TextChanged(object sender, EventArgs e)
         {
             this._text = ((TextBox)sender).Text;
+            this.label1.Text = ((TextBox)sender).Text;
 
             if (this._ReadOnly)
             {
@@ -251,6 +253,7 @@ namespace CC
             this._readonly = ((TextBox)sender).ReadOnly;
             this.TabStop = this._ReadOnly ? false : true;
             ((TextBox)sender).Visible = ((TextBox)sender).ReadOnly ? false : true;
+            this.label1.Visible = !((TextBox)sender).Visible;
 
             if (this._ReadOnly)
             {
@@ -258,7 +261,7 @@ namespace CC
                 this._textBox.BackColor = Color.White;
             }
 
-            this.Refresh();
+            //this.Refresh();
         }
 
         protected void _btnBrowse_Click(object sender, EventArgs e)
@@ -309,6 +312,12 @@ namespace CC
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void label1_DoubleClick(object sender, EventArgs e)
+        {
+            if (this._DoubleClicked != null)
+                this._DoubleClicked(this, e);
         }
     }
 }

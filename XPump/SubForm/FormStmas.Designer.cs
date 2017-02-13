@@ -63,6 +63,15 @@
             this.btnImport = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txtRemark = new CC.XTextEdit();
+            this.txtDescription = new CC.XTextEdit();
+            this.txtName = new CC.XTextEdit();
             this.dgvTank = new CC.XDatagrid();
             this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,7 +89,6 @@
             this.col_section_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dgvNozzle = new CC.XDatagrid();
             this.col_nozzle_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_nozzle_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,25 +97,19 @@
             this.col_nozzle_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_nozzle_isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_nozzle_nozzle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dgvPrice = new CC.XDatagrid();
             this.col_price_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_price_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_price_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_price_unitpr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtRemark = new CC.XTextEdit();
-            this.txtDescription = new CC.XTextEdit();
-            this.txtName = new CC.XTextEdit();
+            this.xBrowseBox1 = new CC.XBrowseBox();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNozzle)).BeginInit();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNozzle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrice)).BeginInit();
             this.SuspendLayout();
             // 
@@ -350,6 +352,116 @@
             this.tabPage1.Text = "แท๊งค์/ช่องเก็บน้ำมันชนิดนี้";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.dgvNozzle);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(699, 309);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "หัวจ่ายสำหรับน้ำมันชนิดนี้";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.dgvPrice);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(699, 309);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "ราคาขายน้ำมันชนิดนี้";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(57, 55);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 16);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "รหัส";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 81);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 16);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "รายละเอียด";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 107);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 16);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "หมายเหตุ";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(536, 50);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // txtRemark
+            // 
+            this.txtRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRemark._MaxLength = 50;
+            this.txtRemark._ReadOnly = false;
+            this.txtRemark._Text = "";
+            this.txtRemark._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtRemark.BackColor = System.Drawing.Color.White;
+            this.txtRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRemark.Location = new System.Drawing.Point(91, 104);
+            this.txtRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtRemark.Name = "txtRemark";
+            this.txtRemark.Size = new System.Drawing.Size(466, 23);
+            this.txtRemark.TabIndex = 2;
+            this.txtRemark._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // txtDescription
+            // 
+            this.txtDescription._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDescription._MaxLength = 50;
+            this.txtDescription._ReadOnly = false;
+            this.txtDescription._Text = "";
+            this.txtDescription._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtDescription.BackColor = System.Drawing.Color.White;
+            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDescription.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDescription.Location = new System.Drawing.Point(91, 78);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(466, 23);
+            this.txtDescription.TabIndex = 1;
+            this.txtDescription._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // txtName
+            // 
+            this.txtName._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName._MaxLength = 20;
+            this.txtName._ReadOnly = false;
+            this.txtName._Text = "";
+            this.txtName._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtName.BackColor = System.Drawing.Color.White;
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtName.Location = new System.Drawing.Point(91, 52);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(197, 23);
+            this.txtName.TabIndex = 0;
+            this.txtName._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
             // dgvTank
             // 
             this.dgvTank.AllowSortByColumnHeaderClicked = false;
@@ -562,17 +674,6 @@
             this.col_section_state.ReadOnly = true;
             this.col_section_state.Visible = false;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.dgvNozzle);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(699, 309);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "หัวจ่ายสำหรับน้ำมันชนิดนี้";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // dgvNozzle
             // 
             this.dgvNozzle.AllowSortByColumnHeaderClicked = false;
@@ -618,7 +719,7 @@
             this.dgvNozzle.RowHeadersVisible = false;
             this.dgvNozzle.RowTemplate.Height = 26;
             this.dgvNozzle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNozzle.Size = new System.Drawing.Size(693, 303);
+            this.dgvNozzle.Size = new System.Drawing.Size(693, 306);
             this.dgvNozzle.StandardTab = true;
             this.dgvNozzle.TabIndex = 1;
             // 
@@ -678,17 +779,6 @@
             this.col_nozzle_nozzle.ReadOnly = true;
             this.col_nozzle_nozzle.Visible = false;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.dgvPrice);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(699, 309);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "ราคาขายน้ำมันชนิดนี้";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
             // dgvPrice
             // 
             this.dgvPrice.AllowSortByColumnHeaderClicked = false;
@@ -731,7 +821,7 @@
             this.dgvPrice.RowHeadersVisible = false;
             this.dgvPrice.RowTemplate.Height = 26;
             this.dgvPrice.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPrice.Size = new System.Drawing.Size(693, 303);
+            this.dgvPrice.Size = new System.Drawing.Size(693, 306);
             this.dgvPrice.StandardTab = true;
             this.dgvPrice.TabIndex = 2;
             // 
@@ -765,89 +855,30 @@
             this.col_price_unitpr.Name = "col_price_unitpr";
             this.col_price_unitpr.ReadOnly = true;
             // 
-            // label1
+            // xBrowseBox1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 55);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 16);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "รหัส";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 16);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "รายละเอียด";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 107);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 16);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "หมายเหตุ";
-            // 
-            // txtRemark
-            // 
-            this.txtRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRemark._MaxLength = 50;
-            this.txtRemark._ReadOnly = false;
-            this.txtRemark._Text = "";
-            this.txtRemark._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtRemark.BackColor = System.Drawing.Color.White;
-            this.txtRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRemark.Location = new System.Drawing.Point(91, 104);
-            this.txtRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(466, 23);
-            this.txtRemark.TabIndex = 2;
-            this.txtRemark.DoubleClick += new System.EventHandler(this.PerformEdit);
-            // 
-            // txtDescription
-            // 
-            this.txtDescription._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDescription._MaxLength = 50;
-            this.txtDescription._ReadOnly = false;
-            this.txtDescription._Text = "";
-            this.txtDescription._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtDescription.BackColor = System.Drawing.Color.White;
-            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDescription.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDescription.Location = new System.Drawing.Point(91, 78);
-            this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(466, 23);
-            this.txtDescription.TabIndex = 1;
-            this.txtDescription.DoubleClick += new System.EventHandler(this.PerformEdit);
-            // 
-            // txtName
-            // 
-            this.txtName._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName._MaxLength = 20;
-            this.txtName._ReadOnly = false;
-            this.txtName._Text = "";
-            this.txtName._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtName.BackColor = System.Drawing.Color.White;
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtName.Location = new System.Drawing.Point(91, 52);
-            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(197, 23);
-            this.txtName.TabIndex = 0;
-            this.txtName.DoubleClick += new System.EventHandler(this.PerformEdit);
+            this.xBrowseBox1._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.xBrowseBox1._ReadOnly = false;
+            this.xBrowseBox1._Text = "";
+            this.xBrowseBox1._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.xBrowseBox1._UseImage = true;
+            this.xBrowseBox1.BackColor = System.Drawing.Color.White;
+            this.xBrowseBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.xBrowseBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.xBrowseBox1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.xBrowseBox1.Location = new System.Drawing.Point(412, 50);
+            this.xBrowseBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.xBrowseBox1.Name = "xBrowseBox1";
+            this.xBrowseBox1.Size = new System.Drawing.Size(118, 23);
+            this.xBrowseBox1.TabIndex = 7;
             // 
             // FormStmas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 482);
+            this.Controls.Add(this.xBrowseBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.txtRemark);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtName);
@@ -868,10 +899,10 @@
             this.toolStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).EndInit();
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNozzle)).EndInit();
             this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNozzle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrice)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -941,5 +972,7 @@
         private System.Windows.Forms.ToolStripButton btnRename;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.Button button1;
+        private CC.XBrowseBox xBrowseBox1;
     }
 }

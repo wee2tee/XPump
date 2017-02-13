@@ -30,6 +30,7 @@
         {
             this.btnShowCalendar = new System.Windows.Forms.Button();
             this.txtDate = new System.Windows.Forms.MaskedTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnShowCalendar
@@ -59,14 +60,28 @@
             this.txtDate.TabIndex = 3;
             this.txtDate.ValidatingType = typeof(System.DateTime);
             this.txtDate.TextChanged += new System.EventHandler(this.txtDate_TextChanged);
+            this.txtDate.VisibleChanged += new System.EventHandler(this.txtDate_VisibleChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Location = new System.Drawing.Point(0, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 16);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "  /  /    ";
+            this.label1.Visible = false;
+            this.label1.DoubleClick += new System.EventHandler(this.label1_DoubleClick);
             // 
             // XDatePicker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.txtDate);
             this.Controls.Add(this.btnShowCalendar);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtDate);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "XDatePicker";
@@ -80,5 +95,6 @@
         #endregion
         private System.Windows.Forms.Button btnShowCalendar;
         private System.Windows.Forms.MaskedTextBox txtDate;
+        private System.Windows.Forms.Label label1;
     }
 }

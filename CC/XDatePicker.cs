@@ -74,6 +74,7 @@ namespace CC
         public event EventHandler _SelectedDateChanged;
         public event EventHandler _GotFocus;
         public event EventHandler _Leave;
+        public event EventHandler _DoubleClicked;
 
         public XDatePicker()
         {
@@ -97,9 +98,9 @@ namespace CC
             base.OnPaint(e);
             if (this.is_read_only)
             {
-                string str_date = this.selected_date.HasValue ? this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat) : "  /  /    ";
+                //string str_date = this.selected_date.HasValue ? this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat) : "  /  /    ";
 
-                TextRenderer.DrawText(e.Graphics, str_date, this.txtDate.Font, new Point(0, 2), this.txtDate.ForeColor);
+                //TextRenderer.DrawText(e.Graphics, str_date, this.txtDate.Font, new Point(0, 2), this.txtDate.ForeColor);
             }
         }
 
@@ -181,6 +182,8 @@ namespace CC
                 this.selected_date = null;
             }
 
+            this.label1.Text = ((MaskedTextBox)sender).Text;
+
             if (this._SelectedDateChanged != null)
                 this._SelectedDateChanged(this, e);
         }
@@ -201,6 +204,17 @@ namespace CC
         {
             if (this._SelectedDateChanged != null)
                 this._SelectedDateChanged(this, e);
+        }
+
+        private void txtDate_VisibleChanged(object sender, EventArgs e)
+        {
+            this.label1.Visible = !(((MaskedTextBox)sender).Visible);
+        }
+
+        private void label1_DoubleClick(object sender, EventArgs e)
+        {
+            if (this._DoubleClicked != null)
+                this._DoubleClicked(this, e);
         }
     }
 }

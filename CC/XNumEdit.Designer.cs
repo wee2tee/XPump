@@ -38,6 +38,11 @@
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
             // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(0, 3);
+            this.label1.Size = new System.Drawing.Size(89, 18);
+            // 
             // XNumEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);

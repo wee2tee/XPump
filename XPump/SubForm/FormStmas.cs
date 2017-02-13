@@ -604,5 +604,10 @@ namespace XPump.SubForm
                 this.btnRefresh.PerformClick();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.xBrowseBox1._ReadOnly = !this.xBrowseBox1._ReadOnly;
+        }
     }
 }

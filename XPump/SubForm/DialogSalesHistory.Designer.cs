@@ -70,6 +70,13 @@
             this.lblSaleDate = new System.Windows.Forms.Label();
             this.lblShiftName = new System.Windows.Forms.Label();
             this.dgvPrice = new CC.XDatagrid();
+            this.col_price_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_price_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_unitpr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label25 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -101,13 +108,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.col_price_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_price_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_unitpr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNozzle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrice)).BeginInit();
@@ -545,6 +545,71 @@
             this.dgvPrice.TabIndex = 41;
             this.dgvPrice.Paint += new System.Windows.Forms.PaintEventHandler(this.dgvPrice_Paint);
             // 
+            // col_price_id
+            // 
+            this.col_price_id.DataPropertyName = "id";
+            this.col_price_id.HeaderText = "ID";
+            this.col_price_id.Name = "col_price_id";
+            this.col_price_id.ReadOnly = true;
+            this.col_price_id.Visible = false;
+            // 
+            // col_price_stmas_id
+            // 
+            this.col_price_stmas_id.DataPropertyName = "stmas_id";
+            this.col_price_stmas_id.HeaderText = "Stmas ID";
+            this.col_price_stmas_id.Name = "col_price_stmas_id";
+            this.col_price_stmas_id.ReadOnly = true;
+            this.col_price_stmas_id.Visible = false;
+            // 
+            // col_price_stkcod
+            // 
+            this.col_price_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_price_stkcod.DataPropertyName = "stkcod";
+            dataGridViewCellStyle9.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.col_price_stkcod.DefaultCellStyle = dataGridViewCellStyle9;
+            this.col_price_stkcod.HeaderText = "รหัสสินค้า";
+            this.col_price_stkcod.MinimumWidth = 40;
+            this.col_price_stkcod.Name = "col_price_stkcod";
+            this.col_price_stkcod.ReadOnly = true;
+            // 
+            // col_price_stkdes
+            // 
+            this.col_price_stkdes.DataPropertyName = "stkdes";
+            this.col_price_stkdes.HeaderText = "Stkdes";
+            this.col_price_stkdes.Name = "col_price_stkdes";
+            this.col_price_stkdes.ReadOnly = true;
+            this.col_price_stkdes.Visible = false;
+            // 
+            // col_price_price_date
+            // 
+            this.col_price_price_date.DataPropertyName = "price_date";
+            this.col_price_price_date.HeaderText = "Price Date";
+            this.col_price_price_date.Name = "col_price_price_date";
+            this.col_price_price_date.ReadOnly = true;
+            this.col_price_price_date.Visible = false;
+            // 
+            // col_price_unitpr
+            // 
+            this.col_price_unitpr.DataPropertyName = "unitpr";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "N2";
+            dataGridViewCellStyle10.NullValue = null;
+            this.col_price_unitpr.DefaultCellStyle = dataGridViewCellStyle10;
+            this.col_price_unitpr.HeaderText = "ราคา/ลิตร";
+            this.col_price_unitpr.MinimumWidth = 50;
+            this.col_price_unitpr.Name = "col_price_unitpr";
+            this.col_price_unitpr.ReadOnly = true;
+            this.col_price_unitpr.Width = 50;
+            // 
+            // col_price_currency
+            // 
+            this.col_price_currency.DataPropertyName = "currency";
+            this.col_price_currency.HeaderText = "หน่วย";
+            this.col_price_currency.MinimumWidth = 35;
+            this.col_price_currency.Name = "col_price_currency";
+            this.col_price_currency.ReadOnly = true;
+            this.col_price_currency.Width = 35;
+            // 
             // label25
             // 
             this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -655,7 +720,7 @@
             this.numPurvat.Size = new System.Drawing.Size(110, 23);
             this.numPurvat.TabIndex = 66;
             this.numPurvat._ValueChanged += new System.EventHandler(this.numPurvat__ValueChanged);
-            this.numPurvat.DoubleClick += new System.EventHandler(this.PerformEditSummary);
+            this.numPurvat._DoubleClicked += new System.EventHandler(this.PerformEditSummary);
             // 
             // numDother
             // 
@@ -688,7 +753,7 @@
             this.numDother.Size = new System.Drawing.Size(110, 23);
             this.numDother.TabIndex = 64;
             this.numDother._ValueChanged += new System.EventHandler(this.numDother__ValueChanged);
-            this.numDother.DoubleClick += new System.EventHandler(this.PerformEditSummary);
+            this.numDother._DoubleClicked += new System.EventHandler(this.PerformEditSummary);
             // 
             // numDdisc
             // 
@@ -721,7 +786,7 @@
             this.numDdisc.Size = new System.Drawing.Size(110, 23);
             this.numDdisc.TabIndex = 65;
             this.numDdisc._ValueChanged += new System.EventHandler(this.numDdisc__ValueChanged);
-            this.numDdisc.DoubleClick += new System.EventHandler(this.PerformEditSummary);
+            this.numDdisc._DoubleClicked += new System.EventHandler(this.PerformEditSummary);
             // 
             // numDtest
             // 
@@ -754,7 +819,7 @@
             this.numDtest.Size = new System.Drawing.Size(110, 23);
             this.numDtest.TabIndex = 62;
             this.numDtest._ValueChanged += new System.EventHandler(this.numDtest__ValueChanged);
-            this.numDtest.DoubleClick += new System.EventHandler(this.PerformEditSummary);
+            this.numDtest._DoubleClicked += new System.EventHandler(this.PerformEditSummary);
             // 
             // txtDother
             // 
@@ -773,7 +838,7 @@
             this.txtDother.Size = new System.Drawing.Size(80, 23);
             this.txtDother.TabIndex = 63;
             this.txtDother._TextChanged += new System.EventHandler(this.txtDother__TextChanged);
-            this.txtDother.DoubleClick += new System.EventHandler(this.PerformEditSummary);
+            this.txtDother._DoubleClicked += new System.EventHandler(this.PerformEditSummary);
             // 
             // label14
             // 
@@ -1019,71 +1084,6 @@
             this.label2.Size = new System.Drawing.Size(177, 16);
             this.label2.TabIndex = 39;
             this.label2.Text = "บันทึกปริมาณการขาย <F8>";
-            // 
-            // col_price_id
-            // 
-            this.col_price_id.DataPropertyName = "id";
-            this.col_price_id.HeaderText = "ID";
-            this.col_price_id.Name = "col_price_id";
-            this.col_price_id.ReadOnly = true;
-            this.col_price_id.Visible = false;
-            // 
-            // col_price_stmas_id
-            // 
-            this.col_price_stmas_id.DataPropertyName = "stmas_id";
-            this.col_price_stmas_id.HeaderText = "Stmas ID";
-            this.col_price_stmas_id.Name = "col_price_stmas_id";
-            this.col_price_stmas_id.ReadOnly = true;
-            this.col_price_stmas_id.Visible = false;
-            // 
-            // col_price_stkcod
-            // 
-            this.col_price_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_price_stkcod.DataPropertyName = "stkcod";
-            dataGridViewCellStyle9.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.col_price_stkcod.DefaultCellStyle = dataGridViewCellStyle9;
-            this.col_price_stkcod.HeaderText = "รหัสสินค้า";
-            this.col_price_stkcod.MinimumWidth = 40;
-            this.col_price_stkcod.Name = "col_price_stkcod";
-            this.col_price_stkcod.ReadOnly = true;
-            // 
-            // col_price_stkdes
-            // 
-            this.col_price_stkdes.DataPropertyName = "stkdes";
-            this.col_price_stkdes.HeaderText = "Stkdes";
-            this.col_price_stkdes.Name = "col_price_stkdes";
-            this.col_price_stkdes.ReadOnly = true;
-            this.col_price_stkdes.Visible = false;
-            // 
-            // col_price_price_date
-            // 
-            this.col_price_price_date.DataPropertyName = "price_date";
-            this.col_price_price_date.HeaderText = "Price Date";
-            this.col_price_price_date.Name = "col_price_price_date";
-            this.col_price_price_date.ReadOnly = true;
-            this.col_price_price_date.Visible = false;
-            // 
-            // col_price_unitpr
-            // 
-            this.col_price_unitpr.DataPropertyName = "unitpr";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "N2";
-            dataGridViewCellStyle10.NullValue = null;
-            this.col_price_unitpr.DefaultCellStyle = dataGridViewCellStyle10;
-            this.col_price_unitpr.HeaderText = "ราคา/ลิตร";
-            this.col_price_unitpr.MinimumWidth = 50;
-            this.col_price_unitpr.Name = "col_price_unitpr";
-            this.col_price_unitpr.ReadOnly = true;
-            this.col_price_unitpr.Width = 50;
-            // 
-            // col_price_currency
-            // 
-            this.col_price_currency.DataPropertyName = "currency";
-            this.col_price_currency.HeaderText = "หน่วย";
-            this.col_price_currency.MinimumWidth = 35;
-            this.col_price_currency.Name = "col_price_currency";
-            this.col_price_currency.ReadOnly = true;
-            this.col_price_currency.Width = 35;
             // 
             // DialogSalesHistory
             // 

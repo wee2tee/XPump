@@ -205,6 +205,7 @@ namespace CC
                 if (textbox_str == "." && this._DecimalDigit > 0)
                 {
                     ((TextBox)sender).Text = string.Format(this.num_format, 0);
+                    //this.label1.Text = string.Format(this.num_format, 0);
                     this._Value = 0m;
                     ((TextBox)sender).SelectionStart = 2;
                     return;
@@ -215,6 +216,7 @@ namespace CC
                 if (test_dec >= 0 && test_dec <= 9)
                 {
                     ((TextBox)sender).Text = string.Format(this.num_format, test_dec);
+                    //this.label1.Text = string.Format(this.num_format, test_dec);
                     this._Value = test_dec;
                     ((TextBox)sender).SelectionStart = 1;
                     return;
@@ -291,6 +293,8 @@ namespace CC
                     ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length - this.last_caret_position_from_right;
                 }
             }
+
+            //this.label1.Text = this.textBox1.Text;
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)

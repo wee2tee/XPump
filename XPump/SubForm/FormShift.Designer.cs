@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -250,6 +250,7 @@
             this.inline_siv._ReadOnly = false;
             this.inline_siv._SelectedItem = null;
             this.inline_siv._Text = "";
+            this.inline_siv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_siv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.inline_siv.Location = new System.Drawing.Point(754, 90);
             this.inline_siv.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -264,6 +265,7 @@
             this.inline_shs._ReadOnly = false;
             this.inline_shs._SelectedItem = null;
             this.inline_shs._Text = "";
+            this.inline_shs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_shs.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.inline_shs.Location = new System.Drawing.Point(685, 90);
             this.inline_shs.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -278,6 +280,7 @@
             this.inline_sai._ReadOnly = false;
             this.inline_sai._SelectedItem = null;
             this.inline_sai._Text = "";
+            this.inline_sai.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_sai.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.inline_sai.Location = new System.Drawing.Point(615, 90);
             this.inline_sai.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -292,6 +295,7 @@
             this.inline_prr._ReadOnly = false;
             this.inline_prr._SelectedItem = null;
             this.inline_prr._Text = "";
+            this.inline_prr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_prr.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.inline_prr.Location = new System.Drawing.Point(544, 90);
             this.inline_prr.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -306,6 +310,7 @@
             this.inline_php._ReadOnly = false;
             this.inline_php._SelectedItem = null;
             this.inline_php._Text = "";
+            this.inline_php.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_php.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.inline_php.Location = new System.Drawing.Point(475, 90);
             this.inline_php.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -320,6 +325,7 @@
             this.inline_pae._ReadOnly = false;
             this.inline_pae._SelectedItem = null;
             this.inline_pae._Text = "";
+            this.inline_pae.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_pae.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.inline_pae.Location = new System.Drawing.Point(406, 90);
             this.inline_pae.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -395,14 +401,14 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.ColumnHeadersHeight = 40;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -420,14 +426,14 @@
             this.col_remark,
             this.col_state,
             this.col_shift});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -470,8 +476,8 @@
             // col_start
             // 
             this.col_start.DataPropertyName = "starttime";
-            dataGridViewCellStyle6.NullValue = null;
-            this.col_start.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.NullValue = null;
+            this.col_start.DefaultCellStyle = dataGridViewCellStyle2;
             this.col_start.HeaderText = "เวลาเริ่มต้น";
             this.col_start.MinimumWidth = 80;
             this.col_start.Name = "col_start";
@@ -481,8 +487,8 @@
             // col_end
             // 
             this.col_end.DataPropertyName = "endtime";
-            dataGridViewCellStyle7.NullValue = null;
-            this.col_end.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.NullValue = null;
+            this.col_end.DefaultCellStyle = dataGridViewCellStyle3;
             this.col_end.HeaderText = "เวลาสิ้นสุด";
             this.col_end.MinimumWidth = 80;
             this.col_end.Name = "col_end";
@@ -618,6 +624,16 @@
         private System.Windows.Forms.ToolStripButton btnRefresh;
         private CC.XDatagrid dgv;
         private System.Windows.Forms.Panel panel1;
+        private CC.XTimePicker inline_end;
+        private CC.XTimePicker inline_start;
+        private CC.XTextEdit inline_desc;
+        private CC.XTextEdit inline_name;
+        private CC.XDropdownList inline_siv;
+        private CC.XDropdownList inline_shs;
+        private CC.XDropdownList inline_sai;
+        private CC.XDropdownList inline_prr;
+        private CC.XDropdownList inline_php;
+        private CC.XDropdownList inline_pae;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_start;
@@ -632,15 +648,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_remark;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_state;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_shift;
-        private CC.XTimePicker inline_end;
-        private CC.XTimePicker inline_start;
-        private CC.XTextEdit inline_desc;
-        private CC.XTextEdit inline_name;
-        private CC.XDropdownList inline_siv;
-        private CC.XDropdownList inline_shs;
-        private CC.XDropdownList inline_sai;
-        private CC.XDropdownList inline_prr;
-        private CC.XDropdownList inline_php;
-        private CC.XDropdownList inline_pae;
     }
 }
