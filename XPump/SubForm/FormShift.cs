@@ -387,6 +387,11 @@ namespace XPump.SubForm
                 ((XDatagrid)sender).SortByColumn<shiftVM>(e.ColumnIndex);
                 return;
             }
+            else
+            {
+                ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_name.Name].Selected = true;
+                this.curr_shift = (shift)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_shift.Name].Value;
+            }
         }
 
         private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
