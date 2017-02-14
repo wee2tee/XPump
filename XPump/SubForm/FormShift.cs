@@ -216,7 +216,7 @@ namespace XPump.SubForm
                     return;
                 }
             }
-
+            this.RemoveInlineControl();
             this.main_form.opened_child_form.Remove(this.main_form.opened_child_form.Where(f => f.form.GetType() == this.GetType()).First());
             base.OnFormClosing(e);
         }

@@ -87,11 +87,6 @@ namespace XPump
             this.opened_child_form.Add(new ChildFormDetail() { form = stmas, docPrefix = string.Empty });
         }
 
-        private void mnuSupplier_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void MnuShiftTransaction_Click(object sender, EventArgs e)
         {
             //DialogPrice price = new DialogPrice(this);
@@ -119,11 +114,6 @@ namespace XPump
             trans.MdiParent = this;
             trans.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = trans, docPrefix = string.Empty });
-        }
-
-        private void mnuRcvStock_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void mnuSettings_Click(object sender, EventArgs e)

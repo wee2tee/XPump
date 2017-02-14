@@ -184,6 +184,12 @@
     <Compile Include="SubForm\DialogPrice.Designer.cs">
       <DependentUpon>DialogPrice.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogPrintSetupA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogPrintSetupA.Designer.cs">
+      <DependentUpon>DialogPrintSetupA.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogSalesHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,6 +237,12 @@
     </Compile>
     <Compile Include="SubForm\DialogStmasImportSelection.Designer.cs">
       <DependentUpon>DialogStmasImportSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormPrintPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormPrintPreview.Designer.cs">
+      <DependentUpon>FormPrintPreview.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm\FormShiftTransaction.cs">
       <SubType>Form</SubType>
@@ -302,6 +314,9 @@
     <EmbeddedResource Include="SubForm\DialogPrice.resx">
       <DependentUpon>DialogPrice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogPrintSetupA.resx">
+      <DependentUpon>DialogPrintSetupA.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSalesHistory.resx">
       <DependentUpon>DialogSalesHistory.cs</DependentUpon>
     </EmbeddedResource>
@@ -325,6 +340,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogStmasImportSelection.resx">
       <DependentUpon>DialogStmasImportSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormPrintPreview.resx">
+      <DependentUpon>FormPrintPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormShiftTransaction.resx">
       <DependentUpon>FormShiftTransaction.cs</DependentUpon>
@@ -455,6 +473,15 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\zoom_fit_16.png" />
+    <None Include="Resources\last_16.png" />
+    <None Include="Resources\next_16.png" />
+    <None Include="Resources\previous_16.png" />
+    <None Include="Resources\first_16.png" />
+    <None Include="Resources\zoom_out_16.png" />
+    <None Include="Resources\zoom_in_16.png" />
+    <None Include="Resources\printer_small.png" />
+    <None Include="Resources\printer.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

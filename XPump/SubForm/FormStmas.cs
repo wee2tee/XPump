@@ -20,7 +20,7 @@ namespace XPump.SubForm
         private MainForm main_form;
         private BindingSource bs_section;
         private BindingSource bs_nozzle;
-        private BindingSource bs_price;
+        private BindingSource bs_sales;
         private stmas curr_stmas; // current displayed stmas
         private stmas temp_stmas;
         private FORM_MODE form_mode;
@@ -45,10 +45,10 @@ namespace XPump.SubForm
 
             this.bs_section = new BindingSource();
             this.bs_nozzle = new BindingSource();
-            this.bs_price = new BindingSource();
+            this.bs_sales = new BindingSource();
             this.dgvTank.DataSource = this.bs_section;
             this.dgvNozzle.DataSource = this.bs_nozzle;
-            this.dgvPrice.DataSource = this.bs_price;
+            this.dgvSales.DataSource = this.bs_sales;
 
             this.BindingCustomControlEventHandler();
 
@@ -166,6 +166,9 @@ namespace XPump.SubForm
 
             this.bs_nozzle.ResetBindings(true);
             this.bs_nozzle.DataSource = this.GetNozzleBySectionList(stmas.section).ToViewModel();
+
+            this.bs_sales.ResetBindings(true);
+            this.bs_sales.DataSource = stmas.saleshistory.Where(s => s.salqty != 0).ToViewModel().OrderBy(s => s.saldat).ThenBy(s => s.shift_name).ThenBy(s => s.nozzle_name).ToList();
         }
 
         private void dgvTank_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -603,11 +606,6 @@ namespace XPump.SubForm
             {
                 this.btnRefresh.PerformClick();
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.xBrowseBox1._ReadOnly = !this.xBrowseBox1._ReadOnly;
         }
     }
 }

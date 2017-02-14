@@ -10,6 +10,7 @@ using XPump.Model;
 using XPump.Misc;
 using CC;
 using System.Globalization;
+using System.Drawing.Printing;
 
 namespace XPump.SubForm
 {
@@ -22,6 +23,9 @@ namespace XPump.SubForm
         public salessummary curr_salessummary;
         private BindingSource bs;
         private FORM_MODE form_mode;
+        private PrintDialog printDialog;
+        private PrintDocument printDocument;
+        private PrintPreviewControl printPreviewControl;
 
         public FormShiftTransaction(MainForm main_form)
         {
@@ -292,6 +296,13 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if(this.tmp_shiftsales.shift_id == -1)
+            {
+                this.brShift.Focus();
+                SendKeys.Send("{F6}");
+                return;
+            }
+
             if(this.form_mode == FORM_MODE.ADD)
             {
                 DialogPrice price = new DialogPrice(this.main_form);
@@ -437,6 +448,69 @@ namespace XPump.SubForm
             }
         }
 
+        private void btnPrint_ButtonClick(object sender, EventArgs e)
+        {
+            this.btnPrintA.PerformClick();
+        }
+
+        private void btnPrintA_Click(object sender, EventArgs e)
+        {
+            DialogPrintSetupA print = new DialogPrintSetupA();
+            if(print.ShowDialog() == DialogResult.OK)
+            {
+                int page = 0;
+                this.printDocument = new PrintDocument();
+                this.printDocument.BeginPrint += delegate (object obj_sender, PrintEventArgs pe)
+                {
+                    page = 0;
+                };
+                this.printDocument.PrintPage += delegate (object obj_sender, PrintPageEventArgs ppe)
+                {
+                    page++;
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        ppe.Graphics.DrawString(page.ToString(), this.Font, new SolidBrush(Color.Red), new Point(30, 30));
+
+                    }
+
+                    ppe.HasMorePages = page < 9 ? true : false;
+                };
+
+                if (print.output == PRINT_OUTPUT.SCREEN)
+                {
+                    FormPrintPreview fp = new FormPrintPreview(this.printDocument);
+                    fp.MdiParent = this.main_form;
+                    fp.Show();
+                }
+
+                if(print.output == PRINT_OUTPUT.PRINTER)
+                {
+                    PrintDialog pd = new PrintDialog();
+                    pd.Document = this.printDocument;
+                    if(pd.ShowDialog() == DialogResult.OK)
+                    {
+                        pd.Document.Print();
+                    }
+                    //pd = new PrintDialog();
+                    //pd.Document = 
+                    //pd.ShowDialog();
+                }
+            }
+        }
+
+        
+
+        private void btnPrintB_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPrintC_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void dtSaldat__SelectedDateChanged(object sender, EventArgs e)
         {
             if (this.tmp_shiftsales != null)
@@ -474,11 +548,11 @@ namespace XPump.SubForm
                 if (this.tmp_shiftsales != null)
                     this.tmp_shiftsales.shift_id = -1;
 
-                ((XBrowseBox)sender).Focus();
+                //((XBrowseBox)sender).Focus();
             }
             else
             {
-                string txt = ((XBrowseBox)sender)._Text;
+                string txt = ((XBrowseBox)sender)._Text.Trim();
 
                 shift shift = DialogShiftSelector.GetShiftList().Where(s => s.name == txt).FirstOrDefault();
                 if(shift != null)
@@ -714,6 +788,23 @@ namespace XPump.SubForm
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            if(keyData == Keys.Enter)
+            {
+                if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                {
+                    if (this.brShift._Focused)
+                    {
+                        this.btnSave.PerformClick();
+                        return true;
+                    }
+                    else
+                    {
+                        SendKeys.Send("{TAB}");
+                        return true;
+                    }
+                }
+            }
+
             if (keyData == (Keys.Alt | Keys.A))
             {
                 this.btnAdd.PerformClick();
@@ -822,5 +913,7 @@ namespace XPump.SubForm
 
             ((Control)sender).Focus();
         }
+
+        int print_page = 0;
     }
 }

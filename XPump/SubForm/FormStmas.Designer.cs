@@ -39,7 +39,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -63,15 +67,6 @@
             this.btnImport = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.txtRemark = new CC.XTextEdit();
-            this.txtDescription = new CC.XTextEdit();
-            this.txtName = new CC.XTextEdit();
             this.dgvTank = new CC.XDatagrid();
             this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,6 +84,7 @@
             this.col_section_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dgvNozzle = new CC.XDatagrid();
             this.col_nozzle_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_nozzle_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,20 +93,40 @@
             this.col_nozzle_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_nozzle_isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_nozzle_nozzle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvPrice = new CC.XDatagrid();
-            this.col_price_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_unitpr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.xBrowseBox1 = new CC.XBrowseBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dgvSales = new CC.XDatagrid();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtRemark = new CC.XTextEdit();
+            this.txtDescription = new CC.XTextEdit();
+            this.txtName = new CC.XTextEdit();
+            this.col_sales_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_saldat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_shift_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_nozzle_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_mitbeg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_mitend = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_salqty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_unitpr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_salval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_shift_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_nozzle_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_pricelist_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_salessummary_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_price_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sales_saleshistory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).BeginInit();
+            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNozzle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPrice)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSales)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -349,118 +365,8 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(699, 309);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "แท๊งค์/ช่องเก็บน้ำมันชนิดนี้";
+            this.tabPage1.Text = "แท๊งค์/ช่องเก็บน้ำมัน";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.dgvNozzle);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(699, 309);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "หัวจ่ายสำหรับน้ำมันชนิดนี้";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.dgvPrice);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(699, 309);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "ราคาขายน้ำมันชนิดนี้";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 55);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 16);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "รหัส";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 16);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "รายละเอียด";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 107);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 16);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "หมายเหตุ";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(536, 50);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // txtRemark
-            // 
-            this.txtRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRemark._MaxLength = 50;
-            this.txtRemark._ReadOnly = false;
-            this.txtRemark._Text = "";
-            this.txtRemark._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtRemark.BackColor = System.Drawing.Color.White;
-            this.txtRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRemark.Location = new System.Drawing.Point(91, 104);
-            this.txtRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(466, 23);
-            this.txtRemark.TabIndex = 2;
-            this.txtRemark._DoubleClicked += new System.EventHandler(this.PerformEdit);
-            // 
-            // txtDescription
-            // 
-            this.txtDescription._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDescription._MaxLength = 50;
-            this.txtDescription._ReadOnly = false;
-            this.txtDescription._Text = "";
-            this.txtDescription._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtDescription.BackColor = System.Drawing.Color.White;
-            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDescription.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDescription.Location = new System.Drawing.Point(91, 78);
-            this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(466, 23);
-            this.txtDescription.TabIndex = 1;
-            this.txtDescription._DoubleClicked += new System.EventHandler(this.PerformEdit);
-            // 
-            // txtName
-            // 
-            this.txtName._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName._MaxLength = 20;
-            this.txtName._ReadOnly = false;
-            this.txtName._Text = "";
-            this.txtName._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtName.BackColor = System.Drawing.Color.White;
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtName.Location = new System.Drawing.Point(91, 52);
-            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(197, 23);
-            this.txtName.TabIndex = 0;
-            this.txtName._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // dgvTank
             // 
@@ -674,6 +580,17 @@
             this.col_section_state.ReadOnly = true;
             this.col_section_state.Visible = false;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.dgvNozzle);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(699, 309);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "หัวจ่ายน้ำมัน";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // dgvNozzle
             // 
             this.dgvNozzle.AllowSortByColumnHeaderClicked = false;
@@ -719,7 +636,7 @@
             this.dgvNozzle.RowHeadersVisible = false;
             this.dgvNozzle.RowTemplate.Height = 26;
             this.dgvNozzle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNozzle.Size = new System.Drawing.Size(693, 306);
+            this.dgvNozzle.Size = new System.Drawing.Size(693, 303);
             this.dgvNozzle.StandardTab = true;
             this.dgvNozzle.TabIndex = 1;
             // 
@@ -779,13 +696,24 @@
             this.col_nozzle_nozzle.ReadOnly = true;
             this.col_nozzle_nozzle.Visible = false;
             // 
-            // dgvPrice
+            // tabPage3
             // 
-            this.dgvPrice.AllowSortByColumnHeaderClicked = false;
-            this.dgvPrice.AllowUserToAddRows = false;
-            this.dgvPrice.AllowUserToDeleteRows = false;
-            this.dgvPrice.AllowUserToResizeColumns = false;
-            this.dgvPrice.AllowUserToResizeRows = false;
+            this.tabPage3.Controls.Add(this.dgvSales);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(699, 309);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "สรุปรายการขาย";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dgvSales
+            // 
+            this.dgvSales.AllowSortByColumnHeaderClicked = false;
+            this.dgvSales.AllowUserToAddRows = false;
+            this.dgvSales.AllowUserToDeleteRows = false;
+            this.dgvSales.AllowUserToResizeColumns = false;
+            this.dgvSales.AllowUserToResizeRows = false;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.Color.PeachPuff;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -793,92 +721,299 @@
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPrice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
-            this.dgvPrice.ColumnHeadersHeight = 28;
-            this.dgvPrice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvPrice.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_price_id,
-            this.col_price_date,
-            this.col_price_time,
-            this.col_price_unitpr});
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPrice.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dgvPrice.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvPrice.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvPrice.EnableHeadersVisualStyles = false;
-            this.dgvPrice.FillEmptyRow = false;
-            this.dgvPrice.FocusedRowBorderRedLine = true;
-            this.dgvPrice.Location = new System.Drawing.Point(3, 3);
-            this.dgvPrice.MultiSelect = false;
-            this.dgvPrice.Name = "dgvPrice";
-            this.dgvPrice.ReadOnly = true;
-            this.dgvPrice.RowHeadersVisible = false;
-            this.dgvPrice.RowTemplate.Height = 26;
-            this.dgvPrice.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPrice.Size = new System.Drawing.Size(693, 306);
-            this.dgvPrice.StandardTab = true;
-            this.dgvPrice.TabIndex = 2;
+            this.dgvSales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dgvSales.ColumnHeadersHeight = 28;
+            this.dgvSales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvSales.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_sales_id,
+            this.col_sales_saldat,
+            this.col_sales_shift_name,
+            this.col_sales_nozzle_name,
+            this.col_sales_mitbeg,
+            this.col_sales_mitend,
+            this.col_sales_salqty,
+            this.col_sales_unitpr,
+            this.col_sales_salval,
+            this.col_sales_shift_id,
+            this.col_sales_nozzle_id,
+            this.col_sales_stmas_id,
+            this.col_sales_pricelist_id,
+            this.col_sales_salessummary_id,
+            this.col_sales_price_date,
+            this.col_sales_stkcod,
+            this.col_sales_stkdes,
+            this.col_sales_saleshistory});
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSales.DefaultCellStyle = dataGridViewCellStyle15;
+            this.dgvSales.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSales.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvSales.EnableHeadersVisualStyles = false;
+            this.dgvSales.FillEmptyRow = false;
+            this.dgvSales.FocusedRowBorderRedLine = true;
+            this.dgvSales.Location = new System.Drawing.Point(3, 3);
+            this.dgvSales.MultiSelect = false;
+            this.dgvSales.Name = "dgvSales";
+            this.dgvSales.ReadOnly = true;
+            this.dgvSales.RowHeadersVisible = false;
+            this.dgvSales.RowTemplate.Height = 26;
+            this.dgvSales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSales.Size = new System.Drawing.Size(693, 303);
+            this.dgvSales.StandardTab = true;
+            this.dgvSales.TabIndex = 2;
             // 
-            // col_price_id
+            // label1
             // 
-            this.col_price_id.HeaderText = "ID";
-            this.col_price_id.Name = "col_price_id";
-            this.col_price_id.ReadOnly = true;
-            this.col_price_id.Visible = false;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(57, 55);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 16);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "รหัส";
             // 
-            // col_price_date
+            // label2
             // 
-            this.col_price_date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_price_date.DataPropertyName = "date";
-            this.col_price_date.HeaderText = "วันที่";
-            this.col_price_date.Name = "col_price_date";
-            this.col_price_date.ReadOnly = true;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 81);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 16);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "รายละเอียด";
             // 
-            // col_price_time
+            // label3
             // 
-            this.col_price_time.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_price_time.DataPropertyName = "time";
-            this.col_price_time.HeaderText = "เวลา";
-            this.col_price_time.Name = "col_price_time";
-            this.col_price_time.ReadOnly = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 107);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 16);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "หมายเหตุ";
             // 
-            // col_price_unitpr
+            // txtRemark
             // 
-            this.col_price_unitpr.DataPropertyName = "unitpr";
-            this.col_price_unitpr.HeaderText = "ราคาขาย/ลิตร";
-            this.col_price_unitpr.Name = "col_price_unitpr";
-            this.col_price_unitpr.ReadOnly = true;
+            this.txtRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRemark._MaxLength = 50;
+            this.txtRemark._ReadOnly = false;
+            this.txtRemark._Text = "";
+            this.txtRemark._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtRemark.BackColor = System.Drawing.Color.White;
+            this.txtRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRemark.Location = new System.Drawing.Point(91, 104);
+            this.txtRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtRemark.Name = "txtRemark";
+            this.txtRemark.Size = new System.Drawing.Size(466, 23);
+            this.txtRemark.TabIndex = 2;
+            this.txtRemark._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
-            // xBrowseBox1
+            // txtDescription
             // 
-            this.xBrowseBox1._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xBrowseBox1._ReadOnly = false;
-            this.xBrowseBox1._Text = "";
-            this.xBrowseBox1._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.xBrowseBox1._UseImage = true;
-            this.xBrowseBox1.BackColor = System.Drawing.Color.White;
-            this.xBrowseBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xBrowseBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.xBrowseBox1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xBrowseBox1.Location = new System.Drawing.Point(412, 50);
-            this.xBrowseBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xBrowseBox1.Name = "xBrowseBox1";
-            this.xBrowseBox1.Size = new System.Drawing.Size(118, 23);
-            this.xBrowseBox1.TabIndex = 7;
+            this.txtDescription._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDescription._MaxLength = 50;
+            this.txtDescription._ReadOnly = false;
+            this.txtDescription._Text = "";
+            this.txtDescription._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtDescription.BackColor = System.Drawing.Color.White;
+            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDescription.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDescription.Location = new System.Drawing.Point(91, 78);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(466, 23);
+            this.txtDescription.TabIndex = 1;
+            this.txtDescription._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // txtName
+            // 
+            this.txtName._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName._MaxLength = 20;
+            this.txtName._ReadOnly = false;
+            this.txtName._Text = "";
+            this.txtName._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtName.BackColor = System.Drawing.Color.White;
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtName.Location = new System.Drawing.Point(91, 52);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(197, 23);
+            this.txtName.TabIndex = 0;
+            this.txtName._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // col_sales_id
+            // 
+            this.col_sales_id.DataPropertyName = "id";
+            this.col_sales_id.HeaderText = "ID";
+            this.col_sales_id.Name = "col_sales_id";
+            this.col_sales_id.ReadOnly = true;
+            this.col_sales_id.Visible = false;
+            // 
+            // col_sales_saldat
+            // 
+            this.col_sales_saldat.DataPropertyName = "saldat";
+            dataGridViewCellStyle11.Format = "dd/MM/yyyy";
+            this.col_sales_saldat.DefaultCellStyle = dataGridViewCellStyle11;
+            this.col_sales_saldat.HeaderText = "วันที่";
+            this.col_sales_saldat.MinimumWidth = 90;
+            this.col_sales_saldat.Name = "col_sales_saldat";
+            this.col_sales_saldat.ReadOnly = true;
+            this.col_sales_saldat.Width = 90;
+            // 
+            // col_sales_shift_name
+            // 
+            this.col_sales_shift_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_sales_shift_name.DataPropertyName = "shift_name";
+            this.col_sales_shift_name.HeaderText = "ผลัด";
+            this.col_sales_shift_name.MinimumWidth = 120;
+            this.col_sales_shift_name.Name = "col_sales_shift_name";
+            this.col_sales_shift_name.ReadOnly = true;
+            // 
+            // col_sales_nozzle_name
+            // 
+            this.col_sales_nozzle_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_sales_nozzle_name.DataPropertyName = "nozzle_name";
+            this.col_sales_nozzle_name.HeaderText = "หัวจ่ายเลขที่";
+            this.col_sales_nozzle_name.MinimumWidth = 120;
+            this.col_sales_nozzle_name.Name = "col_sales_nozzle_name";
+            this.col_sales_nozzle_name.ReadOnly = true;
+            // 
+            // col_sales_mitbeg
+            // 
+            this.col_sales_mitbeg.DataPropertyName = "mitbeg";
+            this.col_sales_mitbeg.HeaderText = "MitBeg";
+            this.col_sales_mitbeg.Name = "col_sales_mitbeg";
+            this.col_sales_mitbeg.ReadOnly = true;
+            this.col_sales_mitbeg.Visible = false;
+            // 
+            // col_sales_mitend
+            // 
+            this.col_sales_mitend.DataPropertyName = "mitend";
+            this.col_sales_mitend.HeaderText = "MitEnd";
+            this.col_sales_mitend.Name = "col_sales_mitend";
+            this.col_sales_mitend.ReadOnly = true;
+            this.col_sales_mitend.Visible = false;
+            // 
+            // col_sales_salqty
+            // 
+            this.col_sales_salqty.DataPropertyName = "salqty";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N2";
+            dataGridViewCellStyle12.NullValue = null;
+            this.col_sales_salqty.DefaultCellStyle = dataGridViewCellStyle12;
+            this.col_sales_salqty.HeaderText = "ปริมาณขาย(ลิตร)";
+            this.col_sales_salqty.MinimumWidth = 120;
+            this.col_sales_salqty.Name = "col_sales_salqty";
+            this.col_sales_salqty.ReadOnly = true;
+            this.col_sales_salqty.Width = 120;
+            // 
+            // col_sales_unitpr
+            // 
+            this.col_sales_unitpr.DataPropertyName = "unitpr";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N2";
+            dataGridViewCellStyle13.NullValue = null;
+            this.col_sales_unitpr.DefaultCellStyle = dataGridViewCellStyle13;
+            this.col_sales_unitpr.HeaderText = "ราคาขาย/ลิตร";
+            this.col_sales_unitpr.MinimumWidth = 120;
+            this.col_sales_unitpr.Name = "col_sales_unitpr";
+            this.col_sales_unitpr.ReadOnly = true;
+            this.col_sales_unitpr.Width = 120;
+            // 
+            // col_sales_salval
+            // 
+            this.col_sales_salval.DataPropertyName = "salval";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N2";
+            dataGridViewCellStyle14.NullValue = null;
+            this.col_sales_salval.DefaultCellStyle = dataGridViewCellStyle14;
+            this.col_sales_salval.HeaderText = "มูลค่าขาย";
+            this.col_sales_salval.MinimumWidth = 120;
+            this.col_sales_salval.Name = "col_sales_salval";
+            this.col_sales_salval.ReadOnly = true;
+            this.col_sales_salval.Width = 120;
+            // 
+            // col_sales_shift_id
+            // 
+            this.col_sales_shift_id.DataPropertyName = "shift_id";
+            this.col_sales_shift_id.HeaderText = "Shift Id";
+            this.col_sales_shift_id.Name = "col_sales_shift_id";
+            this.col_sales_shift_id.ReadOnly = true;
+            this.col_sales_shift_id.Visible = false;
+            // 
+            // col_sales_nozzle_id
+            // 
+            this.col_sales_nozzle_id.DataPropertyName = "nozzle_id";
+            this.col_sales_nozzle_id.HeaderText = "Nozzle Id";
+            this.col_sales_nozzle_id.Name = "col_sales_nozzle_id";
+            this.col_sales_nozzle_id.ReadOnly = true;
+            this.col_sales_nozzle_id.Visible = false;
+            // 
+            // col_sales_stmas_id
+            // 
+            this.col_sales_stmas_id.DataPropertyName = "stmas_id";
+            this.col_sales_stmas_id.HeaderText = "Stmas Id";
+            this.col_sales_stmas_id.Name = "col_sales_stmas_id";
+            this.col_sales_stmas_id.ReadOnly = true;
+            this.col_sales_stmas_id.Visible = false;
+            // 
+            // col_sales_pricelist_id
+            // 
+            this.col_sales_pricelist_id.DataPropertyName = "pricelist_id";
+            this.col_sales_pricelist_id.HeaderText = "Price List Id";
+            this.col_sales_pricelist_id.Name = "col_sales_pricelist_id";
+            this.col_sales_pricelist_id.ReadOnly = true;
+            this.col_sales_pricelist_id.Visible = false;
+            // 
+            // col_sales_salessummary_id
+            // 
+            this.col_sales_salessummary_id.DataPropertyName = "salessummary_id";
+            this.col_sales_salessummary_id.HeaderText = "Sales Summary Id";
+            this.col_sales_salessummary_id.Name = "col_sales_salessummary_id";
+            this.col_sales_salessummary_id.ReadOnly = true;
+            this.col_sales_salessummary_id.Visible = false;
+            // 
+            // col_sales_price_date
+            // 
+            this.col_sales_price_date.DataPropertyName = "price_date";
+            this.col_sales_price_date.HeaderText = "Price Date";
+            this.col_sales_price_date.Name = "col_sales_price_date";
+            this.col_sales_price_date.ReadOnly = true;
+            this.col_sales_price_date.Visible = false;
+            // 
+            // col_sales_stkcod
+            // 
+            this.col_sales_stkcod.DataPropertyName = "stkcod";
+            this.col_sales_stkcod.HeaderText = "Stkcod";
+            this.col_sales_stkcod.Name = "col_sales_stkcod";
+            this.col_sales_stkcod.ReadOnly = true;
+            this.col_sales_stkcod.Visible = false;
+            // 
+            // col_sales_stkdes
+            // 
+            this.col_sales_stkdes.DataPropertyName = "stkdes";
+            this.col_sales_stkdes.HeaderText = "StkDes";
+            this.col_sales_stkdes.Name = "col_sales_stkdes";
+            this.col_sales_stkdes.ReadOnly = true;
+            this.col_sales_stkdes.Visible = false;
+            // 
+            // col_sales_saleshistory
+            // 
+            this.col_sales_saleshistory.DataPropertyName = "saleshistory";
+            this.col_sales_saleshistory.HeaderText = "Sales History";
+            this.col_sales_saleshistory.Name = "col_sales_saleshistory";
+            this.col_sales_saleshistory.ReadOnly = true;
+            this.col_sales_saleshistory.Visible = false;
             // 
             // FormStmas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 482);
-            this.Controls.Add(this.xBrowseBox1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.txtRemark);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtName);
@@ -899,11 +1034,11 @@
             this.toolStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).EndInit();
+            this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvNozzle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPrice)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSales)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -937,11 +1072,7 @@
         private CC.XTextEdit txtRemark;
         private CC.XDatagrid dgvTank;
         private CC.XDatagrid dgvNozzle;
-        private CC.XDatagrid dgvPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_price_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_price_date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_price_time;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_price_unitpr;
+        private CC.XDatagrid dgvSales;
         private System.Windows.Forms.ToolStripSplitButton btnSearch;
         private System.Windows.Forms.ToolStripMenuItem btnInquiryAll;
         private System.Windows.Forms.ToolStripMenuItem btnInquiryRest;
@@ -972,7 +1103,23 @@
         private System.Windows.Forms.ToolStripButton btnRename;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.Button button1;
-        private CC.XBrowseBox xBrowseBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_saldat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_shift_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_nozzle_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_mitbeg;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_mitend;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_salqty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_unitpr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_salval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_shift_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_nozzle_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_stmas_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_pricelist_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_salessummary_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_price_date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_stkcod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_stkdes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_saleshistory;
     }
 }

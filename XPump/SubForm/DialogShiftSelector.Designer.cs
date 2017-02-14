@@ -31,15 +31,21 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv = new CC.XDatagrid();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_paeprefix = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_phpprefix = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_prrprefix = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_saiprefix = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_shsprefix = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sivprefix = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_start_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_end_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_shift = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnOK = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,6 +71,12 @@
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
+            this.col_paeprefix,
+            this.col_phpprefix,
+            this.col_prrprefix,
+            this.col_saiprefix,
+            this.col_shsprefix,
+            this.col_sivprefix,
             this.col_name,
             this.col_desc,
             this.col_start_time,
@@ -96,6 +108,29 @@
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.SelectionChanged += new System.EventHandler(this.dgv_SelectionChanged);
             // 
+            // btnOK
+            // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOK.Enabled = false;
+            this.btnOK.Location = new System.Drawing.Point(7, 176);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(70, 30);
+            this.btnOK.TabIndex = 1;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(83, 176);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(70, 30);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
             // col_id
             // 
             this.col_id.DataPropertyName = "id";
@@ -103,6 +138,54 @@
             this.col_id.Name = "col_id";
             this.col_id.ReadOnly = true;
             this.col_id.Visible = false;
+            // 
+            // col_paeprefix
+            // 
+            this.col_paeprefix.DataPropertyName = "paeprefix";
+            this.col_paeprefix.HeaderText = "paeprefix";
+            this.col_paeprefix.Name = "col_paeprefix";
+            this.col_paeprefix.ReadOnly = true;
+            this.col_paeprefix.Visible = false;
+            // 
+            // col_phpprefix
+            // 
+            this.col_phpprefix.DataPropertyName = "phpprefix";
+            this.col_phpprefix.HeaderText = "phpprefix";
+            this.col_phpprefix.Name = "col_phpprefix";
+            this.col_phpprefix.ReadOnly = true;
+            this.col_phpprefix.Visible = false;
+            // 
+            // col_prrprefix
+            // 
+            this.col_prrprefix.DataPropertyName = "prrprefix";
+            this.col_prrprefix.HeaderText = "prrprefix";
+            this.col_prrprefix.Name = "col_prrprefix";
+            this.col_prrprefix.ReadOnly = true;
+            this.col_prrprefix.Visible = false;
+            // 
+            // col_saiprefix
+            // 
+            this.col_saiprefix.DataPropertyName = "saiprefix";
+            this.col_saiprefix.HeaderText = "saiprefix";
+            this.col_saiprefix.Name = "col_saiprefix";
+            this.col_saiprefix.ReadOnly = true;
+            this.col_saiprefix.Visible = false;
+            // 
+            // col_shsprefix
+            // 
+            this.col_shsprefix.DataPropertyName = "shsprefix";
+            this.col_shsprefix.HeaderText = "shsprefix";
+            this.col_shsprefix.Name = "col_shsprefix";
+            this.col_shsprefix.ReadOnly = true;
+            this.col_shsprefix.Visible = false;
+            // 
+            // col_sivprefix
+            // 
+            this.col_sivprefix.DataPropertyName = "sivprefix";
+            this.col_sivprefix.HeaderText = "sivprefix";
+            this.col_sivprefix.Name = "col_sivprefix";
+            this.col_sivprefix.ReadOnly = true;
+            this.col_sivprefix.Visible = false;
             // 
             // col_name
             // 
@@ -153,29 +236,6 @@
             this.col_shift.ReadOnly = true;
             this.col_shift.Visible = false;
             // 
-            // btnOK
-            // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Enabled = false;
-            this.btnOK.Location = new System.Drawing.Point(7, 176);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(70, 30);
-            this.btnOK.TabIndex = 1;
-            this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = true;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(83, 176);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(70, 30);
-            this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            // 
             // DialogShiftSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -207,6 +267,12 @@
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_paeprefix;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_phpprefix;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_prrprefix;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_saiprefix;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_shsprefix;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sivprefix;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_desc;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_start_time;

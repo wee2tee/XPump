@@ -48,10 +48,14 @@
             this.btnPrevious = new System.Windows.Forms.ToolStripButton();
             this.btnNext = new System.Windows.Forms.ToolStripButton();
             this.btnLast = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
             this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
             this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPrint = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnPrintA = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrintB = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrintC = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnItem = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
@@ -112,8 +116,9 @@
             this.btnPrevious,
             this.btnNext,
             this.btnLast,
-            this.toolStripSeparator2,
             this.btnSearch,
+            this.toolStripSeparator2,
+            this.btnPrint,
             this.toolStripSeparator4,
             this.btnItem,
             this.btnRefresh});
@@ -231,11 +236,6 @@
             this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
             this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
-            // 
             // btnSearch
             // 
             this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -246,6 +246,7 @@
             this.btnSearch.Image = global::XPump.Properties.Resources.search;
             this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(52, 40);
             this.btnSearch.Text = "ค้นหา <Alt+S>";
@@ -264,6 +265,51 @@
             this.btnInquiryRest.Size = new System.Drawing.Size(245, 22);
             this.btnInquiryRest.Text = "เรียกดูข้อมูล ตั้งแต่รายการนี้ <Alt+L>";
             this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrint.DropDownButtonWidth = 15;
+            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnPrintA,
+            this.btnPrintB,
+            this.btnPrintC});
+            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
+            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(52, 40);
+            this.btnPrint.Text = "พิมพ์รายงานส่วน ก.";
+            this.btnPrint.ButtonClick += new System.EventHandler(this.btnPrint_ButtonClick);
+            // 
+            // btnPrintA
+            // 
+            this.btnPrintA.Name = "btnPrintA";
+            this.btnPrintA.Size = new System.Drawing.Size(161, 22);
+            this.btnPrintA.Text = "พิมพ์รายงานส่วน ก.";
+            this.btnPrintA.ToolTipText = "พิมพ์รายงานส่วน ก.";
+            this.btnPrintA.Click += new System.EventHandler(this.btnPrintA_Click);
+            // 
+            // btnPrintB
+            // 
+            this.btnPrintB.Name = "btnPrintB";
+            this.btnPrintB.Size = new System.Drawing.Size(161, 22);
+            this.btnPrintB.Text = "พิมพ์รายงานส่วน ข.";
+            this.btnPrintB.ToolTipText = "พิมพ์รายงานส่วน ข.";
+            this.btnPrintB.Click += new System.EventHandler(this.btnPrintB_Click);
+            // 
+            // btnPrintC
+            // 
+            this.btnPrintC.Name = "btnPrintC";
+            this.btnPrintC.Size = new System.Drawing.Size(161, 22);
+            this.btnPrintC.Text = "พิมพ์รายงานส่วน ค.";
+            this.btnPrintC.ToolTipText = "พิมพ์รายงานส่วน ค.";
+            this.btnPrintC.Click += new System.EventHandler(this.btnPrintC_Click);
             // 
             // toolStripSeparator4
             // 
@@ -785,5 +831,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_total;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salessummary;
         private System.Windows.Forms.Button inline_btnSaleshistory;
+        private System.Windows.Forms.ToolStripSplitButton btnPrint;
+        private System.Windows.Forms.ToolStripMenuItem btnPrintA;
+        private System.Windows.Forms.ToolStripMenuItem btnPrintB;
+        private System.Windows.Forms.ToolStripMenuItem btnPrintC;
     }
 }

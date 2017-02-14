@@ -31,12 +31,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripDailyTransaction = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuShiftTransaction = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuRcvStock = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripStock = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuStmas = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuSupplier = new System.Windows.Forms.ToolStripMenuItem();
             this.อนๆToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -59,8 +57,7 @@
             // ToolStripDailyTransaction
             // 
             this.ToolStripDailyTransaction.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MnuShiftTransaction,
-            this.mnuRcvStock});
+            this.MnuShiftTransaction});
             this.ToolStripDailyTransaction.Name = "ToolStripDailyTransaction";
             this.ToolStripDailyTransaction.Size = new System.Drawing.Size(107, 20);
             this.ToolStripDailyTransaction.Text = "รายการประจำวัน";
@@ -72,21 +69,12 @@
             this.MnuShiftTransaction.Text = "บันทึกรายการขายประจำผลัด";
             this.MnuShiftTransaction.Click += new System.EventHandler(this.MnuShiftTransaction_Click);
             // 
-            // mnuRcvStock
-            // 
-            this.mnuRcvStock.Name = "mnuRcvStock";
-            this.mnuRcvStock.Size = new System.Drawing.Size(228, 22);
-            this.mnuRcvStock.Text = "บันทึกรายการรับเข้าน้ำมัน";
-            this.mnuRcvStock.Visible = false;
-            this.mnuRcvStock.Click += new System.EventHandler(this.mnuRcvStock_Click);
-            // 
             // ToolStripStock
             // 
             this.ToolStripStock.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuStmas,
             this.toolStripMenuItem2,
-            this.toolStripMenuItem1,
-            this.mnuSupplier});
+            this.toolStripMenuItem1});
             this.ToolStripStock.Name = "ToolStripStock";
             this.ToolStripStock.Size = new System.Drawing.Size(107, 20);
             this.ToolStripStock.Text = "ฐานข้อมูลเริ่มต้น";
@@ -112,14 +100,6 @@
             this.toolStripMenuItem1.Text = "กำหนดผลัดพนักงาน";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.MnuShift_Click);
             // 
-            // mnuSupplier
-            // 
-            this.mnuSupplier.Name = "mnuSupplier";
-            this.mnuSupplier.Size = new System.Drawing.Size(195, 22);
-            this.mnuSupplier.Text = "รายชื่อผู้ค้าน้ำมัน";
-            this.mnuSupplier.Visible = false;
-            this.mnuSupplier.Click += new System.EventHandler(this.mnuSupplier_Click);
-            // 
             // อนๆToolStripMenuItem
             // 
             this.อนๆToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -131,7 +111,7 @@
             // mnuSettings
             // 
             this.mnuSettings.Name = "mnuSettings";
-            this.mnuSettings.Size = new System.Drawing.Size(132, 22);
+            this.mnuSettings.Size = new System.Drawing.Size(152, 22);
             this.mnuSettings.Text = "ตั้งค่าระบบ";
             this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
             // 
@@ -174,8 +154,6 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripStock;
         private System.Windows.Forms.ToolStripMenuItem MnuStmas;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripMenuItem mnuRcvStock;
-        private System.Windows.Forms.ToolStripMenuItem mnuSupplier;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem อนๆToolStripMenuItem;

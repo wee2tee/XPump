@@ -24,6 +24,13 @@ namespace XPump.Misc
         EDIT_ITEM
     }
 
+    public enum PRINT_OUTPUT
+    {
+        SCREEN,
+        PRINTER,
+        FILE
+    }
+
     public enum RECORD_STATE : int
     {
         EXISTING = 0,
