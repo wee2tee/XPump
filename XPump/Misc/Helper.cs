@@ -522,46 +522,63 @@ namespace XPump.Misc
             return isrun;
         }
 
-        //public static List<T> ToList<T>(this DataTable table) where T : class, new()
+        //public static IsinfoDbf ToIsrunDbf(this DataTable isinfo_dbf)
         //{
         //    try
         //    {
-        //        List<T> list = new List<T>();
-
-        //        foreach (var row in table.AsEnumerable())
+        //        IsinfoDbf isinfo = new IsinfoDbf
         //        {
-        //            T obj = new T();
 
-        //            foreach (var prop in obj.GetType().GetProperties())
-        //            {
-        //                try
-        //                {
-        //                    PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
-        //                    if(propertyInfo.PropertyType == typeof(string))
-        //                    {
-        //                        propertyInfo.SetValue(obj, ((string)Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType)).Trim(), null);
-        //                    }
-        //                    else
-        //                    {
-        //                        propertyInfo.SetValue(obj, Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType), null);
-        //                    }
-        //                }
-        //                catch
-        //                {
-        //                    continue;
-        //                }
-        //            }
+        //        };
 
-        //            list.Add(obj);
-        //        }
-
-        //        return list;
+        //        return isinfo;
         //    }
-        //    catch
+        //    catch (Exception ex)
         //    {
         //        return null;
         //    }
         //}
+
+        public static List<T> ToList<T>(this DataTable table) where T : class, new()
+        {
+            try
+            {
+                List<T> list = new List<T>();
+
+                foreach (var row in table.AsEnumerable())
+                {
+                    T obj = new T();
+
+                    foreach (var prop in obj.GetType().GetProperties())
+                    {
+                        try
+                        {
+                            PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+                            if (propertyInfo.PropertyType == typeof(string))
+                            {
+                                propertyInfo.SetValue(obj, ((string)Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType)).Trim(), null);
+                            }
+                            else
+                            {
+                                propertyInfo.SetValue(obj, Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType), null);
+                            }
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+
+                    list.Add(obj);
+                }
+
+                return list;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         public static StmasDbfVM ToViewModel(this StmasDbf stmasdbf)
         {
@@ -621,6 +638,22 @@ namespace XPump.Misc
             {
                 i.Add(item.ToViewModel());
             }
+
+            return i;
+        }
+
+        public static IsinfoDbfVM ToViewModel(this IsinfoDbf isinfodbf)
+        {
+            if (isinfodbf == null)
+                return null;
+
+            IsinfoDbfVM i = new IsinfoDbfVM
+            {
+                compnam = isinfodbf.thinam.Trim(),
+                addr = isinfodbf.addr01.Trim() + " " + isinfodbf.addr02.Trim(),
+                telnum = isinfodbf.telnum.Trim(),
+                taxid = isinfodbf.taxid.Trim()
+            };
 
             return i;
         }
@@ -870,6 +903,21 @@ namespace XPump.Misc
             }
 
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static int Width(this string str, Font fnt)
+        {
+            return TextRenderer.MeasureText(str, fnt).Width + 5;
+        }
+
+        public static int Height(this string str, Font fnt)
+        {
+            return TextRenderer.MeasureText(str, fnt).Height;
+        }
+
+        public static Rectangle GetDisplayRect(this string str, Font fnt, int x, int y)
+        {
+            return new Rectangle(x, y, str.Width(fnt), str.Height(fnt));
         }
 
     }

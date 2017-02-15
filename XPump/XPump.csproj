@@ -463,6 +463,20 @@
     <None Include="Resources\import_data.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\page_split_none_16.png" />
+    <None Include="Resources\page_split4_16.png" />
+    <None Include="Resources\page_split2_16.png" />
+    <None Include="Resources\zoom_fit_16.png" />
+    <None Include="Resources\last_16.png" />
+    <None Include="Resources\next_16.png" />
+    <None Include="Resources\previous_16.png" />
+    <None Include="Resources\first_16.png" />
+    <None Include="Resources\zoom_out_16.png" />
+    <None Include="Resources\zoom_in_16.png" />
+    <None Include="Resources\printer_small.png" />
+    <None Include="Resources\printer.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\XPumpModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>XPumpModel.edmx</DependentUpon>
@@ -473,15 +487,6 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
-    <None Include="Resources\zoom_fit_16.png" />
-    <None Include="Resources\last_16.png" />
-    <None Include="Resources\next_16.png" />
-    <None Include="Resources\previous_16.png" />
-    <None Include="Resources\first_16.png" />
-    <None Include="Resources\zoom_out_16.png" />
-    <None Include="Resources\zoom_in_16.png" />
-    <None Include="Resources\printer_small.png" />
-    <None Include="Resources\printer.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

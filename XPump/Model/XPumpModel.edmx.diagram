@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0be4193eef754aac99e8386afb60a46a" Name="Diagram1">
+      <Diagram DiagramId="d10fca6658f94189ac8a5443272a5837" Name="Diagram1">
         <EntityTypeShape EntityType="xpumpModel.nozzle" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.pricelist" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.saleshistory" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />

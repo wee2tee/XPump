@@ -73,6 +73,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="express_data_path" Type="text" Nullable="false" />
+          <Property Name="orgname" Type="varchar" MaxLength="60" Nullable="false" />
         </EntityType>
         <EntityType Name="shift">
           <Key>
@@ -447,6 +448,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="express_data_path" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="orgname" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="shift">
           <Key>
@@ -818,6 +820,7 @@
               <MappingFragment StoreEntitySet="settings">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="express_data_path" ColumnName="express_data_path" />
+                <ScalarProperty Name="orgname" ColumnName="orgname" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

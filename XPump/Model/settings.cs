@@ -16,5 +16,6 @@ namespace XPump.Model
     {
         public int id { get; set; }
         public string express_data_path { get; set; }
+        public string orgname { get; set; }
     }
 }
