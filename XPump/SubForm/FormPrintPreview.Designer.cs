@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.txtPageNum = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.printPreviewControl1 = new System.Windows.Forms.PrintPreviewControl();
-            this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.btnPrint = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnZoomIn = new System.Windows.Forms.ToolStripButton();
             this.btnZoomOut = new System.Windows.Forms.ToolStripButton();
             this.btnZoomFit = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnSplitNone = new System.Windows.Forms.ToolStripButton();
             this.btnSplit2 = new System.Windows.Forms.ToolStripButton();
             this.btnSplit4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.btnFirst = new System.Windows.Forms.ToolStripButton();
             this.btnPrevious = new System.Windows.Forms.ToolStripButton();
+            this.txtPageNum = new System.Windows.Forms.ToolStripTextBox();
             this.btnNext = new System.Windows.Forms.ToolStripButton();
             this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnClose = new System.Windows.Forms.ToolStripButton();
-            this.btnSplitNone = new System.Windows.Forms.ToolStripButton();
+            this.printPreviewControl1 = new System.Windows.Forms.PrintPreviewControl();
+            this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,53 +79,6 @@
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.toolStripLabel1.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(30, 22);
-            this.toolStripLabel1.Text = "หน้า";
-            // 
-            // txtPageNum
-            // 
-            this.txtPageNum.AutoSize = false;
-            this.txtPageNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPageNum.Enabled = false;
-            this.txtPageNum.Name = "txtPageNum";
-            this.txtPageNum.Size = new System.Drawing.Size(50, 23);
-            this.txtPageNum.Text = "0";
-            this.txtPageNum.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtPageNum.TextChanged += new System.EventHandler(this.txtPageNum_TextChanged);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // printPreviewControl1
-            // 
-            this.printPreviewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.printPreviewControl1.Location = new System.Drawing.Point(0, 25);
-            this.printPreviewControl1.Name = "printPreviewControl1";
-            this.printPreviewControl1.Size = new System.Drawing.Size(713, 431);
-            this.printPreviewControl1.TabIndex = 1;
-            // 
             // btnPrint
             // 
             this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -136,6 +89,11 @@
             this.btnPrint.Size = new System.Drawing.Size(23, 22);
             this.btnPrint.Text = "พิมพ์ออกเครื่องพิมพ์";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // btnZoomIn
             // 
@@ -170,6 +128,22 @@
             this.btnZoomFit.Text = "ปรับให้พอดีกับขนาดหน้าต่าง";
             this.btnZoomFit.Click += new System.EventHandler(this.btnZoomFit_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnSplitNone
+            // 
+            this.btnSplitNone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSplitNone.Image = global::XPump.Properties.Resources.page_split_none_16;
+            this.btnSplitNone.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSplitNone.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
+            this.btnSplitNone.Name = "btnSplitNone";
+            this.btnSplitNone.Size = new System.Drawing.Size(23, 22);
+            this.btnSplitNone.Text = "แสดงผลแบบ 1 หน้า";
+            this.btnSplitNone.Click += new System.EventHandler(this.btnSplitNone_Click);
+            // 
             // btnSplit2
             // 
             this.btnSplit2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -191,6 +165,19 @@
             this.btnSplit4.Text = "แสดงผล 4 หน้า";
             this.btnSplit4.Click += new System.EventHandler(this.btnSplit4_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.toolStripLabel1.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(30, 22);
+            this.toolStripLabel1.Text = "หน้า";
+            // 
             // btnFirst
             // 
             this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -210,6 +197,17 @@
             this.btnPrevious.Size = new System.Drawing.Size(23, 22);
             this.btnPrevious.Text = "หน้าก่อนหน้า";
             this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // txtPageNum
+            // 
+            this.txtPageNum.AutoSize = false;
+            this.txtPageNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPageNum.Enabled = false;
+            this.txtPageNum.Name = "txtPageNum";
+            this.txtPageNum.Size = new System.Drawing.Size(50, 23);
+            this.txtPageNum.Text = "0";
+            this.txtPageNum.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPageNum.TextChanged += new System.EventHandler(this.txtPageNum_TextChanged);
             // 
             // btnNext
             // 
@@ -232,6 +230,11 @@
             this.btnLast.Text = "หน้าสุดท้าย";
             this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
             // btnClose
             // 
             this.btnClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -243,16 +246,13 @@
             this.btnClose.Text = "ปิด <Escape>";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // btnSplitNone
+            // printPreviewControl1
             // 
-            this.btnSplitNone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSplitNone.Image = global::XPump.Properties.Resources.page_split_none_16;
-            this.btnSplitNone.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSplitNone.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
-            this.btnSplitNone.Name = "btnSplitNone";
-            this.btnSplitNone.Size = new System.Drawing.Size(23, 22);
-            this.btnSplitNone.Text = "แสดงผลแบบ 1 หน้า";
-            this.btnSplitNone.Click += new System.EventHandler(this.btnSplitNone_Click);
+            this.printPreviewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.printPreviewControl1.Location = new System.Drawing.Point(0, 25);
+            this.printPreviewControl1.Name = "printPreviewControl1";
+            this.printPreviewControl1.Size = new System.Drawing.Size(713, 431);
+            this.printPreviewControl1.TabIndex = 1;
             // 
             // FormPrintPreview
             // 

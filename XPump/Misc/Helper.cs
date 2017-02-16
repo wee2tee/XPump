@@ -522,22 +522,237 @@ namespace XPump.Misc
             return isrun;
         }
 
-        //public static IsinfoDbf ToIsrunDbf(this DataTable isinfo_dbf)
-        //{
-        //    try
-        //    {
-        //        IsinfoDbf isinfo = new IsinfoDbf
-        //        {
+        public static List<StcrdDbf> ToStcrdList(this DataTable stcrd_dbf)
+        {
+            List<StcrdDbf> stcrd = new List<StcrdDbf>();
 
-        //        };
+            foreach (DataRow row in stcrd_dbf.Rows)
+            {
+                try
+                {
+                    StcrdDbf s = new StcrdDbf
+                    {
+                        stkcod = row.Field<string>("stkcod"),
+                        loccod = row.Field<string>("loccod"),
+                        docnum = row.Field<string>("docnum"),
+                        seqnum = row.Field<string>("seqnum"),
+                        docdat = !row.IsNull("docdat") ? (DateTime?)row.Field<DateTime>("docdat") : null,
+                        rdocnum = row.Field<string>("rdocnum"),
+                        refnum = row.Field<string>("refnum"),
+                        depcod = row.Field<string>("depcod"),
+                        posopr = row.Field<string>("posopr"),
+                        free = row.Field<string>("free"),
+                        vatcod = row.Field<string>("vatcod"),
+                        people = row.Field<string>("people"),
+                        slmcod = row.Field<string>("slmcod"),
+                        flag = row.Field<string>("flag"),
+                        trnqty = row.Field<double>("trnqty"),
+                        tqucod = row.Field<string>("tqucod"),
+                        tfactor = row.Field<double>("tfactor"),
+                        unitpr = row.Field<double>("unitpr"),
+                        disc = row.Field<string>("disc"),
+                        discamt = row.Field<double>("discamt"),
+                        trnval = row.Field<double>("trnval"),
+                        phybal = row.Field<double>("phybal"),
+                        retstk = row.Field<string>("retstk"),
+                        xtrnqty = row.Field<double>("xtrnqty"),
+                        xunitpr = row.Field<double>("xunitpr"),
+                        xtrnval = row.Field<double>("xtrnval"),
+                        xsalval = row.Field<double>("xsalval"),
+                        netval = row.Field<double>("netval"),
+                        mlotnum = row.Field<string>("mlotnum"),
+                        mrembal = row.Field<double>("mrembal"),
+                        mremval = row.Field<double>("mremval"),
+                        balchg = row.Field<double>("balchg"),
+                        valchg = row.Field<double>("valchg"),
+                        lotbal = row.Field<double>("lotbal"),
+                        lotval = row.Field<double>("lotval"),
+                        lunitpr = row.Field<double>("lunitpr"),
+                        pstkcod = row.Field<string>("pstkcod"),
+                        accnumdr = row.Field<string>("accnumdr"),
+                        accnumcr = row.Field<string>("accnumcr"),
+                        stkdes = row.Field<string>("stkdes"),
+                        packing = row.Field<string>("packing"),
+                        jobcod = row.Field<string>("jobcod"),
+                        phase = row.Field<string>("phase"),
+                        coscod = row.Field<string>("coscod"),
+                        reimburse = row.Field<string>("reimburse")
+                    };
 
-        //        return isinfo;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
+                    stcrd.Add(s);
+                }
+                catch (Exception ex)
+                {
+                    continue;
+                }
+            }
+
+            return stcrd;
+        }
+
+        public static List<AptrnDbf> ToAptrnList(this DataTable aptrn_dbf)
+        {
+            List<AptrnDbf> aptrn = new List<AptrnDbf>();
+
+            foreach (DataRow row in aptrn_dbf.Rows)
+            {
+                try
+                {
+                    AptrnDbf a = new AptrnDbf
+                    {
+                        rectyp = row.Field<string>("rectyp"),
+                        docnum = row.Field<string>("docnum"),
+                        docdat = !row.IsNull("docdat") ? (DateTime?)row.Field<DateTime>("docdat") : null,
+                        refnum = row.Field<string>("refnum"),
+                        vatprd = !row.IsNull("docdat") ? (DateTime?)row.Field<DateTime>("vatprd") : null,
+                        vatlate = row.Field<string>("vatlate"),
+                        vattyp = row.Field<string>("vattyp"),
+                        postgl = row.Field<string>("postgl"),
+                        ponum = row.Field<string>("ponum"),
+                        dntyp = row.Field<string>("dntyp"),
+                        depcod = row.Field<string>("depcod"),
+                        flgvat = row.Field<string>("flgvat"),
+                        supcod = row.Field<string>("supcod"),
+                        shipto = row.Field<string>("shipto"),
+                        youref = row.Field<string>("youref"),
+                        paytrm = row.Field<decimal>("paytrm"),
+                        duedat = !row.IsNull("duedat") ? (DateTime?)row.Field<DateTime>("duedat") : null,
+                        bilnum = row.Field<string>("bilnum"),
+                        dlvby = row.Field<string>("dlvby"),
+                        nxtseq = row.Field<string>("nxtseq"),
+                        amount = row.Field<double>("amount"),
+                        disc = row.Field<string>("disc"),
+                        discamt = row.Field<double>("discamt"),
+                        aftdisc = row.Field<double>("aftdisc"),
+                        advnum = row.Field<string>("advnum"),
+                        advamt = row.Field<double>("advamt"),
+                        total = row.Field<double>("total"),
+                        amtrat0 = row.Field<double>("amtrat0"),
+                        vatrat = row.Field<decimal>("vatrat"),
+                        vatamt = row.Field<double>("vatamt"),
+                        netamt = row.Field<double>("netamt"),
+                        netval = row.Field<double>("netval"),
+                        payamt = row.Field<double>("payamt"),
+                        remamt = row.Field<double>("remamt"),
+                        cmplapp = row.Field<string>("cmplapp"),
+                        cmpldat = !row.IsNull("cmpldat") ? (DateTime?)row.Field<DateTime>("cmpldat") : null,
+                        docstat = row.Field<string>("docstat"),
+                        cshpay = row.Field<double>("cshpay"),
+                        chqpay = row.Field<double>("chqpay"),
+                        intpay = row.Field<double>("intpay"),
+                        tax = row.Field<double>("tax"),
+                        rcvamt = row.Field<double>("rcvamt"),
+                        chqpas = row.Field<double>("chqpas"),
+                        vatdat = !row.IsNull("vatdat") ? (DateTime?)row.Field<DateTime>("vatdat") : null,
+                        srv_vattyp = row.Field<string>("srv_vattyp"),
+                        pvatprorat = row.Field<string>("pvatprorat"),
+                        pvat_rf = row.Field<decimal>("pvat_rf"),
+                        pvat_nrf = row.Field<decimal>("pvat_nrf"),
+                        userid = row.Field<string>("userid"),
+                        chgdat = !row.IsNull("chgdat") ? (DateTime?)row.Field<DateTime>("chgdat") : null,
+                        userprn = row.Field<string>("userprn"),
+                        prndat = !row.IsNull("prndat") ? (DateTime?)row.Field<DateTime>("prndat") : null,
+                        prncnt = row.Field<decimal>("prncnt"),
+                        prntim = row.Field<string>("prntim"),
+                        authid = row.Field<string>("authid"),
+                        approve = !row.IsNull("approve") ? (DateTime?)row.Field<DateTime>("approve") : null,
+                        billbe = row.Field<string>("billbe"),
+                        orgnum = row.Field<decimal>("orgnum")
+                    };
+
+                    aptrn.Add(a);
+                }
+                catch (Exception ex)
+                {
+                    continue;
+                }
+            }
+
+            return aptrn;
+        }
+
+        public static List<ArtrnDbf> ToArtrnList(this DataTable artrn_dbf)
+        {
+            List<ArtrnDbf> artrn = new List<ArtrnDbf>();
+
+            foreach (DataRow row in artrn_dbf.Rows)
+            {
+                try
+                {
+                    ArtrnDbf a = new ArtrnDbf
+                    {
+                        rectyp = row.Field<string>("rectyp"),
+                        docnum = row.Field<string>("docnum"),
+                        docdat = !row.IsNull("docdat") ? (DateTime?)row.Field<DateTime>("docdat") : null,
+                        postgl = row.Field<string>("postgl"),
+                        sonum = row.Field<string>("sonum"),
+                        cntyp = row.Field<string>("cntyp"),
+                        depcod = row.Field<string>("depcod"),
+                        flgvat = row.Field<string>("flgvat"),
+                        slmcod = row.Field<string>("slmcod"),
+                        cuscod = row.Field<string>("cuscod"),
+                        shipto = row.Field<string>("shipto"),
+                        youref = row.Field<string>("youref"),
+                        areacod = row.Field<string>("areacod"),
+                        paytrm = row.Field<decimal>("paytrm"),
+                        duedat = !row.IsNull("duedat") ? (DateTime?)row.Field<DateTime>("duedat") : null,
+                        bilnum = row.Field<string>("bilnum"),
+                        nxtseq = row.Field<string>("nxtseq"),
+                        amount = row.Field<double>("amount"),
+                        disc = row.Field<string>("disc"),
+                        discamt = row.Field<double>("discamt"),
+                        aftdisc = row.Field<double>("aftdisc"),
+                        advnum = row.Field<string>("advnum"),
+                        advamt = row.Field<double>("advamt"),
+                        total = row.Field<double>("total"),
+                        amtrat0 = row.Field<double>("amtrat0"),
+                        vatrat = row.Field<decimal>("vatrat"),
+                        vatamt = row.Field<double>("vatamt"),
+                        netamt = row.Field<double>("netamt"),
+                        netval = row.Field<double>("netval"),
+                        rcvamt = row.Field<double>("rcvamt"),
+                        remamt = row.Field<double>("remamt"),
+                        comamt = row.Field<double>("comamt"),
+                        cmplapp = row.Field<string>("cmplapp"),
+                        cmpldat = !row.IsNull("cmpldat") ? (DateTime?)row.Field<DateTime>("cmpldat") : null,
+                        docstat = row.Field<string>("docstat"),
+                        cshrcv = row.Field<double>("cshrcv"),
+                        chqrcv = row.Field<double>("chqrcv"),
+                        intrcv = row.Field<double>("intrcv"),
+                        beftax = row.Field<double>("beftax"),
+                        taxrat = row.Field<decimal>("taxrat"),
+                        taxcond = row.Field<string>("taxcond"),
+                        tax = row.Field<double>("tax"),
+                        ivcamt = row.Field<double>("ivcamt"),
+                        chqpas = row.Field<double>("chqpas"),
+                        vatdat = !row.IsNull("vatdat") ? (DateTime?)row.Field<DateTime>("vatdat") : null,
+                        vatprd = !row.IsNull("vatprd") ? (DateTime?)row.Field<DateTime>("vatprd") : null,
+                        vatlate = row.Field<string>("vatlate"),
+                        srv_vattyp = row.Field<string>("srv_vattyp"),
+                        dlvby = row.Field<string>("dlvby"),
+                        reserve = !row.IsNull("reserve") ? (DateTime?)row.Field<DateTime>("reserve") : null,
+                        userid = row.Field<string>("userid"),
+                        chgdat = !row.IsNull("chgdat") ? (DateTime?)row.Field<DateTime>("chgdat") : null,
+                        userprn = row.Field<string>("userprn"),
+                        prndat = !row.IsNull("prndat") ? (DateTime?)row.Field<DateTime>("prndat") : null,
+                        prncnt = row.Field<decimal>("prncnt"),
+                        prntim = row.Field<string>("prntim"),
+                        authid = row.Field<string>("authid"),
+                        approve = !row.IsNull("approve") ? (DateTime?)row.Field<DateTime>("approve") : null,
+                        billto = row.Field<string>("billto"),
+                        orgnum = row.Field<decimal>("orgnum")
+                    };
+
+                    artrn.Add(a);
+                }
+                catch (Exception ex)
+                {
+                    continue;
+                }
+            }
+
+            return artrn;
+        }
 
         public static List<T> ToList<T>(this DataTable table) where T : class, new()
         {

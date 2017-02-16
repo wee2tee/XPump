@@ -462,18 +462,24 @@ namespace XPump.SubForm
 
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
-                    FormPrintPreview fp = new FormPrintPreview(this.GetPrintDoc_A(report_data));
-                    fp._OutputToPrinter += delegate
-                    {
-                        PrintDialog pd = new PrintDialog();
-                        pd.Document = this.GetPrintDoc_A(report_data);
-                        if (pd.ShowDialog() == DialogResult.OK)
-                        {
-                            pd.Document.Print();
-                        }
-                    };
-                    fp.MdiParent = this.main_form;
-                    fp.Show();
+                    //FormPrintPreview fp = new FormPrintPreview(this.GetPrintDoc_A(report_data));
+                    //fp._OutputToPrinter += delegate
+                    //{
+                    //    PrintDialog pd = new PrintDialog();
+                    //    pd.Document = this.GetPrintDoc_A(report_data);
+                    //    if (pd.ShowDialog() == DialogResult.OK)
+                    //    {
+                    //        pd.Document.Print();
+                    //    }
+                    //};
+                    //fp.MdiParent = this.main_form;
+                    //fp.Show();
+
+                    int total_page = XPrintPreviewDialog.GetTotalPageCount(this.GetPrintDoc_A(report_data));
+
+                    XPrintPreviewDialog pd = new XPrintPreviewDialog(total_page);
+                    pd.Document = this.GetPrintDoc_A(report_data, total_page);
+                    pd.Show();
                 }
 
                 if(print.output == PRINT_OUTPUT.PRINTER)
@@ -917,13 +923,26 @@ namespace XPump.SubForm
                 report_data.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel();
 
                 report_data.isinfoDbfVM = DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel();
+                var x = DbfTable.Stcrd().ToStcrdList();
+                var y = DbfTable.Aptrn().ToAptrnList();
+                var z = DbfTable.Artrn().ToArtrnList();
             }
 
             return report_data;
         }
 
-        private PrintDocument GetPrintDoc_A(ReportAModel report_data)
+        private PrintDocument GetPrintDoc_A(ReportAModel report_data, int total_page = 0)
         {
+            Font fnt_title_bold = new Font("angsana new", 12f, FontStyle.Bold);
+            Font fnt_header_bold = new Font("angsana new", 11f, FontStyle.Bold); // tahoma 8f bold
+            Font fnt_header = new Font("angsana new", 11f, FontStyle.Regular); // tahoma 8f
+            Font fnt_bold = new Font("angsana new", 10f, FontStyle.Bold); // tahoma 7f bold
+            Font fnt = new Font("angsana new", 10f, FontStyle.Regular); // tahoma 7f
+            SolidBrush brush = new SolidBrush(Color.Black);
+            StringFormat format_left = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+            StringFormat format_right = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+            StringFormat format_center = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+
             int page = 0;
             int item_count = 0;
 
@@ -936,21 +955,13 @@ namespace XPump.SubForm
             docs.BeginPrint += delegate (object sender, PrintEventArgs e)
             {
                 page = 0;
+                item_count = 0;
             };
             docs.PrintPage += delegate (object sender, PrintPageEventArgs e)
             {
-                Font fnt_header_bold = new Font("tahoma", 8f, FontStyle.Bold);
-                Font fnt_header = new Font("tahoma", 8f, FontStyle.Regular);
-                Font fnt_bold = new Font("tahoma", 7f, FontStyle.Bold);
-                Font fnt = new Font("tahoma", 7f, FontStyle.Regular);
-                SolidBrush brush = new SolidBrush(Color.Black);
-                StringFormat format_left = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
-                StringFormat format_right = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
-                StringFormat format_center = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
-
                 int x = e.MarginBounds.Left;
                 int y = e.MarginBounds.Top;
-                int line_height = fnt_header.Height + 20;
+                int line_height = fnt_header.Height + 2;
 
                 page++;
 
@@ -961,6 +972,7 @@ namespace XPump.SubForm
                 string str = "รายงานแสดงรายละเอียดการขายน้ำมันเชื้อเพลิง";
                 e.Graphics.DrawString(str, fnt_header_bold, brush, rect, format_center);
 
+                y += line_height; // new line
                 y += line_height; // new line
                 str = "ชื่อผู้ประกอบการ: ";
                 rect = str.GetDisplayRect(fnt_header, x, y);
@@ -976,8 +988,8 @@ namespace XPump.SubForm
                 str = "[ส่วน ก]";
                 rect = str.GetDisplayRect(fnt_header, x + e.MarginBounds.Width - str.Width(fnt_header), y);
                 rect.X -= 10;
-                e.Graphics.FillRectangle(new SolidBrush(Color.Gainsboro), rect.X - 5, rect.Y - 5, rect.Width + 10, rect.Height + 10);
-                e.Graphics.DrawRectangle(Pens.Black, rect.X - 5, rect.Y - 5, rect.Width + 10, rect.Height + 10);
+                e.Graphics.FillRectangle(new SolidBrush(Color.Gainsboro), rect.X - 5, rect.Y - 3, rect.Width + 10, rect.Height + 6);
+                e.Graphics.DrawRectangle(Pens.Black, rect.X - 5, rect.Y - 3, rect.Width + 10, rect.Height + 6);
                 e.Graphics.DrawString(str, fnt_header, brush, rect, format_center);
 
                 y += line_height; // new line
@@ -997,6 +1009,50 @@ namespace XPump.SubForm
                 str = report_data.isinfoDbfVM.taxid;
                 rect = str.GetDisplayRect(fnt_header, rect.X + rect.Width, y);
                 e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                y += line_height; // new line
+                str = "ที่อยู่: ";
+                rect = str.GetDisplayRect(fnt_header, x, y);
+                rect.Width = 110;
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+                str = report_data.isinfoDbfVM.addr;
+                rect = str.GetDisplayRect(fnt_header, x + rect.Width, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                str = "หน้า " + page.ToString() + "/" + total_page;
+                rect = str.GetDisplayRect(fnt_header, e.MarginBounds.Right - str.Width(fnt_header), y);
+                rect.X -= 10;
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_right);
+
+                y += line_height; // new line
+                str = report_data.isinfoDbfVM.telnum.Contains("โทร") || report_data.isinfoDbfVM.telnum.ToLower().Contains("tel") ? report_data.isinfoDbfVM.telnum : "โทร. " + report_data.isinfoDbfVM.telnum;
+                rect = str.GetDisplayRect(fnt_header, x + 110, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                /* item (loop) */
+                y += line_height; // new line
+                int page_item = 0;
+                for (int i = item_count; i < report_data.salessummaryVM_list.Count; i++)
+                {
+                    page_item++;
+
+                    x = (page_item * 100);
+
+                    str = report_data.salessummaryVM_list[i].stkcod;
+                    rect = str.GetDisplayRect(fnt_bold, x, y);
+                    e.Graphics.DrawString(str, fnt_bold, brush, rect, format_center);
+
+                    if (page_item == 4)
+                    {
+                        e.HasMorePages = true;
+                        item_count = i + 1;
+                        return;
+                    }
+                    else
+                    {
+                        e.HasMorePages = false;
+                    }
+                }
             };
 
             return docs;

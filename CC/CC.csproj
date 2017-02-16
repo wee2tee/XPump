@@ -108,6 +108,9 @@
     <Compile Include="XNumTextEdit.Designer.cs">
       <DependentUpon>XNumTextEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="XPrintPreviewDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="XTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -177,6 +180,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\zoom_14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer_small.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_fit_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_in_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_out_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\first_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\last_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\next_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\previous_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

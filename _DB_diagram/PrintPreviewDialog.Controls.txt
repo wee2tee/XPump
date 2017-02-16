@@ -1,0 +1,28 @@
+.. >> printToolStripButton
+.. >> ct : System.Windows.Forms.ToolStripSplitButton
+.. >> ct : System.Windows.Forms.ToolStripSeparator
+.. >> onepageToolStripButton
+.. >> twopagesToolStripButton
+.. >> threepagesToolStripButton
+.. >> fourpagesToolStripButton
+.. >> sixpagesToolStripButton
+.. >> ct : System.Windows.Forms.ToolStripSeparator
+.. >> closeToolStripButton
+.. >> ct : System.Windows.Forms.ToolStripControlHost
+.... >> pageCounter
+.. >> ct : System.Windows.Forms.ToolStripLabel
+
+
+.. >> printToolStripButton
+.. >> ct : zoomToolStripSplitButton
+.. >> ct : separatorToolStripSeparator
+.. >> onepageToolStripButton
+.. >> twopagesToolStripButton
+.. >> threepagesToolStripButton
+.. >> fourpagesToolStripButton
+.. >> sixpagesToolStripButton
+.. >> ct : separatorToolStripSeparator1
+.. >> closeToolStripButton
+.. >> ct : 
+.... >> pageCounter
+.. >> ct : pageToolStripLabel

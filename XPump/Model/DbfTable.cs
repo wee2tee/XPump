@@ -177,8 +177,133 @@ namespace XPump.Model
 
             return dt;
         }
-    }
 
+        public static DataTable Stcrd()
+        {
+            settings settings = DialogSettings.GetSettings();
+
+            string data_path = string.Empty;
+            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
+            {
+                data_path = settings.express_data_path;
+            }
+            else
+            {
+                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
+            }
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "stcrd.dbf")))
+            {
+                MessageBox.Show("ค้นหาแฟ้ม Stcrd.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return null;
+            }
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = new OleDbConnection(
+                @"Provider=VFPOLEDB.1;Data Source=" + data_path);
+
+            conn.Open();
+
+            if (conn.State == ConnectionState.Open)
+            {
+                string mySQL = "select * from stcrd";
+
+                OleDbCommand cmd = new OleDbCommand(mySQL, conn);
+                OleDbDataAdapter DA = new OleDbDataAdapter(cmd);
+
+                DA.Fill(dt);
+
+                conn.Close();
+            }
+
+            return dt;
+        }
+
+        public static DataTable Aptrn()
+        {
+            settings settings = DialogSettings.GetSettings();
+
+            string data_path = string.Empty;
+            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
+            {
+                data_path = settings.express_data_path;
+            }
+            else
+            {
+                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
+            }
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "aptrn.dbf")))
+            {
+                MessageBox.Show("ค้นหาแฟ้ม Aptrn.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return null;
+            }
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = new OleDbConnection(
+                @"Provider=VFPOLEDB.1;Data Source=" + data_path);
+
+            conn.Open();
+
+            if (conn.State == ConnectionState.Open)
+            {
+                string mySQL = "select * from aptrn";
+
+                OleDbCommand cmd = new OleDbCommand(mySQL, conn);
+                OleDbDataAdapter DA = new OleDbDataAdapter(cmd);
+
+                DA.Fill(dt);
+
+                conn.Close();
+            }
+
+            return dt;
+        }
+
+        public static DataTable Artrn()
+        {
+            settings settings = DialogSettings.GetSettings();
+
+            string data_path = string.Empty;
+            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
+            {
+                data_path = settings.express_data_path;
+            }
+            else
+            {
+                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
+            }
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "artrn.dbf")))
+            {
+                MessageBox.Show("ค้นหาแฟ้ม Artrn.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return null;
+            }
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = new OleDbConnection(
+                @"Provider=VFPOLEDB.1;Data Source=" + data_path);
+
+            conn.Open();
+
+            if (conn.State == ConnectionState.Open)
+            {
+                string mySQL = "select * from artrn";
+
+                OleDbCommand cmd = new OleDbCommand(mySQL, conn);
+                OleDbDataAdapter DA = new OleDbDataAdapter(cmd);
+
+                DA.Fill(dt);
+
+                conn.Close();
+            }
+
+            return dt;
+        }
+    }
 
     public class StmasDbf
     {
@@ -252,6 +377,181 @@ namespace XPump.Model
         public string status { get; set; }
         public DateTime? inactdat { get; set; }
 
+    }
+
+    public class StcrdDbf
+    {
+        public string stkcod { get; set; }
+        public string loccod { get; set; }
+        public string docnum { get; set; }
+        public string seqnum { get; set; }
+        public DateTime? docdat { get; set; }
+        public string rdocnum { get; set; }
+        public string refnum { get; set; }
+        public string depcod { get; set; }
+        public string posopr { get; set; }
+        public string free { get; set; }
+        public string vatcod { get; set; }
+        public string people { get; set; }
+        public string slmcod { get; set; }
+        public string flag { get; set; }
+        public double trnqty { get; set; }
+        public string tqucod { get; set; }
+        public double tfactor { get; set; }
+        public double unitpr { get; set; }
+        public string disc { get; set; }
+        public double discamt { get; set; }
+        public double trnval { get; set; }
+        public double phybal { get; set; }
+        public string retstk { get; set; }
+        public double xtrnqty { get; set; }
+        public double xunitpr { get; set; }
+        public double xtrnval { get; set; }
+        public double xsalval { get; set; }
+        public double netval { get; set; }
+        public string mlotnum { get; set; }
+        public double mrembal { get; set; }
+        public double mremval { get; set; }
+        public double balchg { get; set; }
+        public double valchg { get; set; }
+        public double lotbal { get; set; }
+        public double lotval { get; set; }
+        public double lunitpr { get; set; }
+        public string pstkcod { get; set; }
+        public string accnumdr { get; set; }
+        public string accnumcr { get; set; }
+        public string stkdes { get; set; }
+        public string packing { get; set; }
+        public string jobcod { get; set; }
+        public string phase { get; set; }
+        public string coscod { get; set; }
+        public string reimburse { get; set; }
+    }
+
+    public class AptrnDbf
+    {
+        public string rectyp { get; set; }
+        public string docnum { get; set; }
+        public DateTime? docdat { get; set; }
+        public string refnum { get; set; }
+        public DateTime? vatprd { get; set; }
+        public string vatlate { get; set; }
+        public string vattyp { get; set; }
+        public string postgl { get; set; }
+        public string ponum { get; set; }
+        public string dntyp { get; set; }
+        public string depcod { get; set; }
+        public string flgvat { get; set; }
+        public string supcod { get; set; }
+        public string shipto { get; set; }
+        public string youref { get; set; }
+        public decimal paytrm { get; set; }
+        public DateTime? duedat { get; set; }
+        public string bilnum { get; set; }
+        public string dlvby { get; set; }
+        public string nxtseq { get; set; }
+        public double amount { get; set; }
+        public string disc { get; set; }
+        public double discamt { get; set; }
+        public double aftdisc { get; set; }
+        public string advnum { get; set; }
+        public double advamt { get; set; }
+        public double total { get; set; }
+        public double amtrat0 { get; set; }
+        public decimal vatrat { get; set; }
+        public double vatamt { get; set; }
+        public double netamt { get; set; }
+        public double netval { get; set; }
+        public double payamt { get; set; }
+        public double remamt { get; set; }
+        public string cmplapp { get; set; }
+        public DateTime? cmpldat { get; set; }
+        public string docstat { get; set; }
+        public double cshpay { get; set; }
+        public double chqpay { get; set; }
+        public double intpay { get; set; }
+        public double tax { get; set; }
+        public double rcvamt { get; set; }
+        public double chqpas { get; set; }
+        public DateTime? vatdat { get; set; }
+        public string srv_vattyp { get; set; }
+        public string pvatprorat { get; set; }
+        public decimal pvat_rf { get; set; }
+        public decimal pvat_nrf { get; set; }
+        public string userid { get; set; }
+        public DateTime? chgdat { get; set; }
+        public string userprn { get; set; }
+        public DateTime? prndat { get; set; }
+        public decimal prncnt { get; set; }
+        public string prntim { get; set; }
+        public string authid { get; set; }
+        public DateTime? approve { get; set; }
+        public string billbe { get; set; }
+        public decimal orgnum { get; set; }
+    }
+
+    public class ArtrnDbf
+    {
+        public string rectyp { get; set; }
+        public string docnum { get; set; }
+        public DateTime? docdat { get; set; }
+        public string postgl { get; set; }
+        public string sonum { get; set; }
+        public string cntyp { get; set; }
+        public string depcod { get; set; }
+        public string flgvat { get; set; }
+        public string slmcod { get; set; }
+        public string cuscod { get; set; }
+        public string shipto { get; set; }
+        public string youref { get; set; }
+        public string areacod { get; set; }
+        public decimal paytrm { get; set; }
+        public DateTime? duedat { get; set; }
+        public string bilnum { get; set; }
+        public string nxtseq { get; set; }
+        public double amount { get; set; }
+        public string disc { get; set; }
+        public double discamt { get; set; }
+        public double aftdisc { get; set; }
+        public string advnum { get; set; }
+        public double advamt { get; set; }
+        public double total { get; set; }
+        public double amtrat0 { get; set; }
+        public decimal vatrat { get; set; }
+        public double vatamt { get; set; }
+        public double netamt { get; set; }
+        public double netval { get; set; }
+        public double rcvamt { get; set; }
+        public double remamt { get; set; }
+        public double comamt { get; set; }
+        public string cmplapp { get; set; }
+        public DateTime? cmpldat { get; set; }
+        public string docstat { get; set; }
+        public double cshrcv { get; set; }
+        public double chqrcv { get; set; }
+        public double intrcv { get; set; }
+        public double beftax { get; set; }
+        public decimal taxrat { get; set; }
+        public string taxcond { get; set; }
+        public double tax { get; set; }
+        public double ivcamt { get; set; }
+        public double chqpas { get; set; }
+        public DateTime? vatdat { get; set; }
+        public DateTime? vatprd { get; set; }
+        public string vatlate { get; set; }
+        public string srv_vattyp { get; set; }
+        public string dlvby { get; set; }
+        public DateTime? reserve { get; set; }
+        public string userid { get; set; }
+        public DateTime? chgdat { get; set; }
+        public string userprn { get; set; }
+        public DateTime? prndat { get; set; }
+        public decimal prncnt { get; set; }
+        public string prntim { get; set; }
+        public string authid { get; set; }
+        public DateTime? approve { get; set; }
+        public string billto { get; set; }
+        public decimal orgnum { get; set; }
     }
 
     public class SccompDbf
