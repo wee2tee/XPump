@@ -59,6 +59,10 @@ namespace XPump.SubForm
             this.btnSearch.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryRest.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrintA.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrintB.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrintC.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
@@ -216,6 +220,28 @@ namespace XPump.SubForm
             this.sales_list = sales.salessummary.ToViewModel().OrderBy(s => s.stkcod).ToList();
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.sales_list;
+
+            /*Form control state beyond data*/
+            if(this.form_mode == FORM_MODE.READ)
+            {
+                this.btnEdit.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnDelete.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnFirst.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnPrevious.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnNext.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnLast.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnSearch.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnInquiryAll.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnInquiryRest.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnPrint.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnPrintA.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnPrintB.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnPrintC.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnItem.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnRefresh.Enabled = sales == null || sales.id == -1 ? false : true;
+
+                this.dtSaldat._SelectedDate = sales == null || sales.id == -1 ? null : (DateTime?)sales.saldat;
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -227,10 +253,10 @@ namespace XPump.SubForm
                 shift_id = -1
             };
 
-            this.FillForm(this.tmp_shiftsales);
-
             this.form_mode = FORM_MODE.ADD;
             this.ResetControlState();
+
+            this.FillForm(this.tmp_shiftsales);
             this.toolStrip1.Focus();
             this.dtSaldat.Focus();
         }
@@ -382,25 +408,74 @@ namespace XPump.SubForm
 
         private void btnFirst_Click(object sender, EventArgs e)
         {
+            var tmp = this.GetFirst();
+
+            if(tmp != null)
+            {
+                this.curr_shiftsales = tmp;
+            }
+            else
+            {
+                this.curr_shiftsales = new shiftsales
+                {
+                    id = -1,
+                    saldat = DateTime.Now,
+                    shift_id = -1
+                };
+            }
+
             this.curr_shiftsales = this.GetFirst();
             this.FillForm();
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            this.curr_shiftsales = this.GetPrevious();
-            this.FillForm();
+            var tmp = this.GetPrevious();
+
+            if(tmp != null)
+            {
+                this.curr_shiftsales = tmp;
+                this.FillForm();
+            }
+            else
+            {
+                this.btnFirst.PerformClick();
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            this.curr_shiftsales = this.GetNext();
-            this.FillForm();
+            var tmp = this.GetNext();
+
+            if(tmp != null)
+            {
+                this.curr_shiftsales = tmp;
+                this.FillForm();
+            }
+            else
+            {
+                this.btnLast.PerformClick();
+            }
         }
 
         private void btnLast_Click(object sender, EventArgs e)
         {
-            this.curr_shiftsales = this.GetLast();
+            var tmp = this.GetLast();
+
+            if(tmp != null)
+            {
+                this.curr_shiftsales = tmp;
+            }
+            else
+            {
+                this.curr_shiftsales = new shiftsales
+                {
+                    id = -1,
+                    saldat = DateTime.Now,
+                    shift_id = -1
+                };
+            }
+
             this.FillForm();
         }
 
@@ -462,30 +537,23 @@ namespace XPump.SubForm
 
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
-                    //FormPrintPreview fp = new FormPrintPreview(this.GetPrintDoc_A(report_data));
-                    //fp._OutputToPrinter += delegate
-                    //{
-                    //    PrintDialog pd = new PrintDialog();
-                    //    pd.Document = this.GetPrintDoc_A(report_data);
-                    //    if (pd.ShowDialog() == DialogResult.OK)
-                    //    {
-                    //        pd.Document.Print();
-                    //    }
-                    //};
-                    //fp.MdiParent = this.main_form;
-                    //fp.Show();
+                    int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data));
 
-                    int total_page = XPrintPreviewDialog.GetTotalPageCount(this.GetPrintDoc_A(report_data));
+                    //XPrintPreviewDialog pd = new XPrintPreviewDialog(total_page);
+                    //pd.MdiParent = this.main_form;
+                    //pd.Document = this.PreparePrintDoc_A(report_data, total_page);
+                    //pd.Show();
 
-                    XPrintPreviewDialog pd = new XPrintPreviewDialog(total_page);
-                    pd.Document = this.GetPrintDoc_A(report_data, total_page);
-                    pd.Show();
+                    XPrintPreview fp = new XPrintPreview(this.PreparePrintDoc_A(report_data, total_page), total_page);
+                    fp.MdiParent = this.main_form;
+                    fp.Show();
+
                 }
 
                 if(print.output == PRINT_OUTPUT.PRINTER)
                 {
                     PrintDialog pd = new PrintDialog();
-                    pd.Document = this.GetPrintDoc_A(report_data);
+                    pd.Document = this.PreparePrintDoc_A(report_data);
                     if(pd.ShowDialog() == DialogResult.OK)
                     {
                         pd.Document.Print();
@@ -914,31 +982,67 @@ namespace XPump.SubForm
 
             using (xpumpEntities db = DBX.DataSet())
             {
-                int[] pricelist_id = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.pricelist_id).ToArray<int>();
-                report_data.pricelistVM_list = db.pricelist.Where(p => pricelist_id.Contains<int>(p.id)).ToViewModel();
+                try
+                {
+                    int[] pricelist_id = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.pricelist_id).ToArray<int>();
+                    report_data.pricelistVM_list = db.pricelist.Where(p => pricelist_id.Contains<int>(p.id)).ToViewModel();
 
-                report_data.salessummaryVM_list = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).ToViewModel();
+                    report_data.salessummaryVM_list = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).ToViewModel();
 
-                int[] salessummary_ids = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.id).ToArray<int>();
-                report_data.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel();
+                    int[] salessummary_ids = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.id).ToArray<int>();
+                    report_data.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel();
 
-                report_data.isinfoDbfVM = DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel();
-                var x = DbfTable.Stcrd().ToStcrdList();
-                var y = DbfTable.Aptrn().ToAptrnList();
-                var z = DbfTable.Artrn().ToArtrnList();
+                    report_data.isinfoDbfVM = DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel();
+                    var stcrd = DbfTable.Stcrd().ToStcrdList();
+                    var aptrn = DbfTable.Aptrn().ToAptrnList();
+                    var artrn = DbfTable.Artrn().ToArtrnList();
+
+                    var shift_data = db.shift.Find(this.curr_shiftsales.shift_id);
+
+                    report_data.phpvatdocVM = aptrn
+                        .Where(a => a.docdat.HasValue)
+                        .Where(a => a.docdat == this.curr_shiftsales.saldat && a.docnum.Substring(0, 2) == shift_data.phpprefix)
+                        .Select(s => new VatDocDbfVM { docnum = s.docnum, docdat = s.docdat.Value, people = s.supcod }).ToList();
+
+                    report_data.prrvatdocVM = aptrn
+                        .Where(a => a.docdat.HasValue)
+                        .Where(a => a.docdat == this.curr_shiftsales.saldat && a.docnum.Substring(0, 2) == shift_data.prrprefix)
+                        .Select(s => new VatDocDbfVM { docnum = s.docnum, docdat = s.docdat.Value, people = s.supcod }).ToList();
+
+                    report_data.shsvatdocVM = artrn
+                        .Where(a => a.docdat.HasValue)
+                        .Where(a => a.docdat == this.curr_shiftsales.saldat && a.docnum.Substring(0, 2) == shift_data.shsprefix)
+                        .Select(s => new VatDocDbfVM { docnum = s.docnum, docdat = s.docdat.Value, people = s.cuscod }).ToList();
+
+                    report_data.sivvatdocVM = artrn
+                        .Where(a => a.docdat.HasValue)
+                        .Where(a => a.docdat == this.curr_shiftsales.saldat && a.docnum.Substring(0, 2) == shift_data.sivprefix)
+                        .Select(s => new VatDocDbfVM { docnum = s.docnum, docdat = s.docdat.Value, people = s.cuscod }).ToList();
+
+                    foreach (var item in report_data.salessummaryVM_list)
+                    {
+                        item.purvat = decimal.Parse(string.Format("{0:0.00}", Convert.ToDecimal(stcrd.Where(s => s.stkcod.Trim() == item.stkcod.Trim() && (report_data.phpvatdocVM.Select(a => a.docnum).ToArray().Contains(s.docnum) || report_data.prrvatdocVM.Select(a => a.docnum).ToArray().Contains(s.docnum))).Sum(s => s.netval *.07))));
+                    }
+                }
+                catch (Exception)
+                {
+                    return report_data;
+                }
             }
 
             return report_data;
         }
 
-        private PrintDocument GetPrintDoc_A(ReportAModel report_data, int total_page = 0)
+        private PrintDocument PreparePrintDoc_A(ReportAModel report_data, int total_page = 0)
         {
             Font fnt_title_bold = new Font("angsana new", 12f, FontStyle.Bold);
             Font fnt_header_bold = new Font("angsana new", 11f, FontStyle.Bold); // tahoma 8f bold
             Font fnt_header = new Font("angsana new", 11f, FontStyle.Regular); // tahoma 8f
             Font fnt_bold = new Font("angsana new", 10f, FontStyle.Bold); // tahoma 7f bold
             Font fnt = new Font("angsana new", 10f, FontStyle.Regular); // tahoma 7f
+            Pen p = new Pen(Color.Black);
             SolidBrush brush = new SolidBrush(Color.Black);
+            SolidBrush bg_gray = new SolidBrush(Color.Gainsboro);
             StringFormat format_left = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
             StringFormat format_right = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
             StringFormat format_center = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
@@ -1031,12 +1135,24 @@ namespace XPump.SubForm
 
                 /* item (loop) */
                 y += line_height; // new line
+                int start_body_y = y;
                 int page_item = 0;
                 for (int i = item_count; i < report_data.salessummaryVM_list.Count; i++)
                 {
                     page_item++;
 
-                    x = (page_item * 100);
+                    Point line_begin_point = new Point((((e.MarginBounds.Right - e.MarginBounds.Left) / 4) * (page_item - 1)) + e.MarginBounds.Left, y);
+                    Point line_end_point = new Point(((e.MarginBounds.Right - e.MarginBounds.Left)/4) + line_begin_point.X, y);
+                    //e.Graphics.DrawLine(p, line_begin_point, line_end_point);
+                    x = line_begin_point.X;
+
+                    rect = new Rectangle(x, y, 30, line_height * 3);
+                    e.Graphics.FillRectangle(bg_gray, rect);
+                    e.Graphics.DrawRectangle(p, rect);
+                    e.Graphics.DrawString("หัวจ่ายเลขที่", fnt_bold, brush, rect, new StringFormat { Alignment = StringAlignment.Center });
+
+                    //x = (page_item * 100);
+                    
 
                     str = report_data.salessummaryVM_list[i].stkcod;
                     rect = str.GetDisplayRect(fnt_bold, x, y);

@@ -282,7 +282,7 @@ namespace XPump.SubForm
         {
             this.saleshistory = this.salessummary.saleshistory.ToList();
             this.bs_sales.ResetBindings(true);
-            this.bs_sales.DataSource = this.saleshistory.ToViewModel();
+            this.bs_sales.DataSource = this.saleshistory.ToViewModel().OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ThenBy(s => s.nozzle_name).ToList();
         }
 
         private void FillDgvPrice()

@@ -43,6 +43,7 @@
             this.col_stmas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_last_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_price_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,7 +99,8 @@
             this.col_remark,
             this.col_stmas,
             this.col_last_price,
-            this.col_price_date});
+            this.col_price_date,
+            this.col_price_id});
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F);
@@ -204,6 +206,14 @@
             this.col_price_date.ReadOnly = true;
             this.col_price_date.Visible = false;
             // 
+            // col_price_id
+            // 
+            this.col_price_id.DataPropertyName = "price_id";
+            this.col_price_id.HeaderText = "Price Id";
+            this.col_price_id.Name = "col_price_id";
+            this.col_price_id.ReadOnly = true;
+            this.col_price_id.Visible = false;
+            // 
             // DialogInquiryStmas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -241,5 +251,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stmas;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_last_price;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_price_date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_price_id;
     }
 }

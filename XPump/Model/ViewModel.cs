@@ -407,6 +407,45 @@ namespace XPump.Model
     {
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
+        public string tank_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        var nozzle = db.nozzle.Find(this.nozzle_id);
+                        var section = db.section.Find(nozzle.section_id);
+                        var tank = db.tank.Find(section.tank_id);
+                        return tank != null ? tank.name : string.Empty;
+                    }
+                    catch (Exception)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
+        public string section_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        var nozzle = db.nozzle.Find(this.nozzle_id);
+                        var section = db.section.Where(s => s.id == nozzle.section_id).First();
+                        return section != null ? section.name : string.Empty;
+                    }
+                    catch (Exception)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
         public string nozzle_name
         {
             get
@@ -575,7 +614,10 @@ namespace XPump.Model
     {
         public DateTime reportDate { get; set; }
         public IsinfoDbfVM isinfoDbfVM { get; set; }
-        public List<VatDocDbfVM> vatdocVM { get; set; }
+        public List<VatDocDbfVM> phpvatdocVM { get; set; }
+        public List<VatDocDbfVM> prrvatdocVM { get; set; }
+        public List<VatDocDbfVM> shsvatdocVM { get; set; }
+        public List<VatDocDbfVM> sivvatdocVM { get; set; }
         public List<pricelistVM> pricelistVM_list { get; set; }
         public List<salessummaryVM> salessummaryVM_list { get; set; }
         public List<saleshistoryVM> saleshistoryVM_list { get; set; }

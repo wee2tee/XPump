@@ -91,7 +91,7 @@ namespace XPump.SubForm
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnSearch.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnImport.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnRename.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnChgCode.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             /*Form control*/
             this.txtName.SetControlState(new FORM_MODE[] { FORM_MODE.ADD }, this.form_mode);
@@ -169,6 +169,22 @@ namespace XPump.SubForm
 
             this.bs_sales.ResetBindings(true);
             this.bs_sales.DataSource = stmas.saleshistory.Where(s => s.salqty != 0).ToViewModel().OrderBy(s => s.saldat).ThenBy(s => s.shift_name).ThenBy(s => s.nozzle_name).ToList();
+
+            /*Form control state beyond data*/
+            if(this.form_mode == FORM_MODE.READ)
+            {
+                this.btnEdit.Enabled = stmas == null || stmas.id == -1 ? false : true;
+                this.btnDelete.Enabled = stmas == null || stmas.id == -1 ? false : true;
+                this.btnFirst.Enabled = stmas == null || stmas.id == -1 ? false : true;
+                this.btnPrevious.Enabled = stmas == null || stmas.id == -1 ? false : true;
+                this.btnNext.Enabled = stmas == null || stmas.id == -1 ? false : true;
+                this.btnLast.Enabled = stmas == null || stmas.id == -1 ? false : true;
+                this.btnSearch.Enabled = stmas == null || stmas.id == -1 ? false : true;
+                this.btnInquiryAll.Enabled = stmas == null || stmas.id == -1 ? false : true;
+                this.btnInquiryRest.Enabled = stmas == null || stmas.id == -1 ? false : true;
+                this.btnChgCode.Enabled = stmas == null || stmas.id == -1 ? false : true;
+                this.btnRefresh.Enabled = stmas == null || stmas.id == -1 ? false : true;
+            }
         }
 
         private void dgvTank_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -257,6 +273,9 @@ namespace XPump.SubForm
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (this.curr_stmas == null || this.curr_stmas.id == -1)
+                return;
+
             if (MessageBox.Show("ลบรหัสสินค้า \"" + this.curr_stmas.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 using (xpumpEntities db = DBX.DataSet())
@@ -565,7 +584,7 @@ namespace XPump.SubForm
 
             if(keyData == (Keys.Control | Keys.G))
             {
-                this.btnRename.PerformClick();
+                this.btnChgCode.PerformClick();
                 return true;
             }
 
@@ -595,7 +614,27 @@ namespace XPump.SubForm
             DialogStmasImportSelection im = new DialogStmasImportSelection(this.main_form);
             if(im.ShowDialog() == DialogResult.OK)
             {
-                this.btnRefresh.PerformClick();
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").OrderByDescending(s => s.name).FirstOrDefault();
+
+                    if (tmp != null)
+                    {
+                        this.curr_stmas = tmp;
+                    }
+                    else
+                    {
+                        this.curr_stmas = new stmas()
+                        {
+                            id = -1,
+                            name = string.Empty,
+                            description = string.Empty,
+                            remark = string.Empty
+                        };
+                    }
+
+                    this.FillForm();
+                }
             }
         }
 

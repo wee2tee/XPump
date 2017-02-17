@@ -88,7 +88,7 @@ namespace XPump.SubForm
                 }
                 ((CheckBox)sender).ThreeState = false;
                 this.bs.ResetBindings(true);
-
+                this.btnOK.Enabled = false;
                 return;
             }
 
@@ -100,7 +100,7 @@ namespace XPump.SubForm
                 }
                 ((CheckBox)sender).ThreeState = false;
                 this.bs.ResetBindings(true);
-
+                this.btnOK.Enabled = true;
                 return;
             }
         }

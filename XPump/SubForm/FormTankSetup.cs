@@ -62,7 +62,7 @@ namespace XPump.SubForm
             this.inline_nozzlecount.Text = "";
             this.inline_nozzlecount.Image = XPump.Properties.Resources.nozzle2_16;
             this.inline_nozzlecount.ImageAlign = ContentAlignment.MiddleCenter;
-            toolTip1.SetToolTip(this.inline_nozzlecount, "แก้ไขจำนวนหัวจ่ายน้ำมัน <Ctrl+N>");
+            toolTip1.SetToolTip(this.inline_nozzlecount, "แก้ไขจำนวนหัวจ่ายน้ำมัน <Ctrl + Space>");
             this.inline_nozzlecount.Visible = false;
             this.inline_nozzlecount.Click += delegate
             {
@@ -154,11 +154,11 @@ namespace XPump.SubForm
             this.btnStopItem.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.dgvSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
 
-            this.txtName.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
-            this.txtDesc.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
-            this.txtRemark.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
-            this.dtStartDate.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
-            this.dtEndDate.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+            //this.txtName.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+            //this.txtDesc.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+            //this.txtRemark.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+            //this.dtStartDate.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+            //this.dtEndDate.Enabled = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
 
         }
 
@@ -279,6 +279,21 @@ namespace XPump.SubForm
 
             this.bs_section.DataSource = sections;
             this.dgvSection.Focus();
+
+            if(this.form_mode == FORM_MODE.READ)
+            {
+                this.btnEdit.Enabled = tank == null || tank.id == -1 ? false : true;
+                this.btnDelete.Enabled = tank == null || tank.id == -1 ? false : true;
+                this.btnFirst.Enabled = tank == null || tank.id == -1 ? false : true;
+                this.btnPrevious.Enabled = tank == null || tank.id == -1 ? false : true;
+                this.btnNext.Enabled = tank == null || tank.id == -1 ? false : true;
+                this.btnLast.Enabled = tank == null || tank.id == -1 ? false : true;
+                this.btnSearch.Enabled = tank == null || tank.id == -1 ? false : true;
+                this.btnInquiryAll.Enabled = tank == null || tank.id == -1 ? false : true;
+                this.btnInquiryRest.Enabled = tank == null || tank.id == -1 ? false : true;
+                this.btnItem.Enabled = tank == null || tank.id == -1 ? false : true;
+                this.btnRefresh.Enabled = tank == null || tank.id == -1 ? false : true;
+            }
         }
 
         private void ShowInlineForm(int row_index)
@@ -648,7 +663,7 @@ namespace XPump.SubForm
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (this.curr_tank == null)
+            if (this.curr_tank == null || this.curr_tank.id == -1)
                 return;
 
             if (MessageBox.Show("ลบรหัสแท๊งค์ \"" + this.curr_tank.name + "\" และช่องเก็บฯ/หัวจ่ายฯ ที่เกี่ยวข้อง, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)

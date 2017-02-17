@@ -61,7 +61,7 @@
             this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
             this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnRename = new System.Windows.Forms.ToolStripButton();
+            this.btnChgCode = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnImport = new System.Windows.Forms.ToolStripButton();
@@ -95,12 +95,6 @@
             this.col_nozzle_nozzle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dgvSales = new CC.XDatagrid();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtRemark = new CC.XTextEdit();
-            this.txtDescription = new CC.XTextEdit();
-            this.txtName = new CC.XTextEdit();
             this.col_sales_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sales_saldat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sales_shift_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -119,6 +113,12 @@
             this.col_sales_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sales_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sales_saleshistory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtRemark = new CC.XTextEdit();
+            this.txtDescription = new CC.XTextEdit();
+            this.txtName = new CC.XTextEdit();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -148,7 +148,7 @@
             this.toolStripSeparator2,
             this.btnSearch,
             this.toolStripSeparator5,
-            this.btnRename,
+            this.btnChgCode,
             this.btnRefresh,
             this.toolStripSeparator4,
             this.btnImport});
@@ -305,16 +305,16 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 43);
             // 
-            // btnRename
+            // btnChgCode
             // 
-            this.btnRename.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRename.Image = ((System.Drawing.Image)(resources.GetObject("btnRename.Image")));
-            this.btnRename.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnRename.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnRename.Name = "btnRename";
-            this.btnRename.Size = new System.Drawing.Size(36, 40);
-            this.btnRename.Text = "เปลี่ยนรหัสสินค้า <Ctrl+G>";
-            this.btnRename.Click += new System.EventHandler(this.btnRename_Click);
+            this.btnChgCode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnChgCode.Image = ((System.Drawing.Image)(resources.GetObject("btnChgCode.Image")));
+            this.btnChgCode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnChgCode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnChgCode.Name = "btnChgCode";
+            this.btnChgCode.Size = new System.Drawing.Size(36, 40);
+            this.btnChgCode.Text = "เปลี่ยนรหัสสินค้า <Ctrl+G>";
+            this.btnChgCode.Click += new System.EventHandler(this.btnRename_Click);
             // 
             // btnRefresh
             // 
@@ -767,84 +767,6 @@
             this.dgvSales.StandardTab = true;
             this.dgvSales.TabIndex = 2;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 55);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 16);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "รหัส";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 16);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "รายละเอียด";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 107);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 16);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "หมายเหตุ";
-            // 
-            // txtRemark
-            // 
-            this.txtRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRemark._MaxLength = 50;
-            this.txtRemark._ReadOnly = false;
-            this.txtRemark._Text = "";
-            this.txtRemark._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtRemark.BackColor = System.Drawing.Color.White;
-            this.txtRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRemark.Location = new System.Drawing.Point(91, 104);
-            this.txtRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(466, 23);
-            this.txtRemark.TabIndex = 2;
-            this.txtRemark._DoubleClicked += new System.EventHandler(this.PerformEdit);
-            // 
-            // txtDescription
-            // 
-            this.txtDescription._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDescription._MaxLength = 50;
-            this.txtDescription._ReadOnly = false;
-            this.txtDescription._Text = "";
-            this.txtDescription._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtDescription.BackColor = System.Drawing.Color.White;
-            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDescription.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDescription.Location = new System.Drawing.Point(91, 78);
-            this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(466, 23);
-            this.txtDescription.TabIndex = 1;
-            this.txtDescription._DoubleClicked += new System.EventHandler(this.PerformEdit);
-            // 
-            // txtName
-            // 
-            this.txtName._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName._MaxLength = 20;
-            this.txtName._ReadOnly = false;
-            this.txtName._Text = "";
-            this.txtName._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtName.BackColor = System.Drawing.Color.White;
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtName.Location = new System.Drawing.Point(91, 52);
-            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(197, 23);
-            this.txtName.TabIndex = 0;
-            this.txtName._DoubleClicked += new System.EventHandler(this.PerformEdit);
-            // 
             // col_sales_id
             // 
             this.col_sales_id.DataPropertyName = "id";
@@ -1009,6 +931,84 @@
             this.col_sales_saleshistory.ReadOnly = true;
             this.col_sales_saleshistory.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(57, 55);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 16);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "รหัส";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 81);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 16);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "รายละเอียด";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 107);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 16);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "หมายเหตุ";
+            // 
+            // txtRemark
+            // 
+            this.txtRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRemark._MaxLength = 50;
+            this.txtRemark._ReadOnly = false;
+            this.txtRemark._Text = "";
+            this.txtRemark._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtRemark.BackColor = System.Drawing.Color.White;
+            this.txtRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRemark.Location = new System.Drawing.Point(91, 104);
+            this.txtRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtRemark.Name = "txtRemark";
+            this.txtRemark.Size = new System.Drawing.Size(466, 23);
+            this.txtRemark.TabIndex = 2;
+            this.txtRemark._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // txtDescription
+            // 
+            this.txtDescription._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDescription._MaxLength = 50;
+            this.txtDescription._ReadOnly = false;
+            this.txtDescription._Text = "";
+            this.txtDescription._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtDescription.BackColor = System.Drawing.Color.White;
+            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDescription.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDescription.Location = new System.Drawing.Point(91, 78);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(466, 23);
+            this.txtDescription.TabIndex = 1;
+            this.txtDescription._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // txtName
+            // 
+            this.txtName._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName._MaxLength = 20;
+            this.txtName._ReadOnly = false;
+            this.txtName._Text = "";
+            this.txtName._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtName.BackColor = System.Drawing.Color.White;
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtName.Location = new System.Drawing.Point(91, 52);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(197, 23);
+            this.txtName.TabIndex = 0;
+            this.txtName._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
             // FormStmas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1100,7 +1100,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_section;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_state;
         private System.Windows.Forms.ToolStripButton btnImport;
-        private System.Windows.Forms.ToolStripButton btnRename;
+        private System.Windows.Forms.ToolStripButton btnChgCode;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sales_id;

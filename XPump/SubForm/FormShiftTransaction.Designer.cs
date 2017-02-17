@@ -727,7 +727,7 @@
             this.brShift.TabIndex = 1;
             this.brShift._ButtonClick += new System.EventHandler(this.brShift__ButtonClick);
             this.brShift._Leave += new System.EventHandler(this.brShift__Leave);
-            this.brShift.DoubleClick += new System.EventHandler(this.PerformEdit);
+            this.brShift._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // dtSaldat
             // 
@@ -743,7 +743,7 @@
             this.dtSaldat.TabIndex = 0;
             this.dtSaldat._SelectedDateChanged += new System.EventHandler(this.dtSaldat__SelectedDateChanged);
             this.dtSaldat._Leave += new System.EventHandler(this.dtSaldat__Leave);
-            this.dtSaldat.DoubleClick += new System.EventHandler(this.PerformEdit);
+            this.dtSaldat._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // FormShiftTransaction
             // 

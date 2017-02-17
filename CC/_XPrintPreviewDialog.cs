@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace CC
 {
-    public class XPrintPreviewDialog : PrintPreviewDialog
+    public class _XPrintPreviewDialog : PrintPreviewDialog
     {
         public event EventHandler _OutputToPrinter;
 
@@ -33,7 +33,7 @@ namespace CC
 
         //}
 
-        public XPrintPreviewDialog(int total_page)
+        public _XPrintPreviewDialog(int total_page)
         {
             this.total_page = total_page;
         }
@@ -205,7 +205,7 @@ namespace CC
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
-            Console.WriteLine(".. >> mouse wheel");
+            //Console.WriteLine(".. >> mouse wheel");
         }
 
         public static int GetTotalPageCount(PrintDocument printDocument)
@@ -268,6 +268,21 @@ namespace CC
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // XPrintPreviewDialog
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.ClientSize = new System.Drawing.Size(874, 547);
+            this.Name = "XPrintPreviewDialog";
+            this.ShowIcon = false;
+            this.UseAntiAlias = true;
+            this.ResumeLayout(false);
+
         }
     }
 }

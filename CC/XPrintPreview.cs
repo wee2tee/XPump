@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace XPump.SubForm
+namespace CC
 {
-    public partial class FormPrintPreview : Form
+    public partial class XPrintPreview : Form
     {
         private int total_page;
         //public event EventHandler _OutputToPrinter;
 
-        public FormPrintPreview(PrintDocument document, int total_page)
+        public XPrintPreview(PrintDocument document, int total_page)
         {
             InitializeComponent();
             this.printDialog1.Document = document;

@@ -1,6 +1,6 @@
-﻿namespace XPump.SubForm
+﻿namespace CC
 {
-    partial class FormPrintPreview
+    partial class XPrintPreview
     {
         /// <summary>
         /// Required designer variable.
@@ -82,7 +82,7 @@
             // btnPrint
             // 
             this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrint.Image = global::XPump.Properties.Resources.printer_small;
+            this.btnPrint.Image = global::CC.Properties.Resources.printer_16;
             this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrint.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.btnPrint.Name = "btnPrint";
@@ -98,7 +98,7 @@
             // btnZoomIn
             // 
             this.btnZoomIn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnZoomIn.Image = global::XPump.Properties.Resources.zoom_in_16;
+            this.btnZoomIn.Image = global::CC.Properties.Resources.zoom_in_16;
             this.btnZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnZoomIn.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
             this.btnZoomIn.Name = "btnZoomIn";
@@ -109,7 +109,7 @@
             // btnZoomOut
             // 
             this.btnZoomOut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnZoomOut.Image = global::XPump.Properties.Resources.zoom_out_16;
+            this.btnZoomOut.Image = global::CC.Properties.Resources.zoom_out_16;
             this.btnZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnZoomOut.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.btnZoomOut.Name = "btnZoomOut";
@@ -120,7 +120,7 @@
             // btnZoomFit
             // 
             this.btnZoomFit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnZoomFit.Image = global::XPump.Properties.Resources.zoom_fit_16;
+            this.btnZoomFit.Image = global::CC.Properties.Resources.zoom_fit_16;
             this.btnZoomFit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnZoomFit.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
             this.btnZoomFit.Name = "btnZoomFit";
@@ -136,7 +136,7 @@
             // btnSplitNone
             // 
             this.btnSplitNone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSplitNone.Image = global::XPump.Properties.Resources.page_split_none_16;
+            this.btnSplitNone.Image = global::CC.Properties.Resources.page_split_none_16;
             this.btnSplitNone.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSplitNone.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
             this.btnSplitNone.Name = "btnSplitNone";
@@ -147,7 +147,7 @@
             // btnSplit2
             // 
             this.btnSplit2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSplit2.Image = global::XPump.Properties.Resources.page_split2_16;
+            this.btnSplit2.Image = global::CC.Properties.Resources.page_split2_16;
             this.btnSplit2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSplit2.Name = "btnSplit2";
             this.btnSplit2.Size = new System.Drawing.Size(23, 22);
@@ -157,7 +157,7 @@
             // btnSplit4
             // 
             this.btnSplit4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSplit4.Image = global::XPump.Properties.Resources.page_split4_16;
+            this.btnSplit4.Image = global::CC.Properties.Resources.page_split4_16;
             this.btnSplit4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSplit4.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.btnSplit4.Name = "btnSplit4";
@@ -181,7 +181,7 @@
             // btnFirst
             // 
             this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFirst.Image = global::XPump.Properties.Resources.first_16;
+            this.btnFirst.Image = global::CC.Properties.Resources.first_16;
             this.btnFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(23, 22);
@@ -191,7 +191,7 @@
             // btnPrevious
             // 
             this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrevious.Image = global::XPump.Properties.Resources.previous_16;
+            this.btnPrevious.Image = global::CC.Properties.Resources.previous_16;
             this.btnPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(23, 22);
@@ -212,7 +212,7 @@
             // btnNext
             // 
             this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnNext.Image = global::XPump.Properties.Resources.next_16;
+            this.btnNext.Image = global::CC.Properties.Resources.next_16;
             this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(23, 22);
@@ -222,7 +222,7 @@
             // btnLast
             // 
             this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnLast.Image = global::XPump.Properties.Resources.last_16;
+            this.btnLast.Image = global::CC.Properties.Resources.last_16;
             this.btnLast.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnLast.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.btnLast.Name = "btnLast";
@@ -238,7 +238,7 @@
             // btnClose
             // 
             this.btnClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnClose.Image = global::XPump.Properties.Resources.stop_16;
+            this.btnClose.Image = global::CC.Properties.Resources.stop_16;
             this.btnClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnClose.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
             this.btnClose.Name = "btnClose";
