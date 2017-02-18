@@ -987,10 +987,10 @@ namespace XPump.SubForm
                     int[] pricelist_id = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.pricelist_id).ToArray<int>();
                     report_data.pricelistVM_list = db.pricelist.Where(p => pricelist_id.Contains<int>(p.id)).ToViewModel();
 
-                    report_data.salessummaryVM_list = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).ToViewModel();
+                    report_data.salessummaryVM_list = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).ToViewModel().OrderBy(s => s.stkcod).ToList();
 
                     int[] salessummary_ids = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.id).ToArray<int>();
-                    report_data.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel();
+                    report_data.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel().ToList();
 
                     report_data.isinfoDbfVM = DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel();
                     var stcrd = DbfTable.Stcrd().ToStcrdList();
@@ -1065,11 +1065,12 @@ namespace XPump.SubForm
             {
                 int x = e.MarginBounds.Left;
                 int y = e.MarginBounds.Top;
-                int line_height = fnt_header.Height + 2;
+                int line_height = fnt_header.Height;
 
                 page++;
 
-                e.Graphics.DrawRectangle(new Pen(Color.Red), new Rectangle(x, y, e.MarginBounds.Right - x, e.MarginBounds.Bottom - y));
+                // draw margin bound
+                //e.Graphics.DrawRectangle(new Pen(Color.Red), new Rectangle(x, y, e.MarginBounds.Right - x, e.MarginBounds.Bottom - y));
 
                 /* report header */
                 Rectangle rect = new Rectangle(x, y, e.MarginBounds.Right - x, line_height);
@@ -1141,22 +1142,140 @@ namespace XPump.SubForm
                 {
                     page_item++;
 
-                    Point line_begin_point = new Point((((e.MarginBounds.Right - e.MarginBounds.Left) / 4) * (page_item - 1)) + e.MarginBounds.Left, y);
-                    Point line_end_point = new Point(((e.MarginBounds.Right - e.MarginBounds.Left)/4) + line_begin_point.X, y);
-                    //e.Graphics.DrawLine(p, line_begin_point, line_end_point);
-                    x = line_begin_point.X;
+                    Point block_begin_point = new Point((((e.MarginBounds.Right - e.MarginBounds.Left) / 4) * (page_item - 1)) + e.MarginBounds.Left, y);
+                    Point block_end_point = new Point(((e.MarginBounds.Right - e.MarginBounds.Left)/4) + block_begin_point.X, y);
 
-                    rect = new Rectangle(x, y, 30, line_height * 3);
-                    e.Graphics.FillRectangle(bg_gray, rect);
-                    e.Graphics.DrawRectangle(p, rect);
-                    e.Graphics.DrawString("หัวจ่ายเลขที่", fnt_bold, brush, rect, new StringFormat { Alignment = StringAlignment.Center });
+                    x = block_begin_point.X;
 
-                    //x = (page_item * 100);
-                    
+                    Rectangle rect_noz = new Rectangle(x, y, 37, line_height * 3);
+                    e.Graphics.FillRectangle(bg_gray, rect_noz);
+                    e.Graphics.DrawRectangle(p, rect_noz);
+                    e.Graphics.DrawString("หัว" + Environment.NewLine + "จ่าย" + Environment.NewLine + "เลขที่", fnt_bold, brush, rect_noz, new StringFormat { Alignment = StringAlignment.Center });
 
+                    Rectangle rect_stkcod = new Rectangle(x + rect_noz.Width, y, block_end_point.X - (x + rect_noz.Width), line_height);
                     str = report_data.salessummaryVM_list[i].stkcod;
-                    rect = str.GetDisplayRect(fnt_bold, x, y);
-                    e.Graphics.DrawString(str, fnt_bold, brush, rect, format_center);
+                    e.Graphics.FillRectangle(bg_gray, rect_stkcod);
+                    e.Graphics.DrawRectangle(p, rect_stkcod);
+                    e.Graphics.DrawString(str, fnt_bold, brush, rect_stkcod, format_center);
+
+                    int sub_block_widht = (int)Math.Floor((decimal)rect_stkcod.Width / 4);
+                    Rectangle rect_mitbeg = new Rectangle(rect_stkcod.X, block_begin_point.Y + line_height, sub_block_widht, line_height * 2);
+                    e.Graphics.FillRectangle(bg_gray, rect_mitbeg);
+                    e.Graphics.DrawRectangle(p, rect_mitbeg);
+                    e.Graphics.DrawString("มิเตอร์" + Environment.NewLine + "เริ่มต้น", fnt_bold, brush, rect_mitbeg, new StringFormat { Alignment = StringAlignment.Center });
+
+                    Rectangle rect_mitend = new Rectangle(rect_mitbeg.X + rect_mitbeg.Width, block_begin_point.Y + line_height, sub_block_widht, line_height * 2);
+                    e.Graphics.FillRectangle(bg_gray, rect_mitend);
+                    e.Graphics.DrawRectangle(p, rect_mitend);
+                    e.Graphics.DrawString("มิเตอร์" + Environment.NewLine + "สิ้นสุด", fnt_bold, brush, rect_mitend, new StringFormat { Alignment = StringAlignment.Center });
+
+                    Rectangle rect_salqty = new Rectangle(rect_mitend.X + rect_mitend.Width, block_begin_point.Y + line_height, sub_block_widht, line_height * 2);
+                    e.Graphics.FillRectangle(bg_gray, rect_salqty);
+                    e.Graphics.DrawRectangle(p, rect_salqty);
+                    e.Graphics.DrawString("ปริมาณ" + Environment.NewLine + "ขาย(ลิตร)", fnt_bold, brush, rect_salqty, new StringFormat { Alignment = StringAlignment.Center });
+
+                    Rectangle rect_salval = new Rectangle(rect_salqty.X + rect_salqty.Width, block_begin_point.Y + line_height, sub_block_widht, line_height * 2);
+                    e.Graphics.FillRectangle(bg_gray, rect_salval);
+                    e.Graphics.DrawRectangle(p, rect_salval);
+                    e.Graphics.DrawString("มูลค่า" + Environment.NewLine + "ขาย(บาท)", fnt_bold, brush, rect_salval, new StringFormat { Alignment = StringAlignment.Center });
+
+                    rect_noz.Height = line_height;
+                    rect_mitbeg.Height = line_height;
+                    rect_mitend.Height = line_height;
+                    rect_salqty.Height = line_height;
+                    rect_salval.Height = line_height;
+
+                    rect_noz.Y += line_height * 3;
+                    rect_mitbeg.Y += line_height * 2;
+                    rect_mitend.Y += line_height * 2;
+                    rect_salqty.Y += line_height * 2;
+                    rect_salval.Y += line_height * 2;
+
+                    var sales_history = report_data.saleshistoryVM_list.Where(s => s.salessummary_id == report_data.salessummaryVM_list[i].id).OrderBy(s => s.nozzle_name).ToList();
+                    for (int j = 0; j < 12; j++)
+                    {
+                        e.Graphics.FillRectangle(bg_gray, rect_noz);
+                        e.Graphics.DrawRectangle(p, rect_noz);
+
+                        e.Graphics.DrawRectangle(p, rect_mitbeg);
+
+                        e.Graphics.DrawRectangle(p, rect_mitend);
+
+                        e.Graphics.DrawRectangle(p, rect_salqty);
+
+                        e.Graphics.DrawRectangle(p, rect_salval);
+
+                        if(sales_history.Count > j)
+                        {
+                            e.Graphics.DrawString(sales_history[j].nozzle_name, fnt, brush, rect_noz, new StringFormat { Alignment = StringAlignment.Center });
+                            e.Graphics.DrawString(sales_history[j].mitbeg.FormatCurrency(), fnt, brush, rect_mitbeg, new StringFormat { Alignment = StringAlignment.Far });
+                            e.Graphics.DrawString(sales_history[j].mitend.FormatCurrency(), fnt, brush, rect_mitend, new StringFormat { Alignment = StringAlignment.Far });
+                            e.Graphics.DrawString(sales_history[j].salqty.FormatCurrency(), fnt, brush, rect_salqty, new StringFormat { Alignment = StringAlignment.Far });
+                            e.Graphics.DrawString(sales_history[j].salval.FormatCurrency(), fnt, brush, rect_salval, new StringFormat { Alignment = StringAlignment.Far });
+                        }
+
+                        rect_noz.Y += line_height;
+                        rect_mitbeg.Y += line_height;
+                        rect_mitend.Y += line_height;
+                        rect_salqty.Y += line_height;
+                        rect_salval.Y += line_height;
+                    }
+
+                    x = block_begin_point.X;
+                    Rectangle rect_total_txt = new Rectangle(x, rect_noz.Y, rect_noz.Width + rect_mitbeg.Width + rect_mitend.Width, line_height);
+                    e.Graphics.DrawString("  1.รวม", fnt_bold, brush, rect_total_txt);
+
+                    Rectangle rect_qty = new Rectangle(x + rect_total_txt.Width, rect_salqty.Y, rect_salqty.Width, line_height * 8);
+                    e.Graphics.DrawRectangle(p, rect_qty);
+
+                    Rectangle rect_val = new Rectangle(rect_qty.X + rect_qty.Width, rect_salval.Y, rect_salval.Width, line_height * 8);
+                    e.Graphics.DrawRectangle(p, rect_val);
+
+                    Rectangle rect_total = new Rectangle(rect_salqty.X, rect_total_txt.Y, rect_salqty.Width, line_height);
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].total.FormatCurrency(), fnt, brush, rect_total, new StringFormat { Alignment = StringAlignment.Far});
+
+                    Rectangle rect_dtest_txt = new Rectangle(x, rect_total_txt.Y + line_height, rect_total_txt.Width, line_height);
+                    e.Graphics.DrawString("  2.หักยอดขายน้ำมันทดสอบ", fnt_bold, brush, rect_dtest_txt);
+
+                    Rectangle rect_dtest = new Rectangle(rect_salqty.X, rect_dtest_txt.Y, rect_total.Width, line_height);
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].dtest.FormatCurrency(), fnt, brush, rect_dtest, new StringFormat { Alignment = StringAlignment.Far });
+
+                    Rectangle rect_dother_txt = new Rectangle(x + 12, rect_dtest_txt.Y + line_height, rect_dtest_txt.Width - 12, line_height);
+                    e.Graphics.DrawString("หักอื่น ๆ ระบุ ______________________", fnt_bold, brush, rect_dother_txt);
+
+                    rect_dother_txt.X += 60;
+                    rect_dother_txt.Width -= 60;
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].dothertxt, fnt_bold, brush, rect_dother_txt);
+
+                    Rectangle rect_dother = new Rectangle(rect_salqty.X, rect_dother_txt.Y, rect_total.Width, line_height);
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].dother.FormatCurrency(), fnt, brush, rect_dother, new StringFormat { Alignment = StringAlignment.Far });
+
+                    Rectangle rect_totqty_txt = new Rectangle(x, rect_dother_txt.Y + line_height, rect_dtest_txt.Width, line_height);
+                    e.Graphics.DrawString("  3.รวมยอดขายประจำวัน", fnt_bold, brush, rect_totqty_txt);
+
+                    Rectangle rect_totqty = new Rectangle(rect_salqty.X, rect_totqty_txt.Y, rect_total.Width, line_height);
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].totqty.FormatCurrency(), fnt, brush, rect_totqty, new StringFormat { Alignment = StringAlignment.Far });
+
+                    Rectangle rect_totval = new Rectangle(rect_salval.X, rect_totqty.Y, rect_salval.Width, line_height);
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].totval.FormatCurrency(), fnt, brush, rect_totval, new StringFormat { Alignment = StringAlignment.Far });
+
+                    Rectangle rect_ddisc_txt = new Rectangle(x, rect_totqty_txt.Y + line_height, rect_totqty_txt.Width, line_height);
+                    e.Graphics.DrawString("  4.หักส่วนลดการค้าหน้าลาน", fnt_bold, brush, rect_ddisc_txt);
+
+                    Rectangle rect_ddisc = new Rectangle(rect_salval.X, rect_ddisc_txt.Y, rect_salval.Width, line_height);
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].ddisc.FormatCurrency(), fnt, brush, rect_ddisc, new StringFormat { Alignment = StringAlignment.Far });
+
+                    Rectangle rect_net_txt = new Rectangle(x, rect_ddisc_txt.Y + line_height, rect_totqty_txt.Width, line_height);
+                    e.Graphics.DrawString("  5.ยอดขายสุทธิ", fnt_bold, brush, rect_net_txt);
+
+                    Rectangle rect_netqty = new Rectangle(rect_salqty.X, rect_net_txt.Y, rect_salqty.Width, line_height);
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].totqty.FormatCurrency(), fnt, brush, rect_netqty, new StringFormat { Alignment = StringAlignment.Far });
+
+                    Rectangle rect_netval = new Rectangle(rect_salval.X, rect_net_txt.Y, rect_salval.Width, line_height);
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].totval.FormatCurrency(), fnt, brush, rect_netval, new StringFormat { Alignment = StringAlignment.Far });
+
+                    y = start_body_y;
+
 
                     if (page_item == 4)
                     {

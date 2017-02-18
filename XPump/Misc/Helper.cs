@@ -1120,6 +1120,11 @@ namespace XPump.Misc
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        public static string FormatCurrency(this decimal val)
+        {
+            return string.Format("{0:#,#0.00}", val);
+        }
+
         public static int Width(this string str, Font fnt)
         {
             return TextRenderer.MeasureText(str, fnt).Width + 5;

@@ -39,7 +39,13 @@ namespace CC
             //{
             //    this._OutputToPrinter(this, e);
             //}
-            this.printPreviewControl1.Document.Print();
+            //this.printPreviewControl1.Document.Print();
+            PrintDialog pd = new PrintDialog();
+            pd.Document = this.printPreviewControl1.Document;
+            if(pd.ShowDialog() == DialogResult.OK)
+            {
+                pd.Document.Print();
+            }
         }
 
         private void btnZoomIn_Click(object sender, EventArgs e)

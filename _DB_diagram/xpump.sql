@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 10, 2017 at 11:23 AM
+-- Generation Time: Feb 17, 2017 at 10:52 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.5.24
 
@@ -23,41 +23,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `apmas`
---
-
-CREATE TABLE IF NOT EXISTS `apmas` (
-  `id` int(11) NOT NULL,
-  `supcod` varchar(20) NOT NULL,
-  `supnam` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `apmas`
---
-
-INSERT INTO `apmas` (`id`, `supcod`, `supnam`) VALUES
-(1, 'เชลล์', 'บริษัท เชลล์ (ประเทศไทย) จำกัด (มหาชน)'),
-(2, 'ปตท.', 'บริษัท ปตท. จำกัด (มหาชน)');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `aptrn`
---
-
-CREATE TABLE IF NOT EXISTS `aptrn` (
-  `id` int(11) NOT NULL,
-  `rcvdat` date NOT NULL,
-  `vatnum` varchar(50) NOT NULL,
-  `vatdat` date NOT NULL,
-  `apmas_id` int(11) NOT NULL,
-  `shift_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `nozzle`
 --
 
@@ -68,25 +33,19 @@ CREATE TABLE IF NOT EXISTS `nozzle` (
   `remark` varchar(50) DEFAULT NULL,
   `isactive` tinyint(1) NOT NULL DEFAULT '1',
   `section_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `nozzle`
 --
 
 INSERT INTO `nozzle` (`id`, `name`, `description`, `remark`, `isactive`, `section_id`) VALUES
-(27, 'N-01', 'หัวจ่าย 1', '', 1, 58),
-(28, 'N-02', 'หัวจ่าย 2', '', 1, 58),
-(29, 'N-03', 'หัวจ่าย 3', '', 0, 58),
-(30, 'N-04', 'หัวจ่าย 4', '', 0, 59),
-(47, 'NX-01', '', '', 1, 65),
-(48, 'NX-02', '', '', 1, 65),
-(49, 'NX-03', '', '', 1, 65),
-(50, 'NX-04', '', '', 1, 65),
-(51, 'NX-05', '', '', 1, 65),
-(52, 'NX-06', '', '', 1, 65),
-(53, 'NX-07', '', '', 1, 65),
-(54, 'NX-08', '', '', 1, 65);
+(55, 'NOZ-01', 'หัวจ่าย 1', '', 1, 69),
+(56, 'NOZ-02', 'หัวจ่าย 2', '', 1, 69),
+(57, 'NOZ-03', 'หัวจ่าย 3', '', 1, 69),
+(59, 'NOZ-01', 'หัวจ่าย 1', '', 1, 70),
+(60, 'NOZ-01', 'หัวจ่าย 1', '', 1, 72),
+(61, 'NOZ-01', 'หัวจ่าย 1', '', 1, 71);
 
 -- --------------------------------------------------------
 
@@ -99,18 +58,20 @@ CREATE TABLE IF NOT EXISTS `pricelist` (
   `date` date NOT NULL,
   `unitpr` decimal(9,2) NOT NULL,
   `stmas_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=266 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=291 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `pricelist`
 --
 
 INSERT INTO `pricelist` (`id`, `date`, `unitpr`, `stmas_id`) VALUES
-(261, '2017-02-07', '12.00', 21),
-(262, '2017-02-07', '14.00', 22),
-(263, '2017-02-07', '16.00', 23),
-(264, '2017-02-07', '18.00', 24),
-(265, '2017-02-07', '20.00', 25);
+(284, '2017-02-17', '25.00', 48),
+(285, '2017-02-17', '23.00', 49),
+(286, '2017-02-17', '24.00', 50),
+(287, '2017-02-17', '30.00', 51),
+(288, '2017-02-17', '32.00', 52),
+(289, '2017-02-17', '28.00', 53),
+(290, '2017-02-17', '35.00', 54);
 
 -- --------------------------------------------------------
 
@@ -130,21 +91,19 @@ CREATE TABLE IF NOT EXISTS `saleshistory` (
   `stmas_id` int(11) NOT NULL,
   `pricelist_id` int(11) NOT NULL,
   `salessummary_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `saleshistory`
 --
 
 INSERT INTO `saleshistory` (`id`, `saldat`, `mitbeg`, `mitend`, `salqty`, `salval`, `shift_id`, `nozzle_id`, `stmas_id`, `pricelist_id`, `salessummary_id`) VALUES
-(30, '2017-02-07', '24.00', '26.00', '2.00', '32.00', 1, 51, 23, 263, 149),
-(31, '2017-02-07', '20.00', '22.00', '2.00', '32.00', 1, 48, 23, 263, 149),
-(32, '2017-02-07', '16.00', '18.00', '2.00', '32.00', 1, 52, 23, 263, 149),
-(33, '2017-02-07', '12.00', '14.00', '2.00', '32.00', 1, 49, 23, 263, 149),
-(34, '2017-02-07', '10.00', '12.00', '2.00', '32.00', 1, 53, 23, 263, 149),
-(35, '2017-02-07', '22.00', '24.00', '2.00', '32.00', 1, 50, 23, 263, 149),
-(36, '2017-02-07', '18.00', '20.00', '2.00', '32.00', 1, 54, 23, 263, 149),
-(37, '2017-02-07', '14.00', '16.00', '2.00', '32.00', 1, 47, 23, 263, 149);
+(56, '2017-02-17', '0.00', '0.00', '0.00', '0.00', 1, 55, 48, 284, 170),
+(57, '2017-02-17', '0.00', '0.00', '0.00', '0.00', 1, 56, 48, 284, 170),
+(58, '2017-02-17', '0.00', '0.00', '0.00', '0.00', 1, 57, 48, 284, 170),
+(59, '2017-02-17', '0.00', '0.00', '0.00', '0.00', 1, 59, 53, 289, 175),
+(60, '2017-02-17', '0.00', '0.00', '0.00', '0.00', 1, 60, 53, 289, 175),
+(61, '2017-02-17', '0.00', '0.00', '0.00', '0.00', 1, 61, 48, 284, 170);
 
 -- --------------------------------------------------------
 
@@ -164,18 +123,20 @@ CREATE TABLE IF NOT EXISTS `salessummary` (
   `stmas_id` int(11) NOT NULL,
   `pricelist_id` int(11) NOT NULL,
   `shiftsales_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `salessummary`
 --
 
 INSERT INTO `salessummary` (`id`, `saldat`, `dtest`, `dother`, `dothertxt`, `ddisc`, `purvat`, `shift_id`, `stmas_id`, `pricelist_id`, `shiftsales_id`) VALUES
-(147, '2017-02-07', '0.00', '0.00', '', '0.00', '0.00', 1, 21, 261, 31),
-(148, '2017-02-07', '0.00', '0.00', '', '0.00', '0.00', 1, 22, 262, 31),
-(149, '2017-02-07', '0.00', '0.00', '', '0.00', '0.00', 1, 23, 263, 31),
-(150, '2017-02-07', '0.00', '0.00', '', '0.00', '0.00', 1, 24, 264, 31),
-(151, '2017-02-07', '0.00', '0.00', '', '0.00', '0.00', 1, 25, 265, 31);
+(170, '2017-02-17', '0.00', '0.00', '', '0.00', '0.00', 1, 48, 284, 34),
+(171, '2017-02-17', '0.00', '0.00', '', '0.00', '0.00', 1, 49, 285, 34),
+(172, '2017-02-17', '0.00', '0.00', '', '0.00', '0.00', 1, 50, 286, 34),
+(173, '2017-02-17', '0.00', '0.00', '', '0.00', '0.00', 1, 51, 287, 34),
+(174, '2017-02-17', '0.00', '0.00', '', '0.00', '0.00', 1, 52, 288, 34),
+(175, '2017-02-17', '0.00', '0.00', '', '0.00', '0.00', 1, 53, 289, 34),
+(176, '2017-02-17', '0.00', '0.00', '', '0.00', '0.00', 1, 54, 290, 34);
 
 -- --------------------------------------------------------
 
@@ -189,17 +150,17 @@ CREATE TABLE IF NOT EXISTS `section` (
   `begbal` decimal(14,2) NOT NULL,
   `tank_id` int(11) NOT NULL,
   `stmas_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `section`
 --
 
 INSERT INTO `section` (`id`, `name`, `begbal`, `tank_id`, `stmas_id`) VALUES
-(58, 'S-01', '2000.00', 48, 24),
-(59, 'S-02', '5500.00', 48, 25),
-(65, 'S-01', '300.00', 52, 23),
-(66, 'S-02', '2000.00', 52, 25);
+(69, 'SEC-01', '1000.00', 55, 48),
+(70, 'SEC-02', '200.00', 55, 53),
+(71, 'SEC-01', '1000.00', 56, 48),
+(72, 'SEC-02', '500.00', 56, 53);
 
 -- --------------------------------------------------------
 
@@ -209,15 +170,16 @@ INSERT INTO `section` (`id`, `name`, `begbal`, `tank_id`, `stmas_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(11) NOT NULL,
-  `express_data_path` text NOT NULL
+  `express_data_path` text NOT NULL,
+  `orgname` varchar(60) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`id`, `express_data_path`) VALUES
-(1, 'TEST');
+INSERT INTO `settings` (`id`, `express_data_path`, `orgname`) VALUES
+(1, 'testpump', 'ห้างหุ้นส่วนจำกัด วรรณสุขรุ่งเรือง');
 
 -- --------------------------------------------------------
 
@@ -238,17 +200,16 @@ CREATE TABLE IF NOT EXISTS `shift` (
   `paeprefix` varchar(2) NOT NULL DEFAULT '',
   `phpprefix` varchar(2) NOT NULL DEFAULT '',
   `prrprefix` varchar(2) NOT NULL DEFAULT ''
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `shift`
 --
 
 INSERT INTO `shift` (`id`, `name`, `description`, `starttime`, `endtime`, `remark`, `saiprefix`, `shsprefix`, `sivprefix`, `paeprefix`, `phpprefix`, `prrprefix`) VALUES
-(1, 'ผลัด A', 'ผลัดเช้า', '06:00:00', '13:59:59', '', '', '', '', '', '', ''),
-(2, 'ผลัด B', 'ผลัดบ่าย', '14:00:00', '21:59:59', '', '', '', '', 'AE', 'HP', ''),
-(3, 'ผลัด C', 'ผลัดกลางคืน', '22:00:00', '05:59:59', '', '', '', '', '', '', ''),
-(4, 'ผลัด D', 'ผลัดพิเศษ', '01:02:03', '04:05:06', '', 'AI', 'HS', 'IV', 'AE', 'HP', 'RR');
+(1, 'ผลัด A', 'ผลัดเช้า', '06:00:00', '13:59:59', '', 'AI', 'S1', 'I1', 'AE', 'P1', 'R1'),
+(2, 'ผลัด B', 'ผลัดบ่าย', '14:00:00', '21:59:59', '', 'AI', 'S2', 'I2', 'AE', 'P2', 'R2'),
+(3, 'ผลัด C', 'ผลัดกลางคืน', '22:00:00', '05:59:59', '', 'AI', 'S3', 'I3', 'AE', 'P3', 'R3');
 
 -- --------------------------------------------------------
 
@@ -260,30 +221,14 @@ CREATE TABLE IF NOT EXISTS `shiftsales` (
   `id` int(11) NOT NULL,
   `saldat` date NOT NULL,
   `shift_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `shiftsales`
 --
 
 INSERT INTO `shiftsales` (`id`, `saldat`, `shift_id`) VALUES
-(31, '2017-02-07', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stcrd`
---
-
-CREATE TABLE IF NOT EXISTS `stcrd` (
-  `id` int(11) NOT NULL,
-  `trnqty` decimal(14,2) NOT NULL,
-  `trnval` decimal(14,2) NOT NULL,
-  `vatamt` decimal(14,2) NOT NULL,
-  `aptrn_id` int(11) NOT NULL,
-  `section_id` int(11) NOT NULL,
-  `shift_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+(34, '2017-02-17', 1);
 
 -- --------------------------------------------------------
 
@@ -296,22 +241,20 @@ CREATE TABLE IF NOT EXISTS `stmas` (
   `name` varchar(20) NOT NULL,
   `description` varchar(50) DEFAULT NULL,
   `remark` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `stmas`
 --
 
 INSERT INTO `stmas` (`id`, `name`, `description`, `remark`) VALUES
-(21, 'TEST-1', 'ทดสอบสินค้ารายการที่ 1', 'หมายเหตุ 1'),
-(22, 'ก', 'ทดสอบ ก.', 'หมายเหตุ ก.'),
-(23, 'ข', 'ทดสอบ ข.', 'หมายเหตุ ข.'),
-(24, 'ค', 'ทดสอบ ค.', 'หมายเหตุ ค.'),
-(25, 'คอควาย', 'ทดสอบ คอควาย', 'หมายเหตุ คอควาย'),
-(26, '01-INTL-CL-600', 'ซีพียู อินเทล ซีลิลอน 600 MHz --', 'สินค้าชุดพิเศษ'),
-(27, '01-INTL-P3-750', 'ซีพียู เพนเทียม ทรี 750 MHz --', ''),
-(28, '02-ASUS-CUV4X', 'เมนบอร์ด เอซัส CUV4X-133 SOCKET-370 --', ''),
-(29, 'SW-EXPRESS-S-T-1.0', 'โปรแกรมบัญชีเอ็กซ์เพรส เวอร์ชั่น 1.0 (เมนูไทย)', '');
+(48, 'DIESEL', 'ดีเซล', ''),
+(49, 'GSH91', 'แก๊สโซฮอล์ 91', ''),
+(50, 'GSH95', 'แก๊สโซฮอล์ 95', ''),
+(51, 'ULG91', 'เบนซิน 91', ''),
+(52, 'ULG95', 'เบนซิน 95', ''),
+(53, 'VPDIESEL', 'ดีเซล วี-เพาเวอร์', ''),
+(54, 'VPGASOLINE', 'เบนซิน วี-เพาเวอร์', '');
 
 -- --------------------------------------------------------
 
@@ -327,42 +270,26 @@ CREATE TABLE IF NOT EXISTS `tank` (
   `description` varchar(50) DEFAULT NULL,
   `remark` varchar(50) DEFAULT NULL,
   `isactive` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tank`
 --
 
 INSERT INTO `tank` (`id`, `name`, `startdate`, `enddate`, `description`, `remark`, `isactive`) VALUES
-(48, 'TANK-01', '2017-01-01', NULL, 'ทดสอบแท๊งค์ 1 7,500 ลิตร', '...', 1),
-(52, 'TANK-02', '2017-02-07', NULL, 'ทดสอบ', '', 1);
+(55, 'TANK-01', '2017-01-01', NULL, 'แท๊งค์ 1 ความจุ 15,000 ลิตร', 'ทดสอบระบบ', 1),
+(56, 'TANK-02', '2017-01-01', NULL, 'แท๊งค์ 2 ความจุ 7,500 ลิตร', 'ทดสอบ', 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `apmas`
---
-ALTER TABLE `apmas`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unq-apmas-supcod` (`supcod`);
-
---
--- Indexes for table `aptrn`
---
-ALTER TABLE `aptrn`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unq-aptrn` (`vatnum`,`vatdat`),
-  ADD KEY `ndx-aptrn-apmas_id` (`apmas_id`),
-  ADD KEY `ndx-aptrn-shift_id` (`shift_id`);
-
---
 -- Indexes for table `nozzle`
 --
 ALTER TABLE `nozzle`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unq-nozzle-name` (`name`),
+  ADD UNIQUE KEY `unq-nozzle-name` (`name`,`section_id`),
   ADD KEY `ndx-nozzle-section_id` (`section_id`);
 
 --
@@ -424,15 +351,6 @@ ALTER TABLE `shiftsales`
   ADD KEY `ndx-shiftsales-shift_id` (`shift_id`);
 
 --
--- Indexes for table `stcrd`
---
-ALTER TABLE `stcrd`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `ndx-stcrd-aptrn_id` (`aptrn_id`),
-  ADD KEY `ndx-stcrd-section_id` (`section_id`),
-  ADD KEY `ndx-stcrd-shift_id` (`shift_id`);
-
---
 -- Indexes for table `stmas`
 --
 ALTER TABLE `stmas`
@@ -451,40 +369,30 @@ ALTER TABLE `tank`
 --
 
 --
--- AUTO_INCREMENT for table `apmas`
---
-ALTER TABLE `apmas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `aptrn`
---
-ALTER TABLE `aptrn`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `nozzle`
 --
 ALTER TABLE `nozzle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT for table `pricelist`
 --
 ALTER TABLE `pricelist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=266;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=291;
 --
 -- AUTO_INCREMENT for table `saleshistory`
 --
 ALTER TABLE `saleshistory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT for table `salessummary`
 --
 ALTER TABLE `salessummary`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=152;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=177;
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT for table `settings`
 --
@@ -494,37 +402,25 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `shiftsales`
 --
 ALTER TABLE `shiftsales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
---
--- AUTO_INCREMENT for table `stcrd`
---
-ALTER TABLE `stcrd`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `stmas`
 --
 ALTER TABLE `stmas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT for table `tank`
 --
 ALTER TABLE `tank`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `aptrn`
---
-ALTER TABLE `aptrn`
-  ADD CONSTRAINT `fk-aptrn-apmas_id` FOREIGN KEY (`apmas_id`) REFERENCES `apmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk-aptrn-shift_id` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `nozzle`
@@ -569,14 +465,6 @@ ALTER TABLE `section`
 --
 ALTER TABLE `shiftsales`
   ADD CONSTRAINT `fk-shiftsales-shift_id` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `stcrd`
---
-ALTER TABLE `stcrd`
-  ADD CONSTRAINT `fk-stcrd-aptrn_id` FOREIGN KEY (`aptrn_id`) REFERENCES `aptrn` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk-stcrd-section_id` FOREIGN KEY (`section_id`) REFERENCES `section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk-stcrd-shift_id` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
