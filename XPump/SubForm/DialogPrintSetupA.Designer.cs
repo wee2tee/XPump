@@ -31,9 +31,9 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rdScreen = new System.Windows.Forms.RadioButton();
-            this.rdPrinter = new System.Windows.Forms.RadioButton();
             this.rdFile = new System.Windows.Forms.RadioButton();
+            this.rdPrinter = new System.Windows.Forms.RadioButton();
+            this.rdScreen = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,32 +66,10 @@
             this.groupBox1.Controls.Add(this.rdScreen);
             this.groupBox1.Location = new System.Drawing.Point(10, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(119, 111);
+            this.groupBox1.Size = new System.Drawing.Size(120, 110);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "แสดงผลทาง";
-            // 
-            // rdScreen
-            // 
-            this.rdScreen.AutoSize = true;
-            this.rdScreen.Location = new System.Drawing.Point(20, 23);
-            this.rdScreen.Name = "rdScreen";
-            this.rdScreen.Size = new System.Drawing.Size(64, 20);
-            this.rdScreen.TabIndex = 0;
-            this.rdScreen.Text = "จอภาพ";
-            this.rdScreen.UseVisualStyleBackColor = true;
-            this.rdScreen.CheckedChanged += new System.EventHandler(this.rdScreen_CheckedChanged);
-            // 
-            // rdPrinter
-            // 
-            this.rdPrinter.AutoSize = true;
-            this.rdPrinter.Location = new System.Drawing.Point(20, 48);
-            this.rdPrinter.Name = "rdPrinter";
-            this.rdPrinter.Size = new System.Drawing.Size(84, 20);
-            this.rdPrinter.TabIndex = 0;
-            this.rdPrinter.Text = "เครื่องพิมพ์";
-            this.rdPrinter.UseVisualStyleBackColor = true;
-            this.rdPrinter.CheckedChanged += new System.EventHandler(this.rdPrinter_CheckedChanged);
             // 
             // rdFile
             // 
@@ -104,6 +82,28 @@
             this.rdFile.Text = "แฟ้มข้อมูล";
             this.rdFile.UseVisualStyleBackColor = true;
             this.rdFile.CheckedChanged += new System.EventHandler(this.rdFile_CheckedChanged);
+            // 
+            // rdPrinter
+            // 
+            this.rdPrinter.AutoSize = true;
+            this.rdPrinter.Location = new System.Drawing.Point(20, 48);
+            this.rdPrinter.Name = "rdPrinter";
+            this.rdPrinter.Size = new System.Drawing.Size(84, 20);
+            this.rdPrinter.TabIndex = 0;
+            this.rdPrinter.Text = "เครื่องพิมพ์";
+            this.rdPrinter.UseVisualStyleBackColor = true;
+            this.rdPrinter.CheckedChanged += new System.EventHandler(this.rdPrinter_CheckedChanged);
+            // 
+            // rdScreen
+            // 
+            this.rdScreen.AutoSize = true;
+            this.rdScreen.Location = new System.Drawing.Point(20, 23);
+            this.rdScreen.Name = "rdScreen";
+            this.rdScreen.Size = new System.Drawing.Size(64, 20);
+            this.rdScreen.TabIndex = 0;
+            this.rdScreen.Text = "จอภาพ";
+            this.rdScreen.UseVisualStyleBackColor = true;
+            this.rdScreen.CheckedChanged += new System.EventHandler(this.rdScreen_CheckedChanged);
             // 
             // DialogPrintSetupA
             // 

@@ -85,6 +85,8 @@ namespace XPump.Model
             }
         }
 
+        public string loccod { get; set; }
+
         public string tank_name
         {
             get
@@ -572,6 +574,13 @@ namespace XPump.Model
         public StmasDbf StmasDbf { get; set; }
     }
 
+    public class StlocDbfVM
+    {
+        public string stkcod { get; set; }
+        public string loccod { get; set; }
+
+    }
+
     public class IsrunDbfVM
     {
         public string doctyp { get; set; }
@@ -622,14 +631,23 @@ namespace XPump.Model
         public List<VatTransDbfVM> prrvattransVM { get; set; }
         public List<VatTransDbfVM> shsvattransVM { get; set; }
         public List<VatTransDbfVM> sivvattransVM { get; set; }
-        public List<pricelistVM> pricelistVM_list { get; set; }
+        //public List<pricelistVM> pricelistVM_list { get; set; }
         public List<salessummaryVM> salessummaryVM_list { get; set; }
         public List<saleshistoryVM> saleshistoryVM_list { get; set; }
     }
 
     public class ReportBModel
     {
-
+        public DateTime reportDate { get; set; }
+        public IsinfoDbfVM isinfoDbfVM { get; set; }
+        public List<shift> shifts { get; set; }
+        public List<VatTransDbfVM> phpvattransVM { get; set; }
+        public List<VatTransDbfVM> prrvattransVM { get; set; }
+        //public List<VatTransDbfVM> shsvattransVM { get; set; }
+        //public List<VatTransDbfVM> sivvattransVM { get; set; }
+        //public List<pricelistVM> pricelistVM_list { get; set; }
+        public List<salessummaryVM> salessummaryVM_list { get; set; }
+        public List<saleshistoryVM> saleshistoryVM_list { get; set; }
     }
 
     public class ReportCModel

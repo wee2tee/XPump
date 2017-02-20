@@ -63,6 +63,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="loccod" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="begbal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="tank_id" Type="int" Nullable="false" />
           <Property Name="stmas_id" Type="int" Nullable="false" />
@@ -435,6 +436,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="loccod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="begbal" Type="Decimal" Nullable="false" />
           <Property Name="tank_id" Type="Int32" Nullable="false" />
           <Property Name="stmas_id" Type="Int32" Nullable="false" />
@@ -809,6 +811,7 @@
               <MappingFragment StoreEntitySet="section">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="loccod" ColumnName="loccod" />
                 <ScalarProperty Name="begbal" ColumnName="begbal" />
                 <ScalarProperty Name="tank_id" ColumnName="tank_id" />
                 <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />

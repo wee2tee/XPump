@@ -140,6 +140,7 @@ namespace XPump.Misc
                 id = section.id,
                 name = section.name,
                 begbal = section.begbal,
+                loccod = section.loccod,
                 tank_id = section.tank_id,
                 stmas_id = section.stmas_id,
                 section = section,
@@ -430,6 +431,97 @@ namespace XPump.Misc
             return stmas;
         }
 
+        public static List<StlocDbf> ToStlocList(this DataTable stloc_dbf)
+        {
+            List<StlocDbf> stloc = new List<StlocDbf>();
+
+            foreach (DataRow row in stloc_dbf.Rows)
+            {
+                try
+                {
+                    StlocDbf s = new StlocDbf
+                    {
+                        stkcod = row.Field<string>("stkcod"),
+                        loccod = row.Field<string>("loccod"),
+                        area = row.Field<string>("area"),
+                        stkclass = row.Field<string>("stkclass"),
+                        locbal = !row.IsNull("locbal") ? row.Field<double>("locbal") : 0d,
+                        unitpr = !row.IsNull("unitpr") ? row.Field<double>("unitpr") : 0d,
+                        locval = !row.IsNull("locval") ? row.Field<double>("locval") : 0d,
+                        locreo = !row.IsNull("locreo") ? row.Field<double>("locreo") : 0d,
+                        locres = !row.IsNull("locres") ? row.Field<double>("locres") : 0d,
+                        lpurdat = !row.IsNull("lpurdat") ? (DateTime?)row.Field<DateTime>("lpurdat") : null,
+                        lseldat = !row.IsNull("lseldat") ? (DateTime?)row.Field<DateTime>("lseldat") : null,
+                        lmovdat = !row.IsNull("lmovdat") ? (DateTime?)row.Field<DateTime>("lmovdat") : null,
+                        takdat = !row.IsNull("takdat") ? (DateTime?)row.Field<DateTime>("takdat") : null,
+                        mlotnum = row.Field<string>("mlotnum"),
+                        mrembal = !row.IsNull("mrembal") ? row.Field<double>("mrembal") : 0d,
+                        mremval = !row.IsNull("mremval") ? row.Field<double>("mremval") : 0d,
+                        begbal = !row.IsNull("begbal") ? row.Field<double>("begbal") : 0d,
+                        begval = !row.IsNull("begval") ? row.Field<double>("begval") : 0d,
+                        qty1 = !row.IsNull("qty1") ? row.Field<double>("qty1") : 0d,
+                        qty2 = !row.IsNull("qty2") ? row.Field<double>("qty2") : 0d,
+                        qty3 = !row.IsNull("qty3") ? row.Field<double>("qty3") : 0d,
+                        qty4 = !row.IsNull("qty4") ? row.Field<double>("qty4") : 0d,
+                        qty5 = !row.IsNull("qty5") ? row.Field<double>("qty5") : 0d,
+                        qty6 = !row.IsNull("qty6") ? row.Field<double>("qty6") : 0d,
+                        qty7 = !row.IsNull("qty7") ? row.Field<double>("qty7") : 0d,
+                        qty8 = !row.IsNull("qty8") ? row.Field<double>("qty8") : 0d,
+                        qty9 = !row.IsNull("qty9") ? row.Field<double>("qty9") : 0d,
+                        qty10 = !row.IsNull("qty10") ? row.Field<double>("qty10") : 0d,
+                        qty11 = !row.IsNull("qty11") ? row.Field<double>("qty11") : 0d,
+                        qty12 = !row.IsNull("qty12") ? row.Field<double>("qty12") : 0d,
+                        qty1ny = !row.IsNull("qty1ny") ? row.Field<double>("qty1ny") : 0d,
+                        qty2ny = !row.IsNull("qty2ny") ? row.Field<double>("qty2ny") : 0d,
+                        qty3ny = !row.IsNull("qty3ny") ? row.Field<double>("qty3ny") : 0d,
+                        qty4ny = !row.IsNull("qty4ny") ? row.Field<double>("qty4ny") : 0d,
+                        qty5ny = !row.IsNull("qty5ny") ? row.Field<double>("qty5ny") : 0d,
+                        qty6ny = !row.IsNull("qty6ny") ? row.Field<double>("qty6ny") : 0d,
+                        qty7ny = !row.IsNull("qty7ny") ? row.Field<double>("qty7ny") : 0d,
+                        qty8ny = !row.IsNull("qty8ny") ? row.Field<double>("qty8ny") : 0d,
+                        qty9ny = !row.IsNull("qty9ny") ? row.Field<double>("qty9ny") : 0d,
+                        qty10ny = !row.IsNull("qty10ny") ? row.Field<double>("qty10ny") : 0d,
+                        qty11ny = !row.IsNull("qty11ny") ? row.Field<double>("qty11ny") : 0d,
+                        qty12ny = !row.IsNull("qty12ny") ? row.Field<double>("qty12ny") : 0d,
+                        val1 = !row.IsNull("val1") ? row.Field<double>("val1") : 0d,
+                        val2 = !row.IsNull("val2") ? row.Field<double>("val2") : 0d,
+                        val3 = !row.IsNull("val3") ? row.Field<double>("val3") : 0d,
+                        val4 = !row.IsNull("val4") ? row.Field<double>("val4") : 0d,
+                        val5 = !row.IsNull("val5") ? row.Field<double>("val5") : 0d,
+                        val6 = !row.IsNull("val6") ? row.Field<double>("val6") : 0d,
+                        val7 = !row.IsNull("val7") ? row.Field<double>("val7") : 0d,
+                        val8 = !row.IsNull("val8") ? row.Field<double>("val8") : 0d,
+                        val9 = !row.IsNull("val9") ? row.Field<double>("val9") : 0d,
+                        val10 = !row.IsNull("val10") ? row.Field<double>("val10") : 0d,
+                        val11 = !row.IsNull("val11") ? row.Field<double>("val11") : 0d,
+                        val12 = !row.IsNull("val12") ? row.Field<double>("val12") : 0d,
+                        val1ny = !row.IsNull("val1ny") ? row.Field<double>("val1ny") : 0d,
+                        val2ny = !row.IsNull("val2ny") ? row.Field<double>("val2ny") : 0d,
+                        val3ny = !row.IsNull("val3ny") ? row.Field<double>("val3ny") : 0d,
+                        val4ny = !row.IsNull("val4ny") ? row.Field<double>("val4ny") : 0d,
+                        val5ny = !row.IsNull("val5ny") ? row.Field<double>("val5ny") : 0d,
+                        val6ny = !row.IsNull("val6ny") ? row.Field<double>("val6ny") : 0d,
+                        val7ny = !row.IsNull("val7ny") ? row.Field<double>("val7ny") : 0d,
+                        val8ny = !row.IsNull("val8ny") ? row.Field<double>("val8ny") : 0d,
+                        val9ny = !row.IsNull("val9ny") ? row.Field<double>("val9ny") : 0d,
+                        val10ny = !row.IsNull("val10ny") ? row.Field<double>("val10ny") : 0d,
+                        val11ny = !row.IsNull("val11ny") ? row.Field<double>("val11ny") : 0d,
+                        val12ny = !row.IsNull("val12ny") ? row.Field<double>("val12ny") : 0d,
+                        status = row.Field<string>("status"),
+                        inactdat = !row.IsNull("inactdat") ? (DateTime?)row.Field<DateTime>("inactdat") : null
+                    };
+
+                    stloc.Add(s);
+                }
+                catch (Exception ex)
+                {
+                    continue;
+                }
+            }
+
+            return stloc;
+        }
+
         public static List<SccompDbf> ToSccompList(this DataTable sccomp_dbf)
         {
             List<SccompDbf> sccomp = new List<SccompDbf>();
@@ -588,6 +680,65 @@ namespace XPump.Misc
             }
 
             return stcrd;
+        }
+
+        public static List<ApmasDbf> ToApmasList(this DataTable apmas_dbf)
+        {
+            List<ApmasDbf> apmas = new List<ApmasDbf>();
+
+            foreach (DataRow row in apmas_dbf.Rows)
+            {
+                try
+                {
+                    ApmasDbf a = new ApmasDbf
+                    {
+                        supcod = row.Field<string>("supcod"),
+                        suptyp = row.Field<string>("suptyp"),
+                        onhold = row.Field<string>("onhold"),
+                        prenam = row.Field<string>("prenam"),
+                        supnam = row.Field<string>("supnam"),
+                        addr01 = row.Field<string>("addr01"),
+                        addr02 = row.Field<string>("addr02"),
+                        addr03 = row.Field<string>("addr03"),
+                        zipcod = row.Field<string>("zipcod"),
+                        telnum = row.Field<string>("telnum"),
+                        contact = row.Field<string>("contact"),
+                        supnam2 = row.Field<string>("supnam2"),
+                        paytrm = !row.IsNull("paytrm") ? row.Field<decimal>("paytrm") : 0m,
+                        paycond = row.Field<string>("paycond"),
+                        dlvby = row.Field<string>("dlvby"),
+                        vatrat = !row.IsNull("vatrat") ? row.Field<decimal>("vatrat") : 0m,
+                        flgvat = row.Field<string>("flgvat"),
+                        disc = row.Field<string>("disc"),
+                        balance = !row.IsNull("balance") ? row.Field<double>("balance") : 0d,
+                        chqpay = !row.IsNull("chqpay") ? row.Field<double>("chqpay") : 0d,
+                        crline = !row.IsNull("crline") ? row.Field<double>("crline") : 0d,
+                        lasrcv = !row.IsNull("lasrcv") ? (DateTime?)row.Field<DateTime>("lasrcv") : null,
+                        accnum = row.Field<string>("accnum"),
+                        remark = row.Field<string>("remark"),
+                        taxid = row.Field<string>("taxid"),
+                        orgnum = !row.IsNull("orgnum") ? row.Field<decimal>("orgnum") : 0m,
+                        taxdes = row.Field<string>("taxdes"),
+                        taxrat = !row.IsNull("taxrat") ? row.Field<decimal>("taxrat") : 0m,
+                        taxtyp = row.Field<string>("taxtyp"),
+                        taxcond = row.Field<string>("taxcond"),
+                        creby = row.Field<string>("creby"),
+                        credat = !row.IsNull("credat") ? (DateTime?)row.Field<DateTime>("credat") : null,
+                        userid = row.Field<string>("userid"),
+                        chgdat = !row.IsNull("chgdat") ? (DateTime?)row.Field<DateTime>("chgdat") : null,
+                        status = row.Field<string>("status"),
+                        inactdat = !row.IsNull("inactdat") ? (DateTime?)row.Field<DateTime>("inactdat") : null
+                    };
+
+                    apmas.Add(a);
+                }
+                catch (Exception ex)
+                {
+                    continue;
+                }
+            }
+
+            return apmas;
         }
 
         public static List<AptrnDbf> ToAptrnList(this DataTable aptrn_dbf)
@@ -818,6 +969,31 @@ namespace XPump.Misc
         {
             List<StmasDbfVM> s = new List<StmasDbfVM>();
             foreach (var item in stmasdbf_list)
+            {
+                s.Add(item.ToViewModel());
+            }
+
+            return s;
+        }
+
+        public static StlocDbfVM ToViewModel(this StlocDbf stlocdbf)
+        {
+            if (stlocdbf == null)
+                return null;
+
+            StlocDbfVM s = new StlocDbfVM
+            {
+                stkcod = stlocdbf.stkcod.Trim(),
+                loccod = stlocdbf.loccod.Trim()
+            };
+
+            return s;
+        }
+
+        public static List<StlocDbfVM> ToViewModel(this IEnumerable<StlocDbf> stlocdbf_list)
+        {
+            List<StlocDbfVM> s = new List<StlocDbfVM>();
+            foreach (var item in stlocdbf_list)
             {
                 s.Add(item.ToViewModel());
             }

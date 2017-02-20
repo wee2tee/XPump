@@ -20,12 +20,13 @@ namespace XPump.SubForm
         private tank curr_tank;
         private tank temp_tank;
         private sectionVM temp_section;
-        //private nozzle temp_nozzle;
+        //private List<StlocDbfVM> stloc_list;
         private BindingSource bs_section;
 
         private XTextEdit inline_name;
         private XBrowseBox inline_stkcod;
         private XTextEdit inline_stkdes;
+        private XDropdownList inline_loccod;
         private XNumEdit inline_capacity;
         //private XBrowseBox inline_nozzle;
         private Button inline_nozzlecount;
@@ -46,6 +47,8 @@ namespace XPump.SubForm
         {
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
+
+            //this.stloc_list = DbfTable.Stloc().ToStlocList().ToViewModel();
 
             this.col_section_begbal.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
             this.ddIsactive._Items.Add(new XDropdownListItem { Text = "ใช้งาน", Value = true });
@@ -379,6 +382,9 @@ namespace XPump.SubForm
             };
             this.inline_stkcod.SetInlineControlPosition(this.dgvSection, row_index, col_index);
             this.dgvSection.Parent.Controls.Add(this.inline_stkcod);
+
+            /* inline loccod */
+
 
             /* inline stkdes */
             col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_stkdes.DataPropertyName).First().Index;

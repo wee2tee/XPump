@@ -534,26 +534,24 @@ namespace XPump.SubForm
             if(print.ShowDialog() == DialogResult.OK)
             {
                 var report_data = this.GetReportAData();
-
+                int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data));
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
-                    int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data));
-
                     //XPrintPreviewDialog pd = new XPrintPreviewDialog(total_page);
                     //pd.MdiParent = this.main_form;
                     //pd.Document = this.PreparePrintDoc_A(report_data, total_page);
                     //pd.Show();
 
-                    XPrintPreview fp = new XPrintPreview(this.PreparePrintDoc_A(report_data, total_page), total_page);
-                    fp.MdiParent = this.main_form;
-                    fp.Show();
+                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, total_page), total_page);
+                    xp.MdiParent = this.main_form;
+                    xp.Show();
 
                 }
 
                 if(print.output == PRINT_OUTPUT.PRINTER)
                 {
                     PrintDialog pd = new PrintDialog();
-                    pd.Document = this.PreparePrintDoc_A(report_data);
+                    pd.Document = this.PreparePrintDoc_A(report_data, total_page);
                     if(pd.ShowDialog() == DialogResult.OK)
                     {
                         pd.Document.Print();
@@ -564,7 +562,27 @@ namespace XPump.SubForm
 
         private void btnPrintB_Click(object sender, EventArgs e)
         {
+            DialogPrintSetupB print = new DialogPrintSetupB();
+            if(print.ShowDialog() == DialogResult.OK)
+            {
+                var report_data = this.GetReportBData(print.selected_date);
+                int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_B(report_data));
 
+                if(print.output == PRINT_OUTPUT.SCREEN)
+                {
+                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_B(report_data, total_page), total_page);
+                }
+
+                if(print.output == PRINT_OUTPUT.PRINTER)
+                {
+                    PrintDialog pd = new PrintDialog();
+                    pd.Document = this.PreparePrintDoc_B(report_data, total_page);
+                    if(pd.ShowDialog() == DialogResult.OK)
+                    {
+                        pd.Document.Print();
+                    }
+                }
+            }
         }
 
         private void btnPrintC_Click(object sender, EventArgs e)
@@ -984,8 +1002,8 @@ namespace XPump.SubForm
             {
                 try
                 {
-                    int[] pricelist_id = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.pricelist_id).ToArray<int>();
-                    report_data.pricelistVM_list = db.pricelist.Where(p => pricelist_id.Contains<int>(p.id)).ToViewModel();
+                    //int[] pricelist_id = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.pricelist_id).ToArray<int>();
+                    //report_data.pricelistVM_list = db.pricelist.Where(p => pricelist_id.Contains<int>(p.id)).ToViewModel();
 
                     report_data.salessummaryVM_list = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).ToViewModel().OrderBy(s => s.stkcod).ToList();
 
@@ -995,6 +1013,8 @@ namespace XPump.SubForm
                     report_data.isinfoDbfVM = DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel();
                     //var shift_data = db.shift.Find(this.curr_shiftsales.shift_id);
                     report_data.shift = db.shift.Find(this.curr_shiftsales.shift_id);
+
+                    //var apmas = DbfTable.Apmas().ToApmasList();
 
                     var aptrn = DbfTable.Aptrn().ToAptrnList()
                         .Where(a => a.docdat.HasValue)
@@ -1014,7 +1034,7 @@ namespace XPump.SubForm
                         .Select(s => new VatTransDbfVM {
                             docnum = s.docnum.Trim(),
                             docdat = s.docdat.Value,
-                            people = s.people.Trim(),
+                            people = s.people, //apmas.Where(a => a.supcod.Trim() == s.people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().supnam.Trim() : string.Empty,
                             stkcod = s.stkcod.Trim(),
                             netval = s.netval,
                             vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
@@ -1420,6 +1440,115 @@ namespace XPump.SubForm
                         e.HasMorePages = false;
                     }
                 }
+            };
+
+            return docs;
+        }
+
+        private ReportBModel GetReportBData(DateTime trans_date)
+        {
+            ReportBModel report_data = new ReportBModel();
+
+
+            return report_data;
+        }
+
+        private PrintDocument PreparePrintDoc_B(ReportBModel report_data, int total_page = 0)
+        {
+            Font fnt_title_bold = new Font("angsana new", 12f, FontStyle.Bold);
+            Font fnt_header_bold = new Font("angsana new", 11f, FontStyle.Bold); // tahoma 8f bold
+            Font fnt_header = new Font("angsana new", 11f, FontStyle.Regular); // tahoma 8f
+            Font fnt_bold = new Font("angsana new", 10f, FontStyle.Bold); // tahoma 7f bold
+            Font fnt = new Font("angsana new", 10f, FontStyle.Regular); // tahoma 7f
+            Pen p = new Pen(Color.Black);
+            SolidBrush brush = new SolidBrush(Color.Black);
+            SolidBrush bg_gray = new SolidBrush(Color.Gainsboro);
+            StringFormat format_left = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+            StringFormat format_right = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+            StringFormat format_center = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+
+            int page = 0;
+            int item_count = 0;
+
+            PrintDocument docs = new PrintDocument();
+            docs.DefaultPageSettings.Margins = new Margins(30, 30, 30, 30);
+            docs.DefaultPageSettings.Landscape = true;
+            docs.BeginPrint += delegate (object sender, PrintEventArgs e)
+            {
+                page = 0;
+                item_count = 0;
+            };
+            docs.PrintPage += delegate (object sender, PrintPageEventArgs e)
+            {
+                int x = e.MarginBounds.Left;
+                int y = e.MarginBounds.Top;
+                int line_height = fnt_header.Height - 1;
+
+                page++;
+                // draw margin bound
+                //e.Graphics.DrawRectangle(new Pen(Color.Red), new Rectangle(x, y, e.MarginBounds.Right - x, e.MarginBounds.Bottom - y));
+
+                /* report header */
+                Rectangle rect = new Rectangle(x, y, e.MarginBounds.Right - x, line_height);
+                string str = "รายงานแสดงรายละเอียดการขายน้ำมันเชื้อเพลิง";
+                e.Graphics.DrawString(str, fnt_header_bold, brush, rect, format_center);
+
+                y += line_height; // new line
+                y += line_height; // new line
+                str = "ชื่อผู้ประกอบการ: ";
+                rect = str.GetDisplayRect(fnt_header, x, y);
+                rect.Width = 110;
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+                rect = report_data.isinfoDbfVM.compnam.GetDisplayRect(fnt_header, x + rect.Width, y);
+                e.Graphics.DrawString(report_data.isinfoDbfVM.compnam, fnt_header, brush, rect, format_left);
+
+                str = "วันที่ " + report_data.reportDate.ToString("d MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + report_data.reportDate.ToString("yyyy", CultureInfo.CurrentCulture);
+                rect = str.GetDisplayRect(fnt_header, (int)Math.Round((double)(e.MarginBounds.Width / 2) + x - (str.Width(fnt_header) / 2)), y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_center);
+
+                str = "[ส่วน ก]";
+                rect = str.GetDisplayRect(fnt_header, x + e.MarginBounds.Width - str.Width(fnt_header), y);
+                rect.X -= 10;
+                e.Graphics.FillRectangle(new SolidBrush(Color.Gainsboro), rect.X - 5, rect.Y - 3, rect.Width + 10, rect.Height + 6);
+                e.Graphics.DrawRectangle(Pens.Black, rect.X - 5, rect.Y - 3, rect.Width + 10, rect.Height + 6);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_center);
+
+                y += line_height; // new line
+                str = "ชื่อสถานีบริการน้ำมัน: ";
+                rect = str.GetDisplayRect(fnt_header, x, y);
+                rect.Width = 110;
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+                str = report_data.isinfoDbfVM.orgnam;
+                rect = str.GetDisplayRect(fnt_header, x + rect.Width, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                str = "เลขประจำตัวผู้เสียภาษี :   ";
+                rect = str.GetDisplayRect(fnt_header, x, y);
+                rect.X = e.MarginBounds.Right - rect.Width - 150;
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_right);
+
+                str = report_data.isinfoDbfVM.taxid;
+                rect = str.GetDisplayRect(fnt_header, rect.X + rect.Width, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                y += line_height; // new line
+                str = "ที่อยู่: ";
+                rect = str.GetDisplayRect(fnt_header, x, y);
+                rect.Width = 110;
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+                str = report_data.isinfoDbfVM.addr;
+                rect = str.GetDisplayRect(fnt_header, x + rect.Width, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                str = "หน้า " + page.ToString() + "/" + total_page;
+                rect = str.GetDisplayRect(fnt_header, e.MarginBounds.Right - str.Width(fnt_header), y);
+                rect.X -= 10;
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_right);
+
+                y += line_height; // new line
+                str = report_data.isinfoDbfVM.telnum.Contains("โทร") || report_data.isinfoDbfVM.telnum.ToLower().Contains("tel") ? report_data.isinfoDbfVM.telnum : "โทร. " + report_data.isinfoDbfVM.telnum;
+                rect = str.GetDisplayRect(fnt_header, x + 110, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
             };
 
             return docs;
