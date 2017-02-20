@@ -993,35 +993,69 @@ namespace XPump.SubForm
                     report_data.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel().ToList();
 
                     report_data.isinfoDbfVM = DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel();
-                    var stcrd = DbfTable.Stcrd().ToStcrdList();
-                    var aptrn = DbfTable.Aptrn().ToAptrnList();
-                    var artrn = DbfTable.Artrn().ToArtrnList();
+                    //var shift_data = db.shift.Find(this.curr_shiftsales.shift_id);
+                    report_data.shift = db.shift.Find(this.curr_shiftsales.shift_id);
 
-                    var shift_data = db.shift.Find(this.curr_shiftsales.shift_id);
-
-                    report_data.phpvatdocVM = aptrn
+                    var aptrn = DbfTable.Aptrn().ToAptrnList()
                         .Where(a => a.docdat.HasValue)
-                        .Where(a => a.docdat == this.curr_shiftsales.saldat && a.docnum.Substring(0, 2) == shift_data.phpprefix)
-                        .Select(s => new VatDocDbfVM { docnum = s.docnum, docdat = s.docdat.Value, people = s.supcod }).ToList();
-
-                    report_data.prrvatdocVM = aptrn
+                        .Where(a => a.docdat.Value == report_data.reportDate)
+                        .Where(a => (a.docnum.Substring(0, 2) == report_data.shift.phpprefix || a.docnum.Substring(0, 2) == report_data.shift.prrprefix)).ToList();
+                    var artrn = DbfTable.Artrn().ToArtrnList()
                         .Where(a => a.docdat.HasValue)
-                        .Where(a => a.docdat == this.curr_shiftsales.saldat && a.docnum.Substring(0, 2) == shift_data.prrprefix)
-                        .Select(s => new VatDocDbfVM { docnum = s.docnum, docdat = s.docdat.Value, people = s.supcod }).ToList();
+                        .Where(a => a.docdat.Value == report_data.reportDate)
+                        .Where(a => (a.docnum.Substring(0, 2) == report_data.shift.shsprefix || a.docnum.Substring(0, 2) == report_data.shift.sivprefix)).ToList();
+                    var stcrd = DbfTable.Stcrd().ToStcrdList()
+                        .Where(s => s.docdat.HasValue)
+                        .Where(s => s.docdat.Value == report_data.reportDate)
+                        .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum) || artrn.Select(a => a.docnum).Contains(s.docnum))
+                        .OrderBy(s => s.docnum).ToList();
 
-                    report_data.shsvatdocVM = artrn
-                        .Where(a => a.docdat.HasValue)
-                        .Where(a => a.docdat == this.curr_shiftsales.saldat && a.docnum.Substring(0, 2) == shift_data.shsprefix)
-                        .Select(s => new VatDocDbfVM { docnum = s.docnum, docdat = s.docdat.Value, people = s.cuscod }).ToList();
+                    report_data.phpvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == report_data.shift.phpprefix)
+                        .Select(s => new VatTransDbfVM {
+                            docnum = s.docnum.Trim(),
+                            docdat = s.docdat.Value,
+                            people = s.people.Trim(),
+                            stkcod = s.stkcod.Trim(),
+                            netval = s.netval,
+                            vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+                        }).OrderBy(s => s.docnum).ToList();
 
-                    report_data.sivvatdocVM = artrn
-                        .Where(a => a.docdat.HasValue)
-                        .Where(a => a.docdat == this.curr_shiftsales.saldat && a.docnum.Substring(0, 2) == shift_data.sivprefix)
-                        .Select(s => new VatDocDbfVM { docnum = s.docnum, docdat = s.docdat.Value, people = s.cuscod }).ToList();
+                    report_data.prrvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == report_data.shift.prrprefix)
+                        .Select(s => new VatTransDbfVM
+                        {
+                            docnum = s.docnum.Trim(),
+                            docdat = s.docdat.Value,
+                            people = s.people.Trim(),
+                            stkcod = s.stkcod.Trim(),
+                            netval = s.netval,
+                            vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+                        }).OrderBy(s => s.docnum).ToList();
+
+                    report_data.shsvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == report_data.shift.shsprefix)
+                        .Select(s => new VatTransDbfVM
+                        {
+                            docnum = s.docnum.Trim(),
+                            docdat = s.docdat.Value,
+                            people = s.people.Trim(),
+                            stkcod = s.stkcod.Trim(),
+                            netval = s.netval,
+                            vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+                        }).OrderBy(s => s.docnum).ToList();
+
+                    report_data.sivvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == report_data.shift.sivprefix)
+                        .Select(s => new VatTransDbfVM
+                        {
+                            docnum = s.docnum.Trim(),
+                            docdat = s.docdat.Value,
+                            people = s.people.Trim(),
+                            stkcod = s.stkcod.Trim(),
+                            netval = s.netval,
+                            vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+                        }).OrderBy(s => s.docnum).ToList();
 
                     foreach (var item in report_data.salessummaryVM_list)
                     {
-                        item.purvat = decimal.Parse(string.Format("{0:0.00}", Convert.ToDecimal(stcrd.Where(s => s.stkcod.Trim() == item.stkcod.Trim() && (report_data.phpvatdocVM.Select(a => a.docnum).ToArray().Contains(s.docnum) || report_data.prrvatdocVM.Select(a => a.docnum).ToArray().Contains(s.docnum))).Sum(s => s.netval *.07))));
+                        item.purvat = Convert.ToDecimal(report_data.phpvattransVM.Where(p => p.stkcod == item.stkcod.Trim()).Sum(p => p.vatamt) + report_data.prrvattransVM.Where(p => p.stkcod == item.stkcod.Trim()).Sum(p => p.vatamt));
                     }
                 }
                 catch (Exception)
@@ -1054,7 +1088,7 @@ namespace XPump.SubForm
             //PaperSize ps = new PaperSize();
             //ps.RawKind = (int)PaperKind.A4;
             //docs.DefaultPageSettings.PaperSize = ps;
-            docs.DefaultPageSettings.Margins = new Margins(30, 30, 40, 40);
+            docs.DefaultPageSettings.Margins = new Margins(30, 30, 30, 30);
             docs.DefaultPageSettings.Landscape = true;
             docs.BeginPrint += delegate (object sender, PrintEventArgs e)
             {
@@ -1065,7 +1099,7 @@ namespace XPump.SubForm
             {
                 int x = e.MarginBounds.Left;
                 int y = e.MarginBounds.Top;
-                int line_height = fnt_header.Height;
+                int line_height = fnt_header.Height - 1;
 
                 page++;
 
@@ -1138,9 +1172,15 @@ namespace XPump.SubForm
                 y += line_height; // new line
                 int start_body_y = y;
                 int page_item = 0;
+                List<VatTransDbfVM> sal_vattrans = new List<VatTransDbfVM>();
+                List<VatTransDbfVM> pur_vattrans = new List<VatTransDbfVM>();
+                decimal tot_salvat = 0m;
+                decimal tot_purvat = 0m;
+
                 for (int i = item_count; i < report_data.salessummaryVM_list.Count; i++)
                 {
                     page_item++;
+                    item_count++;
 
                     Point block_begin_point = new Point((((e.MarginBounds.Right - e.MarginBounds.Left) / 4) * (page_item - 1)) + e.MarginBounds.Left, y);
                     Point block_end_point = new Point(((e.MarginBounds.Right - e.MarginBounds.Left)/4) + block_begin_point.X, y);
@@ -1221,6 +1261,7 @@ namespace XPump.SubForm
                         rect_salval.Y += line_height;
                     }
 
+                    /* Summary line start */
                     x = block_begin_point.X;
                     Rectangle rect_total_txt = new Rectangle(x, rect_noz.Y, rect_noz.Width + rect_mitbeg.Width + rect_mitend.Width, line_height);
                     e.Graphics.DrawString("  1.รวม", fnt_bold, brush, rect_total_txt);
@@ -1274,13 +1315,104 @@ namespace XPump.SubForm
                     Rectangle rect_netval = new Rectangle(rect_salval.X, rect_net_txt.Y, rect_salval.Width, line_height);
                     e.Graphics.DrawString(report_data.salessummaryVM_list[i].totval.FormatCurrency(), fnt, brush, rect_netval, new StringFormat { Alignment = StringAlignment.Far });
 
-                    y = start_body_y;
+                    Rectangle rect_salvat_txt = new Rectangle(x, rect_net_txt.Y + line_height, rect_net_txt.Width, line_height);
+                    e.Graphics.DrawString("  6.ภาษีขาย ((5)X7)/107)", fnt_bold, brush, rect_salvat_txt);
 
+                    Rectangle rect_salvat = new Rectangle(rect_salval.X, rect_salvat_txt.Y, rect_salval.Width, line_height);
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].salvat.FormatCurrency(), fnt, brush, rect_salvat, new StringFormat { Alignment = StringAlignment.Far });
+
+                    Rectangle rect_purvat_txt = new Rectangle(x, rect_salvat_txt.Y + line_height, rect_salvat_txt.Width, line_height);
+                    e.Graphics.DrawString("  7.ภาษีซื้อของน้ำมันเชื้อเพลิง", fnt_bold, brush, rect_purvat_txt);
+
+                    Rectangle rect_purvat = new Rectangle(rect_salval.X, rect_purvat_txt.Y, rect_salval.Width, line_height);
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].purvat.FormatCurrency(), fnt, brush, rect_purvat, new StringFormat { Alignment = StringAlignment.Far });
+
+                    foreach (var item in report_data.shsvattransVM.Where(s => s.stkcod == report_data.salessummaryVM_list[i].stkcod))
+                    {
+                        sal_vattrans.Add(item);
+                    }
+                    foreach (var item in report_data.sivvattransVM.Where(s => s.stkcod == report_data.salessummaryVM_list[i].stkcod))
+                    {
+                        sal_vattrans.Add(item);
+                    }
+
+                    tot_salvat += report_data.salessummaryVM_list[i].salvat;
+                    tot_purvat += report_data.salessummaryVM_list[i].purvat;
+
+                    if(page_item == 4 || item_count == report_data.salessummaryVM_list.Count)
+                    {
+                        Rectangle rect_tot_salvat_txt = new Rectangle(e.MarginBounds.Left, rect_purvat_txt.Y + line_height, rect_purvat_txt.Width, line_height);
+                        e.Graphics.DrawString("  รวมภาษีขายน้ำมันเชื้อเพลิงทั้งสิ้น", fnt_bold, brush, rect_tot_salvat_txt);
+
+                        Rectangle rect_tot_salvat = new Rectangle(rect_tot_salvat_txt.X + rect_tot_salvat_txt.Width, rect_tot_salvat_txt.Y, rect_salqty.Width, line_height);
+                        e.Graphics.DrawString(tot_salvat.FormatCurrency(), fnt_bold, brush, rect_tot_salvat, new StringFormat { Alignment = StringAlignment.Far });
+                        e.Graphics.DrawLine(p, new Point(rect_tot_salvat.X, rect_tot_salvat.Y + line_height), new Point(rect_tot_salvat.X + rect_tot_salvat.Width, rect_tot_salvat.Y + line_height));
+                        e.Graphics.DrawLine(p, new Point(rect_tot_salvat.X, rect_tot_salvat.Y + line_height + 2), new Point(rect_tot_salvat.X + rect_tot_salvat.Width, rect_tot_salvat.Y + line_height + 2));
+
+                        Rectangle rect_tot_purvat_txt = new Rectangle(e.MarginBounds.Left + rect_tot_salvat_txt.Width + rect_tot_salvat.Width + rect_salval.Width, rect_tot_salvat_txt.Y, rect_tot_salvat_txt.Width, line_height);
+                        e.Graphics.DrawString("  รวมภาษีซื้อน้ำมันเชื้อเพลิงทั้งสิ้น", fnt_bold, brush, rect_tot_purvat_txt);
+
+                        Rectangle rect_tot_purvat = new Rectangle(rect_tot_purvat_txt.X + rect_tot_purvat_txt.Width, rect_tot_purvat_txt.Y, rect_salqty.Width, line_height);
+                        e.Graphics.DrawString(tot_purvat.FormatCurrency(), fnt_bold, brush, rect_tot_purvat, new StringFormat { Alignment = StringAlignment.Far });
+                        e.Graphics.DrawLine(p, new Point(rect_tot_purvat.X, rect_tot_purvat.Y + line_height), new Point(rect_tot_purvat.X + rect_tot_purvat.Width, rect_tot_purvat.Y + line_height));
+                        e.Graphics.DrawLine(p, new Point(rect_tot_purvat.X, rect_tot_purvat.Y + line_height + 2), new Point(rect_tot_purvat.X + rect_tot_purvat.Width, rect_tot_purvat.Y + line_height + 2));
+
+                        str = "ใบกำกับภาษีเต็มรูปแบบตามมาตรา 86/4 แห่งประมวลรัษฎากร (จากการขายน้ำมันเชื้อเพลิงผ่านมิเตอร์หัวจ่าย)";
+                        Rectangle rect_vatdoc_title = new Rectangle(e.MarginBounds.Left, rect_tot_purvat_txt.Y + (line_height * 2), str.Width(fnt), line_height);
+                        e.Graphics.DrawString(str, fnt, brush, rect_vatdoc_title);
+
+                        y = rect_vatdoc_title.Y;
+                        var sal_hs = sal_vattrans.Where(s => s.docnum.Substring(0, 2) == report_data.shift.shsprefix).ToList();
+                        if(sal_hs.Count > 0)
+                        {
+                            y += line_height;
+                            str = "เลขที่ " + sal_hs.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_hs.Last().docnum.PadLeft(12) + " จำนวน " + sal_hs.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.netval) + sal_hs.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
+                            Rectangle rect_hs_vat = str.GetDisplayRect(fnt, e.MarginBounds.Left, y);
+                            rect_hs_vat.Width += 15;
+                            e.Graphics.DrawString(str, fnt, brush, rect_hs_vat);
+                        }
+                        var sal_iv = sal_vattrans.Where(s => s.docnum.Substring(0, 2) == report_data.shift.sivprefix).ToList();
+                        if(sal_iv.Count > 0)
+                        {
+                            y += line_height;
+                            str = "เลขที่ " + sal_iv.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_iv.Last().docnum.PadLeft(12) + " จำนวน " + sal_iv.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.netval) + sal_iv.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
+                            Rectangle rect_iv_vat = str.GetDisplayRect(fnt, e.MarginBounds.Left, y);
+                            rect_iv_vat.Width += 15;
+                            e.Graphics.DrawString(str, fnt, brush, rect_iv_vat);
+                        }
+
+                        using(Font fnt_price = new Font("angsana new", 9f))
+                        {
+                            Rectangle rect_price = new Rectangle(e.MarginBounds.Right - 200, rect_tot_purvat_txt.Y + line_height, 200, fnt_price.Height * 11);
+                            e.Graphics.FillRectangle(bg_gray, rect_price);
+                            e.Graphics.DrawRectangle(p, rect_price);
+
+                            rect = new Rectangle(rect_price.X, rect_price.Y, rect_price.Width, fnt_price.Height);
+                            e.Graphics.DrawString("ราคาน้ำมันวันนี้", fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Center });
+
+                            for (int k = 0; k < 10; k++)
+                            {
+                                if(k < report_data.salessummaryVM_list.Count)
+                                {
+                                    rect = new Rectangle(rect_price.X, rect_price.Y + (fnt_price.Height * (k + 1)), rect_price.Width * 2 / 4, fnt_price.Height);
+                                    e.Graphics.DrawString(report_data.salessummaryVM_list[k].stkcod, fnt_price, brush, rect);
+
+                                    rect = new Rectangle(rect.X + rect.Width, rect.Y, rect.Width / 2, fnt_price.Height);
+                                    e.Graphics.DrawString(report_data.salessummaryVM_list[k].unitpr.FormatCurrency(), fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Far });
+
+                                    rect = new Rectangle(rect.X + rect.Width, rect.Y, rect.Width, fnt_price.Height);
+                                    e.Graphics.DrawString("บาท", fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Center });
+                                }
+                            }
+                        }
+                    }
+
+                    /* Summary line end */
+                    y = start_body_y;
 
                     if (page_item == 4)
                     {
                         e.HasMorePages = true;
-                        item_count = i + 1;
                         return;
                     }
                     else

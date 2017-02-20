@@ -1125,6 +1125,11 @@ namespace XPump.Misc
             return string.Format("{0:#,#0.00}", val);
         }
 
+        public static string FormatCurrency(this double val)
+        {
+            return string.Format("{0:#,#0.00}", val);
+        }
+
         public static int Width(this string str, Font fnt)
         {
             return TextRenderer.MeasureText(str, fnt).Width + 5;
