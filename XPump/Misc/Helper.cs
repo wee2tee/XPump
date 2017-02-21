@@ -340,6 +340,35 @@ namespace XPump.Misc
             return s;
         }
 
+        public static sttakVM ToViewModel(this sttak sttak)
+        {
+            if (sttak == null)
+                return null;
+
+            sttakVM s = new sttakVM
+            {
+                id = sttak.id,
+                takdat = sttak.takdat,
+                qty = sttak.qty,
+                section_id = sttak.section_id,
+                sttak = sttak
+            };
+
+            return s;
+        }
+
+        public static List<sttakVM> ToViewModel(this IEnumerable<sttak> sttak_list)
+        {
+            List<sttakVM> s = new List<sttakVM>();
+
+            foreach (var item in sttak_list)
+            {
+                s.Add(item.ToViewModel());
+            }
+
+            return s;
+        }
+
         public static List<StmasDbf> ToStmasList(this DataTable stmas_dbf)
         {
             List<StmasDbf> stmas = new List<StmasDbf>();

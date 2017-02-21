@@ -121,6 +121,20 @@ namespace XPump
             DialogSettings setting = new DialogSettings(this);
             setting.ShowDialog();
         }
+
+        private void mnuSttak_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSttak)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSttak)).First().form.Activate();
+                return;
+            }
+
+            FormSttak tak = new FormSttak(this);
+            tak.MdiParent = this;
+            tak.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = tak, docPrefix = string.Empty });
+        }
     }
 
     public class ChildFormDetail

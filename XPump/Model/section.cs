@@ -18,6 +18,7 @@ namespace XPump.Model
         public section()
         {
             this.nozzle = new HashSet<nozzle>();
+            this.sttak = new HashSet<sttak>();
         }
     
         public int id { get; set; }
@@ -31,5 +32,7 @@ namespace XPump.Model
         public virtual ICollection<nozzle> nozzle { get; set; }
         public virtual stmas stmas { get; set; }
         public virtual tank tank { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<sttak> sttak { get; set; }
     }
 }

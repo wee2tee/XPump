@@ -110,6 +110,15 @@
           <Property Name="description" Type="varchar" MaxLength="50" />
           <Property Name="remark" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="sttak">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="takdat" Type="date" Nullable="false" />
+          <Property Name="qty" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="section_id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tank">
           <Key>
             <PropertyRef Name="id" />
@@ -290,6 +299,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk-sttak-section_id">
+          <End Role="section" Type="Self.section" Multiplicity="1" />
+          <End Role="sttak" Type="Self.sttak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="section">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sttak">
+              <PropertyRef Name="section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="xpumpModelStoreContainer">
           <EntitySet Name="nozzle" EntityType="Self.nozzle" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="pricelist" EntityType="Self.pricelist" Schema="xpump" store:Type="Tables" />
@@ -300,6 +321,7 @@
           <EntitySet Name="shift" EntityType="Self.shift" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="shiftsales" EntityType="Self.shiftsales" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="stmas" EntityType="Self.stmas" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="sttak" EntityType="Self.sttak" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
           <AssociationSet Name="fk-nozzle-section_id" Association="Self.fk-nozzle-section_id">
             <End Role="section" EntitySet="section" />
@@ -356,6 +378,10 @@
           <AssociationSet Name="fk-shiftsales-shift_id" Association="Self.fk-shiftsales-shift_id">
             <End Role="shift" EntitySet="shift" />
             <End Role="shiftsales" EntitySet="shiftsales" />
+          </AssociationSet>
+          <AssociationSet Name="fk-sttak-section_id" Association="Self.fk-sttak-section_id">
+            <End Role="section" EntitySet="section" />
+            <End Role="sttak" EntitySet="sttak" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -443,6 +469,7 @@
           <NavigationProperty Name="nozzle" Relationship="Self.fk_nozzle_section_id" FromRole="section" ToRole="nozzle" />
           <NavigationProperty Name="stmas" Relationship="Self.fk_section_stmas_id" FromRole="section" ToRole="stmas" />
           <NavigationProperty Name="tank" Relationship="Self.fk_section_tank_id" FromRole="section" ToRole="tank" />
+          <NavigationProperty Name="sttak" Relationship="Self.fk_sttak_section_id" FromRole="section" ToRole="sttak" />
         </EntityType>
         <EntityType Name="settings">
           <Key>
@@ -494,6 +521,16 @@
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_stmas_id" FromRole="stmas" ToRole="saleshistory" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_stmas_id" FromRole="stmas" ToRole="salessummary" />
           <NavigationProperty Name="section" Relationship="Self.fk_section_stmas_id" FromRole="stmas" ToRole="section" />
+        </EntityType>
+        <EntityType Name="sttak">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="takdat" Type="DateTime" Nullable="false" />
+          <Property Name="qty" Type="Decimal" Nullable="false" />
+          <Property Name="section_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="section" Relationship="Self.fk_sttak_section_id" FromRole="sttak" ToRole="section" />
         </EntityType>
         <EntityType Name="tank">
           <Key>
@@ -664,6 +701,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_sttak_section_id">
+          <End Role="section" Type="Self.section" Multiplicity="1" />
+          <End Role="sttak" Type="Self.sttak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="section">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sttak">
+              <PropertyRef Name="section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_shiftsales_shift_id">
           <End Role="shift" Type="Self.shift" Multiplicity="1" />
           <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="*" />
@@ -686,6 +735,7 @@
           <EntitySet Name="shift" EntityType="Self.shift" />
           <EntitySet Name="shiftsales" EntityType="Self.shiftsales" />
           <EntitySet Name="stmas" EntityType="Self.stmas" />
+          <EntitySet Name="sttak" EntityType="Self.sttak" />
           <EntitySet Name="tank" EntityType="Self.tank" />
           <AssociationSet Name="fk_nozzle_section_id" Association="Self.fk_nozzle_section_id">
             <End Role="section" EntitySet="section" />
@@ -738,6 +788,10 @@
           <AssociationSet Name="fk_section_tank_id" Association="Self.fk_section_tank_id">
             <End Role="tank" EntitySet="tank" />
             <End Role="section" EntitySet="section" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sttak_section_id" Association="Self.fk_sttak_section_id">
+            <End Role="section" EntitySet="section" />
+            <End Role="sttak" EntitySet="sttak" />
           </AssociationSet>
           <AssociationSet Name="fk_shiftsales_shift_id" Association="Self.fk_shiftsales_shift_id">
             <End Role="shift" EntitySet="shift" />
@@ -861,6 +915,16 @@
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="remark" ColumnName="remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sttak">
+            <EntityTypeMapping TypeName="xpumpModel.sttak">
+              <MappingFragment StoreEntitySet="sttak">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="takdat" ColumnName="takdat" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="section_id" ColumnName="section_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

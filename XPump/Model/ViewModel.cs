@@ -562,6 +562,86 @@ namespace XPump.Model
         }
     }
 
+    public class sttakVM
+    {
+        public int id { get; set; }
+        public DateTime takdat { get; set; }
+        public int section_id { get; set; }
+        public string stkcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        var sect = db.section.Find(this.section_id);
+                        return db.stmas.Find(sect.stmas_id).name;
+                    }
+                    catch (Exception)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
+        public string stkdes
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        var sect = db.section.Find(this.section_id);
+                        return db.stmas.Find(sect.stmas_id).description;
+                    }
+                    catch (Exception)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
+        public string tank_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        var sect = db.section.Find(this.section_id);
+                        return db.tank.Find(sect.tank_id).name;
+                    }
+                    catch (Exception)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
+        public string section_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        return db.section.Find(this.section_id).name;
+                    }
+                    catch (Exception)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
+        public decimal qty { get; set; }
+        public sttak sttak { get; set; }
+    }
+
     public class StmasDbfVM
     {
         public bool selected { get; set; }

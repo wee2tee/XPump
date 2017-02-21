@@ -121,6 +121,9 @@
     <Compile Include="Model\stmas.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\sttak.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\tank.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
@@ -142,6 +145,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubForm\DialogDateSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDateSelector.Designer.cs">
+      <DependentUpon>DialogDateSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogEditPrice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,6 +265,12 @@
     <Compile Include="SubForm\FormShiftTransaction.Designer.cs">
       <DependentUpon>FormShiftTransaction.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\FormSttak.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormSttak.Designer.cs">
+      <DependentUpon>FormSttak.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\_FormShiftTransaction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -299,6 +314,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SubForm\DialogDateSelector.resx">
+      <DependentUpon>DialogDateSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogEditPrice.resx">
       <DependentUpon>DialogEditPrice.cs</DependentUpon>
     </EmbeddedResource>
@@ -355,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormShiftTransaction.resx">
       <DependentUpon>FormShiftTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormSttak.resx">
+      <DependentUpon>FormSttak.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\_FormShiftTransaction.resx">
       <DependentUpon>_FormShiftTransaction.cs</DependentUpon>
