@@ -18,8 +18,8 @@ namespace XPump.SubForm
         private MainForm main_form;
         private FORM_MODE form_mode;
         //private DateTime selected_date;
-        private List<sttak> sttak;
-        private sttak tmp_sttak;
+        private List<shiftsttak> sttak;
+        private shiftsttak tmp_sttak;
         private BindingSource bs;
 
         public FormSttak(MainForm main_form)
@@ -53,21 +53,21 @@ namespace XPump.SubForm
             this.btnLast.PerformClick();
         }
 
-        private List<sttak> GetSttak(DateTime takdat)
+        private List<shiftsttak> GetSttak(DateTime takdat)
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.sttak.Where(s => s.takdat == takdat).ToList();
+                return db.shiftsttak.Where(s => s.takdat == takdat).ToList();
             }
         }
 
-        private void FillForm(List<sttak> sttak_to_fill = null)
+        private void FillForm(List<shiftsttak> sttak_to_fill = null)
         {
-            List<sttak> sttak = sttak_to_fill != null ? sttak_to_fill : this.sttak;
+            List<shiftsttak> sttak = sttak_to_fill != null ? sttak_to_fill : this.sttak;
 
             if(sttak == null)
             {
-                sttak = new List<sttak>();
+                sttak = new List<shiftsttak>();
             }
 
             this.dtTakDat._SelectedDate = sttak == null || sttak.Count == 0 ? null : (DateTime?)sttak.First().takdat;
@@ -98,7 +98,7 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            this.tmp_sttak = (sttak)this.dgv.Rows[row_index].Cells[this.col_sttak.Name].Value;
+            this.tmp_sttak = (shiftsttak)this.dgv.Rows[row_index].Cells[this.col_sttak.Name].Value;
             this.inline_qty._Value = this.tmp_sttak.qty;
 
             int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_qty.DataPropertyName).First().Index;
@@ -149,7 +149,7 @@ namespace XPump.SubForm
             {
                 try
                 {
-                    sttak sttak_to_update = db.sttak.Find(this.tmp_sttak.id);
+                    shiftsttak sttak_to_update = db.shiftsttak.Find(this.tmp_sttak.id);
                     if (sttak_to_update == null)
                     {
                         MessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -175,7 +175,7 @@ namespace XPump.SubForm
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
-                    if(db.sttak.Where(s => s.takdat == ds.selected_date).Count() > 0) // is exist
+                    if(db.shiftsttak.Where(s => s.takdat == ds.selected_date).Count() > 0) // is exist
                     {
                         if(MessageBox.Show("ข้อมูลตรวจนับของวันที่ " + ds.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " มีอยู่แล้ว, ต้องการเรียกดูข้อมูลดังกล่าวหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                         {
@@ -194,13 +194,13 @@ namespace XPump.SubForm
 
                             foreach (section sec in sections)
                             {
-                                sttak s = new sttak
+                                shiftsttak s = new shiftsttak
                                 {
                                     section_id = sec.id,
                                     takdat = ds.selected_date,
                                     qty = -1
                                 };
-                                db.sttak.Add(s);
+                                db.shiftsttak.Add(s);
                             }
 
                             db.SaveChanges();
@@ -240,10 +240,10 @@ namespace XPump.SubForm
                     try
                     {
                         DateTime takdat = this.sttak.First().takdat;
-                        int[] deleting_ids = db.sttak.Where(s => s.takdat == takdat).Select(s => s.id).ToArray();
+                        int[] deleting_ids = db.shiftsttak.Where(s => s.takdat == takdat).Select(s => s.id).ToArray();
                         for (int i = 0; i < deleting_ids.Count(); i++)
                         {
-                            db.sttak.Remove(db.sttak.Find(deleting_ids[i]));
+                            db.shiftsttak.Remove(db.shiftsttak.Find(deleting_ids[i]));
                         }
                         db.SaveChanges();
 
@@ -292,7 +292,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                sttak tmp = db.sttak.OrderByDescending(s => s.takdat).FirstOrDefault();
+                shiftsttak tmp = db.shiftsttak.OrderByDescending(s => s.takdat).FirstOrDefault();
 
                 if(tmp == null)
                 {

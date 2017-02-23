@@ -48,7 +48,9 @@ namespace XPump.Model
     {
         public int id { get; set; }
         public string name { get; set; }
-        public decimal begbal { get; set; }
+        public decimal begtak { get; set; }
+        public decimal begacc { get; set; }
+        public decimal begdif { get; set; }
         public decimal totbal
         {
             get
@@ -57,7 +59,7 @@ namespace XPump.Model
                 {
                     int[] nozzle_ids = db.nozzle.Where(n => n.section_id == this.id).Select(n => n.id).ToArray<int>();
 
-                    return this.begbal - db.saleshistory.Where(s => nozzle_ids.Contains<int>(s.nozzle_id)).ToList().Sum(s => s.salqty);
+                    return this.begacc - db.saleshistory.Where(s => nozzle_ids.Contains<int>(s.nozzle_id)).ToList().Sum(s => s.salqty);
                 }
             }
         }
@@ -563,7 +565,7 @@ namespace XPump.Model
         }
     }
 
-    public class sttakVM
+    public class shiftsttakVM
     {
         public int id { get; set; }
         public DateTime takdat { get; set; }
@@ -640,7 +642,7 @@ namespace XPump.Model
             }
         }
         public decimal qty { get; set; }
-        public sttak sttak { get; set; }
+        public shiftsttak sttak { get; set; }
     }
 
     public class StmasDbfVM

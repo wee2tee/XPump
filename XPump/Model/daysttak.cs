@@ -12,15 +12,14 @@ namespace XPump.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class sttak
+    public partial class daysttak
     {
         public int id { get; set; }
-        public System.DateTime takdat { get; set; }
-        public decimal qty { get; set; }
-        public int shiftsales_id { get; set; }
+        public string qty { get; set; }
+        public int dayend_id { get; set; }
         public int section_id { get; set; }
     
+        public virtual dayend dayend { get; set; }
         public virtual section section { get; set; }
-        public virtual shiftsales shiftsales { get; set; }
     }
 }

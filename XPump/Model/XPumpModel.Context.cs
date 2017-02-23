@@ -22,13 +22,17 @@ namespace XPump.Model
 
         public xpumpEntities(string connection_string)
             : base(connection_string)
-        { }
+        {
+
+        }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<dayend> dayend { get; set; }
+        public virtual DbSet<daysttak> daysttak { get; set; }
         public virtual DbSet<nozzle> nozzle { get; set; }
         public virtual DbSet<pricelist> pricelist { get; set; }
         public virtual DbSet<saleshistory> saleshistory { get; set; }
@@ -37,8 +41,8 @@ namespace XPump.Model
         public virtual DbSet<settings> settings { get; set; }
         public virtual DbSet<shift> shift { get; set; }
         public virtual DbSet<shiftsales> shiftsales { get; set; }
+        public virtual DbSet<shiftsttak> shiftsttak { get; set; }
         public virtual DbSet<stmas> stmas { get; set; }
-        public virtual DbSet<sttak> sttak { get; set; }
         public virtual DbSet<tank> tank { get; set; }
     }
 }

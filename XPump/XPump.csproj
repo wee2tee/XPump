@@ -92,6 +92,12 @@
     <Compile Include="Misc\ConfigValue.cs" />
     <Compile Include="Misc\Helper.cs" />
     <Compile Include="Misc\StringResource.cs" />
+    <Compile Include="Model\dayend.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\daysttak.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\DbfTable.cs" />
     <Compile Include="Model\DBX.cs" />
     <Compile Include="Model\nozzle.cs">
@@ -118,10 +124,10 @@
     <Compile Include="Model\shiftsales.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\stmas.cs">
+    <Compile Include="Model\shiftsttak.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\sttak.cs">
+    <Compile Include="Model\stmas.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\tank.cs">
@@ -511,6 +517,9 @@
     <None Include="Resources\up_16.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\lock_16.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\XPumpModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>XPumpModel.edmx</DependentUpon>
@@ -521,7 +530,6 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
-    <None Include="Resources\lock_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

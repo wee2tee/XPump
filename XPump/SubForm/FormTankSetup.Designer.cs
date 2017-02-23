@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -60,10 +62,24 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.dgvSection = new CC.XDatagrid();
+            this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_loccod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_begtak = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_begacc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_begdif = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_totbal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_nozzlecount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_tank_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_start_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_end_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddItem = new System.Windows.Forms.Button();
             this.btnDeleteItem = new System.Windows.Forms.Button();
             this.btnEditItem = new System.Windows.Forms.Button();
@@ -76,25 +92,17 @@
             this.txtDesc = new CC.XTextEdit();
             this.txtName = new CC.XTextEdit();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_loccod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_begbal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_totbal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_nozzlecount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_tank_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_start_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_end_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inline_nozzlecount = new System.Windows.Forms.Button();
+            this.inline_stkcod = new CC.XBrowseBox();
+            this.inline_begacc = new CC.XNumEdit();
+            this.inline_begtak = new CC.XNumEdit();
+            this.inline_name = new CC.XTextEdit();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.toolStrip1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSection)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -120,7 +128,7 @@
             this.btnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(825, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(895, 43);
             this.toolStrip1.TabIndex = 3;
             // 
             // btnAdd
@@ -358,47 +366,6 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "(ปล่อยว่างไว้ = ถึงปัจจุบัน)";
             // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.panel1);
-            this.panel2.Controls.Add(this.btnAddItem);
-            this.panel2.Controls.Add(this.btnDeleteItem);
-            this.panel2.Controls.Add(this.btnEditItem);
-            this.panel2.Controls.Add(this.btnStopItem);
-            this.panel2.Controls.Add(this.btnSaveItem);
-            this.panel2.Location = new System.Drawing.Point(6, 190);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(813, 317);
-            this.panel2.TabIndex = 17;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label8.Location = new System.Drawing.Point(5, 6);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(98, 16);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "ถังน้ำมัน <F8>";
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.dgvSection);
-            this.panel1.Location = new System.Drawing.Point(3, 29);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(805, 283);
-            this.panel1.TabIndex = 1;
-            // 
             // dgvSection
             // 
             this.dgvSection.AllowSortByColumnHeaderClicked = false;
@@ -406,14 +373,14 @@
             this.dgvSection.AllowUserToDeleteRows = false;
             this.dgvSection.AllowUserToResizeColumns = false;
             this.dgvSection.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvSection.ColumnHeadersHeight = 28;
             this.dgvSection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvSection.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -422,7 +389,9 @@
             this.col_section_stkcod,
             this.col_section_stkdes,
             this.col_section_loccod,
-            this.col_section_begbal,
+            this.col_section_begtak,
+            this.col_section_begacc,
+            this.col_section_begdif,
             this.col_section_totbal,
             this.col_section_nozzlecount,
             this.col_section_tank_id,
@@ -432,14 +401,14 @@
             this.col_section_start_date,
             this.col_section_end_date,
             this.col_section_state});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle14;
             this.dgvSection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSection.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvSection.EnableHeadersVisualStyles = false;
@@ -452,7 +421,7 @@
             this.dgvSection.RowHeadersVisible = false;
             this.dgvSection.RowTemplate.Height = 26;
             this.dgvSection.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSection.Size = new System.Drawing.Size(805, 283);
+            this.dgvSection.Size = new System.Drawing.Size(881, 274);
             this.dgvSection.StandardTab = true;
             this.dgvSection.TabIndex = 0;
             this.dgvSection.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSection_CellMouseDoubleClick);
@@ -461,13 +430,176 @@
             this.dgvSection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSection_MouseClick);
             this.dgvSection.Resize += new System.EventHandler(this.dgvSection_Resize);
             // 
+            // col_section_id
+            // 
+            this.col_section_id.DataPropertyName = "id";
+            this.col_section_id.HeaderText = "ID";
+            this.col_section_id.Name = "col_section_id";
+            this.col_section_id.ReadOnly = true;
+            this.col_section_id.Visible = false;
+            // 
+            // col_section_name
+            // 
+            this.col_section_name.DataPropertyName = "name";
+            this.col_section_name.HeaderText = "เลขที่ถัง";
+            this.col_section_name.MinimumWidth = 120;
+            this.col_section_name.Name = "col_section_name";
+            this.col_section_name.ReadOnly = true;
+            this.col_section_name.Width = 120;
+            // 
+            // col_section_stkcod
+            // 
+            this.col_section_stkcod.DataPropertyName = "stkcod";
+            this.col_section_stkcod.HeaderText = "รหัสสินค้า";
+            this.col_section_stkcod.MinimumWidth = 150;
+            this.col_section_stkcod.Name = "col_section_stkcod";
+            this.col_section_stkcod.ReadOnly = true;
+            this.col_section_stkcod.Width = 150;
+            // 
+            // col_section_stkdes
+            // 
+            this.col_section_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_section_stkdes.DataPropertyName = "stkdes";
+            this.col_section_stkdes.HeaderText = "รายละเอียด";
+            this.col_section_stkdes.Name = "col_section_stkdes";
+            this.col_section_stkdes.ReadOnly = true;
+            // 
+            // col_section_loccod
+            // 
+            this.col_section_loccod.DataPropertyName = "loccod";
+            this.col_section_loccod.HeaderText = "รหัสคลัง";
+            this.col_section_loccod.MinimumWidth = 70;
+            this.col_section_loccod.Name = "col_section_loccod";
+            this.col_section_loccod.ReadOnly = true;
+            this.col_section_loccod.Visible = false;
+            this.col_section_loccod.Width = 70;
+            // 
+            // col_section_begtak
+            // 
+            this.col_section_begtak.DataPropertyName = "begtak";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N2";
+            dataGridViewCellStyle9.NullValue = null;
+            this.col_section_begtak.DefaultCellStyle = dataGridViewCellStyle9;
+            this.col_section_begtak.HeaderText = "ยกมา-ตรวจวัดจริง (ลิตร)";
+            this.col_section_begtak.MinimumWidth = 150;
+            this.col_section_begtak.Name = "col_section_begtak";
+            this.col_section_begtak.ReadOnly = true;
+            this.col_section_begtak.Width = 150;
+            // 
+            // col_section_begacc
+            // 
+            this.col_section_begacc.DataPropertyName = "begacc";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "N2";
+            dataGridViewCellStyle10.NullValue = "0";
+            this.col_section_begacc.DefaultCellStyle = dataGridViewCellStyle10;
+            this.col_section_begacc.HeaderText = "ยกมา-ตามบัญชี (ลิตร)";
+            this.col_section_begacc.MinimumWidth = 140;
+            this.col_section_begacc.Name = "col_section_begacc";
+            this.col_section_begacc.ReadOnly = true;
+            this.col_section_begacc.Width = 140;
+            // 
+            // col_section_begdif
+            // 
+            this.col_section_begdif.DataPropertyName = "begdif";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N2";
+            dataGridViewCellStyle11.NullValue = null;
+            this.col_section_begdif.DefaultCellStyle = dataGridViewCellStyle11;
+            this.col_section_begdif.HeaderText = "ผลต่างยกมา (ลิตร)";
+            this.col_section_begdif.MinimumWidth = 120;
+            this.col_section_begdif.Name = "col_section_begdif";
+            this.col_section_begdif.ReadOnly = true;
+            this.col_section_begdif.Width = 120;
+            // 
+            // col_section_totbal
+            // 
+            this.col_section_totbal.DataPropertyName = "totbal";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N2";
+            dataGridViewCellStyle12.NullValue = null;
+            this.col_section_totbal.DefaultCellStyle = dataGridViewCellStyle12;
+            this.col_section_totbal.HeaderText = "คงเหลือ (ลิตร)";
+            this.col_section_totbal.Name = "col_section_totbal";
+            this.col_section_totbal.ReadOnly = true;
+            this.col_section_totbal.Visible = false;
+            // 
+            // col_section_nozzlecount
+            // 
+            this.col_section_nozzlecount.DataPropertyName = "nozzlecount";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N0";
+            dataGridViewCellStyle13.NullValue = null;
+            this.col_section_nozzlecount.DefaultCellStyle = dataGridViewCellStyle13;
+            this.col_section_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
+            this.col_section_nozzlecount.MinimumWidth = 100;
+            this.col_section_nozzlecount.Name = "col_section_nozzlecount";
+            this.col_section_nozzlecount.ReadOnly = true;
+            // 
+            // col_section_tank_id
+            // 
+            this.col_section_tank_id.DataPropertyName = "tank_id";
+            this.col_section_tank_id.HeaderText = "Tank_id";
+            this.col_section_tank_id.Name = "col_section_tank_id";
+            this.col_section_tank_id.ReadOnly = true;
+            this.col_section_tank_id.Visible = false;
+            // 
+            // col_section_section
+            // 
+            this.col_section_section.DataPropertyName = "section";
+            this.col_section_section.HeaderText = "Section";
+            this.col_section_section.Name = "col_section_section";
+            this.col_section_section.ReadOnly = true;
+            this.col_section_section.Visible = false;
+            // 
+            // col_section_stmas_id
+            // 
+            this.col_section_stmas_id.DataPropertyName = "stmas_id";
+            this.col_section_stmas_id.HeaderText = "Stmas_id";
+            this.col_section_stmas_id.Name = "col_section_stmas_id";
+            this.col_section_stmas_id.ReadOnly = true;
+            this.col_section_stmas_id.Visible = false;
+            // 
+            // col_section_tank_name
+            // 
+            this.col_section_tank_name.DataPropertyName = "tank_name";
+            this.col_section_tank_name.HeaderText = "Tank Name";
+            this.col_section_tank_name.Name = "col_section_tank_name";
+            this.col_section_tank_name.ReadOnly = true;
+            this.col_section_tank_name.Visible = false;
+            // 
+            // col_section_start_date
+            // 
+            this.col_section_start_date.DataPropertyName = "start_date";
+            this.col_section_start_date.HeaderText = "Start Date";
+            this.col_section_start_date.Name = "col_section_start_date";
+            this.col_section_start_date.ReadOnly = true;
+            this.col_section_start_date.Visible = false;
+            // 
+            // col_section_end_date
+            // 
+            this.col_section_end_date.DataPropertyName = "end_date";
+            this.col_section_end_date.HeaderText = "End Date";
+            this.col_section_end_date.Name = "col_section_end_date";
+            this.col_section_end_date.ReadOnly = true;
+            this.col_section_end_date.Visible = false;
+            // 
+            // col_section_state
+            // 
+            this.col_section_state.DataPropertyName = "state";
+            this.col_section_state.HeaderText = "State";
+            this.col_section_state.Name = "col_section_state";
+            this.col_section_state.ReadOnly = true;
+            this.col_section_state.Visible = false;
+            // 
             // btnAddItem
             // 
             this.btnAddItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnAddItem.Image = global::XPump.Properties.Resources.add_16;
             this.btnAddItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddItem.Location = new System.Drawing.Point(454, 2);
+            this.btnAddItem.Location = new System.Drawing.Point(518, 245);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(50, 24);
             this.btnAddItem.TabIndex = 6;
@@ -482,7 +614,7 @@
             this.btnDeleteItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnDeleteItem.Image = global::XPump.Properties.Resources.delete_16;
             this.btnDeleteItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeleteItem.Location = new System.Drawing.Point(563, 2);
+            this.btnDeleteItem.Location = new System.Drawing.Point(627, 245);
             this.btnDeleteItem.Name = "btnDeleteItem";
             this.btnDeleteItem.Size = new System.Drawing.Size(45, 24);
             this.btnDeleteItem.TabIndex = 8;
@@ -497,7 +629,7 @@
             this.btnEditItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnEditItem.Image = global::XPump.Properties.Resources.edit_16;
             this.btnEditItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditItem.Location = new System.Drawing.Point(505, 2);
+            this.btnEditItem.Location = new System.Drawing.Point(569, 245);
             this.btnEditItem.Name = "btnEditItem";
             this.btnEditItem.Size = new System.Drawing.Size(57, 24);
             this.btnEditItem.TabIndex = 7;
@@ -512,7 +644,7 @@
             this.btnStopItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnStopItem.Image = global::XPump.Properties.Resources.stop_16;
             this.btnStopItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStopItem.Location = new System.Drawing.Point(680, 2);
+            this.btnStopItem.Location = new System.Drawing.Point(744, 245);
             this.btnStopItem.Name = "btnStopItem";
             this.btnStopItem.Size = new System.Drawing.Size(129, 24);
             this.btnStopItem.TabIndex = 10;
@@ -527,7 +659,7 @@
             this.btnSaveItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSaveItem.Image = global::XPump.Properties.Resources.save_16;
             this.btnSaveItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveItem.Location = new System.Drawing.Point(619, 2);
+            this.btnSaveItem.Location = new System.Drawing.Point(683, 245);
             this.btnSaveItem.Name = "btnSaveItem";
             this.btnSaveItem.Size = new System.Drawing.Size(60, 24);
             this.btnSaveItem.TabIndex = 9;
@@ -633,148 +765,158 @@
             this.txtName._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
             // 
-            // col_section_id
+            // inline_nozzlecount
             // 
-            this.col_section_id.DataPropertyName = "id";
-            this.col_section_id.HeaderText = "ID";
-            this.col_section_id.Name = "col_section_id";
-            this.col_section_id.ReadOnly = true;
-            this.col_section_id.Visible = false;
+            this.inline_nozzlecount.Image = global::XPump.Properties.Resources.nozzle2_16;
+            this.inline_nozzlecount.Location = new System.Drawing.Point(778, 48);
+            this.inline_nozzlecount.Name = "inline_nozzlecount";
+            this.inline_nozzlecount.Size = new System.Drawing.Size(26, 23);
+            this.inline_nozzlecount.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.inline_nozzlecount, "แก้ไขจำนวนหัวจ่ายน้ำมัน <Ctrl + Space>");
+            this.inline_nozzlecount.UseVisualStyleBackColor = true;
+            this.inline_nozzlecount.Click += new System.EventHandler(this.inline_nozzlecount_Click);
             // 
-            // col_section_name
+            // inline_stkcod
             // 
-            this.col_section_name.DataPropertyName = "name";
-            this.col_section_name.HeaderText = "เลขที่ถัง";
-            this.col_section_name.MinimumWidth = 120;
-            this.col_section_name.Name = "col_section_name";
-            this.col_section_name.ReadOnly = true;
-            this.col_section_name.Width = 120;
+            this.inline_stkcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_stkcod._ReadOnly = false;
+            this.inline_stkcod._Text = "";
+            this.inline_stkcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.inline_stkcod._UseImage = true;
+            this.inline_stkcod.BackColor = System.Drawing.Color.White;
+            this.inline_stkcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_stkcod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.inline_stkcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_stkcod.Location = new System.Drawing.Point(126, 48);
+            this.inline_stkcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_stkcod.Name = "inline_stkcod";
+            this.inline_stkcod.Size = new System.Drawing.Size(149, 23);
+            this.inline_stkcod.TabIndex = 1;
+            this.inline_stkcod.Visible = false;
+            this.inline_stkcod._ButtonClick += new System.EventHandler(this.inline_stkcod__ButtonClick);
+            this.inline_stkcod._Leave += new System.EventHandler(this.inline_stkcod__Leave);
             // 
-            // col_section_stkcod
+            // inline_begacc
             // 
-            this.col_section_stkcod.DataPropertyName = "stkcod";
-            this.col_section_stkcod.HeaderText = "รหัสสินค้า";
-            this.col_section_stkcod.MinimumWidth = 150;
-            this.col_section_stkcod.Name = "col_section_stkcod";
-            this.col_section_stkcod.ReadOnly = true;
-            this.col_section_stkcod.Width = 150;
+            this.inline_begacc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_begacc._DecimalDigit = 2;
+            this.inline_begacc._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.inline_begacc._MaxLength = 30;
+            this.inline_begacc._ReadOnly = false;
+            this.inline_begacc._SelectionLength = 0;
+            this.inline_begacc._SelectionStart = 4;
+            this.inline_begacc._Text = "0.00";
+            this.inline_begacc._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_begacc._UseThoundsandSeparate = true;
+            this.inline_begacc._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_begacc.BackColor = System.Drawing.Color.White;
+            this.inline_begacc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_begacc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_begacc.Location = new System.Drawing.Point(522, 48);
+            this.inline_begacc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_begacc.Name = "inline_begacc";
+            this.inline_begacc.Size = new System.Drawing.Size(137, 23);
+            this.inline_begacc.TabIndex = 3;
+            this.inline_begacc.Visible = false;
+            this.inline_begacc._ValueChanged += new System.EventHandler(this.inline_begacc__ValueChanged);
             // 
-            // col_section_stkdes
+            // inline_begtak
             // 
-            this.col_section_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_section_stkdes.DataPropertyName = "stkdes";
-            this.col_section_stkdes.HeaderText = "รายละเอียด";
-            this.col_section_stkdes.Name = "col_section_stkdes";
-            this.col_section_stkdes.ReadOnly = true;
+            this.inline_begtak._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_begtak._DecimalDigit = 2;
+            this.inline_begtak._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.inline_begtak._MaxLength = 30;
+            this.inline_begtak._ReadOnly = false;
+            this.inline_begtak._SelectionLength = 0;
+            this.inline_begtak._SelectionStart = 4;
+            this.inline_begtak._Text = "0.00";
+            this.inline_begtak._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_begtak._UseThoundsandSeparate = true;
+            this.inline_begtak._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_begtak.BackColor = System.Drawing.Color.White;
+            this.inline_begtak.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_begtak.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_begtak.Location = new System.Drawing.Point(367, 48);
+            this.inline_begtak.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_begtak.Name = "inline_begtak";
+            this.inline_begtak.Size = new System.Drawing.Size(151, 23);
+            this.inline_begtak.TabIndex = 2;
+            this.inline_begtak.Visible = false;
+            this.inline_begtak._ValueChanged += new System.EventHandler(this.inline_begtak__ValueChanged);
             // 
-            // col_section_loccod
+            // inline_name
             // 
-            this.col_section_loccod.DataPropertyName = "loccod";
-            this.col_section_loccod.HeaderText = "รหัสคลัง";
-            this.col_section_loccod.MinimumWidth = 70;
-            this.col_section_loccod.Name = "col_section_loccod";
-            this.col_section_loccod.ReadOnly = true;
-            this.col_section_loccod.Visible = false;
-            this.col_section_loccod.Width = 70;
+            this.inline_name._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_name._MaxLength = 32767;
+            this.inline_name._ReadOnly = false;
+            this.inline_name._Text = "";
+            this.inline_name._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.inline_name.BackColor = System.Drawing.Color.White;
+            this.inline_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_name.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_name.Location = new System.Drawing.Point(6, 48);
+            this.inline_name.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_name.Name = "inline_name";
+            this.inline_name.Size = new System.Drawing.Size(118, 23);
+            this.inline_name.TabIndex = 0;
+            this.inline_name.Visible = false;
+            this.inline_name._TextChanged += new System.EventHandler(this.inline_name__TextChanged);
             // 
-            // col_section_begbal
+            // tabControl1
             // 
-            this.col_section_begbal.DataPropertyName = "begbal";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N2";
-            dataGridViewCellStyle7.NullValue = "0";
-            this.col_section_begbal.DefaultCellStyle = dataGridViewCellStyle7;
-            this.col_section_begbal.HeaderText = "ยกมา (ลิตร)";
-            this.col_section_begbal.MinimumWidth = 100;
-            this.col_section_begbal.Name = "col_section_begbal";
-            this.col_section_begbal.ReadOnly = true;
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Location = new System.Drawing.Point(4, 186);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(889, 303);
+            this.tabControl1.TabIndex = 16;
             // 
-            // col_section_totbal
+            // tabPage1
             // 
-            this.col_section_totbal.DataPropertyName = "totbal";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = null;
-            this.col_section_totbal.DefaultCellStyle = dataGridViewCellStyle8;
-            this.col_section_totbal.HeaderText = "คงเหลือ (ลิตร)";
-            this.col_section_totbal.Name = "col_section_totbal";
-            this.col_section_totbal.ReadOnly = true;
-            // 
-            // col_section_nozzlecount
-            // 
-            this.col_section_nozzlecount.DataPropertyName = "nozzlecount";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N0";
-            dataGridViewCellStyle9.NullValue = null;
-            this.col_section_nozzlecount.DefaultCellStyle = dataGridViewCellStyle9;
-            this.col_section_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
-            this.col_section_nozzlecount.MinimumWidth = 100;
-            this.col_section_nozzlecount.Name = "col_section_nozzlecount";
-            this.col_section_nozzlecount.ReadOnly = true;
-            // 
-            // col_section_tank_id
-            // 
-            this.col_section_tank_id.DataPropertyName = "tank_id";
-            this.col_section_tank_id.HeaderText = "Tank_id";
-            this.col_section_tank_id.Name = "col_section_tank_id";
-            this.col_section_tank_id.ReadOnly = true;
-            this.col_section_tank_id.Visible = false;
-            // 
-            // col_section_section
-            // 
-            this.col_section_section.DataPropertyName = "section";
-            this.col_section_section.HeaderText = "Section";
-            this.col_section_section.Name = "col_section_section";
-            this.col_section_section.ReadOnly = true;
-            this.col_section_section.Visible = false;
-            // 
-            // col_section_stmas_id
-            // 
-            this.col_section_stmas_id.DataPropertyName = "stmas_id";
-            this.col_section_stmas_id.HeaderText = "Stmas_id";
-            this.col_section_stmas_id.Name = "col_section_stmas_id";
-            this.col_section_stmas_id.ReadOnly = true;
-            this.col_section_stmas_id.Visible = false;
-            // 
-            // col_section_tank_name
-            // 
-            this.col_section_tank_name.DataPropertyName = "tank_name";
-            this.col_section_tank_name.HeaderText = "Tank Name";
-            this.col_section_tank_name.Name = "col_section_tank_name";
-            this.col_section_tank_name.ReadOnly = true;
-            this.col_section_tank_name.Visible = false;
-            // 
-            // col_section_start_date
-            // 
-            this.col_section_start_date.DataPropertyName = "start_date";
-            this.col_section_start_date.HeaderText = "Start Date";
-            this.col_section_start_date.Name = "col_section_start_date";
-            this.col_section_start_date.ReadOnly = true;
-            this.col_section_start_date.Visible = false;
-            // 
-            // col_section_end_date
-            // 
-            this.col_section_end_date.DataPropertyName = "end_date";
-            this.col_section_end_date.HeaderText = "End Date";
-            this.col_section_end_date.Name = "col_section_end_date";
-            this.col_section_end_date.ReadOnly = true;
-            this.col_section_end_date.Visible = false;
-            // 
-            // col_section_state
-            // 
-            this.col_section_state.DataPropertyName = "state";
-            this.col_section_state.HeaderText = "State";
-            this.col_section_state.Name = "col_section_state";
-            this.col_section_state.ReadOnly = true;
-            this.col_section_state.Visible = false;
+            this.tabPage1.Controls.Add(this.inline_name);
+            this.tabPage1.Controls.Add(this.inline_stkcod);
+            this.tabPage1.Controls.Add(this.inline_begtak);
+            this.tabPage1.Controls.Add(this.inline_begacc);
+            this.tabPage1.Controls.Add(this.inline_nozzlecount);
+            this.tabPage1.Controls.Add(this.dgvSection);
+            this.tabPage1.Controls.Add(this.btnAddItem);
+            this.tabPage1.Controls.Add(this.btnDeleteItem);
+            this.tabPage1.Controls.Add(this.btnEditItem);
+            this.tabPage1.Controls.Add(this.btnStopItem);
+            this.tabPage1.Controls.Add(this.btnSaveItem);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(881, 274);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "ถังน้ำมัน <F8>";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // FormTankSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(825, 513);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(895, 492);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dtEndDate);
@@ -799,10 +941,9 @@
             this.Load += new System.EventHandler(this.FormTank_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSection)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -847,9 +988,6 @@
         private System.Windows.Forms.Button btnEditItem;
         private System.Windows.Forms.Button btnSaveItem;
         private System.Windows.Forms.Button btnStopItem;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnDeleteItem;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_id;
@@ -857,7 +995,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_stkcod;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_stkdes;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_loccod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_section_begbal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_section_begtak;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_section_begacc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_section_begdif;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_totbal;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_nozzlecount;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_tank_id;
@@ -867,5 +1007,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_start_date;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_end_date;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_state;
+        private System.Windows.Forms.Button inline_nozzlecount;
+        private CC.XBrowseBox inline_stkcod;
+        private CC.XNumEdit inline_begacc;
+        private CC.XNumEdit inline_begtak;
+        private CC.XTextEdit inline_name;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }

@@ -17,6 +17,7 @@ namespace XPump.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public stmas()
         {
+            this.dayend = new HashSet<dayend>();
             this.pricelist = new HashSet<pricelist>();
             this.saleshistory = new HashSet<saleshistory>();
             this.salessummary = new HashSet<salessummary>();
@@ -28,6 +29,8 @@ namespace XPump.Model
         public string description { get; set; }
         public string remark { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<dayend> dayend { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pricelist> pricelist { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

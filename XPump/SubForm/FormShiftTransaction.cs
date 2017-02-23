@@ -294,9 +294,9 @@ namespace XPump.SubForm
                             db.pricelist.Remove(db.pricelist.Find(pricelist_id));
                         }
 
-                        foreach (var item in db.sttak.Where(st => st.shiftsales_id == this.curr_shiftsales.id).ToList())
+                        foreach (var item in db.shiftsttak.Where(st => st.shiftsales_id == this.curr_shiftsales.id).ToList())
                         {
-                            db.sttak.Remove(db.sttak.Find(item.id));
+                            db.shiftsttak.Remove(db.shiftsttak.Find(item.id));
                         }
 
                         db.shiftsales.Remove(db.shiftsales.Find(this.curr_shiftsales.id));
@@ -367,7 +367,7 @@ namespace XPump.SubForm
                                             .Where(sect => sect.stmas_id == s.id).ToList();
                             foreach (var item in sections)
                             {
-                                db.sttak.Add(new sttak
+                                db.shiftsttak.Add(new shiftsttak
                                 {
                                     takdat = this.tmp_shiftsales.saldat,
                                     qty = -1,
@@ -423,7 +423,7 @@ namespace XPump.SubForm
                             }
                         }
 
-                        foreach (var item in db.sttak.Where(s => s.shiftsales_id == shiftsales_to_update.id).ToList())
+                        foreach (var item in db.shiftsttak.Where(s => s.shiftsales_id == shiftsales_to_update.id).ToList())
                         {
                             item.takdat = this.tmp_shiftsales.saldat;
                         }

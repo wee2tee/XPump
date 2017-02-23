@@ -17,22 +17,27 @@ namespace XPump.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public section()
         {
+            this.daysttak = new HashSet<daysttak>();
             this.nozzle = new HashSet<nozzle>();
-            this.sttak = new HashSet<sttak>();
+            this.shiftsttak = new HashSet<shiftsttak>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
         public string loccod { get; set; }
-        public decimal begbal { get; set; }
+        public decimal begacc { get; set; }
+        public decimal begtak { get; set; }
+        public decimal begdif { get; set; }
         public int tank_id { get; set; }
         public int stmas_id { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<daysttak> daysttak { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<nozzle> nozzle { get; set; }
         public virtual stmas stmas { get; set; }
         public virtual tank tank { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<sttak> sttak { get; set; }
+        public virtual ICollection<shiftsttak> shiftsttak { get; set; }
     }
 }

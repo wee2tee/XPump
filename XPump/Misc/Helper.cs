@@ -140,7 +140,9 @@ namespace XPump.Misc
             {
                 id = section.id,
                 name = section.name,
-                begbal = section.begbal,
+                begacc = section.begacc,
+                begtak = section.begtak,
+                begdif = section.begdif,
                 loccod = section.loccod,
                 tank_id = section.tank_id,
                 stmas_id = section.stmas_id,
@@ -341,12 +343,12 @@ namespace XPump.Misc
             return s;
         }
 
-        public static sttakVM ToViewModel(this sttak sttak)
+        public static shiftsttakVM ToViewModel(this shiftsttak sttak)
         {
             if (sttak == null)
                 return null;
 
-            sttakVM s = new sttakVM
+            shiftsttakVM s = new shiftsttakVM
             {
                 id = sttak.id,
                 takdat = sttak.takdat,
@@ -358,9 +360,9 @@ namespace XPump.Misc
             return s;
         }
 
-        public static List<sttakVM> ToViewModel(this IEnumerable<sttak> sttak_list)
+        public static List<shiftsttakVM> ToViewModel(this IEnumerable<shiftsttak> sttak_list)
         {
-            List<sttakVM> s = new List<sttakVM>();
+            List<shiftsttakVM> s = new List<shiftsttakVM>();
 
             foreach (var item in sttak_list)
             {

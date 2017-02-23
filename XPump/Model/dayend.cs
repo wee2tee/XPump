@@ -12,25 +12,25 @@ namespace XPump.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class shiftsales
+    public partial class dayend
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public shiftsales()
+        public dayend()
         {
-            this.salessummary = new HashSet<salessummary>();
-            this.shiftsttak = new HashSet<shiftsttak>();
+            this.daysttak = new HashSet<daysttak>();
         }
     
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
-        public System.DateTime cretime { get; set; }
-        public bool closed { get; set; }
-        public int shift_id { get; set; }
+        public decimal rcvqty { get; set; }
+        public decimal salqty { get; set; }
+        public string dothertxt { get; set; }
+        public decimal dother { get; set; }
+        public decimal difqty { get; set; }
+        public int stmas_id { get; set; }
     
+        public virtual stmas stmas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<salessummary> salessummary { get; set; }
-        public virtual shift shift { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<shiftsttak> shiftsttak { get; set; }
+        public virtual ICollection<daysttak> daysttak { get; set; }
     }
 }
