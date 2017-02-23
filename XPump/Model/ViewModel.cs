@@ -10,6 +10,7 @@ namespace XPump.Model
     public class shiftVM
     {
         public int id { get; set; }
+        public int seq { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public TimeSpan starttime { get; set; }

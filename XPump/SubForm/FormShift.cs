@@ -25,16 +25,6 @@ namespace XPump.SubForm
         private shift curr_shift; // current focused row
         private FORM_MODE form_mode;
         private shiftVM temp_shift; // model for add/edit shift
-        //private XTextBox inline_name; // inline control for name
-        //private XTimePicker inline_start; // inline control for start time
-        //private XTimePicker inline_end; // inline control for end time
-        //private XTextBox inline_desc; // inline control for description
-        //private XBrowseBox inline_pae; // inline control for AE doc.
-        //private XBrowseBox inline_php; // inline control for HP doc.
-        //private XBrowseBox inline_prr; // inline control for RR doc.
-        //private XBrowseBox inline_sai; // inline control for AI doc.
-        //private XBrowseBox inline_shs; // inline control for HS doc.
-        //private XBrowseBox inline_siv; // inline control for IV doc.
 
         public FormShift()
         {
@@ -65,7 +55,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.shift.Include("saleshistory").Include("salessummary").ToList();
+                return db.shift.Include("saleshistory").Include("salessummary").OrderBy(s => s.seq).ToList();
             }
         }
 
@@ -78,6 +68,8 @@ namespace XPump.SubForm
             this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnUp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnDown.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             if (this.dgv.Enabled)
             {
@@ -318,6 +310,16 @@ namespace XPump.SubForm
                 {
                     try
                     {
+                        var tmp = db.shift.OrderByDescending(s => s.seq).FirstOrDefault();
+                        if(tmp == null)
+                        {
+                            this.temp_shift.shift.seq = 1;
+                        }
+                        else
+                        {
+                            this.temp_shift.shift.seq = tmp.seq + 1;
+                        }
+
                         db.shift.Add(this.temp_shift.shift);
                         db.SaveChanges();
                         this.RemoveInlineControl();
@@ -473,22 +475,37 @@ namespace XPump.SubForm
                 };
                 cm.MenuItems.Add(mnu_delete);
 
+                //MenuItem mnu_up = new MenuItem("เลื่อนขึ้น");
+                //mnu_up.Click += delegate
+                //{
+                //    this.btnUp.PerformClick();
+                //};
+                //cm.MenuItems.Add(mnu_up);
+
+                //MenuItem mnu_down = new MenuItem("เลื่อนลง");
+                //mnu_down.Click += delegate
+                //{
+                //    this.btnDown.PerformClick();
+                //};
+                //cm.MenuItems.Add(mnu_down);
+
                 cm.Show((XDatagrid)sender, new Point(e.X, e.Y));
             }
         }
 
         private void dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().DisplayIndex = 0;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().DisplayIndex = 1;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_start.DataPropertyName).First().DisplayIndex = 2;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_end.DataPropertyName).First().DisplayIndex = 3;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_paeprefix.DataPropertyName).First().DisplayIndex = 4;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_phpprefix.DataPropertyName).First().DisplayIndex = 5;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_prrprefix.DataPropertyName).First().DisplayIndex = 6;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_saiprefix.DataPropertyName).First().DisplayIndex = 7;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_shsprefix.DataPropertyName).First().DisplayIndex = 8;
-            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sivprefix.DataPropertyName).First().DisplayIndex = 9;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_seq.DataPropertyName).First().DisplayIndex = 0;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().DisplayIndex = 1;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_desc.DataPropertyName).First().DisplayIndex = 2;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_start.DataPropertyName).First().DisplayIndex = 3;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_end.DataPropertyName).First().DisplayIndex = 4;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_paeprefix.DataPropertyName).First().DisplayIndex = 5;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_phpprefix.DataPropertyName).First().DisplayIndex = 6;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_prrprefix.DataPropertyName).First().DisplayIndex = 7;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_saiprefix.DataPropertyName).First().DisplayIndex = 8;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_shsprefix.DataPropertyName).First().DisplayIndex = 9;
+            ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sivprefix.DataPropertyName).First().DisplayIndex = 10;
         }
 
         private void dgv_Resize(object sender, EventArgs e)
@@ -565,6 +582,12 @@ namespace XPump.SubForm
             if(e.RowIndex == -1)
             {
                 e.Paint(e.ClipBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground | DataGridViewPaintParts.Focus | DataGridViewPaintParts.SelectionBackground);
+
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_seq.DataPropertyName).First().Index)
+                {
+                    string content = this.col_seq.HeaderText;
+                    TextRenderer.DrawText(e.Graphics, content, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, e.CellBounds, Color.Black, TextFormatFlags.NoClipping | TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
+                }
 
                 if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_name.DataPropertyName).First().Index)
                 {
@@ -644,12 +667,17 @@ namespace XPump.SubForm
             }
         }
 
-        private void dgv_SelectionChanged(object sender, EventArgs e)
+        private void dgv_CurrentCellChanged(object sender, EventArgs e)
         {
             if (((XDatagrid)sender).CurrentCell == null)
                 return;
 
             this.curr_shift = (shift)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_shift.Name].Value;
+
+            int col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_seq.DataPropertyName).First().Index;
+            Rectangle rect = ((XDatagrid)sender).GetCellDisplayRectangle(col_index, ((XDatagrid)sender).CurrentCell.RowIndex, false);
+            this.btnUp.SetBounds(rect.X + rect.Width - this.btnUp.Width - this.btnDown.Width - 1, rect.Y + 2, this.btnUp.Width, this.btnUp.Height);
+            this.btnDown.SetBounds(rect.X + rect.Width - this.btnDown.Width - 1, rect.Y + 2, this.btnDown.Width, this.btnDown.Height);
         }
 
         private void inline_name__TextChanged(object sender, EventArgs e)
@@ -739,6 +767,82 @@ namespace XPump.SubForm
                 if(this.temp_shift.shift.name.Trim().Length == 0)
                 {
                     this.inline_name.Focus();
+                }
+            }
+        }
+
+        private void btnUp_Click(object sender, EventArgs e)
+        {
+            int curr_id = (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_id.Name].Value;
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                try
+                {
+                    shift curr_shift = db.shift.Find(curr_id);
+                    if (curr_shift == null)
+                    {
+                        MessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+                    int curr_seq = curr_shift.seq;
+
+                    shift prev_shift = db.shift.OrderByDescending(s => s.seq).Where(s => s.seq < curr_shift.seq).FirstOrDefault();
+
+                    if (prev_shift == null)
+                        return;
+                    int prev_seq = prev_shift.seq;
+
+                    curr_shift.seq = prev_seq;
+                    prev_shift.seq = curr_seq;
+
+                    db.SaveChanges();
+
+                    this.shift_list = this.GetShiftList().ToViewModel();
+                    this.bs.ResetBindings(true);
+                    this.bs.DataSource = this.shift_list;
+                    this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == curr_shift.id).First().Cells[this.col_seq.Name].Selected = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnDown_Click(object sender, EventArgs e)
+        {
+            int curr_id = (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_id.Name].Value;
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                try
+                {
+                    shift curr_shift = db.shift.Find(curr_id);
+                    if (curr_shift == null)
+                    {
+                        MessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+                    int curr_seq = curr_shift.seq;
+
+                    shift next_shift = db.shift.OrderBy(s => s.seq).Where(s => s.seq > curr_shift.seq).FirstOrDefault();
+
+                    if (next_shift == null)
+                        return;
+                    int next_seq = next_shift.seq;
+
+                    curr_shift.seq = next_seq;
+                    next_shift.seq = curr_seq;
+
+                    db.SaveChanges();
+
+                    this.shift_list = this.GetShiftList().ToViewModel();
+                    this.bs.ResetBindings(true);
+                    this.bs.DataSource = this.shift_list;
+                    this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == curr_shift.id).First().Cells[this.col_seq.Name].Selected = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

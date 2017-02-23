@@ -507,6 +507,10 @@
     <None Include="Resources\printer.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\down_16.png" />
+    <None Include="Resources\up_16.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\XPumpModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>XPumpModel.edmx</DependentUpon>
@@ -517,6 +521,7 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\lock_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

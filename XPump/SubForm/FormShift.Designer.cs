@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -57,8 +59,12 @@
             this.inline_start = new CC.XTimePicker();
             this.inline_desc = new CC.XTextEdit();
             this.inline_name = new CC.XTextEdit();
+            this.btnUp = new System.Windows.Forms.Button();
+            this.btnDown = new System.Windows.Forms.Button();
             this.dgv = new CC.XDatagrid();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_seq = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_start = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_end = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,7 +103,7 @@
             this.btnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(824, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(928, 43);
             this.toolStrip1.TabIndex = 0;
             // 
             // btnAdd
@@ -238,11 +244,13 @@
             this.panel1.Controls.Add(this.inline_start);
             this.panel1.Controls.Add(this.inline_desc);
             this.panel1.Controls.Add(this.inline_name);
+            this.panel1.Controls.Add(this.btnUp);
+            this.panel1.Controls.Add(this.btnDown);
             this.panel1.Controls.Add(this.dgv);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 43);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(824, 338);
+            this.panel1.Size = new System.Drawing.Size(928, 338);
             this.panel1.TabIndex = 2;
             // 
             // inline_siv
@@ -252,7 +260,7 @@
             this.inline_siv._Text = "";
             this.inline_siv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_siv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_siv.Location = new System.Drawing.Point(754, 90);
+            this.inline_siv.Location = new System.Drawing.Point(857, 90);
             this.inline_siv.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_siv.Name = "inline_siv";
             this.inline_siv.Size = new System.Drawing.Size(65, 23);
@@ -267,7 +275,7 @@
             this.inline_shs._Text = "";
             this.inline_shs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_shs.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_shs.Location = new System.Drawing.Point(685, 90);
+            this.inline_shs.Location = new System.Drawing.Point(788, 90);
             this.inline_shs.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_shs.Name = "inline_shs";
             this.inline_shs.Size = new System.Drawing.Size(65, 23);
@@ -282,7 +290,7 @@
             this.inline_sai._Text = "";
             this.inline_sai.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_sai.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_sai.Location = new System.Drawing.Point(615, 90);
+            this.inline_sai.Location = new System.Drawing.Point(718, 90);
             this.inline_sai.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_sai.Name = "inline_sai";
             this.inline_sai.Size = new System.Drawing.Size(65, 23);
@@ -297,7 +305,7 @@
             this.inline_prr._Text = "";
             this.inline_prr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_prr.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_prr.Location = new System.Drawing.Point(544, 90);
+            this.inline_prr.Location = new System.Drawing.Point(647, 90);
             this.inline_prr.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_prr.Name = "inline_prr";
             this.inline_prr.Size = new System.Drawing.Size(65, 23);
@@ -312,7 +320,7 @@
             this.inline_php._Text = "";
             this.inline_php.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_php.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_php.Location = new System.Drawing.Point(475, 90);
+            this.inline_php.Location = new System.Drawing.Point(578, 90);
             this.inline_php.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_php.Name = "inline_php";
             this.inline_php.Size = new System.Drawing.Size(65, 23);
@@ -327,7 +335,7 @@
             this.inline_pae._Text = "";
             this.inline_pae.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_pae.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_pae.Location = new System.Drawing.Point(406, 90);
+            this.inline_pae.Location = new System.Drawing.Point(509, 90);
             this.inline_pae.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_pae.Name = "inline_pae";
             this.inline_pae.Size = new System.Drawing.Size(65, 23);
@@ -339,7 +347,7 @@
             // 
             this.inline_end.CustomFormat = "HH:mm:ss";
             this.inline_end.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.inline_end.Location = new System.Drawing.Point(185, 90);
+            this.inline_end.Location = new System.Drawing.Point(276, 90);
             this.inline_end.Name = "inline_end";
             this.inline_end.ShowUpDown = true;
             this.inline_end.Size = new System.Drawing.Size(80, 23);
@@ -351,7 +359,7 @@
             // 
             this.inline_start.CustomFormat = "HH:mm:ss";
             this.inline_start.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.inline_start.Location = new System.Drawing.Point(102, 90);
+            this.inline_start.Location = new System.Drawing.Point(193, 90);
             this.inline_start.Name = "inline_start";
             this.inline_start.ShowUpDown = true;
             this.inline_start.Size = new System.Drawing.Size(80, 23);
@@ -368,10 +376,10 @@
             this.inline_desc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.inline_desc.BackColor = System.Drawing.Color.White;
             this.inline_desc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_desc.Location = new System.Drawing.Point(266, 90);
+            this.inline_desc.Location = new System.Drawing.Point(357, 90);
             this.inline_desc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_desc.Name = "inline_desc";
-            this.inline_desc.Size = new System.Drawing.Size(136, 23);
+            this.inline_desc.Size = new System.Drawing.Size(149, 23);
             this.inline_desc.TabIndex = 2;
             this.inline_desc.Visible = false;
             this.inline_desc._TextChanged += new System.EventHandler(this.inline_desc__TextChanged);
@@ -385,7 +393,7 @@
             this.inline_name._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.inline_name.BackColor = System.Drawing.Color.White;
             this.inline_name.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_name.Location = new System.Drawing.Point(3, 89);
+            this.inline_name.Location = new System.Drawing.Point(94, 89);
             this.inline_name.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_name.Name = "inline_name";
             this.inline_name.Size = new System.Drawing.Size(97, 23);
@@ -393,6 +401,29 @@
             this.inline_name.Visible = false;
             this.inline_name._TextChanged += new System.EventHandler(this.inline_name__TextChanged);
             this.inline_name._Leave += new System.EventHandler(this.inline_name__Leave);
+            // 
+            // btnUp
+            // 
+            this.btnUp.Image = global::XPump.Properties.Resources.up_16;
+            this.btnUp.Location = new System.Drawing.Point(51, 90);
+            this.btnUp.Name = "btnUp";
+            this.btnUp.Size = new System.Drawing.Size(18, 21);
+            this.btnUp.TabIndex = 5;
+            this.btnUp.UseVisualStyleBackColor = true;
+            this.btnUp.Visible = false;
+            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
+            // 
+            // btnDown
+            // 
+            this.btnDown.Image = global::XPump.Properties.Resources.down_16;
+            this.btnDown.Location = new System.Drawing.Point(71, 90);
+            this.btnDown.Name = "btnDown";
+            this.btnDown.Size = new System.Drawing.Size(18, 21);
+            this.btnDown.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.btnDown, "เลื่อนลง");
+            this.btnDown.UseVisualStyleBackColor = true;
+            this.btnDown.Visible = false;
+            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
             // 
             // dgv
             // 
@@ -413,6 +444,7 @@
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
+            this.col_seq,
             this.col_name,
             this.col_start,
             this.col_end,
@@ -426,14 +458,14 @@
             this.col_remark,
             this.col_state,
             this.col_shift});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -446,14 +478,14 @@
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(824, 338);
+            this.dgv.Size = new System.Drawing.Size(928, 338);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 1;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseClick);
             this.dgv.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_CellPainting);
+            this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
             this.dgv.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_DataBindingComplete);
-            this.dgv.SelectionChanged += new System.EventHandler(this.dgv_SelectionChanged);
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
             // 
@@ -464,6 +496,18 @@
             this.col_id.Name = "col_id";
             this.col_id.ReadOnly = true;
             this.col_id.Visible = false;
+            // 
+            // col_seq
+            // 
+            this.col_seq.DataPropertyName = "seq";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.col_seq.DefaultCellStyle = dataGridViewCellStyle2;
+            this.col_seq.HeaderText = "ลำดับ";
+            this.col_seq.MinimumWidth = 90;
+            this.col_seq.Name = "col_seq";
+            this.col_seq.ReadOnly = true;
+            this.col_seq.Visible = false;
+            this.col_seq.Width = 90;
             // 
             // col_name
             // 
@@ -476,8 +520,8 @@
             // col_start
             // 
             this.col_start.DataPropertyName = "starttime";
-            dataGridViewCellStyle2.NullValue = null;
-            this.col_start.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.NullValue = null;
+            this.col_start.DefaultCellStyle = dataGridViewCellStyle3;
             this.col_start.HeaderText = "เวลาเริ่มต้น";
             this.col_start.MinimumWidth = 80;
             this.col_start.Name = "col_start";
@@ -487,8 +531,8 @@
             // col_end
             // 
             this.col_end.DataPropertyName = "endtime";
-            dataGridViewCellStyle3.NullValue = null;
-            this.col_end.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.NullValue = null;
+            this.col_end.DefaultCellStyle = dataGridViewCellStyle4;
             this.col_end.HeaderText = "เวลาสิ้นสุด";
             this.col_end.MinimumWidth = 80;
             this.col_end.Name = "col_end";
@@ -585,7 +629,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 381);
+            this.ClientSize = new System.Drawing.Size(928, 381);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -634,7 +678,11 @@
         private CC.XDropdownList inline_prr;
         private CC.XDropdownList inline_php;
         private CC.XDropdownList inline_pae;
+        private System.Windows.Forms.Button btnDown;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnUp;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_seq;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_start;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_end;

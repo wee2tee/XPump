@@ -41,9 +41,13 @@ namespace CC
             //}
             //this.printPreviewControl1.Document.Print();
             PrintDialog pd = new PrintDialog();
+            //pd.AllowSomePages = true;
             pd.Document = this.printPreviewControl1.Document;
             if(pd.ShowDialog() == DialogResult.OK)
             {
+                //pd.Document.PrinterSettings.FromPage = 2;
+                //pd.Document.PrinterSettings.ToPage = 2;
+                //pd.Document.PrinterSettings.PrintRange = PrintRange.SomePages;
                 pd.Document.Print();
             }
         }

@@ -17,8 +17,10 @@ namespace XPump.Model
         public int id { get; set; }
         public System.DateTime takdat { get; set; }
         public decimal qty { get; set; }
+        public int shiftsales_id { get; set; }
         public int section_id { get; set; }
     
         public virtual section section { get; set; }
+        public virtual shiftsales shiftsales { get; set; }
     }
 }

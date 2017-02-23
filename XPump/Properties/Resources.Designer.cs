@@ -123,6 +123,16 @@ namespace XPump.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap down_16 {
+            get {
+                object obj = ResourceManager.GetObject("down_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap edit {
             get {
                 object obj = ResourceManager.GetObject("edit", resourceCulture);
@@ -226,6 +236,16 @@ namespace XPump.Properties {
         internal static System.Drawing.Bitmap loading_small {
             get {
                 object obj = ResourceManager.GetObject("loading_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap lock_16 {
+            get {
+                object obj = ResourceManager.GetObject("lock_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -426,6 +446,16 @@ namespace XPump.Properties {
         internal static System.Drawing.Bitmap trash {
             get {
                 object obj = ResourceManager.GetObject("trash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap up_16 {
+            get {
+                object obj = ResourceManager.GetObject("up_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

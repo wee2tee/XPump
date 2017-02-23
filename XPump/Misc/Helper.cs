@@ -72,6 +72,7 @@ namespace XPump.Misc
             shiftVM s = new shiftVM
             {
                 id = shift.id,
+                seq = shift.seq,
                 name = shift.name,
                 description = shift.description,
                 starttime = shift.starttime,

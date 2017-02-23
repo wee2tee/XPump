@@ -18,14 +18,18 @@ namespace XPump.Model
         public shiftsales()
         {
             this.salessummary = new HashSet<salessummary>();
+            this.sttak = new HashSet<sttak>();
         }
     
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
         public int shift_id { get; set; }
+        public System.DateTime cretime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<salessummary> salessummary { get; set; }
         public virtual shift shift { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<sttak> sttak { get; set; }
     }
 }

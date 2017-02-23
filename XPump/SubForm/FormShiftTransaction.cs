@@ -60,9 +60,7 @@ namespace XPump.SubForm
             this.btnInquiryAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryRest.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnPrintA.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnPrintB.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnPrintC.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrintALandscape.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
@@ -234,9 +232,7 @@ namespace XPump.SubForm
                 this.btnInquiryAll.Enabled = sales == null || sales.id == -1 ? false : true;
                 this.btnInquiryRest.Enabled = sales == null || sales.id == -1 ? false : true;
                 this.btnPrint.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnPrintA.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnPrintB.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnPrintC.Enabled = sales == null || sales.id == -1 ? false : true;
+                this.btnPrintALandscape.Enabled = sales == null || sales.id == -1 ? false : true;
                 this.btnItem.Enabled = sales == null || sales.id == -1 ? false : true;
                 this.btnRefresh.Enabled = sales == null || sales.id == -1 ? false : true;
 
@@ -298,6 +294,11 @@ namespace XPump.SubForm
                             db.pricelist.Remove(db.pricelist.Find(pricelist_id));
                         }
 
+                        foreach (var item in db.sttak.Where(st => st.shiftsales_id == this.curr_shiftsales.id).ToList())
+                        {
+                            db.sttak.Remove(db.sttak.Find(item.id));
+                        }
+
                         db.shiftsales.Remove(db.shiftsales.Find(this.curr_shiftsales.id));
                         db.SaveChanges();
 
@@ -342,6 +343,7 @@ namespace XPump.SubForm
                         db.shiftsales.Add(this.tmp_shiftsales);
                         foreach (stmas s in db.stmas.ToList())
                         {
+                            // add salessummary
                             var x = new salessummary
                             {
                                 saldat = this.tmp_shiftsales.saldat,
@@ -356,6 +358,23 @@ namespace XPump.SubForm
                                 shiftsales_id = this.tmp_shiftsales.id
                             };
                             db.salessummary.Add(x);
+
+                            // add sttak
+                            var sections = db.section.Include("tank")
+                                            .Where(sect => sect.tank.isactive)
+                                            .Where(sect => sect.tank.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
+                                            .Where(sect => !sect.tank.enddate.HasValue || sect.tank.enddate.Value.CompareTo(this.tmp_shiftsales.saldat) >= 0)
+                                            .Where(sect => sect.stmas_id == s.id).ToList();
+                            foreach (var item in sections)
+                            {
+                                db.sttak.Add(new sttak
+                                {
+                                    takdat = this.tmp_shiftsales.saldat,
+                                    qty = -1,
+                                    section_id = item.id,
+                                    shiftsales_id = this.tmp_shiftsales.id
+                                });
+                            }
                         }
 
                         db.SaveChanges();
@@ -391,6 +410,24 @@ namespace XPump.SubForm
 
                         shiftsales_to_update.saldat = this.tmp_shiftsales.saldat;
                         shiftsales_to_update.shift_id = this.tmp_shiftsales.shift_id;
+
+                        foreach (var item in db.salessummary.Where(s => s.shiftsales_id == shiftsales_to_update.id).ToList())
+                        {
+                            item.saldat = this.tmp_shiftsales.saldat;
+                            item.shift_id = this.tmp_shiftsales.shift_id;
+
+                            foreach (var sh in db.saleshistory.Where(s => s.salessummary_id == item.id).ToList())
+                            {
+                                sh.saldat = this.tmp_shiftsales.saldat;
+                                sh.shift_id = this.tmp_shiftsales.shift_id;
+                            }
+                        }
+
+                        foreach (var item in db.sttak.Where(s => s.shiftsales_id == shiftsales_to_update.id).ToList())
+                        {
+                            item.takdat = this.tmp_shiftsales.saldat;
+                        }
+
                         db.SaveChanges();
 
                         this.form_mode = FORM_MODE.READ;
@@ -523,18 +560,13 @@ namespace XPump.SubForm
             }
         }
 
-        private void btnPrint_ButtonClick(object sender, EventArgs e)
-        {
-            this.btnPrintA.PerformClick();
-        }
-
-        private void btnPrintA_Click(object sender, EventArgs e)
+        private void btnPrintALandscape_Click(object sender, EventArgs e)
         {
             DialogPrintSetupA print = new DialogPrintSetupA();
-            if(print.ShowDialog() == DialogResult.OK)
+            if (print.ShowDialog() == DialogResult.OK)
             {
                 var report_data = this.GetReportAData();
-                int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data));
+                int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data, true));
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
                     //XPrintPreviewDialog pd = new XPrintPreviewDialog(total_page);
@@ -542,17 +574,42 @@ namespace XPump.SubForm
                     //pd.Document = this.PreparePrintDoc_A(report_data, total_page);
                     //pd.Show();
 
-                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, total_page), total_page);
+                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, true, total_page), total_page);
                     xp.MdiParent = this.main_form;
                     xp.Show();
-
                 }
 
-                if(print.output == PRINT_OUTPUT.PRINTER)
+                if (print.output == PRINT_OUTPUT.PRINTER)
                 {
                     PrintDialog pd = new PrintDialog();
-                    pd.Document = this.PreparePrintDoc_A(report_data, total_page);
-                    if(pd.ShowDialog() == DialogResult.OK)
+                    pd.Document = this.PreparePrintDoc_A(report_data, true, total_page);
+                    if (pd.ShowDialog() == DialogResult.OK)
+                    {
+                        pd.Document.Print();
+                    }
+                }
+            }
+        }
+
+        private void btnPrintAPortrait_Click(object sender, EventArgs e)
+        {
+            DialogPrintSetupA print = new DialogPrintSetupA();
+            if (print.ShowDialog() == DialogResult.OK)
+            {
+                var report_data = this.GetReportAData();
+                int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data, false));
+                if (print.output == PRINT_OUTPUT.SCREEN)
+                {
+                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, false, total_page), total_page);
+                    xp.MdiParent = this.main_form;
+                    xp.Show();
+                }
+
+                if (print.output == PRINT_OUTPUT.PRINTER)
+                {
+                    PrintDialog pd = new PrintDialog();
+                    pd.Document = this.PreparePrintDoc_A(report_data, false, total_page);
+                    if (pd.ShowDialog() == DialogResult.OK)
                     {
                         pd.Document.Print();
                     }
@@ -562,27 +619,7 @@ namespace XPump.SubForm
 
         private void btnPrintB_Click(object sender, EventArgs e)
         {
-            DialogPrintSetupB print = new DialogPrintSetupB();
-            if(print.ShowDialog() == DialogResult.OK)
-            {
-                var report_data = this.GetReportBData(print.selected_date);
-                int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_B(report_data));
-
-                if(print.output == PRINT_OUTPUT.SCREEN)
-                {
-                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_B(report_data, total_page), total_page);
-                }
-
-                if(print.output == PRINT_OUTPUT.PRINTER)
-                {
-                    PrintDialog pd = new PrintDialog();
-                    pd.Document = this.PreparePrintDoc_B(report_data, total_page);
-                    if(pd.ShowDialog() == DialogResult.OK)
-                    {
-                        pd.Document.Print();
-                    }
-                }
-            }
+            
         }
 
         private void btnPrintC_Click(object sender, EventArgs e)
@@ -1087,7 +1124,7 @@ namespace XPump.SubForm
             return report_data;
         }
 
-        private PrintDocument PreparePrintDoc_A(ReportAModel report_data, int total_page = 0)
+        private PrintDocument PreparePrintDoc_A(ReportAModel report_data, bool landscape = true, int total_page = 0)
         {
             Font fnt_title_bold = new Font("angsana new", 12f, FontStyle.Bold);
             Font fnt_header_bold = new Font("angsana new", 11f, FontStyle.Bold); // tahoma 8f bold
@@ -1103,13 +1140,14 @@ namespace XPump.SubForm
 
             int page = 0;
             int item_count = 0;
+            int item_per_page = landscape ? 4 : 3;
 
             PrintDocument docs = new PrintDocument();
             //PaperSize ps = new PaperSize();
             //ps.RawKind = (int)PaperKind.A4;
             //docs.DefaultPageSettings.PaperSize = ps;
-            docs.DefaultPageSettings.Margins = new Margins(30, 30, 30, 30);
-            docs.DefaultPageSettings.Landscape = true;
+            docs.DefaultPageSettings.Margins = new Margins(20, 20, 30, 30);
+            docs.DefaultPageSettings.Landscape = landscape;
             docs.BeginPrint += delegate (object sender, PrintEventArgs e)
             {
                 page = 0;
@@ -1123,6 +1161,12 @@ namespace XPump.SubForm
 
                 page++;
 
+                //if(page < docs.PrinterSettings.FromPage || page > docs.PrinterSettings.ToPage)
+                //{
+                    
+                //}
+
+
                 // draw margin bound
                 //e.Graphics.DrawRectangle(new Pen(Color.Red), new Rectangle(x, y, e.MarginBounds.Right - x, e.MarginBounds.Bottom - y));
 
@@ -1132,6 +1176,10 @@ namespace XPump.SubForm
                 e.Graphics.DrawString(str, fnt_header_bold, brush, rect, format_center);
 
                 y += line_height; // new line
+                str = "วันที่ " + report_data.reportDate.ToString("d MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + report_data.reportDate.ToString("yyyy", CultureInfo.CurrentCulture);
+                rect = str.GetDisplayRect(fnt_header, (int)Math.Round((double)(e.MarginBounds.Width / 2) + x - (str.Width(fnt_header) / 2)), y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_center);
+
                 y += line_height; // new line
                 str = "ชื่อผู้ประกอบการ: ";
                 rect = str.GetDisplayRect(fnt_header, x, y);
@@ -1139,10 +1187,6 @@ namespace XPump.SubForm
                 e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
                 rect = report_data.isinfoDbfVM.compnam.GetDisplayRect(fnt_header, x + rect.Width, y);
                 e.Graphics.DrawString(report_data.isinfoDbfVM.compnam, fnt_header, brush, rect, format_left);
-
-                str = "วันที่ " + report_data.reportDate.ToString("d MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + report_data.reportDate.ToString("yyyy", CultureInfo.CurrentCulture);
-                rect = str.GetDisplayRect(fnt_header, (int)Math.Round((double)(e.MarginBounds.Width / 2) + x - (str.Width(fnt_header)/2)), y);
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_center);
 
                 str = "[ส่วน ก]";
                 rect = str.GetDisplayRect(fnt_header, x + e.MarginBounds.Width - str.Width(fnt_header), y);
@@ -1176,6 +1220,7 @@ namespace XPump.SubForm
                 e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
                 str = report_data.isinfoDbfVM.addr;
                 rect = str.GetDisplayRect(fnt_header, x + rect.Width, y);
+                rect.Width += 30;
                 e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
 
                 str = "หน้า " + page.ToString() + "/" + total_page;
@@ -1202,12 +1247,15 @@ namespace XPump.SubForm
                     page_item++;
                     item_count++;
 
-                    Point block_begin_point = new Point((((e.MarginBounds.Right - e.MarginBounds.Left) / 4) * (page_item - 1)) + e.MarginBounds.Left, y);
-                    Point block_end_point = new Point(((e.MarginBounds.Right - e.MarginBounds.Left)/4) + block_begin_point.X, y);
+                    Point block_begin_point = new Point((((e.MarginBounds.Right - e.MarginBounds.Left) / item_per_page) * (page_item - 1)) + e.MarginBounds.Left, y);
+                    Point block_end_point = new Point(((e.MarginBounds.Right - e.MarginBounds.Left)/item_per_page) + block_begin_point.X, y);
 
                     x = block_begin_point.X;
 
-                    Rectangle rect_noz = new Rectangle(x, y, 37, line_height * 3);
+                    int rect_noz_width = Convert.ToInt32((block_end_point.X - block_begin_point.X) - (Math.Ceiling((block_end_point.X - block_begin_point.X) *.21) * 4));
+                    //int sub_block_widht = (int)Math.Floor((decimal)rect_stkcod.Width / 4);
+                    int sub_block_width = Convert.ToInt32( Math.Ceiling((block_end_point.X - block_begin_point.X) * .21));
+                    Rectangle rect_noz = new Rectangle(x, y, rect_noz_width, line_height * 3);
                     e.Graphics.FillRectangle(bg_gray, rect_noz);
                     e.Graphics.DrawRectangle(p, rect_noz);
                     e.Graphics.DrawString("หัว" + Environment.NewLine + "จ่าย" + Environment.NewLine + "เลขที่", fnt_bold, brush, rect_noz, new StringFormat { Alignment = StringAlignment.Center });
@@ -1218,23 +1266,23 @@ namespace XPump.SubForm
                     e.Graphics.DrawRectangle(p, rect_stkcod);
                     e.Graphics.DrawString(str, fnt_bold, brush, rect_stkcod, format_center);
 
-                    int sub_block_widht = (int)Math.Floor((decimal)rect_stkcod.Width / 4);
-                    Rectangle rect_mitbeg = new Rectangle(rect_stkcod.X, block_begin_point.Y + line_height, sub_block_widht, line_height * 2);
+                    
+                    Rectangle rect_mitbeg = new Rectangle(rect_stkcod.X, block_begin_point.Y + line_height, sub_block_width, line_height * 2);
                     e.Graphics.FillRectangle(bg_gray, rect_mitbeg);
                     e.Graphics.DrawRectangle(p, rect_mitbeg);
                     e.Graphics.DrawString("มิเตอร์" + Environment.NewLine + "เริ่มต้น", fnt_bold, brush, rect_mitbeg, new StringFormat { Alignment = StringAlignment.Center });
 
-                    Rectangle rect_mitend = new Rectangle(rect_mitbeg.X + rect_mitbeg.Width, block_begin_point.Y + line_height, sub_block_widht, line_height * 2);
+                    Rectangle rect_mitend = new Rectangle(rect_mitbeg.X + rect_mitbeg.Width, block_begin_point.Y + line_height, sub_block_width, line_height * 2);
                     e.Graphics.FillRectangle(bg_gray, rect_mitend);
                     e.Graphics.DrawRectangle(p, rect_mitend);
                     e.Graphics.DrawString("มิเตอร์" + Environment.NewLine + "สิ้นสุด", fnt_bold, brush, rect_mitend, new StringFormat { Alignment = StringAlignment.Center });
 
-                    Rectangle rect_salqty = new Rectangle(rect_mitend.X + rect_mitend.Width, block_begin_point.Y + line_height, sub_block_widht, line_height * 2);
+                    Rectangle rect_salqty = new Rectangle(rect_mitend.X + rect_mitend.Width, block_begin_point.Y + line_height, sub_block_width, line_height * 2);
                     e.Graphics.FillRectangle(bg_gray, rect_salqty);
                     e.Graphics.DrawRectangle(p, rect_salqty);
                     e.Graphics.DrawString("ปริมาณ" + Environment.NewLine + "ขาย(ลิตร)", fnt_bold, brush, rect_salqty, new StringFormat { Alignment = StringAlignment.Center });
 
-                    Rectangle rect_salval = new Rectangle(rect_salqty.X + rect_salqty.Width, block_begin_point.Y + line_height, sub_block_widht, line_height * 2);
+                    Rectangle rect_salval = new Rectangle(rect_salqty.X + rect_salqty.Width, block_begin_point.Y + line_height, sub_block_width, line_height * 2);
                     e.Graphics.FillRectangle(bg_gray, rect_salval);
                     e.Graphics.DrawRectangle(p, rect_salval);
                     e.Graphics.DrawString("มูลค่า" + Environment.NewLine + "ขาย(บาท)", fnt_bold, brush, rect_salval, new StringFormat { Alignment = StringAlignment.Center });
@@ -1252,7 +1300,8 @@ namespace XPump.SubForm
                     rect_salval.Y += line_height * 2;
 
                     var sales_history = report_data.saleshistoryVM_list.Where(s => s.salessummary_id == report_data.salessummaryVM_list[i].id).OrderBy(s => s.nozzle_name).ToList();
-                    for (int j = 0; j < 12; j++)
+                    int nozz_count = landscape ? 12 : 30;
+                    for (int j = 0; j < nozz_count; j++)
                     {
                         e.Graphics.FillRectangle(bg_gray, rect_noz);
                         e.Graphics.DrawRectangle(p, rect_noz);
@@ -1359,7 +1408,7 @@ namespace XPump.SubForm
                     tot_salvat += report_data.salessummaryVM_list[i].salvat;
                     tot_purvat += report_data.salessummaryVM_list[i].purvat;
 
-                    if(page_item == 4 || item_count == report_data.salessummaryVM_list.Count)
+                    if(page_item == item_per_page || item_count == report_data.salessummaryVM_list.Count)
                     {
                         Rectangle rect_tot_salvat_txt = new Rectangle(e.MarginBounds.Left, rect_purvat_txt.Y + line_height, rect_purvat_txt.Width, line_height);
                         e.Graphics.DrawString("  รวมภาษีขายน้ำมันเชื้อเพลิงทั้งสิ้น", fnt_bold, brush, rect_tot_salvat_txt);
@@ -1430,7 +1479,7 @@ namespace XPump.SubForm
                     /* Summary line end */
                     y = start_body_y;
 
-                    if (page_item == 4)
+                    if (page_item == item_per_page)
                     {
                         e.HasMorePages = true;
                         return;
@@ -1440,115 +1489,6 @@ namespace XPump.SubForm
                         e.HasMorePages = false;
                     }
                 }
-            };
-
-            return docs;
-        }
-
-        private ReportBModel GetReportBData(DateTime trans_date)
-        {
-            ReportBModel report_data = new ReportBModel();
-
-
-            return report_data;
-        }
-
-        private PrintDocument PreparePrintDoc_B(ReportBModel report_data, int total_page = 0)
-        {
-            Font fnt_title_bold = new Font("angsana new", 12f, FontStyle.Bold);
-            Font fnt_header_bold = new Font("angsana new", 11f, FontStyle.Bold); // tahoma 8f bold
-            Font fnt_header = new Font("angsana new", 11f, FontStyle.Regular); // tahoma 8f
-            Font fnt_bold = new Font("angsana new", 10f, FontStyle.Bold); // tahoma 7f bold
-            Font fnt = new Font("angsana new", 10f, FontStyle.Regular); // tahoma 7f
-            Pen p = new Pen(Color.Black);
-            SolidBrush brush = new SolidBrush(Color.Black);
-            SolidBrush bg_gray = new SolidBrush(Color.Gainsboro);
-            StringFormat format_left = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
-            StringFormat format_right = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
-            StringFormat format_center = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
-
-            int page = 0;
-            int item_count = 0;
-
-            PrintDocument docs = new PrintDocument();
-            docs.DefaultPageSettings.Margins = new Margins(30, 30, 30, 30);
-            docs.DefaultPageSettings.Landscape = true;
-            docs.BeginPrint += delegate (object sender, PrintEventArgs e)
-            {
-                page = 0;
-                item_count = 0;
-            };
-            docs.PrintPage += delegate (object sender, PrintPageEventArgs e)
-            {
-                int x = e.MarginBounds.Left;
-                int y = e.MarginBounds.Top;
-                int line_height = fnt_header.Height - 1;
-
-                page++;
-                // draw margin bound
-                //e.Graphics.DrawRectangle(new Pen(Color.Red), new Rectangle(x, y, e.MarginBounds.Right - x, e.MarginBounds.Bottom - y));
-
-                /* report header */
-                Rectangle rect = new Rectangle(x, y, e.MarginBounds.Right - x, line_height);
-                string str = "รายงานแสดงรายละเอียดการขายน้ำมันเชื้อเพลิง";
-                e.Graphics.DrawString(str, fnt_header_bold, brush, rect, format_center);
-
-                y += line_height; // new line
-                y += line_height; // new line
-                str = "ชื่อผู้ประกอบการ: ";
-                rect = str.GetDisplayRect(fnt_header, x, y);
-                rect.Width = 110;
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
-                rect = report_data.isinfoDbfVM.compnam.GetDisplayRect(fnt_header, x + rect.Width, y);
-                e.Graphics.DrawString(report_data.isinfoDbfVM.compnam, fnt_header, brush, rect, format_left);
-
-                str = "วันที่ " + report_data.reportDate.ToString("d MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + report_data.reportDate.ToString("yyyy", CultureInfo.CurrentCulture);
-                rect = str.GetDisplayRect(fnt_header, (int)Math.Round((double)(e.MarginBounds.Width / 2) + x - (str.Width(fnt_header) / 2)), y);
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_center);
-
-                str = "[ส่วน ก]";
-                rect = str.GetDisplayRect(fnt_header, x + e.MarginBounds.Width - str.Width(fnt_header), y);
-                rect.X -= 10;
-                e.Graphics.FillRectangle(new SolidBrush(Color.Gainsboro), rect.X - 5, rect.Y - 3, rect.Width + 10, rect.Height + 6);
-                e.Graphics.DrawRectangle(Pens.Black, rect.X - 5, rect.Y - 3, rect.Width + 10, rect.Height + 6);
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_center);
-
-                y += line_height; // new line
-                str = "ชื่อสถานีบริการน้ำมัน: ";
-                rect = str.GetDisplayRect(fnt_header, x, y);
-                rect.Width = 110;
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
-                str = report_data.isinfoDbfVM.orgnam;
-                rect = str.GetDisplayRect(fnt_header, x + rect.Width, y);
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
-
-                str = "เลขประจำตัวผู้เสียภาษี :   ";
-                rect = str.GetDisplayRect(fnt_header, x, y);
-                rect.X = e.MarginBounds.Right - rect.Width - 150;
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_right);
-
-                str = report_data.isinfoDbfVM.taxid;
-                rect = str.GetDisplayRect(fnt_header, rect.X + rect.Width, y);
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
-
-                y += line_height; // new line
-                str = "ที่อยู่: ";
-                rect = str.GetDisplayRect(fnt_header, x, y);
-                rect.Width = 110;
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
-                str = report_data.isinfoDbfVM.addr;
-                rect = str.GetDisplayRect(fnt_header, x + rect.Width, y);
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
-
-                str = "หน้า " + page.ToString() + "/" + total_page;
-                rect = str.GetDisplayRect(fnt_header, e.MarginBounds.Right - str.Width(fnt_header), y);
-                rect.X -= 10;
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_right);
-
-                y += line_height; // new line
-                str = report_data.isinfoDbfVM.telnum.Contains("โทร") || report_data.isinfoDbfVM.telnum.ToLower().Contains("tel") ? report_data.isinfoDbfVM.telnum : "โทร. " + report_data.isinfoDbfVM.telnum;
-                rect = str.GetDisplayRect(fnt_header, x + 110, y);
-                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
             };
 
             return docs;

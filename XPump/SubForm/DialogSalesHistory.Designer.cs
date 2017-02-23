@@ -135,7 +135,7 @@
             this.inline_mit_start._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_mit_start._DecimalDigit = 2;
             this.inline_mit_start._MaximumValue = new decimal(new int[] {
-            99999999,
+            999999999,
             0,
             0,
             131072});
@@ -168,7 +168,7 @@
             this.inline_mit_end._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_mit_end._DecimalDigit = 2;
             this.inline_mit_end._MaximumValue = new decimal(new int[] {
-            99999999,
+            999999999,
             0,
             0,
             131072});
@@ -938,7 +938,7 @@
             // col_section_name
             // 
             this.col_section_name.DataPropertyName = "section_name";
-            this.col_section_name.HeaderText = "รหัสช่องเก็บน้ำมัน";
+            this.col_section_name.HeaderText = "เลขที่ถัง";
             this.col_section_name.MinimumWidth = 120;
             this.col_section_name.Name = "col_section_name";
             this.col_section_name.ReadOnly = true;
@@ -956,7 +956,7 @@
             // 
             this.col_nozzle_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.col_nozzle_name.DataPropertyName = "nozzle_name";
-            this.col_nozzle_name.HeaderText = "หัวจ่ายเลขที่";
+            this.col_nozzle_name.HeaderText = "เลขที่หัวจ่าย";
             this.col_nozzle_name.MinimumWidth = 40;
             this.col_nozzle_name.Name = "col_nozzle_name";
             this.col_nozzle_name.ReadOnly = true;

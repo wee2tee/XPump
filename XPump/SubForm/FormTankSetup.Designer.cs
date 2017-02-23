@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -280,7 +280,7 @@
             this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.btnItem.Name = "btnItem";
             this.btnItem.Size = new System.Drawing.Size(36, 40);
-            this.btnItem.Text = "toolStripDropDownButton1";
+            this.btnItem.Text = "จัดการข้อมูลถังน้ำมัน <F8>";
             this.btnItem.Click += new System.EventHandler(this.btnItem_Click);
             // 
             // btnRefresh
@@ -384,9 +384,9 @@
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label8.Location = new System.Drawing.Point(5, 6);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(129, 16);
+            this.label8.Size = new System.Drawing.Size(98, 16);
             this.label8.TabIndex = 2;
-            this.label8.Text = "ช่องเก็บน้ำมัน <F8>";
+            this.label8.Text = "ถังน้ำมัน <F8>";
             // 
             // panel1
             // 
@@ -406,14 +406,14 @@
             this.dgvSection.AllowUserToDeleteRows = false;
             this.dgvSection.AllowUserToResizeColumns = false;
             this.dgvSection.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvSection.ColumnHeadersHeight = 28;
             this.dgvSection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvSection.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -432,14 +432,14 @@
             this.col_section_start_date,
             this.col_section_end_date,
             this.col_section_state});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvSection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSection.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvSection.EnableHeadersVisualStyles = false;
@@ -644,7 +644,7 @@
             // col_section_name
             // 
             this.col_section_name.DataPropertyName = "name";
-            this.col_section_name.HeaderText = "รหัสช่องเก็บน้ำมัน";
+            this.col_section_name.HeaderText = "เลขที่ถัง";
             this.col_section_name.MinimumWidth = 120;
             this.col_section_name.Name = "col_section_name";
             this.col_section_name.ReadOnly = true;
@@ -680,10 +680,10 @@
             // col_section_begbal
             // 
             this.col_section_begbal.DataPropertyName = "begbal";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = "0";
-            this.col_section_begbal.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "N2";
+            dataGridViewCellStyle7.NullValue = "0";
+            this.col_section_begbal.DefaultCellStyle = dataGridViewCellStyle7;
             this.col_section_begbal.HeaderText = "ยกมา (ลิตร)";
             this.col_section_begbal.MinimumWidth = 100;
             this.col_section_begbal.Name = "col_section_begbal";
@@ -692,10 +692,10 @@
             // col_section_totbal
             // 
             this.col_section_totbal.DataPropertyName = "totbal";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.col_section_totbal.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = null;
+            this.col_section_totbal.DefaultCellStyle = dataGridViewCellStyle8;
             this.col_section_totbal.HeaderText = "คงเหลือ (ลิตร)";
             this.col_section_totbal.Name = "col_section_totbal";
             this.col_section_totbal.ReadOnly = true;
@@ -703,10 +703,10 @@
             // col_section_nozzlecount
             // 
             this.col_section_nozzlecount.DataPropertyName = "nozzlecount";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N0";
-            dataGridViewCellStyle4.NullValue = null;
-            this.col_section_nozzlecount.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N0";
+            dataGridViewCellStyle9.NullValue = null;
+            this.col_section_nozzlecount.DefaultCellStyle = dataGridViewCellStyle9;
             this.col_section_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
             this.col_section_nozzlecount.MinimumWidth = 100;
             this.col_section_nozzlecount.Name = "col_section_nozzlecount";
