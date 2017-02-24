@@ -582,6 +582,22 @@ namespace XPump.Misc
             return sccomp;
         }
 
+        public static bool IsClosedShiftSales(this shiftsales shiftsales)
+        {
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                var tmp = db.shiftsales.Find(shiftsales.id);
+                if(tmp != null)
+                {
+                    return tmp.closed;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public static List<IsrunDbf> ToIsrunList(this DataTable isrun_dbf)
         {
             List<IsrunDbf> isrun = new List<IsrunDbf>();

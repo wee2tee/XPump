@@ -19,9 +19,11 @@ namespace XPump.SubForm
         private MainForm main_form;
         private shiftsales curr_shiftsales;
         private shiftsales tmp_shiftsales;
+        private shiftsttak tmp_sttak;
         private List<salessummaryVM> sales_list;
         public salessummary curr_salessummary;
-        private BindingSource bs;
+        private BindingSource bs_sales;
+        private BindingSource bs_sttak;
         private FORM_MODE form_mode;
         //private List<salessummaryVM> reportAData;
         //private List<salessummaryVM> reportBData;
@@ -38,8 +40,11 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
-            this.bs = new BindingSource();
-            this.dgv.DataSource = this.bs;
+            this.bs_sales = new BindingSource();
+            this.dgvSalesSummary.DataSource = this.bs_sales;
+
+            this.bs_sttak = new BindingSource();
+            this.dgvSttak.DataSource = this.bs_sttak;
 
             this.btnLast.PerformClick();
         }
@@ -50,8 +55,8 @@ namespace XPump.SubForm
             this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.READ_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
+            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnFirst.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnPrevious.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnNext.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
@@ -62,15 +67,16 @@ namespace XPump.SubForm
             this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnPrintALandscape.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnItemF7.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnItemF8.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             /* Form control */
             this.brShift.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.dtSaldat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
-            this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.dgvSalesSummary.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
             this.inline_btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
             this.inline_btnSaleshistory.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
-            this.panel2.Refresh();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -92,7 +98,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.shiftsales.Include("salessummary").Include("shift").Where(s => s.id == id).FirstOrDefault();
+                return db.shiftsales.Include("salessummary").Include("shift").Include("shiftsttak").Where(s => s.id == id).FirstOrDefault();
             }
         }
 
@@ -100,7 +106,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.shiftsales.Include("salessummary").Include("shift").OrderBy(s => s.saldat).ThenBy(s => s.id).FirstOrDefault();
+                return db.shiftsales.Include("salessummary").Include("shift").Include("shiftsttak").OrderBy(s => s.saldat).ThenBy(s => s.id).FirstOrDefault();
             }
         }
 
@@ -120,7 +126,7 @@ namespace XPump.SubForm
 
                 if (id_list.IndexOf(this.curr_shiftsales.id) == -1)
                 {
-                    shiftsales tmp = db.shiftsales.Include("salessummary").Include("shift").OrderByDescending(s => s.saldat).ThenByDescending(s => s.id).Where(s => this.curr_shiftsales.saldat.CompareTo(s.saldat) == 0 || this.curr_shiftsales.saldat.CompareTo(s.saldat) > 0).FirstOrDefault();
+                    shiftsales tmp = db.shiftsales.Include("salessummary").Include("shift").Include("shiftsttak").OrderByDescending(s => s.saldat).ThenByDescending(s => s.id).Where(s => this.curr_shiftsales.saldat.CompareTo(s.saldat) == 0 || this.curr_shiftsales.saldat.CompareTo(s.saldat) > 0).FirstOrDefault();
 
                     if(tmp != null)
                     {
@@ -161,7 +167,7 @@ namespace XPump.SubForm
 
                 if (id_list.IndexOf(this.curr_shiftsales.id) == -1)
                 {
-                    shiftsales tmp = db.shiftsales.Include("salessummary").Include("shift").OrderBy(s => s.saldat).ThenBy(s => s.id).Where(s => this.curr_shiftsales.saldat.CompareTo(s.saldat) == 0 || this.curr_shiftsales.saldat.CompareTo(s.saldat) < 0).FirstOrDefault();
+                    shiftsales tmp = db.shiftsales.Include("salessummary").Include("shift").Include("shiftsttak").OrderBy(s => s.saldat).ThenBy(s => s.id).Where(s => this.curr_shiftsales.saldat.CompareTo(s.saldat) == 0 || this.curr_shiftsales.saldat.CompareTo(s.saldat) < 0).FirstOrDefault();
 
                     if(tmp != null)
                     {
@@ -192,7 +198,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.shiftsales.Include("salessummary").Include("shift").OrderByDescending(s => s.saldat).ThenByDescending(s => s.id).FirstOrDefault();
+                return db.shiftsales.Include("salessummary").Include("shift").Include("shiftsttak").OrderByDescending(s => s.saldat).ThenByDescending(s => s.id).FirstOrDefault();
             }
         }
 
@@ -205,19 +211,24 @@ namespace XPump.SubForm
             {
                 this.brShift._Text = string.Empty;
                 this.dtSaldat._SelectedDate = null;
-                this.dgv.Rows.Clear();
+                this.dgvSalesSummary.Rows.Clear();
                 return;
             }
 
             using (xpumpEntities db = DBX.DataSet())
             {
                 this.brShift._Text = db.shift.Find(sales.shift_id) != null ? db.shift.Find(sales.shift_id).name : string.Empty;
+                this.lblDayEnded.Visible = db.dayend.Where(d => d.saldat == this.curr_shiftsales.saldat).FirstOrDefault() == null ? false : true;
             }
             this.dtSaldat._SelectedDate = sales.saldat;
 
             this.sales_list = sales.salessummary.ToViewModel().OrderBy(s => s.stkcod).ToList();
-            this.bs.ResetBindings(true);
-            this.bs.DataSource = this.sales_list;
+            this.bs_sales.ResetBindings(true);
+            this.bs_sales.DataSource = this.sales_list;
+
+            this.bs_sttak.ResetBindings(true);
+            this.bs_sttak.DataSource = sales.shiftsttak.ToViewModel().OrderBy(s => s.tank_name).ThenBy(s => s.section_name);
+            this.tabPage2.ImageIndex = sales.shiftsttak.Where(s => s.qty == -1).Count() > 0 ? 0 : -1;
 
             /*Form control state beyond data*/
             if(this.form_mode == FORM_MODE.READ)
@@ -240,13 +251,25 @@ namespace XPump.SubForm
             }
         }
 
+        private bool ValidateClosedShiftSales()
+        {
+            bool validated_result = this.curr_shiftsales.IsClosedShiftSales();
+            if (validated_result == true)
+            {
+                MessageBox.Show("วันที่ " + this.curr_shiftsales.saldat.ToString("dd / MM / yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+            return validated_result;
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             this.tmp_shiftsales = new shiftsales
             {
                 id = -1,
                 saldat = DateTime.Now,
-                shift_id = -1
+                shift_id = -1,
+                closed = false,
             };
 
             this.form_mode = FORM_MODE.ADD;
@@ -262,6 +285,11 @@ namespace XPump.SubForm
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
                 return;
 
+            if (this.ValidateClosedShiftSales())
+            {
+                return;
+            }
+
             this.tmp_shiftsales = this.GetShiftSales(this.curr_shiftsales.id);
             this.FillForm(this.tmp_shiftsales);
 
@@ -275,6 +303,11 @@ namespace XPump.SubForm
         {
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
                 return;
+
+            if (this.ValidateClosedShiftSales())
+            {
+                return;
+            }
 
             if(MessageBox.Show("ลบบันทึกรายการขายประจำผลัด \"" + this.curr_shiftsales.shift.name + "\" วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + ", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
@@ -314,6 +347,14 @@ namespace XPump.SubForm
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
+            {
+                this.RemoveSttakInlineForm();
+                this.form_mode = FORM_MODE.READ_ITEM;
+                this.ResetControlState();
+                return;
+            }
+
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
@@ -323,6 +364,21 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
+            {
+                if (this.SaveSttak())
+                {
+                    this.RemoveSttakInlineForm();
+                    this.form_mode = FORM_MODE.READ_ITEM;
+                    this.ResetControlState();
+                }
+                else
+                {
+                    this.dgvSttak.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_sttak_stkcod.Name].Selected = true;
+                }
+                return;
+            }
+
             if(this.tmp_shiftsales.shift_id == -1)
             {
                 this.brShift.Focus();
@@ -340,6 +396,12 @@ namespace XPump.SubForm
                 {
                     try
                     {
+                        if(db.dayend.Where(d => d.saldat == this.tmp_shiftsales.saldat).FirstOrDefault() != null)
+                        {
+                            MessageBox.Show("วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถเพิ่มรายการของวันที่นี้ได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
                         db.shiftsales.Add(this.tmp_shiftsales);
                         foreach (stmas s in db.stmas.ToList())
                         {
@@ -382,8 +444,8 @@ namespace XPump.SubForm
                         this.FillForm();
                         this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
-                        this.dgv_SelectionChanged(this.dgv, new EventArgs());
-                        this.dgv.Focus();
+                        //this.dgv_SelectionChanged(this.dgv, new EventArgs());
+                        this.dgvSalesSummary.Focus();
                         this.tmp_shiftsales = null;
                     }
                     catch (Exception ex)
@@ -531,16 +593,16 @@ namespace XPump.SubForm
 
         }
 
-        private void btnItem_Click(object sender, EventArgs e)
-        {
-            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
-                return;
+        //private void btnItem_Click(object sender, EventArgs e)
+        //{
+        //    if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
+        //        return;
 
-            this.form_mode = FORM_MODE.READ_ITEM;
-            this.ResetControlState();
-            this.dgv.Focus();
-            this.dgv_SelectionChanged(this.dgv, new EventArgs());
-        }
+        //    this.form_mode = FORM_MODE.READ_ITEM;
+        //    this.ResetControlState();
+        //    this.dgvSalesSummary.Focus();
+        //    //this.dgv_SelectionChanged(this.dgv, new EventArgs());
+        //}
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -688,44 +750,6 @@ namespace XPump.SubForm
             }
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-            if (this.form_mode == FORM_MODE.READ_ITEM || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
-            {
-                using (Pen p0 = new Pen(Color.LimeGreen))
-                {
-                    using (Pen p = new Pen(Color.PaleGreen))
-                    {
-                        e.Graphics.DrawRectangle(p0, e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-                        e.Graphics.DrawRectangle(p, e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 3, e.ClipRectangle.Height - 3);
-                    }
-                }
-            }
-        }
-
-        private void dgv_SelectionChanged(object sender, EventArgs e)
-        {
-            if(this.form_mode == FORM_MODE.READ_ITEM)
-            {
-                if (((XDatagrid)sender).CurrentCell == null)
-                {
-                    this.inline_btnEdit.Visible = false;
-                    this.inline_btnSaleshistory.Visible = false;
-                    return;
-                }
-
-                this.curr_salessummary = (salessummary)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells["col_salessummary"].Value;
-                this.SetInlineBtnPosition();
-                this.inline_btnEdit.Visible = true;
-                this.inline_btnSaleshistory.Visible = true;
-            }
-            else
-            {
-                this.inline_btnEdit.Visible = false;
-                this.inline_btnSaleshistory.Visible = false;
-            }
-        }
-
         private void dgv_Scroll(object sender, ScrollEventArgs e)
         {
             if (!this.inline_btnEdit.Visible)
@@ -736,18 +760,18 @@ namespace XPump.SubForm
 
         private void SetInlineBtnPosition()
         {
-            if (this.dgv.CurrentCell == null)
+            if (this.dgvSalesSummary.CurrentCell == null)
                 return;
 
-            int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index;
-            int row_index = this.dgv.CurrentCell.RowIndex;
+            int col_index = this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index;
+            int row_index = this.dgvSalesSummary.CurrentCell.RowIndex;
 
-            Rectangle rect = this.dgv.GetCellDisplayRectangle(col_index, row_index, true);
+            Rectangle rect = this.dgvSalesSummary.GetCellDisplayRectangle(col_index, row_index, true);
             this.inline_btnEdit.SetBounds(rect.X, rect.Y + 1, this.inline_btnEdit.Width, rect.Height - 3);
 
-            col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_totqty.DataPropertyName).First().Index;
+            col_index = this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_totqty.DataPropertyName).First().Index;
 
-            rect = this.dgv.GetCellDisplayRectangle(col_index, row_index, true);
+            rect = this.dgvSalesSummary.GetCellDisplayRectangle(col_index, row_index, true);
             this.inline_btnSaleshistory.SetBounds(rect.X, rect.Y + 1, this.inline_btnSaleshistory.Width, rect.Height - 3);
         }
 
@@ -767,7 +791,7 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
             ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_stkcod.Name].Selected = true;
-            this.dgv_SelectionChanged((XDatagrid)sender, new EventArgs());
+            //this.dgv_SelectionChanged((XDatagrid)sender, new EventArgs());
 
             if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index)
             {
@@ -786,6 +810,11 @@ namespace XPump.SubForm
         {
             if (this.curr_salessummary == null)
                 return;
+
+            if (this.ValidateClosedShiftSales())
+            {
+                return;
+            }
 
             if(this.form_mode != FORM_MODE.READ_ITEM)
             {
@@ -844,8 +873,13 @@ namespace XPump.SubForm
 
         private void inline_unitpr_Click(object sender, EventArgs e)
         {
-            if (this.dgv.CurrentCell == null)
+            if (this.dgvSalesSummary.CurrentCell == null)
                 return;
+
+            if (this.ValidateClosedShiftSales())
+            {
+                return;
+            }
 
             if (this.form_mode != FORM_MODE.READ_ITEM)
             {
@@ -853,16 +887,16 @@ namespace XPump.SubForm
                 this.ResetControlState();
             }
 
-            int pricelist_id = (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_pricelist_id.Name].Value;
-            Rectangle rect = this.dgv.GetCellDisplayRectangle(this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index, this.dgv.CurrentCell.RowIndex, false);
+            int pricelist_id = (int)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_pricelist_id.Name].Value;
+            Rectangle rect = this.dgvSalesSummary.GetCellDisplayRectangle(this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index, this.dgvSalesSummary.CurrentCell.RowIndex, false);
 
-            DialogEditPrice pr = new DialogEditPrice(pricelist_id, new Size(rect.Width + 4, rect.Height), new Point(this.dgv.PointToScreen(Point.Empty).X + rect.X - 2, this.dgv.PointToScreen(Point.Empty).Y + rect.Y - 2), this.curr_salessummary.ToViewModel().unitpr);
+            DialogEditPrice pr = new DialogEditPrice(pricelist_id, new Size(rect.Width + 4, rect.Height), new Point(this.dgvSalesSummary.PointToScreen(Point.Empty).X + rect.X - 2, this.dgvSalesSummary.PointToScreen(Point.Empty).Y + rect.Y - 2), this.curr_salessummary.ToViewModel().unitpr);
             if (pr.ShowDialog() == DialogResult.OK)
             {
                 this.curr_shiftsales = this.GetShiftSales(this.curr_shiftsales.id);
                 this.FillForm();
             }
-            this.dgv.Focus();
+            this.dgvSalesSummary.Focus();
         }
 
         private void dgv_MouseClick(object sender, MouseEventArgs e)
@@ -878,7 +912,7 @@ namespace XPump.SubForm
                 this.ResetControlState();
 
                 ((XDatagrid)sender).Rows[row_index].Cells[this.col_stkcod.Name].Selected = true;
-                this.dgv_SelectionChanged((XDatagrid)sender, new EventArgs());
+                //this.dgv_SelectionChanged((XDatagrid)sender, new EventArgs());
                 ContextMenu cm = new ContextMenu();
                 MenuItem mnu_sales = new MenuItem();
                 mnu_sales.Text = "บันทึกปริมาณการขาย <Ctrl+Space>";
@@ -900,127 +934,6 @@ namespace XPump.SubForm
 
                 cm.Show((XDatagrid)sender, new Point(e.X, e.Y));
             }
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if(keyData == Keys.Enter)
-            {
-                if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
-                {
-                    if (this.brShift._Focused)
-                    {
-                        this.btnSave.PerformClick();
-                        return true;
-                    }
-                    else
-                    {
-                        SendKeys.Send("{TAB}");
-                        return true;
-                    }
-                }
-            }
-
-            if (keyData == (Keys.Alt | Keys.A))
-            {
-                this.btnAdd.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Alt | Keys.E))
-            {
-                if(this.form_mode == FORM_MODE.READ)
-                {
-                    this.btnEdit.PerformClick();
-                    return true;
-                }
-
-                if (this.form_mode == FORM_MODE.READ_ITEM)
-                {
-                    this.inline_btnEdit.PerformClick();
-                    return true;
-                }
-            }
-
-            if(keyData == (Keys.Alt | Keys.D))
-            {
-                this.btnDelete.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Space) && this.dgv.Focused && this.inline_btnEdit.Visible)
-            {
-                this.inline_btnSaleshistory.PerformClick();
-                return true;
-            }
-
-            if(keyData == Keys.Escape)
-            {
-                this.btnStop.PerformClick();
-                return true;
-            }
-
-            if(keyData == Keys.F9)
-            {
-                this.btnSave.PerformClick();
-                return true;
-            }
-
-            if(keyData == Keys.PageUp)
-            {
-                this.btnPrevious.PerformClick();
-                return true;
-            }
-
-            if(keyData == Keys.PageDown)
-            {
-                this.btnNext.PerformClick();
-                return true;
-            }
-
-            if(keyData == (Keys.Control | Keys.Home))
-            {
-                this.btnFirst.PerformClick();
-                return true;
-            }
-
-            if(keyData == (Keys.Control | Keys.End))
-            {
-                this.btnLast.PerformClick();
-                return true;
-            }
-
-            if(keyData == (Keys.Alt | Keys.S))
-            {
-                this.btnSearch.PerformClick();
-                return true;
-            }
-
-            if(keyData == (Keys.Control | Keys.L))
-            {
-                this.btnInquiryAll.PerformClick();
-                return true;
-            }
-
-            if(keyData == (Keys.Alt | Keys.L))
-            {
-                this.btnInquiryRest.PerformClick();
-                return true;
-            }
-
-            if(keyData == Keys.F8)
-            {
-                this.btnItem.PerformClick();
-                return true;
-            }
-
-            if(keyData == (Keys.Control | Keys.F5))
-            {
-                this.btnRefresh.PerformClick();
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void PerformEdit(object sender, EventArgs e)
@@ -1492,6 +1405,324 @@ namespace XPump.SubForm
             };
 
             return docs;
+        }
+
+        private void dgvSalesSummary_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            this.curr_salessummary = (salessummary)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells["col_salessummary"].Value;
+            this.SetInlineBtnPosition();
+            this.inline_btnEdit.Visible = true;
+            this.inline_btnSaleshistory.Visible = true;
+        }
+
+        private void ShowSttakInlineForm(int row_index)
+        {
+            if (this.dgvSttak.CurrentCell == null)
+                return;
+
+            this.tmp_sttak = (shiftsttak)this.dgvSttak.Rows[row_index].Cells[this.col_sttak_sttak.Name].Value;
+            int col_index = this.dgvSttak.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sttak_qty.DataPropertyName).First().Index;
+
+            this.inline_qty.SetInlineControlPosition(this.dgvSttak, row_index, col_index);
+            this.inline_qty._Value = this.tmp_sttak.qty;
+            this.inline_qty.Visible = true;
+            this.inline_qty.Focus();
+        }
+
+        private void RemoveSttakInlineForm()
+        {
+            this.inline_qty.Visible = false;
+            this.tmp_sttak = null;
+        }
+
+        private void inline_qty__ValueChanged(object sender, EventArgs e)
+        {
+            if(this.tmp_sttak != null)
+            {
+                this.tmp_sttak.qty = ((XNumEdit)sender)._Value;
+            }
+        }
+
+        private void dgvSttak_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
+            {
+                if ((int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id)
+                {
+                    this.inline_qty.Focus();
+                    return;
+                }
+
+                if (this.SaveSttak())
+                {
+                    this.curr_shiftsales.shiftsttak.Where(s => s.id == this.tmp_sttak.id).First().qty = this.tmp_sttak.qty;
+                    //((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_sttak_qty.Name].Value = this.tmp_sttak.qty;
+                    //((shiftsttak)((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_sttak_sttak.Name].Value).qty = this.tmp_sttak.qty;
+                    this.RemoveSttakInlineForm();
+                    this.FillForm();
+                    this.ShowSttakInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
+                }
+                else
+                {
+                    ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_sttak_stkcod.Name].Selected = true;
+                }
+            }
+        }
+
+        private bool SaveSttak()
+        {
+            if (this.tmp_sttak == null)
+                return false;
+
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                try
+                {
+                    var sttak_to_update = db.shiftsttak.Find(this.tmp_sttak.id);
+
+                    if (sttak_to_update == null)
+                    {
+                        MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return false;
+                    }
+
+                    sttak_to_update.qty = this.tmp_sttak.qty;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
+
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if(this.form_mode == FORM_MODE.EDIT || 
+                this.form_mode == FORM_MODE.READ_ITEM || 
+                this.form_mode == FORM_MODE.EDIT_ITEM ||
+                this.curr_shiftsales == null || 
+                this.curr_shiftsales.id == -1) 
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void dgvSttak_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            this.form_mode = FORM_MODE.EDIT_ITEM;
+            this.ResetControlState();
+
+            this.ShowSttakInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
+        }
+
+        private void dgvSttak_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+                this.dgvSttak_CurrentCellChanged(sender, e);
+                
+        }
+
+        private void dgvSttak_MouseClick(object sender, MouseEventArgs e)
+        {
+            int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+
+            if(row_index > -1 && e.Button == MouseButtons.Right)
+            {
+                ContextMenu cm = new ContextMenu();
+                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
+                mnu_edit.Click += delegate
+                {
+                    this.form_mode = FORM_MODE.EDIT_ITEM;
+                    this.ResetControlState();
+                    this.ShowSttakInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
+                };
+                cm.MenuItems.Add(mnu_edit);
+                cm.Show(this.dgvSttak, new Point(e.X, e.Y));
+            }
+        }
+
+        private void btnItemF8_Click(object sender, EventArgs e)
+        {
+            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
+                return;
+
+            this.tabControl1.SelectedTab = this.tabPage1;
+            this.form_mode = FORM_MODE.READ_ITEM;
+            this.ResetControlState();
+            this.dgvSalesSummary.Focus();
+        }
+
+        private void btnItemF7_Click(object sender, EventArgs e)
+        {
+            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
+                return;
+
+            this.tabControl1.SelectedTab = this.tabPage2;
+            this.form_mode = FORM_MODE.READ_ITEM;
+            this.ResetControlState();
+            this.dgvSttak.Focus();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                if (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                {
+                    if (this.brShift._Focused)
+                    {
+                        this.btnSave.PerformClick();
+                        return true;
+                    }
+                    else
+                    {
+                        SendKeys.Send("{TAB}");
+                        return true;
+                    }
+                }
+
+                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null  && this.inline_qty._Focused)
+                {
+                    int curr_row_index = this.dgvSttak.CurrentCell.RowIndex;
+                    if(curr_row_index < this.dgvSttak.Rows.Count - 1)
+                    {
+                        this.dgvSttak.Rows[curr_row_index + 1].Cells[this.col_sttak_stkcod.Name].Selected = true;
+                    }
+                    else
+                    {
+                        this.btnSave.PerformClick();
+                    }
+                }
+            }
+
+            if (keyData == (Keys.Alt | Keys.A))
+            {
+                this.btnAdd.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.E))
+            {
+                if (this.form_mode == FORM_MODE.READ)
+                {
+                    this.btnEdit.PerformClick();
+                    return true;
+                }
+
+                if (this.form_mode == FORM_MODE.READ_ITEM)
+                {
+                    if(this.tabControl1.SelectedTab == this.tabPage1)
+                    {
+                        this.inline_btnEdit.PerformClick();
+                        return true;
+                    }
+                    if(this.tabControl1.SelectedTab == this.tabPage2)
+                    {
+                        if (this.dgvSttak.CurrentCell == null)
+                            return true;
+
+                        this.form_mode = FORM_MODE.EDIT_ITEM;
+                        this.ResetControlState();
+                        this.ShowSttakInlineForm(this.dgvSttak.CurrentCell.RowIndex);
+                        return true;
+                    }
+                }
+            }
+
+            if (keyData == (Keys.Alt | Keys.D))
+            {
+                this.btnDelete.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.Space) && this.dgvSalesSummary.Focused && this.inline_btnEdit.Visible)
+            {
+                this.inline_btnSaleshistory.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.Escape)
+            {
+                this.btnStop.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.F9)
+            {
+                this.btnSave.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.PageUp)
+            {
+                this.btnPrevious.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.PageDown)
+            {
+                this.btnNext.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.Home))
+            {
+                this.btnFirst.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.End))
+            {
+                this.btnLast.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.S))
+            {
+                this.btnSearch.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.L))
+            {
+                this.btnInquiryAll.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.L))
+            {
+                this.btnInquiryRest.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.F7)
+            {
+                this.btnItemF7.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.F8)
+            {
+                this.btnItemF8.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.F5))
+            {
+                this.btnRefresh.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

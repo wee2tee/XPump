@@ -259,6 +259,12 @@
     <Compile Include="SubForm\DialogStmasImportSelection.Designer.cs">
       <DependentUpon>DialogStmasImportSelection.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogSttak.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSttak.Designer.cs">
+      <DependentUpon>DialogSttak.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\FormPrintPreview.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -373,6 +379,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogStmasImportSelection.resx">
       <DependentUpon>DialogStmasImportSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSttak.resx">
+      <DependentUpon>DialogSttak.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormPrintPreview.resx">
       <DependentUpon>FormPrintPreview.cs</DependentUpon>

@@ -110,8 +110,8 @@ namespace XPump.SubForm
             this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.READ_ITEM, FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
+            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnFirst.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnPrevious.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnNext.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
@@ -700,6 +700,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
             {
+                this.btnStopItem.PerformClick();
                 return;
             }
 
@@ -793,6 +794,11 @@ namespace XPump.SubForm
                     }
                 }
                 return;
+            }
+
+            if(this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                this.btnSaveItem.PerformClick();
             }
         }
 
@@ -939,6 +945,7 @@ namespace XPump.SubForm
             {
                 id = -1,
                 name = string.Empty,
+                loccod = string.Empty,
                 begacc = 0m,
                 begtak = 0m,
                 begdif = 0m,
@@ -1143,13 +1150,13 @@ namespace XPump.SubForm
         {
             if (keyData == Keys.Enter && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM))
             {
-                if (this.txtRemark._Focused /*this.ddIsactive._Focused*/)
+                if (this.txtRemark._Focused)
                 {
                     this.btnSave.PerformClick();
                     return true;
                 }
 
-                if (this.inline_begtak.Visible && this.inline_begtak._Focused)
+                if (this.inline_begacc.Visible && this.inline_begacc._Focused)
                 {
                     this.btnSaveItem.PerformClick();
                     return true;
