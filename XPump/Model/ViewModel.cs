@@ -645,6 +645,138 @@ namespace XPump.Model
         public shiftsttak sttak { get; set; }
     }
 
+    public class dayendVM
+    {
+        public int id { get; set; }
+        public DateTime saldat { get; set; }
+
+        public string stkcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
+                }
+            }
+        }
+
+        public decimal endbal
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    var qty = db.daysttak.Where(d => d.dayend_id == this.id).Select(d => d.qty).ToList();
+                    if (qty.Contains<decimal>(-1m) || qty.Count == 0)
+                    {
+                        return -1;
+                    }
+
+                    return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.qty);
+                }
+            }
+        }
+
+        public decimal begbal
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    decimal beg;
+                    var prev_dayend = db.dayend.Where(d => d.saldat.CompareTo(this.saldat) < 0)
+                                    .Where(d => d.stmas_id == this.stmas_id)
+                                    .OrderByDescending(d => d.saldat).FirstOrDefault();
+                    if(prev_dayend != null)
+                    {
+                        if(db.daysttak.Where(d => d.dayend_id == prev_dayend.id).Select(d => d.qty).Contains<decimal>(-1m))
+                        {
+                            beg = -1;
+                        }
+                        else
+                        {
+                            beg = db.daysttak.Where(d => d.dayend_id == prev_dayend.id).ToList().Sum(d => d.qty);
+                        }
+                    }
+                    else
+                    {
+                        beg = db.section.Where(s => s.stmas_id == this.stmas_id).ToList().Sum(s => s.begtak);
+                    }
+
+                    return beg;
+                }
+            }
+        }
+
+        //public decimal rcvqty { get; set; }
+        public decimal rcvqty
+        {
+            get
+            {
+                var xtrnqty = DbfTable.Stcrd().ToStcrdList()
+                            .Where(s => s.docdat.HasValue)
+                            .Where(s => s.docdat.Value == this.saldat)
+                            .Where(s => s.stkcod.Trim() == this.stkcod.Trim())
+                            .Sum(s => s.xtrnqty);
+
+                var rcv = Convert.ToDecimal(xtrnqty);
+                this.dayend.rcvqty = rcv;
+                return rcv;
+            }
+        }
+        //public decimal salqty { get; set; }
+        public decimal salqty
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    var sum_sal = db.saleshistory.Where(s => s.saldat == this.saldat)
+                                .Where(s => s.stmas_id == this.stmas_id)
+                                .ToList()
+                                .Sum(s => s.salqty);
+
+                    var sum_dtest = db.salessummary.Where(s => s.saldat == this.saldat)
+                                .Where(s => s.stmas_id == this.stmas_id)
+                                .ToList()
+                                .Sum(s => s.dtest);
+
+                    var sum_dother = db.salessummary.Where(s => s.saldat == this.saldat)
+                                .Where(s => s.stmas_id == this.stmas_id)
+                                .ToList()
+                                .Sum(s => s.dother);
+
+                    var sum = sum_sal - (sum_dtest + sum_dother);
+                    this.dayend.salqty = sum;
+                    return sum;
+                }
+            }
+        }
+        public string dothertxt { get; set; }
+        public decimal dother { get; set; }
+        public decimal accbal
+        {
+            get
+            {
+                return this.begbal + this.rcvqty - (this.salqty + this.dother);
+            }
+        }
+        //public decimal difqty { get; set; }
+        public decimal difqty
+        {
+            get
+            {
+                var dif = this.endbal - (this.begbal + this.rcvqty - (this.salqty + this.dother));
+                this.dayend.difqty = dif;
+                return dif;
+            }
+        }
+        public int stmas_id { get; set; }
+
+        public dayend dayend { get; set; }
+    }
+
     public class StmasDbfVM
     {
         public bool selected { get; set; }

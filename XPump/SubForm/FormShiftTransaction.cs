@@ -77,6 +77,9 @@ namespace XPump.SubForm
             this.dgvSalesSummary.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
             this.inline_btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
             this.inline_btnSaleshistory.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+
+            this.inline_btnEdit.SetControlVisibility(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.inline_btnSaleshistory.SetControlVisibility(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -272,6 +275,8 @@ namespace XPump.SubForm
                 closed = false,
             };
 
+            this.dgvSalesSummary.Rows.Clear();
+            this.tabControl1.SelectedTab = this.tabPage1;
             this.form_mode = FORM_MODE.ADD;
             this.ResetControlState();
 
@@ -1503,7 +1508,8 @@ namespace XPump.SubForm
 
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if(this.form_mode == FORM_MODE.EDIT || 
+            if(this.form_mode == FORM_MODE.ADD ||
+                this.form_mode == FORM_MODE.EDIT || 
                 this.form_mode == FORM_MODE.READ_ITEM || 
                 this.form_mode == FORM_MODE.EDIT_ITEM ||
                 this.curr_shiftsales == null || 

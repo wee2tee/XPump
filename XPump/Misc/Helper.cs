@@ -372,6 +372,36 @@ namespace XPump.Misc
             return s;
         }
 
+        public static dayendVM ToViewModel(this dayend dayend)
+        {
+            if (dayend == null)
+                return null;
+
+            dayendVM d = new dayendVM
+            {
+                id = dayend.id,
+                saldat = dayend.saldat,
+                dothertxt = dayend.dothertxt,
+                dother = dayend.dother,
+                stmas_id = dayend.stmas_id,
+                dayend = dayend
+            };
+
+            return d;
+        }
+
+        public static List<dayendVM> ToViewModel(this IEnumerable<dayend> dayend_list)
+        {
+            List<dayendVM> d = new List<dayendVM>();
+
+            foreach (var item in dayend_list)
+            {
+                d.Add(item.ToViewModel());
+            }
+
+            return d;
+        }
+
         public static List<StmasDbf> ToStmasList(this DataTable stmas_dbf)
         {
             List<StmasDbf> stmas = new List<StmasDbf>();

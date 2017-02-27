@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Globalization;
 using XPump.Model;
 using XPump.Misc;
 using CC;
@@ -18,7 +19,8 @@ namespace XPump.SubForm
         {
             get
             {
-                return this.dtDate._SelectedDate.Value;
+                var x = DateTime.Parse(this.dtDate._SelectedDate.Value.ToString("yyyy-MM-dd", CultureInfo.CurrentCulture));
+                return x;
             }
         }
         private DateTime? initial_date;

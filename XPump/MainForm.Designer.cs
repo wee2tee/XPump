@@ -31,7 +31,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripDailyTransaction = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuShiftTransaction = new System.Windows.Forms.ToolStripMenuItem();
-            this.ปดยอดขายรายวนToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDailyClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMonthlyClose = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripStock = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuStmas = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,7 +40,6 @@
             this.อนๆToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.ปดยอดToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,8 +60,8 @@
             // 
             this.ToolStripDailyTransaction.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuShiftTransaction,
-            this.ปดยอดขายรายวนToolStripMenuItem,
-            this.ปดยอดToolStripMenuItem});
+            this.mnuDailyClose,
+            this.mnuMonthlyClose});
             this.ToolStripDailyTransaction.Name = "ToolStripDailyTransaction";
             this.ToolStripDailyTransaction.Size = new System.Drawing.Size(107, 20);
             this.ToolStripDailyTransaction.Text = "รายการประจำวัน";
@@ -69,15 +69,23 @@
             // MnuShiftTransaction
             // 
             this.MnuShiftTransaction.Name = "MnuShiftTransaction";
-            this.MnuShiftTransaction.Size = new System.Drawing.Size(242, 22);
+            this.MnuShiftTransaction.Size = new System.Drawing.Size(206, 22);
             this.MnuShiftTransaction.Text = "บันทึกรายการประจำผลัด";
             this.MnuShiftTransaction.Click += new System.EventHandler(this.MnuShiftTransaction_Click);
             // 
-            // ปดยอดขายรายวนToolStripMenuItem
+            // mnuDailyClose
             // 
-            this.ปดยอดขายรายวนToolStripMenuItem.Name = "ปดยอดขายรายวนToolStripMenuItem";
-            this.ปดยอดขายรายวนToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.ปดยอดขายรายวนToolStripMenuItem.Text = "ปิดยอดขายประจำวัน";
+            this.mnuDailyClose.Name = "mnuDailyClose";
+            this.mnuDailyClose.Size = new System.Drawing.Size(206, 22);
+            this.mnuDailyClose.Text = "ปิดยอดขายประจำวัน";
+            this.mnuDailyClose.Click += new System.EventHandler(this.mnuDailyClose_Click);
+            // 
+            // mnuMonthlyClose
+            // 
+            this.mnuMonthlyClose.Name = "mnuMonthlyClose";
+            this.mnuMonthlyClose.Size = new System.Drawing.Size(206, 22);
+            this.mnuMonthlyClose.Text = "ปิดยอดขายประจำเดือน";
+            this.mnuMonthlyClose.Click += new System.EventHandler(this.mnuMonthlyClose_Click);
             // 
             // ToolStripStock
             // 
@@ -133,12 +141,6 @@
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // ปดยอดToolStripMenuItem
-            // 
-            this.ปดยอดToolStripMenuItem.Name = "ปดยอดToolStripMenuItem";
-            this.ปดยอดToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.ปดยอดToolStripMenuItem.Text = "ปิดยอดขายประจำเดือน";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -174,8 +176,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem อนๆToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuSettings;
-        private System.Windows.Forms.ToolStripMenuItem ปดยอดขายรายวนToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ปดยอดToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuDailyClose;
+        private System.Windows.Forms.ToolStripMenuItem mnuMonthlyClose;
     }
 }
 

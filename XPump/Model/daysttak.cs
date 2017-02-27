@@ -15,7 +15,7 @@ namespace XPump.Model
     public partial class daysttak
     {
         public int id { get; set; }
-        public string qty { get; set; }
+        public decimal qty { get; set; }
         public int dayend_id { get; set; }
         public int section_id { get; set; }
     

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 23, 2017 at 09:37 AM
+-- Generation Time: Feb 24, 2017 at 11:01 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.5.24
 
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `section` (
   `begdif` decimal(14,2) NOT NULL,
   `tank_id` int(11) NOT NULL,
   `stmas_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `section`
@@ -285,10 +285,10 @@ CREATE TABLE IF NOT EXISTS `shiftsttak` (
 --
 
 INSERT INTO `shiftsttak` (`id`, `takdat`, `qty`, `shiftsales_id`, `section_id`) VALUES
-(5, '2017-02-22', '-1.00', 36, 69),
-(6, '2017-02-22', '-1.00', 36, 71),
-(7, '2017-02-22', '-1.00', 36, 70),
-(8, '2017-02-22', '-1.00', 36, 72);
+(5, '2017-02-22', '2500012.00', 36, 69),
+(6, '2017-02-22', '2200.00', 36, 71),
+(7, '2017-02-22', '2100.00', 36, 70),
+(8, '2017-02-22', '10030.00', 36, 72);
 
 -- --------------------------------------------------------
 
@@ -487,7 +487,7 @@ ALTER TABLE `salessummary`
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT for table `settings`
 --

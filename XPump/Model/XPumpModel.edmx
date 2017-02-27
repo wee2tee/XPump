@@ -23,7 +23,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="qty" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="qty" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="dayend_id" Type="int" Nullable="false" />
           <Property Name="section_id" Type="int" Nullable="false" />
         </EntityType>
@@ -503,7 +503,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="qty" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="qty" Type="Decimal" Nullable="false" />
           <Property Name="dayend_id" Type="Int32" Nullable="false" />
           <Property Name="section_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="dayend" Relationship="Self.fk_daysttak_dayend1" FromRole="daysttak" ToRole="dayend" />

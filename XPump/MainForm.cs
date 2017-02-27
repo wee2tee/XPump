@@ -121,6 +121,25 @@ namespace XPump
             DialogSettings setting = new DialogSettings(this);
             setting.ShowDialog();
         }
+
+        private void mnuDailyClose_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormDailyClose)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormDailyClose)).First().form.Activate();
+                return;
+            }
+
+            FormDailyClose daily = new FormDailyClose(this);
+            daily.MdiParent = this;
+            daily.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = daily, docPrefix = string.Empty });
+        }
+
+        private void mnuMonthlyClose_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class ChildFormDetail
