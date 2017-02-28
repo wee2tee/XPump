@@ -661,6 +661,17 @@ namespace XPump.Model
             }
         }
 
+        public string stkdes
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
+                }
+            }
+        }
+
         public decimal endbal
         {
             get
@@ -772,9 +783,62 @@ namespace XPump.Model
                 return dif;
             }
         }
+        public decimal begdif
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    var tmp = db.dayend
+                            .Where(d => d.stmas_id == this.stmas_id)
+                            .Where(d => d.saldat.CompareTo(this.saldat) < 0).ToViewModel();
+
+                    var section_beg_dif = db.section.Where(s => s.stmas_id == this.stmas_id).Sum(s => s.begdif);
+
+                    return tmp.Sum(d => (d.endbal - d.accbal)) + section_beg_dif;
+                }
+            }
+        }
         public int stmas_id { get; set; }
 
         public dayend dayend { get; set; }
+    }
+
+    public class daysttakVM
+    {
+        public int id { get; set; }
+        public string tank_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        return db.section.Include("tank").Where(s => s.id == this.section_id).First().tank.name;
+                    }
+                    catch (Exception)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
+        public string section_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.section.Find(this.section_id) != null ? db.section.Find(this.section_id).name : string.Empty;
+                }
+            }
+        }
+        public decimal qty { get; set; }
+        public int dayend_id { get; set; }
+        public int section_id { get; set; }
+
+        public daysttak daysttak { get; set; }
     }
 
     public class StmasDbfVM

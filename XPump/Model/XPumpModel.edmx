@@ -159,7 +159,7 @@
           <Property Name="remark" Type="varchar" MaxLength="50" />
           <Property Name="isactive" Type="bool" Nullable="false" />
         </EntityType>
-        <Association Name="fk_dayend_stmas1">
+        <Association Name="fk-dayend-stmas_id">
           <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
           <End Role="dayend" Type="Self.dayend" Multiplicity="*" />
           <ReferentialConstraint>
@@ -171,7 +171,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_daysttak_dayend1">
+        <Association Name="fk-daysttak-dayend_id">
           <End Role="dayend" Type="Self.dayend" Multiplicity="1" />
           <End Role="daysttak" Type="Self.daysttak" Multiplicity="*" />
           <ReferentialConstraint>
@@ -183,7 +183,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_daysttak_section1">
+        <Association Name="fk-daysttak-section_id">
           <End Role="section" Type="Self.section" Multiplicity="1" />
           <End Role="daysttak" Type="Self.daysttak" Multiplicity="*" />
           <ReferentialConstraint>
@@ -401,15 +401,15 @@
           <EntitySet Name="shiftsttak" EntityType="Self.shiftsttak" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="stmas" EntityType="Self.stmas" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
-          <AssociationSet Name="fk_dayend_stmas1" Association="Self.fk_dayend_stmas1">
+          <AssociationSet Name="fk-dayend-stmas_id" Association="Self.fk-dayend-stmas_id">
             <End Role="stmas" EntitySet="stmas" />
             <End Role="dayend" EntitySet="dayend" />
           </AssociationSet>
-          <AssociationSet Name="fk_daysttak_dayend1" Association="Self.fk_daysttak_dayend1">
+          <AssociationSet Name="fk-daysttak-dayend_id" Association="Self.fk-daysttak-dayend_id">
             <End Role="dayend" EntitySet="dayend" />
             <End Role="daysttak" EntitySet="daysttak" />
           </AssociationSet>
-          <AssociationSet Name="fk_daysttak_section1" Association="Self.fk_daysttak_section1">
+          <AssociationSet Name="fk-daysttak-section_id" Association="Self.fk-daysttak-section_id">
             <End Role="section" EntitySet="section" />
             <End Role="daysttak" EntitySet="daysttak" />
           </AssociationSet>
@@ -495,8 +495,8 @@
           <Property Name="dother" Type="Decimal" Nullable="false" />
           <Property Name="difqty" Type="Decimal" Nullable="false" />
           <Property Name="stmas_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="stmas" Relationship="Self.fk_dayend_stmas1" FromRole="dayend" ToRole="stmas" />
-          <NavigationProperty Name="daysttak" Relationship="Self.fk_daysttak_dayend1" FromRole="dayend" ToRole="daysttak" />
+          <NavigationProperty Name="stmas" Relationship="Self.fk_dayend_stmas_id" FromRole="dayend" ToRole="stmas" />
+          <NavigationProperty Name="daysttak" Relationship="Self.fk_daysttak_dayend_id" FromRole="dayend" ToRole="daysttak" />
         </EntityType>
         <EntityType Name="daysttak">
           <Key>
@@ -506,8 +506,8 @@
           <Property Name="qty" Type="Decimal" Nullable="false" />
           <Property Name="dayend_id" Type="Int32" Nullable="false" />
           <Property Name="section_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="dayend" Relationship="Self.fk_daysttak_dayend1" FromRole="daysttak" ToRole="dayend" />
-          <NavigationProperty Name="section" Relationship="Self.fk_daysttak_section1" FromRole="daysttak" ToRole="section" />
+          <NavigationProperty Name="dayend" Relationship="Self.fk_daysttak_dayend_id" FromRole="daysttak" ToRole="dayend" />
+          <NavigationProperty Name="section" Relationship="Self.fk_daysttak_section_id" FromRole="daysttak" ToRole="section" />
         </EntityType>
         <EntityType Name="nozzle">
           <Key>
@@ -588,7 +588,7 @@
           <Property Name="begdif" Type="Decimal" Nullable="false" />
           <Property Name="tank_id" Type="Int32" Nullable="false" />
           <Property Name="stmas_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="daysttak" Relationship="Self.fk_daysttak_section1" FromRole="section" ToRole="daysttak" />
+          <NavigationProperty Name="daysttak" Relationship="Self.fk_daysttak_section_id" FromRole="section" ToRole="daysttak" />
           <NavigationProperty Name="nozzle" Relationship="Self.fk_nozzle_section_id" FromRole="section" ToRole="nozzle" />
           <NavigationProperty Name="stmas" Relationship="Self.fk_section_stmas_id" FromRole="section" ToRole="stmas" />
           <NavigationProperty Name="tank" Relationship="Self.fk_section_tank_id" FromRole="section" ToRole="tank" />
@@ -656,7 +656,7 @@
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="dayend" Relationship="Self.fk_dayend_stmas1" FromRole="stmas" ToRole="dayend" />
+          <NavigationProperty Name="dayend" Relationship="Self.fk_dayend_stmas_id" FromRole="stmas" ToRole="dayend" />
           <NavigationProperty Name="pricelist" Relationship="Self.fk_pricelist_stmas_id" FromRole="stmas" ToRole="pricelist" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_stmas_id" FromRole="stmas" ToRole="saleshistory" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_stmas_id" FromRole="stmas" ToRole="salessummary" />
@@ -675,7 +675,7 @@
           <Property Name="isactive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="section" Relationship="Self.fk_section_tank_id" FromRole="tank" ToRole="section" />
         </EntityType>
-        <Association Name="fk_dayend_stmas1">
+        <Association Name="fk_dayend_stmas_id">
           <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
           <End Role="dayend" Type="Self.dayend" Multiplicity="*" />
           <ReferentialConstraint>
@@ -687,7 +687,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_daysttak_dayend1">
+        <Association Name="fk_daysttak_dayend_id">
           <End Role="dayend" Type="Self.dayend" Multiplicity="1" />
           <End Role="daysttak" Type="Self.daysttak" Multiplicity="*" />
           <ReferentialConstraint>
@@ -699,7 +699,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_daysttak_section1">
+        <Association Name="fk_daysttak_section_id">
           <End Role="section" Type="Self.section" Multiplicity="1" />
           <End Role="daysttak" Type="Self.daysttak" Multiplicity="*" />
           <ReferentialConstraint>
@@ -917,15 +917,15 @@
           <EntitySet Name="shiftsttak" EntityType="Self.shiftsttak" />
           <EntitySet Name="stmas" EntityType="Self.stmas" />
           <EntitySet Name="tank" EntityType="Self.tank" />
-          <AssociationSet Name="fk_dayend_stmas1" Association="Self.fk_dayend_stmas1">
+          <AssociationSet Name="fk_dayend_stmas_id" Association="Self.fk_dayend_stmas_id">
             <End Role="stmas" EntitySet="stmas" />
             <End Role="dayend" EntitySet="dayend" />
           </AssociationSet>
-          <AssociationSet Name="fk_daysttak_dayend1" Association="Self.fk_daysttak_dayend1">
+          <AssociationSet Name="fk_daysttak_dayend_id" Association="Self.fk_daysttak_dayend_id">
             <End Role="dayend" EntitySet="dayend" />
             <End Role="daysttak" EntitySet="daysttak" />
           </AssociationSet>
-          <AssociationSet Name="fk_daysttak_section1" Association="Self.fk_daysttak_section1">
+          <AssociationSet Name="fk_daysttak_section_id" Association="Self.fk_daysttak_section_id">
             <End Role="section" EntitySet="section" />
             <End Role="daysttak" EntitySet="daysttak" />
           </AssociationSet>

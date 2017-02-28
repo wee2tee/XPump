@@ -230,7 +230,7 @@ namespace XPump.SubForm
             this.bs_sales.DataSource = this.sales_list;
 
             this.bs_sttak.ResetBindings(true);
-            this.bs_sttak.DataSource = sales.shiftsttak.ToViewModel().OrderBy(s => s.tank_name).ThenBy(s => s.section_name);
+            this.bs_sttak.DataSource = sales.shiftsttak.ToViewModel().OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ToList();
             this.tabPage2.ImageIndex = sales.shiftsttak.Where(s => s.qty == -1).Count() > 0 ? 0 : -1;
 
             /*Form control state beyond data*/
@@ -259,7 +259,7 @@ namespace XPump.SubForm
             bool validated_result = this.curr_shiftsales.IsClosedShiftSales();
             if (validated_result == true)
             {
-                MessageBox.Show("วันที่ " + this.curr_shiftsales.saldat.ToString("dd / MM / yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
             return validated_result;
@@ -270,7 +270,7 @@ namespace XPump.SubForm
             this.tmp_shiftsales = new shiftsales
             {
                 id = -1,
-                saldat = DateTime.Now,
+                saldat = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.CurrentCulture), CultureInfo.CurrentCulture),
                 shift_id = -1,
                 closed = false,
             };
@@ -367,9 +367,152 @@ namespace XPump.SubForm
             this.tmp_shiftsales = null;
         }
 
+        //private void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
+        //    {
+        //        if (this.SaveSttak())
+        //        {
+        //            this.RemoveSttakInlineForm();
+        //            this.form_mode = FORM_MODE.READ_ITEM;
+        //            this.ResetControlState();
+        //        }
+        //        else
+        //        {
+        //            this.dgvSttak.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_sttak_stkcod.Name].Selected = true;
+        //        }
+        //        return;
+        //    }
+
+        //    if(this.tmp_shiftsales.shift_id == -1)
+        //    {
+        //        this.brShift.Focus();
+        //        SendKeys.Send("{F6}");
+        //        return;
+        //    }
+
+        //    if(this.form_mode == FORM_MODE.ADD)
+        //    {
+        //        DialogPrice price = new DialogPrice(this.main_form);
+        //        if (price.ShowDialog() != DialogResult.OK)
+        //            return;
+
+        //        using (xpumpEntities db = DBX.DataSet())
+        //        {
+        //            try
+        //            {
+        //                if(db.dayend.Where(d => d.saldat == this.tmp_shiftsales.saldat).FirstOrDefault() != null)
+        //                {
+        //                    MessageBox.Show("วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถเพิ่มรายการของวันที่นี้ได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //                    return;
+        //                }
+
+        //                db.shiftsales.Add(this.tmp_shiftsales);
+        //                foreach (stmas s in db.stmas.ToList())
+        //                {
+        //                    // add salessummary
+        //                    var x = new salessummary
+        //                    {
+        //                        saldat = this.tmp_shiftsales.saldat,
+        //                        dtest = 0m,
+        //                        dother = 0m,
+        //                        dothertxt = string.Empty,
+        //                        ddisc = 0m,
+        //                        purvat = 0m,
+        //                        shift_id = this.tmp_shiftsales.shift_id,
+        //                        stmas_id = s.id,
+        //                        pricelist_id = price.price_list.Where(p => p.stmas_id == s.id).FirstOrDefault() != null ? price.price_list.Where(p => p.stmas_id == s.id).First().id : -1,
+        //                        shiftsales_id = this.tmp_shiftsales.id
+        //                    };
+        //                    db.salessummary.Add(x);
+
+        //                    // add sttak
+        //                    var sections = db.section.Include("tank")
+        //                                    .Where(sect => sect.tank.isactive)
+        //                                    .Where(sect => sect.tank.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
+        //                                    .Where(sect => !sect.tank.enddate.HasValue || sect.tank.enddate.Value.CompareTo(this.tmp_shiftsales.saldat) >= 0)
+        //                                    .Where(sect => sect.stmas_id == s.id).ToList();
+        //                    foreach (var item in sections)
+        //                    {
+        //                        db.shiftsttak.Add(new shiftsttak
+        //                        {
+        //                            takdat = this.tmp_shiftsales.saldat,
+        //                            qty = -1,
+        //                            section_id = item.id,
+        //                            shiftsales_id = this.tmp_shiftsales.id
+        //                        });
+        //                    }
+        //                }
+
+        //                db.SaveChanges();
+        //                this.curr_shiftsales = this.GetShiftSales(this.tmp_shiftsales.id);
+        //                this.FillForm();
+        //                this.form_mode = FORM_MODE.READ;
+        //                this.ResetControlState();
+        //                //this.dgv_SelectionChanged(this.dgv, new EventArgs());
+        //                this.dgvSalesSummary.Focus();
+        //                this.tmp_shiftsales = null;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.Message);
+        //            }
+        //        }
+
+        //        return;
+        //    }
+
+        //    if(this.form_mode == FORM_MODE.EDIT)
+        //    {
+        //        using (xpumpEntities db = DBX.DataSet())
+        //        {
+        //            try
+        //            {
+        //                shiftsales shiftsales_to_update = db.shiftsales.Find(this.tmp_shiftsales.id);
+        //                if(shiftsales_to_update == null)
+        //                {
+        //                    MessageBox.Show("ค้นหารายการเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //                    return;
+        //                }
+
+        //                shiftsales_to_update.saldat = this.tmp_shiftsales.saldat;
+        //                shiftsales_to_update.shift_id = this.tmp_shiftsales.shift_id;
+
+        //                foreach (var item in db.salessummary.Where(s => s.shiftsales_id == shiftsales_to_update.id).ToList())
+        //                {
+        //                    item.saldat = this.tmp_shiftsales.saldat;
+        //                    item.shift_id = this.tmp_shiftsales.shift_id;
+
+        //                    foreach (var sh in db.saleshistory.Where(s => s.salessummary_id == item.id).ToList())
+        //                    {
+        //                        sh.saldat = this.tmp_shiftsales.saldat;
+        //                        sh.shift_id = this.tmp_shiftsales.shift_id;
+        //                    }
+        //                }
+
+        //                foreach (var item in db.shiftsttak.Where(s => s.shiftsales_id == shiftsales_to_update.id).ToList())
+        //                {
+        //                    item.takdat = this.tmp_shiftsales.saldat;
+        //                }
+
+        //                db.SaveChanges();
+
+        //                this.form_mode = FORM_MODE.READ;
+        //                this.ResetControlState();
+        //                this.tmp_shiftsales = null;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show(ex.Message);
+        //            }
+        //        }
+        //        return;
+        //    }
+        //}
+
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
+            if (this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
             {
                 if (this.SaveSttak())
                 {
@@ -384,31 +527,45 @@ namespace XPump.SubForm
                 return;
             }
 
-            if(this.tmp_shiftsales.shift_id == -1)
+            if (this.tmp_shiftsales.shift_id == -1)
             {
                 this.brShift.Focus();
                 SendKeys.Send("{F6}");
                 return;
             }
 
-            if(this.form_mode == FORM_MODE.ADD)
+            if (this.form_mode == FORM_MODE.ADD)
             {
-                DialogPrice price = new DialogPrice(this.main_form);
-                if (price.ShowDialog() != DialogResult.OK)
-                    return;
-
                 using (xpumpEntities db = DBX.DataSet())
                 {
+                    if(db.shiftsales.Where(s => s.saldat == this.tmp_shiftsales.saldat && s.shift_id == this.tmp_shiftsales.shift_id).Count() > 0)
+                    {
+                        MessageBox.Show("รายการวันที่ \"" + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" ของผลัด \"" + db.shift.Find(this.tmp_shiftsales.shift_id).name + "\" มีอยู่แล้ว, ไม่สามารถบันทึกซ้ำได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
+                    var stmas_ids = db.section.Include("tank")
+                                    .Where(s => s.tank.isactive)
+                                    .Where(s => s.tank.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
+                                    .Where(s => !s.tank.enddate.HasValue || s.tank.enddate.Value.CompareTo(this.tmp_shiftsales.saldat) >= 0)
+                                    .GroupBy(s => s.stmas_id)
+                                    .Select(s => s.Key).ToArray();
+
+                    DialogPrice price = new DialogPrice(this.main_form, stmas_ids);
+                    if (price.ShowDialog() != DialogResult.OK)
+                        return;
+
                     try
                     {
-                        if(db.dayend.Where(d => d.saldat == this.tmp_shiftsales.saldat).FirstOrDefault() != null)
+                        if (db.dayend.Where(d => d.saldat == this.tmp_shiftsales.saldat).FirstOrDefault() != null)
                         {
                             MessageBox.Show("วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถเพิ่มรายการของวันที่นี้ได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
                         db.shiftsales.Add(this.tmp_shiftsales);
-                        foreach (stmas s in db.stmas.ToList())
+
+                        foreach (int stmas_id in stmas_ids)
                         {
                             // add salessummary
                             var x = new salessummary
@@ -420,8 +577,8 @@ namespace XPump.SubForm
                                 ddisc = 0m,
                                 purvat = 0m,
                                 shift_id = this.tmp_shiftsales.shift_id,
-                                stmas_id = s.id,
-                                pricelist_id = price.price_list.Where(p => p.stmas_id == s.id).FirstOrDefault() != null ? price.price_list.Where(p => p.stmas_id == s.id).First().id : -1,
+                                stmas_id = stmas_id,
+                                pricelist_id = price.price_list.Where(p => p.stmas_id == stmas_id).FirstOrDefault() != null ? price.price_list.Where(p => p.stmas_id == stmas_id).First().id : -1,
                                 shiftsales_id = this.tmp_shiftsales.id
                             };
                             db.salessummary.Add(x);
@@ -431,7 +588,7 @@ namespace XPump.SubForm
                                             .Where(sect => sect.tank.isactive)
                                             .Where(sect => sect.tank.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
                                             .Where(sect => !sect.tank.enddate.HasValue || sect.tank.enddate.Value.CompareTo(this.tmp_shiftsales.saldat) >= 0)
-                                            .Where(sect => sect.stmas_id == s.id).ToList();
+                                            .Where(sect => sect.stmas_id == stmas_id).ToList();
                             foreach (var item in sections)
                             {
                                 db.shiftsttak.Add(new shiftsttak
@@ -456,20 +613,21 @@ namespace XPump.SubForm
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
+                        //ex.ShowMessage("วันที่ \"" + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\"", "");
                     }
                 }
 
                 return;
             }
 
-            if(this.form_mode == FORM_MODE.EDIT)
+            if (this.form_mode == FORM_MODE.EDIT)
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
                     try
                     {
                         shiftsales shiftsales_to_update = db.shiftsales.Find(this.tmp_shiftsales.id);
-                        if(shiftsales_to_update == null)
+                        if (shiftsales_to_update == null)
                         {
                             MessageBox.Show("ค้นหารายการเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
@@ -1524,6 +1682,11 @@ namespace XPump.SubForm
             if (((XDatagrid)sender).CurrentCell == null)
                 return;
 
+            if (this.ValidateClosedShiftSales())
+            {
+                return;
+            }
+
             this.form_mode = FORM_MODE.EDIT_ITEM;
             this.ResetControlState();
 
@@ -1729,6 +1892,24 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgvSttak_Resize(object sender, EventArgs e)
+        {
+            if (this.inline_qty.Visible)
+            {
+                int col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sttak_qty.DataPropertyName).First().Index;
+                this.inline_qty.SetInlineControlPosition(((XDatagrid)sender), ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
+            }
+        }
+
+        private void dgvSttak_Scroll(object sender, ScrollEventArgs e)
+        {
+            if (this.inline_qty.Visible)
+            {
+                int col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sttak_qty.DataPropertyName).First().Index;
+                this.inline_qty.SetInlineControlPosition(((XDatagrid)sender), ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
+            }
         }
     }
 }

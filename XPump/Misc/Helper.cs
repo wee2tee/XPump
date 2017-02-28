@@ -402,6 +402,35 @@ namespace XPump.Misc
             return d;
         }
 
+        public static daysttakVM ToViewModel(this daysttak sttak)
+        {
+            if (sttak == null)
+                return null;
+
+            daysttakVM s = new daysttakVM
+            {
+                id = sttak.id,
+                dayend_id = sttak.dayend_id,
+                section_id = sttak.section_id,
+                qty = sttak.qty,
+                daysttak = sttak
+            };
+
+            return s;
+        }
+
+        public static List<daysttakVM> ToViewModel(this IEnumerable<daysttak> sttak_list)
+        {
+            List<daysttakVM> s = new List<daysttakVM>();
+
+            foreach (var item in sttak_list)
+            {
+                s.Add(item.ToViewModel());
+            }
+
+            return s;
+        }
+
         public static List<StmasDbf> ToStmasList(this DataTable stmas_dbf)
         {
             List<StmasDbf> stmas = new List<StmasDbf>();
@@ -1399,5 +1428,23 @@ namespace XPump.Misc
             return new Rectangle(x, y, str.Width(fnt), str.Height(fnt));
         }
 
+        public static int CompareDateTo(this DateTime date_instance, DateTime date_to_compare)
+        {
+            var d1 = Convert.ToInt32(date_instance.ToString("yyyyMMdd", CultureInfo.CurrentCulture));
+            var d2 = Convert.ToInt32(date_to_compare.ToString("yyyyMMdd", CultureInfo.CurrentCulture));
+
+            if (d1 > d2)
+            {
+                return 1;
+            }
+            else if (d1 < d2)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

@@ -157,6 +157,12 @@
     <Compile Include="SubForm\DialogDateSelector.Designer.cs">
       <DependentUpon>DialogDateSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogDayendEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDayendEdit.Designer.cs">
+      <DependentUpon>DialogDayendEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogEditPrice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -328,6 +334,9 @@
     </Compile>
     <EmbeddedResource Include="SubForm\DialogDateSelector.resx">
       <DependentUpon>DialogDateSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDayendEdit.resx">
+      <DependentUpon>DialogDayendEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogEditPrice.resx">
       <DependentUpon>DialogEditPrice.cs</DependentUpon>

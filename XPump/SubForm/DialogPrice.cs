@@ -19,12 +19,14 @@ namespace XPump.SubForm
         private List<stmasPriceVM> stmas_list;
         private BindingSource bs;
         private FORM_MODE form_mode;
+        private int[] stmas_ids;
         public List<pricelist> price_list = new List<pricelist>();
 
-        public DialogPrice(MainForm main_form)
+        public DialogPrice(MainForm main_form, int[] stmas_ids)
         {
             InitializeComponent();
             this.main_form = main_form;
+            this.stmas_ids = stmas_ids;
         }
 
         private void DialogPrice_Load(object sender, EventArgs e)
@@ -62,7 +64,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.stmas.OrderBy(s => s.name).ToList().ToViewModel().ToPriceViewModel();
+                return db.stmas.Where(s => this.stmas_ids.Contains(s.id)).OrderBy(s => s.name).ToList().ToViewModel().ToPriceViewModel();
             }
         }
 
@@ -235,9 +237,13 @@ namespace XPump.SubForm
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Enter && this.form_mode == FORM_MODE.EDIT_ITEM)
+            if (keyData == Keys.Enter)
             {
-                SendKeys.Send("{TAB}");
+                if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    SendKeys.Send("{TAB}");
+                }
+
                 return true;
             }
 
@@ -283,7 +289,7 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if (keyData == Keys.Escape)
+            if (keyData == Keys.Escape && this.form_mode == FORM_MODE.EDIT_ITEM)
             {
                 this.btnCancel.PerformClick();
                 return true;

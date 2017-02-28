@@ -18,8 +18,9 @@ namespace XPump.SubForm
         private MainForm main_form;
         private FORM_MODE form_mode;
         private BindingSource bs;
-        private List<dayend> dayend;
+        private List<dayend> dayend_list;
         private DateTime? curr_date;
+        private dayend curr_dayend;
 
         public FormDailyClose(MainForm main_form)
         {
@@ -64,7 +65,16 @@ namespace XPump.SubForm
             this.lblDate.Text = this.curr_date.HasValue ? this.curr_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) : string.Empty;
 
             this.bs.ResetBindings(true);
-            this.bs.DataSource = this.dayend.ToViewModel();
+            this.bs.DataSource = this.dayend_list.ToViewModel();
+        }
+
+        private void ShowDayendEditDialog(dayend dayend)
+        {
+            DialogDayendEdit dlg = new DialogDayendEdit(this.main_form, this.curr_dayend);
+            if(dlg.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("edited");
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -74,14 +84,24 @@ namespace XPump.SubForm
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
+                    if(db.dayend.Where(d => d.saldat == dlg.selected_date).Count() > 0)
+                    {
+                        MessageBox.Show("วันที่ \"" + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" ปิดยอดขายไปแล้ว, ไม่สามารถปิดซ้ำได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
                     try
                     {
-                        foreach (stmas st in db.stmas.ToList())
+                        var stmas_ids = db.salessummary.Where(s => s.saldat == dlg.selected_date)
+                                        .GroupBy(s => s.stmas_id)
+                                        .Select(s => s.Key).ToArray();
+
+                        foreach (int stmas_id in stmas_ids)
                         {
                             dayendVM d = new dayend()
                             {
                                 id = -1,
-                                stmas_id = st.id,
+                                stmas_id = stmas_id,
                                 dothertxt = string.Empty,
                                 saldat = dlg.selected_date,
 
@@ -89,30 +109,32 @@ namespace XPump.SubForm
                             db.dayend.Add(d.dayend);
                             db.SaveChanges();
 
-                            var sections = db.section.Include("tank").Where(s => s.stmas_id == st.id)
-                                            .Where(s => s.tank.isactive)
-                                            .Where(s => s.tank.startdate.CompareTo(dlg.selected_date) <= 0)
-                                            .Where(s => !s.tank.enddate.HasValue || s.tank.enddate.Value.CompareTo(dlg.selected_date) >= 0).ToList();
+                            var sections = db.section.Where(s => s.stmas_id == stmas_id).ToList();
 
                             foreach (var sect in sections)
                             {
-                                var shiftsales = db.shiftsales.Include("shiftsttak").Where(s => s.saldat == dlg.selected_date)
-                                                .OrderByDescending(s => s.cretime).FirstOrDefault();
+                                //var shiftsales = db.shiftsales.Include("shiftsttak").Where(s => s.saldat == dlg.selected_date)
+                                //                .OrderByDescending(s => s.cretime).FirstOrDefault();
 
-                                decimal qty;
-                                if(shiftsales != null)
-                                {
-                                    qty = shiftsales.shiftsttak.Where(s => s.section_id == sect.id).FirstOrDefault() != null ? shiftsales.shiftsttak.Where(s => s.section_id == sect.id).First().qty : -1;
-                                }
-                                else
-                                {
-                                    qty = -1;
-                                }
+                                //decimal qty;
+                                //if(shiftsales != null)
+                                //{
+                                //    qty = shiftsales.shiftsttak.Where(s => s.section_id == sect.id).FirstOrDefault() != null ? shiftsales.shiftsttak.Where(s => s.section_id == sect.id).First().qty : -1;
+                                //}
+                                //else
+                                //{
+                                //    qty = -1;
+                                //}
+                                
+                                shiftsttak sttak = db.shiftsttak.Where(s => s.takdat == dlg.selected_date)
+                                            .Where(s => s.section_id == sect.id)
+                                            .Where(s => s.qty > -1).FirstOrDefault();
+
 
                                 db.daysttak.Add(new daysttak
                                 {
                                     dayend_id = d.dayend.id,
-                                    qty = qty,
+                                    qty = sttak != null ? sttak.qty : -1,
                                     section_id = sect.id
                                 });
                                 db.SaveChanges();
@@ -150,12 +172,12 @@ namespace XPump.SubForm
                 if (tmp != null)
                 {
                     this.curr_date = tmp.saldat;
-                    this.dayend = this.GetDayEnd(tmp.saldat);
+                    this.dayend_list = this.GetDayEnd(tmp.saldat);
                 }
                 else
                 {
                     this.curr_date = null;
-                    this.dayend = new List<dayend>();
+                    this.dayend_list = new List<dayend>();
                 }
 
                 this.FillForm();
@@ -173,12 +195,12 @@ namespace XPump.SubForm
                     if(tmp != null)
                     {
                         this.curr_date = tmp.saldat;
-                        this.dayend = this.GetDayEnd(tmp.saldat);
+                        this.dayend_list = this.GetDayEnd(tmp.saldat);
                     }
                     else
                     {
                         this.curr_date = null;
-                        this.dayend = new List<dayend>();
+                        this.dayend_list = new List<dayend>();
                     }
 
                     this.FillForm();
@@ -201,12 +223,12 @@ namespace XPump.SubForm
                     if (tmp != null)
                     {
                         this.curr_date = tmp.saldat;
-                        this.dayend = this.GetDayEnd(tmp.saldat);
+                        this.dayend_list = this.GetDayEnd(tmp.saldat);
                     }
                     else
                     {
                         this.curr_date = null;
-                        this.dayend = new List<dayend>();
+                        this.dayend_list = new List<dayend>();
                     }
 
                     this.FillForm();
@@ -227,12 +249,12 @@ namespace XPump.SubForm
                 if (tmp != null)
                 {
                     this.curr_date = tmp.saldat;
-                    this.dayend = this.GetDayEnd(tmp.saldat);
+                    this.dayend_list = this.GetDayEnd(tmp.saldat);
                 }
                 else
                 {
                     this.curr_date = null;
-                    this.dayend = new List<dayend>();
+                    this.dayend_list = new List<dayend>();
                 }
 
                 this.FillForm();
@@ -254,7 +276,12 @@ namespace XPump.SubForm
 
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
+        private void btnPrintB_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPrintC_Click(object sender, EventArgs e)
         {
 
         }
@@ -263,8 +290,59 @@ namespace XPump.SubForm
         {
             if (this.curr_date.HasValue)
             {
-                this.dayend = this.GetDayEnd(this.curr_date.Value);
+                this.dayend_list = this.GetDayEnd(this.curr_date.Value);
                 this.FillForm();
+            }
+        }
+
+        private void dgv_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            dayend tmp = (dayend)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_dayend.Name].Value;
+
+            if (this.curr_dayend == null)
+            {
+                this.curr_dayend = tmp;
+            }
+            else
+            {
+                if(this.curr_dayend.id != tmp.id)
+                {
+                    this.curr_dayend = tmp;
+                }
+            }
+        }
+
+        private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex > -1)
+            {
+                this.ShowDayendEditDialog(this.curr_dayend);
+            }
+        }
+
+        private void dgv_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+
+                if (row_index == -1)
+                    return;
+
+                ((XDatagrid)sender).Rows[row_index].Cells[this.col_stkcod.Name].Selected = true;
+
+                ContextMenu cm = new ContextMenu();
+                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
+                mnu_edit.Click += delegate
+                {
+                    this.ShowDayendEditDialog(this.curr_dayend);
+                };
+                cm.MenuItems.Add(mnu_edit);
+
+                cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
             }
         }
     }

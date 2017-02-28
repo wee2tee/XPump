@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="586dfa428bfc4bb3bc8c3e2a7cbd7cde" Name="Diagram1">
+      <Diagram DiagramId="4cc1bd07c3d245fbbd26bc2f733cf77b" Name="Diagram1">
         <EntityTypeShape EntityType="xpumpModel.dayend" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.daysttak" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.nozzle" Width="1.5" PointX="10.25" PointY="6.625" IsExpanded="true" />
@@ -18,9 +18,9 @@
         <EntityTypeShape EntityType="xpumpModel.shiftsttak" Width="1.5" PointX="13.25" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.stmas" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.tank" Width="1.5" PointX="5.75" PointY="5.625" IsExpanded="true" />
-        <AssociationConnector Association="xpumpModel.fk_dayend_stmas1" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_daysttak_dayend1" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_daysttak_section1" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk_dayend_stmas_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk_daysttak_dayend_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk_daysttak_section_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_nozzle_section_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_saleshistory_nozzle_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_pricelist_stmas_id" ManuallyRouted="false" />
