@@ -48,7 +48,23 @@ namespace XPump.SubForm
                 }
 
                 this.FillForm();
+                this.ActiveControl = this.dgv;
             }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (this.form_mode != FORM_MODE.READ && this.form_mode != FORM_MODE.READ_ITEM)
+            {
+                if (MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
+            this.DialogResult = DialogResult.OK;
+            base.OnFormClosing(e);
         }
 
         private dayend GetDayEndData(dayend dayend)
@@ -64,6 +80,11 @@ namespace XPump.SubForm
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.curr_dayend.daysttak.ToViewModel();
 
+            this.RefreshSummary();
+        }
+
+        private void RefreshSummary()
+        {
             dayendVM vm = this.curr_dayend.ToViewModel();
 
             this.lblSaldat.Text = vm.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
@@ -73,6 +94,8 @@ namespace XPump.SubForm
             this.lblBegbal.Text = string.Format("{0:#,#0.00}", vm.begbal);
             this.lblRcvqty.Text = string.Format("{0:#,#0.00}", vm.rcvqty);
             this.lblSalqty.Text = string.Format("{0:#,#0.00}", vm.salqty);
+            this.txtDothertxt._Text = vm.dothertxt;
+            this.numDother._Value = vm.dother;
             this.lblAccbal.Text = string.Format("{0:#,#0.00}", vm.accbal);
             this.lblDifqty.Text = string.Format("{0:#,#0.00}", vm.difqty);
             this.lblBegdif.Text = string.Format("{0:#,#0.00}", vm.begdif);
@@ -84,6 +107,8 @@ namespace XPump.SubForm
             this.inline_qty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.txtDothertxt.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.numDother.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
+            this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
         }
 
         private void ShowInlineForm(int row_index)
@@ -103,6 +128,7 @@ namespace XPump.SubForm
         private void RemoveInlineForm()
         {
             this.inline_qty.Visible = false;
+            this.tmp_sttak = null;
         }
 
         private void PerformEdit(object sender, EventArgs e)
@@ -177,6 +203,7 @@ namespace XPump.SubForm
                     db.SaveChanges();
                     this.curr_dayend.daysttak.Where(d => d.id == this.tmp_sttak.id).First().qty = this.tmp_sttak.qty;
                     this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_qty.Name].Value = this.tmp_sttak.qty;
+                    this.RefreshSummary();
                     return true;
                 }
                 catch (Exception ex)
@@ -198,17 +225,97 @@ namespace XPump.SubForm
             }
         }
 
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            if (this.form_mode == FORM_MODE.EDIT)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        dayend dayend_to_update = db.dayend.Find(this.curr_dayend.id);
+                        if (dayend_to_update == null)
+                        {
+                            MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
+                        dayend_to_update.dothertxt = this.curr_dayend.dothertxt;
+                        dayend_to_update.dother = this.curr_dayend.dother;
+                        dayend_to_update.rcvqty = this.curr_dayend.rcvqty;
+                        dayend_to_update.salqty = this.curr_dayend.salqty;
+                        dayend_to_update.difqty = this.curr_dayend.difqty;
+
+                        db.SaveChanges();
+                        this.form_mode = FORM_MODE.READ;
+                        this.ResetControlState();
+                        this.RefreshSummary();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.numDother.Focus();
+                    }
+                }
+
+                return;
+            }
+            
+            if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
+            {
+                if (this.SaveSttak(this.tmp_sttak))
+                {
+                    this.RemoveInlineForm();
+                    this.form_mode = FORM_MODE.READ;
+                    this.ResetControlState();
+                }
+                else
+                {
+                    this.inline_qty.Focus();
+                }
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.RemoveInlineForm();
+            this.form_mode = FORM_MODE.READ;
+            this.ResetControlState();
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if(keyData == Keys.Enter)
+            if(keyData == (Keys.Alt | Keys.E))
+            {
+                if (this.form_mode != FORM_MODE.READ)
+                    return true;
+
+                if (this.dgv.CurrentCell == null)
+                {
+                    this.form_mode = FORM_MODE.EDIT;
+                    this.ResetControlState();
+                    this.txtDothertxt.Focus();
+                    return true;
+                }
+
+                if(this.dgv.CurrentCell != null)
+                {
+                    this.form_mode = FORM_MODE.EDIT_ITEM;
+                    this.ResetControlState();
+                    this.ShowInlineForm(this.dgv.CurrentCell.RowIndex);
+                    return true;
+                }
+            }
+
+            if (keyData == Keys.Enter)
             {
                 if (this.form_mode == FORM_MODE.EDIT_ITEM && this.inline_qty._Focused)
                 {
-                    if(this.dgv.CurrentCell.RowIndex < this.dgv.Rows.Count - 1)
+                    if (this.dgv.CurrentCell.RowIndex < this.dgv.Rows.Count - 1)
                     {
                         this.dgv.Rows[this.dgv.CurrentCell.RowIndex + 1].Cells[this.col_section_name.Name].Selected = true;
                     }
-                    else if(this.dgv.CurrentCell.RowIndex == this.dgv.Rows.Count - 1)
+                    else if (this.dgv.CurrentCell.RowIndex == this.dgv.Rows.Count - 1)
                     {
                         this.SaveSttak(this.tmp_sttak);
                         this.RemoveInlineForm();
@@ -219,7 +326,7 @@ namespace XPump.SubForm
                     return true;
                 }
 
-                if(this.form_mode == FORM_MODE.EDIT)
+                if (this.form_mode == FORM_MODE.EDIT)
                 {
                     if (this.numDother._Focused)
                     {
@@ -232,12 +339,23 @@ namespace XPump.SubForm
                 }
             }
 
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
+            if(keyData == Keys.Escape)
+            {
+                if(this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    this.btnCancel.PerformClick();
+                    return true;
+                }
 
-        private void btnOK_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("saved");
+                if(this.form_mode == FORM_MODE.READ)
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                    return true;
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.rdFile = new System.Windows.Forms.RadioButton();
             this.rdPrinter = new System.Windows.Forms.RadioButton();
             this.rdScreen = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dtDate = new CC.XDatePicker();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.dtDate = new CC.XDatePicker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -55,28 +55,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "แสดงผลทาง";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.dtDate);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 13);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Size = new System.Drawing.Size(212, 79);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "กำหนดขอบเขตรายงาน";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "วันที่";
-            // 
             // rdFile
             // 
             this.rdFile.AutoSize = true;
@@ -87,6 +65,7 @@
             this.rdFile.TabIndex = 1;
             this.rdFile.Text = "แฟ้มข้อมูล";
             this.rdFile.UseVisualStyleBackColor = true;
+            this.rdFile.CheckedChanged += new System.EventHandler(this.rdFile_CheckedChanged);
             // 
             // rdPrinter
             // 
@@ -97,6 +76,7 @@
             this.rdPrinter.TabIndex = 2;
             this.rdPrinter.Text = "เครื่องพิมพ์";
             this.rdPrinter.UseVisualStyleBackColor = true;
+            this.rdPrinter.CheckedChanged += new System.EventHandler(this.rdPrinter_CheckedChanged);
             // 
             // rdScreen
             // 
@@ -107,11 +87,50 @@
             this.rdScreen.TabIndex = 3;
             this.rdScreen.Text = "จอภาพ";
             this.rdScreen.UseVisualStyleBackColor = true;
+            this.rdScreen.CheckedChanged += new System.EventHandler(this.rdScreen_CheckedChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dtDate);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Location = new System.Drawing.Point(12, 13);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox2.Size = new System.Drawing.Size(212, 74);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "กำหนดขอบเขตรายงาน";
+            // 
+            // dtDate
+            // 
+            this.dtDate._ReadOnly = false;
+            this.dtDate._SelectedDate = null;
+            this.dtDate.BackColor = System.Drawing.Color.White;
+            this.dtDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtDate.Location = new System.Drawing.Point(72, 29);
+            this.dtDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtDate.Name = "dtDate";
+            this.dtDate.Size = new System.Drawing.Size(103, 23);
+            this.dtDate.TabIndex = 1;
+            this.dtDate._SelectedDateChanged += new System.EventHandler(this.dtDate__SelectedDateChanged);
+            this.dtDate._Leave += new System.EventHandler(this.dtDate__Leave);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(31, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(31, 16);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "วันที่";
             // 
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOK.Enabled = false;
             this.btnOK.Location = new System.Drawing.Point(157, 118);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(67, 27);
@@ -129,21 +148,6 @@
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "ยกเลิก";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // dtDate
-            // 
-            this.dtDate._ReadOnly = false;
-            this.dtDate._SelectedDate = null;
-            this.dtDate.BackColor = System.Drawing.Color.White;
-            this.dtDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtDate.Location = new System.Drawing.Point(72, 29);
-            this.dtDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtDate.Name = "dtDate";
-            this.dtDate.Size = new System.Drawing.Size(103, 23);
-            this.dtDate.TabIndex = 1;
-            this.dtDate._SelectedDateChanged += new System.EventHandler(this.dtDate__SelectedDateChanged);
-            this.dtDate._Leave += new System.EventHandler(this.dtDate__Leave);
             // 
             // DialogPrintSetupB
             // 

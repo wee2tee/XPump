@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblStkcod = new System.Windows.Forms.Label();
@@ -65,7 +65,6 @@
             this.numDother = new CC.XNumEdit();
             this.txtDothertxt = new CC.XTextEdit();
             this.btnOK = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
             this.lblEndbal = new System.Windows.Forms.Label();
             this.lblBegbal = new System.Windows.Forms.Label();
             this.lblRcvqty = new System.Windows.Forms.Label();
@@ -76,6 +75,7 @@
             this.lblTotalDif = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblSaldat = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -129,14 +129,14 @@
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
             this.dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -147,14 +147,14 @@
             this.col_dayend_id,
             this.col_section_id,
             this.col_daysttak});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle12;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -203,10 +203,10 @@
             // 
             this.col_qty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.col_qty.DataPropertyName = "qty";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = null;
-            this.col_qty.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N2";
+            dataGridViewCellStyle11.NullValue = null;
+            this.col_qty.DefaultCellStyle = dataGridViewCellStyle11;
             this.col_qty.HeaderText = "ปริมาณที่ตรวจวัดได้";
             this.col_qty.Name = "col_qty";
             this.col_qty.ReadOnly = true;
@@ -245,7 +245,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(427, 158);
-            this.tabControl1.TabIndex = 2;
+            this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -287,7 +287,7 @@
             this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_qty.Name = "inline_qty";
             this.inline_qty.Size = new System.Drawing.Size(136, 23);
-            this.inline_qty.TabIndex = 0;
+            this.inline_qty.TabIndex = 1;
             this.inline_qty.Visible = false;
             this.inline_qty._ValueChanged += new System.EventHandler(this.inline_qty__ValueChanged);
             // 
@@ -488,8 +488,7 @@
             this.numDother.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numDother.Name = "numDother";
             this.numDother.Size = new System.Drawing.Size(127, 23);
-            this.numDother.TabIndex = 2;
-            this.numDother.TabStop = false;
+            this.numDother.TabIndex = 3;
             this.numDother._ValueChanged += new System.EventHandler(this.numDother__ValueChanged);
             this.numDother._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
@@ -508,39 +507,25 @@
             this.txtDothertxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtDothertxt.Name = "txtDothertxt";
             this.txtDothertxt.Size = new System.Drawing.Size(114, 23);
-            this.txtDothertxt.TabIndex = 1;
-            this.txtDothertxt.TabStop = false;
+            this.txtDothertxt.TabIndex = 2;
             this.txtDothertxt._TextChanged += new System.EventHandler(this.txtDothertxt__TextChanged);
             this.txtDothertxt._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // btnOK
             // 
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnOK.Enabled = false;
             this.btnOK.Image = global::XPump.Properties.Resources.save_16;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(134, 531);
+            this.btnOK.Location = new System.Drawing.Point(84, 531);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Padding = new System.Windows.Forms.Padding(3);
-            this.btnOK.Size = new System.Drawing.Size(79, 34);
-            this.btnOK.TabIndex = 5;
+            this.btnOK.Padding = new System.Windows.Forms.Padding(5, 3, 34, 3);
+            this.btnOK.Size = new System.Drawing.Size(130, 34);
+            this.btnOK.TabIndex = 4;
             this.btnOK.Text = "บันทึก";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnClose.Image = global::XPump.Properties.Resources.stop_16;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(219, 531);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Padding = new System.Windows.Forms.Padding(3, 3, 16, 3);
-            this.btnClose.Size = new System.Drawing.Size(79, 34);
-            this.btnClose.TabIndex = 5;
-            this.btnClose.Text = "ปิด";
-            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnClose.UseVisualStyleBackColor = true;
             // 
             // lblEndbal
             // 
@@ -650,12 +635,27 @@
             this.lblSaldat.TabIndex = 0;
             this.lblSaldat.Text = "saldat";
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(220, 531);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.btnCancel.Size = new System.Drawing.Size(130, 34);
+            this.btnCancel.TabIndex = 5;
+            this.btnCancel.Text = "ยกเลิกการแก้ไข";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // DialogDayendEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 583);
-            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.numDother);
             this.Controls.Add(this.txtDothertxt);
@@ -737,7 +737,6 @@
         private CC.XNumEdit numDother;
         private CC.XTextEdit txtDothertxt;
         private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button btnClose;
         private CC.XNumEdit inline_qty;
         private System.Windows.Forms.Label lblEndbal;
         private System.Windows.Forms.Label lblBegbal;
@@ -756,5 +755,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_daysttak;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblSaldat;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

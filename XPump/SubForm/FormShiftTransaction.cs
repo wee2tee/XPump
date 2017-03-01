@@ -1147,7 +1147,7 @@ namespace XPump.SubForm
                         .Select(s => new VatTransDbfVM {
                             docnum = s.docnum.Trim(),
                             docdat = s.docdat.Value,
-                            people = s.people, //apmas.Where(a => a.supcod.Trim() == s.people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().supnam.Trim() : string.Empty,
+                            people = s.people.Trim(), //apmas.Where(a => a.supcod.Trim() == s.people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().supnam.Trim() : string.Empty,
                             stkcod = s.stkcod.Trim(),
                             netval = s.netval,
                             vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))

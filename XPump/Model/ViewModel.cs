@@ -919,14 +919,16 @@ namespace XPump.Model
     {
         public DateTime reportDate { get; set; }
         public IsinfoDbfVM isinfoDbfVM { get; set; }
-        public List<shift> shifts { get; set; }
-        public List<VatTransDbfVM> phpvattransVM { get; set; }
-        public List<VatTransDbfVM> prrvattransVM { get; set; }
+        //public List<shift> shifts { get; set; }
+        //public List<VatTransDbfVM> phpvattransVM { get; set; }
+        //public List<VatTransDbfVM> prrvattransVM { get; set; }
+        public List<VatTransDbfVM> purvattransVM { get; set; }
+        public List<dayend> dayend { get; set; }
         //public List<VatTransDbfVM> shsvattransVM { get; set; }
         //public List<VatTransDbfVM> sivvattransVM { get; set; }
         //public List<pricelistVM> pricelistVM_list { get; set; }
-        public List<salessummaryVM> salessummaryVM_list { get; set; }
-        public List<saleshistoryVM> saleshistoryVM_list { get; set; }
+        //public List<salessummaryVM> salessummaryVM_list { get; set; }
+        //public List<saleshistoryVM> saleshistoryVM_list { get; set; }
     }
 
     public class ReportCModel

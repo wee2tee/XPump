@@ -28,44 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv = new CC.XDatagrid();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblDate = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnAdd = new System.Windows.Forms.ToolStripButton();
-            this.btnEdit = new System.Windows.Forms.ToolStripButton();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
-            this.btnStop = new System.Windows.Forms.ToolStripButton();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
-            this.btnFirst = new System.Windows.Forms.ToolStripButton();
-            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
-            this.btnNext = new System.Windows.Forms.ToolStripButton();
-            this.btnLast = new System.Windows.Forms.ToolStripButton();
-            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPrint = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnPrintB = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPrintC = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_saldat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,6 +53,34 @@
             this.col_begdif = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dayend = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnAdd = new System.Windows.Forms.ToolStripButton();
+            this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnStop = new System.Windows.Forms.ToolStripButton();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnFirst = new System.Windows.Forms.ToolStripButton();
+            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
+            this.btnNext = new System.Windows.Forms.ToolStripButton();
+            this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPrint = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnPrintB = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrintC = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -94,14 +94,14 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -120,14 +120,14 @@
             this.col_begdif,
             this.col_stmas_id,
             this.col_dayend});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle18;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -146,6 +146,164 @@
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
+            // 
+            // col_id
+            // 
+            this.col_id.DataPropertyName = "id";
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
+            // 
+            // col_saldat
+            // 
+            this.col_saldat.DataPropertyName = "saldat";
+            this.col_saldat.HeaderText = "Sale Date";
+            this.col_saldat.Name = "col_saldat";
+            this.col_saldat.ReadOnly = true;
+            this.col_saldat.Visible = false;
+            // 
+            // col_stkcod
+            // 
+            this.col_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_stkcod.DataPropertyName = "stkcod";
+            this.col_stkcod.HeaderText = "รหัสสินค้า";
+            this.col_stkcod.MinimumWidth = 80;
+            this.col_stkcod.Name = "col_stkcod";
+            this.col_stkcod.ReadOnly = true;
+            // 
+            // col_stkdes
+            // 
+            this.col_stkdes.DataPropertyName = "stkdes";
+            this.col_stkdes.HeaderText = "Stkdes";
+            this.col_stkdes.Name = "col_stkdes";
+            this.col_stkdes.ReadOnly = true;
+            this.col_stkdes.Visible = false;
+            // 
+            // col_endbal
+            // 
+            this.col_endbal.DataPropertyName = "endbal";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N2";
+            dataGridViewCellStyle11.NullValue = null;
+            this.col_endbal.DefaultCellStyle = dataGridViewCellStyle11;
+            this.col_endbal.HeaderText = "ยอดตรวจวัด-สิ้นงวด";
+            this.col_endbal.MinimumWidth = 130;
+            this.col_endbal.Name = "col_endbal";
+            this.col_endbal.ReadOnly = true;
+            this.col_endbal.Width = 130;
+            // 
+            // col_begbal
+            // 
+            this.col_begbal.DataPropertyName = "begbal";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N2";
+            dataGridViewCellStyle12.NullValue = null;
+            this.col_begbal.DefaultCellStyle = dataGridViewCellStyle12;
+            this.col_begbal.HeaderText = "ยอดตรวจวัด-ต้นงวด";
+            this.col_begbal.MinimumWidth = 130;
+            this.col_begbal.Name = "col_begbal";
+            this.col_begbal.ReadOnly = true;
+            this.col_begbal.Width = 130;
+            // 
+            // col_rcvqty
+            // 
+            this.col_rcvqty.DataPropertyName = "rcvqty";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N2";
+            dataGridViewCellStyle13.NullValue = null;
+            this.col_rcvqty.DefaultCellStyle = dataGridViewCellStyle13;
+            this.col_rcvqty.HeaderText = "ยอดรับระหว่างวัน";
+            this.col_rcvqty.MinimumWidth = 120;
+            this.col_rcvqty.Name = "col_rcvqty";
+            this.col_rcvqty.ReadOnly = true;
+            this.col_rcvqty.Width = 120;
+            // 
+            // col_salqty
+            // 
+            this.col_salqty.DataPropertyName = "salqty";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N2";
+            dataGridViewCellStyle14.NullValue = null;
+            this.col_salqty.DefaultCellStyle = dataGridViewCellStyle14;
+            this.col_salqty.HeaderText = "ยอดขายระหว่างวัน";
+            this.col_salqty.MinimumWidth = 120;
+            this.col_salqty.Name = "col_salqty";
+            this.col_salqty.ReadOnly = true;
+            this.col_salqty.Width = 120;
+            // 
+            // col_dothertxt
+            // 
+            this.col_dothertxt.DataPropertyName = "dothertxt";
+            this.col_dothertxt.HeaderText = "Deduct other txt.";
+            this.col_dothertxt.MinimumWidth = 140;
+            this.col_dothertxt.Name = "col_dothertxt";
+            this.col_dothertxt.ReadOnly = true;
+            this.col_dothertxt.Visible = false;
+            this.col_dothertxt.Width = 140;
+            // 
+            // col_dother
+            // 
+            this.col_dother.DataPropertyName = "dother";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.col_dother.DefaultCellStyle = dataGridViewCellStyle15;
+            this.col_dother.HeaderText = "หักอื่น ๆ";
+            this.col_dother.MinimumWidth = 80;
+            this.col_dother.Name = "col_dother";
+            this.col_dother.ReadOnly = true;
+            this.col_dother.Width = 80;
+            // 
+            // col_accbal
+            // 
+            this.col_accbal.DataPropertyName = "accbal";
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle16.Format = "N2";
+            dataGridViewCellStyle16.NullValue = null;
+            this.col_accbal.DefaultCellStyle = dataGridViewCellStyle16;
+            this.col_accbal.HeaderText = "ยอดคงเหลือตามบัญชี";
+            this.col_accbal.MinimumWidth = 140;
+            this.col_accbal.Name = "col_accbal";
+            this.col_accbal.ReadOnly = true;
+            this.col_accbal.Width = 140;
+            // 
+            // col_difqty
+            // 
+            this.col_difqty.DataPropertyName = "difqty";
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle17.Format = "N2";
+            dataGridViewCellStyle17.NullValue = null;
+            this.col_difqty.DefaultCellStyle = dataGridViewCellStyle17;
+            this.col_difqty.HeaderText = "ส่วนต่าง";
+            this.col_difqty.MinimumWidth = 80;
+            this.col_difqty.Name = "col_difqty";
+            this.col_difqty.ReadOnly = true;
+            this.col_difqty.Width = 80;
+            // 
+            // col_begdif
+            // 
+            this.col_begdif.DataPropertyName = "begdif";
+            this.col_begdif.HeaderText = "Begdif";
+            this.col_begdif.Name = "col_begdif";
+            this.col_begdif.ReadOnly = true;
+            this.col_begdif.Visible = false;
+            // 
+            // col_stmas_id
+            // 
+            this.col_stmas_id.DataPropertyName = "stmas_id";
+            this.col_stmas_id.HeaderText = "Stmas ID";
+            this.col_stmas_id.Name = "col_stmas_id";
+            this.col_stmas_id.ReadOnly = true;
+            this.col_stmas_id.Visible = false;
+            // 
+            // col_dayend
+            // 
+            this.col_dayend.DataPropertyName = "dayend";
+            this.col_dayend.HeaderText = "Day End";
+            this.col_dayend.Name = "col_dayend";
+            this.col_dayend.ReadOnly = true;
+            this.col_dayend.Visible = false;
             // 
             // toolStrip1
             // 
@@ -174,67 +332,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(971, 43);
             this.toolStrip1.TabIndex = 5;
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 43);
-            this.toolStripSeparator3.Visible = false;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 43);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 43);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 65);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 16);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "ปิดยอดขายประจำวันที่ : ";
-            // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(153, 65);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(76, 16);
-            this.lblDate.TabIndex = 6;
-            this.lblDate.Text = "dd/MM/yyyy";
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(4, 94);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(965, 436);
-            this.tabControl1.TabIndex = 7;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.dgv);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(957, 407);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "สรุปยอดขายน้ำมัน";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
             // btnAdd
             // 
             this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -255,7 +352,7 @@
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(36, 40);
             this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
-            this.btnEdit.Visible = false;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -267,6 +364,12 @@
             this.btnDelete.Size = new System.Drawing.Size(36, 40);
             this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 43);
+            this.toolStripSeparator3.Visible = false;
             // 
             // btnStop
             // 
@@ -289,6 +392,11 @@
             this.btnSave.Size = new System.Drawing.Size(36, 40);
             this.btnSave.Text = "บันทึกข้อมูล <F9>";
             this.btnSave.Visible = false;
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 43);
             // 
             // btnFirst
             // 
@@ -364,6 +472,11 @@
             this.btnInquiryRest.Text = "เรียกดูข้อมูล ตั้งแต่รายการนี้ <Alt+L>";
             this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
+            // 
             // btnPrint
             // 
             this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -391,6 +504,11 @@
             this.btnPrintC.Size = new System.Drawing.Size(161, 22);
             this.btnPrintC.Text = "พิมพ์รายงานส่วน ค.";
             this.btnPrintC.Click += new System.EventHandler(this.btnPrintC_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 43);
             // 
             // btnItem
             // 
@@ -429,163 +547,45 @@
             this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // col_id
+            // label1
             // 
-            this.col_id.DataPropertyName = "id";
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 65);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(139, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "ปิดยอดขายประจำวันที่ : ";
             // 
-            // col_saldat
+            // lblDate
             // 
-            this.col_saldat.DataPropertyName = "saldat";
-            this.col_saldat.HeaderText = "Sale Date";
-            this.col_saldat.Name = "col_saldat";
-            this.col_saldat.ReadOnly = true;
-            this.col_saldat.Visible = false;
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(153, 65);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(76, 16);
+            this.lblDate.TabIndex = 6;
+            this.lblDate.Text = "dd/MM/yyyy";
             // 
-            // col_stkcod
+            // tabControl1
             // 
-            this.col_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_stkcod.DataPropertyName = "stkcod";
-            this.col_stkcod.HeaderText = "รหัสสินค้า";
-            this.col_stkcod.MinimumWidth = 80;
-            this.col_stkcod.Name = "col_stkcod";
-            this.col_stkcod.ReadOnly = true;
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Location = new System.Drawing.Point(4, 94);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(965, 436);
+            this.tabControl1.TabIndex = 7;
             // 
-            // col_stkdes
+            // tabPage1
             // 
-            this.col_stkdes.DataPropertyName = "stkdes";
-            this.col_stkdes.HeaderText = "Stkdes";
-            this.col_stkdes.Name = "col_stkdes";
-            this.col_stkdes.ReadOnly = true;
-            this.col_stkdes.Visible = false;
-            // 
-            // col_endbal
-            // 
-            this.col_endbal.DataPropertyName = "endbal";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.col_endbal.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_endbal.HeaderText = "ยอดตรวจวัด-สิ้นงวด";
-            this.col_endbal.MinimumWidth = 130;
-            this.col_endbal.Name = "col_endbal";
-            this.col_endbal.ReadOnly = true;
-            this.col_endbal.Width = 130;
-            // 
-            // col_begbal
-            // 
-            this.col_begbal.DataPropertyName = "begbal";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.col_begbal.DefaultCellStyle = dataGridViewCellStyle3;
-            this.col_begbal.HeaderText = "ยอดตรวจวัด-ต้นงวด";
-            this.col_begbal.MinimumWidth = 130;
-            this.col_begbal.Name = "col_begbal";
-            this.col_begbal.ReadOnly = true;
-            this.col_begbal.Width = 130;
-            // 
-            // col_rcvqty
-            // 
-            this.col_rcvqty.DataPropertyName = "rcvqty";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.col_rcvqty.DefaultCellStyle = dataGridViewCellStyle4;
-            this.col_rcvqty.HeaderText = "ยอดรับระหว่างวัน";
-            this.col_rcvqty.MinimumWidth = 120;
-            this.col_rcvqty.Name = "col_rcvqty";
-            this.col_rcvqty.ReadOnly = true;
-            this.col_rcvqty.Width = 120;
-            // 
-            // col_salqty
-            // 
-            this.col_salqty.DataPropertyName = "salqty";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.col_salqty.DefaultCellStyle = dataGridViewCellStyle5;
-            this.col_salqty.HeaderText = "ยอดขายระหว่างวัน";
-            this.col_salqty.MinimumWidth = 120;
-            this.col_salqty.Name = "col_salqty";
-            this.col_salqty.ReadOnly = true;
-            this.col_salqty.Width = 120;
-            // 
-            // col_dothertxt
-            // 
-            this.col_dothertxt.DataPropertyName = "dothertxt";
-            this.col_dothertxt.HeaderText = "Deduct other txt.";
-            this.col_dothertxt.MinimumWidth = 140;
-            this.col_dothertxt.Name = "col_dothertxt";
-            this.col_dothertxt.ReadOnly = true;
-            this.col_dothertxt.Visible = false;
-            this.col_dothertxt.Width = 140;
-            // 
-            // col_dother
-            // 
-            this.col_dother.DataPropertyName = "dother";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.col_dother.DefaultCellStyle = dataGridViewCellStyle6;
-            this.col_dother.HeaderText = "หักอื่น ๆ";
-            this.col_dother.MinimumWidth = 80;
-            this.col_dother.Name = "col_dother";
-            this.col_dother.ReadOnly = true;
-            this.col_dother.Width = 80;
-            // 
-            // col_accbal
-            // 
-            this.col_accbal.DataPropertyName = "accbal";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.col_accbal.DefaultCellStyle = dataGridViewCellStyle7;
-            this.col_accbal.HeaderText = "ยอดคงเหลือตามบัญชี";
-            this.col_accbal.MinimumWidth = 140;
-            this.col_accbal.Name = "col_accbal";
-            this.col_accbal.ReadOnly = true;
-            this.col_accbal.Width = 140;
-            // 
-            // col_difqty
-            // 
-            this.col_difqty.DataPropertyName = "difqty";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = null;
-            this.col_difqty.DefaultCellStyle = dataGridViewCellStyle8;
-            this.col_difqty.HeaderText = "ส่วนต่าง";
-            this.col_difqty.MinimumWidth = 80;
-            this.col_difqty.Name = "col_difqty";
-            this.col_difqty.ReadOnly = true;
-            this.col_difqty.Width = 80;
-            // 
-            // col_begdif
-            // 
-            this.col_begdif.DataPropertyName = "begdif";
-            this.col_begdif.HeaderText = "Begdif";
-            this.col_begdif.Name = "col_begdif";
-            this.col_begdif.ReadOnly = true;
-            this.col_begdif.Visible = false;
-            // 
-            // col_stmas_id
-            // 
-            this.col_stmas_id.DataPropertyName = "stmas_id";
-            this.col_stmas_id.HeaderText = "Stmas ID";
-            this.col_stmas_id.Name = "col_stmas_id";
-            this.col_stmas_id.ReadOnly = true;
-            this.col_stmas_id.Visible = false;
-            // 
-            // col_dayend
-            // 
-            this.col_dayend.DataPropertyName = "dayend";
-            this.col_dayend.HeaderText = "Day End";
-            this.col_dayend.Name = "col_dayend";
-            this.col_dayend.ReadOnly = true;
-            this.col_dayend.Visible = false;
+            this.tabPage1.Controls.Add(this.dgv);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(957, 407);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "สรุปยอดขายน้ำมัน";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // FormDailyClose
             // 
