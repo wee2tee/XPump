@@ -32,7 +32,6 @@
             this.ToolStripDailyTransaction = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuShiftTransaction = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDailyClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuMonthlyClose = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripStock = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuStmas = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,8 +59,7 @@
             // 
             this.ToolStripDailyTransaction.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuShiftTransaction,
-            this.mnuDailyClose,
-            this.mnuMonthlyClose});
+            this.mnuDailyClose});
             this.ToolStripDailyTransaction.Name = "ToolStripDailyTransaction";
             this.ToolStripDailyTransaction.Size = new System.Drawing.Size(107, 20);
             this.ToolStripDailyTransaction.Text = "รายการประจำวัน";
@@ -79,13 +77,6 @@
             this.mnuDailyClose.Size = new System.Drawing.Size(206, 22);
             this.mnuDailyClose.Text = "ปิดยอดขายประจำวัน";
             this.mnuDailyClose.Click += new System.EventHandler(this.mnuDailyClose_Click);
-            // 
-            // mnuMonthlyClose
-            // 
-            this.mnuMonthlyClose.Name = "mnuMonthlyClose";
-            this.mnuMonthlyClose.Size = new System.Drawing.Size(206, 22);
-            this.mnuMonthlyClose.Text = "ปิดยอดขายประจำเดือน";
-            this.mnuMonthlyClose.Click += new System.EventHandler(this.mnuMonthlyClose_Click);
             // 
             // ToolStripStock
             // 
@@ -177,7 +168,6 @@
         private System.Windows.Forms.ToolStripMenuItem อนๆToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuSettings;
         private System.Windows.Forms.ToolStripMenuItem mnuDailyClose;
-        private System.Windows.Forms.ToolStripMenuItem mnuMonthlyClose;
     }
 }
 

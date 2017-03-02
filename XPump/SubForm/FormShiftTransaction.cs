@@ -1555,7 +1555,7 @@ namespace XPump.SubForm
                     /* Summary line end */
                     y = start_body_y;
 
-                    if (page_item == item_per_page)
+                    if (page_item == item_per_page && item_count < report_data.salessummaryVM_list.Count)
                     {
                         e.HasMorePages = true;
                         return;

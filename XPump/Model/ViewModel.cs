@@ -778,7 +778,7 @@ namespace XPump.Model
         {
             get
             {
-                var dif = this.endbal - (this.begbal + this.rcvqty - (this.salqty + this.dother));
+                var dif = this.endbal - this.accbal;
                 this.dayend.difqty = dif;
                 return dif;
             }
@@ -839,6 +839,241 @@ namespace XPump.Model
         public int section_id { get; set; }
 
         public daysttak daysttak { get; set; }
+    }
+
+    public class monthendVM
+    {
+        public DateTime first_date { get; set; }
+        public DateTime last_date { get; set; }
+
+        public string stkcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
+                }
+            }
+        }
+
+        public string stkdes
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
+                }
+            }
+        }
+
+        private List<daysttak> sttaks
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.daysttak.Include("dayend").Where(d => d.dayend.stmas_id == this.stmas_id && d.dayend.saldat.CompareTo(this.first_date) >= 0 && d.dayend.saldat.CompareTo(this.last_date) <= 0).ToList();
+                }
+            }
+        }
+
+        public decimal endbal
+        {
+            get
+            {
+                var qty = this.sttaks.Where(d => d.dayend.saldat == this.last_date).Sum(d => d.qty);
+                return qty;
+            }
+        }
+
+        public decimal begbal
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    var prev_month_sttak = db.daysttak.Include("dayend").Where(d => d.dayend.stmas_id == this.stmas_id && d.dayend.saldat.CompareTo(this.first_date) < 0).OrderByDescending(d => d.dayend.saldat).ToList();
+
+                    if(prev_month_sttak.Count > 0)
+                    {
+                        return prev_month_sttak.Sum(s => s.qty);
+                    }
+                    else
+                    {
+                        return db.section.Where(s => s.stmas_id == this.stmas_id).ToList().Sum(s => s.begtak);
+                    }
+                    
+                    //decimal beg;
+                    //var prev_dayend = db.dayend.Where(d => d.saldat.CompareTo(this.saldat) < 0)
+                    //                .Where(d => d.stmas_id == this.stmas_id)
+                    //                .OrderByDescending(d => d.saldat).FirstOrDefault();
+                    //if (prev_dayend != null)
+                    //{
+                    //    if (db.daysttak.Where(d => d.dayend_id == prev_dayend.id).Select(d => d.qty).Contains<decimal>(-1m))
+                    //    {
+                    //        beg = -1;
+                    //    }
+                    //    else
+                    //    {
+                    //        beg = db.daysttak.Where(d => d.dayend_id == prev_dayend.id).ToList().Sum(d => d.qty);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    beg = db.section.Where(s => s.stmas_id == this.stmas_id).ToList().Sum(s => s.begtak);
+                    //}
+
+                    //return beg;
+                }
+            }
+        }
+
+        //public decimal rcvqty { get; set; }
+        public decimal rcvqty
+        {
+            get
+            {
+                var xtrnqty = DbfTable.Stcrd().ToStcrdList()
+                            .Where(s => s.docdat.HasValue)
+                            .Where(s => s.docdat.Value.CompareTo(this.first_date) >= 0 && s.docdat.Value.CompareTo(this.last_date) <= 0)
+                            .Where(s => s.stkcod.Trim() == this.stkcod.Trim())
+                            .Sum(s => s.xtrnqty);
+
+                var rcv = Convert.ToDecimal(xtrnqty);
+                return rcv;
+            }
+        }
+        //public decimal salqty { get; set; }
+        public decimal salqty
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    var sum_sal = db.saleshistory.Where(s => s.saldat.CompareTo(this.first_date) >= 0 && s.saldat.CompareTo(this.last_date) <= 0)
+                                .Where(s => s.stmas_id == this.stmas_id)
+                                .ToList()
+                                .Sum(s => s.salqty);
+
+                    var sum_dtest = db.salessummary.Where(s => s.saldat.CompareTo(this.first_date) >= 0 && s.saldat.CompareTo(this.last_date) <= 0)
+                                .Where(s => s.stmas_id == this.stmas_id)
+                                .ToList()
+                                .Sum(s => s.dtest);
+
+                    var sum_dother = db.salessummary.Where(s => s.saldat.CompareTo(this.first_date) >= 0 && s.saldat.CompareTo(this.last_date) <= 0)
+                                .Where(s => s.stmas_id == this.stmas_id)
+                                .ToList()
+                                .Sum(s => s.dother);
+
+                    var sum = sum_sal - (sum_dtest + sum_dother);
+                    return sum;
+                }
+            }
+        }
+        public string dothertxt { get; set; }
+        public decimal dother
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    var disc = db.dayend.Where(d => d.stmas_id == this.stmas_id && d.saldat.CompareTo(this.first_date) >= 0 && d.saldat.CompareTo(this.last_date) <= 0).ToList().Sum(d => d.dother);
+                    return disc;
+                }
+            }
+        }
+        public decimal accbal
+        {
+            get
+            {
+                return this.begbal + this.rcvqty - (this.salqty + this.dother);
+            }
+        }
+        //public decimal difqty { get; set; }
+        public decimal difqty
+        {
+            get
+            {
+                var dif = this.endbal - this.accbal;
+                return dif;
+            }
+        }
+        public decimal begdif
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    decimal trans_dif = db.dayend.Where(d => d.stmas_id == this.stmas_id && d.saldat.CompareTo(this.first_date) < 0).ToViewModel().Sum(d => d.difqty);
+                    decimal beg_dif = db.section.Where(s => s.stmas_id == this.stmas_id).ToList().Sum(s => s.begdif);
+
+                    return beg_dif + trans_dif;
+
+                    //var tmp = db.dayend
+                    //        .Where(d => d.stmas_id == this.stmas_id)
+                    //        .Where(d => d.saldat.CompareTo(this.saldat) < 0).ToViewModel();
+
+                    //var section_beg_dif = db.section.Where(s => s.stmas_id == this.stmas_id).Sum(s => s.begdif);
+
+                    //return tmp.Sum(d => (d.endbal - d.accbal)) + section_beg_dif;
+                }
+            }
+        }
+        public int stmas_id { get; set; }
+
+        public List<monthsttakVM> monthsttakVM
+        {
+            get
+            {
+                List<monthsttakVM> sttak = new List<Model.monthsttakVM>();
+                
+                foreach (var item in this.sttaks.Where(s => s.dayend.saldat == this.last_date))
+                {
+                    sttak.Add(new monthsttakVM
+                    {
+                        section_id = item.section_id,
+                        qty = item.qty
+                    });
+                }
+
+                return sttak;
+            }
+        }
+    }
+
+    public class monthsttakVM
+    {
+        public string tank_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    try
+                    {
+                        return db.section.Include("tank").Where(s => s.id == this.section_id).First().tank.name;
+                    }
+                    catch (Exception)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+        }
+        public string section_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.section.Find(this.section_id) != null ? db.section.Find(this.section_id).name : string.Empty;
+                }
+            }
+        }
+        public decimal qty { get; set; }
+        public int section_id { get; set; }
     }
 
     public class StmasDbfVM
@@ -937,5 +1172,6 @@ namespace XPump.Model
         public IsinfoDbfVM isinfoDbfVM { get; set; }
         public List<VatTransDbfVM> purvattransVM { get; set; }
         public List<dayend> dayend { get; set; }
+        public List<monthendVM> monthend { get; set; }
     }
 }

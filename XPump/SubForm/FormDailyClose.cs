@@ -534,15 +534,16 @@ namespace XPump.SubForm
                             .OrderBy(s => s.docnum).ToList();
 
                 report_data.purvattransVM = stcrd.Where(s => doc_hp.Contains(s.docnum.Substring(0, 2)) || doc_rr.Contains(s.docnum.Substring(0, 2)))
+                            .GroupBy(s => s.docnum.Trim())
                             .Select(s => new VatTransDbfVM
                             {
-                                docnum = s.docnum.Trim(),
-                                docdat = s.docdat.Value,
-                                people = apmas.Where(a => a.supcod.Trim() == s.people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().supnam.Trim() : string.Empty,
-                                stkcod = s.stkcod.Trim(),
-                                netval = s.netval,
-                                vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
-                            }).OrderBy(s => s.docnum).ToList();
+                                docnum = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docnum.Trim(),
+                                docdat = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docdat.Value,
+                                people = apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().supnam.Trim() : string.Empty,
+                                stkcod = stcrd.Where(st => st.docnum.Trim() == s.Key).First().stkcod.Trim(),
+                                netval = stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval,
+                                vatamt = Convert.ToDouble(string.Format("{0:0.00}", (stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval * 7) / 100))
+                            }).OrderBy(s => s.docdat).ThenBy(s => s.docnum).ToList();
 
                 report_data.dayend = db.dayend.Include("daysttak").Include("stmas").Where(d => d.saldat == date).ToList();
 
@@ -716,7 +717,7 @@ namespace XPump.SubForm
                     page_item++;
                     item_count++;
 
-                    x += (sub_col_width * (page_item - 1));
+                    x = e.MarginBounds.Left + rect_str_container.Width + (sub_col_width * (page_item - 1));
 
                     rect_section.X = x;
                     rect_section.Y = start_body_y;
@@ -842,9 +843,16 @@ namespace XPump.SubForm
                                 stkcod = stcrd.Where(st => st.docnum.Trim() == s.Key).First().stkcod.Trim(),
                                 netval = stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval,
                                 vatamt = Convert.ToDouble(string.Format("{0:0.00}", (stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval * 7) / 100))
-                            }).OrderBy(s => s.docnum).ToList();
+                            }).OrderBy(s => s.docdat).ThenBy(s => s.docnum).ToList();
 
                 report_data.dayend = db.dayend.Include("daysttak").Include("stmas").Where(d => d.saldat.CompareTo(first_date) >= 0 && d.saldat.CompareTo(last_date) <= 0).ToList();
+
+                report_data.monthend = new List<monthendVM>();
+                foreach (var item in report_data.dayend)
+                {
+                    var me = db.stmas.Find(item.stmas_id).GetMonthEndVM(first_date, last_date);
+                    report_data.monthend.Add(me);
+                }
 
                 return report_data;
             }
@@ -897,7 +905,7 @@ namespace XPump.SubForm
                 e.Graphics.DrawString(str, fnt_header_bold, brush, rect, format_center);
 
                 y += line_height; // new line
-                str = "ณ เดือน " + report_data.reportDate.ToString("d MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + report_data.reportDate.ToString("yyyy", CultureInfo.CurrentCulture);
+                str = "ณ เดือน " + report_data.reportDate.ToString("MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + report_data.reportDate.ToString("yyyy", CultureInfo.CurrentCulture);
                 rect = str.GetDisplayRect(fnt_header, (int)Math.Round((double)(e.MarginBounds.Width / 2) + x - (str.Width(fnt_header) / 2)), y);
                 e.Graphics.DrawString(str, fnt_header, brush, rect, format_center);
 
@@ -1016,7 +1024,7 @@ namespace XPump.SubForm
                     page_item++;
                     item_count++;
 
-                    x += (sub_col_width * (page_item - 1));
+                    x = e.MarginBounds.Left + rect_str_container.Width + (sub_col_width * (page_item - 1));
 
                     rect_section.X = x;
                     rect_section.Y = start_body_y;
@@ -1084,7 +1092,7 @@ namespace XPump.SubForm
                         foreach (VatTransDbfVM doc in report_data.purvattransVM)
                         {
                             rect_vat.Y += line_height;
-                            string vat = "ใบจ่ายน้ำมันหรือใบกำกับภาษีขนส่งน้ำมันเลขที่ " + doc.docnum.Trim() + " ลงวันที่ " + doc.docdat.ToString("dd", CultureInfo.CurrentCulture) + " เดือน " + doc.docdat.ToString("MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + doc.docdat.ToString("yyyy", CultureInfo.CurrentCulture) + " ของผู้ค้าน้ำมันราย " + doc.people;
+                            string vat = "ใบจ่ายน้ำมันหรือใบกำกับภาษีขนส่งน้ำมันเลขที่ " + doc.docnum.Trim() + "     ลงวันที่ " + doc.docdat.ToString("dd", CultureInfo.CurrentCulture) + " เดือน " + doc.docdat.ToString("MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + doc.docdat.ToString("yyyy", CultureInfo.CurrentCulture) + "     ของผู้ค้าน้ำมันราย " + doc.people;
                             e.Graphics.DrawString(vat, fnt, brush, rect_vat, format_left);
                         }
                     }
