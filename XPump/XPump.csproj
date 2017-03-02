@@ -217,6 +217,12 @@
     <Compile Include="SubForm\DialogPrintSetupB.Designer.cs">
       <DependentUpon>DialogPrintSetupB.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogPrintSetupC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogPrintSetupC.Designer.cs">
+      <DependentUpon>DialogPrintSetupC.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogSalesHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -364,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogPrintSetupB.resx">
       <DependentUpon>DialogPrintSetupB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogPrintSetupC.resx">
+      <DependentUpon>DialogPrintSetupC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSalesHistory.resx">
       <DependentUpon>DialogSalesHistory.cs</DependentUpon>

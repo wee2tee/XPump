@@ -933,6 +933,9 @@ namespace XPump.Model
 
     public class ReportCModel
     {
-
+        public DateTime reportDate { get; set; }
+        public IsinfoDbfVM isinfoDbfVM { get; set; }
+        public List<VatTransDbfVM> purvattransVM { get; set; }
+        public List<dayend> dayend { get; set; }
     }
 }

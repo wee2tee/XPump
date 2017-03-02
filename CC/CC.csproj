@@ -53,6 +53,9 @@
     <Compile Include="Dialog\ListDialog.Designer.cs">
       <DependentUpon>ListDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="XMaskedTextEdit.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XPrintPreview.cs">
       <SubType>Form</SubType>
     </Compile>

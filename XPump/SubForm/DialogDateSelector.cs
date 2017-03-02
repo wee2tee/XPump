@@ -43,5 +43,19 @@ namespace XPump.SubForm
         {
             this.btnOK.Enabled = ((XDatePicker)sender)._SelectedDate.HasValue ? true : false;
         }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.Enter)
+            {
+                if (this.dtDate._Focused)
+                {
+                    this.btnOK.PerformClick();
+                    return true;
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 }
