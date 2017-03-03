@@ -254,7 +254,7 @@
             this.printPreviewControl1.Size = new System.Drawing.Size(814, 500);
             this.printPreviewControl1.TabIndex = 1;
             // 
-            // FormPrintPreview
+            // XPrintPreview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -264,7 +264,7 @@
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "FormPrintPreview";
+            this.Name = "XPrintPreview";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "ตัวอย่างก่อนพิมพ์";

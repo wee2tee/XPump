@@ -137,6 +137,24 @@ namespace CC
             this.printPreviewControl1.AutoZoom = true;
         }
 
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            if((Control.ModifierKeys & Keys.Control) != 0)
+            {
+                if(e.Delta > 0)
+                {
+                    this.btnZoomIn.PerformClick();
+                }
+                else
+                {
+                    this.btnZoomOut.PerformClick();
+                }
+                return;
+            }
+
+            base.OnMouseWheel(e);
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             //if (keyData == Keys.Enter)

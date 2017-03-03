@@ -18,8 +18,8 @@ namespace XPump.SubForm
     public partial class FormStmas : Form
     {
         private MainForm main_form;
-        private BindingSource bs_section;
-        private BindingSource bs_nozzle;
+        //private BindingSource bs_section;
+        //private BindingSource bs_nozzle;
         private BindingSource bs_sales;
         private stmas curr_stmas; // current displayed stmas
         private stmas temp_stmas;
@@ -43,11 +43,9 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
-            this.bs_section = new BindingSource();
-            this.bs_nozzle = new BindingSource();
+            //this.bs_section = new BindingSource();
+            //this.bs_nozzle = new BindingSource();
             this.bs_sales = new BindingSource();
-            this.dgvTank.DataSource = this.bs_section;
-            this.dgvNozzle.DataSource = this.bs_nozzle;
             this.dgvSales.DataSource = this.bs_sales;
 
             this.BindingCustomControlEventHandler();
@@ -161,14 +159,20 @@ namespace XPump.SubForm
             this.txtDescription._Text = stmas.description;
             this.txtRemark._Text = stmas.remark;
 
-            this.bs_section.ResetBindings(true);
-            this.bs_section.DataSource = stmas.section.ToViewModel().Where(s => !s.end_date.HasValue || s.end_date.Value.ToString("yyyyMMdd", CultureInfo.CurrentCulture).CompareTo(DateTime.Now.ToString("yyyyMMdd", CultureInfo.CurrentCulture)) >= 0).ToList();
+            //this.bs_section.ResetBindings(true);
+            //this.bs_section.DataSource = stmas.section.ToViewModel().Where(s => !s.end_date.HasValue || s.end_date.Value.ToString("yyyyMMdd", CultureInfo.CurrentCulture).CompareTo(DateTime.Now.ToString("yyyyMMdd", CultureInfo.CurrentCulture)) >= 0).ToList();
 
-            this.bs_nozzle.ResetBindings(true);
-            this.bs_nozzle.DataSource = this.GetNozzleBySectionList(stmas.section).ToViewModel();
+            //this.bs_nozzle.ResetBindings(true);
+            //this.bs_nozzle.DataSource = this.GetNozzleBySectionList(stmas.section).ToViewModel();
 
             this.bs_sales.ResetBindings(true);
-            this.bs_sales.DataSource = stmas.saleshistory.Where(s => s.salqty != 0).ToViewModel().OrderBy(s => s.saldat).ThenBy(s => s.shift_name).ThenBy(s => s.nozzle_name).ToList();
+            var daily_saleshistory = stmas.saleshistory.GroupBy(s => new { saldat = s.saldat, nozzle_id = s.nozzle_id }).Select(s => new dailysaleshistoryVM { saldat = s.First().saldat, nozzle_id = s.First().nozzle_id, stmas_id = s.First().stmas_id }).OrderBy(s => s.saldat).ThenBy(s => s.tank_name).ThenBy(s => s.section_name).ThenBy(s => s.nozzle_name).ToList();
+            //var daily_saleshistory = stmas.saleshistory.Where(s => s.salqty != 0).ToViewModel()
+            //                        .OrderBy(s => s.saldat)
+            //                        .ThenBy(s => s.shift_name)
+            //                        .ThenBy(s => s.nozzle_name)
+            //                        .ToList();
+            this.bs_sales.DataSource = daily_saleshistory;
 
             /*Form control state beyond data*/
             if(this.form_mode == FORM_MODE.READ)
@@ -187,30 +191,30 @@ namespace XPump.SubForm
             }
         }
 
-        private void dgvTank_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_tank_name.DataPropertyName).First().Index].DisplayIndex = 0;
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_name.DataPropertyName).First().Index].DisplayIndex = 1;
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index].DisplayIndex = 2;
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begbal.DataPropertyName).First().Index].DisplayIndex = 3;
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_totbal.DataPropertyName).First().Index].DisplayIndex = 4;
+        //private void dgvTank_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        //{
+        //    ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_tank_name.DataPropertyName).First().Index].DisplayIndex = 0;
+        //    ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_name.DataPropertyName).First().Index].DisplayIndex = 1;
+        //    ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index].DisplayIndex = 2;
+        //    ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begbal.DataPropertyName).First().Index].DisplayIndex = 3;
+        //    ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_totbal.DataPropertyName).First().Index].DisplayIndex = 4;
 
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begbal.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-            ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_totbal.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-        }
+        //    ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+        //    ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begbal.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+        //    ((XDatagrid)sender).Columns[((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_totbal.DataPropertyName).First().Index].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+        //}
 
-        private void dgvTank_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (((XDatagrid)sender).CurrentCell == null)
-                return;
+        //private void dgvTank_CellClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (((XDatagrid)sender).CurrentCell == null)
+        //        return;
 
-            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index)
-            {
-                this.tabControl1.SelectedTab = this.tabPage2;
-                return;
-            }
-        }
+        //    if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_nozzlecount.DataPropertyName).First().Index)
+        //    {
+        //        this.tabControl1.SelectedTab = this.tabPage2;
+        //        return;
+        //    }
+        //}
 
         private void PerformEdit(object sender, EventArgs e)
         {
@@ -236,7 +240,7 @@ namespace XPump.SubForm
                 remark = string.Empty,
             };
 
-            this.tabControl1.SelectedTab = this.tabPage1;
+            //this.tabControl1.SelectedTab = this.tabPage1;
             this.txtRemark.Focus();
             this.form_mode = FORM_MODE.ADD;
             this.ResetControlState();
@@ -261,7 +265,7 @@ namespace XPump.SubForm
                     return;
                 }
 
-                this.tabControl1.SelectedTab = this.tabPage1;
+                //this.tabControl1.SelectedTab = this.tabPage1;
                 this.temp_stmas = tmp;
                 this.form_mode = FORM_MODE.EDIT;
                 this.ResetControlState();
@@ -645,6 +649,11 @@ namespace XPump.SubForm
             {
                 this.btnRefresh.PerformClick();
             }
+        }
+
+        private void dgvSales_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+
         }
     }
 }

@@ -85,5 +85,25 @@ namespace XPump.SubForm
         {
             this.output = PRINT_OUTPUT.FILE;
         }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.Enter)
+            {
+                if (this.mskMonth.Focused)
+                {
+                    this.btnOK.PerformClick();
+                    return true;
+                }
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnCancel.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 }

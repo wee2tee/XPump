@@ -782,9 +782,9 @@ namespace XPump.SubForm
                     Rectangle rect_vat = new Rectangle(e.MarginBounds.Left, rect_stk.Y + line_height, e.MarginBounds.Right - e.MarginBounds.Left, line_height);
                     if (page_item == 1)
                     {
-                        rect_vat.Y += line_height;
                         foreach (VatTransDbfVM doc in report_data.purvattransVM)
                         {
+                            rect_vat.Y += line_height;
                             string vat = "ใบจ่ายน้ำมันหรือใบกำกับภาษีขนส่งน้ำมันเลขที่ " + doc.docnum.Trim() + " ลงวันที่ " + doc.docdat.ToString("dd", CultureInfo.CurrentCulture) + " เดือน " + doc.docdat.ToString("MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + doc.docdat.ToString("yyyy", CultureInfo.CurrentCulture) + " ของผู้ค้าน้ำมันราย " + doc.people;
                             e.Graphics.DrawString(vat, fnt, brush, rect_vat, format_left);
                         }
@@ -845,12 +845,14 @@ namespace XPump.SubForm
                                 vatamt = Convert.ToDouble(string.Format("{0:0.00}", (stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval * 7) / 100))
                             }).OrderBy(s => s.docdat).ThenBy(s => s.docnum).ToList();
 
-                report_data.dayend = db.dayend.Include("daysttak").Include("stmas").Where(d => d.saldat.CompareTo(first_date) >= 0 && d.saldat.CompareTo(last_date) <= 0).ToList();
+                //report_data.dayend = db.dayend.Include("stmas").Where(d => d.saldat.CompareTo(first_date) >= 0 && d.saldat.CompareTo(last_date) <= 0).ToList();
+
+                var stmas_id_movement_in_month = db.dayend.Include("stmas").Where(d => d.saldat.CompareTo(first_date) >= 0 && d.saldat.CompareTo(last_date) <= 0).GroupBy(d => d.stmas_id).Select(d => d.Key).ToList();
 
                 report_data.monthend = new List<monthendVM>();
-                foreach (var item in report_data.dayend)
+                foreach (var stmas_id in stmas_id_movement_in_month)
                 {
-                    var me = db.stmas.Find(item.stmas_id).GetMonthEndVM(first_date, last_date);
+                    var me = db.stmas.Find(stmas_id).GetMonthEndVM(first_date, last_date);
                     report_data.monthend.Add(me);
                 }
 
@@ -997,7 +999,7 @@ namespace XPump.SubForm
                 e.Graphics.DrawString("4. บวก ยอดรับน้ำมัน", fnt, brush, rect_str_container, format_left);
 
                 rect_str_container.Y += rect_str_container.Height;
-                e.Graphics.DrawString("5. หัก น้ำมันที่ขายผ่านมิเตอร์ระหว่างวัน", fnt, brush, rect_str_container, format_left);
+                e.Graphics.DrawString("5. หัก น้ำมันที่ขายผ่านมิเตอร์ระหว่างเดือน", fnt, brush, rect_str_container, format_left);
 
                 rect_str_container.Y += rect_str_container.Height;
                 e.Graphics.DrawString("   หัก อื่น ๆ ระบุ______________________", fnt, brush, rect_str_container, format_left);
@@ -1019,7 +1021,7 @@ namespace XPump.SubForm
                 Rectangle rect_stk = new Rectangle(x, y, sub_col_width - rect_section.Width, line_height);
 
                 x += rect_str_container.Width;
-                for (int i = item_count; i < report_data.dayend.Count; i++)
+                for (int i = item_count; i < report_data.monthend.Count; i++)
                 {
                     page_item++;
                     item_count++;
@@ -1041,7 +1043,7 @@ namespace XPump.SubForm
                     rect_stk.Height = line_height * 2;
                     e.Graphics.FillRectangle(bg_gray, rect_stk);
                     e.Graphics.DrawRectangle(p, rect_stk);
-                    e.Graphics.DrawString(report_data.dayend[i].ToViewModel().stkcod, fnt_bold, brush, rect_stk, format_center);
+                    e.Graphics.DrawString(report_data.monthend[i].stkcod, fnt_bold, brush, rect_stk, format_center);
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height, rect_stk.Width, line_height * section_per_product));
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product), rect_stk.Width, line_height));
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product) + line_height, rect_stk.Width, line_height * 8));
@@ -1050,41 +1052,41 @@ namespace XPump.SubForm
                     {
                         rect_section.Y += rect_section.Height;
                         rect_section.Height = line_height;
-                        string sect = report_data.dayend[i].daysttak.Count > j ? report_data.dayend[i].daysttak.ToList()[j].ToViewModel().section_name : "-";
+                        string sect = report_data.monthend[i].monthsttakVM.Count > j ? report_data.monthend[i].monthsttakVM[j].section_name : "-";
                         e.Graphics.DrawString(sect, fnt, brush, rect_section, format_center);
 
                         rect_stk.Y += rect_stk.Height;
                         rect_stk.Height = line_height;
-                        string qty = report_data.dayend[i].daysttak.Count > j ? string.Format("{0:#,#0.00}", report_data.dayend[i].daysttak.ToList()[j].ToViewModel().qty) : string.Empty;
+                        string qty = report_data.monthend[i].monthsttakVM.Count > j ? string.Format("{0:#,#0.00}", report_data.monthend[i].monthsttakVM[j].qty) : string.Empty;
                         e.Graphics.DrawString(qty, fnt, brush, rect_stk, format_right);
                     }
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().endbal), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].endbal), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().begbal), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].begbal), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().rcvqty), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].rcvqty), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().salqty), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].salqty), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().dother), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].dother), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().accbal), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].accbal), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().difqty), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].difqty), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().begdif), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].begdif), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().begdif + report_data.dayend[i].ToViewModel().difqty), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].begdif + report_data.monthend[i].difqty), fnt, brush, rect_stk, format_right);
 
                     Rectangle rect_vat = new Rectangle(e.MarginBounds.Left, rect_stk.Y + line_height, e.MarginBounds.Right - e.MarginBounds.Left, line_height);
                     if (page_item == 1)
@@ -1097,7 +1099,7 @@ namespace XPump.SubForm
                         }
                     }
 
-                    if (item_count == item_per_page && item_count < report_data.dayend.Count)
+                    if (item_count == item_per_page && item_count < report_data.monthend.Count)
                     {
                         e.HasMorePages = true;
                         return;

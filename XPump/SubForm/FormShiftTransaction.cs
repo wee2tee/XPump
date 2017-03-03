@@ -221,7 +221,8 @@ namespace XPump.SubForm
             using (xpumpEntities db = DBX.DataSet())
             {
                 this.brShift._Text = db.shift.Find(sales.shift_id) != null ? db.shift.Find(sales.shift_id).name : string.Empty;
-                this.lblDayEnded.Visible = db.dayend.Where(d => d.saldat == this.curr_shiftsales.saldat).FirstOrDefault() == null ? false : true;
+                var x = db.dayend.Where(d => d.saldat == sales.saldat).FirstOrDefault();
+                this.lblDayEnded.Visible = db.dayend.Where(d => d.saldat == sales.saldat).FirstOrDefault() == null ? false : true;
             }
             this.dtSaldat._SelectedDate = sales.saldat;
 
