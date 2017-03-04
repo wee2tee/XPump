@@ -653,7 +653,58 @@ namespace XPump.SubForm
 
         private void dgvSales_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sales_btn.DataPropertyName).First().Index)
+            {
+                if(e.RowIndex == -1)
+                {
+                    using(SolidBrush brush = new SolidBrush(((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor))
+                    {
+                        e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
+                        e.Graphics.FillRectangle(brush, e.CellBounds.X - 2, e.CellBounds.Y + 2, 4, e.CellBounds.Height - 3);
+                    }
+                }
+                else
+                {
+                    e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
+                    var image = Properties.Resources.zoom_fit_16;
+                    var x = e.CellBounds.Left + (int)Math.Floor((double)(e.CellBounds.Width - image.Width) / 2);
+                    var y = e.CellBounds.Top + (int)Math.Floor((double)(e.CellBounds.Height - image.Height) / 2);
+                    e.Graphics.DrawImage(Properties.Resources.zoom_fit_16, x, y, image.Width, image.Height);
+                }
 
+                e.Handled = true;
+            }
+        }
+
+        private void dgvSales_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if(e.RowIndex == -1)
+            {
+                ((XDatagrid)sender).Cursor = Cursors.Default;
+                return;
+            }
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sales_btn.DataPropertyName).First().Index)
+            {
+                ((XDatagrid)sender).Cursor = Cursors.Hand;
+            }
+            else
+            {
+                ((XDatagrid)sender).Cursor = Cursors.Default;
+            }
+        }
+
+        private void dgvSales_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sales_btn.DataPropertyName).First().Index)
+            {
+                var saldat = (DateTime)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_sales_saldat.Name].Value;
+                var nozzle_id = (int)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_sales_nozzle_id.Name].Value;
+                MessageBox.Show(saldat.ToString() + " , nozzle_id : " + nozzle_id.ToString());
+            }
         }
     }
 }
