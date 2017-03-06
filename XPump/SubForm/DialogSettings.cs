@@ -29,6 +29,7 @@ namespace XPump.SubForm
 
         private void DialogSettings_Load(object sender, EventArgs e)
         {
+            this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
@@ -124,9 +125,9 @@ namespace XPump.SubForm
             if (dt == null)
                 return;
 
-            List<SccompDbf> sccomp = dt.ToSccompList(); //ToList<SccompDbf>();
+            List<SccompDbf> sccomp = dt.ToSccompList().OrderBy(s => s.compnam.Trim()).ToList(); //ToList<SccompDbf>();
 
-            DialogSccompSelection sel = new DialogSccompSelection(this.main_form, sccomp);
+            DialogSccompSelection sel = new DialogSccompSelection(this.main_form, sccomp, this.txtExpressData._Text.Trim());
             if (sel.ShowDialog() == DialogResult.OK)
             {
                 this.txtExpressData._Text = sel.selected_sccomp.path;
@@ -136,7 +137,19 @@ namespace XPump.SubForm
         private void txtExpressData__TextChanged(object sender, EventArgs e)
         {
             if (this.tmp_settings != null)
-                this.tmp_settings.express_data_path = ((XTextEdit)sender)._Text;
+                this.tmp_settings.express_data_path = ((XTextEdit)sender)._Text.Trim();
+        }
+
+        private void txtExpressData__DoubleClicked(object sender, EventArgs e)
+        {
+            this.PerformEdit(sender, e);
+        }
+
+        private void PerformEdit(object sender, EventArgs e)
+        {
+            this.btnEdit.PerformClick();
+
+            ((Control)sender).Focus();
         }
     }
 }

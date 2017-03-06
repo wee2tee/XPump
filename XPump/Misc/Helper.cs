@@ -642,7 +642,7 @@ namespace XPump.Misc
                         compnam = row.Field<string>("compnam").Trim(),
                         compcod = row.Field<string>("compcod").Trim(),
                         path = row.Field<string>("path").Trim(),
-                        gendat = row.Field<DateTime?>("gendat"),
+                        gendat = !row.IsNull("gendat") ? row.Field<DateTime?>("gendat") : null,
                         candel = row.Field<string>("candel").Trim()
                     };
 

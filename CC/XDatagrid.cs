@@ -81,7 +81,7 @@ namespace CC
             this.AllowUserToResizeColumns = false;
             this.AllowUserToResizeRows = false;
 
-            this.ColumnHeadersDefaultCellStyle.BackColor = Color.PeachPuff;
+            this.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(231, 207, 179); //Color.PeachPuff;
 
             if (this.row_border_redline)
             {

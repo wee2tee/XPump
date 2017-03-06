@@ -59,6 +59,7 @@ namespace XPump.SubForm
 
         private void DialogNozzle_Load(object sender, EventArgs e)
         {
+            this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
 

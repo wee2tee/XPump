@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -62,6 +62,19 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnAddItem = new System.Windows.Forms.Button();
+            this.btnDeleteItem = new System.Windows.Forms.Button();
+            this.btnEditItem = new System.Windows.Forms.Button();
+            this.btnStopItem = new System.Windows.Forms.Button();
+            this.btnSaveItem = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.inline_nozzlecount = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.inline_name = new CC.XTextEdit();
+            this.inline_stkcod = new CC.XBrowseBox();
+            this.inline_begtak = new CC.XNumEdit();
+            this.inline_begacc = new CC.XNumEdit();
             this.dgvSection = new CC.XDatagrid();
             this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,29 +93,16 @@
             this.col_section_start_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_end_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnAddItem = new System.Windows.Forms.Button();
-            this.btnDeleteItem = new System.Windows.Forms.Button();
-            this.btnEditItem = new System.Windows.Forms.Button();
-            this.btnStopItem = new System.Windows.Forms.Button();
-            this.btnSaveItem = new System.Windows.Forms.Button();
             this.dtEndDate = new CC.XDatePicker();
             this.dtStartDate = new CC.XDatePicker();
             this.ddIsactive = new CC.XDropdownList();
             this.txtRemark = new CC.XTextEdit();
             this.txtDesc = new CC.XTextEdit();
             this.txtName = new CC.XTextEdit();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.inline_nozzlecount = new System.Windows.Forms.Button();
-            this.inline_stkcod = new CC.XBrowseBox();
-            this.inline_begacc = new CC.XNumEdit();
-            this.inline_begtak = new CC.XNumEdit();
-            this.inline_name = new CC.XTextEdit();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSection)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSection)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -366,233 +366,6 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "(ปล่อยว่างไว้ = ถึงปัจจุบัน)";
             // 
-            // dgvSection
-            // 
-            this.dgvSection.AllowSortByColumnHeaderClicked = false;
-            this.dgvSection.AllowUserToAddRows = false;
-            this.dgvSection.AllowUserToDeleteRows = false;
-            this.dgvSection.AllowUserToResizeColumns = false;
-            this.dgvSection.AllowUserToResizeRows = false;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvSection.ColumnHeadersHeight = 28;
-            this.dgvSection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvSection.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_section_id,
-            this.col_section_name,
-            this.col_section_stkcod,
-            this.col_section_stkdes,
-            this.col_section_loccod,
-            this.col_section_begtak,
-            this.col_section_begacc,
-            this.col_section_begdif,
-            this.col_section_totbal,
-            this.col_section_nozzlecount,
-            this.col_section_tank_id,
-            this.col_section_section,
-            this.col_section_stmas_id,
-            this.col_section_tank_name,
-            this.col_section_start_date,
-            this.col_section_end_date,
-            this.col_section_state});
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle14;
-            this.dgvSection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvSection.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvSection.EnableHeadersVisualStyles = false;
-            this.dgvSection.FillEmptyRow = false;
-            this.dgvSection.FocusedRowBorderRedLine = true;
-            this.dgvSection.Location = new System.Drawing.Point(0, 0);
-            this.dgvSection.MultiSelect = false;
-            this.dgvSection.Name = "dgvSection";
-            this.dgvSection.ReadOnly = true;
-            this.dgvSection.RowHeadersVisible = false;
-            this.dgvSection.RowTemplate.Height = 26;
-            this.dgvSection.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSection.Size = new System.Drawing.Size(881, 274);
-            this.dgvSection.StandardTab = true;
-            this.dgvSection.TabIndex = 0;
-            this.dgvSection.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSection_CellMouseDoubleClick);
-            this.dgvSection.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvSection_DataBindingComplete);
-            this.dgvSection.SelectionChanged += new System.EventHandler(this.dgvSection_SelectionChanged);
-            this.dgvSection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSection_MouseClick);
-            this.dgvSection.Resize += new System.EventHandler(this.dgvSection_Resize);
-            // 
-            // col_section_id
-            // 
-            this.col_section_id.DataPropertyName = "id";
-            this.col_section_id.HeaderText = "ID";
-            this.col_section_id.Name = "col_section_id";
-            this.col_section_id.ReadOnly = true;
-            this.col_section_id.Visible = false;
-            // 
-            // col_section_name
-            // 
-            this.col_section_name.DataPropertyName = "name";
-            this.col_section_name.HeaderText = "เลขที่ถัง";
-            this.col_section_name.MinimumWidth = 120;
-            this.col_section_name.Name = "col_section_name";
-            this.col_section_name.ReadOnly = true;
-            this.col_section_name.Width = 120;
-            // 
-            // col_section_stkcod
-            // 
-            this.col_section_stkcod.DataPropertyName = "stkcod";
-            this.col_section_stkcod.HeaderText = "รหัสสินค้า";
-            this.col_section_stkcod.MinimumWidth = 150;
-            this.col_section_stkcod.Name = "col_section_stkcod";
-            this.col_section_stkcod.ReadOnly = true;
-            this.col_section_stkcod.Width = 150;
-            // 
-            // col_section_stkdes
-            // 
-            this.col_section_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_section_stkdes.DataPropertyName = "stkdes";
-            this.col_section_stkdes.HeaderText = "รายละเอียด";
-            this.col_section_stkdes.Name = "col_section_stkdes";
-            this.col_section_stkdes.ReadOnly = true;
-            // 
-            // col_section_loccod
-            // 
-            this.col_section_loccod.DataPropertyName = "loccod";
-            this.col_section_loccod.HeaderText = "รหัสคลัง";
-            this.col_section_loccod.MinimumWidth = 70;
-            this.col_section_loccod.Name = "col_section_loccod";
-            this.col_section_loccod.ReadOnly = true;
-            this.col_section_loccod.Visible = false;
-            this.col_section_loccod.Width = 70;
-            // 
-            // col_section_begtak
-            // 
-            this.col_section_begtak.DataPropertyName = "begtak";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.col_section_begtak.DefaultCellStyle = dataGridViewCellStyle9;
-            this.col_section_begtak.HeaderText = "ยกมา-ตรวจวัดจริง (ลิตร)";
-            this.col_section_begtak.MinimumWidth = 150;
-            this.col_section_begtak.Name = "col_section_begtak";
-            this.col_section_begtak.ReadOnly = true;
-            this.col_section_begtak.Width = 150;
-            // 
-            // col_section_begacc
-            // 
-            this.col_section_begacc.DataPropertyName = "begacc";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "N2";
-            dataGridViewCellStyle10.NullValue = "0";
-            this.col_section_begacc.DefaultCellStyle = dataGridViewCellStyle10;
-            this.col_section_begacc.HeaderText = "ยกมา-ตามบัญชี (ลิตร)";
-            this.col_section_begacc.MinimumWidth = 140;
-            this.col_section_begacc.Name = "col_section_begacc";
-            this.col_section_begacc.ReadOnly = true;
-            this.col_section_begacc.Width = 140;
-            // 
-            // col_section_begdif
-            // 
-            this.col_section_begdif.DataPropertyName = "begdif";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle11.Format = "N2";
-            dataGridViewCellStyle11.NullValue = null;
-            this.col_section_begdif.DefaultCellStyle = dataGridViewCellStyle11;
-            this.col_section_begdif.HeaderText = "ผลต่างยกมา (ลิตร)";
-            this.col_section_begdif.MinimumWidth = 120;
-            this.col_section_begdif.Name = "col_section_begdif";
-            this.col_section_begdif.ReadOnly = true;
-            this.col_section_begdif.Width = 120;
-            // 
-            // col_section_totbal
-            // 
-            this.col_section_totbal.DataPropertyName = "totbal";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle12.Format = "N2";
-            dataGridViewCellStyle12.NullValue = null;
-            this.col_section_totbal.DefaultCellStyle = dataGridViewCellStyle12;
-            this.col_section_totbal.HeaderText = "คงเหลือ (ลิตร)";
-            this.col_section_totbal.Name = "col_section_totbal";
-            this.col_section_totbal.ReadOnly = true;
-            this.col_section_totbal.Visible = false;
-            // 
-            // col_section_nozzlecount
-            // 
-            this.col_section_nozzlecount.DataPropertyName = "nozzlecount";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "N0";
-            dataGridViewCellStyle13.NullValue = null;
-            this.col_section_nozzlecount.DefaultCellStyle = dataGridViewCellStyle13;
-            this.col_section_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
-            this.col_section_nozzlecount.MinimumWidth = 100;
-            this.col_section_nozzlecount.Name = "col_section_nozzlecount";
-            this.col_section_nozzlecount.ReadOnly = true;
-            // 
-            // col_section_tank_id
-            // 
-            this.col_section_tank_id.DataPropertyName = "tank_id";
-            this.col_section_tank_id.HeaderText = "Tank_id";
-            this.col_section_tank_id.Name = "col_section_tank_id";
-            this.col_section_tank_id.ReadOnly = true;
-            this.col_section_tank_id.Visible = false;
-            // 
-            // col_section_section
-            // 
-            this.col_section_section.DataPropertyName = "section";
-            this.col_section_section.HeaderText = "Section";
-            this.col_section_section.Name = "col_section_section";
-            this.col_section_section.ReadOnly = true;
-            this.col_section_section.Visible = false;
-            // 
-            // col_section_stmas_id
-            // 
-            this.col_section_stmas_id.DataPropertyName = "stmas_id";
-            this.col_section_stmas_id.HeaderText = "Stmas_id";
-            this.col_section_stmas_id.Name = "col_section_stmas_id";
-            this.col_section_stmas_id.ReadOnly = true;
-            this.col_section_stmas_id.Visible = false;
-            // 
-            // col_section_tank_name
-            // 
-            this.col_section_tank_name.DataPropertyName = "tank_name";
-            this.col_section_tank_name.HeaderText = "Tank Name";
-            this.col_section_tank_name.Name = "col_section_tank_name";
-            this.col_section_tank_name.ReadOnly = true;
-            this.col_section_tank_name.Visible = false;
-            // 
-            // col_section_start_date
-            // 
-            this.col_section_start_date.DataPropertyName = "start_date";
-            this.col_section_start_date.HeaderText = "Start Date";
-            this.col_section_start_date.Name = "col_section_start_date";
-            this.col_section_start_date.ReadOnly = true;
-            this.col_section_start_date.Visible = false;
-            // 
-            // col_section_end_date
-            // 
-            this.col_section_end_date.DataPropertyName = "end_date";
-            this.col_section_end_date.HeaderText = "End Date";
-            this.col_section_end_date.Name = "col_section_end_date";
-            this.col_section_end_date.ReadOnly = true;
-            this.col_section_end_date.Visible = false;
-            // 
-            // col_section_state
-            // 
-            this.col_section_state.DataPropertyName = "state";
-            this.col_section_state.HeaderText = "State";
-            this.col_section_state.Name = "col_section_state";
-            this.col_section_state.ReadOnly = true;
-            this.col_section_state.Visible = false;
-            // 
             // btnAddItem
             // 
             this.btnAddItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -667,6 +440,378 @@
             this.btnSaveItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSaveItem.UseVisualStyleBackColor = true;
             this.btnSaveItem.Click += new System.EventHandler(this.btnSaveItem_Click);
+            // 
+            // inline_nozzlecount
+            // 
+            this.inline_nozzlecount.Image = global::XPump.Properties.Resources.nozzle2_16;
+            this.inline_nozzlecount.Location = new System.Drawing.Point(778, 48);
+            this.inline_nozzlecount.Name = "inline_nozzlecount";
+            this.inline_nozzlecount.Size = new System.Drawing.Size(26, 23);
+            this.inline_nozzlecount.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.inline_nozzlecount, "แก้ไขจำนวนหัวจ่ายน้ำมัน <Ctrl + Space>");
+            this.inline_nozzlecount.UseVisualStyleBackColor = true;
+            this.inline_nozzlecount.Click += new System.EventHandler(this.inline_nozzlecount_Click);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Location = new System.Drawing.Point(4, 186);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(889, 303);
+            this.tabControl1.TabIndex = 16;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.inline_name);
+            this.tabPage1.Controls.Add(this.inline_stkcod);
+            this.tabPage1.Controls.Add(this.inline_begtak);
+            this.tabPage1.Controls.Add(this.inline_begacc);
+            this.tabPage1.Controls.Add(this.inline_nozzlecount);
+            this.tabPage1.Controls.Add(this.dgvSection);
+            this.tabPage1.Controls.Add(this.btnAddItem);
+            this.tabPage1.Controls.Add(this.btnDeleteItem);
+            this.tabPage1.Controls.Add(this.btnEditItem);
+            this.tabPage1.Controls.Add(this.btnStopItem);
+            this.tabPage1.Controls.Add(this.btnSaveItem);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(881, 274);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "ถังน้ำมัน <F8>";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // inline_name
+            // 
+            this.inline_name._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_name._MaxLength = 32767;
+            this.inline_name._ReadOnly = false;
+            this.inline_name._Text = "";
+            this.inline_name._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.inline_name.BackColor = System.Drawing.Color.White;
+            this.inline_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_name.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_name.Location = new System.Drawing.Point(6, 48);
+            this.inline_name.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_name.Name = "inline_name";
+            this.inline_name.Size = new System.Drawing.Size(118, 23);
+            this.inline_name.TabIndex = 0;
+            this.inline_name.Visible = false;
+            this.inline_name._TextChanged += new System.EventHandler(this.inline_name__TextChanged);
+            // 
+            // inline_stkcod
+            // 
+            this.inline_stkcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_stkcod._ReadOnly = false;
+            this.inline_stkcod._Text = "";
+            this.inline_stkcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.inline_stkcod._UseImage = true;
+            this.inline_stkcod.BackColor = System.Drawing.Color.White;
+            this.inline_stkcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_stkcod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.inline_stkcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_stkcod.Location = new System.Drawing.Point(126, 48);
+            this.inline_stkcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_stkcod.Name = "inline_stkcod";
+            this.inline_stkcod.Size = new System.Drawing.Size(149, 23);
+            this.inline_stkcod.TabIndex = 1;
+            this.inline_stkcod.Visible = false;
+            this.inline_stkcod._ButtonClick += new System.EventHandler(this.inline_stkcod__ButtonClick);
+            this.inline_stkcod._Leave += new System.EventHandler(this.inline_stkcod__Leave);
+            // 
+            // inline_begtak
+            // 
+            this.inline_begtak._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_begtak._DecimalDigit = 2;
+            this.inline_begtak._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.inline_begtak._MaxLength = 30;
+            this.inline_begtak._ReadOnly = false;
+            this.inline_begtak._SelectionLength = 0;
+            this.inline_begtak._SelectionStart = 4;
+            this.inline_begtak._Text = "0.00";
+            this.inline_begtak._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_begtak._UseThoundsandSeparate = true;
+            this.inline_begtak._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_begtak.BackColor = System.Drawing.Color.White;
+            this.inline_begtak.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_begtak.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_begtak.Location = new System.Drawing.Point(367, 48);
+            this.inline_begtak.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_begtak.Name = "inline_begtak";
+            this.inline_begtak.Size = new System.Drawing.Size(151, 23);
+            this.inline_begtak.TabIndex = 2;
+            this.inline_begtak.Visible = false;
+            this.inline_begtak._ValueChanged += new System.EventHandler(this.inline_begtak__ValueChanged);
+            // 
+            // inline_begacc
+            // 
+            this.inline_begacc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_begacc._DecimalDigit = 2;
+            this.inline_begacc._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.inline_begacc._MaxLength = 30;
+            this.inline_begacc._ReadOnly = false;
+            this.inline_begacc._SelectionLength = 0;
+            this.inline_begacc._SelectionStart = 4;
+            this.inline_begacc._Text = "0.00";
+            this.inline_begacc._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_begacc._UseThoundsandSeparate = true;
+            this.inline_begacc._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_begacc.BackColor = System.Drawing.Color.White;
+            this.inline_begacc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_begacc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_begacc.Location = new System.Drawing.Point(522, 48);
+            this.inline_begacc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_begacc.Name = "inline_begacc";
+            this.inline_begacc.Size = new System.Drawing.Size(137, 23);
+            this.inline_begacc.TabIndex = 3;
+            this.inline_begacc.Visible = false;
+            this.inline_begacc._ValueChanged += new System.EventHandler(this.inline_begacc__ValueChanged);
+            // 
+            // dgvSection
+            // 
+            this.dgvSection.AllowSortByColumnHeaderClicked = false;
+            this.dgvSection.AllowUserToAddRows = false;
+            this.dgvSection.AllowUserToDeleteRows = false;
+            this.dgvSection.AllowUserToResizeColumns = false;
+            this.dgvSection.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvSection.ColumnHeadersHeight = 28;
+            this.dgvSection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvSection.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_section_id,
+            this.col_section_name,
+            this.col_section_stkcod,
+            this.col_section_stkdes,
+            this.col_section_loccod,
+            this.col_section_begtak,
+            this.col_section_begacc,
+            this.col_section_begdif,
+            this.col_section_totbal,
+            this.col_section_nozzlecount,
+            this.col_section_tank_id,
+            this.col_section_section,
+            this.col_section_stmas_id,
+            this.col_section_tank_name,
+            this.col_section_start_date,
+            this.col_section_end_date,
+            this.col_section_state});
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvSection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSection.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvSection.EnableHeadersVisualStyles = false;
+            this.dgvSection.FillEmptyRow = false;
+            this.dgvSection.FocusedRowBorderRedLine = true;
+            this.dgvSection.Location = new System.Drawing.Point(0, 0);
+            this.dgvSection.MultiSelect = false;
+            this.dgvSection.Name = "dgvSection";
+            this.dgvSection.ReadOnly = true;
+            this.dgvSection.RowHeadersVisible = false;
+            this.dgvSection.RowTemplate.Height = 26;
+            this.dgvSection.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSection.Size = new System.Drawing.Size(881, 274);
+            this.dgvSection.StandardTab = true;
+            this.dgvSection.TabIndex = 0;
+            this.dgvSection.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSection_CellMouseDoubleClick);
+            this.dgvSection.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvSection_DataBindingComplete);
+            this.dgvSection.SelectionChanged += new System.EventHandler(this.dgvSection_SelectionChanged);
+            this.dgvSection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSection_MouseClick);
+            this.dgvSection.Resize += new System.EventHandler(this.dgvSection_Resize);
+            // 
+            // col_section_id
+            // 
+            this.col_section_id.DataPropertyName = "id";
+            this.col_section_id.HeaderText = "ID";
+            this.col_section_id.Name = "col_section_id";
+            this.col_section_id.ReadOnly = true;
+            this.col_section_id.Visible = false;
+            // 
+            // col_section_name
+            // 
+            this.col_section_name.DataPropertyName = "name";
+            this.col_section_name.HeaderText = "เลขที่ถัง";
+            this.col_section_name.MinimumWidth = 120;
+            this.col_section_name.Name = "col_section_name";
+            this.col_section_name.ReadOnly = true;
+            this.col_section_name.Width = 120;
+            // 
+            // col_section_stkcod
+            // 
+            this.col_section_stkcod.DataPropertyName = "stkcod";
+            this.col_section_stkcod.HeaderText = "รหัสสินค้า";
+            this.col_section_stkcod.MinimumWidth = 150;
+            this.col_section_stkcod.Name = "col_section_stkcod";
+            this.col_section_stkcod.ReadOnly = true;
+            this.col_section_stkcod.Width = 150;
+            // 
+            // col_section_stkdes
+            // 
+            this.col_section_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_section_stkdes.DataPropertyName = "stkdes";
+            this.col_section_stkdes.HeaderText = "รายละเอียด";
+            this.col_section_stkdes.Name = "col_section_stkdes";
+            this.col_section_stkdes.ReadOnly = true;
+            // 
+            // col_section_loccod
+            // 
+            this.col_section_loccod.DataPropertyName = "loccod";
+            this.col_section_loccod.HeaderText = "รหัสคลัง";
+            this.col_section_loccod.MinimumWidth = 70;
+            this.col_section_loccod.Name = "col_section_loccod";
+            this.col_section_loccod.ReadOnly = true;
+            this.col_section_loccod.Visible = false;
+            this.col_section_loccod.Width = 70;
+            // 
+            // col_section_begtak
+            // 
+            this.col_section_begtak.DataPropertyName = "begtak";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.col_section_begtak.DefaultCellStyle = dataGridViewCellStyle2;
+            this.col_section_begtak.HeaderText = "ยกมา-ตรวจวัดจริง (ลิตร)";
+            this.col_section_begtak.MinimumWidth = 150;
+            this.col_section_begtak.Name = "col_section_begtak";
+            this.col_section_begtak.ReadOnly = true;
+            this.col_section_begtak.Width = 150;
+            // 
+            // col_section_begacc
+            // 
+            this.col_section_begacc.DataPropertyName = "begacc";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = "0";
+            this.col_section_begacc.DefaultCellStyle = dataGridViewCellStyle3;
+            this.col_section_begacc.HeaderText = "ยกมา-ตามบัญชี (ลิตร)";
+            this.col_section_begacc.MinimumWidth = 140;
+            this.col_section_begacc.Name = "col_section_begacc";
+            this.col_section_begacc.ReadOnly = true;
+            this.col_section_begacc.Width = 140;
+            // 
+            // col_section_begdif
+            // 
+            this.col_section_begdif.DataPropertyName = "begdif";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.col_section_begdif.DefaultCellStyle = dataGridViewCellStyle4;
+            this.col_section_begdif.HeaderText = "ผลต่างยกมา (ลิตร)";
+            this.col_section_begdif.MinimumWidth = 120;
+            this.col_section_begdif.Name = "col_section_begdif";
+            this.col_section_begdif.ReadOnly = true;
+            this.col_section_begdif.Width = 120;
+            // 
+            // col_section_totbal
+            // 
+            this.col_section_totbal.DataPropertyName = "totbal";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.col_section_totbal.DefaultCellStyle = dataGridViewCellStyle5;
+            this.col_section_totbal.HeaderText = "คงเหลือ (ลิตร)";
+            this.col_section_totbal.Name = "col_section_totbal";
+            this.col_section_totbal.ReadOnly = true;
+            this.col_section_totbal.Visible = false;
+            // 
+            // col_section_nozzlecount
+            // 
+            this.col_section_nozzlecount.DataPropertyName = "nozzlecount";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N0";
+            dataGridViewCellStyle6.NullValue = null;
+            this.col_section_nozzlecount.DefaultCellStyle = dataGridViewCellStyle6;
+            this.col_section_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
+            this.col_section_nozzlecount.MinimumWidth = 100;
+            this.col_section_nozzlecount.Name = "col_section_nozzlecount";
+            this.col_section_nozzlecount.ReadOnly = true;
+            // 
+            // col_section_tank_id
+            // 
+            this.col_section_tank_id.DataPropertyName = "tank_id";
+            this.col_section_tank_id.HeaderText = "Tank_id";
+            this.col_section_tank_id.Name = "col_section_tank_id";
+            this.col_section_tank_id.ReadOnly = true;
+            this.col_section_tank_id.Visible = false;
+            // 
+            // col_section_section
+            // 
+            this.col_section_section.DataPropertyName = "section";
+            this.col_section_section.HeaderText = "Section";
+            this.col_section_section.Name = "col_section_section";
+            this.col_section_section.ReadOnly = true;
+            this.col_section_section.Visible = false;
+            // 
+            // col_section_stmas_id
+            // 
+            this.col_section_stmas_id.DataPropertyName = "stmas_id";
+            this.col_section_stmas_id.HeaderText = "Stmas_id";
+            this.col_section_stmas_id.Name = "col_section_stmas_id";
+            this.col_section_stmas_id.ReadOnly = true;
+            this.col_section_stmas_id.Visible = false;
+            // 
+            // col_section_tank_name
+            // 
+            this.col_section_tank_name.DataPropertyName = "tank_name";
+            this.col_section_tank_name.HeaderText = "Tank Name";
+            this.col_section_tank_name.Name = "col_section_tank_name";
+            this.col_section_tank_name.ReadOnly = true;
+            this.col_section_tank_name.Visible = false;
+            // 
+            // col_section_start_date
+            // 
+            this.col_section_start_date.DataPropertyName = "start_date";
+            this.col_section_start_date.HeaderText = "Start Date";
+            this.col_section_start_date.Name = "col_section_start_date";
+            this.col_section_start_date.ReadOnly = true;
+            this.col_section_start_date.Visible = false;
+            // 
+            // col_section_end_date
+            // 
+            this.col_section_end_date.DataPropertyName = "end_date";
+            this.col_section_end_date.HeaderText = "End Date";
+            this.col_section_end_date.Name = "col_section_end_date";
+            this.col_section_end_date.ReadOnly = true;
+            this.col_section_end_date.Visible = false;
+            // 
+            // col_section_state
+            // 
+            this.col_section_state.DataPropertyName = "state";
+            this.col_section_state.HeaderText = "State";
+            this.col_section_state.Name = "col_section_state";
+            this.col_section_state.ReadOnly = true;
+            this.col_section_state.Visible = false;
             // 
             // dtEndDate
             // 
@@ -765,151 +910,6 @@
             this.txtName._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
             // 
-            // inline_nozzlecount
-            // 
-            this.inline_nozzlecount.Image = global::XPump.Properties.Resources.nozzle2_16;
-            this.inline_nozzlecount.Location = new System.Drawing.Point(778, 48);
-            this.inline_nozzlecount.Name = "inline_nozzlecount";
-            this.inline_nozzlecount.Size = new System.Drawing.Size(26, 23);
-            this.inline_nozzlecount.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.inline_nozzlecount, "แก้ไขจำนวนหัวจ่ายน้ำมัน <Ctrl + Space>");
-            this.inline_nozzlecount.UseVisualStyleBackColor = true;
-            this.inline_nozzlecount.Click += new System.EventHandler(this.inline_nozzlecount_Click);
-            // 
-            // inline_stkcod
-            // 
-            this.inline_stkcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_stkcod._ReadOnly = false;
-            this.inline_stkcod._Text = "";
-            this.inline_stkcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.inline_stkcod._UseImage = true;
-            this.inline_stkcod.BackColor = System.Drawing.Color.White;
-            this.inline_stkcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_stkcod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.inline_stkcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_stkcod.Location = new System.Drawing.Point(126, 48);
-            this.inline_stkcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_stkcod.Name = "inline_stkcod";
-            this.inline_stkcod.Size = new System.Drawing.Size(149, 23);
-            this.inline_stkcod.TabIndex = 1;
-            this.inline_stkcod.Visible = false;
-            this.inline_stkcod._ButtonClick += new System.EventHandler(this.inline_stkcod__ButtonClick);
-            this.inline_stkcod._Leave += new System.EventHandler(this.inline_stkcod__Leave);
-            // 
-            // inline_begacc
-            // 
-            this.inline_begacc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_begacc._DecimalDigit = 2;
-            this.inline_begacc._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.inline_begacc._MaxLength = 30;
-            this.inline_begacc._ReadOnly = false;
-            this.inline_begacc._SelectionLength = 0;
-            this.inline_begacc._SelectionStart = 4;
-            this.inline_begacc._Text = "0.00";
-            this.inline_begacc._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.inline_begacc._UseThoundsandSeparate = true;
-            this.inline_begacc._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.inline_begacc.BackColor = System.Drawing.Color.White;
-            this.inline_begacc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_begacc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_begacc.Location = new System.Drawing.Point(522, 48);
-            this.inline_begacc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_begacc.Name = "inline_begacc";
-            this.inline_begacc.Size = new System.Drawing.Size(137, 23);
-            this.inline_begacc.TabIndex = 3;
-            this.inline_begacc.Visible = false;
-            this.inline_begacc._ValueChanged += new System.EventHandler(this.inline_begacc__ValueChanged);
-            // 
-            // inline_begtak
-            // 
-            this.inline_begtak._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_begtak._DecimalDigit = 2;
-            this.inline_begtak._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.inline_begtak._MaxLength = 30;
-            this.inline_begtak._ReadOnly = false;
-            this.inline_begtak._SelectionLength = 0;
-            this.inline_begtak._SelectionStart = 4;
-            this.inline_begtak._Text = "0.00";
-            this.inline_begtak._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.inline_begtak._UseThoundsandSeparate = true;
-            this.inline_begtak._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.inline_begtak.BackColor = System.Drawing.Color.White;
-            this.inline_begtak.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_begtak.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_begtak.Location = new System.Drawing.Point(367, 48);
-            this.inline_begtak.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_begtak.Name = "inline_begtak";
-            this.inline_begtak.Size = new System.Drawing.Size(151, 23);
-            this.inline_begtak.TabIndex = 2;
-            this.inline_begtak.Visible = false;
-            this.inline_begtak._ValueChanged += new System.EventHandler(this.inline_begtak__ValueChanged);
-            // 
-            // inline_name
-            // 
-            this.inline_name._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_name._MaxLength = 32767;
-            this.inline_name._ReadOnly = false;
-            this.inline_name._Text = "";
-            this.inline_name._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.inline_name.BackColor = System.Drawing.Color.White;
-            this.inline_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_name.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_name.Location = new System.Drawing.Point(6, 48);
-            this.inline_name.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_name.Name = "inline_name";
-            this.inline_name.Size = new System.Drawing.Size(118, 23);
-            this.inline_name.TabIndex = 0;
-            this.inline_name.Visible = false;
-            this.inline_name._TextChanged += new System.EventHandler(this.inline_name__TextChanged);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(4, 186);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(889, 303);
-            this.tabControl1.TabIndex = 16;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.inline_name);
-            this.tabPage1.Controls.Add(this.inline_stkcod);
-            this.tabPage1.Controls.Add(this.inline_begtak);
-            this.tabPage1.Controls.Add(this.inline_begacc);
-            this.tabPage1.Controls.Add(this.inline_nozzlecount);
-            this.tabPage1.Controls.Add(this.dgvSection);
-            this.tabPage1.Controls.Add(this.btnAddItem);
-            this.tabPage1.Controls.Add(this.btnDeleteItem);
-            this.tabPage1.Controls.Add(this.btnEditItem);
-            this.tabPage1.Controls.Add(this.btnStopItem);
-            this.tabPage1.Controls.Add(this.btnSaveItem);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(881, 274);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "ถังน้ำมัน <F8>";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
             // FormTankSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -941,9 +941,9 @@
             this.Load += new System.EventHandler(this.FormTank_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSection)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSection)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

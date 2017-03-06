@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtExpressData = new CC.XTextEdit();
             this.btnBrowseExpressData = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
@@ -51,15 +51,6 @@
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(469, 43);
             this.toolStrip1.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 74);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(167, 16);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "ที่เก็บข้อมูลโปรแกรม Express";
             // 
             // btnEdit
             // 
@@ -96,6 +87,15 @@
             this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 74);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(167, 16);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "ที่เก็บข้อมูลโปรแกรม Express";
+            // 
             // txtExpressData
             // 
             this.txtExpressData._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -111,8 +111,8 @@
             this.txtExpressData.Name = "txtExpressData";
             this.txtExpressData.Size = new System.Drawing.Size(213, 23);
             this.txtExpressData.TabIndex = 10;
-            this.txtExpressData.TabStop = false;
             this.txtExpressData._TextChanged += new System.EventHandler(this.txtExpressData__TextChanged);
+            this.txtExpressData._DoubleClicked += new System.EventHandler(this.txtExpressData__DoubleClicked);
             // 
             // btnBrowseExpressData
             // 

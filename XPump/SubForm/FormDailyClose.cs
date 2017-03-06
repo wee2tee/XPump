@@ -46,6 +46,7 @@ namespace XPump.SubForm
 
         private void DialogDailySummary_Load(object sender, EventArgs e)
         {
+            this.BackColor = MiscResource.WIND_BG;
             this.bs = new BindingSource();
             this.dgv.DataSource = this.bs;
 

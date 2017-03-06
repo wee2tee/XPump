@@ -45,6 +45,7 @@ namespace XPump.SubForm
 
         private void FormSttak_Load(object sender, EventArgs e)
         {
+            this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
             this.bs = new BindingSource();

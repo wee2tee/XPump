@@ -40,6 +40,7 @@ namespace XPump.SubForm
 
         private void StmasForm_Load(object sender, EventArgs e)
         {
+            this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
@@ -665,11 +666,11 @@ namespace XPump.SubForm
                 }
                 else
                 {
-                    e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
-                    var image = Properties.Resources.zoom_fit_16;
+                    e.Paint(e.ClipBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground);
+                    var image = Properties.Resources.zoom_16;
                     var x = e.CellBounds.Left + (int)Math.Floor((double)(e.CellBounds.Width - image.Width) / 2);
                     var y = e.CellBounds.Top + (int)Math.Floor((double)(e.CellBounds.Height - image.Height) / 2);
-                    e.Graphics.DrawImage(Properties.Resources.zoom_fit_16, x, y, image.Width, image.Height);
+                    e.Graphics.DrawImage(Properties.Resources.zoom_16, x, y, image.Width, image.Height);
                 }
 
                 e.Handled = true;
@@ -699,11 +700,23 @@ namespace XPump.SubForm
             if (e.RowIndex == -1)
                 return;
 
-            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sales_btn.DataPropertyName).First().Index)
+            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sales_btn.DataPropertyName).First().Index)
             {
                 var saldat = (DateTime)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_sales_saldat.Name].Value;
                 var nozzle_id = (int)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_sales_nozzle_id.Name].Value;
-                MessageBox.Show(saldat.ToString() + " , nozzle_id : " + nozzle_id.ToString());
+                //MessageBox.Show(saldat.ToString() + " , nozzle_id : " + nozzle_id.ToString());
+                Rectangle rect = ((XDatagrid)sender).GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
+                var x = ((XDatagrid)sender).PointToScreen(Point.Empty).X + rect.X + rect.Width;
+                var y = ((XDatagrid)sender).PointToScreen(Point.Empty).Y + rect.Y + rect.Height;
+                //var width = this.col_sales_section_name.Width + this.col_sales_nozzle_name.Width + this.col_sales_salqty.Width + this.col_sales_salval.Width + this.col_sales_btn.Width;
+                int scrollbar_width = 0;
+                if (((XDatagrid)sender).Controls.OfType<VScrollBar>().Count() > 0)
+                {
+                    scrollbar_width = ((XDatagrid)sender).Controls.OfType<VScrollBar>().First().Visible ? SystemInformation.VerticalScrollBarWidth : 0;
+                }
+                var width = ((XDatagrid)sender).Bounds.Width - this.col_sales_saldat.Width - scrollbar_width;     
+                DialogNozzleSalesHistory nsh = new DialogNozzleSalesHistory(saldat, nozzle_id, new Point(x,y), width);
+                nsh.Show();
             }
         }
     }
