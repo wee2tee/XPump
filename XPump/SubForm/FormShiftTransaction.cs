@@ -759,7 +759,7 @@ namespace XPump.SubForm
                     }
                     else
                     {
-                        MessageBox.Show("ค้นหาข้อมูลตามที่ระบุไม่พบ", "", MessageBoxButtons.OK);
+                        MessageBox.Show("ค้นหาข้อมูลตามที่ระบุไม่พบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
             }

@@ -299,17 +299,143 @@ namespace XPump.SubForm
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
         {
+            DialogDateSelector sel = new DialogDateSelector("วันที่ปิดยอดขาย", null);
+            if(sel.ShowDialog() == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    var tmp = db.dayend.Where(d => d.saldat == sel.selected_date).FirstOrDefault();
 
+                    if(tmp != null)
+                    {
+                        this.curr_date = sel.selected_date;
+                        this.dayend_list = this.GetDayEnd(this.curr_date.Value);
+                        this.FillForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ไม่พบรายการปิดยอดขายของวันที่ " + sel.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture), "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                }
+            }
+        }
+
+        private List<DataGridViewColumn> GetInquiryDgvColumns()
+        {
+            List<DataGridViewColumn> cols = new List<DataGridViewColumn>();
+
+            DataGridViewColumn col_id = new DataGridViewTextBoxColumn();
+            col_id.Name = "col_id";
+            col_id.HeaderText = "ID";
+            col_id.DataPropertyName = "id";
+            col_id.Visible = false;
+            cols.Add(col_id);
+
+            DataGridViewColumn col_saldat = new DataGridViewTextBoxColumn();
+            col_saldat.Name = "col_saldat";
+            col_saldat.HeaderText = "วันที่";
+            col_saldat.Name = "col_saldat";
+            col_saldat.DataPropertyName = "saldat";
+            col_saldat.MinimumWidth = 80;
+            col_saldat.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            cols.Add(col_saldat);
+
+            DataGridViewColumn col_rcvqty = new DataGridViewTextBoxColumn();
+            col_rcvqty.HeaderText = "Rcv qty.";
+            col_rcvqty.DataPropertyName = "rcvqty";
+            col_rcvqty.Visible = false;
+            cols.Add(col_rcvqty);
+
+            DataGridViewColumn col_salqty = new DataGridViewTextBoxColumn();
+            col_salqty.HeaderText = "Sale qty.";
+            col_salqty.DataPropertyName = "salqty";
+            col_salqty.Visible = false;
+            cols.Add(col_salqty);
+
+            DataGridViewColumn col_dothertxt = new DataGridViewTextBoxColumn();
+            col_dothertxt.HeaderText = "Dothertxt";
+            col_dothertxt.DataPropertyName = "dothertxt";
+            col_dothertxt.Visible = false;
+            cols.Add(col_dothertxt);
+
+            DataGridViewColumn col_dother = new DataGridViewTextBoxColumn();
+            col_dother.HeaderText = "Dother";
+            col_dother.DataPropertyName = "dother";
+            col_dother.Visible = false;
+            cols.Add(col_dother);
+
+            DataGridViewColumn col_difqty = new DataGridViewTextBoxColumn();
+            col_difqty.HeaderText = "Dif. qty.";
+            col_difqty.DataPropertyName = "difqty";
+            col_difqty.Visible = false;
+            cols.Add(col_difqty);
+
+            DataGridViewColumn col_stmas_id = new DataGridViewTextBoxColumn();
+            col_stmas_id.HeaderText = "Stmas Id";
+            col_stmas_id.DataPropertyName = "stmas_id";
+            col_stmas_id.Visible = false;
+            cols.Add(col_stmas_id);
+
+            DataGridViewColumn col_stmas = new DataGridViewTextBoxColumn();
+            col_stmas.HeaderText = "Stmas";
+            col_stmas.DataPropertyName = "stmas";
+            col_stmas.Visible = false;
+            cols.Add(col_stmas);
+
+            DataGridViewColumn col_daysttak = new DataGridViewTextBoxColumn();
+            col_daysttak.HeaderText = "Day Sttak";
+            col_daysttak.DataPropertyName = "daysttak";
+            col_daysttak.Visible = false;
+            cols.Add(col_daysttak);
+
+            return cols;
         }
 
         private void btnInquiryAll_Click(object sender, EventArgs e)
         {
+            var cols = this.GetInquiryDgvColumns();
 
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                //var dayendVM = db.dayend.ToViewModel().OrderBy(s => s.saldat).ToList<dynamic>();
+                var dayendVM = db.dayend.OrderBy(s => s.saldat).ToList()
+                                .GroupBy(d => d.saldat)
+                                .Select(d => d.First())
+                                .ToList<dynamic>();
+                var col_search_key = cols.Where(c => c.Name == "col_saldat").FirstOrDefault();
+                DialogInquiry inq = new DialogInquiry(dayendVM, cols, col_search_key, null, false);
+
+                if (inq.ShowDialog() == DialogResult.OK)
+                {
+                    var saldat = (DateTime)inq.selected_row.Cells["col_saldat"].Value;
+                    this.dayend_list = this.GetDayEnd(saldat);
+                    this.curr_date = saldat;
+                    this.FillForm();
+                }
+            }
         }
 
         private void btnInquiryRest_Click(object sender, EventArgs e)
         {
+            var cols = this.GetInquiryDgvColumns();
 
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                var dayendVM = db.dayend.OrderBy(s => s.saldat).ToList()
+                                .GroupBy(d => d.saldat)
+                                .Select(d => d.First())
+                                .ToList<dynamic>();
+                var col_search_key = cols.Where(c => c.Name == "col_saldat").FirstOrDefault();
+                DialogInquiry inq = new DialogInquiry(dayendVM, cols, col_search_key, this.curr_date.Value, false);
+
+                if (inq.ShowDialog() == DialogResult.OK)
+                {
+                    var saldat = (DateTime)inq.selected_row.Cells["col_saldat"].Value;
+                    this.dayend_list = this.GetDayEnd(saldat);
+                    this.curr_date = saldat;
+                    this.FillForm();
+                }
+            }
         }
 
         private void btnPrintB_Click(object sender, EventArgs e)
@@ -470,7 +596,7 @@ namespace XPump.SubForm
 
             if (keyData == (Keys.Alt | Keys.S))
             {
-                this.btnSearch.PerformClick();
+                this.btnSearch.PerformButtonClick();
                 return true;
             }
 
