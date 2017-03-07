@@ -745,17 +745,124 @@ namespace XPump.SubForm
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
         {
+            DialogSearchShiftTransaction search = new DialogSearchShiftTransaction();
+            if(search.ShowDialog() == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    var tmp = db.shiftsales.Where(s => s.saldat == search.selected_date.Value && s.shift_id == search.selected_shift_id).FirstOrDefault();
+                    
+                    if(tmp != null)
+                    {
+                        this.curr_shiftsales = this.GetShiftSales(tmp.id);
+                        this.FillForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ค้นหาข้อมูลตามที่ระบุไม่พบ", "", MessageBoxButtons.OK);
+                    }
+                }
+            }
+        }
 
+        private List<DataGridViewColumn> GetInquiryDgvColumns()
+        {
+            List<DataGridViewColumn> cols = new List<DataGridViewColumn>();
+
+            DataGridViewColumn col_id = new DataGridViewTextBoxColumn();
+            col_id.Name = "col_id";
+            col_id.HeaderText = "ID";
+            col_id.DataPropertyName = "id";
+            col_id.Visible = false;
+            cols.Add(col_id);
+
+            DataGridViewColumn col_saldat = new DataGridViewTextBoxColumn();
+            col_saldat.HeaderText = "วันที่";
+            col_saldat.Name = "col_saldat";
+            col_saldat.DataPropertyName = "saldat";
+            col_saldat.MinimumWidth = 80;
+            col_saldat.Width = 80;
+            cols.Add(col_saldat);
+
+            DataGridViewColumn col_shift_name = new DataGridViewTextBoxColumn();
+            col_shift_name.HeaderText = "ผลัด";
+            col_shift_name.DataPropertyName = "shift_name";
+            col_shift_name.MinimumWidth = 60;
+            col_shift_name.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            cols.Add(col_shift_name);
+
+            DataGridViewColumn col_cretime = new DataGridViewTextBoxColumn();
+            col_cretime.HeaderText = "เพิ่มวันที่";
+            col_cretime.DataPropertyName = "cretime";
+            col_cretime.DefaultCellStyle.Format = "dd/MM/yyyy";
+            col_cretime.Visible = false;
+            cols.Add(col_cretime);
+
+            DataGridViewColumn col_closed = new DataGridViewTextBoxColumn();
+            col_closed.HeaderText = "Closed";
+            col_closed.DataPropertyName = "closed";
+            col_closed.Visible = false;
+            cols.Add(col_closed);
+
+            DataGridViewColumn col__closed = new DataGridViewTextBoxColumn();
+            col__closed.HeaderText = "สถานะ";
+            col__closed.DataPropertyName = "_closed";
+            col__closed.MinimumWidth = 130;
+            col__closed.Width = 130;
+            cols.Add(col__closed);
+
+            DataGridViewColumn col_shift_id = new DataGridViewTextBoxColumn();
+            col_shift_id.HeaderText = "Shift Id";
+            col_shift_id.DataPropertyName = "shift_id";
+            col_shift_id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            col_shift_id.Visible = false;
+            cols.Add(col_shift_id);
+
+            DataGridViewColumn col_shiftsales = new DataGridViewTextBoxColumn();
+            col_shiftsales.HeaderText = "Shiftsales";
+            col_shiftsales.DataPropertyName = "shiftsales";
+            col_shiftsales.Visible = false;
+            cols.Add(col_shiftsales);
+
+            return cols;
         }
 
         private void btnInquiryAll_Click(object sender, EventArgs e)
         {
+            var cols = this.GetInquiryDgvColumns();
 
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                var shiftsales = db.shiftsales.ToViewModel().OrderBy(s => s.saldat).ThenBy(s => s.shift_name).ToList<dynamic>();
+                var col_search_key = cols.Where(c => c.Name == "col_id").FirstOrDefault();
+                DialogInquiry inq = new DialogInquiry(shiftsales, cols, col_search_key, null, false);
+
+                if (inq.ShowDialog() == DialogResult.OK)
+                {
+                    var id = (int)inq.selected_row.Cells["col_id"].Value;
+                    this.curr_shiftsales = this.GetShiftSales(id);
+                    this.FillForm();
+                }
+            }
         }
 
         private void btnInquiryRest_Click(object sender, EventArgs e)
         {
+            var cols = this.GetInquiryDgvColumns();
 
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                var shiftsales = db.shiftsales.ToViewModel().OrderBy(s => s.saldat).ThenBy(s => s.shift_name).ToList<dynamic>();
+                var col_search_key = cols.Where(c => c.Name == "col_id").FirstOrDefault();
+                DialogInquiry inq = new DialogInquiry(shiftsales, cols, col_search_key, this.curr_shiftsales.id, false);
+
+                if (inq.ShowDialog() == DialogResult.OK)
+                {
+                    var id = (int)inq.selected_row.Cells["col_id"].Value;
+                    this.curr_shiftsales = this.GetShiftSales(id);
+                    this.FillForm();
+                }
+            }
         }
 
         //private void btnItem_Click(object sender, EventArgs e)
@@ -1859,7 +1966,7 @@ namespace XPump.SubForm
 
             if (keyData == (Keys.Alt | Keys.S))
             {
-                this.btnSearch.PerformClick();
+                this.btnSearch.PerformButtonClick();
                 return true;
             }
 

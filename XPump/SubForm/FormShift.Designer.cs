@@ -62,6 +62,7 @@
             this.btnUp = new System.Windows.Forms.Button();
             this.btnDown = new System.Windows.Forms.Button();
             this.dgv = new CC.XDatagrid();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_seq = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -77,7 +78,6 @@
             this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_shift = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
@@ -554,6 +554,7 @@
             this.col_paeprefix.MinimumWidth = 70;
             this.col_paeprefix.Name = "col_paeprefix";
             this.col_paeprefix.ReadOnly = true;
+            this.col_paeprefix.Visible = false;
             this.col_paeprefix.Width = 70;
             // 
             // col_phpprefix
@@ -581,6 +582,7 @@
             this.col_saiprefix.MinimumWidth = 70;
             this.col_saiprefix.Name = "col_saiprefix";
             this.col_saiprefix.ReadOnly = true;
+            this.col_saiprefix.Visible = false;
             this.col_saiprefix.Width = 70;
             // 
             // col_shsprefix

@@ -182,6 +182,12 @@
     <Compile Include="SubForm\DialogInlineSearch.Designer.cs">
       <DependentUpon>DialogInlineSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogInquiry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogInquiry.Designer.cs">
+      <DependentUpon>DialogInquiry.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogInquiryStmas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,12 @@
     </Compile>
     <Compile Include="SubForm\DialogSccompSelection.Designer.cs">
       <DependentUpon>DialogSccompSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogSearchShiftTransaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSearchShiftTransaction.Designer.cs">
+      <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm\DialogSettings.cs">
       <SubType>Form</SubType>
@@ -354,6 +366,9 @@
     <EmbeddedResource Include="SubForm\DialogInlineSearch.resx">
       <DependentUpon>DialogInlineSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogInquiry.resx">
+      <DependentUpon>DialogInquiry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogInquiryStmas.resx">
       <DependentUpon>DialogInquiryStmas.cs</DependentUpon>
     </EmbeddedResource>
@@ -380,6 +395,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSccompSelection.resx">
       <DependentUpon>DialogSccompSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSearchShiftTransaction.resx">
+      <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSettings.resx">
       <DependentUpon>DialogSettings.cs</DependentUpon>

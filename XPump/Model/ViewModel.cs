@@ -30,6 +30,8 @@ namespace XPump.Model
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
+        public System.DateTime startdate { get; set; }
+        public Nullable<System.DateTime> enddate { get; set; }
         public string remark { get; set; }
         public bool isactive { get; set; }
 
@@ -318,7 +320,64 @@ namespace XPump.Model
             }
         }
     }
-    
+
+    public class shiftsalesVM
+    {
+        public int id { get; set; }
+        public DateTime? saldat
+        {
+            get
+            {
+                return this.shiftsales != null ? (DateTime?)this.shiftsales.saldat : null;
+            }
+        }
+        public string shift_name
+        {
+            get
+            {
+                return this.shiftsales != null ? this.shiftsales.shift.name : string.Empty;
+            }
+        }
+        public DateTime? cretime
+        {
+            get
+            {
+                return this.shiftsales != null ? (DateTime?)this.shiftsales.cretime : null;
+            }
+        }
+        public bool closed
+        {
+            get
+            {
+                return this.shiftsales != null ? this.shiftsales.closed : false;
+            }
+        }
+        public string _closed
+        {
+            get
+            {
+                return this.closed ? "ปิดยอดขายแล้ว" : "";
+            }
+        }
+        public int shift_id
+        {
+            get
+            {
+                return this.shiftsales != null ? this.shiftsales.shift_id : -1;
+            }
+        }
+        public shiftsales shiftsales
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet())
+                {
+                    return db.shiftsales.Include("shift").Where(s => s.id == this.id).FirstOrDefault();
+                }
+            }
+        }
+    }
+
     public class salessummaryVM
     {
         public int id { get; set; }

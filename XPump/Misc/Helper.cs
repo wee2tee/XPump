@@ -112,6 +112,8 @@ namespace XPump.Misc
                 id = tank.id,
                 name = tank.name,
                 description = tank.description,
+                startdate = tank.startdate,
+                enddate = tank.enddate,
                 remark = tank.remark,
                 isactive = tank.isactive,
                 tank = tank
@@ -271,6 +273,28 @@ namespace XPump.Misc
             }
 
             return p;
+        }
+
+        public static shiftsalesVM ToViewModel(this shiftsales shiftsales)
+        {
+            if (shiftsales == null)
+                return null;
+
+            shiftsalesVM s = new shiftsalesVM
+            {
+                id = shiftsales.id
+            };
+            return s;
+        }
+
+        public static List<shiftsalesVM> ToViewModel(this IEnumerable<shiftsales> shiftsales_list)
+        {
+            List<shiftsalesVM> s = new List<shiftsalesVM>();
+            foreach (var item in shiftsales_list)
+            {
+                s.Add(item.ToViewModel());
+            }
+            return s;
         }
 
         public static salessummaryVM ToViewModel(this salessummary sales)

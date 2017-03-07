@@ -113,6 +113,7 @@ namespace CC
         public event EventHandler _GotFocus;
         public event EventHandler _Leave;
         public event EventHandler _DoubleClicked;
+        public event EventHandler _TextChanged;
 
         public XBrowseBox()
         {
@@ -241,6 +242,10 @@ namespace CC
         {
             this._text = ((TextBox)sender).Text;
             this.label1.Text = ((TextBox)sender).Text;
+            if(this._TextChanged != null)
+            {
+                this._TextChanged(this, e);
+            }
 
             if (this._ReadOnly)
             {

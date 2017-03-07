@@ -114,15 +114,15 @@ namespace XPump.SubForm
             this.inline_desc.SetInlineControlPosition(this.dgv, row_index, col_ndx);
             this.inline_desc.Visible = true;
 
-            col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_paeprefix.DataPropertyName).First().Index;
-            this.inline_pae.SetInlineControlPosition(this.dgv, row_index, col_ndx);
-            this.inline_pae._Items.Clear();
-            foreach (var item in isrun.Where(i => i.doctyp == "AE").ToList())
-            {
-                this.inline_pae._Items.Add(new XDropdownListItem { Text = item.prefix, Value = item.prefix });
-            }
-            this.inline_pae._Text = this.temp_shift.paeprefix; 
-            this.inline_pae.Visible = true;
+            //col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_paeprefix.DataPropertyName).First().Index;
+            //this.inline_pae.SetInlineControlPosition(this.dgv, row_index, col_ndx);
+            //this.inline_pae._Items.Clear();
+            //foreach (var item in isrun.Where(i => i.doctyp == "AE").ToList())
+            //{
+            //    this.inline_pae._Items.Add(new XDropdownListItem { Text = item.prefix, Value = item.prefix });
+            //}
+            //this.inline_pae._Text = this.temp_shift.paeprefix; 
+            //this.inline_pae.Visible = true;
 
             col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_phpprefix.DataPropertyName).First().Index;
             this.inline_php.SetInlineControlPosition(this.dgv, row_index, col_ndx);
@@ -144,15 +144,15 @@ namespace XPump.SubForm
             this.inline_prr._Text = this.temp_shift.prrprefix;
             this.inline_prr.Visible = true;
 
-            col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_saiprefix.DataPropertyName).First().Index;
-            this.inline_sai.SetInlineControlPosition(this.dgv, row_index, col_ndx);
-            this.inline_sai._Items.Clear();
-            foreach (var item in isrun.Where(i => i.doctyp == "AI").ToList())
-            {
-                this.inline_sai._Items.Add(new XDropdownListItem { Text = item.prefix, Value = item.prefix });
-            }
-            this.inline_sai._Text = this.temp_shift.saiprefix;
-            this.inline_sai.Visible = true;
+            //col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_saiprefix.DataPropertyName).First().Index;
+            //this.inline_sai.SetInlineControlPosition(this.dgv, row_index, col_ndx);
+            //this.inline_sai._Items.Clear();
+            //foreach (var item in isrun.Where(i => i.doctyp == "AI").ToList())
+            //{
+            //    this.inline_sai._Items.Add(new XDropdownListItem { Text = item.prefix, Value = item.prefix });
+            //}
+            //this.inline_sai._Text = this.temp_shift.saiprefix;
+            //this.inline_sai.Visible = true;
 
             col_ndx = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_shsprefix.DataPropertyName).First().Index;
             this.inline_shs.SetInlineControlPosition(this.dgv, row_index, col_ndx);
@@ -630,10 +630,10 @@ namespace XPump.SubForm
                     string content = this.col_prrprefix.HeaderText;
                     TextRenderer.DrawText(e.Graphics, content, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, e.CellBounds, Color.Black, TextFormatFlags.NoClipping | TextFormatFlags.Bottom | TextFormatFlags.HorizontalCenter);
 
-                    Rectangle rect = new Rectangle(e.CellBounds.X - this.col_paeprefix.Width - this.col_phpprefix.Width + 1, e.CellBounds.Y + 2, this.col_paeprefix.Width + this.col_phpprefix.Width + this.col_prrprefix.Width - 2, 20);
+                    Rectangle rect = new Rectangle(e.CellBounds.X /*- this.col_paeprefix.Width*/ - this.col_phpprefix.Width + 1, e.CellBounds.Y + 2, /*this.col_paeprefix.Width +*/ this.col_phpprefix.Width + this.col_prrprefix.Width - 2, 20);
                     e.Graphics.FillRectangle(new SolidBrush(((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor), rect);
 
-                    e.Graphics.DrawLine(new Pen(Color.Gray), e.CellBounds.X - this.col_paeprefix.Width - this.col_phpprefix.Width, e.CellBounds.Y + 20, e.CellBounds.X + this.col_prrprefix.Width, e.CellBounds.Y + 20);
+                    e.Graphics.DrawLine(new Pen(Color.Gray), e.CellBounds.X /*- this.col_paeprefix.Width*/ - this.col_phpprefix.Width, e.CellBounds.Y + 20, e.CellBounds.X + this.col_prrprefix.Width, e.CellBounds.Y + 20);
 
                     TextRenderer.DrawText(e.Graphics, "เอกสารด้านซื้อ", ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, rect, Color.Black, TextFormatFlags.NoClipping | TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
                 }
@@ -655,10 +655,10 @@ namespace XPump.SubForm
                     string content = this.col_sivprefix.HeaderText;
                     TextRenderer.DrawText(e.Graphics, content, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, e.CellBounds, Color.Black, TextFormatFlags.NoClipping | TextFormatFlags.Bottom | TextFormatFlags.HorizontalCenter);
 
-                    Rectangle rect = new Rectangle(e.CellBounds.X - this.col_saiprefix.Width - this.col_shsprefix.Width + 1, e.CellBounds.Y + 2, this.col_saiprefix.Width + this.col_shsprefix.Width + this.col_sivprefix.Width - 2, 20);
+                    Rectangle rect = new Rectangle(e.CellBounds.X /*- this.col_saiprefix.Width*/ - this.col_shsprefix.Width + 1, e.CellBounds.Y + 2, /*this.col_saiprefix.Width +*/ this.col_shsprefix.Width + this.col_sivprefix.Width - 2, 20);
                     e.Graphics.FillRectangle(new SolidBrush(((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor), rect);
 
-                    e.Graphics.DrawLine(new Pen(Color.Gray), e.CellBounds.X - this.col_saiprefix.Width - this.col_shsprefix.Width, e.CellBounds.Y + 20, e.CellBounds.X + this.col_sivprefix.Width, e.CellBounds.Y + 20);
+                    e.Graphics.DrawLine(new Pen(Color.Gray), e.CellBounds.X - /*this.col_saiprefix.Width -*/ this.col_shsprefix.Width, e.CellBounds.Y + 20, e.CellBounds.X + this.col_sivprefix.Width, e.CellBounds.Y + 20);
 
                     TextRenderer.DrawText(e.Graphics, "เอกสารด้านขาย", ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, rect, Color.Black, TextFormatFlags.NoClipping | TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
                 }

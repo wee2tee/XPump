@@ -905,14 +905,117 @@ namespace XPump.SubForm
             }
         }
 
+        private List<DataGridViewColumn> GetInquiryDgvColumns()
+        {
+            List<DataGridViewColumn> cols = new List<DataGridViewColumn>();
+
+            DataGridViewColumn col_id = new DataGridViewTextBoxColumn();
+            col_id.Name = "col_id";
+            col_id.HeaderText = "ID";
+            col_id.DataPropertyName = "id";
+            col_id.Visible = false;
+            cols.Add(col_id);
+
+            DataGridViewColumn col_name = new DataGridViewTextBoxColumn();
+            col_name.HeaderText = "รหัสแท๊งค์";
+            col_name.Name = "col_name";
+            col_name.DataPropertyName = "name";
+            col_name.MinimumWidth = 140;
+            col_name.Width = 140;
+            cols.Add(col_name);
+
+            DataGridViewColumn col_desc = new DataGridViewTextBoxColumn();
+            col_desc.HeaderText = "รายละเอียด";
+            col_desc.DataPropertyName = "description";
+            col_desc.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            col_desc.FillWeight = 100;
+            col_desc.MinimumWidth = 80;
+            cols.Add(col_desc);
+
+            DataGridViewColumn col_start = new DataGridViewTextBoxColumn();
+            col_start.HeaderText = "เริ่มใช้วันที่";
+            col_start.DataPropertyName = "startdate";
+            col_start.DefaultCellStyle.Format = "dd/MM/yyyy";
+            col_start.MinimumWidth = 80;
+            col_start.Width = 80;
+            cols.Add(col_start);
+
+            DataGridViewColumn col_end = new DataGridViewTextBoxColumn();
+            col_end.HeaderText = "ถึงวันที่";
+            col_end.DataPropertyName = "enddate";
+            col_end.DefaultCellStyle.Format = "dd/MM/yyyy";
+            col_end.MinimumWidth = 80;
+            col_end.Width = 80;
+            cols.Add(col_end);
+
+            DataGridViewColumn col_remark = new DataGridViewTextBoxColumn();
+            col_remark.HeaderText = "หมายเหตุ";
+            col_remark.DataPropertyName = "remark";
+            //col_remark.Visible = false;
+            col_remark.MinimumWidth = 80;
+            col_remark.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            col_remark.FillWeight = 60;
+            cols.Add(col_remark);
+
+            DataGridViewColumn col_isactive = new DataGridViewCheckBoxColumn();
+            col_isactive.HeaderText = "isactive";
+            col_isactive.DataPropertyName = "isactive";
+            col_isactive.Visible = false;
+            cols.Add(col_isactive);
+
+            DataGridViewColumn col_tank = new DataGridViewTextBoxColumn();
+            col_tank.HeaderText = "Tank";
+            col_tank.DataPropertyName = "tank";
+            col_tank.Visible = false;
+            cols.Add(col_tank);
+
+            DataGridViewColumn col__isactive = new DataGridViewTextBoxColumn();
+            col__isactive.HeaderText = "สถานะ";
+            col__isactive.DataPropertyName = "_isactive";
+            col__isactive.MinimumWidth = 60;
+            col__isactive.Width = 60;
+            col__isactive.Visible = false;
+            cols.Add(col__isactive);
+
+            return cols;
+        }
+
         private void btnInquiryAll_Click(object sender, EventArgs e)
         {
+            var cols = this.GetInquiryDgvColumns();
 
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                var tanks = db.tank.ToViewModel().ToList<dynamic>();
+                var col_search_key = cols.Where(c => c.Name == "col_name").FirstOrDefault();
+                DialogInquiry inq = new DialogInquiry(tanks, cols, col_search_key);
+
+                if(inq.ShowDialog() == DialogResult.OK)
+                {
+                    var id = (int)inq.selected_row.Cells["col_id"].Value;
+                    this.curr_tank = this.GetTank(id);
+                    this.FillForm();
+                }
+            }
         }
 
         private void btnInquiryRest_Click(object sender, EventArgs e)
         {
+            var cols = this.GetInquiryDgvColumns();
 
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                var tanks = db.tank.ToViewModel().ToList<dynamic>();
+                var col_search_key = cols.Where(c => c.Name == "col_name").FirstOrDefault();
+                DialogInquiry inq = new DialogInquiry(tanks, cols, col_search_key, this.curr_tank.name);
+
+                if (inq.ShowDialog() == DialogResult.OK)
+                {
+                    var id = (int)inq.selected_row.Cells["col_id"].Value;
+                    this.curr_tank = this.GetTank(id);
+                    this.FillForm();
+                }
+            }
         }
 
         private void btnItem_Click(object sender, EventArgs e)
