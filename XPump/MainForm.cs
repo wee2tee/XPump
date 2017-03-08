@@ -8,7 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using XPump.Model;
+using XPump.Misc;
 using XPump.SubForm;
+using System.Data.SQLite;
 
 namespace XPump
 {
@@ -135,10 +137,20 @@ namespace XPump
             daily.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = daily, docPrefix = string.Empty });
         }
-
-        private void mnuMonthlyClose_Click(object sender, EventArgs e)
+        
+        private void MainForm_Shown(object sender, EventArgs e)
         {
+            LocalDB db = new LocalDB();
+            //Console.WriteLine(" .. >> " + db.LocalConfig.id + " = " + db.LocalConfig.servername);
+            if(db.LocalConfig.servername.Trim().Length == 0)
+            {
+                MessageBox.Show("SERVER NAME NOT CONFIGURE");
+            }
 
+            //string encrypted = StringEnh.Encrypted("หo");
+            //Console.WriteLine(" .. >> encrypted : " + encrypted);
+            //string decrypted = StringEnh.Decrypted(encrypted);
+            //Console.WriteLine(" .. >> decrypted : " + decrypted);
         }
     }
 

@@ -154,6 +154,12 @@ namespace XPump.SubForm
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            if(keyData == (Keys.Alt | Keys.E))
+            {
+                this.btnEdit.PerformClick();
+                return true;
+            }
+
             if(keyData == Keys.Escape)
             {
                 this.btnStop.PerformClick();
