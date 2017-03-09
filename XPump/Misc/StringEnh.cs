@@ -5,9 +5,9 @@ using System.Text;
 
 namespace XPump.Misc
 {
-    public class StringEnh
+    public static class StringEnh
     {
-        public static string Encrypted(string string_to_encrypt)
+        public static string Encrypted(this string string_to_encrypt)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(string_to_encrypt);
 
@@ -16,11 +16,11 @@ namespace XPump.Misc
             return base64;
         }
 
-        public static string Decrypted(string string_to_decrypt)
+        public static string Decrypted(this string string_to_decrypt)
         {
             byte[] bytes = Convert.FromBase64String(string_to_decrypt);
 
-            string decrypted = Encoding.Default.GetString(bytes);
+            string decrypted = Encoding.ASCII.GetString(bytes);
 
             return decrypted;
         }

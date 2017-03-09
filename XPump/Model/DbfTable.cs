@@ -22,7 +22,7 @@ namespace XPump.Model
             string data_path = string.Empty;
             if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
             {
-                data_path = settings.express_data_path;
+                data_path = settings.express_data_path + @"\";
             }
             else
             {
@@ -31,7 +31,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stmas.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return null;
             }
             //var x = DBFHelper.DBFParse.ReadDBF(data_path + "stmas.dbf");
@@ -110,7 +110,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isrun.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Isrun.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Isrun.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return null;
             }
 
@@ -152,7 +152,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isinfo.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Isinfo.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Isinfo.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return null;
             }
 
@@ -194,7 +194,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stloc.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stloc.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Stloc.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return null;
             }
 
@@ -236,7 +236,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stcrd.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stcrd.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Stcrd.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return null;
             }
 
@@ -278,7 +278,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "apmas.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Apmas.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Apmas.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return null;
             }
 
@@ -320,7 +320,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "aptrn.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Aptrn.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Aptrn.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return null;
             }
 
@@ -362,7 +362,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "artrn.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Artrn.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Artrn.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return null;
             }
 

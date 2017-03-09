@@ -36,7 +36,7 @@ namespace XPump.SubForm
 
         private void DialogSalesHistory_Load(object sender, EventArgs e)
         {
-            this.BackColor = MiscResource.WIND_BG;
+            //this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
@@ -85,7 +85,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                return db.salessummary.Include("saleshistory").Where(s => s.id == id).FirstOrDefault();
+                return db.salessummary.Include("shiftsales").Include("saleshistory").Where(s => s.id == id).FirstOrDefault();
             }
         }
 
@@ -356,6 +356,12 @@ namespace XPump.SubForm
 
         private void PerformEditSummary(object sender, EventArgs e)
         {
+            if (this.salessummary.shiftsales.IsClosedShiftSales())
+            {
+                MessageBox.Show("วันที่ " + this.salessummary.shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
             this.btnCancel.Focus();
@@ -399,6 +405,12 @@ namespace XPump.SubForm
 
         private void dgvNozzle_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (this.salessummary.shiftsales.IsClosedShiftSales())
+            {
+                MessageBox.Show("วันที่ " + this.salessummary.shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             if (e.RowIndex > -1 && ((XDatagrid)sender).CurrentCell != null)
             {
                 if (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM)

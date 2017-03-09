@@ -25,16 +25,7 @@ namespace XPump
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            using(xpumpEntities db = DBX.DataSet())
-            {
-                db.stmas.ToList();
-            }
-
-            //Console.WriteLine(" .. >>>>>> 321.456 {0:#,##0.00}" + string.Format("{0:#,##0.00} ", 321.456));
-            //Console.WriteLine(" .. >>>>>> 654321.456 {0:#,##0.00}" + string.Format("{0:#,##0.00} ", 654321.456));
-            //Console.WriteLine(" .. >>>>>> 7654321.456 {0:#,##0.00}" + string.Format("{0:#,##0.00} ", 7654321.456));
-            //Console.WriteLine(" .. -----------------------------..");
-            //Console.WriteLine(" .. >>>>>> 9987654321.456 {0:#,#0.00}" + string.Format(CultureInfo.CurrentCulture,"{0:#,#0} ", 9987654321.656));
+            
         }
 
         private void MnuShift_Click(object sender, EventArgs e)
@@ -140,17 +131,25 @@ namespace XPump
         
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            LocalDB db = new LocalDB();
-            //Console.WriteLine(" .. >> " + db.LocalConfig.id + " = " + db.LocalConfig.servername);
+            LocalDb db = new LocalDb();
             if(db.LocalConfig.servername.Trim().Length == 0)
             {
-                MessageBox.Show("SERVER NAME NOT CONFIGURE");
+                DialogDbConfig config = new DialogDbConfig();
+                if(config.ShowDialog() != DialogResult.OK)
+                {
+                    this.Close();
+                }
             }
+            else if(db.LocalConfig.TestMysqlConnection() == false)
+            {
+                MessageBox.Show("ไม่สามารถเชื่อมต่อฐานข้อมูล MySql ได้, กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            //string encrypted = StringEnh.Encrypted("หo");
-            //Console.WriteLine(" .. >> encrypted : " + encrypted);
-            //string decrypted = StringEnh.Decrypted(encrypted);
-            //Console.WriteLine(" .. >> decrypted : " + decrypted);
+                DialogDbConfig config = new DialogDbConfig();
+                if (config.ShowDialog() != DialogResult.OK)
+                {
+                    this.Close();
+                }
+            }
         }
     }
 

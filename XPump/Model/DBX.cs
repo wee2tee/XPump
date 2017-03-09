@@ -6,6 +6,7 @@ using System.Configuration;
 using XPump.Model;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
+using XPump.Misc;
 
 namespace XPump.Model
 {
@@ -67,7 +68,9 @@ namespace XPump.Model
 
         public static xpumpEntities DataSet()
         {
-            DBX db_context = new DBX("localhost", "root", "12345", "xpump");
+            LocalConfig config = new LocalDb().LocalConfig;
+
+            DBX db_context = new DBX(config.servername, config.uid, config.passwordhash.Decrypted(), config.dbname, config.port);
             return db_context.GetDBEntities();
         }
     }

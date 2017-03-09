@@ -256,15 +256,15 @@ namespace XPump.SubForm
             }
         }
 
-        private bool ValidateClosedShiftSales()
+        private bool ValidateClosedShiftSales(shiftsales shiftsales)
         {
-            bool validated_result = this.curr_shiftsales.IsClosedShiftSales();
-            if (validated_result == true)
+            bool isclosed = shiftsales.IsClosedShiftSales();
+            if (isclosed == true)
             {
                 MessageBox.Show("วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
-            return validated_result;
+            return isclosed;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -292,7 +292,7 @@ namespace XPump.SubForm
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
                 return;
 
-            if (this.ValidateClosedShiftSales())
+            if (this.ValidateClosedShiftSales(this.curr_shiftsales))
             {
                 return;
             }
@@ -311,7 +311,7 @@ namespace XPump.SubForm
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
                 return;
 
-            if (this.ValidateClosedShiftSales())
+            if (this.ValidateClosedShiftSales(this.curr_shiftsales))
             {
                 return;
             }
@@ -1083,10 +1083,10 @@ namespace XPump.SubForm
             if (this.curr_salessummary == null)
                 return;
 
-            if (this.ValidateClosedShiftSales())
-            {
-                return;
-            }
+            //if (this.ValidateClosedShiftSales(this.curr_shiftsales))
+            //{
+            //    return;
+            //}
 
             if(this.form_mode != FORM_MODE.READ_ITEM)
             {
@@ -1148,7 +1148,7 @@ namespace XPump.SubForm
             if (this.dgvSalesSummary.CurrentCell == null)
                 return;
 
-            if (this.ValidateClosedShiftSales())
+            if (this.ValidateClosedShiftSales(this.curr_shiftsales))
             {
                 return;
             }
@@ -1791,7 +1791,7 @@ namespace XPump.SubForm
             if (((XDatagrid)sender).CurrentCell == null)
                 return;
 
-            if (this.ValidateClosedShiftSales())
+            if (this.ValidateClosedShiftSales(this.curr_shiftsales))
             {
                 return;
             }
