@@ -32,7 +32,7 @@ namespace XPump.Model
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stmas.dbf")))
             {
                 MessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return null;
+                return new DataTable();
             }
             //var x = DBFHelper.DBFParse.ReadDBF(data_path + "stmas.dbf");
             //MessageBox.Show(x.Rows.Count.ToString() + " loaded, Started at : " + xtime.ToString() + ", Completed at : " + DateTime.Now.ToString());
@@ -68,7 +68,7 @@ namespace XPump.Model
             if (!(Directory.Exists(secure_path) && File.Exists(secure_path + "sccomp.dbf")))
             {
                 MessageBox.Show("ค้นหาแฟ้ม Sccomp.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return null;
+                return new DataTable();
             }
 
 
@@ -111,7 +111,7 @@ namespace XPump.Model
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isrun.dbf")))
             {
                 MessageBox.Show("ค้นหาแฟ้ม Isrun.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return null;
+                return new DataTable();
             }
 
             DataTable dt = new DataTable();
@@ -153,7 +153,7 @@ namespace XPump.Model
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isinfo.dbf")))
             {
                 MessageBox.Show("ค้นหาแฟ้ม Isinfo.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return null;
+                return new DataTable();
             }
 
             DataTable dt = new DataTable();
@@ -195,7 +195,7 @@ namespace XPump.Model
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stloc.dbf")))
             {
                 MessageBox.Show("ค้นหาแฟ้ม Stloc.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return null;
+                return new DataTable();
             }
 
             DataTable dt = new DataTable();
@@ -237,7 +237,8 @@ namespace XPump.Model
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stcrd.dbf")))
             {
                 MessageBox.Show("ค้นหาแฟ้ม Stcrd.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return null;
+                
+                return new DataTable();
             }
 
             DataTable dt = new DataTable();
@@ -279,7 +280,7 @@ namespace XPump.Model
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "apmas.dbf")))
             {
                 MessageBox.Show("ค้นหาแฟ้ม Apmas.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return null;
+                return new DataTable();
             }
 
             DataTable dt = new DataTable();
@@ -321,7 +322,7 @@ namespace XPump.Model
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "aptrn.dbf")))
             {
                 MessageBox.Show("ค้นหาแฟ้ม Aptrn.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return null;
+                return new DataTable();
             }
 
             DataTable dt = new DataTable();
@@ -363,7 +364,7 @@ namespace XPump.Model
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "artrn.dbf")))
             {
                 MessageBox.Show("ค้นหาแฟ้ม Artrn.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return null;
+                return new DataTable();
             }
 
             DataTable dt = new DataTable();
