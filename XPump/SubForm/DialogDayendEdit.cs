@@ -322,7 +322,7 @@ namespace XPump.SubForm
                         this.RemoveInlineForm();
                         this.form_mode = FORM_MODE.EDIT;
                         this.ResetControlState();
-                        this.txtDothertxt.Focus();
+                        this.txtDothertxt.textBox1.Focus();
                     }
                     return true;
                 }

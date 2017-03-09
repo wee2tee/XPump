@@ -332,6 +332,31 @@ namespace XPump.Misc
             return s;
         }
 
+        public static decimal GetPurVatFromExpress(this salessummary sales)
+        {
+            using (xpumpEntities db = DBX.DataSet())
+            {
+                var salessummary = db.salessummary.Include("shift").Include("stmas").Where(s => s.id == sales.id).FirstOrDefault();
+
+                if (salessummary == null)
+                    return 0m;
+
+                string hp_prefix = salessummary.shift.phpprefix;
+                string rr_prefix = salessummary.shift.prrprefix;
+                DateTime saldat = salessummary.saldat;
+
+                var purvat = DbfTable.Stcrd().ToStcrdList()
+                            .Where(s => s.docdat.HasValue)
+                            .Where(s => s.docdat.Value == saldat)
+                            .Where(s => s.posopr.Trim() == "0")
+                            .Where(s => s.stkcod.Trim() == salessummary.stmas.name.Trim())
+                            .Where(s => (s.docnum.Substring(0, 2) == hp_prefix || s.docnum.Substring(0, 2) == rr_prefix))
+                            .Sum(s => (s.netval * 7) / 100);
+
+                return Convert.ToDecimal(purvat);
+            }
+        }
+
         public static saleshistoryVM ToViewModel(this saleshistory saleshistory)
         {
             if (saleshistory == null)

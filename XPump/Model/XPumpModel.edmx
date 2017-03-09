@@ -124,7 +124,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="saldat" Type="date" Nullable="false" />
-          <Property Name="cretime" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cretime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="closed" Type="bool" Nullable="false" />
           <Property Name="shift_id" Type="int" Nullable="false" />
         </EntityType>

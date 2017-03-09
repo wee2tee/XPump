@@ -48,6 +48,7 @@ namespace XPump.SubForm
             this.dgvSttak.DataSource = this.bs_sttak;
 
             this.btnLast.PerformClick();
+            this.ActiveControl = this.dgvSalesSummary;
         }
 
         private void ResetControlState()
@@ -235,7 +236,7 @@ namespace XPump.SubForm
             this.bs_sttak.DataSource = sales.shiftsttak.ToViewModel().OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ToList();
             this.tabPage2.ImageIndex = sales.shiftsttak.Where(s => s.qty == -1).Count() > 0 ? 0 : -1;
 
-            /*Form control state beyond data*/
+            /*Form control state depend on data*/
             if(this.form_mode == FORM_MODE.READ)
             {
                 this.btnEdit.Enabled = sales == null || sales.id == -1 ? false : true;

@@ -36,7 +36,7 @@ namespace XPump.SubForm
 
         private void DialogSalesHistory_Load(object sender, EventArgs e)
         {
-            //this.BackColor = MiscResource.WIND_BG;
+            this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
@@ -45,6 +45,7 @@ namespace XPump.SubForm
             this.lblStkdes.Text = this.salessummary.ToViewModel().stkcod + " / " + this.salessummary.ToViewModel().stkdes;
 
             this.salessummary = this.GetSalesSummary(this.salessummary.id);
+            this.salessummary.purvat = this.salessummary.GetPurVatFromExpress();
             this.saleshistory = this.salessummary.saleshistory.ToList();
             this.bs_sales = new BindingSource();
             this.dgvNozzle.DataSource = this.bs_sales;
@@ -56,7 +57,7 @@ namespace XPump.SubForm
 
             this.FillSummary();
 
-            this.dgvNozzle.Focus();
+            this.ActiveControl = this.dgvNozzle;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -105,49 +106,15 @@ namespace XPump.SubForm
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            if (this.form_mode == FORM_MODE.EDIT)
-            {
-                using (Pen p0 = new Pen(Color.LimeGreen))
-                {
-                    using (Pen p = new Pen(Color.PaleGreen))
-                    {
-                        e.Graphics.DrawRectangle(p0, e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-                        e.Graphics.DrawRectangle(p, e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 3, e.ClipRectangle.Height - 3);
-                    }
-                }
-            }
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-            if (this.form_mode == FORM_MODE.READ_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
-            {
-                using (Pen p0 = new Pen(Color.LimeGreen))
-                {
-                    using (Pen p = new Pen(Color.PaleGreen))
-                    {
-                        e.Graphics.DrawRectangle(p0, e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-                        e.Graphics.DrawRectangle(p, e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 3, e.ClipRectangle.Height - 3);
-                    }
-                }
-            }
-        }
-
         private void ResetControlState()
         {
             this.dgvNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.numDtest.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.numDother.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.numDdisc.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.numPurvat.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.txtDother.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-
-            this.panel1.Refresh();
-            this.panel3.Refresh();
         }
 
         private void ShowInlineForm(int row_index)
@@ -277,6 +244,7 @@ namespace XPump.SubForm
         {
             this.FillDgvSales();
             this.FillSummary();
+            this.ActiveControl = this.dgvNozzle;
         }
 
         private void FillDgvSales()
@@ -301,12 +269,12 @@ namespace XPump.SubForm
             this.lblNetqty.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().totqty);
             this.lblNetval.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().netval);
             this.lblSalvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().salvat);
+            this.lblPurvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().purvat);
 
             this.numDtest._Value = this.salessummary.dtest;
             this.numDother._Value = this.salessummary.dother;
             this.txtDother._Text = this.salessummary.dothertxt;
             this.numDdisc._Value = this.salessummary.ddisc;
-            this.numPurvat._Value = this.salessummary.purvat;
         }
 
         private void numDtest__ValueChanged(object sender, EventArgs e)
@@ -479,29 +447,29 @@ namespace XPump.SubForm
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if(keyData == Keys.F8)
-            {
-                if(this.form_mode == FORM_MODE.READ)
-                {
-                    this.form_mode = FORM_MODE.READ_ITEM;
-                    this.ResetControlState();
-                    this.dgvNozzle.Focus();
-                    return true;
-                }
-            }
+            //if(keyData == Keys.F8)
+            //{
+            //    if(this.form_mode == FORM_MODE.READ)
+            //    {
+            //        this.form_mode = FORM_MODE.READ_ITEM;
+            //        this.ResetControlState();
+            //        this.dgvNozzle.Focus();
+            //        return true;
+            //    }
+            //}
 
             if(keyData == (Keys.Alt | Keys.E))
             {
-                if(this.form_mode == FORM_MODE.READ)
+                if(this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM)
                 {
-                    this.form_mode = FORM_MODE.EDIT;
-                    this.ResetControlState();
-                    this.numDtest.Focus();
-                    return true;
-                }
+                //    this.form_mode = FORM_MODE.EDIT;
+                //    this.ResetControlState();
+                //    this.numDtest.Focus();
+                //    return true;
+                //}
 
-                if(this.form_mode == FORM_MODE.READ_ITEM)
-                {
+                //if(this.form_mode == FORM_MODE.READ_ITEM)
+                //{
                     if (this.dgvNozzle.Rows.Count > 0 && this.dgvNozzle.CurrentCell != null)
                     {
                         this.form_mode = FORM_MODE.EDIT_ITEM;
@@ -534,14 +502,14 @@ namespace XPump.SubForm
                         this.RemoveInlineForm();
                         this.form_mode = FORM_MODE.EDIT;
                         this.ResetControlState();
-                        this.numDtest.Focus();
+                        this.numDtest.textBox1.Focus();
                         return true;
                     }
                 }
 
                 if(this.form_mode == FORM_MODE.EDIT)
                 {
-                    if (this.numPurvat._Focused)
+                    if (this.numDdisc._Focused)
                     {
                         this.btnOK.PerformClick();
                         return true;

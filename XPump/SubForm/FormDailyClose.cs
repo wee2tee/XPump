@@ -69,6 +69,23 @@ namespace XPump.SubForm
 
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.dayend_list.ToViewModel();
+
+            /*Form control state depend on data*/
+            if (this.form_mode == FORM_MODE.READ)
+            {
+                this.btnEdit.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnDelete.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnFirst.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnPrevious.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnNext.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnLast.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnSearch.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnInquiryAll.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnInquiryRest.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnPrint.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnItem.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnRefresh.Enabled = this.dayend_list.Count == 0 ? false : true;
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -92,7 +109,7 @@ namespace XPump.SubForm
 
                         if(stmas_ids.Count() == 0)
                         {
-                            MessageBox.Show("ไม่พบการบันทึกรายการประจำผลัดของวันที่ \"" + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\", กรุณาบันทึกรายการประจำผลัดก่อนทำการปิดขอดขายประจำวัน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MessageBox.Show("ไม่พบการบันทึกรายการประจำผลัดของวันที่ \"" + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\", กรุณาบันทึกรายการประจำผลัดก่อนทำการปิดยอดขายประจำวัน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
