@@ -33,8 +33,10 @@
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtExpressData = new CC.XTextEdit();
             this.btnBrowseExpressData = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtOrgname = new CC.XTextEdit();
+            this.txtExpressData = new CC.XTextEdit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,6 +98,43 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "ที่เก็บข้อมูลโปรแกรม Express";
             // 
+            // btnBrowseExpressData
+            // 
+            this.btnBrowseExpressData.Location = new System.Drawing.Point(399, 70);
+            this.btnBrowseExpressData.Name = "btnBrowseExpressData";
+            this.btnBrowseExpressData.Size = new System.Drawing.Size(28, 25);
+            this.btnBrowseExpressData.TabIndex = 1;
+            this.btnBrowseExpressData.Text = "...";
+            this.btnBrowseExpressData.UseVisualStyleBackColor = true;
+            this.btnBrowseExpressData.Click += new System.EventHandler(this.btnBrowseExpressData_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 102);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(118, 16);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "ชื่อสถานีบริการน้ำมัน";
+            // 
+            // txtOrgname
+            // 
+            this.txtOrgname._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtOrgname._MaxLength = 32767;
+            this.txtOrgname._ReadOnly = false;
+            this.txtOrgname._Text = "";
+            this.txtOrgname._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtOrgname.BackColor = System.Drawing.Color.White;
+            this.txtOrgname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtOrgname.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOrgname.Location = new System.Drawing.Point(186, 98);
+            this.txtOrgname.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtOrgname.Name = "txtOrgname";
+            this.txtOrgname.Size = new System.Drawing.Size(241, 23);
+            this.txtOrgname.TabIndex = 2;
+            this.txtOrgname._TextChanged += new System.EventHandler(this.txtOrgname__TextChanged);
+            this.txtOrgname._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
             // txtExpressData
             // 
             this.txtExpressData._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -110,27 +149,19 @@
             this.txtExpressData.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtExpressData.Name = "txtExpressData";
             this.txtExpressData.Size = new System.Drawing.Size(213, 23);
-            this.txtExpressData.TabIndex = 10;
+            this.txtExpressData.TabIndex = 0;
             this.txtExpressData._TextChanged += new System.EventHandler(this.txtExpressData__TextChanged);
             this.txtExpressData._DoubleClicked += new System.EventHandler(this.txtExpressData__DoubleClicked);
-            // 
-            // btnBrowseExpressData
-            // 
-            this.btnBrowseExpressData.Location = new System.Drawing.Point(399, 70);
-            this.btnBrowseExpressData.Name = "btnBrowseExpressData";
-            this.btnBrowseExpressData.Size = new System.Drawing.Size(28, 25);
-            this.btnBrowseExpressData.TabIndex = 11;
-            this.btnBrowseExpressData.Text = "...";
-            this.btnBrowseExpressData.UseVisualStyleBackColor = true;
-            this.btnBrowseExpressData.Click += new System.EventHandler(this.btnBrowseExpressData_Click);
             // 
             // DialogSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 133);
+            this.ClientSize = new System.Drawing.Size(469, 152);
+            this.Controls.Add(this.txtOrgname);
             this.Controls.Add(this.btnBrowseExpressData);
             this.Controls.Add(this.txtExpressData);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -159,5 +190,7 @@
         private System.Windows.Forms.Label label1;
         private CC.XTextEdit txtExpressData;
         private System.Windows.Forms.Button btnBrowseExpressData;
+        private System.Windows.Forms.Label label2;
+        private CC.XTextEdit txtOrgname;
     }
 }

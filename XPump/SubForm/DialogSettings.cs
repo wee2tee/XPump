@@ -35,11 +35,12 @@ namespace XPump.SubForm
 
             using (xpumpEntities db = DBX.DataSet())
             {
-                if (db.settings.Count() == 0)
+                if (db.settings.ToList().Count() == 0)
                 {
                     db.settings.Add(new settings
                     {
-                        express_data_path = string.Empty
+                        express_data_path = string.Empty,
+                        orgname = string.Empty
                     });
                     db.SaveChanges();
                 }
@@ -58,6 +59,7 @@ namespace XPump.SubForm
 
             /* Form control */
             this.btnBrowseExpressData.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.txtOrgname.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
         }
 
         private void FillForm(settings settings_value_to_fill = null)
@@ -65,6 +67,7 @@ namespace XPump.SubForm
             settings settings = settings_value_to_fill != null ? settings_value_to_fill : this.settings;
 
             this.txtExpressData._Text = settings.express_data_path;
+            this.txtOrgname._Text = settings.orgname;
         }
 
         public static settings GetSettings()
@@ -92,6 +95,7 @@ namespace XPump.SubForm
                 {
                     settings setting_to_update = db.settings.First();
                     setting_to_update.express_data_path = this.tmp_settings.express_data_path;
+                    setting_to_update.orgname = this.tmp_settings.orgname;
 
                     db.SaveChanges();
                     this.settings = GetSettings();
@@ -173,6 +177,12 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void txtOrgname__TextChanged(object sender, EventArgs e)
+        {
+            if(this.tmp_settings != null)
+                this.tmp_settings.orgname = ((XTextEdit)sender)._Text.Trim();
         }
     }
 }
