@@ -26,6 +26,10 @@ namespace XPump.SubForm
             InitializeComponent();
             this.main_form = main_form;
             this.curr_dayend = curr_dayend;
+
+            DbfTable.Isinfo();
+            DbfTable.Apmas();
+            DbfTable.Aptrn();
         }
 
         private void DialogDayendEdit_Load(object sender, EventArgs e)

@@ -75,7 +75,7 @@
             this.btnClose});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(814, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(888, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -87,7 +87,7 @@
             this.btnPrint.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(23, 22);
-            this.btnPrint.Text = "พิมพ์ออกเครื่องพิมพ์";
+            this.btnPrint.Text = "พิมพ์ออกเครื่องพิมพ์ <Ctrl + P> , <Alt + P>";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // toolStripSeparator1
@@ -103,7 +103,7 @@
             this.btnZoomIn.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
             this.btnZoomIn.Name = "btnZoomIn";
             this.btnZoomIn.Size = new System.Drawing.Size(23, 22);
-            this.btnZoomIn.Text = "ขยาย";
+            this.btnZoomIn.Text = "ขยาย <Ctrl + +>";
             this.btnZoomIn.Click += new System.EventHandler(this.btnZoomIn_Click);
             // 
             // btnZoomOut
@@ -114,7 +114,7 @@
             this.btnZoomOut.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.btnZoomOut.Name = "btnZoomOut";
             this.btnZoomOut.Size = new System.Drawing.Size(23, 22);
-            this.btnZoomOut.Text = "ย่อ";
+            this.btnZoomOut.Text = "ย่อ <Ctrl + ->";
             this.btnZoomOut.Click += new System.EventHandler(this.btnZoomOut_Click);
             // 
             // btnZoomFit
@@ -125,7 +125,7 @@
             this.btnZoomFit.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
             this.btnZoomFit.Name = "btnZoomFit";
             this.btnZoomFit.Size = new System.Drawing.Size(23, 22);
-            this.btnZoomFit.Text = "ปรับให้พอดีกับขนาดหน้าต่าง";
+            this.btnZoomFit.Text = "ปรับให้พอดีกับขนาดหน้าต่าง <Ctrl + 0>";
             this.btnZoomFit.Click += new System.EventHandler(this.btnZoomFit_Click);
             // 
             // toolStripSeparator4
@@ -141,7 +141,7 @@
             this.btnSplitNone.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
             this.btnSplitNone.Name = "btnSplitNone";
             this.btnSplitNone.Size = new System.Drawing.Size(23, 22);
-            this.btnSplitNone.Text = "แสดงผลแบบ 1 หน้า";
+            this.btnSplitNone.Text = "แสดงผลแบบ 1 หน้า <Ctrl + 1>";
             this.btnSplitNone.Click += new System.EventHandler(this.btnSplitNone_Click);
             // 
             // btnSplit2
@@ -151,7 +151,7 @@
             this.btnSplit2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSplit2.Name = "btnSplit2";
             this.btnSplit2.Size = new System.Drawing.Size(23, 22);
-            this.btnSplit2.Text = "แสดงผล 2 หน้า";
+            this.btnSplit2.Text = "แสดงผล 2 หน้า <Ctrl + 2>";
             this.btnSplit2.Click += new System.EventHandler(this.btnSplit2_Click);
             // 
             // btnSplit4
@@ -162,7 +162,7 @@
             this.btnSplit4.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.btnSplit4.Name = "btnSplit4";
             this.btnSplit4.Size = new System.Drawing.Size(23, 22);
-            this.btnSplit4.Text = "แสดงผล 4 หน้า";
+            this.btnSplit4.Text = "แสดงผล 4 หน้า <Ctrl + 4>";
             this.btnSplit4.Click += new System.EventHandler(this.btnSplit4_Click);
             // 
             // toolStripSeparator2
@@ -185,7 +185,7 @@
             this.btnFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(23, 22);
-            this.btnFirst.Text = "หน้าแรก";
+            this.btnFirst.Text = "หน้าแรก <Ctrl+Home>";
             this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
             // 
             // btnPrevious
@@ -195,7 +195,7 @@
             this.btnPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(23, 22);
-            this.btnPrevious.Text = "หน้าก่อนหน้า";
+            this.btnPrevious.Text = "หน้าก่อนหน้า <Page Up>";
             this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // txtPageNum
@@ -216,7 +216,7 @@
             this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(23, 22);
-            this.btnNext.Text = "หน้าถัดไป";
+            this.btnNext.Text = "หน้าถัดไป <Page Down>";
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnLast
@@ -227,7 +227,7 @@
             this.btnLast.Margin = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(23, 22);
-            this.btnLast.Text = "หน้าสุดท้าย";
+            this.btnLast.Text = "หน้าสุดท้าย <Ctrl+End>";
             this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
             // 
             // toolStripSeparator3
@@ -251,14 +251,14 @@
             this.printPreviewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.printPreviewControl1.Location = new System.Drawing.Point(0, 25);
             this.printPreviewControl1.Name = "printPreviewControl1";
-            this.printPreviewControl1.Size = new System.Drawing.Size(814, 500);
+            this.printPreviewControl1.Size = new System.Drawing.Size(888, 500);
             this.printPreviewControl1.TabIndex = 1;
             // 
             // XPrintPreview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(814, 525);
+            this.ClientSize = new System.Drawing.Size(888, 525);
             this.Controls.Add(this.printPreviewControl1);
             this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -269,6 +269,7 @@
             this.ShowInTaskbar = false;
             this.Text = "ตัวอย่างก่อนพิมพ์";
             this.Load += new System.EventHandler(this.FormPrintPreview_Load);
+            this.Shown += new System.EventHandler(this.XPrintPreview_Shown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

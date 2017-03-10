@@ -465,7 +465,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FormSttak";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้";
             this.Load += new System.EventHandler(this.FormSttak_Load);
             this.toolStrip1.ResumeLayout(false);

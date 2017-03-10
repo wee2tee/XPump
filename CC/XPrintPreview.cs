@@ -165,7 +165,7 @@ namespace CC
             //        return true;
             //    }
             //}
-
+            //Console.WriteLine(" .. >> " + keyData.ToString());
             if (keyData == Keys.PageUp)
             {
                 this.btnPrevious.PerformClick();
@@ -190,43 +190,43 @@ namespace CC
                 return true;
             }
 
-            if (keyData == (Keys.Control | Keys.OemMinus))
+            if (keyData == (Keys.Control | Keys.OemMinus) || keyData == (Keys.Control | Keys.Subtract))
             {
                 this.btnZoomOut.PerformClick();
                 return true;
             }
 
-            if (keyData == (Keys.Control | Keys.Oemplus))
+            if (keyData == (Keys.Control | Keys.Oemplus) || keyData == (Keys.Control | Keys.Add))
             {
                 this.btnZoomIn.PerformClick();
                 return true;
             }
 
-            if (keyData == (Keys.Control | Keys.D0))
+            if (keyData == (Keys.Control | Keys.D0) || keyData == (Keys.Control | Keys.NumPad0))
             {
                 this.btnZoomFit.PerformClick();
                 return true;
             }
 
-            if (keyData == (Keys.Control | Keys.P))
+            if (keyData == (Keys.Control | Keys.P) || keyData == (Keys.Alt | Keys.P))
             {
                 this.btnPrint.PerformClick();
                 return true;
             }
 
-            if(keyData == (Keys.Control | Keys.NumPad1))
+            if(keyData == (Keys.Control | Keys.NumPad1) || keyData == (Keys.Control | Keys.D1))
             {
                 this.btnSplitNone.PerformClick();
                 return true;
             }
 
-            if (keyData == (Keys.Control | Keys.NumPad2))
+            if (keyData == (Keys.Control | Keys.NumPad2) || keyData == (Keys.Control | Keys.D2))
             {
                 this.btnSplit2.PerformClick();
                 return true;
             }
 
-            if (keyData == (Keys.Control | Keys.NumPad4))
+            if (keyData == (Keys.Control | Keys.NumPad4) || keyData == (Keys.Control | Keys.D4))
             {
                 this.btnSplit4.PerformClick();
                 return true;
@@ -239,6 +239,11 @@ namespace CC
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void XPrintPreview_Shown(object sender, EventArgs e)
+        {
+            this.btnZoomFit.PerformClick();
         }
     }
 }

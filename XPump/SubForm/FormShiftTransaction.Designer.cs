@@ -675,7 +675,7 @@
             // 
             this.inline_btnSaleshistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.inline_btnSaleshistory.Image = global::XPump.Properties.Resources.edit_list_16;
-            this.inline_btnSaleshistory.Location = new System.Drawing.Point(257, 38);
+            this.inline_btnSaleshistory.Location = new System.Drawing.Point(257, 29);
             this.inline_btnSaleshistory.Name = "inline_btnSaleshistory";
             this.inline_btnSaleshistory.Size = new System.Drawing.Size(23, 25);
             this.inline_btnSaleshistory.TabIndex = 19;
@@ -688,7 +688,7 @@
             // 
             this.inline_btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.inline_btnEdit.Image = global::XPump.Properties.Resources.edit_16;
-            this.inline_btnEdit.Location = new System.Drawing.Point(376, 38);
+            this.inline_btnEdit.Location = new System.Drawing.Point(376, 29);
             this.inline_btnEdit.Name = "inline_btnEdit";
             this.inline_btnEdit.Size = new System.Drawing.Size(23, 25);
             this.inline_btnEdit.TabIndex = 19;
@@ -981,7 +981,7 @@
             this.MinimumSize = new System.Drawing.Size(660, 300);
             this.Name = "FormShiftTransaction";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "บันทึกรายการประจำผลัด";
             this.Load += new System.EventHandler(this.FormShiftTransaction_Load);
             this.toolStrip1.ResumeLayout(false);

@@ -53,6 +53,13 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ;
             this.btnLast.PerformClick();
             this.ActiveControl = this.dgv;
+
+            if (this.curr_date.HasValue)
+            {
+                DbfTable.Isinfo();
+                DbfTable.Apmas();
+                DbfTable.Aptrn();
+            }
         }
 
         private List<dayend> GetDayEnd(DateTime date)
@@ -460,7 +467,7 @@ namespace XPump.SubForm
             DialogPrintSetupB print = new DialogPrintSetupB(this.curr_date);
             if (print.ShowDialog() == DialogResult.OK)
             {
-                var report_data = this.GetReportBData(print.selected_date.Value);
+                var report_data = new ReportBModel(print.selected_date.Value);
                 int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_B(report_data));
                 if(print.output == PRINT_OUTPUT.SCREEN)
                 {
@@ -486,7 +493,7 @@ namespace XPump.SubForm
             DialogPrintSetupC print = new DialogPrintSetupC(this.curr_date);
             if (print.ShowDialog() == DialogResult.OK)
             {
-                var report_data = this.GetReportCData(print.first_date_of_month.Value, print.last_date_of_month.Value);
+                var report_data = new ReportCModel(print.first_date_of_month.Value, print.last_date_of_month.Value);
                 int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_C(report_data));
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
@@ -648,51 +655,6 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private ReportBModel GetReportBData(DateTime date)
-        {
-            using (xpumpEntities db = DBX.DataSet())
-            {
-                ReportBModel report_data = new ReportBModel();
-                report_data.isinfoDbfVM = DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel();
-                report_data.reportDate = date;
-
-                List<string> doc_hp = new List<string>();
-                List<string> doc_rr = new List<string>();
-                foreach (shift s in db.shift.ToList())
-                {
-                    doc_hp.Add(s.phpprefix);
-                    doc_rr.Add(s.prrprefix);
-                }
-                var apmas = DbfTable.Apmas().ToApmasList();
-                var aptrn = DbfTable.Aptrn().ToAptrnList()
-                            .Where(a => a.docdat.HasValue)
-                            .Where(a => a.docdat.Value == report_data.reportDate)
-                            .Where(a => doc_hp.Contains(a.docnum.Substring(0, 2)) || doc_rr.Contains(a.docnum.Substring(0, 2)))
-                            .OrderBy(a => a.docnum).ToList();
-                var stcrd = DbfTable.Stcrd().ToStcrdList()
-                            .Where(s => s.docdat.HasValue)
-                            .Where(s => s.docdat.Value == report_data.reportDate)
-                            .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum))
-                            .OrderBy(s => s.docnum).ToList();
-
-                report_data.purvattransVM = stcrd.Where(s => doc_hp.Contains(s.docnum.Substring(0, 2)) || doc_rr.Contains(s.docnum.Substring(0, 2)))
-                            .GroupBy(s => s.docnum.Trim())
-                            .Select(s => new VatTransDbfVM
-                            {
-                                docnum = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docnum.Trim(),
-                                docdat = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docdat.Value,
-                                people = apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().supnam.Trim() : string.Empty,
-                                stkcod = stcrd.Where(st => st.docnum.Trim() == s.Key).First().stkcod.Trim(),
-                                netval = stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval,
-                                vatamt = Convert.ToDouble(string.Format("{0:0.00}", (stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval * 7) / 100))
-                            }).OrderBy(s => s.docdat).ThenBy(s => s.docnum).ToList();
-
-                report_data.dayend = db.dayend.Include("daysttak").Include("stmas").Where(d => d.saldat == date).ToList();
-
-                return report_data;
-            }
         }
 
         private PrintDocument PreparePrintDoc_B(ReportBModel report_data, int total_page = 0)
@@ -947,61 +909,6 @@ namespace XPump.SubForm
             };
 
             return docs;
-        }
-
-
-        private ReportCModel GetReportCData(DateTime first_date, DateTime last_date)
-        {
-            using (xpumpEntities db = DBX.DataSet())
-            {
-                ReportCModel report_data = new ReportCModel();
-                report_data.isinfoDbfVM = DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel();
-                report_data.reportDate = last_date;
-
-                List<string> doc_hp = new List<string>();
-                List<string> doc_rr = new List<string>();
-                foreach (shift s in db.shift.ToList())
-                {
-                    doc_hp.Add(s.phpprefix);
-                    doc_rr.Add(s.prrprefix);
-                }
-                var apmas = DbfTable.Apmas().ToApmasList();
-                var aptrn = DbfTable.Aptrn().ToAptrnList()
-                            .Where(a => a.docdat.HasValue)
-                            .Where(a => a.docdat.Value.CompareTo(first_date) >= 0 && a.docdat.Value.CompareTo(last_date) <= 0)
-                            .Where(a => doc_hp.Contains(a.docnum.Substring(0, 2)) || doc_rr.Contains(a.docnum.Substring(0, 2)))
-                            .OrderBy(a => a.docnum).ToList();
-                var stcrd = DbfTable.Stcrd().ToStcrdList()
-                            .Where(s => s.docdat.HasValue)
-                            .Where(s => s.docdat.Value.CompareTo(first_date) >= 0 && s.docdat.Value.CompareTo(last_date) <= 0)
-                            .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum))
-                            .OrderBy(s => s.docnum).ToList();
-
-                report_data.purvattransVM = stcrd.Where(s => doc_hp.Contains(s.docnum.Substring(0, 2)) || doc_rr.Contains(s.docnum.Substring(0, 2)))
-                            .GroupBy(s => s.docnum.Trim())
-                            .Select(s => new VatTransDbfVM
-                            {
-                                docnum = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docnum.Trim(),
-                                docdat = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docdat.Value,
-                                people = apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().supnam.Trim() : string.Empty,
-                                stkcod = stcrd.Where(st => st.docnum.Trim() == s.Key).First().stkcod.Trim(),
-                                netval = stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval,
-                                vatamt = Convert.ToDouble(string.Format("{0:0.00}", (stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval * 7) / 100))
-                            }).OrderBy(s => s.docdat).ThenBy(s => s.docnum).ToList();
-
-                //report_data.dayend = db.dayend.Include("stmas").Where(d => d.saldat.CompareTo(first_date) >= 0 && d.saldat.CompareTo(last_date) <= 0).ToList();
-
-                var stmas_id_movement_in_month = db.dayend.Include("stmas").Where(d => d.saldat.CompareTo(first_date) >= 0 && d.saldat.CompareTo(last_date) <= 0).GroupBy(d => d.stmas_id).Select(d => d.Key).ToList();
-
-                report_data.monthend = new List<monthendVM>();
-                foreach (var stmas_id in stmas_id_movement_in_month)
-                {
-                    var me = db.stmas.Find(stmas_id).GetMonthEndVM(first_date, last_date);
-                    report_data.monthend.Add(me);
-                }
-
-                return report_data;
-            }
         }
 
         private PrintDocument PreparePrintDoc_C(ReportCModel report_data, int total_page = 0)

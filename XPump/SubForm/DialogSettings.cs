@@ -17,9 +17,24 @@ namespace XPump.SubForm
     public partial class DialogSettings : Form
     {
         private MainForm main_form;
+        private LocalConfig localconfig;
+        private bool is_mysql_connected;
         private settings settings;
         private settings tmp_settings;
         private FORM_MODE form_mode;
+        private LoadingForm loading_form;
+        private bool FormFreeze
+        {
+            get
+            {
+                return !this.btnEditMysqlConnection.Enabled;
+            }
+            set
+            {
+                this.btnEdit.Enabled = !value;
+                this.btnEditMysqlConnection.Enabled = !value;
+            }
+        }
 
         public DialogSettings(MainForm main_form)
         {
@@ -32,22 +47,63 @@ namespace XPump.SubForm
             this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
+        }
 
-            using (xpumpEntities db = DBX.DataSet())
+        private void DialogSettings_Shown(object sender, EventArgs e)
+        {
+            this.BindConfigData2Control();
+        }
+
+        private void BindConfigData2Control()
+        {
+            this.FormFreeze = true;
+            this.localconfig = new LocalDb().LocalConfig;
+
+            this.loading_form = new LoadingForm();
+            this.loading_form.ShowCenterParent(this);
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += delegate
             {
-                if (db.settings.ToList().Count() == 0)
+                this.is_mysql_connected = this.localconfig.TestMysqlConnection();
+            };
+            worker.RunWorkerCompleted += delegate
+            {
+                if (this.is_mysql_connected == true)
                 {
-                    db.settings.Add(new settings
+                    BackgroundWorker w = new BackgroundWorker();
+                    w.DoWork += delegate
                     {
-                        express_data_path = string.Empty,
-                        orgname = string.Empty
-                    });
-                    db.SaveChanges();
-                }
-            }
+                        using (xpumpEntities db = DBX.DataSet())
+                        {
+                            if (db.settings.ToList().Count() == 0)
+                            {
+                                db.settings.Add(new settings
+                                {
+                                    express_data_path = string.Empty,
+                                    orgname = string.Empty
+                                });
+                                db.SaveChanges();
+                            }
+                        }
 
-            this.settings = GetSettings();
-            this.FillForm();
+                        this.settings = GetSettings();
+                    };
+                    w.RunWorkerCompleted += delegate
+                    {
+                        this.FillForm();
+                        this.loading_form.Close();
+                        this.FormFreeze = false;
+                    };
+                    w.RunWorkerAsync();
+                }
+                else
+                {
+                    this.loading_form.Close();
+                    this.FormFreeze = false;
+                }
+            };
+            worker.RunWorkerAsync();
         }
 
         private void ResetControlState()
@@ -58,6 +114,7 @@ namespace XPump.SubForm
             this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
 
             /* Form control */
+            this.btnEditMysqlConnection.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnBrowseExpressData.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.txtOrgname.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
         }
@@ -66,6 +123,18 @@ namespace XPump.SubForm
         {
             settings settings = settings_value_to_fill != null ? settings_value_to_fill : this.settings;
 
+            if(settings == null)
+            {
+                settings = new settings
+                {
+                    id = -1,
+                    express_data_path = string.Empty,
+                    orgname = string.Empty
+                };
+            }
+
+            this.lblConnected.Visible = this.is_mysql_connected ? true : false;
+            this.lblNotConnect.Visible = this.is_mysql_connected ? false : true;
             this.txtExpressData._Text = settings.express_data_path;
             this.txtOrgname._Text = settings.orgname;
         }
@@ -80,11 +149,20 @@ namespace XPump.SubForm
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            this.tmp_settings = GetSettings();
-            this.FillForm(this.tmp_settings);
+            if (this.is_mysql_connected)
+            {
+                this.tmp_settings = GetSettings();
+                this.FillForm(this.tmp_settings);
 
-            this.form_mode = FORM_MODE.EDIT;
-            this.ResetControlState();
+                this.form_mode = FORM_MODE.EDIT;
+                this.ResetControlState();
+                ((ToolStripButton)sender).GetCurrentParent().Focus();
+                this.txtOrgname.textBox1.Focus();
+            }
+            else
+            {
+                MessageBox.Show("กรุณากำหนดค่าการเชื่อมต่อฐานข้อมูล MySql ให้เรียบร้อยก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -156,12 +234,32 @@ namespace XPump.SubForm
             ((Control)sender).Focus();
         }
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if(this.loading_form != null)
+            {
+                this.loading_form.Dispose();
+                this.loading_form = null;
+            }
+
+            base.OnClosing(e);
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if(keyData == (Keys.Alt | Keys.E))
             {
                 this.btnEdit.PerformClick();
                 return true;
+            }
+
+            if(keyData == Keys.Enter)
+            {
+                if(this.form_mode == FORM_MODE.EDIT)
+                {
+                    SendKeys.Send("{TAB}");
+                    return true;
+                }
             }
 
             if(keyData == Keys.Escape)
@@ -183,6 +281,15 @@ namespace XPump.SubForm
         {
             if(this.tmp_settings != null)
                 this.tmp_settings.orgname = ((XTextEdit)sender)._Text.Trim();
+        }
+
+        private void btnEditMysqlConnection_Click(object sender, EventArgs e)
+        {
+            DialogDbConfig db_config = new DialogDbConfig();
+            if(db_config.ShowDialog() == DialogResult.OK)
+            {
+                this.BindConfigData2Control();
+            }
         }
     }
 }

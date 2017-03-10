@@ -267,6 +267,7 @@
             this.Name = "FormPrintPreview";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ตัวอย่างก่อนพิมพ์";
             this.Load += new System.EventHandler(this.FormPrintPreview_Load);
             this.toolStrip1.ResumeLayout(false);

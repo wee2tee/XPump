@@ -1233,11 +1233,8 @@ namespace XPump.SubForm
                     int[] salessummary_ids = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.id).ToArray<int>();
                     report_data.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel().ToList();
 
-                    report_data.isinfoDbfVM = DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel();
-                    //var shift_data = db.shift.Find(this.curr_shiftsales.shift_id);
                     report_data.shift = db.shift.Find(this.curr_shiftsales.shift_id);
-
-                    //var apmas = DbfTable.Apmas().ToApmasList();
+                    report_data.isinfoDbfVM = DbfTable.Isinfo().Rows.Count > 0 ? DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel() : new IsinfoDbfVM { compnam = string.Empty, addr = string.Empty, telnum = string.Empty, taxid = string.Empty };
 
                     var aptrn = DbfTable.Aptrn().ToAptrnList()
                         .Where(a => a.docdat.HasValue)
@@ -1980,6 +1977,18 @@ namespace XPump.SubForm
             if (keyData == (Keys.Alt | Keys.L))
             {
                 this.btnInquiryRest.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.P))
+            {
+                this.btnPrintALandscape.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.P))
+            {
+                this.btnPrintAPortrait.PerformClick();
                 return true;
             }
 

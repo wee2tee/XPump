@@ -589,7 +589,7 @@
             this.MinimumSize = new System.Drawing.Size(580, 250);
             this.Name = "FormStmas";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "รายละเอียดสินค้า";
             this.Load += new System.EventHandler(this.StmasForm_Load);
             this.toolStrip1.ResumeLayout(false);

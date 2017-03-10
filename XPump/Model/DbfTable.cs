@@ -13,9 +13,7 @@ namespace XPump.Model
 {
     public class DbfTable
     {
-        
-
-        public static DataTable Stmas()
+        public static string GetExpressDataPath()
         {
             settings settings = DialogSettings.GetSettings();
 
@@ -28,6 +26,29 @@ namespace XPump.Model
             {
                 data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
             }
+
+            return data_path;
+        }
+
+        public static bool IsDataFileExist(string file_name)
+        {
+            string data_path = GetExpressDataPath();
+
+            if(File.Exists(data_path + file_name))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static DataTable Stmas()
+        {
+            settings settings = DialogSettings.GetSettings();
+
+            string data_path = GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stmas.dbf")))
             {
@@ -98,15 +119,7 @@ namespace XPump.Model
         {
             settings settings = DialogSettings.GetSettings();
 
-            string data_path = string.Empty;
-            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
-            {
-                data_path = settings.express_data_path;
-            }
-            else
-            {
-                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
-            }
+            string data_path = GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isrun.dbf")))
             {
@@ -140,15 +153,7 @@ namespace XPump.Model
         {
             settings settings = DialogSettings.GetSettings();
 
-            string data_path = string.Empty;
-            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
-            {
-                data_path = settings.express_data_path;
-            }
-            else
-            {
-                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
-            }
+            string data_path = GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isinfo.dbf")))
             {
@@ -182,15 +187,7 @@ namespace XPump.Model
         {
             settings settings = DialogSettings.GetSettings();
 
-            string data_path = string.Empty;
-            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
-            {
-                data_path = settings.express_data_path;
-            }
-            else
-            {
-                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
-            }
+            string data_path = GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stloc.dbf")))
             {
@@ -224,15 +221,7 @@ namespace XPump.Model
         {
             settings settings = DialogSettings.GetSettings();
 
-            string data_path = string.Empty;
-            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
-            {
-                data_path = settings.express_data_path;
-            }
-            else
-            {
-                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
-            }
+            string data_path = GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stcrd.dbf")))
             {
@@ -267,15 +256,7 @@ namespace XPump.Model
         {
             settings settings = DialogSettings.GetSettings();
 
-            string data_path = string.Empty;
-            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
-            {
-                data_path = settings.express_data_path;
-            }
-            else
-            {
-                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
-            }
+            string data_path = GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "apmas.dbf")))
             {
@@ -309,15 +290,7 @@ namespace XPump.Model
         {
             settings settings = DialogSettings.GetSettings();
 
-            string data_path = string.Empty;
-            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
-            {
-                data_path = settings.express_data_path;
-            }
-            else
-            {
-                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
-            }
+            string data_path = GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "aptrn.dbf")))
             {
@@ -351,15 +324,7 @@ namespace XPump.Model
         {
             settings settings = DialogSettings.GetSettings();
 
-            string data_path = string.Empty;
-            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
-            {
-                data_path = settings.express_data_path;
-            }
-            else
-            {
-                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
-            }
+            string data_path = GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "artrn.dbf")))
             {
