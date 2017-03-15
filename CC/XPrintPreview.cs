@@ -139,9 +139,9 @@ namespace CC
 
         protected override void OnMouseWheel(MouseEventArgs e)
         {
-            if((Control.ModifierKeys & Keys.Control) != 0)
+            if ((Control.ModifierKeys & Keys.Control) != 0)
             {
-                if(e.Delta > 0)
+                if (e.Delta > 0)
                 {
                     this.btnZoomIn.PerformClick();
                 }
@@ -151,6 +151,20 @@ namespace CC
                 }
                 return;
             }
+            else if (Control.ModifierKeys == 0)
+            {
+                if(e.Delta > 0)
+                {
+                    SendKeys.Send("^{UP 6}");
+                    return;
+                }
+                else
+                {
+                    SendKeys.Send("^{DOWN 6}");
+                    return;
+                }
+            }
+
 
             base.OnMouseWheel(e);
         }

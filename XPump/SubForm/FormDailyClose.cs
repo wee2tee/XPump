@@ -62,6 +62,24 @@ namespace XPump.SubForm
             }
         }
 
+        private void ResetControlState()
+        {
+            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnFirst.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrevious.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnNext.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnLast.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnSearch.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnInquiryAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnInquiryRest.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrintB.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrintC.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+        }
+
         private List<dayend> GetDayEnd(DateTime date)
         {
             using (xpumpEntities db = DBX.DataSet())
@@ -165,6 +183,8 @@ namespace XPump.SubForm
                 }
 
                 this.curr_date = dlg.selected_date;
+                this.form_mode = FORM_MODE.READ;
+                this.ResetControlState();
                 this.btnRefresh.PerformClick();
             }
         }
@@ -187,7 +207,7 @@ namespace XPump.SubForm
             if (!this.curr_date.HasValue)
                 return;
 
-            if(MessageBox.Show("ลบข้อมูลการปิดยอดขายของวันที่ \"" + this.curr_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" ทิ้งทั้งหมด, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if(MessageBox.Show("ลบข้อมูลการปิดยอดขายของวันที่ \"" + this.curr_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" , ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 using (xpumpEntities db = DBX.DataSet())
                 {
@@ -254,15 +274,12 @@ namespace XPump.SubForm
                     {
                         this.curr_date = tmp.saldat;
                         this.dayend_list = this.GetDayEnd(tmp.saldat);
+                        this.FillForm();
                     }
                     else
                     {
-                        return;
-                        //this.curr_date = null;
-                        //this.dayend_list = new List<dayend>();
+                        this.btnFirst.PerformClick();
                     }
-
-                    this.FillForm();
                 }
                 else
                 {
@@ -282,16 +299,13 @@ namespace XPump.SubForm
                     if (tmp != null)
                     {
                         this.curr_date = tmp.saldat;
-                        this.dayend_list = this.GetDayEnd(tmp.saldat);
+                        this.dayend_list = this.GetDayEnd(this.curr_date.Value);
+                        this.FillForm();
                     }
                     else
                     {
-                        return;
-                        //this.curr_date = null;
-                        //this.dayend_list = new List<dayend>();
+                        this.btnLast.PerformClick();
                     }
-
-                    this.FillForm();
                 }
                 else
                 {

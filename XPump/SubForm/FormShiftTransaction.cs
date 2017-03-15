@@ -1618,7 +1618,16 @@ namespace XPump.SubForm
                         if(sal_hs.Count > 0)
                         {
                             y += line_height;
-                            str = "เลขที่ " + sal_hs.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_hs.Last().docnum.PadLeft(12) + " จำนวน " + sal_hs.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.netval) + sal_hs.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
+                            if (sal_hs.Count == 1)
+                            {
+                                str = "เลขที่ " + sal_hs.First().docnum.PadLeft(12);
+                            }
+                            else
+                            {
+                                str = "เลขที่ " + sal_hs.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_hs.Last().docnum.PadLeft(12);
+                            }
+
+                            str += " จำนวน " + sal_hs.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.netval) + sal_hs.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
                             Rectangle rect_hs_vat = str.GetDisplayRect(fnt, e.MarginBounds.Left, y);
                             rect_hs_vat.Width += 15;
                             e.Graphics.DrawString(str, fnt, brush, rect_hs_vat);
@@ -1627,7 +1636,16 @@ namespace XPump.SubForm
                         if(sal_iv.Count > 0)
                         {
                             y += line_height;
-                            str = "เลขที่ " + sal_iv.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_iv.Last().docnum.PadLeft(12) + " จำนวน " + sal_iv.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.netval) + sal_iv.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
+                            if(sal_iv.Count == 1)
+                            {
+                                str = "เลขที่ " + sal_iv.First().docnum.PadLeft(12);
+                            }
+                            else
+                            {
+                                str = "เลขที่ " + sal_iv.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_iv.Last().docnum.PadLeft(12);
+                            }
+
+                             str += " จำนวน " + sal_iv.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.netval) + sal_iv.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
                             Rectangle rect_iv_vat = str.GetDisplayRect(fnt, e.MarginBounds.Left, y);
                             rect_iv_vat.Width += 15;
                             e.Graphics.DrawString(str, fnt, brush, rect_iv_vat);
