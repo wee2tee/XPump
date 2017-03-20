@@ -4,20 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1ed82b7f92ba4033abd537100b125064" Name="Diagram1">
-        <EntityTypeShape EntityType="xpumpModel.dayend" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.daysttak" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.nozzle" Width="1.5" PointX="10.25" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.pricelist" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.saleshistory" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.salessummary" Width="1.5" PointX="8.25" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.section" Width="1.5" PointX="8" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.settings" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+      <Diagram DiagramId="1e81ee0abbac4c0cac51e1af6a059566" Name="Diagram1">
+        <EntityTypeShape EntityType="xpumpModel.dayend" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.daysttak" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.nozzle" Width="1.5" PointX="10.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.pricelist" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.saleshistory" Width="1.5" PointX="5.25" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.salessummary" Width="1.5" PointX="8.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.section" Width="1.5" PointX="8" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.settings" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.shift" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.shiftsales" Width="1.5" PointX="11" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.shiftsttak" Width="1.5" PointX="13.25" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.stmas" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.tank" Width="1.5" PointX="5.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.shiftsttak" Width="1.5" PointX="13.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.stmas" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.tank" Width="1.5" PointX="5.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.xlog" Width="1.5" PointX="2.75" PointY="1.5" IsExpanded="true" />
         <AssociationConnector Association="xpumpModel.fk_dayend_stmas_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_daysttak_dayend_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_daysttak_section_id" ManuallyRouted="false" />

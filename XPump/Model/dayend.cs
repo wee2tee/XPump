@@ -28,6 +28,10 @@ namespace XPump.Model
         public decimal dother { get; set; }
         public decimal difqty { get; set; }
         public int stmas_id { get; set; }
+        public string creby { get; set; }
+        public System.DateTime cretime { get; set; }
+        public string chgby { get; set; }
+        public Nullable<System.DateTime> chgtime { get; set; }
     
         public virtual stmas stmas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

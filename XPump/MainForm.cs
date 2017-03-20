@@ -18,6 +18,7 @@ namespace XPump
     public partial class MainForm : Form
     {
         public List<ChildFormDetail> opened_child_form = new List<ChildFormDetail>();
+        public string logedin_user_name;
 
         public MainForm()
         {
@@ -34,6 +35,15 @@ namespace XPump
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            if(this.logedin_user_name == null || this.logedin_user_name.Trim().Length == 0)
+            {
+                DialogLogIn login = new DialogLogIn(this);
+                if(login.ShowDialog() != DialogResult.OK)
+                {
+                    this.Close();
+                }
+            }
+
             LocalDb db = new LocalDb();
             if (db.LocalConfig.servername.Trim().Length == 0)
             {

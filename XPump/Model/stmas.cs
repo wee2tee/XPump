@@ -28,6 +28,10 @@ namespace XPump.Model
         public string name { get; set; }
         public string description { get; set; }
         public string remark { get; set; }
+        public string creby { get; set; }
+        public System.DateTime cretime { get; set; }
+        public string chgby { get; set; }
+        public Nullable<System.DateTime> chgtime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<dayend> dayend { get; set; }

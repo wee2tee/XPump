@@ -35,6 +35,10 @@ namespace XPump.Model
         public string paeprefix { get; set; }
         public string phpprefix { get; set; }
         public string prrprefix { get; set; }
+        public string creby { get; set; }
+        public System.DateTime cretime { get; set; }
+        public string chgby { get; set; }
+        public Nullable<System.DateTime> chgtime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<saleshistory> saleshistory { get; set; }

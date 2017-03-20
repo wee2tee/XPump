@@ -73,6 +73,7 @@ namespace CC
         public event EventHandler _SelectedItemChanged;
         public event EventHandler _GotFocus;
         public event EventHandler _Leave;
+        public event EventHandler _DoubleClicked;
 
         public XDropdownList()
         {
@@ -88,15 +89,15 @@ namespace CC
             }
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            if (this.read_only)
-            {
-                if (this.comboBox1.SelectedItem != null && this.comboBox1.SelectedItem is XDropdownListItem)
-                    TextRenderer.DrawText(e.Graphics, ((XDropdownListItem)this.comboBox1.SelectedItem).ToString(), this.comboBox1.Font, new Point(0, 3), this.comboBox1.ForeColor);
-            }
-        }
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    base.OnPaint(e);
+        //    if (this.read_only)
+        //    {
+        //        if (this.comboBox1.SelectedItem != null && this.comboBox1.SelectedItem is XDropdownListItem)
+        //            TextRenderer.DrawText(e.Graphics, ((XDropdownListItem)this.comboBox1.SelectedItem).ToString(), this.comboBox1.Font, new Point(0, 3), this.comboBox1.ForeColor);
+        //    }
+        //}
 
         private void XDropdownList_Load(object sender, EventArgs e)
         {
@@ -174,6 +175,19 @@ namespace CC
                 }
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            this.label1.Text = ((ComboBox)sender).Text;
+        }
+
+        private void label1_DoubleClick(object sender, EventArgs e)
+        {
+            if(this._DoubleClicked != null)
+            {
+                this._DoubleClicked(this, e);
+            }
         }
     }
 

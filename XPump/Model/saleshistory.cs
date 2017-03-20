@@ -25,6 +25,10 @@ namespace XPump.Model
         public int stmas_id { get; set; }
         public int pricelist_id { get; set; }
         public int salessummary_id { get; set; }
+        public string creby { get; set; }
+        public System.DateTime cretime { get; set; }
+        public string chgby { get; set; }
+        public Nullable<System.DateTime> chgtime { get; set; }
     
         public virtual nozzle nozzle { get; set; }
         public virtual pricelist pricelist { get; set; }

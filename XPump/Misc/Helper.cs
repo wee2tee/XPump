@@ -678,6 +678,47 @@ namespace XPump.Misc
             return stloc;
         }
 
+        public static List<ScuserDbf> ToScuserList(this DataTable scuser_dbf)
+        {
+            List<ScuserDbf> scuser = new List<ScuserDbf>();
+
+            foreach (DataRow row in scuser_dbf.Rows)
+            {
+                try
+                {
+                    ScuserDbf s = new ScuserDbf
+                    {
+                        rectyp = row.Field<string>("rectyp").Trim(),
+                        reccod = row.Field<string>("reccod").Trim(),
+                        connectgrp = row.Field<string>("connectgrp").Trim(),
+                        recdes = row.Field<string>("recdes").Trim(),
+                        revokedat = !row.IsNull("revokedat") ? row.Field<DateTime?>("revokedat") : null,
+                        resumedat = !row.IsNull("resumedat") ? row.Field<DateTime?>("resumedat") : null,
+                        language = row.Field<string>("language").Trim(),
+                        userattr = !row.IsNull("userattr") ? row.Field<decimal>("userattr") : 0m,
+                        laswrk = !row.IsNull("laswrk") ? row.Field<DateTime?>("laswrk") : null,
+                        laspwd = !row.IsNull("laspwd") ? row.Field<DateTime?>("laspwd") : null,
+                        lasusedat = !row.IsNull("lasusedat") ? row.Field<DateTime?>("lasusedat") : null,
+                        lasusetim = row.Field<string>("lasusetim"),
+                        secure = row.Field<string>("secure"),
+                        authlev = !row.IsNull("authlev") ? row.Field<decimal>("authlev") : 0m,
+                        userpwd = row.Field<string>("userpwd"),
+                        status = row.Field<string>("status"),
+                        prnnum = row.Field<string>("prnnum"),
+                        rwttxt = row.Field<string>("rwttxt")
+                    };
+
+                    scuser.Add(s);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+
+            return scuser;
+        }
+
         public static List<SccompDbf> ToSccompList(this DataTable sccomp_dbf)
         {
             List<SccompDbf> sccomp = new List<SccompDbf>();

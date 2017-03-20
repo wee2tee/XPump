@@ -17,5 +17,11 @@ namespace XPump.Model
         public int id { get; set; }
         public string express_data_path { get; set; }
         public string orgname { get; set; }
+        public string shiftprintmet { get; set; }
+        public string shiftauthlev { get; set; }
+        public string dayprintmet { get; set; }
+        public string dayauthlev { get; set; }
+        public string chgby { get; set; }
+        public Nullable<System.DateTime> chgtime { get; set; }
     }
 }

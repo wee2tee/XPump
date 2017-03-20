@@ -47,11 +47,21 @@ namespace XPump.SubForm
             this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
+
+            this.AddSelectorItems(this.drShiftPrintMethod);
+            this.AddSelectorItems(this.drDayPrintMethod);
         }
 
         private void DialogSettings_Shown(object sender, EventArgs e)
         {
             this.BindConfigData2Control();
+        }
+
+        private void AddSelectorItems(XDropdownList dropdown)
+        {
+            dropdown._Items.Add(new XDropdownListItem { Text = "0 : อะไรก่อนก็ได้", Value = "0" });
+            dropdown._Items.Add(new XDropdownListItem { Text = "1 : พิมพ์ก่อนรับรอง", Value = "1" });
+            dropdown._Items.Add(new XDropdownListItem { Text = "2 : รับรองก่อนพิมพ์", Value = "2" });
         }
 
         private void BindConfigData2Control()
@@ -117,6 +127,10 @@ namespace XPump.SubForm
             this.btnEditMysqlConnection.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnBrowseExpressData.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.txtOrgname.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.drShiftPrintMethod.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.drDayPrintMethod.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.numShiftAuthLevel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.numDayAuthLevel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
         }
 
         private void FillForm(settings settings_value_to_fill = null)
@@ -129,7 +143,11 @@ namespace XPump.SubForm
                 {
                     id = -1,
                     express_data_path = string.Empty,
-                    orgname = string.Empty
+                    orgname = string.Empty,
+                    shiftauthlev = string.Empty,
+                    shiftprintmet = "0",
+                    dayauthlev = string.Empty,
+                    dayprintmet = "0"
                 };
             }
 
@@ -137,6 +155,10 @@ namespace XPump.SubForm
             this.lblNotConnect.Visible = this.is_mysql_connected ? false : true;
             this.txtExpressData._Text = settings.express_data_path;
             this.txtOrgname._Text = settings.orgname;
+            this.numShiftAuthLevel._Text = settings.shiftauthlev;
+            this.drShiftPrintMethod._SelectedItem = this.drShiftPrintMethod._Items.Cast<XDropdownListItem>().Where(i => (string)i.Value == settings.shiftprintmet).First();
+            this.numDayAuthLevel._Text = settings.dayauthlev;
+            this.drDayPrintMethod._SelectedItem = this.drDayPrintMethod._Items.Cast<XDropdownListItem>().Where(i => (string)i.Value == settings.dayprintmet).First();
         }
 
         public static settings GetSettings()

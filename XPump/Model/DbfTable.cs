@@ -82,6 +82,39 @@ namespace XPump.Model
             return dt;
         }
 
+        public static DataTable Scuser()
+        {
+            string secure_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\secure\";
+
+            if (!(Directory.Exists(secure_path) && File.Exists(secure_path + "scuser.dbf")))
+            {
+                MessageBox.Show("ค้นหาแฟ้ม Scuser.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return new DataTable();
+            }
+
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = new OleDbConnection(
+                @"Provider=VFPOLEDB.1;Data Source=" + secure_path);
+
+            conn.Open();
+
+            if (conn.State == ConnectionState.Open)
+            {
+                string mySQL = "select * from Scuser";
+
+                OleDbCommand cmd = new OleDbCommand(mySQL, conn);
+                OleDbDataAdapter DA = new OleDbDataAdapter(cmd);
+
+                DA.Fill(dt);
+
+                conn.Close();
+            }
+
+            return dt;
+        }
+
         public static DataTable Sccomp()
         {
             string secure_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\secure\";
@@ -714,6 +747,29 @@ namespace XPump.Model
         public DateTime? approve { get; set; }
         public string billto { get; set; }
         public decimal orgnum { get; set; }
+    }
+
+    public class ScuserDbf
+    {
+        public string rectyp { get; set; }
+        public string reccod { get; set; }
+        public string connectgrp { get; set; }
+        public string recdes { get; set; }
+        public DateTime? revokedat { get; set; }
+        public DateTime? resumedat { get; set; }
+        public string language { get; set; }
+        public decimal userattr { get; set; }
+        public DateTime? laswrk { get; set; }
+        public DateTime? laspwd { get; set; }
+        public DateTime? lasusedat { get; set; }
+        public string lasusetim { get; set; }
+        public string secure { get; set; }
+        public decimal authlev { get; set; }
+        public string userpwd { get; set; }
+        public string status { get; set; }
+        public string prnnum { get; set; }
+        public string rwttxt { get; set; }
+
     }
 
     public class SccompDbf

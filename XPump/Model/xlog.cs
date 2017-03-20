@@ -12,19 +12,12 @@ namespace XPump.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class shiftsttak
+    public partial class xlog
     {
         public int id { get; set; }
-        public System.DateTime takdat { get; set; }
-        public decimal qty { get; set; }
-        public int shiftsales_id { get; set; }
-        public int section_id { get; set; }
-        public string creby { get; set; }
+        public string logcode { get; set; }
+        public string description { get; set; }
         public System.DateTime cretime { get; set; }
-        public string chgby { get; set; }
-        public Nullable<System.DateTime> chgtime { get; set; }
-    
-        public virtual section section { get; set; }
-        public virtual shiftsales shiftsales { get; set; }
+        public string username { get; set; }
     }
 }
