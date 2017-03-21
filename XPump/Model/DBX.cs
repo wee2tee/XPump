@@ -12,10 +12,10 @@ namespace XPump.Model
 {
     public class DBX
     {
-        public const string member_server = "localhost";
-        public const string member_db_name = "xmember";
-        public const string member_db_uid = "root";
-        public const string member_db_pwd = "12345";
+        public const string member_server = ""; //"localhost";
+        public const string member_db_name = ""; //"xmember";
+        public const string member_db_uid = ""; //"root";
+        public const string member_db_pwd = ""; //"12345";
         public const int member_db_port = 3306;
 
         private string server_name;

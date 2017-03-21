@@ -467,7 +467,7 @@ namespace XPump.SubForm
 
         private void btnInquiryRest_Click(object sender, EventArgs e)
         {
-            DialogInquiryStmas dlg = new DialogInquiryStmas(this.curr_stmas);
+            DialogInquiryStmas dlg = new DialogInquiryStmas(this.main_form, this.curr_stmas);
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 if (dlg.selected_id > 0)

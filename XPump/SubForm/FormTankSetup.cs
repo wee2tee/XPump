@@ -1518,7 +1518,7 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet())
             {
-                DialogInquiryStmas dlg = new DialogInquiryStmas(db.stmas.Where(s => s.name.Trim() == ((XBrowseBox)sender)._Text).FirstOrDefault());
+                DialogInquiryStmas dlg = new DialogInquiryStmas(this.main_form, db.stmas.Where(s => s.name.Trim() == ((XBrowseBox)sender)._Text).FirstOrDefault());
                 if(dlg.ShowDialog() == DialogResult.OK)
                 {
                     ((XBrowseBox)sender)._Text = db.stmas.Find(dlg.selected_id).name;

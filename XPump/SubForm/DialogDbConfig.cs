@@ -15,6 +15,7 @@ namespace XPump.SubForm
     public partial class DialogDbConfig : Form
     {
         //private LocalConfig localConfig;
+        private MainForm main_form;
         private LocalDb localDb;
         private LocalConfig curr_config;
         private LocalConfig tmp_config;
@@ -37,9 +38,10 @@ namespace XPump.SubForm
             }
         }
 
-        public DialogDbConfig()
+        public DialogDbConfig(MainForm main_form)
         {
             InitializeComponent();
+            this.main_form = main_form;
         }
 
         private void DialogDbConfig_Load(object sender, EventArgs e)
@@ -69,7 +71,7 @@ namespace XPump.SubForm
 
         private LocalConfig LoadConfig()
         {
-            return new LocalDb().LocalConfig;
+            return new LocalDb(this.main_form.working_express_db).LocalConfig;
         }
 
         private void FillForm(LocalConfig config_to_fill = null)
@@ -110,7 +112,7 @@ namespace XPump.SubForm
                 loading.Close();
                 if (isConnected)
                 {
-                    if (this.curr_config.Save() == true)
+                    if (this.curr_config.Save(this.main_form.working_express_db) == true)
                     {
                         this.DialogResult = DialogResult.OK;
                         this.Close();

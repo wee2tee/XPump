@@ -18,11 +18,52 @@ namespace XPump
     public partial class MainForm : Form
     {
         public List<ChildFormDetail> opened_child_form = new List<ChildFormDetail>();
-        public string logedin_user_name;
+        public LoginStatus loged_in_status;
+        public SccompDbf working_express_db;
 
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        public MainForm(string[] args)
+            : this()
+        {
+            if (args.Count() > 0)
+            {
+                try
+                {
+                    string cmd_line = Environment.CommandLine;
+                    string user_name = string.Empty;
+                    string password = string.Empty;
+                    foreach (var item in args)
+                    {
+                        if (item.Trim().ToUpper().Substring(0, 2) == "-U")
+                        {
+                            user_name = item.Trim().Substring(2, item.Trim().Length - 2);
+                            continue;
+                        }
+
+                        if (item.Trim().ToUpper().Substring(0, 2) == "-P")
+                        {
+                            password = item.Trim().Substring(2, item.Trim().Length - 2);
+                        }
+                    }
+
+                    //MessageBox.Show("user : \"" + user_name + "\"");
+                    //MessageBox.Show("pass : \"" + password + "\"");
+
+                    this.loged_in_status = DialogLogIn.ValidateUser(user_name, password);
+                    //if (login.result == true)
+                    //{
+                    //    this.logedin_user_name = login.loged_in_user_name;
+                    //}
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -35,7 +76,8 @@ namespace XPump
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if(this.logedin_user_name == null || this.logedin_user_name.Trim().Length == 0)
+            // LOG-IN
+            if(this.loged_in_status == null)
             {
                 DialogLogIn login = new DialogLogIn(this);
                 if(login.ShowDialog() != DialogResult.OK)
@@ -44,10 +86,37 @@ namespace XPump
                 }
             }
 
-            LocalDb db = new LocalDb();
+            // SELECT COMPANY
+            List<SccompDbf> sccomp = DbfTable.Sccomp().ToSccompList().OrderBy(s => s.compnam).ToList();
+
+            
+            if (this.loged_in_status.is_secure)
+            {
+                List<string> comp_codes = DbfTable.Scacclv().ToScacclvList()
+                                    .Where(s => s.compcod.Trim().Length > 0)
+                                    .Where(s => s.accessid.Trim() == this.loged_in_status.loged_in_user_name || s.accessid.Trim() == this.loged_in_status.loged_in_user_group)
+                                    .Where(s => s.isread == "Y")
+                                    .Select(s => s.compcod).Distinct<string>().ToList();
+
+                sccomp = sccomp.Where(s => comp_codes.Contains(s.compcod)).ToList();
+            }
+            
+            DialogSccompSelection sel = new DialogSccompSelection(this, sccomp, string.Empty);
+            if (sel.ShowDialog() == DialogResult.OK)
+            {
+                this.working_express_db = sel.selected_sccomp;
+            }
+            else
+            {
+                this.Close();
+            }
+
+            //LocalDb db = new LocalDb();
+            LocalDb db = new LocalDb(this.working_express_db);
+
             if (db.LocalConfig.servername.Trim().Length == 0)
             {
-                DialogDbConfig config = new DialogDbConfig();
+                DialogDbConfig config = new DialogDbConfig(this);
                 if (config.ShowDialog() != DialogResult.OK)
                 {
                     this.Close();
@@ -57,7 +126,7 @@ namespace XPump
             {
                 MessageBox.Show("ไม่สามารถเชื่อมต่อฐานข้อมูล MySql ได้, กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                DialogDbConfig config = new DialogDbConfig();
+                DialogDbConfig config = new DialogDbConfig(this);
                 if (config.ShowDialog() != DialogResult.OK)
                 {
                     this.Close();

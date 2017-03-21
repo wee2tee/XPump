@@ -103,7 +103,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Misc\ConfigValue.cs" />
     <Compile Include="Misc\Helper.cs" />
     <Compile Include="Misc\StringEnh.cs" />
     <Compile Include="Misc\StringResource.cs" />

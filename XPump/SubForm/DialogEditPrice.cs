@@ -16,6 +16,7 @@ namespace XPump.SubForm
     {
         public decimal Value;
         private int pricelist_id;
+        private MainForm main_form;
         //public DialogEditPrice()
         //{
         //    InitializeComponent();
@@ -28,9 +29,10 @@ namespace XPump.SubForm
         //    this.StartPosition = FormStartPosition.CenterParent;
         //}
 
-        public DialogEditPrice(int pricelist_id, Size dialog_size, Point dialog_location, decimal unitpr = 0m)
+        public DialogEditPrice(MainForm main_form, int pricelist_id, Size dialog_size, Point dialog_location, decimal unitpr = 0m)
         {
             InitializeComponent();
+            this.main_form = main_form;
             this.StartPosition = FormStartPosition.Manual;
             this.Width = dialog_size.Width >= this.MinimumSize.Width ? dialog_size.Width : this.MinimumSize.Width;
             this.Height = dialog_size.Height >= this.MinimumSize.Height ? dialog_size.Height : this.MinimumSize.Height;

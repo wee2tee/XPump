@@ -40,7 +40,7 @@ namespace XPump.SubForm
                 initial_selected_row.Cells[this.col_compnam.Name].Selected = true;
         }
 
-        private void xDatagrid1_SelectionChanged(object sender, EventArgs e)
+        private void dgv_SelectionChanged(object sender, EventArgs e)
         {
             //if (((XDatagrid)sender).CurrentCell != null)
             //    this.selected_sccomp = this.sccomp_list[((XDatagrid)sender).CurrentCell.RowIndex];
@@ -82,7 +82,10 @@ namespace XPump.SubForm
         private void dgv_CurrentCellChanged(object sender, EventArgs e)
         {
             if (((XDatagrid)sender).CurrentCell != null)
+            {
                 this.selected_sccomp = this.sccomp_list[((XDatagrid)sender).CurrentCell.RowIndex];
+                this.btnOK.Enabled = true;
+            }
         }
     }
 }

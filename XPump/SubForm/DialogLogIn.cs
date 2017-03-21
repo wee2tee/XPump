@@ -29,11 +29,47 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            var x = DbfTable.Scuser().ToScuserList();
+            LoginStatus login_result = ValidateUser(this.txtUserID.Text.Trim(), this.txtPassword.Text.Trim());
 
-            this.main_form.logedin_user_name = "BIT90";
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (login_result.result == true)
+            {
+                //this.main_form.logedin_user_name = login_result.loged_in_user_name;
+                this.main_form.loged_in_status = login_result;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(login_result.err_message, "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                this.txtUserID.Focus();
+            }
+        }
+
+        // VALIDATE USER : Returning (bool is_valid_user, string err_message)
+        public static LoginStatus ValidateUser(string user_name, string password)
+        {
+            // VALIDATE LOG-IN USER
+            var validating_user = DbfTable.Scuser().ToScuserList().Where(u => u.rectyp == "U").Where(u => u.reccod == user_name).FirstOrDefault();
+
+            var scacclv = DbfTable.Scacclv().ToScacclvList().ToList();
+
+            if(validating_user != null)
+            {
+                bool is_secure = validating_user.secure == "1" ? true : false;
+
+                if(validating_user.status == "X")
+                {
+                    return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = is_secure, err_message = "ถูกกำหนดสถานะห้ามใช้งาน" };
+                }
+                else
+                {
+                    return new LoginStatus { result = true, loged_in_user_name = user_name, loged_in_user_group = validating_user.connectgrp, is_secure = is_secure, err_message = string.Empty };
+                }
+            }
+            else
+            {
+                return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = false, err_message = "รหัสผู้ใช้/รหัสผ่าน ไม่ถูกต้อง" };
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -47,7 +83,22 @@ namespace XPump.SubForm
                 }
             }
 
+            if(keyData == Keys.Escape)
+            {
+                this.btnCancel.PerformClick();
+                return true;
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
+    }
+
+    public class LoginStatus
+    {
+        public bool result { get; set; }
+        public string loged_in_user_name { get; set; }
+        public string loged_in_user_group { get; set; }
+        public bool is_secure { get; set; }
+        public string err_message { get; set; }
     }
 }

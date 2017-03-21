@@ -67,7 +67,7 @@ namespace XPump.SubForm
         private void BindConfigData2Control()
         {
             this.FormFreeze = true;
-            this.localconfig = new LocalDb().LocalConfig;
+            this.localconfig = new LocalDb(this.main_form.working_express_db).LocalConfig;
 
             this.loading_form = new LoadingForm();
             this.loading_form.ShowCenterParent(this);
@@ -307,7 +307,7 @@ namespace XPump.SubForm
 
         private void btnEditMysqlConnection_Click(object sender, EventArgs e)
         {
-            DialogDbConfig db_config = new DialogDbConfig();
+            DialogDbConfig db_config = new DialogDbConfig(this.main_form);
             if(db_config.ShowDialog() == DialogResult.OK)
             {
                 this.BindConfigData2Control();

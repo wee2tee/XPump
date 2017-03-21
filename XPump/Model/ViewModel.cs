@@ -9,6 +9,7 @@ namespace XPump.Model
 {
     public class shiftVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public int seq { get; set; }
         public string name { get; set; }

@@ -100,6 +100,7 @@
             // 
             // txtUserID
             // 
+            this.txtUserID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUserID.Location = new System.Drawing.Point(122, 28);
             this.txtUserID.MaxLength = 20;
             this.txtUserID.Name = "txtUserID";
@@ -108,6 +109,7 @@
             // 
             // txtPassword
             // 
+            this.txtPassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPassword.Location = new System.Drawing.Point(122, 55);
             this.txtPassword.MaxLength = 20;
             this.txtPassword.Name = "txtPassword";

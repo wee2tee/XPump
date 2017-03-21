@@ -115,6 +115,39 @@ namespace XPump.Model
             return dt;
         }
 
+        public static DataTable Scacclv()
+        {
+            string secure_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\secure\";
+
+            if (!(Directory.Exists(secure_path) && File.Exists(secure_path + "scacclv.dbf")))
+            {
+                MessageBox.Show("ค้นหาแฟ้ม Scacclv.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return new DataTable();
+            }
+
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = new OleDbConnection(
+                @"Provider=VFPOLEDB.1;Data Source=" + secure_path);
+
+            conn.Open();
+
+            if (conn.State == ConnectionState.Open)
+            {
+                string mySQL = "select * from Scacclv";
+
+                OleDbCommand cmd = new OleDbCommand(mySQL, conn);
+                OleDbDataAdapter DA = new OleDbDataAdapter(cmd);
+
+                DA.Fill(dt);
+
+                conn.Close();
+            }
+
+            return dt;
+        }
+
         public static DataTable Sccomp()
         {
             string secure_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\secure\";
@@ -772,6 +805,22 @@ namespace XPump.Model
 
     }
 
+    public class ScacclvDbf
+    {
+        public string compcod { get; set; }
+        public string filename { get; set; }
+        public string accessid { get; set; }
+        public string submodule { get; set; }
+        public string isread { get; set; }
+        public string isadd { get; set; }
+        public string isedit { get; set; }
+        public string isdelete { get; set; }
+        public string isprint { get; set; }
+        public string iscancel { get; set; }
+        public string isapprove { get; set; }
+
+    }
+
     public class SccompDbf
     {
         public string compnam { get; set; }
@@ -780,6 +829,22 @@ namespace XPump.Model
         public DateTime? gendat { get; set; }
         public string candel { get; set; }
 
+        public string abs_path
+        {
+            get
+            {
+                if(this.path.Contains(@":\") || this.path.Contains(@"\\"))
+                {
+                    return this.path;
+                }
+                else
+                {
+                    DirectoryInfo dir_info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+                    string absolute_path = dir_info.Parent.FullName + @"\" + this.path;
+                    return absolute_path;
+                }
+            }
+        }
     }
 
     public class IsrunDbf

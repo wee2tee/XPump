@@ -15,6 +15,7 @@ namespace XPump.SubForm
     public partial class DialogInquiryStmas : Form
     {
         //private INQUIRY inquiry_mode;
+        private MainForm main_form;
         private stmas initial_stmas;
         private List<stmasVM> stmas_list;
         private BindingSource bs;
@@ -25,10 +26,10 @@ namespace XPump.SubForm
             InitializeComponent();
         }
 
-        public DialogInquiryStmas(/*INQUIRY inquiry_mode*/ stmas initial_stmas)
+        public DialogInquiryStmas(MainForm main_form, stmas initial_stmas)
             : this()
         {
-            //this.inquiry_mode = inquiry_mode;
+            this.main_form = main_form;
             this.initial_stmas = initial_stmas;
         }
 

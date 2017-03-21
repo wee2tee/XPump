@@ -64,13 +64,14 @@ namespace XPump.Misc
     // Extension Method
     public static class Helper
     {
-        public static shiftVM ToViewModel(this shift shift)
+        public static shiftVM ToViewModel(this shift shift, SccompDbf working_express_db)
         {
             if (shift == null)
                 return null;
 
             shiftVM s = new shiftVM
             {
+                working_express_db = working_express_db,
                 id = shift.id,
                 seq = shift.seq,
                 name = shift.name,
@@ -719,6 +720,39 @@ namespace XPump.Misc
             return scuser;
         }
 
+        public static List<ScacclvDbf> ToScacclvList(this DataTable scacclv_dbf)
+        {
+            List<ScacclvDbf> scacclv = new List<ScacclvDbf>();
+            foreach (DataRow row in scacclv_dbf.Rows)
+            {
+                try
+                {
+                    ScacclvDbf s = new ScacclvDbf
+                    {
+                        compcod = row.Field<string>("compcod").Trim(),
+                        filename = row.Field<string>("filename").Trim(),
+                        accessid = row.Field<string>("accessid").Trim(),
+                        submodule = row.Field<string>("submodule").Trim(),
+                        isread = row.Field<string>("isread").Trim(),
+                        isadd = row.Field<string>("isadd").Trim(),
+                        isedit = row.Field<string>("isedit").Trim(),
+                        isdelete = row.Field<string>("isdelete").Trim(),
+                        isprint = row.Field<string>("isprint").Trim(),
+                        iscancel = row.Field<string>("iscancel").Trim(),
+                        isapprove = row.Field<string>("isapprove").Trim()
+                    };
+
+                    scacclv.Add(s);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+
+            return scacclv;
+        }
+
         public static List<SccompDbf> ToSccompList(this DataTable sccomp_dbf)
         {
             List<SccompDbf> sccomp = new List<SccompDbf>();
@@ -729,7 +763,7 @@ namespace XPump.Misc
                 {
                     SccompDbf s = new SccompDbf
                     {
-                        compnam = row.Field<string>("compnam").Trim(),
+                        compnam = row.Field<string>("compnam").TrimEnd(),
                         compcod = row.Field<string>("compcod").Trim(),
                         path = row.Field<string>("path").Trim(),
                         gendat = !row.IsNull("gendat") ? row.Field<DateTime?>("gendat") : null,

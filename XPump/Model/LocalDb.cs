@@ -15,17 +15,27 @@ namespace XPump.Model
     public class LocalDb
     {
         public SQLiteConnection connection;
-        private string local_db_file_name = "local.dbx";
+        private string local_db_file_name = "XPUMP.RDB";
 
-        public LocalDb()
+        //public LocalDb()
+        //{
+        //    if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Local\" + this.local_db_file_name))
+        //    {
+        //        SQLiteConnection.CreateFile(AppDomain.CurrentDomain.BaseDirectory + @"Local\" + this.local_db_file_name);
+        //    }
+
+        //    this.connection = new SQLiteConnection("Data Source=" + AppDomain.CurrentDomain.BaseDirectory + @"Local\" + this.local_db_file_name + ";Version=3");
+
+        //}
+
+        public LocalDb(SccompDbf working_express_db)
         {
-            if(!File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Local\" + this.local_db_file_name))
+            if (!File.Exists(working_express_db.abs_path + @"\" + this.local_db_file_name))
             {
-                SQLiteConnection.CreateFile(AppDomain.CurrentDomain.BaseDirectory + @"Local\" + this.local_db_file_name);
+                SQLiteConnection.CreateFile(working_express_db.abs_path + @"\" + this.local_db_file_name);
             }
 
-            this.connection = new SQLiteConnection("Data Source=" + AppDomain.CurrentDomain.BaseDirectory + @"Local\" + this.local_db_file_name + ";Version=3");
-
+            this.connection = new SQLiteConnection("Data Source=" + working_express_db.abs_path + @"\" + this.local_db_file_name + ";Version=3");
         }
 
         public LocalConfig LocalConfig
@@ -101,11 +111,11 @@ namespace XPump.Model
 
     public static class LocalDbHelper
     {
-        public static bool Save(this LocalConfig local_config)
+        public static bool Save(this LocalConfig local_config, SccompDbf working_express_db)
         {
             try
             {
-                LocalDb db = new LocalDb();
+                LocalDb db = new LocalDb(working_express_db);
                 db.connection.Open();
                 string sql = "UPDATE config SET servername='" + local_config.servername + "', dbname='" + local_config.dbname + "', port=" + local_config.port.ToString() + ", uid='" + local_config.uid + "', passwordhash='" + local_config.passwordhash + "' WHERE id = 1";
                 SQLiteCommand cmd = new SQLiteCommand(sql, db.connection);
