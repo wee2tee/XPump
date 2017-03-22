@@ -211,7 +211,7 @@
             this.Name = "DialogDbConfig";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "กำหนดการเชื่อมต่อฐานข้อมูล MySql";
+            this.Text = "กำหนดการเชื่อมต่อฐานข้อมูล MySQL";
             this.Load += new System.EventHandler(this.DialogDbConfig_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).EndInit();
             this.ResumeLayout(false);

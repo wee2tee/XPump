@@ -130,9 +130,11 @@ namespace XPump.Model
             }
         }
 
-        public static bool TestMysqlConnection(this LocalConfig local_config)
+        public static MySqlConnectionResult TestMysqlConnection(this LocalConfig local_config)
         {
-            bool isConn = false;
+            MySqlConnectionResult conn_result = new MySqlConnectionResult { is_connected = false, err_message = string.Empty, connection_code = MYSQL_CONNECTION.DISCONNECTED };
+
+            //bool isConn = false;
             var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Database=" + local_config.dbname + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted();
 
             MySqlConnection conn = null;
@@ -140,7 +142,8 @@ namespace XPump.Model
             {
                 conn = new MySqlConnection(conn_info);
                 conn.Open();
-                isConn = true;
+                conn_result.is_connected = true;
+                conn_result.connection_code = MYSQL_CONNECTION.CONNECTED;
             }
             //catch (ArgumentException a_ex)
             //{
@@ -169,9 +172,35 @@ namespace XPump.Model
             //            break;
             //    }
             //}
+            catch(MySqlException ex)
+            {
+                conn_result.is_connected = false;
+                if (ex.Message.ToLower().Contains("unable to connect to any of the specified mysql hosts"))
+                {
+                    conn_result.connection_code = MYSQL_CONNECTION.HOST_NOT_FOUND;
+                    conn_result.err_message = "ไม่สามารถเชื่อมต่อไปยังเซิร์ฟเวอร์ \"" + local_config.servername + "\", กรุณาตรวจสอบการกำหนดค่าการเชื่อมต่อฐานข้อมูล MySQL อีกครั้ง";
+                }
+                else if (ex.Message.ToLower().Contains("unknown database"))
+                {
+                    conn_result.connection_code = MYSQL_CONNECTION.UNKNOW_DATABASE;
+                    conn_result.err_message = "ไม่พบฐานข้อมูลชื่อ \"" + local_config.dbname + "\"";
+                }
+                else if (ex.Message.ToLower().Contains("access denied"))
+                {
+                    conn_result.connection_code = MYSQL_CONNECTION.ACCESS_DENIED;
+                    conn_result.err_message = "รหัสผู้ใช้/รหัสผ่านที่ระบุไว้ ไม่สามารถใช้งานฐานข้อมูล \"" + local_config.dbname + "\" ได้, กรุณาตรวจสอบการกำหนดค่าการเชื่อมต่อฐานข้อมูล MySQL อีกครั้ง";
+                }
+                else
+                {
+                    conn_result.connection_code = MYSQL_CONNECTION.DISCONNECTED;
+                    conn_result.err_message = ex.Message;
+                }
+            }
             catch (Exception ex)
             {
-                isConn = false;
+                conn_result.is_connected = false;
+                conn_result.err_message = ex.Message;
+                conn_result.connection_code = MYSQL_CONNECTION.DISCONNECTED;
             }
             finally
             {
@@ -180,7 +209,23 @@ namespace XPump.Model
                     conn.Close();
                 }
             }
-            return isConn;
+            return conn_result;
         }
+    }
+
+    public enum MYSQL_CONNECTION
+    {
+        DISCONNECTED,
+        CONNECTED,
+        UNKNOW_DATABASE,
+        HOST_NOT_FOUND,
+        ACCESS_DENIED
+    }
+
+    public class MySqlConnectionResult
+    {
+        public bool is_connected { get; set; }
+        public string err_message { get; set; }
+        public MYSQL_CONNECTION connection_code { get; set; }
     }
 }

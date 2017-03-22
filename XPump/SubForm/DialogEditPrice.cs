@@ -56,7 +56,7 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {

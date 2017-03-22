@@ -157,7 +157,7 @@ namespace XPump.SubForm
 
         public tank GetTank(int tank_id)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
@@ -172,7 +172,7 @@ namespace XPump.SubForm
 
         private tank GetFirstTank()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 tank tank = db.tank.Include("section").OrderBy(t => t.name).FirstOrDefault();
 
@@ -189,7 +189,7 @@ namespace XPump.SubForm
 
         private tank GetPreviousTank()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 tank tank = db.tank.Include("section").Where(t => t.name.CompareTo(this.curr_tank.name) < 0).OrderByDescending(t => t.name).FirstOrDefault();
 
@@ -206,7 +206,7 @@ namespace XPump.SubForm
 
         private tank GetNextTank()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 tank tank = db.tank.Include("section").Where(t => t.name.CompareTo(this.curr_tank.name) > 0).OrderBy(t => t.name).FirstOrDefault();
 
@@ -223,7 +223,7 @@ namespace XPump.SubForm
 
         private tank GetLastTank()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 tank tmp = db.tank.Include("section").OrderByDescending(t => t.name).FirstOrDefault();
 
@@ -253,7 +253,7 @@ namespace XPump.SubForm
             this.ddIsactive._SelectedItem = this.ddIsactive._Items.Cast<XDropdownListItem>().Where(i => (bool)i.Value == tank.isactive).First();
 
             this.bs_section.ResetBindings(true);
-            var sections = tank.section.ToList().ToViewModel().OrderBy(s => s.state).ThenBy(s => s.id).ToList();
+            var sections = tank.section.ToList().ToViewModel(this.main_form.working_express_db).OrderBy(s => s.state).ThenBy(s => s.id).ToList();
 
             this.bs_section.DataSource = sections;
             this.dgvSection.Focus();
@@ -349,7 +349,7 @@ namespace XPump.SubForm
         //        {
         //            if(this.temp_section != null)
         //            {
-        //                using (xpumpEntities db = DBX.DataSet())
+        //                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
         //                {
         //                    this.temp_section.section.stmas_id = dlg.selected_id;
         //                    this.inline_stkcod._Text = db.stmas.Find(dlg.selected_id).name;
@@ -367,7 +367,7 @@ namespace XPump.SubForm
         //    {
         //        if (this.temp_section != null)
         //        {
-        //            using (xpumpEntities db = DBX.DataSet())
+        //            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
         //            {
         //                stmas tmp_stmas = db.stmas.Where(s => s.name == this.inline_stkcod._Text).FirstOrDefault();
 
@@ -537,12 +537,12 @@ namespace XPump.SubForm
             }
         }
 
-        public static bool DeleteNozzle(nozzle nozzle_to_delete)
+        public bool DeleteNozzle(nozzle nozzle_to_delete)
         {
             if (nozzle_to_delete == null)
                 return false;
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
@@ -558,12 +558,12 @@ namespace XPump.SubForm
             }
         }
 
-        public static bool DeleteSection(section section_to_delete)
+        public bool DeleteSection(section section_to_delete)
         {
             if (section_to_delete == null)
                 return false;
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 foreach (nozzle noz in db.nozzle.Where(n => n.section_id == section_to_delete.id).ToList())
                 {
@@ -574,7 +574,7 @@ namespace XPump.SubForm
                 }
             }
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
@@ -590,12 +590,12 @@ namespace XPump.SubForm
             }
         }
 
-        public static bool DeleteTank(tank tank_to_delete)
+        public bool DeleteTank(tank tank_to_delete)
         {
             if (tank_to_delete == null)
                 return false;
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 foreach (section sec in db.section.Where(s => s.tank_id == tank_to_delete.id).ToList())
                 {
@@ -606,7 +606,7 @@ namespace XPump.SubForm
                 }
             }
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
@@ -650,7 +650,7 @@ namespace XPump.SubForm
 
             this.inline_nozzlecount.Enabled = false;
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 tank tmp = this.GetTank(this.curr_tank.id);
                 
@@ -681,7 +681,7 @@ namespace XPump.SubForm
             DeleteTank(this.curr_tank);
             this.btnRefresh.PerformClick();
 
-            //using (xpumpEntities db = DBX.DataSet())
+            //using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             //{
             //    try
             //    {
@@ -737,7 +737,7 @@ namespace XPump.SubForm
                     return;
                 }
 
-                using(xpumpEntities db = DBX.DataSet())
+                using(xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -762,7 +762,7 @@ namespace XPump.SubForm
 
             if(this.form_mode == FORM_MODE.EDIT)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -882,7 +882,7 @@ namespace XPump.SubForm
             DialogSimpleSearch dlg = new DialogSimpleSearch("รหัสแท๊งค์", "");
             if(dlg.ShowDialog() == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     tank tmp = db.tank.Where(t => t.name.CompareTo(dlg.keyword) > -1).OrderBy(t => t.name).FirstOrDefault();
 
@@ -984,9 +984,9 @@ namespace XPump.SubForm
         {
             var cols = this.GetInquiryDgvColumns();
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                var tanks = db.tank.ToViewModel().ToList<dynamic>();
+                var tanks = db.tank.ToViewModel(this.main_form.working_express_db).ToList<dynamic>();
                 var col_search_key = cols.Where(c => c.Name == "col_name").FirstOrDefault();
                 DialogInquiry inq = new DialogInquiry(tanks, cols, col_search_key);
 
@@ -1003,9 +1003,9 @@ namespace XPump.SubForm
         {
             var cols = this.GetInquiryDgvColumns();
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                var tanks = db.tank.ToViewModel().ToList<dynamic>();
+                var tanks = db.tank.ToViewModel(this.main_form.working_express_db).ToList<dynamic>();
                 var col_search_key = cols.Where(c => c.Name == "col_name").FirstOrDefault();
                 DialogInquiry inq = new DialogInquiry(tanks, cols, col_search_key, this.curr_tank.name);
 
@@ -1055,7 +1055,7 @@ namespace XPump.SubForm
                 begdif = 0m,
                 stmas_id = -1,
                 tank_id = this.curr_tank.id,
-            }.ToViewModel();
+            }.ToViewModel(this.main_form.working_express_db);
             this.curr_tank.section.Add(this.temp_section.section);
             this.FillForm();
             this.dgvSection.Rows[this.curr_tank.section.Count - 1].Cells["col_section_name"].Selected = true;
@@ -1070,7 +1070,7 @@ namespace XPump.SubForm
             if (this.dgvSection.CurrentCell == null)
                 return;
 
-            this.temp_section = ((section)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells["col_section_section"].Value).ToViewModel();
+            this.temp_section = ((section)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells["col_section_section"].Value).ToViewModel(this.main_form.working_express_db);
             this.form_mode = FORM_MODE.EDIT_ITEM;
             this.ResetControlState();
             this.ShowInlineForm(this.dgvSection.CurrentCell.RowIndex);
@@ -1087,7 +1087,7 @@ namespace XPump.SubForm
         //    if (MessageBox.Show("ลบรหัสช่องเก็บน้ำมัน \"" + tmp.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
         //        return;
 
-        //    using (xpumpEntities db = DBX.DataSet())
+        //    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
         //    {
         //        try
         //        {
@@ -1118,7 +1118,7 @@ namespace XPump.SubForm
             this.curr_tank = this.GetTank(this.curr_tank.id);
             this.FillForm();
 
-            //using (xpumpEntities db = DBX.DataSet())
+            //using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             //{
             //    try
             //    {
@@ -1156,7 +1156,7 @@ namespace XPump.SubForm
 
             if (this.form_mode == FORM_MODE.ADD_ITEM)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -1178,7 +1178,7 @@ namespace XPump.SubForm
 
             if(this.form_mode == FORM_MODE.EDIT_ITEM)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -1516,7 +1516,7 @@ namespace XPump.SubForm
 
         private void inline_stkcod__ButtonClick(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 DialogInquiryStmas dlg = new DialogInquiryStmas(this.main_form, db.stmas.Where(s => s.name.Trim() == ((XBrowseBox)sender)._Text).FirstOrDefault());
                 if(dlg.ShowDialog() == DialogResult.OK)
@@ -1531,7 +1531,7 @@ namespace XPump.SubForm
         private void inline_stkcod__Leave(object sender, EventArgs e)
         {
             string txt = ((XBrowseBox)sender)._Text;
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 stmas tmp = db.stmas.Where(s => s.name.Trim() == txt.Trim()).FirstOrDefault();
 

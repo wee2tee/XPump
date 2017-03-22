@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using XPump.Model;
 using XPump.Misc;
 using CC;
+using MySql.Data.MySqlClient;
 
 namespace XPump.SubForm
 {
@@ -101,16 +102,17 @@ namespace XPump.SubForm
                 return;
             }
 
-            bool isConnected = false;
+            //bool isConnected = false;
+            MySqlConnectionResult conn_result = new MySqlConnectionResult { is_connected = false, err_message = string.Empty, connection_code = MYSQL_CONNECTION.DISCONNECTED };
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += delegate
             {
-                isConnected = this.curr_config.TestMysqlConnection();
+                conn_result = this.curr_config.TestMysqlConnection();
             };
             worker.RunWorkerCompleted += delegate
             {
                 loading.Close();
-                if (isConnected)
+                if (conn_result.is_connected)
                 {
                     if (this.curr_config.Save(this.main_form.working_express_db) == true)
                     {
@@ -120,7 +122,37 @@ namespace XPump.SubForm
                 }
                 else
                 {
-                    MessageBox.Show("ไม่สามารถเชื่อมต่อฐานข้อมูล MySql ได้, กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if(conn_result.connection_code == MYSQL_CONNECTION.UNKNOW_DATABASE)
+                    {
+                        if(MessageBox.Show(conn_result.err_message + " ต้องการสร้างฐานข้อมูลดังกล่าวขึ้นมาใหม่หรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                        {
+                            var conn_info = "Server=" + this.curr_config.servername + ";Port=" + this.curr_config.port.ToString() + ";Uid=" + this.curr_config.uid + ";Pwd=" + this.curr_config.passwordhash.Decrypted();
+
+                            try
+                            {
+                                using (MySqlConnection conn = new MySqlConnection())
+                                {
+                                    conn.ConnectionString = conn_info;
+                                    conn.Open();
+                                    conn_result.is_connected = true;
+                                    conn_result.connection_code = MYSQL_CONNECTION.CONNECTED;
+                                }
+                            }
+                            catch(MySqlException ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                            catch(Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show(conn_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
                     this.FormFreeze = false;
                     this.txtServerName.Focus();
                 }

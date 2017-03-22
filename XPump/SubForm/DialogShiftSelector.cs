@@ -14,34 +14,36 @@ namespace XPump.SubForm
 {
     public partial class DialogShiftSelector : Form
     {
+        private MainForm main_form;
         public shift selected_shift;
         private BindingSource bs;
         private List<shiftVM> shift_list;
         private shift initial_selected_shift;
 
-        public DialogShiftSelector()
+        public DialogShiftSelector(MainForm main_form)
         {
             InitializeComponent();
+            this.main_form = main_form;
         }
 
-        public DialogShiftSelector(int initial_selected_shift_id)
-            : this()
+        public DialogShiftSelector(MainForm main_form, int initial_selected_shift_id)
+            : this(main_form)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.initial_selected_shift = db.shift.Find(initial_selected_shift_id);
             }
         }
 
-        public DialogShiftSelector(int initial_selected_shift_id, Point displayed_position)
-            : this(initial_selected_shift_id)
+        public DialogShiftSelector(MainForm main_form, int initial_selected_shift_id, Point displayed_position)
+            : this(main_form, initial_selected_shift_id)
         {
             this.SetBounds(displayed_position.X, displayed_position.Y, this.Width, this.Height);
         }
 
         private void DialogShiftSelector_Load(object sender, EventArgs e)
         {
-            this.shift_list = GetShiftList().ToViewModel();
+            this.shift_list = GetShiftList().ToViewModel(this.main_form.working_express_db);
             this.bs = new BindingSource();
             this.bs.DataSource = this.shift_list;
             this.dgv.DataSource = this.bs;
@@ -61,11 +63,10 @@ namespace XPump.SubForm
             this.btnOK.Enabled = true;
         }
 
-        public static List<shift> GetShiftList()
+        public List<shift> GetShiftList()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                var x = db.shift.ToList();
                 return db.shift.ToList();
             }
         }

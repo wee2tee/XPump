@@ -35,9 +35,9 @@ namespace XPump.SubForm
 
         private void DialogInquiryStmas_Load(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                this.stmas_list = db.stmas.ToList().ToViewModel();
+                this.stmas_list = db.stmas.ToList().ToViewModel(this.main_form.working_express_db);
                 this.bs = new BindingSource();
                 this.bs.DataSource = this.stmas_list;
                 this.dgv.DataSource = this.bs;

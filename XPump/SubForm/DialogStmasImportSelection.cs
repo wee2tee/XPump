@@ -39,7 +39,7 @@ namespace XPump.SubForm
             this.bs = new BindingSource();
             this.dgv.DataSource = this.bs;
 
-            DataTable dt = DbfTable.Stmas();
+            DataTable dt = DbfTable.Stmas(this.main_form.working_express_db);
             if (dt == null)
             {
                 this.DialogResult = DialogResult.Cancel;

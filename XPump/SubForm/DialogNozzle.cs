@@ -63,7 +63,7 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.section = db.section.Find(this.section.id);
                 if (this.section == null)
@@ -88,14 +88,14 @@ namespace XPump.SubForm
                 this.list_nozzle = this.GetNozzleList();
 
                 this.bs = new BindingSource();
-                this.bs.DataSource = this.list_nozzle.ToViewModel();
+                this.bs.DataSource = this.list_nozzle.ToViewModel(this.main_form.working_express_db);
                 this.dgv.DataSource = this.bs;
             }
         }
 
         public List<nozzle> GetNozzleList()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.nozzle.Where(n => n.section_id == this.section.id).ToList();
             }
@@ -249,7 +249,7 @@ namespace XPump.SubForm
             this.list_nozzle.Add(this.temp_nozzle);
 
             this.bs.ResetBindings(true);
-            this.bs.DataSource = this.list_nozzle.ToViewModel();
+            this.bs.DataSource = this.list_nozzle.ToViewModel(this.main_form.working_express_db);
 
             this.dgv.Rows[this.list_nozzle.Count - 1].Cells["col_name"].Selected = true;
             this.form_mode = FORM_MODE.ADD_ITEM;
@@ -282,14 +282,14 @@ namespace XPump.SubForm
 
             try
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     db.nozzle.Remove(db.nozzle.Find(tmp.id));
                     db.SaveChanges();
 
                     this.list_nozzle = this.GetNozzleList();
                     this.bs.ResetBindings(true);
-                    this.bs.DataSource = this.list_nozzle.ToViewModel();
+                    this.bs.DataSource = this.list_nozzle.ToViewModel(this.main_form.working_express_db);
                     if (this.form_tanksetup != null)
                         this.form_tanksetup.RefreshDgvSection();
                 }
@@ -304,7 +304,7 @@ namespace XPump.SubForm
         {
             this.list_nozzle = this.GetNozzleList();
             this.bs.ResetBindings(true);
-            this.bs.DataSource = this.list_nozzle.ToViewModel();
+            this.bs.DataSource = this.list_nozzle.ToViewModel(this.main_form.working_express_db);
             this.RemoveInlineForm();
             this.temp_nozzle = null;
             this.form_mode = FORM_MODE.READ_ITEM;
@@ -325,7 +325,7 @@ namespace XPump.SubForm
 
             if(this.form_mode == FORM_MODE.ADD_ITEM)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -334,7 +334,7 @@ namespace XPump.SubForm
 
                         this.list_nozzle = this.GetNozzleList();
                         this.bs.ResetBindings(true);
-                        this.bs.DataSource = this.list_nozzle.ToViewModel();
+                        this.bs.DataSource = this.list_nozzle.ToViewModel(this.main_form.working_express_db);
                         if (this.form_tanksetup != null)
                             this.form_tanksetup.RefreshDgvSection();
 
@@ -360,7 +360,7 @@ namespace XPump.SubForm
 
             if(this.form_mode == FORM_MODE.EDIT_ITEM)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -381,7 +381,7 @@ namespace XPump.SubForm
 
                         this.list_nozzle = this.GetNozzleList();
                         this.bs.ResetBindings(true);
-                        this.bs.DataSource = this.list_nozzle.ToViewModel();
+                        this.bs.DataSource = this.list_nozzle.ToViewModel(this.main_form.working_express_db);
 
                         this.btnStopItem.PerformClick();
                     }

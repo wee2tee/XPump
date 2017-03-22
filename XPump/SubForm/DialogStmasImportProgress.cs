@@ -45,7 +45,7 @@ namespace XPump.SubForm
                     }
 
                     worker.ReportProgress(i + 1);
-                    using (xpumpEntities db = DBX.DataSet())
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                     {
                         try
                         {
@@ -157,7 +157,7 @@ namespace XPump.SubForm
 
         private void UpdateExistingStmas(StmasDbfVM stmasdbfvm)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 stmas stmas_to_update = db.stmas.Where(s => s.name == stmasdbfvm.stkcod).FirstOrDefault();
 

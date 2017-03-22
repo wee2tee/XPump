@@ -116,7 +116,7 @@ namespace XPump.SubForm
 
         public stmas GetStmas(int stmas_id)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
@@ -134,11 +134,11 @@ namespace XPump.SubForm
             if (section_list == null)
                 return new List<nozzle>();
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
-                    var sec = section_list.ToViewModel().Where(s => !s.end_date.HasValue || s.end_date.Value.ToString("yyyyMMdd", CultureInfo.CurrentCulture).CompareTo(DateTime.Now.ToString("yyyyMMdd", CultureInfo.CurrentCulture)) >= 0).Select(s => s.id).ToArray<int>();
+                    var sec = section_list.ToViewModel(this.main_form.working_express_db).Where(s => !s.end_date.HasValue || s.end_date.Value.ToString("yyyyMMdd", CultureInfo.CurrentCulture).CompareTo(DateTime.Now.ToString("yyyyMMdd", CultureInfo.CurrentCulture)) >= 0).Select(s => s.id).ToArray<int>();
                     var nozzle = db.nozzle.Where(n => sec.Contains(n.section_id)).ToList();
                     return nozzle;
                 }
@@ -255,7 +255,7 @@ namespace XPump.SubForm
             if (this.curr_stmas == null)
                 return;
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 stmas tmp = this.GetStmas(this.curr_stmas.id);
 
@@ -283,7 +283,7 @@ namespace XPump.SubForm
 
             if (MessageBox.Show("ลบรหัสสินค้า \"" + this.curr_stmas.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -314,7 +314,7 @@ namespace XPump.SubForm
 
             if(this.form_mode == FORM_MODE.ADD)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -338,7 +338,7 @@ namespace XPump.SubForm
 
             if(this.form_mode == FORM_MODE.EDIT)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -370,7 +370,7 @@ namespace XPump.SubForm
 
         private void btnFirst_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.curr_stmas = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").OrderBy(s => s.name).FirstOrDefault();
                 this.FillForm();
@@ -379,7 +379,7 @@ namespace XPump.SubForm
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").Where(s => s.name.CompareTo(this.curr_stmas.name) < 0).OrderByDescending(s => s.name).FirstOrDefault();
 
@@ -393,7 +393,7 @@ namespace XPump.SubForm
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").Where(s => s.name.CompareTo(this.curr_stmas.name) > 0).OrderBy(s => s.name).FirstOrDefault();
 
@@ -407,7 +407,7 @@ namespace XPump.SubForm
 
         private void btnLast_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").OrderByDescending(s => s.name).FirstOrDefault();
 
@@ -435,7 +435,7 @@ namespace XPump.SubForm
             DialogSimpleSearch search = new DialogSimpleSearch("รหัสสินค้า", string.Empty);
             if(search.ShowDialog() == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").Where(s => s.name.CompareTo(search.keyword) > -1).OrderBy(s => s.name).FirstOrDefault();
 
@@ -480,7 +480,7 @@ namespace XPump.SubForm
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 if (this.curr_stmas == null || db.stmas.Count() == 0)
                 {
@@ -619,7 +619,7 @@ namespace XPump.SubForm
             DialogStmasImportSelection im = new DialogStmasImportSelection(this.main_form);
             if(im.ShowDialog() == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     stmas tmp = db.stmas.Include("pricelist").Include("saleshistory").Include("salessummary").Include("section").OrderByDescending(s => s.name).FirstOrDefault();
 
@@ -715,7 +715,7 @@ namespace XPump.SubForm
                     scrollbar_width = ((XDatagrid)sender).Controls.OfType<VScrollBar>().First().Visible ? SystemInformation.VerticalScrollBarWidth : 0;
                 }
                 var width = ((XDatagrid)sender).Bounds.Width - this.col_sales_saldat.Width - scrollbar_width;     
-                DialogNozzleSalesHistory nsh = new DialogNozzleSalesHistory(saldat, nozzle_id, new Point(x,y), width);
+                DialogNozzleSalesHistory nsh = new DialogNozzleSalesHistory(this.main_form, saldat, nozzle_id, new Point(x,y), width);
                 nsh.Show();
             }
         }

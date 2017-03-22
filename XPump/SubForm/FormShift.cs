@@ -46,14 +46,14 @@ namespace XPump.SubForm
             this.bs.DataSource = this.shift_list;
             this.dgv.DataSource = this.bs;
 
-            this.shift_list = this.GetShiftList().ToViewModel();
+            this.shift_list = this.GetShiftList().ToViewModel(this.main_form.working_express_db);
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.shift_list;
         }
 
         public List<shift> GetShiftList()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.shift.Include("saleshistory").Include("salessummary").OrderBy(s => s.seq).ToList();
             }
@@ -85,7 +85,7 @@ namespace XPump.SubForm
             if (this.temp_shift == null)
                 return;
 
-            DataTable dt = DbfTable.Isrun();
+            DataTable dt = DbfTable.Isrun(this.main_form.working_express_db);
             if(dt == null)
             {
                 this.btnStop.PerformClick();
@@ -229,7 +229,7 @@ namespace XPump.SubForm
                 saiprefix = string.Empty,
                 shsprefix = string.Empty,
                 sivprefix = string.Empty
-            }.ToViewModel();
+            }.ToViewModel(this.main_form.working_express_db);
 
             this.shift_list.Add(this.temp_shift);
 
@@ -247,7 +247,7 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            this.temp_shift = ((shift)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_shift"].Value).ToViewModel();
+            this.temp_shift = ((shift)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_shift"].Value).ToViewModel(this.main_form.working_express_db);
             this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
             this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
@@ -260,7 +260,7 @@ namespace XPump.SubForm
 
             if(MessageBox.Show("ลบ \"" + this.curr_shift.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -306,7 +306,7 @@ namespace XPump.SubForm
                     return;
                 }
 
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -338,7 +338,7 @@ namespace XPump.SubForm
 
             if(this.form_mode == FORM_MODE.EDIT)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -377,7 +377,7 @@ namespace XPump.SubForm
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            this.shift_list = this.GetShiftList().ToViewModel();
+            this.shift_list = this.GetShiftList().ToViewModel(this.main_form.working_express_db);
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.shift_list;
         }
@@ -774,7 +774,7 @@ namespace XPump.SubForm
         private void btnUp_Click(object sender, EventArgs e)
         {
             int curr_id = (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_id.Name].Value;
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
@@ -797,7 +797,7 @@ namespace XPump.SubForm
 
                     db.SaveChanges();
 
-                    this.shift_list = this.GetShiftList().ToViewModel();
+                    this.shift_list = this.GetShiftList().ToViewModel(this.main_form.working_express_db);
                     this.bs.ResetBindings(true);
                     this.bs.DataSource = this.shift_list;
                     this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == curr_shift.id).First().Cells[this.col_seq.Name].Selected = true;
@@ -812,7 +812,7 @@ namespace XPump.SubForm
         private void btnDown_Click(object sender, EventArgs e)
         {
             int curr_id = (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_id.Name].Value;
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
@@ -835,7 +835,7 @@ namespace XPump.SubForm
 
                     db.SaveChanges();
 
-                    this.shift_list = this.GetShiftList().ToViewModel();
+                    this.shift_list = this.GetShiftList().ToViewModel(this.main_form.working_express_db);
                     this.bs.ResetBindings(true);
                     this.bs.DataSource = this.shift_list;
                     this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == curr_shift.id).First().Cells[this.col_seq.Name].Selected = true;

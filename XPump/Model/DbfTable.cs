@@ -13,26 +13,26 @@ namespace XPump.Model
 {
     public class DbfTable
     {
-        public static string GetExpressDataPath()
+        //public static string GetExpressDataPath(SccompDbf working_express_db)
+        //{
+        //    settings settings = DialogSettings.GetSettings();
+
+        //    string data_path = string.Empty;
+        //    if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
+        //    {
+        //        data_path = settings.express_data_path + @"\";
+        //    }
+        //    else
+        //    {
+        //        data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
+        //    }
+
+        //    return data_path;
+        //}
+
+        public static bool IsDataFileExist(string file_name, SccompDbf working_express_db)
         {
-            settings settings = DialogSettings.GetSettings();
-
-            string data_path = string.Empty;
-            if (settings != null && (settings.express_data_path.Contains(@":\") || settings.express_data_path.Contains(@"\\")))
-            {
-                data_path = settings.express_data_path + @"\";
-            }
-            else
-            {
-                data_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\" + settings.express_data_path + @"\";
-            }
-
-            return data_path;
-        }
-
-        public static bool IsDataFileExist(string file_name)
-        {
-            string data_path = GetExpressDataPath();
+            string data_path = working_express_db.abs_path; //GetExpressDataPath();
 
             if(File.Exists(data_path + file_name))
             {
@@ -44,21 +44,15 @@ namespace XPump.Model
             }
         }
 
-        public static DataTable Stmas()
+        public static DataTable Stmas(SccompDbf working_express_db)
         {
-            settings settings = DialogSettings.GetSettings();
-
-            string data_path = GetExpressDataPath();
+            string data_path = working_express_db.abs_path; //GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stmas.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
-            //var x = DBFHelper.DBFParse.ReadDBF(data_path + "stmas.dbf");
-            //MessageBox.Show(x.Rows.Count.ToString() + " loaded, Started at : " + xtime.ToString() + ", Completed at : " + DateTime.Now.ToString());
-            //return x;
-
 
             DataTable dt = new DataTable();
 
@@ -181,15 +175,13 @@ namespace XPump.Model
             return dt;
         }
 
-        public static DataTable Isrun()
+        public static DataTable Isrun(SccompDbf working_express_db)
         {
-            settings settings = DialogSettings.GetSettings();
-
-            string data_path = GetExpressDataPath();
+            string data_path = working_express_db.abs_path; //GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isrun.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Isrun.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Isrun.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -215,15 +207,13 @@ namespace XPump.Model
             return dt;
         }
 
-        public static DataTable Isinfo()
+        public static DataTable Isinfo(SccompDbf working_express_db)
         {
-            settings settings = DialogSettings.GetSettings();
-
-            string data_path = GetExpressDataPath();
+            string data_path = working_express_db.abs_path; // GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isinfo.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Isinfo.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Isinfo.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -249,15 +239,13 @@ namespace XPump.Model
             return dt;
         }
 
-        public static DataTable Stloc()
+        public static DataTable Stloc(SccompDbf working_express_db)
         {
-            settings settings = DialogSettings.GetSettings();
-
-            string data_path = GetExpressDataPath();
+            string data_path = working_express_db.abs_path; // GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stloc.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stloc.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Stloc.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -283,15 +271,13 @@ namespace XPump.Model
             return dt;
         }
 
-        public static DataTable Stcrd()
+        public static DataTable Stcrd(SccompDbf working_express_db)
         {
-            settings settings = DialogSettings.GetSettings();
-
-            string data_path = GetExpressDataPath();
+            string data_path = working_express_db.abs_path; // GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stcrd.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stcrd.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Stcrd.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 
                 return new DataTable();
             }
@@ -318,15 +304,13 @@ namespace XPump.Model
             return dt;
         }
 
-        public static DataTable Apmas()
+        public static DataTable Apmas(SccompDbf working_express_db)
         {
-            settings settings = DialogSettings.GetSettings();
-
-            string data_path = GetExpressDataPath();
+            string data_path = working_express_db.abs_path; // GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "apmas.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Apmas.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Apmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -352,15 +336,13 @@ namespace XPump.Model
             return dt;
         }
 
-        public static DataTable Aptrn()
+        public static DataTable Aptrn(SccompDbf working_express_db)
         {
-            settings settings = DialogSettings.GetSettings();
-
-            string data_path = GetExpressDataPath();
+            string data_path = working_express_db.abs_path; // GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "aptrn.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Aptrn.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Aptrn.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -386,15 +368,13 @@ namespace XPump.Model
             return dt;
         }
 
-        public static DataTable Artrn()
+        public static DataTable Artrn(SccompDbf working_express_db)
         {
-            settings settings = DialogSettings.GetSettings();
-
-            string data_path = GetExpressDataPath();
+            string data_path = working_express_db.abs_path; // GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "artrn.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Artrn.dbf ในที่เก็บข้อมูล \"" + settings.express_data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Artrn.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -833,16 +813,20 @@ namespace XPump.Model
         {
             get
             {
-                if(this.path.Contains(@":\") || this.path.Contains(@"\\"))
+                string path_txt = string.Empty;
+
+                if(this.path.Substring(1, 2) == @":\" || this.path.StartsWith(@"\\"))
                 {
-                    return this.path;
+                    path_txt = this.path;
                 }
                 else
                 {
                     DirectoryInfo dir_info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
                     string absolute_path = dir_info.Parent.FullName + @"\" + this.path;
-                    return absolute_path;
+                    path_txt = absolute_path;
                 }
+
+                return path_txt.TrimEnd('\\') + @"\";
             }
         }
     }

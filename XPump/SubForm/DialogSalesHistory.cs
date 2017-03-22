@@ -15,6 +15,7 @@ namespace XPump.SubForm
 {
     public partial class DialogSalesHistory : Form
     {
+        private MainForm main_form;
         private salessummary salessummary;
         private List<pricelist> price_list;
         private List<saleshistory> saleshistory;
@@ -23,13 +24,14 @@ namespace XPump.SubForm
         private BindingSource bs_price;
         private FORM_MODE form_mode;
 
-        public DialogSalesHistory()
+        public DialogSalesHistory(MainForm main_form)
         {
             InitializeComponent();
+            this.main_form = main_form;
         }
 
-        public DialogSalesHistory(salessummary salessummary)
-            : this()
+        public DialogSalesHistory(MainForm main_form, salessummary salessummary)
+            : this(main_form)
         {
             this.salessummary = salessummary;
         }
@@ -41,11 +43,11 @@ namespace XPump.SubForm
             this.ResetControlState();
 
             this.lblSaleDate.Text = this.salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
-            this.lblShiftName.Text = this.salessummary.ToViewModel().shift_name;
-            this.lblStkdes.Text = this.salessummary.ToViewModel().stkcod + " / " + this.salessummary.ToViewModel().stkdes;
+            this.lblShiftName.Text = this.salessummary.ToViewModel(this.main_form.working_express_db).shift_name;
+            this.lblStkdes.Text = this.salessummary.ToViewModel(this.main_form.working_express_db).stkcod + " / " + this.salessummary.ToViewModel(this.main_form.working_express_db).stkdes;
 
             this.salessummary = this.GetSalesSummary(this.salessummary.id);
-            this.salessummary.purvat = this.salessummary.GetPurVatFromExpress();
+            this.salessummary.purvat = this.salessummary.GetPurVatFromExpress(this.main_form.working_express_db);
             this.saleshistory = this.salessummary.saleshistory.ToList();
             this.bs_sales = new BindingSource();
             this.dgvNozzle.DataSource = this.bs_sales;
@@ -75,7 +77,7 @@ namespace XPump.SubForm
 
         private List<pricelist> GetPriceList()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 int[] price_id_list = db.salessummary.Where(s => s.shiftsales_id == this.salessummary.shiftsales_id).Select(s => s.pricelist_id).ToArray();
                 return db.pricelist.Where(p => price_id_list.Contains<int>(p.id)).ToList();
@@ -84,7 +86,7 @@ namespace XPump.SubForm
 
         private salessummary GetSalesSummary(int id)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.salessummary.Include("shiftsales").Include("saleshistory").Where(s => s.id == id).FirstOrDefault();
             }
@@ -92,7 +94,7 @@ namespace XPump.SubForm
 
         private List<saleshistory> GetSalesHistory()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.saleshistory.Where(s => s.salessummary_id == this.salessummary.id).ToList();
             }
@@ -100,7 +102,7 @@ namespace XPump.SubForm
 
         private saleshistory GetSalesHistoryById(int id)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.saleshistory.Find(id);
             }
@@ -156,7 +158,7 @@ namespace XPump.SubForm
             if (this.tmp_saleshistory == null)
                 return;
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
@@ -199,7 +201,7 @@ namespace XPump.SubForm
 
         //public salessummary ReCalculateSalesSummary(salessummary latest_data_of_salessummary)
         //{
-        //    using (xpumpEntities db = DBX.DataSet())
+        //    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
         //    {
         //        salessummary sales_to_cal = db.salessummary.Include("saleshistory").Where(s => s.id == latest_data_of_salessummary.id).FirstOrDefault();
         //        if (sales_to_cal == null)
@@ -217,7 +219,7 @@ namespace XPump.SubForm
 
         //public void UpdateSalesSummary(salessummary salessummary_to_update)
         //{
-        //    using (xpumpEntities db = DBX.DataSet())
+        //    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
         //    {
         //        try
         //        {
@@ -251,25 +253,25 @@ namespace XPump.SubForm
         {
             this.saleshistory = this.salessummary.saleshistory.ToList();
             this.bs_sales.ResetBindings(true);
-            this.bs_sales.DataSource = this.saleshistory.ToViewModel().OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ThenBy(s => s.nozzle_name).ToList();
+            this.bs_sales.DataSource = this.saleshistory.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ThenBy(s => s.nozzle_name).ToList();
         }
 
         private void FillDgvPrice()
         {
             this.price_list = this.GetPriceList();
             this.bs_price.ResetBindings(true);
-            this.bs_price.DataSource = this.price_list.ToViewModel();
+            this.bs_price.DataSource = this.price_list.ToViewModel(this.main_form.working_express_db);
         }
 
         private void FillSummary()
         {
-            this.lblTotal.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().total);
-            this.lblTotqty.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().totqty);
-            this.lblTotval.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().totval);
-            this.lblNetqty.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().totqty);
-            this.lblNetval.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().netval);
-            this.lblSalvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().salvat);
-            this.lblPurvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel().purvat);
+            this.lblTotal.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).total);
+            this.lblTotqty.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).totqty);
+            this.lblTotval.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).totval);
+            this.lblNetqty.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).totqty);
+            this.lblNetval.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).netval);
+            this.lblSalvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).salvat);
+            this.lblPurvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).purvat);
 
             this.numDtest._Value = this.salessummary.dtest;
             this.numDother._Value = this.salessummary.dother;
@@ -308,7 +310,7 @@ namespace XPump.SubForm
             {
                 this.tmp_saleshistory.mitbeg = ((XNumEdit)sender)._Value;
                 this.tmp_saleshistory.salqty = this.tmp_saleshistory.mitend - this.tmp_saleshistory.mitbeg;
-                this.tmp_saleshistory.salval = this.tmp_saleshistory.salqty * this.salessummary.ToViewModel().unitpr;
+                this.tmp_saleshistory.salval = this.tmp_saleshistory.salqty * this.salessummary.ToViewModel(this.main_form.working_express_db).unitpr;
             }
         }
 
@@ -318,13 +320,13 @@ namespace XPump.SubForm
             {
                 this.tmp_saleshistory.mitend = ((XNumEdit)sender)._Value;
                 this.tmp_saleshistory.salqty = this.tmp_saleshistory.mitend - this.tmp_saleshistory.mitbeg;
-                this.tmp_saleshistory.salval = this.tmp_saleshistory.salqty * this.salessummary.ToViewModel().unitpr;
+                this.tmp_saleshistory.salval = this.tmp_saleshistory.salqty * this.salessummary.ToViewModel(this.main_form.working_express_db).unitpr;
             }
         }
 
         private void PerformEditSummary(object sender, EventArgs e)
         {
-            if (this.salessummary.shiftsales.IsClosedShiftSales())
+            if (this.salessummary.shiftsales.IsClosedShiftSales(this.main_form.working_express_db))
             {
                 MessageBox.Show("วันที่ " + this.salessummary.shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
@@ -339,7 +341,7 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 salessummary sales_to_update = db.salessummary.Find(this.salessummary.id);
                 if (sales_to_update == null)
@@ -373,7 +375,7 @@ namespace XPump.SubForm
 
         private void dgvNozzle_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (this.salessummary.shiftsales.IsClosedShiftSales())
+            if (this.salessummary.shiftsales.IsClosedShiftSales(this.main_form.working_express_db))
             {
                 MessageBox.Show("วันที่ " + this.salessummary.shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;

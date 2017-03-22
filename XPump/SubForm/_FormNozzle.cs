@@ -44,14 +44,14 @@ namespace XPump.SubForm
             this.bs.DataSource = this.nozzle_list;
             this.dgv.DataSource = this.bs;
 
-            this.nozzle_list = this.GetNozzleList().ToViewModel();
+            this.nozzle_list = this.GetNozzleList().ToViewModel(this.main_form.working_express_db);
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.nozzle_list;
         }
 
         public List<nozzle> GetNozzleList()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.nozzle.Include("saleshistory").ToList();
             }
@@ -158,7 +158,7 @@ namespace XPump.SubForm
                 description = string.Empty,
                 isactive = true,
                 remark = string.Empty,
-            }.ToViewModel();
+            }.ToViewModel(this.main_form.working_express_db);
 
             this.nozzle_list.Add(this.temp_nozzle);
 
@@ -176,7 +176,7 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            this.temp_nozzle = ((nozzle)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_nozzle"].Value).ToViewModel();
+            this.temp_nozzle = ((nozzle)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_nozzle"].Value).ToViewModel(this.main_form.working_express_db);
             this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
             this.ShowInlineControl(this.dgv.CurrentCell.RowIndex);
@@ -186,7 +186,7 @@ namespace XPump.SubForm
         {
             if(MessageBox.Show(StringResource.Msg("0003"), "Message # 0003", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -229,7 +229,7 @@ namespace XPump.SubForm
                     return;
                 }
 
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -255,7 +255,7 @@ namespace XPump.SubForm
 
             if(this.form_mode == FORM_MODE.EDIT)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -287,7 +287,7 @@ namespace XPump.SubForm
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            this.nozzle_list = this.GetNozzleList().ToViewModel();
+            this.nozzle_list = this.GetNozzleList().ToViewModel(this.main_form.working_express_db);
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.nozzle_list;
         }

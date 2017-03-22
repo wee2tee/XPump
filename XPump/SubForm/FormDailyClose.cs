@@ -56,9 +56,9 @@ namespace XPump.SubForm
 
             if (this.curr_date.HasValue)
             {
-                DbfTable.Isinfo();
-                DbfTable.Apmas();
-                DbfTable.Aptrn();
+                DbfTable.Isinfo(this.main_form.working_express_db);
+                DbfTable.Apmas(this.main_form.working_express_db);
+                DbfTable.Aptrn(this.main_form.working_express_db);
             }
         }
 
@@ -82,7 +82,7 @@ namespace XPump.SubForm
 
         private List<dayend> GetDayEnd(DateTime date)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.dayend.Include("daysttak").Where(d => d.saldat == date).ToList();
             }
@@ -93,7 +93,7 @@ namespace XPump.SubForm
             this.lblDate.Text = this.curr_date.HasValue && this.dayend_list.Count > 0 ? this.curr_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) : string.Empty;
 
             this.bs.ResetBindings(true);
-            this.bs.DataSource = this.dayend_list.ToViewModel();
+            this.bs.DataSource = this.dayend_list.ToViewModel(this.main_form.working_express_db);
 
             /*Form control state depend on data*/
             if (this.form_mode == FORM_MODE.READ)
@@ -118,7 +118,7 @@ namespace XPump.SubForm
             DialogDateSelector dlg = new DialogDateSelector("วันที่ปิดยอดขาย", DateTime.Now);
             if(dlg.ShowDialog() == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     if(db.dayend.Where(d => d.saldat == dlg.selected_date).Count() > 0)
                     {
@@ -147,7 +147,7 @@ namespace XPump.SubForm
                                 dothertxt = string.Empty,
                                 saldat = dlg.selected_date,
 
-                            }.ToViewModel();
+                            }.ToViewModel(this.main_form.working_express_db);
                             db.dayend.Add(d.dayend);
                             db.SaveChanges();
 
@@ -209,7 +209,7 @@ namespace XPump.SubForm
 
             if(MessageBox.Show("ลบข้อมูลการปิดยอดขายของวันที่ \"" + this.curr_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" , ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -243,7 +243,7 @@ namespace XPump.SubForm
 
         private void btnFirst_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 var tmp = db.dayend.OrderBy(d => d.saldat).FirstOrDefault();
 
@@ -264,7 +264,7 @@ namespace XPump.SubForm
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 if (this.curr_date.HasValue)
                 {
@@ -290,7 +290,7 @@ namespace XPump.SubForm
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 if (this.curr_date.HasValue)
                 {
@@ -316,7 +316,7 @@ namespace XPump.SubForm
 
         private void btnLast_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 var tmp = db.dayend.OrderByDescending(d => d.saldat).FirstOrDefault();
 
@@ -340,7 +340,7 @@ namespace XPump.SubForm
             DialogDateSelector sel = new DialogDateSelector("วันที่ปิดยอดขาย", null);
             if(sel.ShowDialog() == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     var tmp = db.dayend.Where(d => d.saldat == sel.selected_date).FirstOrDefault();
 
@@ -433,7 +433,7 @@ namespace XPump.SubForm
         {
             var cols = this.GetInquiryDgvColumns();
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 //var dayendVM = db.dayend.ToViewModel().OrderBy(s => s.saldat).ToList<dynamic>();
                 var dayendVM = db.dayend.OrderBy(s => s.saldat).ToList()
@@ -457,7 +457,7 @@ namespace XPump.SubForm
         {
             var cols = this.GetInquiryDgvColumns();
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 var dayendVM = db.dayend.OrderBy(s => s.saldat).ToList()
                                 .GroupBy(d => d.saldat)
@@ -481,7 +481,7 @@ namespace XPump.SubForm
             DialogPrintSetupB print = new DialogPrintSetupB(this.curr_date);
             if (print.ShowDialog() == DialogResult.OK)
             {
-                var report_data = new ReportBModel(print.selected_date.Value);
+                var report_data = new ReportBModel(print.selected_date.Value, this.main_form.working_express_db);
                 int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_B(report_data));
                 if(print.output == PRINT_OUTPUT.SCREEN)
                 {
@@ -507,7 +507,7 @@ namespace XPump.SubForm
             DialogPrintSetupC print = new DialogPrintSetupC(this.curr_date);
             if (print.ShowDialog() == DialogResult.OK)
             {
-                var report_data = new ReportCModel(print.first_date_of_month.Value, print.last_date_of_month.Value);
+                var report_data = new ReportCModel(print.first_date_of_month.Value, print.last_date_of_month.Value, this.main_form.working_express_db);
                 int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_C(report_data));
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
@@ -854,7 +854,7 @@ namespace XPump.SubForm
                     rect_stk.Height = line_height * 2;
                     e.Graphics.FillRectangle(bg_gray, rect_stk);
                     e.Graphics.DrawRectangle(p, rect_stk);
-                    e.Graphics.DrawString(report_data.dayend[i].ToViewModel().stkcod, fnt_bold, brush, rect_stk, format_center);
+                    e.Graphics.DrawString(report_data.dayend[i].ToViewModel(this.main_form.working_express_db).stkcod, fnt_bold, brush, rect_stk, format_center);
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height, rect_stk.Width, line_height * section_per_product));
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product), rect_stk.Width, line_height));
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product) + line_height, rect_stk.Width, line_height * 8));
@@ -863,41 +863,41 @@ namespace XPump.SubForm
                     {
                         rect_section.Y += rect_section.Height;
                         rect_section.Height = line_height;
-                        string sect = report_data.dayend[i].daysttak.Count > j ? report_data.dayend[i].daysttak.ToList()[j].ToViewModel().section_name : "-";
+                        string sect = report_data.dayend[i].daysttak.Count > j ? report_data.dayend[i].daysttak.ToList()[j].ToViewModel(this.main_form.working_express_db).section_name : "-";
                         e.Graphics.DrawString(sect, fnt, brush, rect_section, format_center);
 
                         rect_stk.Y += rect_stk.Height;
                         rect_stk.Height = line_height;
-                        string qty = report_data.dayend[i].daysttak.Count > j ? string.Format("{0:#,#0.00}", report_data.dayend[i].daysttak.ToList()[j].ToViewModel().qty) : string.Empty;
+                        string qty = report_data.dayend[i].daysttak.Count > j ? string.Format("{0:#,#0.00}", report_data.dayend[i].daysttak.ToList()[j].ToViewModel(this.main_form.working_express_db).qty) : string.Empty;
                         e.Graphics.DrawString(qty, fnt, brush, rect_stk, format_right);
                     }
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().endbal), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).endbal), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().begbal), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).begbal), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().rcvqty), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).rcvqty), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().salqty), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).salqty), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().dother), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).dother), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().accbal), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).accbal), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().difqty), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).difqty), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().begdif), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).begdif), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel().begdif + report_data.dayend[i].ToViewModel().difqty), fnt, brush, rect_stk, format_right);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).begdif + report_data.dayend[i].ToViewModel(this.main_form.working_express_db).difqty), fnt, brush, rect_stk, format_right);
 
                     Rectangle rect_vat = new Rectangle(e.MarginBounds.Left, rect_stk.Y + line_height, e.MarginBounds.Right - e.MarginBounds.Left, line_height);
                     if (page_item == 1)

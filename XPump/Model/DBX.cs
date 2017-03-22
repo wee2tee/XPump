@@ -66,9 +66,9 @@ namespace XPump.Model
             return new xpumpEntities("metadata=res://*/Model.XPumpModel.csdl|res://*/Model.XPumpModel.ssdl|res://*/Model.XPumpModel.msl;provider=MySql.Data.MySqlClient;provider connection string=\"Data Source=" + this.server_name + ";Initial Catalog=" + this.db_name + ";Persist Security Info=True;User ID=" + this.db_userid + ";Password=" + this.db_password + ";charset=utf8\"");
         }
 
-        public static xpumpEntities DataSet()
+        public static xpumpEntities DataSet(SccompDbf working_express_db)
         {
-            LocalConfig config = new LocalDb().LocalConfig;
+            LocalConfig config = new LocalDb(working_express_db).LocalConfig;
 
             DBX db_context = new DBX(config.servername, config.uid, config.passwordhash.Decrypted(), config.dbname, config.port);
             return db_context.GetDBEntities();

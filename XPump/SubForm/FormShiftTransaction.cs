@@ -101,7 +101,7 @@ namespace XPump.SubForm
 
         public shiftsales GetShiftSales(int id)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.shiftsales.Include("salessummary").Include("shift").Include("shiftsttak").Where(s => s.id == id).FirstOrDefault();
             }
@@ -109,7 +109,7 @@ namespace XPump.SubForm
 
         private shiftsales GetFirst()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.shiftsales.Include("salessummary").Include("shift").Include("shiftsttak").OrderBy(s => s.saldat).ThenBy(s => s.id).FirstOrDefault();
             }
@@ -117,7 +117,7 @@ namespace XPump.SubForm
 
         private shiftsales GetPrevious()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 if (db.shiftsales.Count() == 0)
                     return null;
@@ -160,7 +160,7 @@ namespace XPump.SubForm
 
         private shiftsales GetNext()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 if (db.shiftsales.Count() == 0)
                     return null;
@@ -201,7 +201,7 @@ namespace XPump.SubForm
 
         private shiftsales GetLast()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.shiftsales.Include("salessummary").Include("shift").Include("shiftsttak").OrderByDescending(s => s.saldat).ThenByDescending(s => s.id).FirstOrDefault();
             }
@@ -220,7 +220,7 @@ namespace XPump.SubForm
                 return;
             }
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.brShift._Text = db.shift.Find(sales.shift_id) != null ? db.shift.Find(sales.shift_id).name : string.Empty;
                 var x = db.dayend.Where(d => d.saldat == sales.saldat).FirstOrDefault();
@@ -228,12 +228,12 @@ namespace XPump.SubForm
             }
             this.dtSaldat._SelectedDate = sales.saldat;
 
-            this.sales_list = sales.salessummary.ToViewModel().OrderBy(s => s.stkcod).ToList();
+            this.sales_list = sales.salessummary.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.stkcod).ToList();
             this.bs_sales.ResetBindings(true);
             this.bs_sales.DataSource = this.sales_list;
 
             this.bs_sttak.ResetBindings(true);
-            this.bs_sttak.DataSource = sales.shiftsttak.ToViewModel().OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ToList();
+            this.bs_sttak.DataSource = sales.shiftsttak.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ToList();
             this.tabPage2.ImageIndex = sales.shiftsttak.Where(s => s.qty == -1).Count() > 0 ? 0 : -1;
 
             /*Form control state depend on data*/
@@ -259,7 +259,7 @@ namespace XPump.SubForm
 
         private bool ValidateClosedShiftSales(shiftsales shiftsales)
         {
-            bool isclosed = shiftsales.IsClosedShiftSales();
+            bool isclosed = shiftsales.IsClosedShiftSales(this.main_form.working_express_db);
             if (isclosed == true)
             {
                 MessageBox.Show("วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -319,7 +319,7 @@ namespace XPump.SubForm
 
             if(MessageBox.Show("ลบบันทึกรายการขายประจำผลัด \"" + this.curr_shiftsales.shift.name + "\" วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + ", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -400,7 +400,7 @@ namespace XPump.SubForm
         //        if (price.ShowDialog() != DialogResult.OK)
         //            return;
 
-        //        using (xpumpEntities db = DBX.DataSet())
+        //        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
         //        {
         //            try
         //            {
@@ -467,7 +467,7 @@ namespace XPump.SubForm
 
         //    if(this.form_mode == FORM_MODE.EDIT)
         //    {
-        //        using (xpumpEntities db = DBX.DataSet())
+        //        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
         //        {
         //            try
         //            {
@@ -539,7 +539,7 @@ namespace XPump.SubForm
 
             if (this.form_mode == FORM_MODE.ADD)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     if(db.shiftsales.Where(s => s.saldat == this.tmp_shiftsales.saldat && s.shift_id == this.tmp_shiftsales.shift_id).Count() > 0)
                     {
@@ -625,7 +625,7 @@ namespace XPump.SubForm
 
             if (this.form_mode == FORM_MODE.EDIT)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -746,10 +746,10 @@ namespace XPump.SubForm
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
         {
-            DialogSearchShiftTransaction search = new DialogSearchShiftTransaction();
+            DialogSearchShiftTransaction search = new DialogSearchShiftTransaction(this.main_form);
             if(search.ShowDialog() == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     var tmp = db.shiftsales.Where(s => s.saldat == search.selected_date.Value && s.shift_id == search.selected_shift_id).FirstOrDefault();
                     
@@ -832,9 +832,9 @@ namespace XPump.SubForm
         {
             var cols = this.GetInquiryDgvColumns();
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                var shiftsales = db.shiftsales.ToViewModel().OrderBy(s => s.saldat).ThenBy(s => s.shift_name).ToList<dynamic>();
+                var shiftsales = db.shiftsales.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.saldat).ThenBy(s => s.shift_name).ToList<dynamic>();
                 var col_search_key = cols.Where(c => c.Name == "col_id").FirstOrDefault();
                 DialogInquiry inq = new DialogInquiry(shiftsales, cols, col_search_key, null, false);
 
@@ -851,9 +851,9 @@ namespace XPump.SubForm
         {
             var cols = this.GetInquiryDgvColumns();
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                var shiftsales = db.shiftsales.ToViewModel().OrderBy(s => s.saldat).ThenBy(s => s.shift_name).ToList<dynamic>();
+                var shiftsales = db.shiftsales.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.saldat).ThenBy(s => s.shift_name).ToList<dynamic>();
                 var col_search_key = cols.Where(c => c.Name == "col_id").FirstOrDefault();
                 DialogInquiry inq = new DialogInquiry(shiftsales, cols, col_search_key, this.curr_shiftsales.id, false);
 
@@ -980,7 +980,7 @@ namespace XPump.SubForm
         {
             if (this.tmp_shiftsales != null)
             {
-                DialogShiftSelector sel = new DialogShiftSelector(this.tmp_shiftsales.shift_id);
+                DialogShiftSelector sel = new DialogShiftSelector(this.main_form, this.tmp_shiftsales.shift_id);
                 Point p = ((XBrowseBox)sender).PointToScreen(Point.Empty);
                 sel.SetBounds(p.X + ((XBrowseBox)sender).Width, p.Y, sel.Width, sel.Height);
                 if (sel.ShowDialog() == DialogResult.OK)
@@ -1004,22 +1004,26 @@ namespace XPump.SubForm
             else
             {
                 string txt = ((XBrowseBox)sender)._Text.Trim();
-
-                shift shift = DialogShiftSelector.GetShiftList().Where(s => s.name == txt).FirstOrDefault();
-                if(shift != null)
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
-                    if (this.tmp_shiftsales != null)
-                        this.tmp_shiftsales.shift_id = shift.id;
-                }
-                else
-                {
-                    if (this.tmp_shiftsales != null)
-                        this.tmp_shiftsales.shift_id = -1;
+                    var shift = db.shift.Where(s => s.name == txt).FirstOrDefault();
 
-                    ((XBrowseBox)sender).Focus();
-                    ((XBrowseBox)sender).PerformButtonClick();
+                    if (shift != null)
+                    {
+                        if (this.tmp_shiftsales != null)
+                            this.tmp_shiftsales.shift_id = shift.id;
+                    }
+                    else
+                    {
+                        if (this.tmp_shiftsales != null)
+                            this.tmp_shiftsales.shift_id = -1;
+
+                        ((XBrowseBox)sender).Focus();
+                        ((XBrowseBox)sender).PerformButtonClick();
+                    }
                 }
 
+                //shift shift = DialogShiftSelector.GetShiftList().Where(s => s.name == txt).FirstOrDefault();
             }
         }
 
@@ -1095,7 +1099,7 @@ namespace XPump.SubForm
                 this.ResetControlState();
             }
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 var sections = db.section.Include("tank").Include("nozzle")
                     .Where(s => s.stmas_id == this.curr_salessummary.stmas_id)
@@ -1140,7 +1144,7 @@ namespace XPump.SubForm
                 }
             }
 
-            DialogSalesHistory sh = new DialogSalesHistory(this.curr_salessummary);
+            DialogSalesHistory sh = new DialogSalesHistory(this.main_form, this.curr_salessummary);
             sh.ShowDialog();
         }
 
@@ -1163,7 +1167,7 @@ namespace XPump.SubForm
             int pricelist_id = (int)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_pricelist_id.Name].Value;
             Rectangle rect = this.dgvSalesSummary.GetCellDisplayRectangle(this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index, this.dgvSalesSummary.CurrentCell.RowIndex, false);
 
-            DialogEditPrice pr = new DialogEditPrice(this.main_form, pricelist_id, new Size(rect.Width + 4, rect.Height), new Point(this.dgvSalesSummary.PointToScreen(Point.Empty).X + rect.X - 2, this.dgvSalesSummary.PointToScreen(Point.Empty).Y + rect.Y - 2), this.curr_salessummary.ToViewModel().unitpr);
+            DialogEditPrice pr = new DialogEditPrice(this.main_form, pricelist_id, new Size(rect.Width + 4, rect.Height), new Point(this.dgvSalesSummary.PointToScreen(Point.Empty).X + rect.X - 2, this.dgvSalesSummary.PointToScreen(Point.Empty).Y + rect.Y - 2), this.curr_salessummary.ToViewModel(this.main_form.working_express_db).unitpr);
             if (pr.ShowDialog() == DialogResult.OK)
             {
                 this.curr_shiftsales = this.GetShiftSales(this.curr_shiftsales.id);
@@ -1221,30 +1225,30 @@ namespace XPump.SubForm
             ReportAModel report_data = new ReportAModel();
             report_data.reportDate = this.curr_shiftsales.saldat;
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
                     //int[] pricelist_id = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.pricelist_id).ToArray<int>();
                     //report_data.pricelistVM_list = db.pricelist.Where(p => pricelist_id.Contains<int>(p.id)).ToViewModel();
 
-                    report_data.salessummaryVM_list = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).ToViewModel().OrderBy(s => s.stkcod).ToList();
+                    report_data.salessummaryVM_list = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).ToViewModel(this.main_form.working_express_db).OrderBy(s => s.stkcod).ToList();
 
                     int[] salessummary_ids = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.id).ToArray<int>();
-                    report_data.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel().ToList();
+                    report_data.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel(this.main_form.working_express_db).ToList();
 
                     report_data.shift = db.shift.Find(this.curr_shiftsales.shift_id);
-                    report_data.isinfoDbfVM = DbfTable.Isinfo().Rows.Count > 0 ? DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel() : new IsinfoDbfVM { compnam = string.Empty, addr = string.Empty, telnum = string.Empty, taxid = string.Empty };
+                    report_data.isinfoDbfVM = DbfTable.Isinfo(this.main_form.working_express_db).Rows.Count > 0 ? DbfTable.Isinfo(this.main_form.working_express_db).ToList<IsinfoDbf>().First().ToViewModel(this.main_form.working_express_db) : new IsinfoDbfVM { compnam = string.Empty, addr = string.Empty, telnum = string.Empty, taxid = string.Empty };
 
-                    var aptrn = DbfTable.Aptrn().ToAptrnList()
+                    var aptrn = DbfTable.Aptrn(this.main_form.working_express_db).ToAptrnList()
                         .Where(a => a.docdat.HasValue)
                         .Where(a => a.docdat.Value == report_data.reportDate)
                         .Where(a => (a.docnum.Substring(0, 2) == report_data.shift.phpprefix || a.docnum.Substring(0, 2) == report_data.shift.prrprefix)).ToList();
-                    var artrn = DbfTable.Artrn().ToArtrnList()
+                    var artrn = DbfTable.Artrn(this.main_form.working_express_db).ToArtrnList()
                         .Where(a => a.docdat.HasValue)
                         .Where(a => a.docdat.Value == report_data.reportDate)
                         .Where(a => (a.docnum.Substring(0, 2) == report_data.shift.shsprefix || a.docnum.Substring(0, 2) == report_data.shift.sivprefix)).ToList();
-                    var stcrd = DbfTable.Stcrd().ToStcrdList()
+                    var stcrd = DbfTable.Stcrd(this.main_form.working_express_db).ToStcrdList()
                         .Where(s => s.docdat.HasValue)
                         .Where(s => s.docdat.Value == report_data.reportDate)
                         .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum) || artrn.Select(a => a.docnum).Contains(s.docnum))
@@ -1765,7 +1769,7 @@ namespace XPump.SubForm
             if (this.tmp_sttak == null)
                 return false;
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {

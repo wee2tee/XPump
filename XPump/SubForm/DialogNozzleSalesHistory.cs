@@ -14,6 +14,7 @@ namespace XPump.SubForm
 {
     public partial class DialogNozzleSalesHistory : Form
     {
+        private MainForm main_form;
         private List<saleshistory> sales_history;
         private DateTime saldat;
         private int nozzle_id;
@@ -21,9 +22,10 @@ namespace XPump.SubForm
         private int window_width;
         private BindingSource bs;
 
-        public DialogNozzleSalesHistory(DateTime saldat, int nozzle_id, Point position_to_display, int window_width = 720)
+        public DialogNozzleSalesHistory(MainForm main_form, DateTime saldat, int nozzle_id, Point position_to_display, int window_width = 720)
         {
             InitializeComponent();
+            this.main_form = main_form;
             this.saldat = saldat;
             this.nozzle_id = nozzle_id;
             this.position_to_display = position_to_display;
@@ -35,10 +37,10 @@ namespace XPump.SubForm
             this.bs = new BindingSource();
             this.dgv.DataSource = this.bs;
             
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.sales_history = db.saleshistory.Include("shift").Where(s => s.saldat == this.saldat && s.nozzle_id == this.nozzle_id).OrderBy(s => s.shift.name).ToList();
-                this.bs.DataSource = this.sales_history.ToViewModel();
+                this.bs.DataSource = this.sales_history.ToViewModel(this.main_form.working_express_db);
             }
             var x = this.position_to_display.X - this.window_width;
             //int hscroll_height = this.dgv.Controls.OfType<HScrollBar>().Count() > 0 && this.dgv.Controls.OfType<HScrollBar>().First().Visible ? SystemInformation.HorizontalScrollBarHeight : 0;

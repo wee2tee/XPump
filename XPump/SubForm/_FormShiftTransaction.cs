@@ -50,9 +50,9 @@ namespace XPump.SubForm
 
         private List<stmasPriceVM> GetStmasPriceVMList()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                var s = db.stmas.ToList().ToViewModel().ToPriceViewModel();
+                var s = db.stmas.ToList().ToViewModel(this.main_form.working_express_db).ToPriceViewModel(this.main_form.working_express_db);
 
                 foreach (var item in s)
                 {

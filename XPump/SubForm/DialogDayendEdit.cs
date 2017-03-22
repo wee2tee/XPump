@@ -27,9 +27,9 @@ namespace XPump.SubForm
             this.main_form = main_form;
             this.curr_dayend = curr_dayend;
 
-            DbfTable.Isinfo();
-            DbfTable.Apmas();
-            DbfTable.Aptrn();
+            DbfTable.Isinfo(this.main_form.working_express_db);
+            DbfTable.Apmas(this.main_form.working_express_db);
+            DbfTable.Aptrn(this.main_form.working_express_db);
         }
 
         private void DialogDayendEdit_Load(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace XPump.SubForm
             this.bs = new BindingSource();
             this.dgv.DataSource = this.bs;
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.curr_dayend = this.GetDayEndData(this.curr_dayend);
                 
@@ -74,7 +74,7 @@ namespace XPump.SubForm
 
         private dayend GetDayEndData(dayend dayend)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.dayend.Include("daysttak").Where(d => d.id == this.curr_dayend.id).FirstOrDefault();
             }
@@ -83,14 +83,14 @@ namespace XPump.SubForm
         private void FillForm()
         {
             this.bs.ResetBindings(true);
-            this.bs.DataSource = this.curr_dayend.daysttak.ToViewModel();
+            this.bs.DataSource = this.curr_dayend.daysttak.ToViewModel(this.main_form.working_express_db);
 
             this.RefreshSummary();
         }
 
         private void RefreshSummary()
         {
-            dayendVM vm = this.curr_dayend.ToViewModel();
+            dayendVM vm = this.curr_dayend.ToViewModel(this.main_form.working_express_db);
 
             this.lblSaldat.Text = vm.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
             this.lblStkcod.Text = vm.stkcod;
@@ -192,7 +192,7 @@ namespace XPump.SubForm
 
         private bool SaveSttak(daysttak sttak)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
@@ -234,7 +234,7 @@ namespace XPump.SubForm
         {
             if (this.form_mode == FORM_MODE.EDIT)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {

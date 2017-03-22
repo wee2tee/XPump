@@ -110,6 +110,7 @@ namespace XPump
             {
                 this.Close();
             }
+            this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), null);
 
             //LocalDb db = new LocalDb();
             LocalDb db = new LocalDb(this.working_express_db);
@@ -122,7 +123,7 @@ namespace XPump
                     this.Close();
                 }
             }
-            else if (db.LocalConfig.TestMysqlConnection() == false)
+            else if (db.LocalConfig.TestMysqlConnection().is_connected == false)
             {
                 MessageBox.Show("ไม่สามารถเชื่อมต่อฐานข้อมูล MySql ได้, กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -132,6 +133,8 @@ namespace XPump
                     this.Close();
                 }
             }
+
+            this.SetStatusLabelText(null, db.LocalConfig.dbname);
         }
 
         private void MnuShift_Click(object sender, EventArgs e)
@@ -213,6 +216,12 @@ namespace XPump
             daily.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
             daily.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = daily, docPrefix = string.Empty });
+        }
+
+        public void SetStatusLabelText(string express_db_path, string mysql_db_name)
+        {
+            this.lblExpressDataPath.Text = express_db_path != null ? express_db_path : this.lblExpressDataPath.Text;
+            this.lblMysqlDbName.Text = mysql_db_name != null ? mysql_db_name : this.lblMysqlDbName.Text;
         }
     }
 

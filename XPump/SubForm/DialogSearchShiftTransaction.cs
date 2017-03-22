@@ -14,12 +14,14 @@ namespace XPump.SubForm
 {
     public partial class DialogSearchShiftTransaction : Form
     {
+        private MainForm main_form;
         public DateTime? selected_date = null;
         public int? selected_shift_id = null;
 
-        public DialogSearchShiftTransaction()
+        public DialogSearchShiftTransaction(MainForm main_form)
         {
             InitializeComponent();
+            this.main_form = main_form;
         }
 
         private void DialogSearchShiftTransaction_Load(object sender, EventArgs e)
@@ -35,7 +37,7 @@ namespace XPump.SubForm
 
         private void brShift__TextChanged(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 var shift = db.shift.Where(s => s.name.Trim() == ((XBrowseBox)sender)._Text.Trim()).FirstOrDefault();
                 if(shift != null)
@@ -55,7 +57,7 @@ namespace XPump.SubForm
         {
             int initial_shift_id = this.selected_shift_id.HasValue ? this.selected_shift_id.Value : -1;
 
-            DialogShiftSelector sel = new DialogShiftSelector(initial_shift_id);
+            DialogShiftSelector sel = new DialogShiftSelector(this.main_form, initial_shift_id);
             sel.StartPosition = FormStartPosition.CenterParent;
             if(sel.ShowDialog() == DialogResult.OK)
             {

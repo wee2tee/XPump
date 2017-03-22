@@ -62,9 +62,9 @@ namespace XPump.SubForm
 
         private List<stmasPriceVM> GetStmasList()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                return db.stmas.Where(s => this.stmas_ids.Contains(s.id)).OrderBy(s => s.name).ToList().ToViewModel().ToPriceViewModel();
+                return db.stmas.Where(s => this.stmas_ids.Contains(s.id)).OrderBy(s => s.name).ToList().ToViewModel(this.main_form.working_express_db).ToPriceViewModel(this.main_form.working_express_db);
             }
         }
 
@@ -116,7 +116,7 @@ namespace XPump.SubForm
         {
             this.price_list.Clear();
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {

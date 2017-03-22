@@ -56,7 +56,7 @@ namespace XPump.SubForm
 
         private List<shiftsttak> GetSttak(DateTime takdat)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.shiftsttak.Where(s => s.takdat == takdat).ToList();
             }
@@ -73,7 +73,7 @@ namespace XPump.SubForm
 
             this.dtTakDat._SelectedDate = sttak == null || sttak.Count == 0 ? null : (DateTime?)sttak.First().takdat;
             this.bs.ResetBindings(true);
-            this.bs.DataSource = sttak.ToViewModel().OrderBy(s => s.stkcod).ThenBy(s => s.tank_name).ThenBy(s => s.section_name).ToList();
+            this.bs.DataSource = sttak.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.stkcod).ThenBy(s => s.tank_name).ThenBy(s => s.section_name).ToList();
         }
 
         private void ResetControlState()
@@ -146,7 +146,7 @@ namespace XPump.SubForm
             if (this.tmp_sttak == null)
                 return;
 
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
@@ -174,7 +174,7 @@ namespace XPump.SubForm
             DialogDateSelector ds = new DialogDateSelector("วันที่ตรวจนับ", DateTime.Now);
             if(ds.ShowDialog() == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     if(db.shiftsttak.Where(s => s.takdat == ds.selected_date).Count() > 0) // is exist
                     {
@@ -236,7 +236,7 @@ namespace XPump.SubForm
 
             if(MessageBox.Show("ลบข้อมูลตรวจนับของวันที่ " + this.sttak.First().takdat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     try
                     {
@@ -291,7 +291,7 @@ namespace XPump.SubForm
 
         private void btnLast_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 shiftsttak tmp = db.shiftsttak.OrderByDescending(s => s.takdat).FirstOrDefault();
 

@@ -75,7 +75,7 @@ namespace XPump.SubForm
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += delegate
             {
-                this.is_mysql_connected = this.localconfig.TestMysqlConnection();
+                this.is_mysql_connected = this.localconfig.TestMysqlConnection().is_connected;
             };
             worker.RunWorkerCompleted += delegate
             {
@@ -84,7 +84,7 @@ namespace XPump.SubForm
                     BackgroundWorker w = new BackgroundWorker();
                     w.DoWork += delegate
                     {
-                        using (xpumpEntities db = DBX.DataSet())
+                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                         {
                             if (db.settings.ToList().Count() == 0)
                             {
@@ -161,9 +161,9 @@ namespace XPump.SubForm
             this.drDayPrintMethod._SelectedItem = this.drDayPrintMethod._Items.Cast<XDropdownListItem>().Where(i => (string)i.Value == settings.dayprintmet).First();
         }
 
-        public static settings GetSettings()
+        public settings GetSettings()
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 return db.settings.First();
             }
@@ -189,7 +189,7 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet())
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {

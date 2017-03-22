@@ -28,6 +28,7 @@ namespace XPump.Model
 
     public class tankVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
@@ -49,6 +50,7 @@ namespace XPump.Model
 
     public class sectionVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public string name { get; set; }
         public decimal begtak { get; set; }
@@ -58,7 +60,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     int[] nozzle_ids = db.nozzle.Where(n => n.section_id == this.id).Select(n => n.id).ToArray<int>();
 
@@ -94,7 +96,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
                 }
@@ -105,7 +107,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
                 }
@@ -118,7 +120,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.tank.Find(this.tank_id) != null ? db.tank.Find(this.tank_id).name : string.Empty;
                 }
@@ -129,7 +131,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.tank.Find(this.tank_id) != null ? db.tank.Find(this.tank_id).startdate : DateTime.Now;
                 }
@@ -140,7 +142,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.tank.Find(this.tank_id) != null ? db.tank.Find(this.tank_id).enddate : null;
                 }
@@ -151,7 +153,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.nozzle.Where(n => n.section_id == this.id).Count();
                 }
@@ -166,32 +168,11 @@ namespace XPump.Model
                 return this.id > -1 ? 0 : 1;
             }
         }
-
-        //private dayend dayend
-        //{
-        //    get
-        //    {
-        //        return new dayend
-        //        {
-        //            id = -1,
-        //            saldat = DateTime.Now,
-        //            stmas_id = this.stmas_id,
-        //            dothertxt = string.Empty,
-        //            dother = 0
-        //        };
-        //    }
-        //}
-        //private dayendVM dayendVM
-        //{
-        //    get
-        //    {
-        //        return this.dayend.ToViewModel();
-        //    }
-        //}
     }
 
     public class nozzleVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
@@ -211,6 +192,7 @@ namespace XPump.Model
 
     public class stmasVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
@@ -221,7 +203,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
 
@@ -240,7 +222,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
 
@@ -259,7 +241,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
 
@@ -278,6 +260,7 @@ namespace XPump.Model
 
     public class stmasPriceVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int price_id { get; set; }
         public int stmas_id { get; set; }
         public DateTime? price_date { get; set; }
@@ -287,7 +270,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     stmas s = db.stmas.Find(this.stmas_id);
                     if(s != null)
@@ -306,7 +289,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     stmas s = db.stmas.Find(this.stmas_id);
                     if (s != null)
@@ -324,6 +307,7 @@ namespace XPump.Model
 
     public class shiftsalesVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public DateTime? saldat
         {
@@ -371,7 +355,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.shiftsales.Include("shift").Where(s => s.id == this.id).FirstOrDefault();
                 }
@@ -381,13 +365,14 @@ namespace XPump.Model
 
     public class salessummaryVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
         public decimal total
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.saleshistory.Where(s => s.salessummary_id == this.id).Count() > 0 ? db.saleshistory.Where(s => s.salessummary_id == this.id).Sum(s => s.salqty) : 0m;
                 }
@@ -407,7 +392,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.pricelist.Find(this.pricelist_id) != null ? db.pricelist.Find(this.pricelist_id).unitpr : 0m;
                 }
@@ -445,7 +430,7 @@ namespace XPump.Model
         {
             get
             {
-                using(xpumpEntities db = DBX.DataSet())
+                using(xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
                 }
@@ -456,7 +441,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).starttime : TimeSpan.Parse("0:0:0");
                 }
@@ -467,7 +452,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).endtime : TimeSpan.Parse("0:0:0");
                 }
@@ -478,7 +463,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
                 }
@@ -489,7 +474,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
                 }
@@ -500,7 +485,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.pricelist.Find(this.pricelist_id) != null ? (DateTime?)db.pricelist.Find(this.pricelist_id).date : null;
                 }
@@ -513,13 +498,14 @@ namespace XPump.Model
 
     public class saleshistoryVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
         public string tank_name
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     try
                     {
@@ -539,7 +525,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     try
                     {
@@ -558,7 +544,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.nozzle.Find(this.nozzle_id) != null ? db.nozzle.Find(this.nozzle_id).name : string.Empty;
                 }
@@ -571,7 +557,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.pricelist.Find(this.pricelist_id) != null ? db.pricelist.Find(this.pricelist_id).unitpr : 0m;
                 }
@@ -588,7 +574,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.pricelist.Find(this.pricelist_id) != null ? db.pricelist.Find(this.pricelist_id).date : DateTime.Now;
                 }
@@ -599,7 +585,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
                 }
@@ -610,7 +596,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
                 }
@@ -621,7 +607,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
                 }
@@ -633,12 +619,13 @@ namespace XPump.Model
 
     public class dailysaleshistoryVM
     {
+        public SccompDbf working_express_db { get; set; }
         public System.DateTime saldat { get; set; }
         public string tank_name
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     try
                     {
@@ -658,7 +645,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     try
                     {
@@ -677,7 +664,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.nozzle.Find(this.nozzle_id) != null ? db.nozzle.Find(this.nozzle_id).name : string.Empty;
                 }
@@ -687,7 +674,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.saleshistory.Where(s => s.saldat == this.saldat)
                             .Where(s => s.nozzle_id == this.nozzle_id)
@@ -700,7 +687,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     var val = db.saleshistory.Include("pricelist").Where(s => s.saldat == this.saldat)
                                 .Where(s => s.nozzle_id == this.nozzle_id)
@@ -717,7 +704,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
                 }
@@ -728,7 +715,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
                 }
@@ -738,6 +725,7 @@ namespace XPump.Model
 
     public class pricelistVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public int stmas_id { get; set; }
 
@@ -745,7 +733,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id).name;
                 }
@@ -756,7 +744,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id).description;
                 }
@@ -775,6 +763,7 @@ namespace XPump.Model
 
     public class shiftsttakVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public DateTime takdat { get; set; }
         public int section_id { get; set; }
@@ -782,7 +771,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     try
                     {
@@ -800,7 +789,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     try
                     {
@@ -818,7 +807,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     try
                     {
@@ -836,7 +825,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     try
                     {
@@ -855,6 +844,7 @@ namespace XPump.Model
 
     public class dayendVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public DateTime saldat { get; set; }
 
@@ -862,7 +852,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
                 }
@@ -873,7 +863,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
                 }
@@ -884,7 +874,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     var qty = db.daysttak.Where(d => d.dayend_id == this.id).Select(d => d.qty).ToList();
                     if (qty.Contains<decimal>(-1m) || qty.Count == 0)
@@ -901,7 +891,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     decimal beg;
                     var prev_dayend = db.dayend.Where(d => d.saldat.CompareTo(this.saldat) < 0)
@@ -933,9 +923,9 @@ namespace XPump.Model
         {
             get
             {
-                if (DbfTable.IsDataFileExist("Stcrd.dbf"))
+                if (DbfTable.IsDataFileExist("Stcrd.dbf", this.working_express_db))
                 {
-                    var xtrnqty = DbfTable.Stcrd().ToStcrdList()
+                    var xtrnqty = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
                             .Where(s => s.docdat.HasValue)
                             .Where(s => s.docdat.Value == this.saldat)
                             .Where(s => s.stkcod.Trim() == this.stkcod.Trim())
@@ -956,7 +946,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     var sum_sal = db.saleshistory.Where(s => s.saldat == this.saldat)
                                 .Where(s => s.stmas_id == this.stmas_id)
@@ -1002,11 +992,11 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     var tmp = db.dayend
                             .Where(d => d.stmas_id == this.stmas_id)
-                            .Where(d => d.saldat.CompareTo(this.saldat) < 0).ToViewModel();
+                            .Where(d => d.saldat.CompareTo(this.saldat) < 0).ToViewModel(this.working_express_db);
 
                     var section_beg_dif = db.section.Where(s => s.stmas_id == this.stmas_id).Sum(s => s.begdif);
 
@@ -1021,12 +1011,13 @@ namespace XPump.Model
 
     public class daysttakVM
     {
+        public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public string tank_name
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     try
                     {
@@ -1043,7 +1034,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.section.Find(this.section_id) != null ? db.section.Find(this.section_id).name : string.Empty;
                 }
@@ -1058,6 +1049,7 @@ namespace XPump.Model
 
     public class monthendVM
     {
+        public SccompDbf working_express_db { get; set; }
         public DateTime first_date { get; set; }
         public DateTime last_date { get; set; }
 
@@ -1065,7 +1057,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
                 }
@@ -1076,7 +1068,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
                 }
@@ -1087,7 +1079,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.daysttak.Include("dayend").Where(d => d.dayend.stmas_id == this.stmas_id && d.dayend.saldat.CompareTo(this.first_date) >= 0 && d.dayend.saldat.CompareTo(this.last_date) <= 0).ToList();
                 }
@@ -1107,7 +1099,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     var prev_month_sttak = db.daysttak.Include("dayend").Where(d => d.dayend.stmas_id == this.stmas_id && d.dayend.saldat.CompareTo(this.first_date) < 0).OrderByDescending(d => d.dayend.saldat).ToList();
 
@@ -1150,9 +1142,9 @@ namespace XPump.Model
         {
             get
             {
-                if (DbfTable.IsDataFileExist("Stcrd.dbf"))
+                if (DbfTable.IsDataFileExist("Stcrd.dbf", this.working_express_db))
                 {
-                    var xtrnqty = DbfTable.Stcrd().ToStcrdList()
+                    var xtrnqty = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
                             .Where(s => s.docdat.HasValue)
                             .Where(s => s.docdat.Value.CompareTo(this.first_date) >= 0 && s.docdat.Value.CompareTo(this.last_date) <= 0)
                             .Where(s => s.posopr.Trim() == "0")
@@ -1173,7 +1165,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     var sum_sal = db.saleshistory.Where(s => s.saldat.CompareTo(this.first_date) >= 0 && s.saldat.CompareTo(this.last_date) <= 0)
                                 .Where(s => s.stmas_id == this.stmas_id)
@@ -1200,7 +1192,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     var disc = db.dayend.Where(d => d.stmas_id == this.stmas_id && d.saldat.CompareTo(this.first_date) >= 0 && d.saldat.CompareTo(this.last_date) <= 0).ToList().Sum(d => d.dother);
                     return disc;
@@ -1227,9 +1219,9 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    decimal trans_dif = db.dayend.Where(d => d.stmas_id == this.stmas_id && d.saldat.CompareTo(this.first_date) < 0).ToViewModel().Sum(d => d.difqty);
+                    decimal trans_dif = db.dayend.Where(d => d.stmas_id == this.stmas_id && d.saldat.CompareTo(this.first_date) < 0).ToViewModel(this.working_express_db).Sum(d => d.difqty);
                     decimal beg_dif = db.section.Where(s => s.stmas_id == this.stmas_id).ToList().Sum(s => s.begdif);
 
                     return beg_dif + trans_dif;
@@ -1270,11 +1262,12 @@ namespace XPump.Model
 
     public class monthsttakVM
     {
+        public SccompDbf working_express_db { get; set; }
         public string tank_name
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     try
                     {
@@ -1291,7 +1284,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.section.Find(this.section_id) != null ? db.section.Find(this.section_id).name : string.Empty;
                 }
@@ -1335,12 +1328,13 @@ namespace XPump.Model
 
     public class IsinfoDbfVM
     {
+        public SccompDbf working_express_db { get; set; }
         public string compnam { get; set; }
         public string orgnam
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.settings.FirstOrDefault() != null ? db.settings.First().orgname : string.Empty;
                 }
@@ -1391,13 +1385,15 @@ namespace XPump.Model
     public class ReportBModel
     {
         private DateTime report_date;
-        public ReportBModel(DateTime date)
+        private SccompDbf working_express_db;
+        public ReportBModel(DateTime date, SccompDbf working_express_db)
         {
             this.report_date = date;
-            DbfTable.Isinfo();
-            DbfTable.Apmas();
-            DbfTable.Aptrn();
-            DbfTable.Stcrd();
+            this.working_express_db = working_express_db;
+            DbfTable.Isinfo(this.working_express_db);
+            DbfTable.Apmas(this.working_express_db);
+            DbfTable.Aptrn(this.working_express_db);
+            DbfTable.Stcrd(this.working_express_db);
         }
 
         public DateTime reportDate
@@ -1411,9 +1407,9 @@ namespace XPump.Model
         {
             get
             {
-                if (DbfTable.IsDataFileExist("Isinfo.dbf"))
+                if (DbfTable.IsDataFileExist("Isinfo.dbf", this.working_express_db))
                 {
-                    return DbfTable.Isinfo().Rows.Count > 0 ? DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel() : new IsinfoDbfVM { compnam = string.Empty, addr = string.Empty, telnum = string.Empty, taxid = string.Empty };
+                    return DbfTable.Isinfo(this.working_express_db).Rows.Count > 0 ? DbfTable.Isinfo(this.working_express_db).ToList<IsinfoDbf>().First().ToViewModel(this.working_express_db) : new IsinfoDbfVM { compnam = string.Empty, addr = string.Empty, telnum = string.Empty, taxid = string.Empty };
                 }
                 else
                 {
@@ -1426,9 +1422,9 @@ namespace XPump.Model
         {
             get
             {
-                if (DbfTable.IsDataFileExist("Apmas.dbf") && DbfTable.IsDataFileExist("Aptrn.dbf") && DbfTable.IsDataFileExist("Stcrd.dbf"))
+                if (DbfTable.IsDataFileExist("Apmas.dbf", this.working_express_db) && DbfTable.IsDataFileExist("Aptrn.dbf", this.working_express_db) && DbfTable.IsDataFileExist("Stcrd.dbf", this.working_express_db))
                 {
-                    using (xpumpEntities db = DBX.DataSet())
+                    using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                     {
                         List<string> doc_hp = new List<string>();
                         List<string> doc_rr = new List<string>();
@@ -1437,13 +1433,13 @@ namespace XPump.Model
                             doc_hp.Add(s.phpprefix);
                             doc_rr.Add(s.prrprefix);
                         }
-                        var apmas = DbfTable.Apmas().ToApmasList();
-                        var aptrn = DbfTable.Aptrn().ToAptrnList()
+                        var apmas = DbfTable.Apmas(this.working_express_db).ToApmasList();
+                        var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
                                     .Where(a => a.docdat.HasValue)
                                     .Where(a => a.docdat.Value == this.reportDate)
                                     .Where(a => doc_hp.Contains(a.docnum.Substring(0, 2)) || doc_rr.Contains(a.docnum.Substring(0, 2)))
                                     .OrderBy(a => a.docnum).ToList();
-                        var stcrd = DbfTable.Stcrd().ToStcrdList()
+                        var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
                                     .Where(s => s.docdat.HasValue)
                                     .Where(s => s.docdat.Value == this.reportDate)
                                     .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum))
@@ -1475,7 +1471,7 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     return db.dayend.Include("daysttak").Include("stmas").Where(d => d.saldat == this.reportDate).ToList();
                 }
@@ -1487,14 +1483,16 @@ namespace XPump.Model
     {
         private DateTime first_date;
         private DateTime last_date;
-        public ReportCModel(DateTime first_date, DateTime last_date)
+        private SccompDbf working_express_db;
+        public ReportCModel(DateTime first_date, DateTime last_date, SccompDbf working_express_db)
         {
             this.first_date = first_date;
             this.last_date = last_date;
-            DbfTable.Isinfo();
-            DbfTable.Apmas();
-            DbfTable.Aptrn();
-            DbfTable.Stcrd();
+            this.working_express_db = working_express_db;
+            DbfTable.Isinfo(this.working_express_db);
+            DbfTable.Apmas(this.working_express_db);
+            DbfTable.Aptrn(this.working_express_db);
+            DbfTable.Stcrd(this.working_express_db);
         }
 
         public DateTime reportDate
@@ -1508,9 +1506,9 @@ namespace XPump.Model
         {
             get
             {
-                if (DbfTable.IsDataFileExist("Isinfo.dbf"))
+                if (DbfTable.IsDataFileExist("Isinfo.dbf", this.working_express_db))
                 {
-                    return DbfTable.Isinfo().Rows.Count > 0 ? DbfTable.Isinfo().ToList<IsinfoDbf>().First().ToViewModel() : new IsinfoDbfVM { compnam = string.Empty, addr = string.Empty, telnum = string.Empty, taxid = string.Empty };
+                    return DbfTable.Isinfo(this.working_express_db).Rows.Count > 0 ? DbfTable.Isinfo(this.working_express_db).ToList<IsinfoDbf>().First().ToViewModel(this.working_express_db) : new IsinfoDbfVM { compnam = string.Empty, addr = string.Empty, telnum = string.Empty, taxid = string.Empty };
                 }
                 else
                 {
@@ -1522,9 +1520,9 @@ namespace XPump.Model
         {
             get
             {
-                if (DbfTable.IsDataFileExist("Apmas.dbf") && DbfTable.IsDataFileExist("Aptrn.dbf") && DbfTable.IsDataFileExist("Stcrd.dbf"))
+                if (DbfTable.IsDataFileExist("Apmas.dbf", this.working_express_db) && DbfTable.IsDataFileExist("Aptrn.dbf", this.working_express_db) && DbfTable.IsDataFileExist("Stcrd.dbf", this.working_express_db))
                 {
-                    using(xpumpEntities db = DBX.DataSet())
+                    using(xpumpEntities db = DBX.DataSet(this.working_express_db))
                     {
                         List<string> doc_hp = new List<string>();
                         List<string> doc_rr = new List<string>();
@@ -1533,13 +1531,13 @@ namespace XPump.Model
                             doc_hp.Add(s.phpprefix);
                             doc_rr.Add(s.prrprefix);
                         }
-                        var apmas = DbfTable.Apmas().ToApmasList();
-                        var aptrn = DbfTable.Aptrn().ToAptrnList()
+                        var apmas = DbfTable.Apmas(this.working_express_db).ToApmasList();
+                        var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
                                     .Where(a => a.docdat.HasValue)
                                     .Where(a => a.docdat.Value.CompareTo(this.first_date) >= 0 && a.docdat.Value.CompareTo(this.last_date) <= 0)
                                     .Where(a => doc_hp.Contains(a.docnum.Substring(0, 2)) || doc_rr.Contains(a.docnum.Substring(0, 2)))
                                     .OrderBy(a => a.docnum).ToList();
-                        var stcrd = DbfTable.Stcrd().ToStcrdList()
+                        var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
                                     .Where(s => s.docdat.HasValue)
                                     .Where(s => s.docdat.Value.CompareTo(this.first_date) >= 0 && s.docdat.Value.CompareTo(this.last_date) <= 0)
                                     .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum))
@@ -1568,14 +1566,14 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet())
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     var stmas_id_movement_in_month = db.dayend.Include("stmas").Where(d => d.saldat.CompareTo(this.first_date) >= 0 && d.saldat.CompareTo(this.last_date) <= 0).GroupBy(d => d.stmas_id).Select(d => d.Key).ToList();
 
                     var monthend = new List<monthendVM>();
                     foreach (var stmas_id in stmas_id_movement_in_month)
                     {
-                        var me = db.stmas.Find(stmas_id).GetMonthEndVM(this.first_date, this.last_date);
+                        var me = db.stmas.Find(stmas_id).GetMonthEndVM(this.first_date, this.last_date, this.working_express_db);
                         monthend.Add(me);
                     }
 
