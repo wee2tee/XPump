@@ -162,10 +162,10 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="saldat" Type="date" Nullable="false" />
-          <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="closed" Type="bool" Nullable="false" />
           <Property Name="shift_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
           <Property Name="chgtime" Type="timestamp" Precision="0" />
         </EntityType>
@@ -731,10 +731,10 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="saldat" Type="DateTime" Nullable="false" />
-          <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="closed" Type="Boolean" Nullable="false" />
           <Property Name="shift_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shiftsales_id" FromRole="shiftsales" ToRole="salessummary" />
@@ -1293,10 +1293,10 @@
               <MappingFragment StoreEntitySet="shiftsales">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
-                <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="closed" ColumnName="closed" />
                 <ScalarProperty Name="shift_id" ColumnName="shift_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
+                <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />
                 <ScalarProperty Name="chgtime" ColumnName="chgtime" />
               </MappingFragment>

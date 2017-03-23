@@ -32,13 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgv = new CC.XDatagrid();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col__isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_nozzle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblTank = new System.Windows.Forms.Label();
@@ -49,6 +42,14 @@
             this.btnEditItem = new System.Windows.Forms.Button();
             this.btnStopItem = new System.Windows.Forms.Button();
             this.btnSaveItem = new System.Windows.Forms.Button();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col__isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_nozzle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +89,8 @@
             this.col__isactive,
             this.col_remark,
             this.col_isactive,
-            this.col_nozzle});
+            this.col_nozzle,
+            this.col_working_express_db});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
@@ -115,63 +117,6 @@
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
-            // 
-            // col_id
-            // 
-            this.col_id.DataPropertyName = "id";
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
-            // 
-            // col_name
-            // 
-            this.col_name.DataPropertyName = "name";
-            this.col_name.HeaderText = "เลขที่หัวจ่าย";
-            this.col_name.MinimumWidth = 120;
-            this.col_name.Name = "col_name";
-            this.col_name.ReadOnly = true;
-            this.col_name.Width = 120;
-            // 
-            // col_desc
-            // 
-            this.col_desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_desc.DataPropertyName = "description";
-            this.col_desc.HeaderText = "รายละเอียด";
-            this.col_desc.Name = "col_desc";
-            this.col_desc.ReadOnly = true;
-            // 
-            // col__isactive
-            // 
-            this.col__isactive.DataPropertyName = "_isactive";
-            this.col__isactive.HeaderText = "สถานะ";
-            this.col__isactive.MinimumWidth = 100;
-            this.col__isactive.Name = "col__isactive";
-            this.col__isactive.ReadOnly = true;
-            // 
-            // col_remark
-            // 
-            this.col_remark.DataPropertyName = "remark";
-            this.col_remark.HeaderText = "Remark";
-            this.col_remark.Name = "col_remark";
-            this.col_remark.ReadOnly = true;
-            this.col_remark.Visible = false;
-            // 
-            // col_isactive
-            // 
-            this.col_isactive.DataPropertyName = "isactive";
-            this.col_isactive.HeaderText = "Isactive";
-            this.col_isactive.Name = "col_isactive";
-            this.col_isactive.ReadOnly = true;
-            this.col_isactive.Visible = false;
-            // 
-            // col_nozzle
-            // 
-            this.col_nozzle.DataPropertyName = "nozzle";
-            this.col_nozzle.HeaderText = "Nozzle";
-            this.col_nozzle.Name = "col_nozzle";
-            this.col_nozzle.ReadOnly = true;
-            this.col_nozzle.Visible = false;
             // 
             // label1
             // 
@@ -294,6 +239,71 @@
             this.btnSaveItem.UseVisualStyleBackColor = true;
             this.btnSaveItem.Click += new System.EventHandler(this.btnSaveItem_Click);
             // 
+            // col_id
+            // 
+            this.col_id.DataPropertyName = "id";
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
+            // 
+            // col_name
+            // 
+            this.col_name.DataPropertyName = "name";
+            this.col_name.HeaderText = "เลขที่หัวจ่าย";
+            this.col_name.MinimumWidth = 120;
+            this.col_name.Name = "col_name";
+            this.col_name.ReadOnly = true;
+            this.col_name.Width = 120;
+            // 
+            // col_desc
+            // 
+            this.col_desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_desc.DataPropertyName = "description";
+            this.col_desc.HeaderText = "รายละเอียด";
+            this.col_desc.Name = "col_desc";
+            this.col_desc.ReadOnly = true;
+            // 
+            // col__isactive
+            // 
+            this.col__isactive.DataPropertyName = "_isactive";
+            this.col__isactive.HeaderText = "สถานะ";
+            this.col__isactive.MinimumWidth = 100;
+            this.col__isactive.Name = "col__isactive";
+            this.col__isactive.ReadOnly = true;
+            // 
+            // col_remark
+            // 
+            this.col_remark.DataPropertyName = "remark";
+            this.col_remark.HeaderText = "Remark";
+            this.col_remark.Name = "col_remark";
+            this.col_remark.ReadOnly = true;
+            this.col_remark.Visible = false;
+            // 
+            // col_isactive
+            // 
+            this.col_isactive.DataPropertyName = "isactive";
+            this.col_isactive.HeaderText = "Isactive";
+            this.col_isactive.Name = "col_isactive";
+            this.col_isactive.ReadOnly = true;
+            this.col_isactive.Visible = false;
+            // 
+            // col_nozzle
+            // 
+            this.col_nozzle.DataPropertyName = "nozzle";
+            this.col_nozzle.HeaderText = "Nozzle";
+            this.col_nozzle.Name = "col_nozzle";
+            this.col_nozzle.ReadOnly = true;
+            this.col_nozzle.Visible = false;
+            // 
+            // col_working_express_db
+            // 
+            this.col_working_express_db.DataPropertyName = "working_express_db";
+            this.col_working_express_db.HeaderText = "Working Express DB";
+            this.col_working_express_db.Name = "col_working_express_db";
+            this.col_working_express_db.ReadOnly = true;
+            this.col_working_express_db.Visible = false;
+            // 
             // DialogNozzle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -350,5 +360,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_remark;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_isactive;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_nozzle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
     }
 }

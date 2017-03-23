@@ -23,10 +23,10 @@ namespace XPump.Model
     
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
-        public System.DateTime cretime { get; set; }
         public bool closed { get; set; }
         public int shift_id { get; set; }
         public string creby { get; set; }
+        public System.DateTime cretime { get; set; }
         public string chgby { get; set; }
         public Nullable<System.DateTime> chgtime { get; set; }
     

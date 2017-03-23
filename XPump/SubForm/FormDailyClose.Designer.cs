@@ -81,6 +81,7 @@
             this.col_begdif = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dayend = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -401,7 +402,8 @@
             this.col_difqty,
             this.col_begdif,
             this.col_stmas_id,
-            this.col_dayend});
+            this.col_dayend,
+            this.col_working_express_db});
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -587,6 +589,14 @@
             this.col_dayend.ReadOnly = true;
             this.col_dayend.Visible = false;
             // 
+            // col_working_express_db
+            // 
+            this.col_working_express_db.DataPropertyName = "working_express_db";
+            this.col_working_express_db.HeaderText = "Working Express DB";
+            this.col_working_express_db.Name = "col_working_express_db";
+            this.col_working_express_db.ReadOnly = true;
+            this.col_working_express_db.Visible = false;
+            // 
             // FormDailyClose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -661,5 +671,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_begdif;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stmas_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dayend;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
     }
 }

@@ -147,6 +147,12 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if(keyData == Keys.Escape)
+            {
+                this.btnCancel.PerformClick();
+                return true;
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -154,6 +160,23 @@ namespace XPump.SubForm
         {
             DialogStmasImportProgress progress = new DialogStmasImportProgress(this.main_form, this.selected_list);
             progress.ShowDialog();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if(this.stmasdbfvm_list.Where(s => s.selected).Count() > 0)
+            {
+                if(MessageBox.Show("ต้องการยกเลิกการนำเข้าข้อมูล ใช่หรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+            }
         }
     }
 }

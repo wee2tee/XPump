@@ -228,4 +228,10 @@ namespace XPump.Model
         public string err_message { get; set; }
         public MYSQL_CONNECTION connection_code { get; set; }
     }
+
+    public class MySqlCreateResult
+    {
+        public bool is_success { get; set; }
+        public string err_message { get; set; }
+    }
 }

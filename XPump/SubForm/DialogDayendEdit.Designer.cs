@@ -36,13 +36,6 @@
             this.lblStkcod = new System.Windows.Forms.Label();
             this.lblStkdes = new System.Windows.Forms.Label();
             this.dgv = new CC.XDatagrid();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_dayend_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_daysttak = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.inline_qty = new CC.XNumEdit();
@@ -76,6 +69,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblSaldat = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_dayend_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_daysttak = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -146,7 +147,8 @@
             this.col_qty,
             this.col_dayend_id,
             this.col_section_id,
-            this.col_daysttak});
+            this.col_daysttak,
+            this.col_working_express_db});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -172,68 +174,6 @@
             this.dgv.TabIndex = 0;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
-            // 
-            // col_id
-            // 
-            this.col_id.DataPropertyName = "id";
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
-            // 
-            // col_tank_name
-            // 
-            this.col_tank_name.DataPropertyName = "tank_name";
-            this.col_tank_name.HeaderText = "รหัสแท๊งค์";
-            this.col_tank_name.MinimumWidth = 140;
-            this.col_tank_name.Name = "col_tank_name";
-            this.col_tank_name.ReadOnly = true;
-            this.col_tank_name.Width = 140;
-            // 
-            // col_section_name
-            // 
-            this.col_section_name.DataPropertyName = "section_name";
-            this.col_section_name.HeaderText = "เลขที่ถัง";
-            this.col_section_name.MinimumWidth = 140;
-            this.col_section_name.Name = "col_section_name";
-            this.col_section_name.ReadOnly = true;
-            this.col_section_name.Width = 140;
-            // 
-            // col_qty
-            // 
-            this.col_qty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_qty.DataPropertyName = "qty";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.col_qty.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_qty.HeaderText = "ปริมาณที่ตรวจวัดได้";
-            this.col_qty.Name = "col_qty";
-            this.col_qty.ReadOnly = true;
-            // 
-            // col_dayend_id
-            // 
-            this.col_dayend_id.DataPropertyName = "dayend_id";
-            this.col_dayend_id.HeaderText = "Dayend Id";
-            this.col_dayend_id.Name = "col_dayend_id";
-            this.col_dayend_id.ReadOnly = true;
-            this.col_dayend_id.Visible = false;
-            // 
-            // col_section_id
-            // 
-            this.col_section_id.DataPropertyName = "section_id";
-            this.col_section_id.HeaderText = "Section Id";
-            this.col_section_id.Name = "col_section_id";
-            this.col_section_id.ReadOnly = true;
-            this.col_section_id.Visible = false;
-            // 
-            // col_daysttak
-            // 
-            this.col_daysttak.DataPropertyName = "daysttak";
-            this.col_daysttak.HeaderText = "Sttak";
-            this.col_daysttak.Name = "col_daysttak";
-            this.col_daysttak.ReadOnly = true;
-            this.col_daysttak.Visible = false;
             // 
             // tabControl1
             // 
@@ -650,6 +590,76 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // col_id
+            // 
+            this.col_id.DataPropertyName = "id";
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
+            // 
+            // col_tank_name
+            // 
+            this.col_tank_name.DataPropertyName = "tank_name";
+            this.col_tank_name.HeaderText = "รหัสแท๊งค์";
+            this.col_tank_name.MinimumWidth = 140;
+            this.col_tank_name.Name = "col_tank_name";
+            this.col_tank_name.ReadOnly = true;
+            this.col_tank_name.Width = 140;
+            // 
+            // col_section_name
+            // 
+            this.col_section_name.DataPropertyName = "section_name";
+            this.col_section_name.HeaderText = "เลขที่ถัง";
+            this.col_section_name.MinimumWidth = 140;
+            this.col_section_name.Name = "col_section_name";
+            this.col_section_name.ReadOnly = true;
+            this.col_section_name.Width = 140;
+            // 
+            // col_qty
+            // 
+            this.col_qty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_qty.DataPropertyName = "qty";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.col_qty.DefaultCellStyle = dataGridViewCellStyle2;
+            this.col_qty.HeaderText = "ปริมาณที่ตรวจวัดได้";
+            this.col_qty.Name = "col_qty";
+            this.col_qty.ReadOnly = true;
+            // 
+            // col_dayend_id
+            // 
+            this.col_dayend_id.DataPropertyName = "dayend_id";
+            this.col_dayend_id.HeaderText = "Dayend Id";
+            this.col_dayend_id.Name = "col_dayend_id";
+            this.col_dayend_id.ReadOnly = true;
+            this.col_dayend_id.Visible = false;
+            // 
+            // col_section_id
+            // 
+            this.col_section_id.DataPropertyName = "section_id";
+            this.col_section_id.HeaderText = "Section Id";
+            this.col_section_id.Name = "col_section_id";
+            this.col_section_id.ReadOnly = true;
+            this.col_section_id.Visible = false;
+            // 
+            // col_daysttak
+            // 
+            this.col_daysttak.DataPropertyName = "daysttak";
+            this.col_daysttak.HeaderText = "Sttak";
+            this.col_daysttak.Name = "col_daysttak";
+            this.col_daysttak.ReadOnly = true;
+            this.col_daysttak.Visible = false;
+            // 
+            // col_working_express_db
+            // 
+            this.col_working_express_db.DataPropertyName = "working_express_db";
+            this.col_working_express_db.HeaderText = "Working Express DB";
+            this.col_working_express_db.Name = "col_working_express_db";
+            this.col_working_express_db.ReadOnly = true;
+            this.col_working_express_db.Visible = false;
+            // 
             // DialogDayendEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -746,6 +756,9 @@
         private System.Windows.Forms.Label lblDifqty;
         private System.Windows.Forms.Label lblBegdif;
         private System.Windows.Forms.Label lblTotalDif;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblSaldat;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_tank_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_name;
@@ -753,8 +766,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dayend_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_daysttak;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lblSaldat;
-        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
     }
 }

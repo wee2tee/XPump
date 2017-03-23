@@ -38,8 +38,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormShiftTransaction));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -91,6 +91,7 @@
             this.saldat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_salessummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.inline_btnSaleshistory = new System.Windows.Forms.Button();
             this.inline_btnEdit = new System.Windows.Forms.Button();
@@ -101,6 +102,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.inline_qty = new CC.XNumEdit();
             this.dgvSttak = new CC.XDatagrid();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.lblDayEnded = new System.Windows.Forms.Label();
             this.col_sttak_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sttak_takdat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sttak_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -110,8 +113,7 @@
             this.col_sttak_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sttak_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sttak_sttak = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.lblDayEnded = new System.Windows.Forms.Label();
+            this.col_sttak_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSalesSummary)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -422,7 +424,8 @@
             this.col_price_date,
             this.saldat,
             this.col_total,
-            this.col_salessummary});
+            this.col_salessummary,
+            this.col_working_express_db});
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -671,6 +674,14 @@
             this.col_salessummary.ReadOnly = true;
             this.col_salessummary.Visible = false;
             // 
+            // col_working_express_db
+            // 
+            this.col_working_express_db.DataPropertyName = "working_express_db";
+            this.col_working_express_db.HeaderText = "Working Express DB";
+            this.col_working_express_db.Name = "col_working_express_db";
+            this.col_working_express_db.ReadOnly = true;
+            this.col_working_express_db.Visible = false;
+            // 
             // inline_btnSaleshistory
             // 
             this.inline_btnSaleshistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -784,8 +795,8 @@
             this.inline_qty._MaxLength = 30;
             this.inline_qty._ReadOnly = false;
             this.inline_qty._SelectionLength = 0;
-            this.inline_qty._SelectionStart = 1;
-            this.inline_qty._Text = "0";
+            this.inline_qty._SelectionStart = 4;
+            this.inline_qty._Text = "0.00";
             this.inline_qty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.inline_qty._UseThoundsandSeparate = true;
             this.inline_qty._Value = new decimal(new int[] {
@@ -831,7 +842,8 @@
             this.col_sttak_tank_name,
             this.col_sttak_section_name,
             this.col_sttak_qty,
-            this.col_sttak_sttak});
+            this.col_sttak_sttak,
+            this.col_sttak_working_express_db});
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -861,6 +873,25 @@
             this.dgvSttak.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvSttak_Scroll);
             this.dgvSttak.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSttak_MouseClick);
             this.dgvSttak.Resize += new System.EventHandler(this.dgvSttak_Resize);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "exclaimation_16.png");
+            // 
+            // lblDayEnded
+            // 
+            this.lblDayEnded.ForeColor = System.Drawing.Color.Red;
+            this.lblDayEnded.Image = global::XPump.Properties.Resources.lock_16;
+            this.lblDayEnded.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDayEnded.Location = new System.Drawing.Point(192, 61);
+            this.lblDayEnded.Name = "lblDayEnded";
+            this.lblDayEnded.Size = new System.Drawing.Size(160, 18);
+            this.lblDayEnded.TabIndex = 20;
+            this.lblDayEnded.Text = "ปิดยอดขายประจำวันแล้ว";
+            this.lblDayEnded.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblDayEnded.Visible = false;
             // 
             // col_sttak_id
             // 
@@ -944,24 +975,13 @@
             this.col_sttak_sttak.ReadOnly = true;
             this.col_sttak_sttak.Visible = false;
             // 
-            // imageList1
+            // col_sttak_working_express_db
             // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "exclaimation_16.png");
-            // 
-            // lblDayEnded
-            // 
-            this.lblDayEnded.ForeColor = System.Drawing.Color.Red;
-            this.lblDayEnded.Image = global::XPump.Properties.Resources.lock_16;
-            this.lblDayEnded.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDayEnded.Location = new System.Drawing.Point(192, 61);
-            this.lblDayEnded.Name = "lblDayEnded";
-            this.lblDayEnded.Size = new System.Drawing.Size(160, 18);
-            this.lblDayEnded.TabIndex = 20;
-            this.lblDayEnded.Text = "ปิดยอดขายประจำวันแล้ว";
-            this.lblDayEnded.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblDayEnded.Visible = false;
+            this.col_sttak_working_express_db.DataPropertyName = "working_express_db";
+            this.col_sttak_working_express_db.HeaderText = "Working Express DB";
+            this.col_sttak_working_express_db.Name = "col_sttak_working_express_db";
+            this.col_sttak_working_express_db.ReadOnly = true;
+            this.col_sttak_working_express_db.Visible = false;
             // 
             // FormShiftTransaction
             // 
@@ -1023,6 +1043,20 @@
         private CC.XDatagrid dgvSalesSummary;
         private System.Windows.Forms.Button inline_btnEdit;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button inline_btnSaleshistory;
+        private System.Windows.Forms.ToolStripDropDownButton btnPrint;
+        private System.Windows.Forms.ToolStripMenuItem btnPrintALandscape;
+        private System.Windows.Forms.ToolStripMenuItem btnPrintAPortrait;
+        private System.Windows.Forms.Label lblDayEnded;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ImageList imageList1;
+        private CC.XDatagrid dgvSttak;
+        private CC.XNumEdit inline_qty;
+        private System.Windows.Forms.ToolStripDropDownButton btnItem;
+        private System.Windows.Forms.ToolStripMenuItem btnItemF8;
+        private System.Windows.Forms.ToolStripMenuItem btnItemF7;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkcod;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkdes;
@@ -1047,20 +1081,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn saldat;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_total;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salessummary;
-        private System.Windows.Forms.Button inline_btnSaleshistory;
-        private System.Windows.Forms.ToolStripDropDownButton btnPrint;
-        private System.Windows.Forms.ToolStripMenuItem btnPrintALandscape;
-        private System.Windows.Forms.ToolStripMenuItem btnPrintAPortrait;
-        private System.Windows.Forms.Label lblDayEnded;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ImageList imageList1;
-        private CC.XDatagrid dgvSttak;
-        private CC.XNumEdit inline_qty;
-        private System.Windows.Forms.ToolStripDropDownButton btnItem;
-        private System.Windows.Forms.ToolStripMenuItem btnItemF8;
-        private System.Windows.Forms.ToolStripMenuItem btnItemF7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_takdat;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_section_id;
@@ -1070,5 +1091,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_section_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_qty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_sttak;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_working_express_db;
     }
 }

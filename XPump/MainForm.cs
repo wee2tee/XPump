@@ -68,10 +68,12 @@ namespace XPump
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/Local"))
-            {
-                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "/Local");
-            }
+            //if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/Local"))
+            //{
+            //    Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "/Local");
+            //}
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            this.lblVersion.Text = string.Format("XPump V.{0}", version);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -83,8 +85,10 @@ namespace XPump
                 if(login.ShowDialog() != DialogResult.OK)
                 {
                     this.Close();
+                    return;
                 }
             }
+            this.SetStatusLabelText(null, null, this.loged_in_status.loged_in_user_name);
 
             // SELECT COMPANY
             List<SccompDbf> sccomp = DbfTable.Sccomp().ToSccompList().OrderBy(s => s.compnam).ToList();
@@ -109,21 +113,21 @@ namespace XPump
             else
             {
                 this.Close();
+                return;
             }
-            this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), null);
+            this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), null, null);
 
-            //LocalDb db = new LocalDb();
-            LocalDb db = new LocalDb(this.working_express_db);
-
-            if (db.LocalConfig.servername.Trim().Length == 0)
+            LocalDb local_db = new LocalDb(this.working_express_db);
+            if (local_db.LocalConfig.servername.Trim().Length == 0)
             {
                 DialogDbConfig config = new DialogDbConfig(this);
                 if (config.ShowDialog() != DialogResult.OK)
                 {
                     this.Close();
+                    return;
                 }
             }
-            else if (db.LocalConfig.TestMysqlConnection().is_connected == false)
+            else if (local_db.LocalConfig.TestMysqlConnection().is_connected == false)
             {
                 MessageBox.Show("ไม่สามารถเชื่อมต่อฐานข้อมูล MySql ได้, กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -131,10 +135,10 @@ namespace XPump
                 if (config.ShowDialog() != DialogResult.OK)
                 {
                     this.Close();
+                    return;
                 }
             }
-
-            this.SetStatusLabelText(null, db.LocalConfig.dbname);
+            this.SetStatusLabelText(null, local_db.LocalConfig.dbname, null);
         }
 
         private void MnuShift_Click(object sender, EventArgs e)
@@ -218,10 +222,11 @@ namespace XPump
             this.opened_child_form.Add(new ChildFormDetail() { form = daily, docPrefix = string.Empty });
         }
 
-        public void SetStatusLabelText(string express_db_path, string mysql_db_name)
+        public void SetStatusLabelText(string express_db_path, string mysql_db_name, string user_name)
         {
             this.lblExpressDataPath.Text = express_db_path != null ? express_db_path : this.lblExpressDataPath.Text;
             this.lblMysqlDbName.Text = mysql_db_name != null ? mysql_db_name : this.lblMysqlDbName.Text;
+            this.lblUserID.Text = user_name != null ? user_name : this.lblUserID.Text;
         }
     }
 

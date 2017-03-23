@@ -426,6 +426,11 @@ namespace XPump.SubForm
             col_daysttak.Visible = false;
             cols.Add(col_daysttak);
 
+            DataGridViewColumn col_working_express_db = new DataGridViewTextBoxColumn();
+            col_working_express_db.DataPropertyName = "working_express_db";
+            col_working_express_db.Visible = false;
+            cols.Add(col_working_express_db);
+
             return cols;
         }
 

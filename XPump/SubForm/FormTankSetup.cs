@@ -977,6 +977,11 @@ namespace XPump.SubForm
             col__isactive.Visible = false;
             cols.Add(col__isactive);
 
+            DataGridViewColumn col_working_express_db = new DataGridViewTextBoxColumn();
+            col_working_express_db.DataPropertyName = "working_express_db";
+            col_working_express_db.Visible = false;
+            cols.Add(col_working_express_db);
+
             return cols;
         }
 

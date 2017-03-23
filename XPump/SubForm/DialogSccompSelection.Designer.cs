@@ -33,12 +33,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnOK = new System.Windows.Forms.Button();
             this.dgv = new CC.XDatagrid();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.col_compnam = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_compcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_path = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_gendat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_candel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.col_abs_path = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,7 +80,8 @@
             this.col_compcod,
             this.col_path,
             this.col_gendat,
-            this.col_candel});
+            this.col_candel,
+            this.col_abs_path});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F);
@@ -104,6 +106,17 @@
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.xDatagrid1_CellDoubleClick);
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
             this.dgv.SelectionChanged += new System.EventHandler(this.dgv_SelectionChanged);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(89, 213);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 32);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "ยกเลิก";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // col_compnam
             // 
@@ -143,6 +156,7 @@
             this.col_gendat.MinimumWidth = 90;
             this.col_gendat.Name = "col_gendat";
             this.col_gendat.ReadOnly = true;
+            this.col_gendat.Visible = false;
             this.col_gendat.Width = 90;
             // 
             // col_candel
@@ -153,16 +167,13 @@
             this.col_candel.ReadOnly = true;
             this.col_candel.Visible = false;
             // 
-            // btnCancel
+            // col_abs_path
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(89, 213);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 32);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "ยกเลิก";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.col_abs_path.DataPropertyName = "abs_path";
+            this.col_abs_path.HeaderText = "Absolute path";
+            this.col_abs_path.Name = "col_abs_path";
+            this.col_abs_path.ReadOnly = true;
+            this.col_abs_path.Visible = false;
             // 
             // DialogSccompSelection
             // 
@@ -197,5 +208,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_path;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_gendat;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_candel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_abs_path;
     }
 }

@@ -47,6 +47,7 @@
             this.col_end_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_shift = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +85,8 @@
             this.col_start_time,
             this.col_end_time,
             this.col_remark,
-            this.col_shift});
+            this.col_shift,
+            this.col_working_express_db});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -246,6 +248,14 @@
             this.col_shift.ReadOnly = true;
             this.col_shift.Visible = false;
             // 
+            // col_working_express_db
+            // 
+            this.col_working_express_db.DataPropertyName = "working_express_db";
+            this.col_working_express_db.HeaderText = "Working Express DB";
+            this.col_working_express_db.Name = "col_working_express_db";
+            this.col_working_express_db.ReadOnly = true;
+            this.col_working_express_db.Visible = false;
+            // 
             // DialogShiftSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -290,5 +300,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_end_time;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_remark;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_shift;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
     }
 }
