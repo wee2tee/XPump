@@ -13,14 +13,16 @@
           <Property Name="saldat" Type="date" Nullable="false" />
           <Property Name="rcvqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="salqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="dothertxt" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="dothercause_id" Type="int" />
           <Property Name="dother" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="difqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="stmas_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
+          <Property Name="apprby" Type="varchar" MaxLength="20" />
+          <Property Name="apprtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="daysttak">
           <Key>
@@ -33,7 +35,32 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="dbver">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgtime" Type="timestamp" Precision="0" />
+        </EntityType>
+        <EntityType Name="istab">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tabtyp" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="typcod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="shortnam" Type="varchar" MaxLength="15" />
+          <Property Name="shortnam2" Type="varchar" MaxLength="15" />
+          <Property Name="typdes" Type="varchar" MaxLength="50" />
+          <Property Name="typdes2" Type="varchar" MaxLength="50" />
+          <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="chgby" Type="varchar" MaxLength="20" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="nozzle">
           <Key>
@@ -48,7 +75,7 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="pricelist">
           <Key>
@@ -61,7 +88,7 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="saleshistory">
           <Key>
@@ -81,7 +108,7 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="salessummary">
           <Key>
@@ -90,8 +117,8 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="saldat" Type="date" Nullable="false" />
           <Property Name="dtest" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="dothercause_id" Type="int" />
           <Property Name="dother" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="dothertxt" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ddisc" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="purvat" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="shift_id" Type="int" Nullable="false" />
@@ -101,7 +128,7 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="section">
           <Key>
@@ -110,6 +137,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="loccod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="capacity" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="begacc" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="begtak" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="begdif" Type="decimal" Precision="14" Scale="2" Nullable="false" />
@@ -118,7 +146,7 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="settings">
           <Key>
@@ -154,7 +182,7 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="shiftsales">
           <Key>
@@ -167,7 +195,9 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
+          <Property Name="apprby" Type="varchar" MaxLength="20" />
+          <Property Name="apprtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="shiftsttak">
           <Key>
@@ -181,7 +211,7 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="stmas">
           <Key>
@@ -194,7 +224,7 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="tank">
           <Key>
@@ -210,7 +240,7 @@
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="xlog">
           <Key>
@@ -222,6 +252,18 @@
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <Association Name="fk-dayend-dothercause_id">
+          <End Role="istab" Type="Self.istab" Multiplicity="0..1" />
+          <End Role="dayend" Type="Self.dayend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="istab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dayend">
+              <PropertyRef Name="dothercause_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk-dayend-stmas_id">
           <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
           <End Role="dayend" Type="Self.dayend" Multiplicity="*" />
@@ -342,6 +384,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk-salessummary-dothercause_id">
+          <End Role="istab" Type="Self.istab" Multiplicity="0..1" />
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="istab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salessummary">
+              <PropertyRef Name="dothercause_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk-salessummary-pricelist_id">
           <End Role="pricelist" Type="Self.pricelist" Multiplicity="1" />
           <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
@@ -453,6 +507,8 @@
         <EntityContainer Name="xpumpModelStoreContainer">
           <EntitySet Name="dayend" EntityType="Self.dayend" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="daysttak" EntityType="Self.daysttak" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="dbver" EntityType="Self.dbver" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="istab" EntityType="Self.istab" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="nozzle" EntityType="Self.nozzle" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="pricelist" EntityType="Self.pricelist" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="saleshistory" EntityType="Self.saleshistory" Schema="xpump" store:Type="Tables" />
@@ -465,6 +521,10 @@
           <EntitySet Name="stmas" EntityType="Self.stmas" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="xlog" EntityType="Self.xlog" Schema="xpump" store:Type="Tables" />
+          <AssociationSet Name="fk-dayend-dothercause_id" Association="Self.fk-dayend-dothercause_id">
+            <End Role="istab" EntitySet="istab" />
+            <End Role="dayend" EntitySet="dayend" />
+          </AssociationSet>
           <AssociationSet Name="fk-dayend-stmas_id" Association="Self.fk-dayend-stmas_id">
             <End Role="stmas" EntitySet="stmas" />
             <End Role="dayend" EntitySet="dayend" />
@@ -504,6 +564,10 @@
           <AssociationSet Name="fk-saleshistory-stmas_id" Association="Self.fk-saleshistory-stmas_id">
             <End Role="stmas" EntitySet="stmas" />
             <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk-salessummary-dothercause_id" Association="Self.fk-salessummary-dothercause_id">
+            <End Role="istab" EntitySet="istab" />
+            <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
           <AssociationSet Name="fk-salessummary-pricelist_id" Association="Self.fk-salessummary-pricelist_id">
             <End Role="pricelist" EntitySet="pricelist" />
@@ -555,7 +619,7 @@
           <Property Name="saldat" Type="DateTime" Nullable="false" />
           <Property Name="rcvqty" Type="Decimal" Nullable="false" />
           <Property Name="salqty" Type="Decimal" Nullable="false" />
-          <Property Name="dothertxt" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dothercause_id" Type="Int32" />
           <Property Name="dother" Type="Decimal" Nullable="false" />
           <Property Name="difqty" Type="Decimal" Nullable="false" />
           <Property Name="stmas_id" Type="Int32" Nullable="false" />
@@ -563,6 +627,9 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
+          <Property Name="apprby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="apprtime" Type="DateTime" />
+          <NavigationProperty Name="istab" Relationship="Self.fk_dayend_dothercause_id" FromRole="dayend" ToRole="istab" />
           <NavigationProperty Name="stmas" Relationship="Self.fk_dayend_stmas_id" FromRole="dayend" ToRole="stmas" />
           <NavigationProperty Name="daysttak" Relationship="Self.fk_daysttak_dayend_id" FromRole="dayend" ToRole="daysttak" />
         </EntityType>
@@ -580,6 +647,33 @@
           <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="dayend" Relationship="Self.fk_daysttak_dayend_id" FromRole="daysttak" ToRole="dayend" />
           <NavigationProperty Name="section" Relationship="Self.fk_daysttak_section_id" FromRole="daysttak" ToRole="section" />
+        </EntityType>
+        <EntityType Name="dbver">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cretime" Type="DateTime" Nullable="false" />
+          <Property Name="chgtime" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="istab">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tabtyp" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="typcod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="shortnam" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="shortnam2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="typdes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="typdes2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cretime" Type="DateTime" Nullable="false" />
+          <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chgtime" Type="DateTime" />
+          <NavigationProperty Name="dayend" Relationship="Self.fk_dayend_dothercause_id" FromRole="istab" ToRole="dayend" />
+          <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_dothercause_id" FromRole="istab" ToRole="salessummary" />
         </EntityType>
         <EntityType Name="nozzle">
           <Key>
@@ -646,8 +740,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="saldat" Type="DateTime" Nullable="false" />
           <Property Name="dtest" Type="Decimal" Nullable="false" />
+          <Property Name="dothercause_id" Type="Int32" />
           <Property Name="dother" Type="Decimal" Nullable="false" />
-          <Property Name="dothertxt" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ddisc" Type="Decimal" Nullable="false" />
           <Property Name="purvat" Type="Decimal" Nullable="false" />
           <Property Name="shift_id" Type="Int32" Nullable="false" />
@@ -658,6 +752,7 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
+          <NavigationProperty Name="istab" Relationship="Self.fk_salessummary_dothercause_id" FromRole="salessummary" ToRole="istab" />
           <NavigationProperty Name="pricelist" Relationship="Self.fk_salessummary_pricelist_id" FromRole="salessummary" ToRole="pricelist" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk_saleshistory_salessummary_id" FromRole="salessummary" ToRole="saleshistory" />
           <NavigationProperty Name="shift" Relationship="Self.fk_salessummary_shift_id" FromRole="salessummary" ToRole="shift" />
@@ -671,6 +766,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="loccod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="capacity" Type="Decimal" Nullable="false" />
           <Property Name="begacc" Type="Decimal" Nullable="false" />
           <Property Name="begtak" Type="Decimal" Nullable="false" />
           <Property Name="begdif" Type="Decimal" Nullable="false" />
@@ -737,6 +833,8 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
+          <Property Name="apprby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="apprtime" Type="DateTime" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shiftsales_id" FromRole="shiftsales" ToRole="salessummary" />
           <NavigationProperty Name="shift" Relationship="Self.fk_shiftsales_shift_id" FromRole="shiftsales" ToRole="shift" />
           <NavigationProperty Name="shiftsttak" Relationship="Self.fk_sttak_shiftsales_id" FromRole="shiftsales" ToRole="shiftsttak" />
@@ -802,6 +900,18 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
+        <Association Name="fk_dayend_dothercause_id">
+          <End Role="istab" Type="Self.istab" Multiplicity="0..1" />
+          <End Role="dayend" Type="Self.dayend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="istab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dayend">
+              <PropertyRef Name="dothercause_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_dayend_stmas_id">
           <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
           <End Role="dayend" Type="Self.dayend" Multiplicity="*" />
@@ -835,6 +945,18 @@
             </Principal>
             <Dependent Role="daysttak">
               <PropertyRef Name="section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salessummary_dothercause_id">
+          <End Role="istab" Type="Self.istab" Multiplicity="0..1" />
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="istab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salessummary">
+              <PropertyRef Name="dothercause_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1033,6 +1155,8 @@
         <EntityContainer Name="xpumpEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="dayend" EntityType="Self.dayend" />
           <EntitySet Name="daysttak" EntityType="Self.daysttak" />
+          <EntitySet Name="dbver" EntityType="Self.dbver" />
+          <EntitySet Name="istab" EntityType="Self.istab" />
           <EntitySet Name="nozzle" EntityType="Self.nozzle" />
           <EntitySet Name="pricelist" EntityType="Self.pricelist" />
           <EntitySet Name="saleshistory" EntityType="Self.saleshistory" />
@@ -1045,6 +1169,10 @@
           <EntitySet Name="stmas" EntityType="Self.stmas" />
           <EntitySet Name="tank" EntityType="Self.tank" />
           <EntitySet Name="xlog" EntityType="Self.xlog" />
+          <AssociationSet Name="fk_dayend_dothercause_id" Association="Self.fk_dayend_dothercause_id">
+            <End Role="istab" EntitySet="istab" />
+            <End Role="dayend" EntitySet="dayend" />
+          </AssociationSet>
           <AssociationSet Name="fk_dayend_stmas_id" Association="Self.fk_dayend_stmas_id">
             <End Role="stmas" EntitySet="stmas" />
             <End Role="dayend" EntitySet="dayend" />
@@ -1056,6 +1184,10 @@
           <AssociationSet Name="fk_daysttak_section_id" Association="Self.fk_daysttak_section_id">
             <End Role="section" EntitySet="section" />
             <End Role="daysttak" EntitySet="daysttak" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salessummary_dothercause_id" Association="Self.fk_salessummary_dothercause_id">
+            <End Role="istab" EntitySet="istab" />
+            <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
           <AssociationSet Name="fk_nozzle_section_id" Association="Self.fk_nozzle_section_id">
             <End Role="section" EntitySet="section" />
@@ -1135,7 +1267,7 @@
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
                 <ScalarProperty Name="rcvqty" ColumnName="rcvqty" />
                 <ScalarProperty Name="salqty" ColumnName="salqty" />
-                <ScalarProperty Name="dothertxt" ColumnName="dothertxt" />
+                <ScalarProperty Name="dothercause_id" ColumnName="dothercause_id" />
                 <ScalarProperty Name="dother" ColumnName="dother" />
                 <ScalarProperty Name="difqty" ColumnName="difqty" />
                 <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
@@ -1143,6 +1275,8 @@
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />
                 <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+                <ScalarProperty Name="apprby" ColumnName="apprby" />
+                <ScalarProperty Name="apprtime" ColumnName="apprtime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1153,6 +1287,33 @@
                 <ScalarProperty Name="qty" ColumnName="qty" />
                 <ScalarProperty Name="dayend_id" ColumnName="dayend_id" />
                 <ScalarProperty Name="section_id" ColumnName="section_id" />
+                <ScalarProperty Name="creby" ColumnName="creby" />
+                <ScalarProperty Name="cretime" ColumnName="cretime" />
+                <ScalarProperty Name="chgby" ColumnName="chgby" />
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dbver">
+            <EntityTypeMapping TypeName="xpumpModel.dbver">
+              <MappingFragment StoreEntitySet="dbver">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="cretime" ColumnName="cretime" />
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="istab">
+            <EntityTypeMapping TypeName="xpumpModel.istab">
+              <MappingFragment StoreEntitySet="istab">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tabtyp" ColumnName="tabtyp" />
+                <ScalarProperty Name="typcod" ColumnName="typcod" />
+                <ScalarProperty Name="shortnam" ColumnName="shortnam" />
+                <ScalarProperty Name="shortnam2" ColumnName="shortnam2" />
+                <ScalarProperty Name="typdes" ColumnName="typdes" />
+                <ScalarProperty Name="typdes2" ColumnName="typdes2" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />
@@ -1217,8 +1378,8 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
                 <ScalarProperty Name="dtest" ColumnName="dtest" />
+                <ScalarProperty Name="dothercause_id" ColumnName="dothercause_id" />
                 <ScalarProperty Name="dother" ColumnName="dother" />
-                <ScalarProperty Name="dothertxt" ColumnName="dothertxt" />
                 <ScalarProperty Name="ddisc" ColumnName="ddisc" />
                 <ScalarProperty Name="purvat" ColumnName="purvat" />
                 <ScalarProperty Name="shift_id" ColumnName="shift_id" />
@@ -1238,6 +1399,7 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="loccod" ColumnName="loccod" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
                 <ScalarProperty Name="begacc" ColumnName="begacc" />
                 <ScalarProperty Name="begtak" ColumnName="begtak" />
                 <ScalarProperty Name="begdif" ColumnName="begdif" />
@@ -1299,6 +1461,8 @@
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />
                 <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+                <ScalarProperty Name="apprby" ColumnName="apprby" />
+                <ScalarProperty Name="apprtime" ColumnName="apprtime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

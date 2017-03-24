@@ -91,7 +91,8 @@ namespace XPump.SubForm
         {
             this.FormFreeze = true;
             LoadingForm loading = new LoadingForm();
-            loading.ShowCenterParent(this);
+            var context = this;
+            loading.ShowCenterParent(context);
 
             if (this.txtPwd.Text != this.txtConfPwd.Text)
             {
@@ -107,23 +108,27 @@ namespace XPump.SubForm
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += delegate
             {
-                conn_result = this.curr_config.TestMysqlConnection();
+                conn_result = this.curr_config.TestMysqlDbConnection();
             };
             worker.RunWorkerCompleted += delegate
             {
-                loading.Close();
+                //loading.Close();
                 if (conn_result.is_connected)
                 {
                     if (this.curr_config.Save(this.main_form.working_express_db) == true)
                     {
+                        loading.Close();
                         this.DialogResult = DialogResult.OK;
                         this.Close();
+                        return;
                     }
+                    loading.Close();
                 }
                 else
                 {
                     if(conn_result.connection_code == MYSQL_CONNECTION.UNKNOW_DATABASE)
                     {
+                        loading.ShowCenterParent(context);
                         if(MessageBox.Show(conn_result.err_message + " ต้องการสร้างฐานข้อมูลดังกล่าวขึ้นมาใหม่หรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                         {
                             MySqlCreateResult create_result = this.CreateNewMysqlDB(this.curr_config);
@@ -133,15 +138,18 @@ namespace XPump.SubForm
                                 // Create new MySQL DB success.
                                 if(this.curr_config.Save(this.main_form.working_express_db) == true)
                                 {
+                                    loading.Close();
                                     this.DialogResult = DialogResult.OK;
                                     this.Close();
                                 }
                             }
                             else
                             {
+                                loading.Close();
                                 MessageBox.Show(create_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
+                        loading.Close();
                     }
                     else
                     {
@@ -161,315 +169,341 @@ namespace XPump.SubForm
 
             var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted();
 
+            MySqlConnection conn = new MySqlConnection(conn_info);
+
             try
             {
-                using (MySqlConnection conn = new MySqlConnection())
-                {
-                    conn.ConnectionString = conn_info;
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("CREATE DATABASE IF NOT EXISTS " + local_config.dbname, conn);
-                    cmd.ExecuteNonQuery();
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("CREATE DATABASE IF NOT EXISTS " + local_config.dbname, conn);
+                cmd.ExecuteNonQuery();
 
-                    // DBVer Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dbver` ";
-                    cmd.CommandText += "(`id` INT(7) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`version` VARCHAR(15) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`)) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // DBVer Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dbver` ";
+                cmd.CommandText += "(`id` INT(7) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`version` VARCHAR(15) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
+                cmd.CommandText += "PRIMARY KEY (`id`)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Settings Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`settings` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`express_data_path` TEXT NOT NULL,";
-                    cmd.CommandText += "`orgname` VARCHAR(60) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`shiftprintmet` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '0 = not stricted, 1 = printed before authorize, 2 = authorized before print',";
-                    cmd.CommandText += "`shiftauthlev` VARCHAR(1) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`dayprintmet` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '0 = not stricted, 1 = printed before authorize, 2 = authorized before print',";
-                    cmd.CommandText += "`dayauthlev` VARCHAR(1) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`)) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Settings Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`settings` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`express_data_path` TEXT NOT NULL,";
+                cmd.CommandText += "`orgname` VARCHAR(60) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`shiftprintmet` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '0 = not stricted, 1 = printed before authorize, 2 = authorized before print',";
+                cmd.CommandText += "`shiftauthlev` VARCHAR(1) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`dayprintmet` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '0 = not stricted, 1 = printed before authorize, 2 = authorized before print',";
+                cmd.CommandText += "`dayauthlev` VARCHAR(1) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,";
+                cmd.CommandText += "PRIMARY KEY (`id`)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Xlog Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`xlog` ";
-                    cmd.CommandText += "(`id` INT(15) NOT NULL,";
-                    cmd.CommandText += "`logcode` VARCHAR(10) NOT NULL,";
-                    cmd.CommandText += "`description` VARCHAR(50) NULL,";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
-                    cmd.CommandText += "PRIMARY KEY(`id`),";
-                    cmd.CommandText += "INDEX `ndx - xlog - logcode` (`logcode` ASC),";
-                    cmd.CommandText += "INDEX `ndx - xlog - username` (`username` ASC)) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Xlog Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`xlog` ";
+                cmd.CommandText += "(`id` INT(15) NOT NULL,";
+                cmd.CommandText += "`logcode` VARCHAR(10) NOT NULL,";
+                cmd.CommandText += "`description` VARCHAR(50) NULL,";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
+                cmd.CommandText += "PRIMARY KEY(`id`),";
+                cmd.CommandText += "INDEX `ndx - xlog - logcode` (`logcode` ASC),";
+                cmd.CommandText += "INDEX `ndx - xlog - username` (`username` ASC)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Shift Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`shift` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`seq` INT(3) NOT NULL,";
-                    cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
-                    cmd.CommandText += "`description` VARCHAR(50) NULL,";
-                    cmd.CommandText += "`starttime` TIME NOT NULL,";
-                    cmd.CommandText += "`endtime` TIME NOT NULL,";
-                    cmd.CommandText += "`remark` VARCHAR(50) NULL,";
-                    cmd.CommandText += "`saiprefix` VARCHAR(2) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`shsprefix` VARCHAR(2) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`sivprefix` VARCHAR(2) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`paeprefix` VARCHAR(2) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`phpprefix` VARCHAR(2) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`prrprefix` VARCHAR(2) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "UNIQUE INDEX `unq - shift - name` (`name` ASC)) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Istab Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`istab` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`tabtyp` VARCHAR(2) NOT NULL DEFAULT '' COMMENT '01 = deduct cause',";
+                cmd.CommandText += "`typcod` VARCHAR(4) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`shortnam` VARCHAR(15) NULL,";
+                cmd.CommandText += "`shortnam2` VARCHAR(15) NULL,";
+                cmd.CommandText += "`typdes` VARCHAR(50) NULL,";
+                cmd.CommandText += "`typdes2` VARCHAR(50) NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "UNIQUE INDEX `unq - istab` (`tabtyp` ASC, `typcod` ASC)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Tank Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`tank` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
-                    cmd.CommandText += "`startdate` DATE NOT NULL,";
-                    cmd.CommandText += "`enddate` DATE NULL,";
-                    cmd.CommandText += "`description` VARCHAR(50) NULL,";
-                    cmd.CommandText += "`remark` VARCHAR(50) NULL,";
-                    cmd.CommandText += "`isactive` TINYINT(1) NOT NULL DEFAULT 1,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "UNIQUE INDEX `unq - tank - name` (`name` ASC)) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Shift Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`shift` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`seq` INT(3) NOT NULL,";
+                cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
+                cmd.CommandText += "`description` VARCHAR(50) NULL,";
+                cmd.CommandText += "`starttime` TIME NOT NULL,";
+                cmd.CommandText += "`endtime` TIME NOT NULL,";
+                cmd.CommandText += "`remark` VARCHAR(50) NULL,";
+                cmd.CommandText += "`saiprefix` VARCHAR(2) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`shsprefix` VARCHAR(2) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`sivprefix` VARCHAR(2) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`paeprefix` VARCHAR(2) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`phpprefix` VARCHAR(2) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`prrprefix` VARCHAR(2) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "UNIQUE INDEX `unq - shift - name` (`name` ASC)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Stmas Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`stmas` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
-                    cmd.CommandText += "`description` VARCHAR(50) NULL,";
-                    cmd.CommandText += "`remark` VARCHAR(50) NULL,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "UNIQUE INDEX `unq - stmas - name` (`name` ASC)) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Tank Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`tank` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
+                cmd.CommandText += "`startdate` DATE NOT NULL,";
+                cmd.CommandText += "`enddate` DATE NULL,";
+                cmd.CommandText += "`description` VARCHAR(50) NULL,";
+                cmd.CommandText += "`remark` VARCHAR(50) NULL,";
+                cmd.CommandText += "`isactive` TINYINT(1) NOT NULL DEFAULT 1,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "UNIQUE INDEX `unq - tank - name` (`name` ASC)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Shiftsales Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`shiftsales` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`saldat` DATE NOT NULL,";
-                    cmd.CommandText += "`closed` TINYINT(1) NOT NULL DEFAULT 0,";
-                    cmd.CommandText += "`shift_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "INDEX `ndx - shiftsales - shift_id` (`shift_id` ASC),";
-                    cmd.CommandText += "UNIQUE INDEX `unq - shiftsales` (`saldat` ASC, `shift_id` ASC),";
-                    cmd.CommandText += "CONSTRAINT `fk - shiftsales - shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Stmas Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`stmas` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
+                cmd.CommandText += "`description` VARCHAR(50) NULL,";
+                cmd.CommandText += "`remark` VARCHAR(50) NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "UNIQUE INDEX `unq - stmas - name` (`name` ASC)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Section Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`section` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
-                    cmd.CommandText += "`loccod` VARCHAR(4) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`begacc` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`begtak` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`begdif` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`tank_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "INDEX `ndx - section - tank_id` (`tank_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - section - stmas_id` (`stmas_id` ASC),";
-                    cmd.CommandText += "CONSTRAINT `fk - section - tank_id` FOREIGN KEY (`tank_id`) REFERENCES `" + local_config.dbname + "`.`tank` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                    cmd.CommandText += "CONSTRAINT `fk - section - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Shiftsales Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`shiftsales` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`saldat` DATE NOT NULL,";
+                cmd.CommandText += "`closed` TINYINT(1) NOT NULL DEFAULT 0,";
+                cmd.CommandText += "`shift_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "`apprby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`apprtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "INDEX `ndx - shiftsales - shift_id` (`shift_id` ASC),";
+                cmd.CommandText += "UNIQUE INDEX `unq - shiftsales` (`saldat` ASC, `shift_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - shiftsales - shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Pricelist Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`pricelist` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`date` DATE NOT NULL,";
-                    cmd.CommandText += "`unitpr` DECIMAL(9, 2) NOT NULL,";
-                    cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "INDEX `ndx - pricelist - stmas_id` (`stmas_id` ASC),";
-                    cmd.CommandText += "CONSTRAINT `fk - pricelist - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Section Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`section` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
+                cmd.CommandText += "`loccod` VARCHAR(4) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`capacity` DECIMAL(14,2) NOT NULL DEFAULT 0,";
+                cmd.CommandText += "`begacc` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`begtak` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`begdif` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`tank_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "INDEX `ndx - section - tank_id` (`tank_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - section - stmas_id` (`stmas_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - section - tank_id` FOREIGN KEY (`tank_id`) REFERENCES `" + local_config.dbname + "`.`tank` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - section - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Nozzle Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`nozzle` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
-                    cmd.CommandText += "`description` VARCHAR(50) NULL,";
-                    cmd.CommandText += "`remark` VARCHAR(50) NULL,";
-                    cmd.CommandText += "`isactive` TINYINT(1) NOT NULL DEFAULT 1,";
-                    cmd.CommandText += "`section_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "UNIQUE INDEX `unq - nozzle - name` (`name` ASC, `section_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - nozzle - section_id` (`section_id` ASC),";
-                    cmd.CommandText += "CONSTRAINT `fk - nozzle - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Pricelist Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`pricelist` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`date` DATE NOT NULL,";
+                cmd.CommandText += "`unitpr` DECIMAL(9, 2) NOT NULL,";
+                cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "INDEX `ndx - pricelist - stmas_id` (`stmas_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - pricelist - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Shiftsttak Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`shiftsttak` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`takdat` DATE NOT NULL,";
-                    cmd.CommandText += "`qty` DECIMAL(15, 2) NOT NULL DEFAULT - 1,";
-                    cmd.CommandText += "`shiftsales_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`section_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "INDEX `ndx - sttak - section_id` (`section_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - sttak - shiftsales_id` (`shiftsales_id` ASC),";
-                    cmd.CommandText += "UNIQUE INDEX `unq - sttak` (`shiftsales_id` ASC, `section_id` ASC),";
-                    cmd.CommandText += "CONSTRAINT `fk - sttak - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                    cmd.CommandText += "CONSTRAINT `fk - sttak - shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Nozzle Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`nozzle` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
+                cmd.CommandText += "`description` VARCHAR(50) NULL,";
+                cmd.CommandText += "`remark` VARCHAR(50) NULL,";
+                cmd.CommandText += "`isactive` TINYINT(1) NOT NULL DEFAULT 1,";
+                cmd.CommandText += "`section_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "UNIQUE INDEX `unq - nozzle - name` (`name` ASC, `section_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - nozzle - section_id` (`section_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - nozzle - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Salessummary Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`salessummary` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`saldat` DATE NOT NULL,";
-                    cmd.CommandText += "`dtest` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`dother` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`dothertxt` VARCHAR(30) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`ddisc` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`purvat` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`shift_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`pricelist_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`shiftsales_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "INDEX `ndx - salessummary - shift_id` (`shift_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - salessummary - stmas_id` (`stmas_id` ASC),";
-                    cmd.CommandText += "UNIQUE INDEX `unq - salessummary` (`stmas_id` ASC, `saldat` ASC, `shift_id` ASC, `shiftsales_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - salessummary - pricelist_id` (`pricelist_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - salessummary - shiftsales_id` (`shiftsales_id` ASC),";
-                    cmd.CommandText += "CONSTRAINT `fk - salessummary - shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                    cmd.CommandText += "CONSTRAINT `fk - salessummary - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                    cmd.CommandText += "CONSTRAINT `fk - salessummary - pricelist_id` FOREIGN KEY (`pricelist_id`) REFERENCES `" + local_config.dbname + "`.`pricelist` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                    cmd.CommandText += "CONSTRAINT `fk - salessummary - shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Shiftsttak Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`shiftsttak` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`takdat` DATE NOT NULL,";
+                cmd.CommandText += "`qty` DECIMAL(15, 2) NOT NULL DEFAULT - 1,";
+                cmd.CommandText += "`shiftsales_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`section_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "INDEX `ndx - sttak - section_id` (`section_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - sttak - shiftsales_id` (`shiftsales_id` ASC),";
+                cmd.CommandText += "UNIQUE INDEX `unq - sttak` (`shiftsales_id` ASC, `section_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - sttak - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - sttak - shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Saleshistory Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`saleshistory` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`saldat` DATE NOT NULL,";
-                    cmd.CommandText += "`mitbeg` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`mitend` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`salval` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`shift_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`nozzle_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`pricelist_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`salessummary_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "INDEX `ndx - saleshistory - shift_id` (`shift_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - saleshistory_nozzle_id` (`nozzle_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - saleshistory - stmas_id` (`stmas_id` ASC),";
-                    cmd.CommandText += "UNIQUE INDEX `unq - saleshistory` (`stmas_id` ASC, `saldat` ASC, `shift_id` ASC, `nozzle_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - saleshistory - pricelist_id` (`pricelist_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - saleshistory - salessummary_id` (`salessummary_id` ASC),";
-                    cmd.CommandText += "CONSTRAINT `fk - saleshistory - shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                    cmd.CommandText += "CONSTRAINT `fk - saleshistory - nozzle_id` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                    cmd.CommandText += "CONSTRAINT `fk - saleshistory - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                    cmd.CommandText += "CONSTRAINT `fk - saleshistory - pricelist_id` FOREIGN KEY (`pricelist_id`) REFERENCES `" + local_config.dbname + "`.`pricelist` (`id`) ON DELETE NO ACTION ON UPDATE  NO ACTION,";
-                    cmd.CommandText += "CONSTRAINT `fk - saleshistory - salessummary_id` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Salessummary Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`salessummary` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`saldat` DATE NOT NULL,";
+                cmd.CommandText += "`dtest` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`dothercause_id` INT(11) NULL,";
+                cmd.CommandText += "`dother` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`ddisc` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`purvat` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`shift_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`pricelist_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`shiftsales_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "INDEX `ndx - salessummary - shift_id` (`shift_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - salessummary - stmas_id` (`stmas_id` ASC),";
+                cmd.CommandText += "UNIQUE INDEX `unq - salessummary` (`stmas_id` ASC, `saldat` ASC, `shift_id` ASC, `shiftsales_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - salessummary - pricelist_id` (`pricelist_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - salessummary - shiftsales_id` (`shiftsales_id` ASC),";
+                cmd.CommandText += "INDEX `ndx-salessummary-dothercause_id` (`dothercause_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - salessummary - shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - salessummary - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - salessummary - pricelist_id` FOREIGN KEY (`pricelist_id`) REFERENCES `" + local_config.dbname + "`.`pricelist` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - salessummary - shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk-salessummary-dothercause_id` FOREIGN KEY (`dothercause_id`) REFERENCES `xpump`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Dayend Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dayend` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`saldat` DATE NOT NULL,";
-                    cmd.CommandText += "`rcvqty` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`dothertxt` VARCHAR(30) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`dother` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`difqty` DECIMAL(14, 2) NOT NULL,";
-                    cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "INDEX `ndx - dayend - stmas_id` (`stmas_id` ASC),";
-                    cmd.CommandText += "UNIQUE INDEX `unq - dayend - saldat` (`saldat` ASC, `stmas_id` ASC),";
-                    cmd.CommandText += "CONSTRAINT `fk - dayend - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Saleshistory Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`saleshistory` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`saldat` DATE NOT NULL,";
+                cmd.CommandText += "`mitbeg` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`mitend` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`salval` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`shift_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`nozzle_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`pricelist_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`salessummary_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "INDEX `ndx - saleshistory - shift_id` (`shift_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - saleshistory_nozzle_id` (`nozzle_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - saleshistory - stmas_id` (`stmas_id` ASC),";
+                cmd.CommandText += "UNIQUE INDEX `unq - saleshistory` (`stmas_id` ASC, `saldat` ASC, `shift_id` ASC, `nozzle_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - saleshistory - pricelist_id` (`pricelist_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - saleshistory - salessummary_id` (`salessummary_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - nozzle_id` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - pricelist_id` FOREIGN KEY (`pricelist_id`) REFERENCES `" + local_config.dbname + "`.`pricelist` (`id`) ON DELETE NO ACTION ON UPDATE  NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - salessummary_id` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    // Daysttak Table
-                    cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`daysttak` ";
-                    cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                    cmd.CommandText += "`qty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
-                    cmd.CommandText += "`dayend_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`section_id` INT(11) NOT NULL,";
-                    cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                    cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                    cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
-                    cmd.CommandText += "PRIMARY KEY (`id`),";
-                    cmd.CommandText += "INDEX `ndx - daysttak - section_id` (`section_id` ASC),";
-                    cmd.CommandText += "INDEX `ndx - daysttak - dayend_id` (`dayend_id` ASC),";
-                    cmd.CommandText += "CONSTRAINT `fk - daysttak - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                    cmd.CommandText += "CONSTRAINT `fk - daysttak - dayend_id` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
-                    cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                    cmd.ExecuteNonQuery();
+                // Dayend Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dayend` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`saldat` DATE NOT NULL,";
+                cmd.CommandText += "`rcvqty` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`dothercause_id` INT(11) NULL,";
+                cmd.CommandText += "`dother` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`difqty` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "`apprby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`apprtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "INDEX `ndx - dayend - stmas_id` (`stmas_id` ASC),";
+                cmd.CommandText += "UNIQUE INDEX `unq - dayend - saldat` (`saldat` ASC, `stmas_id` ASC),";
+                cmd.CommandText += "INDEX `ndx-dayend-dothercause_id` (`dothercause_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - dayend - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk-dayend-dothercause_id` FOREIGN KEY (`dothercause_id`) REFERENCES `xpump`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`dbver` (`version`) VALUES ('1.0.0.0')";
-                    cmd.ExecuteNonQuery();
+                // Daysttak Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`daysttak` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`qty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
+                cmd.CommandText += "`dayend_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`section_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "INDEX `ndx - daysttak - section_id` (`section_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - daysttak - dayend_id` (`dayend_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - daysttak - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - daysttak - dayend_id` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`settings` (`express_data_path`,`orgname`,`shiftprintmet`,`shiftauthlev`,`dayprintmet`,`dayauthlev`,`chgby`,`chgtime`) VALUES ('','','0','','0','',NULL,NULL)";
-                    cmd.ExecuteNonQuery();
+                cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`dbver` (`version`) VALUES ('1.0.0.0')";
+                cmd.ExecuteNonQuery();
 
-                    create_result.is_success = true;
+                cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`settings` (`express_data_path`,`orgname`,`shiftprintmet`,`shiftauthlev`,`dayprintmet`,`dayauthlev`,`chgby`,`chgtime`) VALUES ('','','0','','0','',NULL,NULL)";
+                cmd.ExecuteNonQuery();
 
-                    // ** Upgrade DB Version here ** //
-                }
+                create_result.is_success = true;
+
+                // ** Upgrade DB Version here ** //
+
             }
             catch (MySqlException ex)
             {
@@ -480,6 +514,15 @@ namespace XPump.SubForm
             {
                 create_result.is_success = false;
                 create_result.err_message = ex.Message;
+            }
+            finally
+            {
+                if(conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                    conn.Dispose();
+                    conn = null;
+                }
             }
 
             return create_result;

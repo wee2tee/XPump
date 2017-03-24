@@ -112,6 +112,12 @@
     <Compile Include="Model\daysttak.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\dbver.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\istab.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\LocalDb.cs" />
     <Compile Include="Model\DbfTable.cs" />
     <Compile Include="Model\DBX.cs" />

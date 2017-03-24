@@ -25,6 +25,7 @@ namespace XPump.Model
         public int id { get; set; }
         public string name { get; set; }
         public string loccod { get; set; }
+        public decimal capacity { get; set; }
         public decimal begacc { get; set; }
         public decimal begtak { get; set; }
         public decimal begdif { get; set; }

@@ -241,7 +241,6 @@ namespace XPump.SubForm
                 remark = string.Empty,
             };
 
-            //this.tabControl1.SelectedTab = this.tabPage1;
             this.txtRemark.Focus();
             this.form_mode = FORM_MODE.ADD;
             this.ResetControlState();

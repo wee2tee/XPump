@@ -576,7 +576,7 @@ namespace XPump.SubForm
                                 saldat = this.tmp_shiftsales.saldat,
                                 dtest = 0m,
                                 dother = 0m,
-                                dothertxt = string.Empty,
+                                //dothertxt = string.Empty,
                                 ddisc = 0m,
                                 purvat = 0m,
                                 shift_id = this.tmp_shiftsales.shift_id,

@@ -111,6 +111,8 @@ namespace XPump.Model
 
     public static class LocalDbHelper
     {
+        /** SQLite **/
+
         public static bool Save(this LocalConfig local_config, SccompDbf working_express_db)
         {
             try
@@ -130,17 +132,22 @@ namespace XPump.Model
             }
         }
 
-        public static MySqlConnectionResult TestMysqlConnection(this LocalConfig local_config)
+        /** MySQL **/
+
+        public static MySqlConnection GetMysqlDbConnection(this LocalConfig local_config)
+        {
+            var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Database=" + local_config.dbname + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted();
+            return new MySqlConnection(conn_info);
+        }
+
+        public static MySqlConnectionResult TestMysqlDbConnection(this LocalConfig local_config)
         {
             MySqlConnectionResult conn_result = new MySqlConnectionResult { is_connected = false, err_message = string.Empty, connection_code = MYSQL_CONNECTION.DISCONNECTED };
-
-            //bool isConn = false;
-            var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Database=" + local_config.dbname + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted();
 
             MySqlConnection conn = null;
             try
             {
-                conn = new MySqlConnection(conn_info);
+                conn = local_config.GetMysqlDbConnection();
                 conn.Open();
                 conn_result.is_connected = true;
                 conn_result.connection_code = MYSQL_CONNECTION.CONNECTED;
@@ -153,25 +160,7 @@ namespace XPump.Model
             //    Console.WriteLine(a_ex.ToString());
             //    */
             //}
-            //catch (MySqlException ex)
-            //{
-            //    /*string sqlErrorMessage = "Message: " + ex.Message + "\n" +
-            //    "Source: " + ex.Source + "\n" +
-            //    "Number: " + ex.Number;
-            //    Console.WriteLine(sqlErrorMessage);
-            //    */
-            //    isConn = false;
-            //    switch (ex.Number)
-            //    {
-            //        //http://dev.mysql.com/doc/refman/5.0/en/error-messages-server.html
-            //        case 1042: // Unable to connect to any of the specified MySQL hosts (Check Server,Port)
-            //            break;
-            //        case 0: // Access denied (Check DB name,username,password)
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
+           
             catch(MySqlException ex)
             {
                 conn_result.is_connected = false;
@@ -207,6 +196,8 @@ namespace XPump.Model
                 if (conn.State == ConnectionState.Open)
                 {
                     conn.Close();
+                    conn.Dispose();
+                    conn = null;
                 }
             }
             return conn_result;

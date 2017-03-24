@@ -75,7 +75,7 @@ namespace XPump.SubForm
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += delegate
             {
-                this.is_mysql_connected = this.localconfig.TestMysqlConnection().is_connected;
+                this.is_mysql_connected = this.localconfig.TestMysqlDbConnection().is_connected;
             };
             worker.RunWorkerCompleted += delegate
             {

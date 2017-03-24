@@ -23,8 +23,8 @@ namespace XPump.Model
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
         public decimal dtest { get; set; }
+        public Nullable<int> dothercause_id { get; set; }
         public decimal dother { get; set; }
-        public string dothertxt { get; set; }
         public decimal ddisc { get; set; }
         public decimal purvat { get; set; }
         public int shift_id { get; set; }
@@ -36,6 +36,7 @@ namespace XPump.Model
         public string chgby { get; set; }
         public Nullable<System.DateTime> chgtime { get; set; }
     
+        public virtual istab istab { get; set; }
         public virtual pricelist pricelist { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<saleshistory> saleshistory { get; set; }

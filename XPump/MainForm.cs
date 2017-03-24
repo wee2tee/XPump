@@ -127,7 +127,7 @@ namespace XPump
                     return;
                 }
             }
-            else if (local_db.LocalConfig.TestMysqlConnection().is_connected == false)
+            else if (local_db.LocalConfig.TestMysqlDbConnection().is_connected == false)
             {
                 MessageBox.Show("ไม่สามารถเชื่อมต่อฐานข้อมูล MySql ได้, กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -139,6 +139,8 @@ namespace XPump
                 }
             }
             this.SetStatusLabelText(null, local_db.LocalConfig.dbname, null);
+
+            //MySqlConnectionResult
         }
 
         private void MnuShift_Click(object sender, EventArgs e)

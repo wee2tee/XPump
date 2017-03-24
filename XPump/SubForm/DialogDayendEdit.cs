@@ -155,7 +155,7 @@ namespace XPump.SubForm
 
         private void txtDothertxt__TextChanged(object sender, EventArgs e)
         {
-            this.curr_dayend.dothertxt = ((XTextEdit)sender)._Text;
+            //this.curr_dayend.dothertxt = ((XTextEdit)sender)._Text;
         }
 
         private void numDother__ValueChanged(object sender, EventArgs e)
@@ -245,7 +245,7 @@ namespace XPump.SubForm
                             return;
                         }
 
-                        dayend_to_update.dothertxt = this.curr_dayend.dothertxt;
+                        //dayend_to_update.dothertxt = this.curr_dayend.dothertxt;
                         dayend_to_update.dother = this.curr_dayend.dother;
                         dayend_to_update.rcvqty = this.curr_dayend.rcvqty;
                         dayend_to_update.salqty = this.curr_dayend.salqty;

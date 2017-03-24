@@ -275,7 +275,7 @@ namespace XPump.SubForm
 
             this.numDtest._Value = this.salessummary.dtest;
             this.numDother._Value = this.salessummary.dother;
-            this.txtDother._Text = this.salessummary.dothertxt;
+            //this.txtDother._Text = this.salessummary.dothertxt;
             this.numDdisc._Value = this.salessummary.ddisc;
         }
 
@@ -301,7 +301,7 @@ namespace XPump.SubForm
 
         private void txtDother__TextChanged(object sender, EventArgs e)
         {
-            this.salessummary.dothertxt = ((XTextEdit)sender)._Text;
+            //this.salessummary.dothertxt = ((XTextEdit)sender)._Text;
         }
 
         private void inline_mit_start__ValueChanged(object sender, EventArgs e)
@@ -352,7 +352,7 @@ namespace XPump.SubForm
 
                 sales_to_update.dtest = this.salessummary.dtest;
                 sales_to_update.dother = this.salessummary.dother;
-                sales_to_update.dothertxt = this.salessummary.dothertxt;
+                //sales_to_update.dothertxt = this.salessummary.dothertxt;
                 sales_to_update.ddisc = this.salessummary.ddisc;
                 sales_to_update.purvat = this.salessummary.purvat;
 

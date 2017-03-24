@@ -317,7 +317,7 @@ namespace XPump.Misc
                 saldat = sales.saldat,
                 dtest = sales.dtest,
                 dother = sales.dother,
-                dothertxt = sales.dothertxt,
+                //dothertxt = sales.dothertxt,
                 ddisc = sales.ddisc,
                 purvat = sales.purvat,
                 shift_id = sales.shift_id,
@@ -442,7 +442,7 @@ namespace XPump.Misc
                 working_express_db = working_express_db,
                 id = dayend.id,
                 saldat = dayend.saldat,
-                dothertxt = dayend.dothertxt,
+                //dothertxt = dayend.dothertxt,
                 dother = dayend.dother,
                 stmas_id = dayend.stmas_id,
                 dayend = dayend

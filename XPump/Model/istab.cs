@@ -12,32 +12,30 @@ namespace XPump.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class dayend
+    public partial class istab
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public dayend()
+        public istab()
         {
-            this.daysttak = new HashSet<daysttak>();
+            this.dayend = new HashSet<dayend>();
+            this.salessummary = new HashSet<salessummary>();
         }
     
         public int id { get; set; }
-        public System.DateTime saldat { get; set; }
-        public decimal rcvqty { get; set; }
-        public decimal salqty { get; set; }
-        public Nullable<int> dothercause_id { get; set; }
-        public decimal dother { get; set; }
-        public decimal difqty { get; set; }
-        public int stmas_id { get; set; }
+        public string tabtyp { get; set; }
+        public string typcod { get; set; }
+        public string shortnam { get; set; }
+        public string shortnam2 { get; set; }
+        public string typdes { get; set; }
+        public string typdes2 { get; set; }
         public string creby { get; set; }
         public System.DateTime cretime { get; set; }
         public string chgby { get; set; }
         public Nullable<System.DateTime> chgtime { get; set; }
-        public string apprby { get; set; }
-        public Nullable<System.DateTime> apprtime { get; set; }
     
-        public virtual istab istab { get; set; }
-        public virtual stmas stmas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<daysttak> daysttak { get; set; }
+        public virtual ICollection<dayend> dayend { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<salessummary> salessummary { get; set; }
     }
 }

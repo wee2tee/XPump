@@ -144,7 +144,7 @@ namespace XPump.SubForm
                             {
                                 id = -1,
                                 stmas_id = stmas_id,
-                                dothertxt = string.Empty,
+                                //dothertxt = string.Empty,
                                 saldat = dlg.selected_date,
 
                             }.ToViewModel(this.main_form.working_express_db);

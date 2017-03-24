@@ -29,6 +29,8 @@ namespace XPump.Model
         public System.DateTime cretime { get; set; }
         public string chgby { get; set; }
         public Nullable<System.DateTime> chgtime { get; set; }
+        public string apprby { get; set; }
+        public Nullable<System.DateTime> apprtime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<salessummary> salessummary { get; set; }
