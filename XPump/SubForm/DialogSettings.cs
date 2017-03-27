@@ -17,7 +17,7 @@ namespace XPump.SubForm
     public partial class DialogSettings : Form
     {
         private MainForm main_form;
-        private LocalConfig localconfig;
+        private DbConnectionConfig localconfig;
         private bool is_mysql_connected;
         private settings settings;
         private settings tmp_settings;
@@ -67,7 +67,7 @@ namespace XPump.SubForm
         private void BindConfigData2Control()
         {
             this.FormFreeze = true;
-            this.localconfig = new LocalDb(this.main_form.working_express_db).LocalConfig;
+            this.localconfig = new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
 
             this.loading_form = new LoadingForm();
             this.loading_form.ShowCenterParent(this);
@@ -90,7 +90,7 @@ namespace XPump.SubForm
                             {
                                 db.settings.Add(new settings
                                 {
-                                    express_data_path = string.Empty,
+                                    //express_data_path = string.Empty,
                                     orgname = string.Empty
                                 });
                                 db.SaveChanges();
@@ -125,7 +125,7 @@ namespace XPump.SubForm
 
             /* Form control */
             this.btnEditMysqlConnection.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnBrowseExpressData.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            //this.btnBrowseExpressData.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.txtOrgname.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.drShiftPrintMethod.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.drDayPrintMethod.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
@@ -142,7 +142,7 @@ namespace XPump.SubForm
                 settings = new settings
                 {
                     id = -1,
-                    express_data_path = string.Empty,
+                    //express_data_path = string.Empty,
                     orgname = string.Empty,
                     shiftauthlev = string.Empty,
                     shiftprintmet = "0",
@@ -153,7 +153,7 @@ namespace XPump.SubForm
 
             this.lblConnected.Visible = this.is_mysql_connected ? true : false;
             this.lblNotConnect.Visible = this.is_mysql_connected ? false : true;
-            this.txtExpressData._Text = settings.express_data_path;
+            //this.txtExpressData._Text = settings.express_data_path;
             this.txtOrgname._Text = settings.orgname;
             this.numShiftAuthLevel._Text = settings.shiftauthlev;
             this.drShiftPrintMethod._SelectedItem = this.drShiftPrintMethod._Items.Cast<XDropdownListItem>().Where(i => (string)i.Value == settings.shiftprintmet).First();
@@ -194,7 +194,7 @@ namespace XPump.SubForm
                 try
                 {
                     settings setting_to_update = db.settings.First();
-                    setting_to_update.express_data_path = this.tmp_settings.express_data_path;
+                    //setting_to_update.express_data_path = this.tmp_settings.express_data_path;
                     setting_to_update.orgname = this.tmp_settings.orgname;
 
                     db.SaveChanges();
@@ -223,31 +223,31 @@ namespace XPump.SubForm
             this.tmp_settings = null;
         }
 
-        private void btnBrowseExpressData_Click(object sender, EventArgs e)
-        {
-            DataTable dt = DbfTable.Sccomp();
-            if (dt == null)
-                return;
+        //private void btnBrowseExpressData_Click(object sender, EventArgs e)
+        //{
+        //    //DataTable dt = DbfTable.Sccomp();
+        //    //if (dt == null)
+        //    //    return;
 
-            List<SccompDbf> sccomp = dt.ToSccompList().OrderBy(s => s.compnam.Trim()).ToList(); //ToList<SccompDbf>();
+        //    //List<SccompDbf> sccomp = dt.ToSccompList().OrderBy(s => s.compnam.Trim()).ToList(); //ToList<SccompDbf>();
 
-            DialogSccompSelection sel = new DialogSccompSelection(this.main_form, sccomp, this.txtExpressData._Text.Trim());
-            if (sel.ShowDialog() == DialogResult.OK)
-            {
-                this.txtExpressData._Text = sel.selected_sccomp.path;
-            }
-        }
+        //    //DialogSccompSelection sel = new DialogSccompSelection(this.main_form, sccomp, this.txtExpressData._Text.Trim());
+        //    //if (sel.ShowDialog() == DialogResult.OK)
+        //    //{
+        //    //    this.txtExpressData._Text = sel.selected_sccomp.path;
+        //    //}
+        //}
 
-        private void txtExpressData__TextChanged(object sender, EventArgs e)
-        {
-            if (this.tmp_settings != null)
-                this.tmp_settings.express_data_path = ((XTextEdit)sender)._Text.Trim();
-        }
+        //private void txtExpressData__TextChanged(object sender, EventArgs e)
+        //{
+        //    //if (this.tmp_settings != null)
+        //    //    this.tmp_settings.express_data_path = ((XTextEdit)sender)._Text.Trim();
+        //}
 
-        private void txtExpressData__DoubleClicked(object sender, EventArgs e)
-        {
-            this.PerformEdit(sender, e);
-        }
+        //private void txtExpressData__DoubleClicked(object sender, EventArgs e)
+        //{
+        //    //this.PerformEdit(sender, e);
+        //}
 
         private void PerformEdit(object sender, EventArgs e)
         {

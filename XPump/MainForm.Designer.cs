@@ -46,6 +46,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.เปลยนบรษทToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -120,7 +121,8 @@
             // อนๆToolStripMenuItem
             // 
             this.อนๆToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuSettings});
+            this.mnuSettings,
+            this.เปลยนบรษทToolStripMenuItem});
             this.อนๆToolStripMenuItem.Name = "อนๆToolStripMenuItem";
             this.อนๆToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.อนๆToolStripMenuItem.Text = "อื่น ๆ";
@@ -128,7 +130,7 @@
             // mnuSettings
             // 
             this.mnuSettings.Name = "mnuSettings";
-            this.mnuSettings.Size = new System.Drawing.Size(132, 22);
+            this.mnuSettings.Size = new System.Drawing.Size(152, 22);
             this.mnuSettings.Text = "ตั้งค่าระบบ";
             this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
             // 
@@ -198,10 +200,16 @@
             // lblVersion
             // 
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(625, 19);
+            this.lblVersion.Size = new System.Drawing.Size(656, 19);
             this.lblVersion.Spring = true;
             this.lblVersion.Text = "version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // เปลยนบรษทToolStripMenuItem
+            // 
+            this.เปลยนบรษทToolStripMenuItem.Name = "เปลยนบรษทToolStripMenuItem";
+            this.เปลยนบรษทToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.เปลยนบรษทToolStripMenuItem.Text = "เปลี่ยนบริษัท";
             // 
             // MainForm
             // 
@@ -249,6 +257,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel lblUserID;
         private System.Windows.Forms.ToolStripStatusLabel lblVersion;
+        private System.Windows.Forms.ToolStripMenuItem เปลยนบรษทToolStripMenuItem;
     }
 }
 

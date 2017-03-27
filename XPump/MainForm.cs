@@ -87,6 +87,17 @@ namespace XPump
                     this.Close();
                     return;
                 }
+
+                LocalSecureDbConfig loc_sec = new LocalSecureDbConfig();
+                if (!loc_sec.ConfigValue.TestMysqlConnection().is_connected)
+                {
+                    DialogConnectDbServer conn_server = new DialogConnectDbServer(this);
+                    if(conn_server.ShowDialog() != DialogResult.OK)
+                    {
+                        this.Close();
+                        return;
+                    }
+                }
             }
             this.SetStatusLabelText(null, null, this.loged_in_status.loged_in_user_name);
 
@@ -117,8 +128,8 @@ namespace XPump
             }
             this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), null, null);
 
-            LocalDb local_db = new LocalDb(this.working_express_db);
-            if (local_db.LocalConfig.servername.Trim().Length == 0)
+            LocalDbConfig local_db = new LocalDbConfig(this.working_express_db);
+            if (local_db.ConfigValue.servername.Trim().Length == 0)
             {
                 DialogDbConfig config = new DialogDbConfig(this);
                 if (config.ShowDialog() != DialogResult.OK)
@@ -127,7 +138,7 @@ namespace XPump
                     return;
                 }
             }
-            else if (local_db.LocalConfig.TestMysqlDbConnection().is_connected == false)
+            else if (local_db.ConfigValue.TestMysqlDbConnection().is_connected == false)
             {
                 MessageBox.Show("ไม่สามารถเชื่อมต่อฐานข้อมูล MySql ได้, กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -138,7 +149,7 @@ namespace XPump
                     return;
                 }
             }
-            this.SetStatusLabelText(null, local_db.LocalConfig.dbname, null);
+            this.SetStatusLabelText(null, local_db.ConfigValue.dbname, null);
 
             //MySqlConnectionResult
         }

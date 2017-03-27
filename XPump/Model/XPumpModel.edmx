@@ -153,7 +153,6 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="express_data_path" Type="text" Nullable="false" />
           <Property Name="orgname" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="shiftprintmet" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="shiftauthlev" Type="varchar" MaxLength="1" Nullable="false" />
@@ -787,7 +786,6 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="express_data_path" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="orgname" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="shiftprintmet" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="shiftauthlev" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1416,7 +1414,6 @@
             <EntityTypeMapping TypeName="xpumpModel.settings">
               <MappingFragment StoreEntitySet="settings">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="express_data_path" ColumnName="express_data_path" />
                 <ScalarProperty Name="orgname" ColumnName="orgname" />
                 <ScalarProperty Name="shiftprintmet" ColumnName="shiftprintmet" />
                 <ScalarProperty Name="shiftauthlev" ColumnName="shiftauthlev" />

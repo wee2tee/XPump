@@ -68,7 +68,7 @@ namespace XPump.Model
 
         public static xpumpEntities DataSet(SccompDbf working_express_db)
         {
-            LocalConfig config = new LocalDb(working_express_db).LocalConfig;
+            DbConnectionConfig config = new LocalDbConfig(working_express_db).ConfigValue;
 
             DBX db_context = new DBX(config.servername, config.uid, config.passwordhash.Decrypted(), config.dbname, config.port);
             return db_context.GetDBEntities();

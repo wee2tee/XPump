@@ -15,7 +15,6 @@ namespace XPump.Model
     public partial class settings
     {
         public int id { get; set; }
-        public string express_data_path { get; set; }
         public string orgname { get; set; }
         public string shiftprintmet { get; set; }
         public string shiftauthlev { get; set; }

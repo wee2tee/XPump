@@ -17,14 +17,14 @@ namespace XPump.SubForm
     {
         //private LocalConfig localConfig;
         private MainForm main_form;
-        private LocalDb localDb;
-        private LocalConfig curr_config;
-        private LocalConfig tmp_config;
+        private LocalDbConfig localDb;
+        private DbConnectionConfig curr_config;
+        private DbConnectionConfig tmp_config;
         private bool FormFreeze
         {
             get
             {
-                return this.txtServerName.Enabled;
+                return !this.txtServerName.Enabled;
             }
             set
             {
@@ -70,14 +70,14 @@ namespace XPump.SubForm
             base.OnClosing(e);
         }
 
-        private LocalConfig LoadConfig()
+        private DbConnectionConfig LoadConfig()
         {
-            return new LocalDb(this.main_form.working_express_db).LocalConfig;
+            return new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
         }
 
-        private void FillForm(LocalConfig config_to_fill = null)
+        private void FillForm(DbConnectionConfig config_to_fill = null)
         {
-            LocalConfig config = config_to_fill != null ? config_to_fill : this.curr_config;
+            DbConnectionConfig config = config_to_fill != null ? config_to_fill : this.curr_config;
 
             this.txtServerName.Text = config.servername;
             this.txtDbName.Text = config.dbname;
@@ -163,7 +163,7 @@ namespace XPump.SubForm
             worker.RunWorkerAsync();
         }
 
-        private MySqlCreateResult CreateNewMysqlDB(LocalConfig local_config)
+        private MySqlCreateResult CreateNewMysqlDB(DbConnectionConfig local_config)
         {
             MySqlCreateResult create_result = new MySqlCreateResult { is_success = false, err_message = string.Empty };
 
@@ -190,7 +190,7 @@ namespace XPump.SubForm
                 // Settings Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`settings` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                cmd.CommandText += "`express_data_path` TEXT NOT NULL,";
+                //cmd.CommandText += "`express_data_path` TEXT NOT NULL,";
                 cmd.CommandText += "`orgname` VARCHAR(60) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`shiftprintmet` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '0 = not stricted, 1 = printed before authorize, 2 = authorized before print',";
                 cmd.CommandText += "`shiftauthlev` VARCHAR(1) NOT NULL DEFAULT '',";
@@ -497,7 +497,7 @@ namespace XPump.SubForm
                 cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`dbver` (`version`) VALUES ('1.0.0.0')";
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`settings` (`express_data_path`,`orgname`,`shiftprintmet`,`shiftauthlev`,`dayprintmet`,`dayauthlev`,`chgby`,`chgtime`) VALUES ('','','0','','0','',NULL,NULL)";
+                cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`settings` (`orgname`,`shiftprintmet`,`shiftauthlev`,`dayprintmet`,`dayauthlev`,`chgby`,`chgtime`) VALUES ('','0','','0','',NULL,NULL)";
                 cmd.ExecuteNonQuery();
 
                 create_result.is_success = true;

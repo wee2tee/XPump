@@ -32,35 +32,31 @@
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnBrowseExpressData = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btnEditMysqlConnection = new System.Windows.Forms.Button();
             this.lblNotConnect = new System.Windows.Forms.Label();
             this.lblConnected = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.numDayAuthLevel = new CC.XNumTextEdit();
             this.numShiftAuthLevel = new CC.XNumTextEdit();
             this.drDayPrintMethod = new CC.XDropdownList();
             this.drShiftPrintMethod = new CC.XDropdownList();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.txtOrgname = new CC.XTextEdit();
-            this.txtExpressData = new CC.XTextEdit();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -114,25 +110,6 @@
             this.btnStop.Text = "ยกเลิกการแก้ไขข้อมูล <Esc>";
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 39);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(182, 16);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "2. ที่เก็บข้อมูลโปรแกรม Express";
-            // 
-            // btnBrowseExpressData
-            // 
-            this.btnBrowseExpressData.Location = new System.Drawing.Point(463, 35);
-            this.btnBrowseExpressData.Name = "btnBrowseExpressData";
-            this.btnBrowseExpressData.Size = new System.Drawing.Size(28, 25);
-            this.btnBrowseExpressData.TabIndex = 3;
-            this.btnBrowseExpressData.Text = "...";
-            this.btnBrowseExpressData.UseVisualStyleBackColor = true;
-            this.btnBrowseExpressData.Click += new System.EventHandler(this.btnBrowseExpressData_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -160,15 +137,6 @@
             this.label4.TabIndex = 7;
             this.label4.Text = ":";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(187, 39);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(13, 16);
-            this.label5.TabIndex = 7;
-            this.label5.Text = ":";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -187,7 +155,7 @@
             this.btnEditMysqlConnection.Padding = new System.Windows.Forms.Padding(3);
             this.btnEditMysqlConnection.Size = new System.Drawing.Size(178, 30);
             this.btnEditMysqlConnection.TabIndex = 8;
-            this.btnEditMysqlConnection.Text = "แก้ไขการเชื่อมต่อ MySql";
+            this.btnEditMysqlConnection.Text = "แก้ไขการเชื่อมต่อ MySQL";
             this.btnEditMysqlConnection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEditMysqlConnection.UseVisualStyleBackColor = true;
             this.btnEditMysqlConnection.Click += new System.EventHandler(this.btnEditMysqlConnection_Click);
@@ -230,129 +198,17 @@
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.txtOrgname);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.btnBrowseExpressData);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.txtExpressData);
             this.panel1.Location = new System.Drawing.Point(17, 109);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(506, 231);
+            this.panel1.Size = new System.Drawing.Size(506, 202);
             this.panel1.TabIndex = 9;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(49, 118);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(167, 16);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "วิธีการพิมพ์ หรือรับรองรายการ";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 68);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(209, 16);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "3. การรับรอง/พิมพ์ รายการประจำผลัด";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(49, 92);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(184, 16);
-            this.label10.TabIndex = 7;
-            this.label10.Text = "รับรองรายการ ต้องขออนุมัติระดับ";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(233, 92);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(13, 16);
-            this.label11.TabIndex = 7;
-            this.label11.Text = ":";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(233, 118);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(13, 16);
-            this.label12.TabIndex = 7;
-            this.label12.Text = ":";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(277, 92);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(204, 16);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "0 หรือ เว้นว่าง = ไม่ต้องรับรอง, 1 - 9";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(233, 196);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(13, 16);
-            this.label13.TabIndex = 7;
-            this.label13.Text = ":";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(233, 170);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(13, 16);
-            this.label14.TabIndex = 7;
-            this.label14.Text = ":";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 146);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(199, 16);
-            this.label15.TabIndex = 7;
-            this.label15.Text = "4. การรับรอง/พิมพ์ รายการประจำวัน";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(49, 196);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(167, 16);
-            this.label16.TabIndex = 7;
-            this.label16.Text = "วิธีการพิมพ์ หรือรับรองรายการ";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(49, 170);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(184, 16);
-            this.label17.TabIndex = 7;
-            this.label17.Text = "รับรองรายการ ต้องขออนุมัติระดับ";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(277, 170);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(204, 16);
-            this.label18.TabIndex = 7;
-            this.label18.Text = "0 หรือ เว้นว่าง = ไม่ต้องรับรอง, 1 - 9";
             // 
             // numDayAuthLevel
             // 
@@ -364,11 +220,12 @@
             this.numDayAuthLevel.BackColor = System.Drawing.Color.White;
             this.numDayAuthLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numDayAuthLevel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numDayAuthLevel.Location = new System.Drawing.Point(252, 166);
+            this.numDayAuthLevel.Location = new System.Drawing.Point(252, 139);
             this.numDayAuthLevel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numDayAuthLevel.Name = "numDayAuthLevel";
             this.numDayAuthLevel.Size = new System.Drawing.Size(20, 23);
             this.numDayAuthLevel.TabIndex = 6;
+            this.numDayAuthLevel._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // numShiftAuthLevel
             // 
@@ -380,7 +237,7 @@
             this.numShiftAuthLevel.BackColor = System.Drawing.Color.White;
             this.numShiftAuthLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numShiftAuthLevel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numShiftAuthLevel.Location = new System.Drawing.Point(252, 88);
+            this.numShiftAuthLevel.Location = new System.Drawing.Point(252, 61);
             this.numShiftAuthLevel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numShiftAuthLevel.Name = "numShiftAuthLevel";
             this.numShiftAuthLevel.Size = new System.Drawing.Size(20, 23);
@@ -394,7 +251,7 @@
             this.drDayPrintMethod._Text = "";
             this.drDayPrintMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.drDayPrintMethod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.drDayPrintMethod.Location = new System.Drawing.Point(252, 193);
+            this.drDayPrintMethod.Location = new System.Drawing.Point(252, 166);
             this.drDayPrintMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.drDayPrintMethod.Name = "drDayPrintMethod";
             this.drDayPrintMethod.Size = new System.Drawing.Size(167, 23);
@@ -408,12 +265,120 @@
             this.drShiftPrintMethod._Text = "";
             this.drShiftPrintMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.drShiftPrintMethod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.drShiftPrintMethod.Location = new System.Drawing.Point(252, 115);
+            this.drShiftPrintMethod.Location = new System.Drawing.Point(252, 88);
             this.drShiftPrintMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.drShiftPrintMethod.Name = "drShiftPrintMethod";
             this.drShiftPrintMethod.Size = new System.Drawing.Size(167, 23);
             this.drShiftPrintMethod.TabIndex = 5;
             this.drShiftPrintMethod._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(277, 143);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(204, 16);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "0 หรือ เว้นว่าง = ไม่ต้องรับรอง, 1 - 9";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(277, 65);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(204, 16);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "0 หรือ เว้นว่าง = ไม่ต้องรับรอง, 1 - 9";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(49, 143);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(184, 16);
+            this.label17.TabIndex = 7;
+            this.label17.Text = "รับรองรายการ ต้องขออนุมัติระดับ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(49, 65);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(184, 16);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "รับรองรายการ ต้องขออนุมัติระดับ";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(49, 169);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(167, 16);
+            this.label16.TabIndex = 7;
+            this.label16.Text = "วิธีการพิมพ์ หรือรับรองรายการ";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(49, 91);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(167, 16);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "วิธีการพิมพ์ หรือรับรองรายการ";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 119);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(199, 16);
+            this.label15.TabIndex = 7;
+            this.label15.Text = "3. การรับรอง/พิมพ์ รายการประจำวัน";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(7, 41);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(209, 16);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "2. การรับรอง/พิมพ์ รายการประจำผลัด";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(233, 143);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(13, 16);
+            this.label14.TabIndex = 7;
+            this.label14.Text = ":";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(233, 169);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(13, 16);
+            this.label13.TabIndex = 7;
+            this.label13.Text = ":";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(233, 65);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(13, 16);
+            this.label11.TabIndex = 7;
+            this.label11.Text = ":";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(233, 91);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(13, 16);
+            this.label12.TabIndex = 7;
+            this.label12.Text = ":";
             // 
             // txtOrgname
             // 
@@ -433,29 +398,11 @@
             this.txtOrgname._TextChanged += new System.EventHandler(this.txtOrgname__TextChanged);
             this.txtOrgname._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
-            // txtExpressData
-            // 
-            this.txtExpressData._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtExpressData._MaxLength = 32767;
-            this.txtExpressData._ReadOnly = true;
-            this.txtExpressData._Text = "";
-            this.txtExpressData._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtExpressData.BackColor = System.Drawing.Color.White;
-            this.txtExpressData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtExpressData.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtExpressData.Location = new System.Drawing.Point(204, 36);
-            this.txtExpressData.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtExpressData.Name = "txtExpressData";
-            this.txtExpressData.Size = new System.Drawing.Size(260, 23);
-            this.txtExpressData.TabIndex = 2;
-            this.txtExpressData._TextChanged += new System.EventHandler(this.txtExpressData__TextChanged);
-            this.txtExpressData._DoubleClicked += new System.EventHandler(this.txtExpressData__DoubleClicked);
-            // 
             // DialogSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 358);
+            this.ClientSize = new System.Drawing.Size(542, 331);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnEditMysqlConnection);
             this.Controls.Add(this.lblNotConnect);
@@ -490,15 +437,11 @@
         private System.Windows.Forms.ToolStripButton btnEdit;
         private System.Windows.Forms.ToolStripButton btnStop;
         private System.Windows.Forms.ToolStripButton btnSave;
-        private System.Windows.Forms.Label label1;
-        private CC.XTextEdit txtExpressData;
-        private System.Windows.Forms.Button btnBrowseExpressData;
         private System.Windows.Forms.Label label2;
         private CC.XTextEdit txtOrgname;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnEditMysqlConnection;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblConnected;
         private System.Windows.Forms.Label lblNotConnect;

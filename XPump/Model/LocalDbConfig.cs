@@ -12,10 +12,10 @@ using System.ComponentModel;
 
 namespace XPump.Model
 {
-    public class LocalDb
+    public class LocalDbConfig
     {
         public SQLiteConnection connection;
-        private string local_db_file_name = "XPUMP.RDB";
+        private string dbconfig_file_name = "XPUMP.RDB";
 
         //public LocalDb()
         //{
@@ -28,17 +28,17 @@ namespace XPump.Model
 
         //}
 
-        public LocalDb(SccompDbf working_express_db)
+        public LocalDbConfig(SccompDbf working_express_db)
         {
-            if (!File.Exists(working_express_db.abs_path + @"\" + this.local_db_file_name))
+            if (!File.Exists(working_express_db.abs_path + @"\" + this.dbconfig_file_name))
             {
-                SQLiteConnection.CreateFile(working_express_db.abs_path + @"\" + this.local_db_file_name);
+                SQLiteConnection.CreateFile(working_express_db.abs_path + @"\" + this.dbconfig_file_name);
             }
 
-            this.connection = new SQLiteConnection("Data Source=" + working_express_db.abs_path + @"\" + this.local_db_file_name + ";Version=3");
+            this.connection = new SQLiteConnection("Data Source=" + working_express_db.abs_path + @"\" + this.dbconfig_file_name + ";Version=3");
         }
 
-        public LocalConfig LocalConfig
+        public DbConnectionConfig ConfigValue
         {
             get
             {
@@ -60,10 +60,10 @@ namespace XPump.Model
                 string sql_select = "SELECT * from config WHERE id = 1";
                 SQLiteCommand cmd_select = new SQLiteCommand(sql_select, this.connection);
                 SQLiteDataReader reader = cmd_select.ExecuteReader();
-                LocalConfig config = null;
+                DbConnectionConfig config = null;
                 while (reader.Read())
                 {
-                    config = new Model.LocalConfig
+                    config = new Model.DbConnectionConfig
                     {
                         id = Convert.ToInt32(reader["id"]),
                         servername = reader["servername"].ToString(),
@@ -99,7 +99,7 @@ namespace XPump.Model
         }
     }
 
-    public partial class LocalConfig
+    public partial class DbConnectionConfig
     {
         public int id { get; set; }
         public string servername { get; set; }
@@ -113,11 +113,11 @@ namespace XPump.Model
     {
         /** SQLite **/
 
-        public static bool Save(this LocalConfig local_config, SccompDbf working_express_db)
+        public static bool Save(this DbConnectionConfig local_config, SccompDbf working_express_db)
         {
             try
             {
-                LocalDb db = new LocalDb(working_express_db);
+                LocalDbConfig db = new LocalDbConfig(working_express_db);
                 db.connection.Open();
                 string sql = "UPDATE config SET servername='" + local_config.servername + "', dbname='" + local_config.dbname + "', port=" + local_config.port.ToString() + ", uid='" + local_config.uid + "', passwordhash='" + local_config.passwordhash + "' WHERE id = 1";
                 SQLiteCommand cmd = new SQLiteCommand(sql, db.connection);
@@ -134,13 +134,13 @@ namespace XPump.Model
 
         /** MySQL **/
 
-        public static MySqlConnection GetMysqlDbConnection(this LocalConfig local_config)
+        public static MySqlConnection GetMysqlDbConnection(this DbConnectionConfig local_config)
         {
             var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Database=" + local_config.dbname + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted();
             return new MySqlConnection(conn_info);
         }
 
-        public static MySqlConnectionResult TestMysqlDbConnection(this LocalConfig local_config)
+        public static MySqlConnectionResult TestMysqlDbConnection(this DbConnectionConfig local_config)
         {
             MySqlConnectionResult conn_result = new MySqlConnectionResult { is_connected = false, err_message = string.Empty, connection_code = MYSQL_CONNECTION.DISCONNECTED };
 

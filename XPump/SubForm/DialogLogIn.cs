@@ -15,11 +15,13 @@ namespace XPump.SubForm
     public partial class DialogLogIn : Form
     {
         private MainForm main_form;
+        private Log log;
 
         public DialogLogIn(MainForm main_form)
         {
             InitializeComponent();
             this.main_form = main_form;
+            this.log = new Log(this.main_form);
         }
 
         private void DialogLogIn_Load(object sender, EventArgs e)
@@ -33,13 +35,13 @@ namespace XPump.SubForm
 
             if (login_result.result == true)
             {
-                //this.main_form.logedin_user_name = login_result.loged_in_user_name;
                 this.main_form.loged_in_status = login_result;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             else
             {
+                this.log.LoginFail.SetLogDescription(login_result.loged_in_user_name, login_result.err_message);
                 MessageBox.Show(login_result.err_message, "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 this.txtUserID.Focus();
             }
