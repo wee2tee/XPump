@@ -84,19 +84,25 @@ namespace XPump.SubForm
             this.inline_btnSaleshistory.SetControlVisibility(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            if (this.form_mode != FORM_MODE.READ && this.form_mode != FORM_MODE.READ_ITEM)
-            {
-                if (MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-            }
+        //protected override void OnFormClosing(FormClosingEventArgs e)
+        //{
+        //    if (this.form_mode != FORM_MODE.READ && this.form_mode != FORM_MODE.READ_ITEM)
+        //    {
+        //        if (MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
+        //        {
+        //            e.Cancel = true;
+        //            return;
+        //        }
+        //    }
 
+        //    this.main_form.opened_child_form.Remove(this.main_form.opened_child_form.Where(f => f.form.GetType() == this.GetType()).First());
+        //    base.OnFormClosing(e);
+        //}
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
             this.main_form.opened_child_form.Remove(this.main_form.opened_child_form.Where(f => f.form.GetType() == this.GetType()).First());
-            base.OnFormClosing(e);
+            base.OnFormClosed(e);
         }
 
         public shiftsales GetShiftSales(int id)

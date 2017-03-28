@@ -136,7 +136,7 @@ namespace XPump.Model
 
         public static MySqlConnection GetMysqlDbConnection(this DbConnectionConfig local_config)
         {
-            var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Database=" + local_config.dbname + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted();
+            var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Database=" + local_config.dbname + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted() + ";Character Set=utf8";
             return new MySqlConnection(conn_info);
         }
 

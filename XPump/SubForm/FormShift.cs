@@ -198,19 +198,25 @@ namespace XPump.SubForm
             this.inline_siv.Visible = false;
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
+        //protected override void OnFormClosing(FormClosingEventArgs e)
+        //{
+        //    if(this.form_mode != FORM_MODE.READ)
+        //    {
+        //        if (MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
+        //        {
+        //            e.Cancel = true;
+        //            return;
+        //        }
+        //    }
+        //    this.RemoveInlineControl();
+        //    this.main_form.opened_child_form.Remove(this.main_form.opened_child_form.Where(f => f.form.GetType() == this.GetType()).First());
+        //    base.OnFormClosing(e);
+        //}
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            if(this.form_mode != FORM_MODE.READ)
-            {
-                if (MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-            }
-            this.RemoveInlineControl();
             this.main_form.opened_child_form.Remove(this.main_form.opened_child_form.Where(f => f.form.GetType() == this.GetType()).First());
-            base.OnFormClosing(e);
+            base.OnFormClosed(e);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

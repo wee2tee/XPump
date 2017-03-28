@@ -63,7 +63,7 @@ namespace XPump.Model
 
         public xpumpEntities GetDBEntities()
         {
-            return new xpumpEntities("metadata=res://*/Model.XPumpModel.csdl|res://*/Model.XPumpModel.ssdl|res://*/Model.XPumpModel.msl;provider=MySql.Data.MySqlClient;provider connection string=\"Data Source=" + this.server_name + ";Initial Catalog=" + this.db_name + ";Persist Security Info=True;User ID=" + this.db_userid + ";Password=" + this.db_password + ";charset=utf8\"");
+            return new xpumpEntities("metadata=res://*/Model.XPumpModel.csdl|res://*/Model.XPumpModel.ssdl|res://*/Model.XPumpModel.msl;provider=MySql.Data.MySqlClient;provider connection string=\"Data Source=" + this.server_name + ";Port=" + this.port_no.ToString() +";Initial Catalog=" + this.db_name + ";Persist Security Info=True;User ID=" + this.db_userid + ";Password=" + this.db_password + ";charset=utf8\"");
         }
 
         public static xpumpEntities DataSet(SccompDbf working_express_db)

@@ -98,6 +98,12 @@ namespace XPump.Model
 
     public static class SecureDbHelper
     {
+        public static MySqlConnection GetSecureDbConnection(this SecureDbConnectionConfig config)
+        {
+            MySqlConnection conn = new MySqlConnection("Server=" + config.servername + ";Port=" + config.port.ToString() + ";Database=xpumpsecure;Uid=" + config.uid + ";Pwd=" + config.passwordhash.Decrypted() + ";Character Set=utf8");
+            return conn;
+        }
+
         public static MySqlConnectionResult TestMysqlConnection(this SecureDbConnectionConfig config)
         {
             MySqlConnectionResult conn_result = new MySqlConnectionResult { is_connected = false, err_message = string.Empty, connection_code = MYSQL_CONNECTION.DISCONNECTED };
@@ -116,6 +122,59 @@ namespace XPump.Model
                 {
                     conn_result.connection_code = MYSQL_CONNECTION.HOST_NOT_FOUND;
                     conn_result.err_message = "ไม่สามารถเชื่อมต่อไปยังเซิร์ฟเวอร์ \"" + config.servername + "\", กรุณาตรวจสอบการกำหนดค่าการเชื่อมต่อฐานข้อมูล MySQL อีกครั้ง";
+                }
+                else if(ex.Message.ToLower().Contains("access denied for user"))
+                {
+                    conn_result.connection_code = MYSQL_CONNECTION.ACCESS_DENIED;
+                    conn_result.err_message = "รหัสผู้ใช้/รหัสผ่าน ไม่ถูกต้อง";
+                }
+                else
+                {
+                    conn_result.connection_code = MYSQL_CONNECTION.DISCONNECTED;
+                    conn_result.err_message = ex.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                conn_result.is_connected = false;
+                conn_result.err_message = ex.Message;
+                conn_result.connection_code = MYSQL_CONNECTION.DISCONNECTED;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                    conn.Dispose();
+                    conn = null;
+                }
+            }
+            return conn_result;
+        }
+
+        public static MySqlConnectionResult TestMysqlSecureDbExist(this SecureDbConnectionConfig config)
+        {
+            MySqlConnectionResult conn_result = new MySqlConnectionResult { is_connected = false, err_message = string.Empty, connection_code = MYSQL_CONNECTION.DISCONNECTED };
+
+            MySqlConnection conn = config.GetSecureDbConnection(); //new MySqlConnection("Server=" + config.servername + ";Port=" + config.port.ToString() + ";Database=xpumpsecure;Uid=" + config.uid + ";Pwd=" + config.passwordhash.Decrypted());
+            try
+            {
+                conn.Open();
+                conn_result.is_connected = true;
+                conn_result.connection_code = MYSQL_CONNECTION.CONNECTED;
+            }
+            catch (MySqlException ex)
+            {
+                conn_result.is_connected = false;
+                if (ex.Message.ToLower().Contains("unable to connect to any of the specified mysql hosts"))
+                {
+                    conn_result.connection_code = MYSQL_CONNECTION.HOST_NOT_FOUND;
+                    conn_result.err_message = "ไม่สามารถเชื่อมต่อไปยังเซิร์ฟเวอร์ \"" + config.servername + "\", กรุณาตรวจสอบการกำหนดค่าการเชื่อมต่อฐานข้อมูล MySQL อีกครั้ง";
+                }
+                else if (ex.Message.ToLower().Contains("access denied for user"))
+                {
+                    conn_result.connection_code = MYSQL_CONNECTION.ACCESS_DENIED;
+                    conn_result.err_message = "รหัสผู้ใช้/รหัสผ่าน ไม่ถูกต้อง";
                 }
                 else
                 {

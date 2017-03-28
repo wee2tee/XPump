@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using XPump.Misc;
 using XPump.Model;
 using CC;
+using MySql.Data.MySqlClient;
 
 namespace XPump.SubForm
 {
@@ -28,6 +29,7 @@ namespace XPump.SubForm
             {
                 this.txtServerName.Enabled = !value;
                 this.numPort.Enabled = !value;
+                this.btnDefaultPort.Enabled = !value;
                 this.txtUserId.Enabled = !value;
                 this.txtPwd.Enabled = !value;
                 this.txtConfPwd.Enabled = !value;
@@ -105,21 +107,162 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var test_connect = this.curr_config.TestMysqlConnection();
-
-            if (test_connect.is_connected)
+            if(this.curr_config.servername.Trim().Length == 0)
             {
-                if (this.curr_config.Save())
+                MessageBox.Show("กรุณาป้อนชื่อเซิร์ฟเวอร์ MySQL", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                this.txtServerName.Focus();
+                return;
+            }
+            if(this.curr_config.uid.Trim().Length == 0)
+            {
+                MessageBox.Show("กรุณาป้อนรหัสผู้ใช้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                this.txtUserId.Focus();
+                return;
+            }
+            if(this.txtPwd.Text != this.txtConfPwd.Text)
+            {
+                MessageBox.Show("กรุณายืนยันรหัสผ่านให้ถูกต้อง", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                this.txtConfPwd.Focus();
+                this.txtConfPwd.SelectionStart = 0;
+                this.txtConfPwd.SelectionLength = this.txtConfPwd.Text.Length;
+                return;
+            }
+
+            this.FormFreeze = true;
+            LoadingForm loading = new LoadingForm();
+            loading.ShowCenterParent(this);
+            MySqlConnectionResult conn_result = new MySqlConnectionResult { is_connected = false, err_message = string.Empty, connection_code = MYSQL_CONNECTION.DISCONNECTED };
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += delegate
+            {
+                conn_result = this.curr_config.TestMysqlConnection();
+            };
+            worker.RunWorkerCompleted += delegate
+            {
+                if (conn_result.is_connected)
                 {
-                    //MessageBox.Show("save secure success");
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    var create_secure_db_result = this.CreateNewMysqlSecureDB(this.curr_config);
+                    if (create_secure_db_result.is_success)
+                    {
+                        loading.Close();
+                        if (this.curr_config.Save())
+                        {
+                            this.FormFreeze = false;
+                            this.main_form.secure_db_config = this.curr_config;
+                            this.DialogResult = DialogResult.OK;
+                            this.Close();
+                        }
+                        else
+                        {
+                            this.FormFreeze = false;
+                        }
+                    }
+                    else
+                    {
+                        loading.Close();
+                        this.FormFreeze = false;
+                        MessageBox.Show(create_secure_db_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    loading.Close();
+                    this.FormFreeze = false;
+                    MessageBox.Show(conn_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            worker.RunWorkerAsync();
+        }
+
+        private MySqlCreateResult CreateNewMysqlSecureDB(SecureDbConnectionConfig config)
+        {
+            MySqlCreateResult create_result = new MySqlCreateResult { is_success = false, err_message = string.Empty };
+
+            var conn_info = "Server=" + config.servername + ";Port=" + config.port.ToString() + ";Uid=" + config.uid + ";Pwd=" + config.passwordhash.Decrypted();
+
+            MySqlConnection conn = new MySqlConnection(conn_info);
+
+            try
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("CREATE DATABASE IF NOT EXISTS xpumpsecure", conn);
+                cmd.ExecuteNonQuery();
+
+                //// DBVer Table
+                //cmd.CommandText = "CREATE TABLE IF NOT EXISTS `XPumpSecure`.`dbver` ";
+                //cmd.CommandText += "(`id` INT(7) NOT NULL AUTO_INCREMENT,";
+                //cmd.CommandText += "`version` VARCHAR(15) NOT NULL DEFAULT '',";
+                //cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                //cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
+                //cmd.CommandText += "PRIMARY KEY (`id`)) ";
+                //cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                //cmd.ExecuteNonQuery();
+
+                // Daysttak Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `xpumpsecure`.`islog` ";
+                cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`logcode` VARCHAR(10) NOT NULL,";
+                cmd.CommandText += "`expressdata` VARCHAR(50) NULL,";
+                cmd.CommandText += "`xpumpdata` VARCHAR(50) NULL,";
+                cmd.CommandText += "`menuid` VARCHAR(20) NULL,";
+                cmd.CommandText += "`docnum` VARCHAR(50) NULL,";
+                cmd.CommandText += "`description` VARCHAR(200) NULL,";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
+                cmd.CommandText += "PRIMARY KEY(`id`),";
+                cmd.CommandText += "INDEX `ndx-xlog-logcode` (`logcode` ASC),";
+                cmd.CommandText += "INDEX `ndx-xlog-menuid` (`menuid` ASC),";
+                cmd.CommandText += "INDEX `ndx-xlog-username` (`username` ASC)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
+
+                create_result.is_success = true;
+
+                // ** Upgrade DB Version here ** //
+
+            }
+            catch (MySqlException ex)
+            {
+                create_result.is_success = false;
+                create_result.err_message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                create_result.is_success = false;
+                create_result.err_message = ex.Message;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                    conn.Dispose();
+                    conn = null;
                 }
             }
-            else
+
+            return create_result;
+        }
+
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.Enter)
             {
-                MessageBox.Show(test_connect.err_message);
+                if (!this.FormFreeze && !(this.btnSave.Focused || this.btnCancel.Focused))
+                {
+                    SendKeys.Send("{TAB}");
+                    return true;
+                }
             }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void btnDefaultPort_Click(object sender, EventArgs e)
+        {
+            this.numPort.Value = 3306m;
         }
     }
 }

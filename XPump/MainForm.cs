@@ -20,6 +20,8 @@ namespace XPump
         public List<ChildFormDetail> opened_child_form = new List<ChildFormDetail>();
         public LoginStatus loged_in_status;
         public SccompDbf working_express_db;
+        public SecureDbConnectionConfig secure_db_config;
+        public Log islog;
 
         public MainForm()
         {
@@ -72,14 +74,28 @@ namespace XPump
             //{
             //    Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "/Local");
             //}
+            this.islog = new Log(this);
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             this.lblVersion.Text = string.Format("XPump V.{0}", version);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            // CREATE MYSQL DB FOR STORING ISLOG
+            LocalSecureDbConfig loc_sec = new LocalSecureDbConfig();
+            if (!loc_sec.ConfigValue.TestMysqlSecureDbExist().is_connected) //!loc_sec.ConfigValue.TestMysqlConnection().is_connected)
+            {
+                DialogConnectDbServer conn_server = new DialogConnectDbServer(this);
+                if (conn_server.ShowDialog() != DialogResult.OK)
+                {
+                    this.Close();
+                    return;
+                }
+            }
+            this.secure_db_config = new LocalSecureDbConfig().ConfigValue;
+
             // LOG-IN
-            if(this.loged_in_status == null)
+            if (this.loged_in_status == null)
             {
                 DialogLogIn login = new DialogLogIn(this);
                 if(login.ShowDialog() != DialogResult.OK)
@@ -87,23 +103,11 @@ namespace XPump
                     this.Close();
                     return;
                 }
-
-                LocalSecureDbConfig loc_sec = new LocalSecureDbConfig();
-                if (!loc_sec.ConfigValue.TestMysqlConnection().is_connected)
-                {
-                    DialogConnectDbServer conn_server = new DialogConnectDbServer(this);
-                    if(conn_server.ShowDialog() != DialogResult.OK)
-                    {
-                        this.Close();
-                        return;
-                    }
-                }
             }
             this.SetStatusLabelText(null, null, this.loged_in_status.loged_in_user_name);
 
             // SELECT COMPANY
             List<SccompDbf> sccomp = DbfTable.Sccomp().ToSccompList().OrderBy(s => s.compnam).ToList();
-
             
             if (this.loged_in_status.is_secure)
             {
@@ -120,6 +124,7 @@ namespace XPump
             if (sel.ShowDialog() == DialogResult.OK)
             {
                 this.working_express_db = sel.selected_sccomp;
+                this.islog.SelectCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
             }
             else
             {
@@ -240,6 +245,34 @@ namespace XPump
             this.lblExpressDataPath.Text = express_db_path != null ? express_db_path : this.lblExpressDataPath.Text;
             this.lblMysqlDbName.Text = mysql_db_name != null ? mysql_db_name : this.lblMysqlDbName.Text;
             this.lblUserID.Text = user_name != null ? user_name : this.lblUserID.Text;
+        }
+
+        public string GetCurrentDbName()
+        {
+            if (this.working_express_db == null)
+                return string.Empty;
+
+            LocalDbConfig loc = new LocalDbConfig(this.working_express_db);
+            return loc != null ? loc.ConfigValue.servername + "." + loc.ConfigValue.dbname : string.Empty;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if(this.opened_child_form.Count > 0)
+            {
+                if(MessageBox.Show("โปรแกรมจะปิดงานที่เปิดค้างอยู่ทั้งหมดให้ก่อน", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
+            if(this.loged_in_status != null)
+            {
+                this.islog.Logout(this.loged_in_status.loged_in_user_name).Save();
+            }
+            
+            base.OnFormClosing(e);
         }
     }
 

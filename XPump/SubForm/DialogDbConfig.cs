@@ -131,25 +131,36 @@ namespace XPump.SubForm
                         loading.ShowCenterParent(context);
                         if(MessageBox.Show(conn_result.err_message + " ต้องการสร้างฐานข้อมูลดังกล่าวขึ้นมาใหม่หรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                         {
-                            MySqlCreateResult create_result = this.CreateNewMysqlDB(this.curr_config);
-
-                            if(create_result.is_success)
+                            MySqlCreateResult create_result = new MySqlCreateResult { is_success = false, err_message = string.Empty };
+                            BackgroundWorker wk = new BackgroundWorker();
+                            wk.DoWork += delegate
                             {
-                                // Create new MySQL DB success.
-                                if(this.curr_config.Save(this.main_form.working_express_db) == true)
+                                create_result = this.CreateNewMysqlDB(this.curr_config);
+                            };
+                            wk.RunWorkerCompleted += delegate
+                            {
+                                if (create_result.is_success)
+                                {
+                                    // Create new MySQL DB success.
+                                    loading.Close();
+                                    if (this.curr_config.Save(this.main_form.working_express_db) == true)
+                                    {
+                                        this.DialogResult = DialogResult.OK;
+                                        this.Close();
+                                    }
+                                }
+                                else
                                 {
                                     loading.Close();
-                                    this.DialogResult = DialogResult.OK;
-                                    this.Close();
+                                    MessageBox.Show(create_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
-                            }
-                            else
-                            {
-                                loading.Close();
-                                MessageBox.Show(create_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
+                            };
+                            wk.RunWorkerAsync();
                         }
-                        loading.Close();
+                        else
+                        {
+                            loading.Close();
+                        }
                     }
                     else
                     {
@@ -167,7 +178,7 @@ namespace XPump.SubForm
         {
             MySqlCreateResult create_result = new MySqlCreateResult { is_success = false, err_message = string.Empty };
 
-            var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted();
+            var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted() + ";Character Set=utf8";
 
             MySqlConnection conn = new MySqlConnection(conn_info);
 
@@ -202,18 +213,18 @@ namespace XPump.SubForm
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
-                // Xlog Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`xlog` ";
-                cmd.CommandText += "(`id` INT(15) NOT NULL,";
-                cmd.CommandText += "`logcode` VARCHAR(10) NOT NULL,";
-                cmd.CommandText += "`description` VARCHAR(50) NULL,";
-                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
-                cmd.CommandText += "PRIMARY KEY(`id`),";
-                cmd.CommandText += "INDEX `ndx - xlog - logcode` (`logcode` ASC),";
-                cmd.CommandText += "INDEX `ndx - xlog - username` (`username` ASC)) ";
-                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                cmd.ExecuteNonQuery();
+                //// Xlog Table
+                //cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`xlog` ";
+                //cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
+                //cmd.CommandText += "`logcode` VARCHAR(10) NOT NULL,";
+                //cmd.CommandText += "`description` VARCHAR(50) NULL,";
+                //cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                //cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
+                //cmd.CommandText += "PRIMARY KEY(`id`),";
+                //cmd.CommandText += "INDEX `ndx - xlog - logcode` (`logcode` ASC),";
+                //cmd.CommandText += "INDEX `ndx - xlog - username` (`username` ASC)) ";
+                //cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                //cmd.ExecuteNonQuery();
 
                 // Istab Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`istab` ";
