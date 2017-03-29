@@ -38,6 +38,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.อนๆToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuChangeCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblUserID = new System.Windows.Forms.ToolStripStatusLabel();
@@ -46,7 +47,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.เปลยนบรษทToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -122,7 +122,7 @@
             // 
             this.อนๆToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuSettings,
-            this.เปลยนบรษทToolStripMenuItem});
+            this.mnuChangeCompany});
             this.อนๆToolStripMenuItem.Name = "อนๆToolStripMenuItem";
             this.อนๆToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.อนๆToolStripMenuItem.Text = "อื่น ๆ";
@@ -133,6 +133,13 @@
             this.mnuSettings.Size = new System.Drawing.Size(152, 22);
             this.mnuSettings.Text = "ตั้งค่าระบบ";
             this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
+            // 
+            // mnuChangeCompany
+            // 
+            this.mnuChangeCompany.Name = "mnuChangeCompany";
+            this.mnuChangeCompany.Size = new System.Drawing.Size(152, 22);
+            this.mnuChangeCompany.Text = "เปลี่ยนบริษัท";
+            this.mnuChangeCompany.Click += new System.EventHandler(this.mnuChangeCompany_Click);
             // 
             // statusStrip1
             // 
@@ -205,12 +212,6 @@
             this.lblVersion.Text = "version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // เปลยนบรษทToolStripMenuItem
-            // 
-            this.เปลยนบรษทToolStripMenuItem.Name = "เปลยนบรษทToolStripMenuItem";
-            this.เปลยนบรษทToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.เปลยนบรษทToolStripMenuItem.Text = "เปลี่ยนบริษัท";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -257,7 +258,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel lblUserID;
         private System.Windows.Forms.ToolStripStatusLabel lblVersion;
-        private System.Windows.Forms.ToolStripMenuItem เปลยนบรษทToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuChangeCompany;
     }
 }
 

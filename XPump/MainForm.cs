@@ -52,14 +52,7 @@ namespace XPump
                         }
                     }
 
-                    //MessageBox.Show("user : \"" + user_name + "\"");
-                    //MessageBox.Show("pass : \"" + password + "\"");
-
                     this.loged_in_status = DialogLogIn.ValidateUser(user_name, password);
-                    //if (login.result == true)
-                    //{
-                    //    this.logedin_user_name = login.loged_in_user_name;
-                    //}
                 }
                 catch (Exception)
                 {
@@ -104,59 +97,73 @@ namespace XPump
                     return;
                 }
             }
-            this.SetStatusLabelText(null, null, this.loged_in_status.loged_in_user_name);
-
-            // SELECT COMPANY
-            List<SccompDbf> sccomp = DbfTable.Sccomp().ToSccompList().OrderBy(s => s.compnam).ToList();
-            
-            if (this.loged_in_status.is_secure)
-            {
-                List<string> comp_codes = DbfTable.Scacclv().ToScacclvList()
-                                    .Where(s => s.compcod.Trim().Length > 0)
-                                    .Where(s => s.accessid.Trim() == this.loged_in_status.loged_in_user_name || s.accessid.Trim() == this.loged_in_status.loged_in_user_group)
-                                    .Where(s => s.isread == "Y")
-                                    .Select(s => s.compcod).Distinct<string>().ToList();
-
-                sccomp = sccomp.Where(s => comp_codes.Contains(s.compcod)).ToList();
-            }
-            
-            DialogSccompSelection sel = new DialogSccompSelection(this, sccomp, string.Empty);
-            if (sel.ShowDialog() == DialogResult.OK)
-            {
-                this.working_express_db = sel.selected_sccomp;
-                this.islog.SelectCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
-            }
             else
             {
-                this.Close();
-                return;
+                this.islog.LoginSuccess(this.loged_in_status.loged_in_user_name).Save();
             }
-            this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), null, null);
+            this.SetStatusLabelText(null, null, this.loged_in_status.loged_in_user_name);
 
-            LocalDbConfig local_db = new LocalDbConfig(this.working_express_db);
-            if (local_db.ConfigValue.servername.Trim().Length == 0)
-            {
-                DialogDbConfig config = new DialogDbConfig(this);
-                if (config.ShowDialog() != DialogResult.OK)
-                {
-                    this.Close();
-                    return;
-                }
-            }
-            else if (local_db.ConfigValue.TestMysqlDbConnection().is_connected == false)
-            {
-                MessageBox.Show("ไม่สามารถเชื่อมต่อฐานข้อมูล MySql ได้, กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            this.mnuChangeCompany.PerformClick();
+            // SELECT COMPANY
+            //List<SccompDbf> sccomp = DbfTable.Sccomp().ToSccompList().OrderBy(s => s.compnam).ToList();
+            
+            //if (this.loged_in_status.is_secure)
+            //{
+            //    List<string> comp_codes = DbfTable.Scacclv().ToScacclvList()
+            //                        .Where(s => s.compcod.Trim().Length > 0)
+            //                        .Where(s => s.accessid.Trim() == this.loged_in_status.loged_in_user_name || s.accessid.Trim() == this.loged_in_status.loged_in_user_group)
+            //                        .Where(s => s.isread == "Y")
+            //                        .Select(s => s.compcod).Distinct<string>().ToList();
 
-                DialogDbConfig config = new DialogDbConfig(this);
-                if (config.ShowDialog() != DialogResult.OK)
-                {
-                    this.Close();
-                    return;
-                }
-            }
-            this.SetStatusLabelText(null, local_db.ConfigValue.dbname, null);
+            //    sccomp = sccomp.Where(s => comp_codes.Contains(s.compcod)).ToList();
+            //}
+            
+            //DialogSccompSelection sel = new DialogSccompSelection(this, sccomp, string.Empty);
+            //if (sel.ShowDialog() == DialogResult.OK)
+            //{
+            //    this.working_express_db = sel.selected_sccomp;
+            //    this.islog.SelectCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
+            //}
+            //else
+            //{
+            //    this.Close();
+            //    return;
+            //}
+            //this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), null, null);
 
-            //MySqlConnectionResult
+            //LocalDbConfig local_db = new LocalDbConfig(this.working_express_db);
+            //if (local_db.ConfigValue.servername.Trim().Length == 0)
+            //{
+            //    DialogDbConfig config = new DialogDbConfig(this);
+            //    if (config.ShowDialog() != DialogResult.OK)
+            //    {
+            //        this.Close();
+            //        return;
+            //    }
+            //}
+            //else
+            //{
+            //    MySqlConnectionResult test_connect = local_db.ConfigValue.TestMysqlDbConnection();
+
+            //    if (test_connect.is_connected)
+            //    {
+            //        this.islog.ConnectMysqlSuccess(local_db.ConfigValue.servername, local_db.ConfigValue.dbname).Save();
+            //    }
+            //    else
+            //    {
+            //        this.islog.ConnectMysqlFail(local_db.ConfigValue.servername, local_db.ConfigValue.dbname, test_connect.err_message).Save();
+            //        MessageBox.Show(test_connect.err_message + ", กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //        DialogDbConfig config = new DialogDbConfig(this);
+            //        if (config.ShowDialog() != DialogResult.OK)
+            //        {
+            //            this.Close();
+            //            return;
+            //        }
+            //    }
+                    
+            //}
+            //this.SetStatusLabelText(null, local_db.ConfigValue.dbname, null);
         }
 
         private void MnuShift_Click(object sender, EventArgs e)
@@ -223,6 +230,78 @@ namespace XPump
         {
             DialogSettings setting = new DialogSettings(this);
             setting.ShowDialog();
+        }
+
+        private void mnuChangeCompany_Click(object sender, EventArgs e)
+        {
+            List<SccompDbf> sccomp = DbfTable.Sccomp().ToSccompList().OrderBy(s => s.compnam).ToList();
+
+            if (this.loged_in_status.is_secure)
+            {
+                List<string> comp_codes = DbfTable.Scacclv().ToScacclvList()
+                                    .Where(s => s.compcod.Trim().Length > 0)
+                                    .Where(s => s.accessid.Trim() == this.loged_in_status.loged_in_user_name || s.accessid.Trim() == this.loged_in_status.loged_in_user_group)
+                                    .Where(s => s.isread == "Y")
+                                    .Select(s => s.compcod).Distinct<string>().ToList();
+
+                sccomp = sccomp.Where(s => comp_codes.Contains(s.compcod)).ToList();
+            }
+
+            DialogSccompSelection sel = new DialogSccompSelection(this, sccomp, string.Empty);
+            if (sel.ShowDialog() == DialogResult.OK)
+            {
+                if(this.working_express_db == null)
+                {
+                    this.working_express_db = sel.selected_sccomp;
+                    this.islog.SelectCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
+                }
+                else
+                {
+                    this.working_express_db = sel.selected_sccomp;
+                    this.islog.ChangeCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
+                }
+                
+            }
+            else
+            {
+                this.Close();
+                return;
+            }
+            this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), null, null);
+
+            LocalDbConfig local_db = new LocalDbConfig(this.working_express_db);
+            if (local_db.ConfigValue.servername.Trim().Length == 0)
+            {
+                DialogDbConfig config = new DialogDbConfig(this);
+                if (config.ShowDialog() != DialogResult.OK)
+                {
+                    this.Close();
+                    return;
+                }
+            }
+            else
+            {
+                MySqlConnectionResult test_connect = local_db.ConfigValue.TestMysqlDbConnection();
+
+                if (test_connect.is_connected)
+                {
+                    this.islog.ConnectMysqlSuccess(local_db.ConfigValue.servername, local_db.ConfigValue.dbname).Save();
+                }
+                else
+                {
+                    this.islog.ConnectMysqlFail(local_db.ConfigValue.servername, local_db.ConfigValue.dbname, test_connect.err_message).Save();
+                    MessageBox.Show(test_connect.err_message + ", กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    DialogDbConfig config = new DialogDbConfig(this);
+                    if (config.ShowDialog() != DialogResult.OK)
+                    {
+                        this.Close();
+                        return;
+                    }
+                }
+
+            }
+            this.SetStatusLabelText(null, local_db.ConfigValue.dbname, null);
         }
 
         private void mnuDailyClose_Click(object sender, EventArgs e)

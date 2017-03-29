@@ -112,11 +112,11 @@ namespace XPump.SubForm
             };
             worker.RunWorkerCompleted += delegate
             {
-                //loading.Close();
                 if (conn_result.is_connected)
                 {
                     if (this.curr_config.Save(this.main_form.working_express_db) == true)
                     {
+                        this.main_form.islog.ConfigMysqlConnection(this.curr_config.servername, this.curr_config.dbname).Save();
                         loading.Close();
                         this.DialogResult = DialogResult.OK;
                         this.Close();
@@ -142,9 +142,12 @@ namespace XPump.SubForm
                                 if (create_result.is_success)
                                 {
                                     // Create new MySQL DB success.
+                                    this.main_form.islog.CreateMysqlDb(this.curr_config.servername, this.curr_config.dbname).Save();
+
                                     loading.Close();
                                     if (this.curr_config.Save(this.main_form.working_express_db) == true)
                                     {
+                                        this.main_form.islog.ConfigMysqlConnection(this.curr_config.servername, this.curr_config.dbname).Save();
                                         this.DialogResult = DialogResult.OK;
                                         this.Close();
                                     }
@@ -164,6 +167,10 @@ namespace XPump.SubForm
                     }
                     else
                     {
+                        if (loading.Visible)
+                        {
+                            loading.Close();
+                        }
                         MessageBox.Show(conn_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     

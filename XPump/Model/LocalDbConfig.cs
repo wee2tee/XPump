@@ -167,7 +167,7 @@ namespace XPump.Model
                 if (ex.Message.ToLower().Contains("unable to connect to any of the specified mysql hosts"))
                 {
                     conn_result.connection_code = MYSQL_CONNECTION.HOST_NOT_FOUND;
-                    conn_result.err_message = "ไม่สามารถเชื่อมต่อไปยังเซิร์ฟเวอร์ \"" + local_config.servername + "\", กรุณาตรวจสอบการกำหนดค่าการเชื่อมต่อฐานข้อมูล MySQL อีกครั้ง";
+                    conn_result.err_message = "ไม่พบเซิร์ฟเวอร์ชื่อ \"" + local_config.servername + "\"";
                 }
                 else if (ex.Message.ToLower().Contains("unknown database"))
                 {
@@ -177,7 +177,7 @@ namespace XPump.Model
                 else if (ex.Message.ToLower().Contains("access denied"))
                 {
                     conn_result.connection_code = MYSQL_CONNECTION.ACCESS_DENIED;
-                    conn_result.err_message = "รหัสผู้ใช้/รหัสผ่านที่ระบุไว้ ไม่สามารถใช้งานฐานข้อมูล \"" + local_config.dbname + "\" ได้, กรุณาตรวจสอบการกำหนดค่าการเชื่อมต่อฐานข้อมูล MySQL อีกครั้ง";
+                    conn_result.err_message = "รหัสผู้ใช้/รหัสผ่านที่ระบุไว้ ไม่สามารถใช้งานฐานข้อมูล \"" + local_config.dbname + "\" ได้";
                 }
                 else
                 {

@@ -205,6 +205,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`logcode` VARCHAR(10) NOT NULL,";
                 cmd.CommandText += "`expressdata` VARCHAR(50) NULL,";
                 cmd.CommandText += "`xpumpdata` VARCHAR(50) NULL,";
+                cmd.CommandText += "`xpumpuser` VARCHAR(50) NULL,";
                 cmd.CommandText += "`menuid` VARCHAR(20) NULL,";
                 cmd.CommandText += "`docnum` VARCHAR(50) NULL,";
                 cmd.CommandText += "`description` VARCHAR(200) NULL,";

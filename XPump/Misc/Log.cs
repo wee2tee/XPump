@@ -16,44 +16,6 @@ namespace XPump.Misc
     {
         private MainForm main_form;
 
-        //public LogObject LoginSuccess;
-        //public LogObject LoginFail;
-        //public LogObject Logout;
-
-        /**
-         * <summary>Selecting company
-         *      <para>arg[0] = data path, arg[1] = company name</para>
-         * </summary>
-         **/
-        //public LogObject SelectCompany;
-        /**
-         * <summary>Reconfiguring MySQL DB connection
-         *      <para>arg[0] = Server name, arg[1] = Database name</para>
-         * </summary>
-         **/
-        public LogObject ConfigMysqlDb;
-        public LogObject CreateMysqlDb;
-        public LogObject ConnectMysqlSuccess;
-        public LogObject ConnectMysqlFail;
-
-        //public LogObject OpenForm;
-        public LogObject AddSuccess;
-        public LogObject AddFail;
-        public LogObject EditSuccess;
-        public LogObject EditFail;
-        public LogObject DeleteSuccess;
-        public LogObject DeleteFail;
-
-        public LogObject ImportData;
-        public LogObject ChangeCodeSuccess;
-        public LogObject ChangeCodeFail;
-        public LogObject ApproveOk;
-        public LogObject ApproveCancel;
-        public LogObject Print;
-
-        public LogObject ChangeSettings;
-        public LogObject ChangeCompany;
-
         public Log(MainForm main_form)
         {
             this.main_form = main_form;
@@ -112,7 +74,142 @@ namespace XPump.Misc
             {
                 Code = "003",
                 Description = string.Format("เข้าใช้งานที่เก็บข้อมูล \"{0}\" [{1}]", absolute_data_path.Replace("\\", "\\\\"), company_name),
+            };
+            return l;
+        }
 
+        public LogObject ConnectMysqlSuccess(string server_name, string db_name)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "004",
+                Description = string.Format("เชื่อมต่อฐานข้อมูล {0}.{1} สำเร็จ", server_name, db_name)
+            };
+            return l;
+        }
+
+        public LogObject ConnectMysqlFail(string server_name, string db_name, string reason)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "005",
+                Description = string.Format("ไม่สามารถเชื่อมต่อฐานข้อมูล {0}.{1} เนื่องจาก{2}", server_name, db_name, reason)
+            };
+            return l;
+        }
+
+        public LogObject ConfigMysqlConnection(string server_name, string db_name)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "006",
+                Description = string.Format("ตั้งค่าการเชื่อมต่อฐานข้อมูล MySQL ไปยังเซิร์ฟเวอร์ \"{0}\", ฐานข้อมูลชื่อ \"{1}\" สำเร็จ", server_name, db_name)
+            };
+            return l;
+        }
+
+        public LogObject CreateMysqlDb(string server_name, string db_name)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "007",
+                Description = string.Format("สร้างฐานข้อมูล MySQL {0}.{1} สำเร็จ", server_name, db_name)
+            };
+            return l;
+        }
+
+        public LogObject AddData(string added_key, string added_value)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "008",
+                Description = string.Format("เพิ่ม{0} {1} สำเร็จ", added_key, added_value),
+                Docnum = added_value
+            };
+            return l;
+        }
+
+        public LogObject EditData(string edited_key, string edited_value)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "009",
+                Description = string.Format("แก้ไข{0} {1} สำเร็จ", edited_key, edited_value),
+                Docnum = edited_value
+            };
+            return l;
+        }
+
+        public LogObject DeleteData(string deleted_key, string deleted_value)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "010",
+                Description = string.Format("ลบ{0} {1} สำเร็จ", deleted_key, deleted_value),
+                Docnum = deleted_value
+            };
+            return l;
+        }
+
+        public LogObject ImportData(string imported_key, int imported_item_count)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "011",
+                Description = string.Format("นำเข้าข้อมูล{0}จำนวน {1} รายการ เสร็จสมบูรณ์", imported_key, imported_item_count),
+            };
+            return l;
+        }
+
+        public LogObject ChangeCode(string changed_key, string old_code, string new_code)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "012",
+                Description = string.Format("เปลี่ยนรหัส{0} \"{1}\" เป็น \"{2}\" สำเร็จ", changed_key, old_code, new_code),
+                Docnum = new_code
+            };
+            return l;
+        }
+
+        public LogObject Approve(string approved_key, string approved_val)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "013",
+                Description = string.Format("รับรองรายการ{0} {1}", approved_key, approved_val),
+                Docnum = approved_val
+            };
+            return l;
+        }
+
+        public LogObject Print(string printed_key, string printed_val, string print_output)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "014",
+                Description = string.Format("พิมพ์{0} {1} ออกทาง{2}", printed_key, printed_val, print_output),
+                Docnum = printed_val
+            };
+            return l;
+        }
+
+        public LogObject ChangeSettings()
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "015",
+                Description = string.Format("เปลี่ยนแปลงการตั้งค่าระบบสำเร็จ")
+            };
+            return l;
+        }
+
+        public LogObject ChangeCompany(string absolute_data_path, string company_name)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "016",
+                Description = string.Format("เปลี่ยนไปใช้ข้อมูล \"{0}\" [{1}]", absolute_data_path.Replace("\\", "\\\\"), company_name)
             };
             return l;
         }
@@ -121,10 +218,8 @@ namespace XPump.Misc
         {
             LogObject l = new LogObject(this.main_form)
             {
-                Code = "004",
+                Code = "000",
                 Description = string.Format("รหัสผู้ใช้ \"{0}\" ออกจากระบบ", user_name),
-                //ExpressData = express_path,
-                //XPumpData = xpump_path
             };
             return l;
         }
@@ -145,6 +240,18 @@ namespace XPump.Misc
             get
             {
                 return this.main_form.GetCurrentDbName();
+            }
+        }
+        public string XPumpUser
+        {
+            get
+            {
+                if(this.main_form.working_express_db != null)
+                {
+                    LocalDbConfig loc = new LocalDbConfig(this.main_form.working_express_db);
+                    return loc.ConfigValue.uid;
+                }
+                return string.Empty;
             }
         }
         public string Docnum { get; set; }
@@ -182,7 +289,7 @@ namespace XPump.Misc
                 //string data = this.main_form.working_express_db != null ? this.ExpressData : string.Empty;
                 //string xpump_data = this.XPumpData != null ? this.XPumpData : string.Empty;
 
-                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `menuid`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + menu_id + "', '" + docnum + "', '" + this.Description + "', '" + this.UserName + "')";
+                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `menuid`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + menu_id + "', '" + docnum + "', '" + this.Description + "', '" + this.UserName + "')";
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
