@@ -244,7 +244,7 @@ namespace XPump.SubForm
                 id = -1,
                 name = string.Empty,
                 description = string.Empty,
-                remark = string.Empty,
+                remark = string.Empty
             };
 
             this.txtRemark.Focus();
@@ -294,6 +294,7 @@ namespace XPump.SubForm
                     {
                         db.stmas.Remove(db.stmas.Find(this.curr_stmas.id));
                         db.SaveChanges();
+                        this.main_form.islog.DeleteData((string)this.Tag, this.Text, this.curr_stmas.name).Save();
                         this.btnRefresh.PerformClick();
                     }
                     catch (Exception ex)
@@ -323,8 +324,11 @@ namespace XPump.SubForm
                 {
                     try
                     {
+                        this.temp_stmas.creby = this.main_form.loged_in_status.loged_in_user_name;
+                        this.temp_stmas.cretime = DateTime.Now;
                         db.stmas.Add(this.temp_stmas);
                         db.SaveChanges();
+                        this.main_form.islog.AddData((string)this.Tag, this.Text, this.temp_stmas.name).Save();
                         this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
                         this.curr_stmas = this.GetStmas(this.temp_stmas.id);
@@ -357,7 +361,10 @@ namespace XPump.SubForm
                         stmas.name = this.temp_stmas.name;
                         stmas.description = this.temp_stmas.description;
                         stmas.remark = this.temp_stmas.remark;
+                        stmas.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        stmas.chgtime = DateTime.Now;
                         db.SaveChanges();
+                        this.main_form.islog.EditData((string)this.Tag, this.Text, this.temp_stmas.name).Save();
                         this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
                         this.btnRefresh.PerformClick();

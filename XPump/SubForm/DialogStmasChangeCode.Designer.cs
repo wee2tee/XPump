@@ -121,6 +121,7 @@
             this.MinimizeBox = false;
             this.Name = "DialogStmasChangeCode";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Tag = "StockFile";
             this.Text = "เปลี่ยนรหัสสินค้า";
             this.Load += new System.EventHandler(this.DialogStmasChangeCode_Load);
             this.ResumeLayout(false);

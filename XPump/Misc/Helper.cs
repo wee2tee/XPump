@@ -145,6 +145,7 @@ namespace XPump.Misc
                 working_express_db = working_express_db,
                 id = section.id,
                 name = section.name,
+                capacity = section.capacity,
                 begacc = section.begacc,
                 begtak = section.begtak,
                 begdif = section.begdif,

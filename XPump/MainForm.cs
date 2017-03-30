@@ -264,8 +264,11 @@ namespace XPump
             }
             else
             {
-                this.Close();
-                return;
+                if(this.working_express_db == null)
+                {
+                    this.Close();
+                    return;
+                }
             }
             this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), null, null);
 

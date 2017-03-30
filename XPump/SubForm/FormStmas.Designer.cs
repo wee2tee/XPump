@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormStmas));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -59,13 +59,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dgvSales = new CC.XDatagrid();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtRemark = new CC.XTextEdit();
-            this.txtDescription = new CC.XTextEdit();
-            this.txtName = new CC.XTextEdit();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label1 = new System.Windows.Forms.Label();
             this.col_sales_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sales_saldat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sales_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,6 +72,13 @@
             this.col_sales_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sales_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sales_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtRemark = new CC.XTextEdit();
+            this.txtDescription = new CC.XTextEdit();
+            this.txtName = new CC.XTextEdit();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -329,14 +329,14 @@
             this.dgvSales.AllowUserToDeleteRows = false;
             this.dgvSales.AllowUserToResizeColumns = false;
             this.dgvSales.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvSales.ColumnHeadersHeight = 28;
             this.dgvSales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvSales.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -353,14 +353,14 @@
             this.col_sales_stkcod,
             this.col_sales_stkdes,
             this.col_sales_working_express_db});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSales.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSales.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvSales.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSales.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvSales.EnableHeadersVisualStyles = false;
@@ -380,6 +380,128 @@
             this.dgvSales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSales_CellClick);
             this.dgvSales.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSales_CellMouseMove);
             this.dgvSales.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvSales_CellPainting);
+            // 
+            // col_sales_id
+            // 
+            this.col_sales_id.DataPropertyName = "id";
+            this.col_sales_id.HeaderText = "ID";
+            this.col_sales_id.Name = "col_sales_id";
+            this.col_sales_id.ReadOnly = true;
+            this.col_sales_id.Visible = false;
+            // 
+            // col_sales_saldat
+            // 
+            this.col_sales_saldat.DataPropertyName = "saldat";
+            dataGridViewCellStyle7.Format = "dd/MM/yyyy";
+            this.col_sales_saldat.DefaultCellStyle = dataGridViewCellStyle7;
+            this.col_sales_saldat.HeaderText = "วันที่";
+            this.col_sales_saldat.MinimumWidth = 90;
+            this.col_sales_saldat.Name = "col_sales_saldat";
+            this.col_sales_saldat.ReadOnly = true;
+            this.col_sales_saldat.Width = 90;
+            // 
+            // col_sales_tank_name
+            // 
+            this.col_sales_tank_name.DataPropertyName = "tank_name";
+            this.col_sales_tank_name.HeaderText = "Tank Name";
+            this.col_sales_tank_name.Name = "col_sales_tank_name";
+            this.col_sales_tank_name.ReadOnly = true;
+            this.col_sales_tank_name.Visible = false;
+            // 
+            // col_sales_section_name
+            // 
+            this.col_sales_section_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_sales_section_name.DataPropertyName = "section_name";
+            this.col_sales_section_name.HeaderText = "เลขที่ถัง";
+            this.col_sales_section_name.Name = "col_sales_section_name";
+            this.col_sales_section_name.ReadOnly = true;
+            // 
+            // col_sales_nozzle_name
+            // 
+            this.col_sales_nozzle_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_sales_nozzle_name.DataPropertyName = "nozzle_name";
+            this.col_sales_nozzle_name.HeaderText = "เลขที่หัวจ่าย";
+            this.col_sales_nozzle_name.MinimumWidth = 120;
+            this.col_sales_nozzle_name.Name = "col_sales_nozzle_name";
+            this.col_sales_nozzle_name.ReadOnly = true;
+            // 
+            // col_sales_salqty
+            // 
+            this.col_sales_salqty.DataPropertyName = "salqty";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = null;
+            this.col_sales_salqty.DefaultCellStyle = dataGridViewCellStyle8;
+            this.col_sales_salqty.HeaderText = "ปริมาณขาย(ลิตร)";
+            this.col_sales_salqty.MinimumWidth = 140;
+            this.col_sales_salqty.Name = "col_sales_salqty";
+            this.col_sales_salqty.ReadOnly = true;
+            this.col_sales_salqty.Width = 140;
+            // 
+            // col_sales_salval
+            // 
+            this.col_sales_salval.DataPropertyName = "salval";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N2";
+            dataGridViewCellStyle9.NullValue = null;
+            this.col_sales_salval.DefaultCellStyle = dataGridViewCellStyle9;
+            this.col_sales_salval.HeaderText = "มูลค่าขาย";
+            this.col_sales_salval.MinimumWidth = 140;
+            this.col_sales_salval.Name = "col_sales_salval";
+            this.col_sales_salval.ReadOnly = true;
+            this.col_sales_salval.Width = 140;
+            // 
+            // col_sales_btn
+            // 
+            this.col_sales_btn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.col_sales_btn.HeaderText = "";
+            this.col_sales_btn.MinimumWidth = 25;
+            this.col_sales_btn.Name = "col_sales_btn";
+            this.col_sales_btn.ReadOnly = true;
+            this.col_sales_btn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_sales_btn.Text = "ดูรายละเอียด";
+            this.col_sales_btn.UseColumnTextForButtonValue = true;
+            this.col_sales_btn.Width = 25;
+            // 
+            // col_sales_nozzle_id
+            // 
+            this.col_sales_nozzle_id.DataPropertyName = "nozzle_id";
+            this.col_sales_nozzle_id.HeaderText = "Nozzle Id";
+            this.col_sales_nozzle_id.Name = "col_sales_nozzle_id";
+            this.col_sales_nozzle_id.ReadOnly = true;
+            this.col_sales_nozzle_id.Visible = false;
+            // 
+            // col_sales_stmas_id
+            // 
+            this.col_sales_stmas_id.DataPropertyName = "stmas_id";
+            this.col_sales_stmas_id.HeaderText = "Stmas Id";
+            this.col_sales_stmas_id.Name = "col_sales_stmas_id";
+            this.col_sales_stmas_id.ReadOnly = true;
+            this.col_sales_stmas_id.Visible = false;
+            // 
+            // col_sales_stkcod
+            // 
+            this.col_sales_stkcod.DataPropertyName = "stkcod";
+            this.col_sales_stkcod.HeaderText = "Stkcod";
+            this.col_sales_stkcod.Name = "col_sales_stkcod";
+            this.col_sales_stkcod.ReadOnly = true;
+            this.col_sales_stkcod.Visible = false;
+            // 
+            // col_sales_stkdes
+            // 
+            this.col_sales_stkdes.DataPropertyName = "stkdes";
+            this.col_sales_stkdes.HeaderText = "StkDes";
+            this.col_sales_stkdes.Name = "col_sales_stkdes";
+            this.col_sales_stkdes.ReadOnly = true;
+            this.col_sales_stkdes.Visible = false;
+            // 
+            // col_sales_working_express_db
+            // 
+            this.col_sales_working_express_db.DataPropertyName = "working_express_db";
+            this.col_sales_working_express_db.HeaderText = "Working Express DB";
+            this.col_sales_working_express_db.Name = "col_sales_working_express_db";
+            this.col_sales_working_express_db.ReadOnly = true;
+            this.col_sales_working_express_db.Visible = false;
             // 
             // label2
             // 
@@ -459,128 +581,6 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "รหัส";
             // 
-            // col_sales_id
-            // 
-            this.col_sales_id.DataPropertyName = "id";
-            this.col_sales_id.HeaderText = "ID";
-            this.col_sales_id.Name = "col_sales_id";
-            this.col_sales_id.ReadOnly = true;
-            this.col_sales_id.Visible = false;
-            // 
-            // col_sales_saldat
-            // 
-            this.col_sales_saldat.DataPropertyName = "saldat";
-            dataGridViewCellStyle2.Format = "dd/MM/yyyy";
-            this.col_sales_saldat.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_sales_saldat.HeaderText = "วันที่";
-            this.col_sales_saldat.MinimumWidth = 90;
-            this.col_sales_saldat.Name = "col_sales_saldat";
-            this.col_sales_saldat.ReadOnly = true;
-            this.col_sales_saldat.Width = 90;
-            // 
-            // col_sales_tank_name
-            // 
-            this.col_sales_tank_name.DataPropertyName = "tank_name";
-            this.col_sales_tank_name.HeaderText = "Tank Name";
-            this.col_sales_tank_name.Name = "col_sales_tank_name";
-            this.col_sales_tank_name.ReadOnly = true;
-            this.col_sales_tank_name.Visible = false;
-            // 
-            // col_sales_section_name
-            // 
-            this.col_sales_section_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_sales_section_name.DataPropertyName = "section_name";
-            this.col_sales_section_name.HeaderText = "เลขที่ถัง";
-            this.col_sales_section_name.Name = "col_sales_section_name";
-            this.col_sales_section_name.ReadOnly = true;
-            // 
-            // col_sales_nozzle_name
-            // 
-            this.col_sales_nozzle_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_sales_nozzle_name.DataPropertyName = "nozzle_name";
-            this.col_sales_nozzle_name.HeaderText = "เลขที่หัวจ่าย";
-            this.col_sales_nozzle_name.MinimumWidth = 120;
-            this.col_sales_nozzle_name.Name = "col_sales_nozzle_name";
-            this.col_sales_nozzle_name.ReadOnly = true;
-            // 
-            // col_sales_salqty
-            // 
-            this.col_sales_salqty.DataPropertyName = "salqty";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.col_sales_salqty.DefaultCellStyle = dataGridViewCellStyle3;
-            this.col_sales_salqty.HeaderText = "ปริมาณขาย(ลิตร)";
-            this.col_sales_salqty.MinimumWidth = 140;
-            this.col_sales_salqty.Name = "col_sales_salqty";
-            this.col_sales_salqty.ReadOnly = true;
-            this.col_sales_salqty.Width = 140;
-            // 
-            // col_sales_salval
-            // 
-            this.col_sales_salval.DataPropertyName = "salval";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.col_sales_salval.DefaultCellStyle = dataGridViewCellStyle4;
-            this.col_sales_salval.HeaderText = "มูลค่าขาย";
-            this.col_sales_salval.MinimumWidth = 140;
-            this.col_sales_salval.Name = "col_sales_salval";
-            this.col_sales_salval.ReadOnly = true;
-            this.col_sales_salval.Width = 140;
-            // 
-            // col_sales_btn
-            // 
-            this.col_sales_btn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.col_sales_btn.HeaderText = "";
-            this.col_sales_btn.MinimumWidth = 25;
-            this.col_sales_btn.Name = "col_sales_btn";
-            this.col_sales_btn.ReadOnly = true;
-            this.col_sales_btn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_sales_btn.Text = "ดูรายละเอียด";
-            this.col_sales_btn.UseColumnTextForButtonValue = true;
-            this.col_sales_btn.Width = 25;
-            // 
-            // col_sales_nozzle_id
-            // 
-            this.col_sales_nozzle_id.DataPropertyName = "nozzle_id";
-            this.col_sales_nozzle_id.HeaderText = "Nozzle Id";
-            this.col_sales_nozzle_id.Name = "col_sales_nozzle_id";
-            this.col_sales_nozzle_id.ReadOnly = true;
-            this.col_sales_nozzle_id.Visible = false;
-            // 
-            // col_sales_stmas_id
-            // 
-            this.col_sales_stmas_id.DataPropertyName = "stmas_id";
-            this.col_sales_stmas_id.HeaderText = "Stmas Id";
-            this.col_sales_stmas_id.Name = "col_sales_stmas_id";
-            this.col_sales_stmas_id.ReadOnly = true;
-            this.col_sales_stmas_id.Visible = false;
-            // 
-            // col_sales_stkcod
-            // 
-            this.col_sales_stkcod.DataPropertyName = "stkcod";
-            this.col_sales_stkcod.HeaderText = "Stkcod";
-            this.col_sales_stkcod.Name = "col_sales_stkcod";
-            this.col_sales_stkcod.ReadOnly = true;
-            this.col_sales_stkcod.Visible = false;
-            // 
-            // col_sales_stkdes
-            // 
-            this.col_sales_stkdes.DataPropertyName = "stkdes";
-            this.col_sales_stkdes.HeaderText = "StkDes";
-            this.col_sales_stkdes.Name = "col_sales_stkdes";
-            this.col_sales_stkdes.ReadOnly = true;
-            this.col_sales_stkdes.Visible = false;
-            // 
-            // col_sales_working_express_db
-            // 
-            this.col_sales_working_express_db.DataPropertyName = "working_express_db";
-            this.col_sales_working_express_db.HeaderText = "Working Express DB";
-            this.col_sales_working_express_db.Name = "col_sales_working_express_db";
-            this.col_sales_working_express_db.ReadOnly = true;
-            this.col_sales_working_express_db.Visible = false;
-            // 
             // FormStmas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -600,6 +600,7 @@
             this.Name = "FormStmas";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Tag = "StockFile";
             this.Text = "รายละเอียดสินค้า";
             this.Load += new System.EventHandler(this.StmasForm_Load);
             this.toolStrip1.ResumeLayout(false);

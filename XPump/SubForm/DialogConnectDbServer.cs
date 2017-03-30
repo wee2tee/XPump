@@ -206,14 +206,14 @@ namespace XPump.SubForm
                 cmd.CommandText += "`expressdata` VARCHAR(50) NULL,";
                 cmd.CommandText += "`xpumpdata` VARCHAR(50) NULL,";
                 cmd.CommandText += "`xpumpuser` VARCHAR(50) NULL,";
-                cmd.CommandText += "`menuid` VARCHAR(20) NULL,";
+                cmd.CommandText += "`module` VARCHAR(30) NULL,";
                 cmd.CommandText += "`docnum` VARCHAR(50) NULL,";
                 cmd.CommandText += "`description` VARCHAR(200) NULL,";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
                 cmd.CommandText += "PRIMARY KEY(`id`),";
                 cmd.CommandText += "INDEX `ndx-xlog-logcode` (`logcode` ASC),";
-                cmd.CommandText += "INDEX `ndx-xlog-menuid` (`menuid` ASC),";
+                cmd.CommandText += "INDEX `ndx-xlog-module` (`module` ASC),";
                 cmd.CommandText += "INDEX `ndx-xlog-username` (`username` ASC)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();

@@ -62,7 +62,6 @@
             this.btnUp = new System.Windows.Forms.Button();
             this.btnDown = new System.Windows.Forms.Button();
             this.dgv = new CC.XDatagrid();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_seq = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,6 +78,7 @@
             this.col_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_shift = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
@@ -251,7 +251,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 43);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(928, 338);
+            this.panel1.Size = new System.Drawing.Size(928, 457);
             this.panel1.TabIndex = 2;
             // 
             // inline_siv
@@ -480,7 +480,7 @@
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(928, 338);
+            this.dgv.Size = new System.Drawing.Size(928, 457);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 1;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
@@ -641,7 +641,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(928, 381);
+            this.ClientSize = new System.Drawing.Size(928, 500);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -651,6 +651,7 @@
             this.Name = "FormShift";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Tag = "ShiftSetup";
             this.Text = "กำหนดผลัดพนักงาน";
             this.Load += new System.EventHandler(this.ShiftForm_Load);
             this.toolStrip1.ResumeLayout(false);

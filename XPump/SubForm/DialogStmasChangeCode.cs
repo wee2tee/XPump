@@ -61,6 +61,7 @@ namespace XPump.SubForm
 
                     stmas_to_edit.name = this.new_name;
                     db.SaveChanges();
+                    this.main_form.islog.ChangeCode((string)this.Tag, "สินค้า", this.txtOld.Text, this.new_name).Save();
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }

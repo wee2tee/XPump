@@ -50,10 +50,6 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.dgv = new CC.XDatagrid();
-            this.dtTakDat = new CC.XDatePicker();
-            this.label5 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.inline_qty = new CC.XNumEdit();
             this.col_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,6 +60,10 @@
             this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sttak = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtTakDat = new CC.XDatePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.inline_qty = new CC.XNumEdit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.panel1.SuspendLayout();
@@ -305,73 +305,6 @@
             this.dgv.TabIndex = 0;
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
             // 
-            // dtTakDat
-            // 
-            this.dtTakDat._ReadOnly = true;
-            this.dtTakDat._SelectedDate = null;
-            this.dtTakDat.BackColor = System.Drawing.Color.White;
-            this.dtTakDat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtTakDat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtTakDat.Location = new System.Drawing.Point(100, 60);
-            this.dtTakDat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtTakDat.Name = "dtTakDat";
-            this.dtTakDat.Size = new System.Drawing.Size(103, 23);
-            this.dtTakDat.TabIndex = 9;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 64);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(74, 16);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "วันที่ตรวจนับ";
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.inline_qty);
-            this.panel1.Controls.Add(this.dgv);
-            this.panel1.Location = new System.Drawing.Point(5, 97);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(808, 391);
-            this.panel1.TabIndex = 11;
-            // 
-            // inline_qty
-            // 
-            this.inline_qty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_qty._DecimalDigit = 2;
-            this.inline_qty._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.inline_qty._MaxLength = 30;
-            this.inline_qty._ReadOnly = false;
-            this.inline_qty._SelectionLength = 0;
-            this.inline_qty._SelectionStart = 4;
-            this.inline_qty._Text = "0.00";
-            this.inline_qty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.inline_qty._UseThoundsandSeparate = true;
-            this.inline_qty._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.inline_qty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inline_qty.BackColor = System.Drawing.Color.White;
-            this.inline_qty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_qty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_qty.Location = new System.Drawing.Point(665, 57);
-            this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_qty.Name = "inline_qty";
-            this.inline_qty.Size = new System.Drawing.Size(140, 23);
-            this.inline_qty.TabIndex = 1;
-            this.inline_qty.Visible = false;
-            this.inline_qty._ValueChanged += new System.EventHandler(this.inline_qty__ValueChanged);
-            // 
             // col_stkcod
             // 
             this.col_stkcod.DataPropertyName = "stkcod";
@@ -461,6 +394,73 @@
             this.col_working_express_db.ReadOnly = true;
             this.col_working_express_db.Visible = false;
             // 
+            // dtTakDat
+            // 
+            this.dtTakDat._ReadOnly = true;
+            this.dtTakDat._SelectedDate = null;
+            this.dtTakDat.BackColor = System.Drawing.Color.White;
+            this.dtTakDat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtTakDat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtTakDat.Location = new System.Drawing.Point(100, 60);
+            this.dtTakDat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtTakDat.Name = "dtTakDat";
+            this.dtTakDat.Size = new System.Drawing.Size(103, 23);
+            this.dtTakDat.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(23, 64);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 16);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "วันที่ตรวจนับ";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.inline_qty);
+            this.panel1.Controls.Add(this.dgv);
+            this.panel1.Location = new System.Drawing.Point(5, 97);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(808, 391);
+            this.panel1.TabIndex = 11;
+            // 
+            // inline_qty
+            // 
+            this.inline_qty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_qty._DecimalDigit = 2;
+            this.inline_qty._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.inline_qty._MaxLength = 30;
+            this.inline_qty._ReadOnly = false;
+            this.inline_qty._SelectionLength = 0;
+            this.inline_qty._SelectionStart = 4;
+            this.inline_qty._Text = "0.00";
+            this.inline_qty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_qty._UseThoundsandSeparate = true;
+            this.inline_qty._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_qty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.inline_qty.BackColor = System.Drawing.Color.White;
+            this.inline_qty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_qty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_qty.Location = new System.Drawing.Point(665, 57);
+            this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_qty.Name = "inline_qty";
+            this.inline_qty.Size = new System.Drawing.Size(140, 23);
+            this.inline_qty.TabIndex = 1;
+            this.inline_qty.Visible = false;
+            this.inline_qty._ValueChanged += new System.EventHandler(this.inline_qty__ValueChanged);
+            // 
             // FormSttak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -476,6 +476,7 @@
             this.Name = "FormSttak";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Tag = "Sttak";
             this.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้";
             this.Load += new System.EventHandler(this.FormSttak_Load);
             this.toolStrip1.ResumeLayout(false);
