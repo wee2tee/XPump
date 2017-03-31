@@ -158,9 +158,6 @@
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ViewModel.cs" />
-    <Compile Include="Model\xlog.cs">
-      <DependentUpon>XPumpModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\XPumpModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

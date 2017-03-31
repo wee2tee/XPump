@@ -433,7 +433,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "CONSTRAINT `fk - salessummary - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
                 cmd.CommandText += "CONSTRAINT `fk - salessummary - pricelist_id` FOREIGN KEY (`pricelist_id`) REFERENCES `" + local_config.dbname + "`.`pricelist` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
                 cmd.CommandText += "CONSTRAINT `fk - salessummary - shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk-salessummary-dothercause_id` FOREIGN KEY (`dothercause_id`) REFERENCES `xpump`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk-salessummary-dothercause_id` FOREIGN KEY (`dothercause_id`) REFERENCES `" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -490,7 +490,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "UNIQUE INDEX `unq - dayend - saldat` (`saldat` ASC, `stmas_id` ASC),";
                 cmd.CommandText += "INDEX `ndx-dayend-dothercause_id` (`dothercause_id` ASC),";
                 cmd.CommandText += "CONSTRAINT `fk - dayend - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk-dayend-dothercause_id` FOREIGN KEY (`dothercause_id`) REFERENCES `xpump`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk-dayend-dothercause_id` FOREIGN KEY (`dothercause_id`) REFERENCES `" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 

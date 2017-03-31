@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="45f00910015c4560995bfc633c68853b" Name="Diagram1">
+      <Diagram DiagramId="64260e240d704c8e9731780c077737f4" Name="Diagram1">
         <EntityTypeShape EntityType="xpumpModel.dayend" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.daysttak" Width="1.5" PointX="11.25" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.dbver" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
@@ -20,28 +20,27 @@
         <EntityTypeShape EntityType="xpumpModel.shiftsttak" Width="1.5" PointX="11.25" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.stmas" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.tank" Width="1.5" PointX="3.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.xlog" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="xpumpModel.fk___dayend___stmas_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___daysttak___dayend_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_dayend_dothercause_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_dayend_stmas_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_daysttak_dayend_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_daysttak_section_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___daysttak___section_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_salessummary_dothercause_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_nozzle_section_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_saleshistory_nozzle_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_pricelist_stmas_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_saleshistory_pricelist_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_salessummary_pricelist_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_saleshistory_salessummary_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_saleshistory_shift_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_saleshistory_stmas_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_salessummary_shift_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_salessummary_shiftsales_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_salessummary_stmas_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_section_stmas_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_section_tank_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_sttak_section_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_shiftsales_shift_id" ManuallyRouted="false" />
-        <AssociationConnector Association="xpumpModel.fk_sttak_shiftsales_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___nozzle___section_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___saleshistory___nozzle_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___pricelist___stmas_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___saleshistory___pricelist_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___salessummary___pricelist_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___saleshistory___salessummary_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___saleshistory___shift_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___saleshistory___stmas_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___salessummary___shift_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___salessummary___shiftsales_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___salessummary___stmas_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___section___stmas_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___section___tank_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___sttak___section_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___shiftsales___shift_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk___sttak___shiftsales_id" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
