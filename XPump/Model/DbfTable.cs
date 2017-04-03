@@ -30,6 +30,19 @@ namespace XPump.Model
         //    return data_path;
         //}
 
+        public static bool IsSecureFileExist(string file_name)
+        {
+            string secure_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\secure\";
+            if(File.Exists(secure_path + file_name))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static bool IsDataFileExist(string file_name, SccompDbf working_express_db)
         {
             string data_path = working_express_db.abs_path; //GetExpressDataPath();

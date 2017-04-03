@@ -29,9 +29,15 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            if (!DbfTable.IsSecureFileExist("scuser.dbf"))
+            {
+                MessageBox.Show("ค้นหาแฟ้ม Scuser.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             LoginStatus login_result = ValidateUser(this.txtUserID.Text.Trim(), this.txtPassword.Text.Trim());
 
-            if (login_result.result == true)
+            if (login_result != null && login_result.result == true)
             {
                 this.main_form.loged_in_status = login_result;
                 this.main_form.islog.LoginSuccess(this.main_form.loged_in_status.loged_in_user_name).Save();
@@ -69,8 +75,7 @@ namespace XPump.SubForm
             }
             else
             {
-                //return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = false, err_message = "รหัสผู้ใช้/รหัสผ่าน ไม่ถูกต้อง" };
-                return null;
+                return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = false, err_message = "รหัสผู้ใช้/รหัสผ่าน ไม่ถูกต้อง" };
             }
         }
 

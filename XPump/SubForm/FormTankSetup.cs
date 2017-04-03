@@ -23,15 +23,6 @@ namespace XPump.SubForm
         //private List<StlocDbfVM> stloc_list;
         private BindingSource bs_section;
 
-        //private XTextEdit inline_name;
-        //private XBrowseBox inline_stkcod;
-        //private XTextEdit inline_stkdes;
-        //private XDropdownList inline_loccod;
-        //private XNumEdit inline_capacity;
-        ////private XBrowseBox inline_nozzle;
-        //private Button inline_nozzlecount;
-
-
         public FormTankSetup()
         {
             InitializeComponent();
@@ -287,18 +278,23 @@ namespace XPump.SubForm
 
             int col_index;
 
-            if (this.form_mode == FORM_MODE.ADD_ITEM)
+            if(this.form_mode == FORM_MODE.ADD_ITEM)
             {
-                col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_name.DataPropertyName).First().Index;
-                this.inline_name.SetInlineControlPosition(this.dgvSection, row_index, col_index);
-                this.inline_name._Text = this.temp_section.name;
-                this.inline_name.Visible = true;
+                col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_stkcod.DataPropertyName).First().Index;
+                this.inline_stkcod.SetInlineControlPosition(this.dgvSection, row_index, col_index);
+                this.inline_stkcod._Text = this.temp_section.stkcod;
+                this.inline_stkcod.Visible = true;
             }
 
-            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_stkcod.DataPropertyName).First().Index;
-            this.inline_stkcod.SetInlineControlPosition(this.dgvSection, row_index, col_index);
-            this.inline_stkcod._Text = this.temp_section.stkcod;
-            this.inline_stkcod.Visible = true;
+            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_name.DataPropertyName).First().Index;
+            this.inline_name.SetInlineControlPosition(this.dgvSection, row_index, col_index);
+            this.inline_name._Text = this.temp_section.name;
+            this.inline_name.Visible = true;
+
+            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_capacity.DataPropertyName).First().Index;
+            this.inline_capacity.SetInlineControlPosition(this.dgvSection, row_index, col_index);
+            this.inline_capacity._Value = this.temp_section.capacity;
+            this.inline_capacity.Visible = true;
 
             col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begtak.DataPropertyName).First().Index;
             this.inline_begtak.SetInlineControlPosition(this.dgvSection, row_index, col_index);
@@ -311,181 +307,15 @@ namespace XPump.SubForm
             this.inline_begacc.Visible = true;
         }
 
-        //private void ShowInlineForm(int row_index)
-        //{
-        //    Rectangle row_rect = this.dgvSection.GetRowDisplayRectangle(row_index, true);
-        //    using (Graphics g = this.dgvSection.CreateGraphics())
-        //    {
-        //        using (Pen p = new Pen(Color.Red))
-        //        {
-        //            g.DrawLine(p, row_rect.X, row_rect.Y, row_rect.X + row_rect.Width, row_rect.Y);
-        //        }
-        //    }
-
-        //    int col_index;
-
-        //    /* inline name */
-        //    if(this.form_mode == FORM_MODE.ADD_ITEM)
-        //    {
-        //        col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_name.DataPropertyName).First().Index;
-        //        this.inline_name = new XTextEdit();
-        //        this.inline_name.BorderStyle = BorderStyle.None;
-        //        this.inline_name._TextChanged += delegate
-        //        {
-        //            if (this.temp_section != null)
-        //            {
-        //                //this.temp_section.name = this.inline_name._Text;
-        //                this.temp_section.section.name = this.inline_name._Text;
-        //            }
-
-        //        };
-        //        this.inline_name.SetInlineControlPosition(this.dgvSection, row_index, col_index);
-        //        this.dgvSection.Parent.Controls.Add(this.inline_name);
-        //    }
-
-        //    /* inline stkcod */
-        //    col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_stkcod.DataPropertyName).First().Index;
-        //    this.inline_stkcod = new XBrowseBox();
-        //    this.inline_stkcod._Text = this.temp_section.stkcod;
-        //    this.inline_stkcod.BorderStyle = BorderStyle.None;
-        //    this.inline_stkcod._ButtonClick += delegate
-        //    {
-        //        DialogInquiryStmas dlg = new DialogInquiryStmas();
-        //        if (dlg.ShowDialog() == DialogResult.OK)
-        //        {
-        //            if(this.temp_section != null)
-        //            {
-        //                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-        //                {
-        //                    this.temp_section.section.stmas_id = dlg.selected_id;
-        //                    this.inline_stkcod._Text = db.stmas.Find(dlg.selected_id).name;
-        //                    this.inline_stkdes._Text = db.stmas.Find(dlg.selected_id).description;
-        //                }
-        //            }
-        //        }
-        //        this.inline_stkcod._textBox.Focus();
-        //    };
-        //    this.inline_stkcod._GotFocus += delegate
-        //    {
-        //        this.ValidateAddEditSection();
-        //    };
-        //    this.inline_stkcod._Leave += delegate
-        //    {
-        //        if (this.temp_section != null)
-        //        {
-        //            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-        //            {
-        //                stmas tmp_stmas = db.stmas.Where(s => s.name == this.inline_stkcod._Text).FirstOrDefault();
-
-        //                if (tmp_stmas == null)
-        //                {
-        //                    this.temp_section.section.stmas_id = -1;
-        //                    this.inline_stkcod._Text = string.Empty;
-        //                    this.inline_stkdes._Text = string.Empty;
-        //                }
-        //                else
-        //                {
-        //                    this.temp_section.section.stmas_id = tmp_stmas.id;
-        //                    this.inline_stkcod._Text = tmp_stmas.name;
-        //                    this.inline_stkdes._Text = tmp_stmas.description;
-        //                }
-        //            }
-        //        }
-        //    };
-        //    this.inline_stkcod.SetInlineControlPosition(this.dgvSection, row_index, col_index);
-        //    this.dgvSection.Parent.Controls.Add(this.inline_stkcod);
-
-        //    /* inline loccod */
-
-
-        //    /* inline stkdes */
-        //    col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_stkdes.DataPropertyName).First().Index;
-        //    this.inline_stkdes = new XTextEdit();
-        //    this.inline_stkdes._Text = this.temp_section.stkdes;
-        //    this.inline_stkdes.BorderStyle = BorderStyle.None;
-        //    this.inline_stkdes._ReadOnly = true;
-        //    this.inline_stkdes.Enabled = false;
-        //    this.inline_stkdes.SetInlineControlPosition(this.dgvSection, row_index, col_index);
-        //    this.dgvSection.Parent.Controls.Add(this.inline_stkdes);
-
-        //    /* inline capacity */
-        //    col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begacc.DataPropertyName).First().Index;
-        //    this.inline_capacity = new XNumEdit(2, true, 999999.99m, HorizontalAlignment.Right);
-        //    this.inline_capacity._Value = this.temp_section.begacc;
-        //    this.inline_capacity.BorderStyle = BorderStyle.None;
-        //    this.inline_capacity._ValueChanged += delegate
-        //    {
-        //        if(this.temp_section != null)
-        //        {
-        //            this.temp_section.section.begacc = this.inline_capacity._Value;
-        //        }
-        //    };
-        //    this.inline_capacity._GotFocus += delegate
-        //    {
-        //        this.ValidateAddEditSection();
-        //    };
-        //    this.inline_capacity.SetInlineControlPosition(this.dgvSection, row_index, col_index);
-        //    this.dgvSection.Parent.Controls.Add(this.inline_capacity);
-
-        //    this.inline_nozzlecount.Visible = false;
-
-        //    this.dgvSection.SendToBack();
-        //}
-
         private void RemoveInlineForm()
         {
             this.inline_name.Visible = false;
             this.inline_stkcod.Visible = false;
+            this.inline_capacity.Visible = false;
             this.inline_begacc.Visible = false;
             this.inline_begtak.Visible = false;
             this.temp_section = null;
         }
-
-        //private void RemoveInlineForm()
-        //{
-        //    if(this.inline_name != null)
-        //    {
-        //        this.inline_name.Dispose();
-        //        this.inline_name = null;
-        //    }
-
-        //    if(this.inline_stkcod != null)
-        //    {
-        //        this.inline_stkcod.Dispose();
-        //        this.inline_stkcod = null;
-        //    }
-
-        //    if(this.inline_stkdes != null)
-        //    {
-        //        this.inline_stkdes.Dispose();
-        //        this.inline_stkdes = null;
-        //    }
-
-        //    if(this.inline_capacity != null)
-        //    {
-        //        this.inline_capacity.Dispose();
-        //        this.inline_capacity = null;
-        //    }
-        //}
-
-        //private void ValidateAddEditSection()
-        //{
-        //    if (this.temp_section == null)
-        //        return;
-
-        //    if(this.temp_section.section.name.Trim().Length == 0 && this.inline_name != null && !this.inline_name._Focused)
-        //    {
-        //        this.inline_name.Focus();
-        //        return;
-        //    }
-
-        //    if(this.temp_section.section.stmas_id == -1 && this.inline_stkcod != null && !this.inline_stkcod._Focused)
-        //    {
-        //        this.inline_stkcod.Focus();
-        //        this.inline_stkcod.PerformButtonClick();
-        //        return;
-        //    }
-        //}
 
         private void PerformEdit(object sender, EventArgs e)
         {
@@ -500,21 +330,6 @@ namespace XPump.SubForm
             ((Control)sender).Focus();
         }
 
-        //private void panel2_Paint(object sender, PaintEventArgs e)
-        //{
-        //    if (this.form_mode == FORM_MODE.READ_ITEM || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
-        //    {
-        //        using (Pen p0 = new Pen(Color.LimeGreen))
-        //        {
-        //            using (Pen p = new Pen(Color.PaleGreen))
-        //            {
-        //                e.Graphics.DrawRectangle(p0, e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-        //                e.Graphics.DrawRectangle(p, e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 3, e.ClipRectangle.Height - 3);
-        //            }
-        //        }
-        //    }
-        //}
-
         private void dgvSection_Resize(object sender, EventArgs e)
         {
             if (((XDatagrid)sender).CurrentCell == null)
@@ -528,6 +343,9 @@ namespace XPump.SubForm
 
             col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_stkcod.DataPropertyName).First().Index;
             this.inline_stkcod.SetInlineControlPosition(this.dgvSection, row_index, col_index);
+
+            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_capacity.DataPropertyName).First().Index;
+            this.inline_capacity.SetInlineControlPosition(this.dgvSection, row_index, col_index);
 
             col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_section_begtak.DataPropertyName).First().Index;
             this.inline_begtak.SetInlineControlPosition(this.dgvSection, row_index, col_index);
@@ -747,6 +565,8 @@ namespace XPump.SubForm
                 {
                     try
                     {
+                        this.temp_tank.creby = this.main_form.loged_in_status.loged_in_user_name;
+                        this.temp_tank.cretime = DateTime.Now;
                         db.tank.Add(this.temp_tank);
                         db.SaveChanges();
                         this.form_mode = FORM_MODE.READ;
@@ -785,6 +605,8 @@ namespace XPump.SubForm
                         tank_to_update.enddate = this.temp_tank.enddate;
                         tank_to_update.remark = this.temp_tank.remark;
                         tank_to_update.isactive = this.temp_tank.isactive;
+                        tank_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        tank_to_update.chgtime = DateTime.Now;
 
                         db.SaveChanges();
                         this.form_mode = FORM_MODE.READ;
@@ -1073,7 +895,7 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.ADD_ITEM;
             this.ResetControlState();
             this.ShowInlineForm(this.curr_tank.section.Count - 1);
-            this.inline_name.Focus();
+            this.inline_stkcod.Focus();
         }
 
         private void btnEditItem_Click(object sender, EventArgs e)
@@ -1560,9 +1382,19 @@ namespace XPump.SubForm
             }
         }
 
+        private void inline_name__ButtonClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void inline_name__Leave(object sender, EventArgs e)
+        {
+
+        }
+
         private void inline_name__TextChanged(object sender, EventArgs e)
         {
-            this.temp_section.section.name = ((XTextEdit)sender)._Text;
+            //this.temp_section.section.name = ((XTextEdit)sender)._Text;
         }
 
         private void inline_begtak__ValueChanged(object sender, EventArgs e)

@@ -53,8 +53,8 @@ namespace XPump.Model
         public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public string name { get; set; }
-        public decimal begtak { get; set; }
         public decimal capacity { get; set; }
+        public decimal begtak { get; set; }
         public decimal begacc { get; set; }
         public decimal begdif { get; set; }
         public decimal totbal
