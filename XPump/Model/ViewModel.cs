@@ -52,6 +52,16 @@ namespace XPump.Model
     {
         public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
+        public string tank_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.tank.Find(this.tank_id) != null ? db.tank.Find(this.tank_id).name : string.Empty;
+                }
+            }
+        }
         public string name { get; set; }
         public decimal capacity { get; set; }
         public decimal begtak { get; set; }
@@ -117,16 +127,6 @@ namespace XPump.Model
 
         public string loccod { get; set; }
 
-        public string tank_name
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.tank.Find(this.tank_id) != null ? db.tank.Find(this.tank_id).name : string.Empty;
-                }
-            }
-        }
 
         public DateTime start_date
         {
