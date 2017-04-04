@@ -1309,9 +1309,45 @@ namespace XPump.Model
 
     public class StlocDbfVM
     {
+        public SccompDbf working_express_db { get; set; }
+        public bool selected { get; set; }
         public string stkcod { get; set; }
         public string loccod { get; set; }
-
+        public string shortnam
+        {
+            get
+            {
+                return this.istab_data != null ? this.istab_data.shortnam : string.Empty;
+            }
+        }
+        public string shortnam2
+        {
+            get
+            {
+                return this.istab_data != null ? this.istab_data.shortnam2 : string.Empty;
+            }
+        }
+        public string typdes
+        {
+            get
+            {
+                return this.istab_data != null ? this.istab_data.typdes : string.Empty;
+            }
+        }
+        public string typdes2
+        {
+            get
+            {
+                return this.istab_data != null ? this.istab_data.typdes2 : string.Empty;
+            }
+        }
+        private IstabDbf istab_data
+        {
+            get
+            {
+                return DbfTable.Istab(this.working_express_db).ToIstabList().Where(i => i.tabtyp.Trim() == "21" && i.typcod.Trim() == this.loccod.Trim()).FirstOrDefault();
+            }
+        }
     }
 
     public class IsrunDbfVM

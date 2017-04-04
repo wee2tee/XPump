@@ -875,6 +875,39 @@ namespace XPump.Misc
             return isrun;
         }
 
+        public static List<IstabDbf> ToIstabList(this DataTable istab_dbf)
+        {
+            List<IstabDbf> istab = new List<IstabDbf>();
+
+            foreach (DataRow row in istab_dbf.Rows)
+            {
+                try
+                {
+                    IstabDbf i = new IstabDbf
+                    {
+                        tabtyp = row.Field<string>("tabtyp"),
+                        typcod = row.Field<string>("typcod"),
+                        shortnam = row.Field<string>("shortnam"),
+                        shortnam2 = row.Field<string>("shortnam2"),
+                        typdes = row.Field<string>("typdes"),
+                        typdes2 = row.Field<string>("typdes2"),
+                        fld01 = row.Field<string>("fld01"),
+                        fld02 = !(row.IsNull("fld02")) ? row.Field<double>("fld02") : 0d,
+                        depcod = row.Field<string>("depcod"),
+                        status = row.Field<string>("status")
+                    };
+
+                    istab.Add(i);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+
+            return istab;
+        }
+
         public static List<StcrdDbf> ToStcrdList(this DataTable stcrd_dbf)
         {
             List<StcrdDbf> stcrd = new List<StcrdDbf>();
@@ -1237,26 +1270,28 @@ namespace XPump.Misc
             return s;
         }
 
-        public static StlocDbfVM ToViewModel(this StlocDbf stlocdbf)
+        public static StlocDbfVM ToLocSelectionModel(this StlocDbf stlocdbf, SccompDbf working_express_db)
         {
             if (stlocdbf == null)
                 return null;
 
             StlocDbfVM s = new StlocDbfVM
             {
+                selected = false,
                 stkcod = stlocdbf.stkcod.Trim(),
-                loccod = stlocdbf.loccod.Trim()
+                loccod = stlocdbf.loccod.Trim(),
+                working_express_db = working_express_db
             };
 
             return s;
         }
 
-        public static List<StlocDbfVM> ToViewModel(this IEnumerable<StlocDbf> stlocdbf_list)
+        public static List<StlocDbfVM> ToLocSelectionModel(this IEnumerable<StlocDbf> stlocdbf_list, SccompDbf working_express_db)
         {
             List<StlocDbfVM> s = new List<StlocDbfVM>();
             foreach (var item in stlocdbf_list)
             {
-                s.Add(item.ToViewModel());
+                s.Add(item.ToLocSelectionModel(working_express_db));
             }
 
             return s;
@@ -1309,6 +1344,32 @@ namespace XPump.Misc
             };
 
             return i;
+        }
+
+        public static StlocDbfVM ToViewModel(this StlocDbf stlocdbf, SccompDbf working_express_db)
+        {
+            if (stlocdbf == null)
+                return null;
+
+            StlocDbfVM s = new StlocDbfVM
+            {
+                selected = false,
+                stkcod = stlocdbf.stkcod,
+                loccod = stlocdbf.loccod,
+                working_express_db = working_express_db
+            };
+            return s;
+        }
+
+        public static List<StlocDbfVM> ToViewModel(this IEnumerable<StlocDbf> stlocdbf_list, SccompDbf working_express_db)
+        {
+            List<StlocDbfVM> s = new List<StlocDbfVM>();
+
+            foreach (var item in stlocdbf_list)
+            {
+                s.Add(item.ToViewModel(working_express_db));
+            }
+            return s;
         }
 
         public static void SetControlState(this Component comp, FORM_MODE[] form_mode_to_enable, FORM_MODE form_mode)

@@ -220,6 +220,38 @@ namespace XPump.Model
             return dt;
         }
 
+        public static DataTable Istab(SccompDbf working_express_db)
+        {
+            string data_path = working_express_db.abs_path;
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "istab.dbf")))
+            {
+                MessageBox.Show("ค้นหาแฟ้ม Istab.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return new DataTable();
+            }
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = new OleDbConnection(
+                @"Provider=VFPOLEDB.1;Data Source=" + data_path);
+
+            conn.Open();
+
+            if (conn.State == ConnectionState.Open)
+            {
+                string mySQL = "select * from Istab";
+
+                OleDbCommand cmd = new OleDbCommand(mySQL, conn);
+                OleDbDataAdapter DA = new OleDbDataAdapter(cmd);
+
+                DA.Fill(dt);
+
+                conn.Close();
+            }
+
+            return dt;
+        }
+
         public static DataTable Isinfo(SccompDbf working_express_db)
         {
             string data_path = working_express_db.abs_path; // GetExpressDataPath();
@@ -887,6 +919,21 @@ namespace XPump.Model
         public string reserve1 { get; set; }
         public string reserve2 { get; set; }
         public double reserve3 { get; set; }
+
+    }
+
+    public class IstabDbf
+    {
+        public string tabtyp { get; set; }
+        public string typcod { get; set; }
+        public string shortnam { get; set; }
+        public string shortnam2 { get; set; }
+        public string typdes { get; set; }
+        public string typdes2 { get; set; }
+        public string fld01 { get; set; }
+        public double? fld02 { get; set; }
+        public string depcod { get; set; }
+        public string status { get; set; }
 
     }
 

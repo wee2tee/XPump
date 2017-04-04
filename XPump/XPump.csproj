@@ -229,6 +229,12 @@
     <Compile Include="SubForm\DialogInquiryStmas.Designer.cs">
       <DependentUpon>DialogInquiryStmas.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogLoccodSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogLoccodSelection.Designer.cs">
+      <DependentUpon>DialogLoccodSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogLogIn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -349,6 +355,12 @@
     <Compile Include="SubForm\FormSttak.Designer.cs">
       <DependentUpon>FormSttak.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\FormTankSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormTankSetup.Designer.cs">
+      <DependentUpon>FormTankSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\LoadingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -378,12 +390,6 @@
     </Compile>
     <Compile Include="SubForm\FormStmas.Designer.cs">
       <DependentUpon>FormStmas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SubForm\FormTankSetup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\FormTankSetup.Designer.cs">
-      <DependentUpon>FormTankSetup.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -424,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogInquiryStmas.resx">
       <DependentUpon>DialogInquiryStmas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogLoccodSelection.resx">
+      <DependentUpon>DialogLoccodSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogLogIn.resx">
       <DependentUpon>DialogLogIn.cs</DependentUpon>
@@ -485,6 +494,9 @@
     <EmbeddedResource Include="SubForm\FormSttak.resx">
       <DependentUpon>FormSttak.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormTankSetup.resx">
+      <DependentUpon>FormTankSetup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -499,9 +511,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormStmas.resx">
       <DependentUpon>FormStmas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\FormTankSetup.resx">
-      <DependentUpon>FormTankSetup.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="Model\XPumpModel.edmx">

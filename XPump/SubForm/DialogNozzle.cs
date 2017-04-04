@@ -17,7 +17,7 @@ namespace XPump.SubForm
     {
         private MainForm main_form;
         private FormTankSetup form_tanksetup;
-        private tank tank;
+        //private tank tank;
         private section section;
         private nozzle temp_nozzle;
         private FORM_MODE form_mode;
@@ -75,15 +75,15 @@ namespace XPump.SubForm
                 }
                 this.lblSection.Text = this.section.name;
 
-                this.tank = db.tank.Find(this.section.tank_id);
-                if(this.tank == null)
-                {
-                    MessageBox.Show("ไม่สามารถค้นหาแท๊งค์ที่ต้องการแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    this.DialogResult = DialogResult.Cancel;
-                    this.Close();
-                    return;
-                }
-                this.lblTank.Text = this.tank.name + " / " + this.tank.description;
+                //this.tank = db.tank.Find(this.section.tank_id);
+                //if(this.tank == null)
+                //{
+                //    MessageBox.Show("ไม่สามารถค้นหาแท๊งค์ที่ต้องการแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //    this.DialogResult = DialogResult.Cancel;
+                //    this.Close();
+                //    return;
+                //}
+                //this.lblTank.Text = this.tank.name + " / " + this.tank.description;
 
                 this.list_nozzle = this.GetNozzleList();
 
