@@ -24,7 +24,9 @@ namespace XPump.SubForm
 
         private void DialogLoccodSelection_Load(object sender, EventArgs e)
         {
-            this.dgv.DataSource = DbfTable.Stloc(this.main_form.working_express_db).ToStlocList().ToViewModel(this.main_form.working_express_db);
+            string main_loc = DbfTable.Isinfo(this.main_form.working_express_db).ToList<IsinfoDbf>().First().mainloc.Trim();
+
+            this.dgv.DataSource = DbfTable.Stloc(this.main_form.working_express_db).ToStlocList().Where(s => s.loccod.Trim() != main_loc).GroupBy(s => s.loccod.Trim()).Select(s => s.First()).ToViewModel(this.main_form.working_express_db);
         }
     }
 }

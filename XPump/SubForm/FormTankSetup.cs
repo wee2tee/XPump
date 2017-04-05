@@ -878,24 +878,30 @@ namespace XPump.SubForm
 
         private void btnAddItem_Click(object sender, EventArgs e)
         {
-            this.temp_section = new section
+            //this.temp_section = new section
+            //{
+            //    id = -1,
+            //    name = string.Empty,
+            //    loccod = string.Empty,
+            //    begacc = 0m,
+            //    begtak = 0m,
+            //    begdif = 0m,
+            //    stmas_id = -1,
+            //    tank_id = this.curr_tank.id,
+            //}.ToViewModel(this.main_form.working_express_db);
+            //this.curr_tank.section.Add(this.temp_section.section);
+            //this.FillForm();
+            //this.dgvSection.Rows[this.curr_tank.section.Count - 1].Cells["col_section_name"].Selected = true;
+            //this.form_mode = FORM_MODE.ADD_ITEM;
+            //this.ResetControlState();
+            //this.ShowInlineForm(this.curr_tank.section.Count - 1);
+            //this.inline_stkcod.Focus();
+
+            DialogLoccodSelection loc = new DialogLoccodSelection(this.main_form);
+            if(loc.ShowDialog() == DialogResult.OK)
             {
-                id = -1,
-                name = string.Empty,
-                loccod = string.Empty,
-                begacc = 0m,
-                begtak = 0m,
-                begdif = 0m,
-                stmas_id = -1,
-                tank_id = this.curr_tank.id,
-            }.ToViewModel(this.main_form.working_express_db);
-            this.curr_tank.section.Add(this.temp_section.section);
-            this.FillForm();
-            this.dgvSection.Rows[this.curr_tank.section.Count - 1].Cells["col_section_name"].Selected = true;
-            this.form_mode = FORM_MODE.ADD_ITEM;
-            this.ResetControlState();
-            this.ShowInlineForm(this.curr_tank.section.Count - 1);
-            this.inline_stkcod.Focus();
+
+            }
         }
 
         private void btnEditItem_Click(object sender, EventArgs e)
