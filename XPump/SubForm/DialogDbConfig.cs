@@ -275,6 +275,18 @@ namespace XPump.SubForm
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
+                // Tanksetup Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`tanksetup` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`startdate` DATE NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY(`id`)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
+
                 // Tank Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`tank` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
@@ -288,8 +300,11 @@ namespace XPump.SubForm
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "`tanksetup_id` INT(11) NOT NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "UNIQUE INDEX `unq - tank - name` (`name` ASC)) ";
+                cmd.CommandText += "UNIQUE INDEX `unq - tank - name` (`name` ASC),";
+                cmd.CommandText += "INDEX `ndx-tank-tanksetup_id` (`tanksetup_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk-tank-tanksetup_id` FOREIGN KEY (`tanksetup_id`) REFERENCES `" + local_config.dbname + "`.`tanksetup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 

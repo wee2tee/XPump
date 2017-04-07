@@ -36,6 +36,18 @@ namespace XPump.Model
         public Nullable<System.DateTime> enddate { get; set; }
         public string remark { get; set; }
         public bool isactive { get; set; }
+        public int tanksetup_id { get; set; }
+        public DateTime? tanksetup_startdate
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    var tanksetup = db.tanksetup.Find(this.tanksetup_id);
+                    return tanksetup != null ? (DateTime?)tanksetup.startdate : null;
+                }
+            }
+        }
 
         public tank tank { get; set; }
 

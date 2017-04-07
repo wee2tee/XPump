@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fe283258bed84c81afde9dd185a47b56" Name="Diagram1">
+      <Diagram DiagramId="a70243f018e64e888ac88de8eb6f40c9" Name="Diagram1">
         <EntityTypeShape EntityType="xpumpModel.dayend" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.daysttak" Width="1.5" PointX="11.25" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.dbver" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.istab" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.istab" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.nozzle" Width="1.5" PointX="8.25" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.pricelist" Width="1.5" PointX="3" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.saleshistory" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
@@ -19,7 +19,8 @@
         <EntityTypeShape EntityType="xpumpModel.shiftsales" Width="1.5" PointX="9" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.shiftsttak" Width="1.5" PointX="11.25" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.stmas" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.tank" Width="1.5" PointX="3.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.tank" Width="1.5" PointX="3.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.tanksetup" Width="1.5" PointX="1.5" PointY="7.625" IsExpanded="true" />
         <AssociationConnector Association="xpumpModel.fk___dayend___stmas_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk___daysttak___dayend_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk_dayend_dothercause_id" ManuallyRouted="false" />
@@ -41,6 +42,7 @@
         <AssociationConnector Association="xpumpModel.fk___sttak___section_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk___shiftsales___shift_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpModel.fk___sttak___shiftsales_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpModel.fk_tank_tanksetup_id" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

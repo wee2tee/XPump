@@ -118,7 +118,8 @@ namespace XPump.Misc
                 enddate = tank.enddate,
                 remark = tank.remark,
                 isactive = tank.isactive,
-                tank = tank
+                tank = tank,
+                tanksetup_id = tank.tanksetup_id
             };
 
             return t;

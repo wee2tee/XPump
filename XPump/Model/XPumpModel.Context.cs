@@ -19,13 +19,13 @@ namespace XPump.Model
             : base("name=xpumpEntities")
         {
         }
-    
+
         public xpumpEntities(string connection_string)
             : base(connection_string)
         {
 
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -46,5 +46,6 @@ namespace XPump.Model
         public virtual DbSet<shiftsttak> shiftsttak { get; set; }
         public virtual DbSet<stmas> stmas { get; set; }
         public virtual DbSet<tank> tank { get; set; }
+        public virtual DbSet<tanksetup> tanksetup { get; set; }
     }
 }

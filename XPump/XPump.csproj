@@ -157,6 +157,9 @@
     <Compile Include="Model\tank.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\tanksetup.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\ViewModel.cs" />
     <Compile Include="Model\XPumpModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -355,6 +358,12 @@
     <Compile Include="SubForm\FormSttak.Designer.cs">
       <DependentUpon>FormSttak.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\FormTankConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormTankConfig.Designer.cs">
+      <DependentUpon>FormTankConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\FormTankSetup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -493,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormSttak.resx">
       <DependentUpon>FormSttak.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormTankConfig.resx">
+      <DependentUpon>FormTankConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormTankSetup.resx">
       <DependentUpon>FormTankSetup.cs</DependentUpon>

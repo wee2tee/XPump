@@ -1412,10 +1412,6 @@ namespace XPump.SubForm
         {
             this.temp_section.section.begacc = ((XNumEdit)sender)._Value;
         }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        
     }
 }

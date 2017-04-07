@@ -240,6 +240,18 @@
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
           <Property Name="chgtime" Type="datetime" Precision="0" />
+          <Property Name="tanksetup_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tanksetup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="startdate" Type="date" Nullable="false" />
+          <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="chgby" Type="varchar" MaxLength="20" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <Association Name="fk - dayend - stmas_id">
           <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
@@ -493,6 +505,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk-tank-tanksetup_id">
+          <End Role="tanksetup" Type="Self.tanksetup" Multiplicity="1" />
+          <End Role="tank" Type="Self.tank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tanksetup">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tank">
+              <PropertyRef Name="tanksetup_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="xpumpModelStoreContainer">
           <EntitySet Name="dayend" EntityType="Self.dayend" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="daysttak" EntityType="Self.daysttak" Schema="xpump" store:Type="Tables" />
@@ -509,6 +533,7 @@
           <EntitySet Name="shiftsttak" EntityType="Self.shiftsttak" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="stmas" EntityType="Self.stmas" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="tanksetup" EntityType="Self.tanksetup" Schema="xpump" store:Type="Tables" />
           <AssociationSet Name="fk - dayend - stmas_id" Association="Self.fk - dayend - stmas_id">
             <End Role="stmas" EntitySet="stmas" />
             <End Role="dayend" EntitySet="dayend" />
@@ -592,6 +617,10 @@
           <AssociationSet Name="fk-salessummary-dothercause_id" Association="Self.fk-salessummary-dothercause_id">
             <End Role="istab" EntitySet="istab" />
             <End Role="salessummary" EntitySet="salessummary" />
+          </AssociationSet>
+          <AssociationSet Name="fk-tank-tanksetup_id" Association="Self.fk-tank-tanksetup_id">
+            <End Role="tanksetup" EntitySet="tanksetup" />
+            <End Role="tank" EntitySet="tank" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -875,7 +904,21 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
+          <Property Name="tanksetup_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="section" Relationship="Self.fk___section___tank_id" FromRole="tank" ToRole="section" />
+          <NavigationProperty Name="tanksetup" Relationship="Self.fk_tank_tanksetup_id" FromRole="tank" ToRole="tanksetup" />
+        </EntityType>
+        <EntityType Name="tanksetup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="startdate" Type="DateTime" Nullable="false" />
+          <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cretime" Type="DateTime" Nullable="false" />
+          <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chgtime" Type="DateTime" />
+          <NavigationProperty Name="tank" Relationship="Self.fk_tank_tanksetup_id" FromRole="tanksetup" ToRole="tank" />
         </EntityType>
         <Association Name="fk___dayend___stmas_id">
           <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
@@ -1129,6 +1172,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_tank_tanksetup_id">
+          <End Role="tanksetup" Type="Self.tanksetup" Multiplicity="1" />
+          <End Role="tank" Type="Self.tank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tanksetup">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tank">
+              <PropertyRef Name="tanksetup_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="xpumpEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="dayend" EntityType="Self.dayend" />
           <EntitySet Name="daysttak" EntityType="Self.daysttak" />
@@ -1145,6 +1200,7 @@
           <EntitySet Name="shiftsttak" EntityType="Self.shiftsttak" />
           <EntitySet Name="stmas" EntityType="Self.stmas" />
           <EntitySet Name="tank" EntityType="Self.tank" />
+          <EntitySet Name="tanksetup" EntityType="Self.tanksetup" />
           <AssociationSet Name="fk___dayend___stmas_id" Association="Self.fk___dayend___stmas_id">
             <End Role="stmas" EntitySet="stmas" />
             <End Role="dayend" EntitySet="dayend" />
@@ -1228,6 +1284,10 @@
           <AssociationSet Name="fk___sttak___shiftsales_id" Association="Self.fk___sttak___shiftsales_id">
             <End Role="shiftsales" EntitySet="shiftsales" />
             <End Role="shiftsttak" EntitySet="shiftsttak" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tank_tanksetup_id" Association="Self.fk_tank_tanksetup_id">
+            <End Role="tanksetup" EntitySet="tanksetup" />
+            <End Role="tank" EntitySet="tank" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1480,6 +1540,19 @@
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="remark" ColumnName="remark" />
                 <ScalarProperty Name="isactive" ColumnName="isactive" />
+                <ScalarProperty Name="creby" ColumnName="creby" />
+                <ScalarProperty Name="cretime" ColumnName="cretime" />
+                <ScalarProperty Name="chgby" ColumnName="chgby" />
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+                <ScalarProperty Name="tanksetup_id" ColumnName="tanksetup_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tanksetup">
+            <EntityTypeMapping TypeName="xpumpModel.tanksetup">
+              <MappingFragment StoreEntitySet="tanksetup">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />
