@@ -200,7 +200,8 @@ namespace XPump.SubForm
                 cmd.CommandText += "(`id` INT(7) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`version` VARCHAR(15) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
+                //cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
@@ -219,19 +220,6 @@ namespace XPump.SubForm
                 cmd.CommandText += "PRIMARY KEY (`id`)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
-
-                //// Xlog Table
-                //cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`xlog` ";
-                //cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
-                //cmd.CommandText += "`logcode` VARCHAR(10) NOT NULL,";
-                //cmd.CommandText += "`description` VARCHAR(50) NULL,";
-                //cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                //cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
-                //cmd.CommandText += "PRIMARY KEY(`id`),";
-                //cmd.CommandText += "INDEX `ndx - xlog - logcode` (`logcode` ASC),";
-                //cmd.CommandText += "INDEX `ndx - xlog - username` (`username` ASC)) ";
-                //cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                //cmd.ExecuteNonQuery();
 
                 // Istab Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`istab` ";

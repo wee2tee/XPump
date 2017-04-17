@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 4a36604d0f38112176b2422cf3cb206c9ad557b8 Wee Tee <weerawat.36@hotmail.com> 1483359966 +0700	clone: from https://github.com/wee2tee/XPump
+4a36604d0f38112176b2422cf3cb206c9ad557b8 1c2ce25e055e639aea20a49acae6ec44689bbeba Wee Tee <weerawat.36@hotmail.com> 1483369864 +0700	commit: TankForm nearly complete, wait for update tank table (set column id to auto increment)
+1c2ce25e055e639aea20a49acae6ec44689bbeba 4396a5e8d3910db9c01ec86a0396f9855920a776 Wee Tee <weerawat.36@hotmail.com> 1483372666 +0700	commit: TankForm complete
+4396a5e8d3910db9c01ec86a0396f9855920a776 d289a1660b852fe3675125269d08d05ac31285f1 Wee Tee <weerawat.36@hotmail.com> 1483452542 +0700	commit: Create NozzleForm
+d289a1660b852fe3675125269d08d05ac31285f1 bd6c32977a49d4730385168c2cd00ec9e1207f59 Wee Tee <weerawat.36@hotmail.com> 1484129042 +0700	merge bd6c32977a49d4730385168c2cd00ec9e1207f59: Fast-forward
+bd6c32977a49d4730385168c2cd00ec9e1207f59 5c8f42d2eba770d86be228f8c38601a63e7f1c6e Wee Tee <weerawat.36@hotmail.com> 1485591714 +0700	merge 5c8f42d2eba770d86be228f8c38601a63e7f1c6e: Fast-forward
+5c8f42d2eba770d86be228f8c38601a63e7f1c6e ba4354a7864fac7be6a9e1de2973eb6d84f44777 Wee Tee <weerawat.36@hotmail.com> 1491918816 +0700	commit: FormTankConfig at Hatyai

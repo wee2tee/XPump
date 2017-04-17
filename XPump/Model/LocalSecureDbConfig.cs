@@ -19,6 +19,19 @@ namespace XPump.Model
 
         public LocalSecureDbConfig()
         {
+            if(!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\Local"))
+            {
+                try
+                {
+                    Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\Local");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\Local\" + this.securedbconfig_file_name))
             {
                 SQLiteConnection.CreateFile(AppDomain.CurrentDomain.BaseDirectory + @"\Local\" + this.securedbconfig_file_name);

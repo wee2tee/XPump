@@ -60,7 +60,9 @@ namespace XPump.SubForm
                             {
                                 name = this.stmas_list[i].stkcod,
                                 description = this.stmas_list[i].stkdes,
-                                remark = this.stmas_list[i].remark
+                                remark = this.stmas_list[i].remark,
+                                creby = this.main_form.loged_in_status.loged_in_user_name,
+                                cretime = DateTime.Now
                             });
                             db.SaveChanges();
                         }
