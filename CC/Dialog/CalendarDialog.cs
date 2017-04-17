@@ -33,6 +33,11 @@ namespace CC.Dialog
             
         }
 
+        private void CalendarDialog_Shown(object sender, EventArgs e)
+        {
+            this.Width = this.calendar.Width + 5;
+        }
+
         private void calendar_DateChanged(object sender, DateRangeEventArgs e)
         {
             this.selected_date = e.Start;
@@ -40,6 +45,7 @@ namespace CC.Dialog
 
         private void CalendarDialog_Deactivate(object sender, EventArgs e)
         {
+            //this.selected_date = null;
             this.Dispose();
         }
 
@@ -62,12 +68,14 @@ namespace CC.Dialog
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            this.xdate_picker._SelectedDate = this.selected_date;
+            this.xdate_picker.SetDate(this.selected_date);
+            this.DialogResult = DialogResult.OK;
             this.Dispose();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            //this.selected_date = null;
             this.Dispose();
         }
 

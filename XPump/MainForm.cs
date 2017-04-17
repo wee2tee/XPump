@@ -183,13 +183,25 @@ namespace XPump
 
         private void MnuTank_Click(object sender, EventArgs e)
         {
-            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankSetup)).FirstOrDefault() != null)
+            //if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankSetup)).FirstOrDefault() != null)
+            //{
+            //    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankSetup)).First().form.Activate();
+            //    return;
+            //}
+
+            //FormTankSetup tank = new FormTankSetup(this);
+            //tank.MdiParent = this;
+            //tank.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            //tank.Show();
+            //this.opened_child_form.Add(new ChildFormDetail() { form = tank, docPrefix = string.Empty });
+
+            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankConfig)).FirstOrDefault() != null)
             {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankSetup)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankConfig)).First().form.Activate();
                 return;
             }
 
-            FormTankSetup tank = new FormTankSetup(this);
+            FormTankConfig tank = new FormTankConfig(this);
             tank.MdiParent = this;
             tank.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
             tank.Show();

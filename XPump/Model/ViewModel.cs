@@ -48,6 +48,10 @@ namespace XPump.Model
                 }
             }
         }
+        public string creby { get; set; }
+        public DateTime cretime { get; set; }
+        public string chgby { get; set; }
+        public DateTime? chgtime { get; set; }
 
         public tank tank { get; set; }
 

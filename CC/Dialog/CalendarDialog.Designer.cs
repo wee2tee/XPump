@@ -49,9 +49,10 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.Image = global::CC.Properties.Resources.cancel_16;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(105, 161);
+            this.btnCancel.Location = new System.Drawing.Point(154, 161);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(72, 23);
             this.btnCancel.TabIndex = 2;
@@ -61,6 +62,7 @@
             // 
             // btnOK
             // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOK.Image = global::CC.Properties.Resources.ok_16;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOK.Location = new System.Drawing.Point(-1, 161);
@@ -75,7 +77,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(177, 184);
+            this.ClientSize = new System.Drawing.Size(226, 184);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -89,6 +91,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Deactivate += new System.EventHandler(this.CalendarDialog_Deactivate);
             this.Load += new System.EventHandler(this.CalendarDialog_Load);
+            this.Shown += new System.EventHandler(this.CalendarDialog_Shown);
             this.ResumeLayout(false);
 
         }

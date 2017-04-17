@@ -94,7 +94,7 @@
 
         #endregion
         private System.Windows.Forms.Button btnShowCalendar;
-        private System.Windows.Forms.MaskedTextBox txtDate;
+        public System.Windows.Forms.MaskedTextBox txtDate;
         private System.Windows.Forms.Label label1;
     }
 }

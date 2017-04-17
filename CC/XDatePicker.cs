@@ -22,9 +22,9 @@ namespace CC
             }
             set
             {
-                this.selected_date = value;
+                //this.selected_date = value;
 
-                this.txtDate.Text = this._SelectedDate.HasValue ? this._SelectedDate.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat) : "  /  /    ";
+                this.txtDate.Text = value.HasValue ? value.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) : "  /  /    ";
 
                 if (this.is_read_only)
                 {
@@ -59,7 +59,7 @@ namespace CC
             }
             set
             {
-                string str_date = this.selected_date.HasValue ? this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat) : "  /  /    ";
+                string str_date = this.selected_date.HasValue ? this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) : "  /  /    ";
                 this.txtDate.Text = str_date;
                 this.is_read_only = value;
                 this.btnShowCalendar.Enabled = !value;
@@ -106,16 +106,24 @@ namespace CC
 
         private void btnShowCalendar_Click(object sender, EventArgs e)
         {
+            var y = this.selected_date;
+
             if(this.calendar == null)
             {
                 Point pnt = this.btnShowCalendar.PointToScreen(Point.Empty);
                 this.calendar = new CalendarDialog(this);
                 this.calendar.SetBounds(pnt.X, pnt.Y + this.btnShowCalendar.Height - 1, this.calendar.Width, this.calendar.Height);
+                //this.calendar.FormClosed += delegate
+                //{
+                //    tmp_date = this.calendar.selected_date;
+                //};
                 this.calendar.Disposed += delegate
                 {
-                    this.txtDate.Text = this.selected_date != null ? this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) : "";
+                    //this.txtDate.Text = this.calendar.selected_date != null ? this.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) : "";
+                    //this._SelectedDate = this.calendar.selected_date;
                     this.calendar = null;
                     this.txtDate.Focus();
+                    var x = this.selected_date;
                 };
                 this.calendar.Show();
             }
@@ -123,8 +131,9 @@ namespace CC
 
         public void SetDate(DateTime? date)
         {
-            this.selected_date = date;
-            this.txtDate.Text = this._SelectedDate.HasValue ? this._SelectedDate.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat) : "  /  /    ";
+            //this.selected_date = date;
+            //this.txtDate.Text = this._SelectedDate.HasValue ? this._SelectedDate.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture.DateTimeFormat) : "  /  /    ";
+            this._SelectedDate = date;
         }
 
         public void ShowCalendar()
@@ -173,7 +182,7 @@ namespace CC
         private void txtDate_TextChanged(object sender, EventArgs e)
         {
             DateTime d;
-            if (DateTime.TryParse(((MaskedTextBox)sender).Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out d))
+            if (DateTime.TryParse(((MaskedTextBox)sender).Text, CultureInfo.GetCultureInfo("th-TH"), DateTimeStyles.None, out d))
             {
                 this.selected_date = d;
             }
