@@ -18,7 +18,7 @@ namespace XPump.SubForm
         private List<DataGridViewColumn> columns;
         private DataGridViewColumn col_search_key;
         private object initial_selected_key;
-        private bool show_search_btn;
+        private bool show_search_btn = false;
         private List<dynamic> list_to_show;
         private BindingSource bs;
 

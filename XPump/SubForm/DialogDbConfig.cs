@@ -192,7 +192,7 @@ namespace XPump.SubForm
             try
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("CREATE DATABASE IF NOT EXISTS " + local_config.dbname, conn);
+                MySqlCommand cmd = new MySqlCommand("CREATE DATABASE IF NOT EXISTS `" + local_config.dbname + "` DEFAULT CHARACTER SET utf8", conn);
                 cmd.ExecuteNonQuery();
 
                 // DBVer Table
@@ -200,7 +200,6 @@ namespace XPump.SubForm
                 cmd.CommandText += "(`id` INT(7) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`version` VARCHAR(15) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                //cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
@@ -209,7 +208,6 @@ namespace XPump.SubForm
                 // Settings Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`settings` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                //cmd.CommandText += "`express_data_path` TEXT NOT NULL,";
                 cmd.CommandText += "`orgname` VARCHAR(60) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`shiftprintmet` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '0 = not stricted, 1 = printed before authorize, 2 = authorized before print',";
                 cmd.CommandText += "`shiftauthlev` VARCHAR(1) NOT NULL DEFAULT '',";
@@ -297,19 +295,19 @@ namespace XPump.SubForm
                 cmd.ExecuteNonQuery();
 
                 // Stmas Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`stmas` ";
-                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
-                cmd.CommandText += "`description` VARCHAR(50) NULL,";
-                cmd.CommandText += "`remark` VARCHAR(50) NULL,";
-                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
-                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
-                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
-                cmd.CommandText += "`chgtime` DATETIME NULL,";
-                cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "UNIQUE INDEX `unq - stmas - name` (`name` ASC)) ";
-                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                cmd.ExecuteNonQuery();
+                //cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`stmas` ";
+                //cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                //cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
+                //cmd.CommandText += "`description` VARCHAR(50) NULL,";
+                //cmd.CommandText += "`remark` VARCHAR(50) NULL,";
+                //cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                //cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                //cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                //cmd.CommandText += "`chgtime` DATETIME NULL,";
+                //cmd.CommandText += "PRIMARY KEY (`id`),";
+                //cmd.CommandText += "UNIQUE INDEX `unq - stmas - name` (`name` ASC)) ";
+                //cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                //cmd.ExecuteNonQuery();
 
                 // Shiftsales Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`shiftsales` ";

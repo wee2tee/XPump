@@ -369,6 +369,12 @@ namespace XPump
             
             base.OnFormClosing(e);
         }
+
+        private void testBindingListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _TestForm1 f = new _TestForm1();
+            f.ShowDialog();
+        }
     }
 
     public class ChildFormDetail

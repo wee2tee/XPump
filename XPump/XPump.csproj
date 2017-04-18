@@ -400,6 +400,12 @@
     <Compile Include="SubForm\FormStmas.Designer.cs">
       <DependentUpon>FormStmas.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\_TestForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\_TestForm1.Designer.cs">
+      <DependentUpon>_TestForm1.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -523,6 +529,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormStmas.resx">
       <DependentUpon>FormStmas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\_TestForm1.resx">
+      <DependentUpon>_TestForm1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="Model\XPumpModel.edmx">

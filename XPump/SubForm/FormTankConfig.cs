@@ -19,12 +19,12 @@ namespace XPump.SubForm
         private FORM_MODE form_mode;
         private tanksetup tanksetup;
         private List<tankVM> list_tankVM = new List<tankVM>();
-        private List<sectionVM> list_sectionVM = new List<sectionVM>();
+        private BindingList<sectionVM> list_sectionVM = new BindingList<sectionVM>();
         private tanksetup tmp_tanksetup;
         private tankVM tmp_tankVM;
         private sectionVM tmp_sectionVM;
         private BindingSource bs_tank;
-        private BindingSource bs_section;
+        //private BindingSource bs_section;
         private tank selected_tank;
         private section selected_section;
 
@@ -39,10 +39,10 @@ namespace XPump.SubForm
             this.bs_tank = new BindingSource();
             this.bs_tank.DataSource = this.list_tankVM;
             this.dgvTank.DataSource = this.bs_tank;
-            
-            this.bs_section = new BindingSource();
-            this.bs_section.DataSource = this.list_sectionVM;
-            this.dgvSection.DataSource = this.bs_section;
+
+            //this.bs_section = new BindingSource();
+            //this.bs_section.DataSource = this.list_sectionVM;
+            this.dgvSection.DataSource = this.list_sectionVM;
 
             this.btnLast.PerformClick();
 
@@ -130,9 +130,8 @@ namespace XPump.SubForm
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
                     int tank_id = this.selected_tank.id;
-                    this.list_sectionVM = db.section.Where(s => s.tank_id == tank_id).OrderBy(s => s.name).ToViewModel(this.main_form.working_express_db);
-                    this.bs_section.ResetBindings(true);
-                    this.bs_section.DataSource = this.list_sectionVM;
+                    
+                    this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).OrderBy(s => s.name).ToViewModel(this.main_form.working_express_db));
                 }
             }
             
@@ -157,7 +156,23 @@ namespace XPump.SubForm
 
         private void ShowInlineSectionForm()
         {
+            if (this.dgvSection.CurrentCell == null)
+                return;
 
+            int row_index = this.dgvSection.CurrentCell.RowIndex;
+
+            int col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_name.DataPropertyName).First().Index;
+
+            this.inlineSectionName.SetInlineControlPosition(this.dgvSection, row_index, col_index);
+            this.inlineSectionName._Text = this.tmp_sectionVM.name;
+            this.inlineSectionName.Visible = true;
+            this.inlineSectionName.Focus();
+
+            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_stkcod.DataPropertyName).First().Index;
+            this.inlineStkcod.SetInlineControlPosition(this.dgvSection, row_index, col_index);
+            this.inlineStkcod._Text = this.tmp_sectionVM.stkcod;
+            this.inlineStkcod.Visible = true;
+            
         }
 
         private void RemoveInlineTankForm()
@@ -533,7 +548,40 @@ namespace XPump.SubForm
 
         private void btnAddSection_Click(object sender, EventArgs e)
         {
+            this.tmp_sectionVM = new section
+            {
+                name = string.Empty,
+                loccod = string.Empty,
+                capacity = 0m,
+                begacc = 0m,
+                begtak = 0m,
+                begdif = 0m,
+                tank_id = -1,
+                stmas_id = -1,
+                creby = this.main_form.loged_in_status.loged_in_user_name
+            }.ToViewModel(this.main_form.working_express_db);
 
+            this.list_sectionVM.Add(this.tmp_sectionVM);
+            //this.list_sectionVM.Add(new section
+            //{
+            //    name = string.Empty,
+            //    loccod = string.Empty,
+            //    capacity = 0m,
+            //    begacc = 0m,
+            //    begtak = 0m,
+            //    begdif = 0m,
+            //    tank_id = -1,
+            //    stmas_id = -1,
+            //    creby = this.main_form.loged_in_status.loged_in_user_name
+            //}.ToViewModel(this.main_form.working_express_db));
+
+            this.form_mode = FORM_MODE.ADD_ITEM;
+            this.ResetControlState();
+            this.dgvSection.Enabled = true;
+            this.dgvTank.Enabled = false;
+
+            this.dgvSection.Rows[this.list_sectionVM.Count - 1].Cells[this.col_sect_name.Name].Selected = true;
+            this.ShowInlineSectionForm();
         }
 
         private void btnEditSection_Click(object sender, EventArgs e)
@@ -566,41 +614,6 @@ namespace XPump.SubForm
             this.btnEditTank.PerformClick();
         }
 
-        private void dgvTank_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            //if(e.Button == MouseButtons.Right)
-            //{
-            //    if (e.RowIndex > -1)
-            //        ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_tank_name.Name].Selected = true;
-
-            //    ContextMenu cm = new ContextMenu();
-            //    MenuItem mnu_add = new MenuItem("เพิ่ม <Alt+A>");
-            //    mnu_add.Click += delegate
-            //    {
-            //        this.btnAddTank.PerformClick();
-            //    };
-            //    cm.MenuItems.Add(mnu_add);
-
-            //    MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
-            //    mnu_edit.Click += delegate
-            //    {
-            //        this.btnEditTank.PerformClick();
-            //    };
-            //    mnu_edit.Enabled = e.RowIndex == -1 ? false : true;
-            //    cm.MenuItems.Add(mnu_edit);
-
-            //    MenuItem mnu_delete = new MenuItem("ลบ <Alt+D>");
-            //    mnu_delete.Click += delegate
-            //    {
-            //        this.btnDeleteTank.PerformClick();
-            //    };
-            //    mnu_delete.Enabled = e.RowIndex == -1 ? false : true;
-            //    cm.MenuItems.Add(mnu_delete);
-
-            //    cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
-            //}
-        }
-
         private void dgvTank_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -614,14 +627,14 @@ namespace XPump.SubForm
                     ((XDatagrid)sender).Rows[row_index].Cells[this.col_tank_name.Name].Selected = true;
 
                 ContextMenu cm = new ContextMenu();
-                MenuItem mnu_add = new MenuItem("เพิ่ม <Alt+A>");
+                MenuItem mnu_add = new MenuItem("เพิ่ม");
                 mnu_add.Click += delegate
                 {
                     this.btnAddTank.PerformClick();
                 };
                 cm.MenuItems.Add(mnu_add);
 
-                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
+                MenuItem mnu_edit = new MenuItem("แก้ไข");
                 mnu_edit.Click += delegate
                 {
                     this.btnEditTank.PerformClick();
@@ -629,7 +642,7 @@ namespace XPump.SubForm
                 mnu_edit.Enabled = row_index == -1 ? false : true;
                 cm.MenuItems.Add(mnu_edit);
 
-                MenuItem mnu_delete = new MenuItem("ลบ <Alt+D>");
+                MenuItem mnu_delete = new MenuItem("ลบ");
                 mnu_delete.Click += delegate
                 {
                     this.btnDeleteTank.PerformClick();
@@ -639,6 +652,87 @@ namespace XPump.SubForm
 
                 cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
             }
+        }
+
+        private void dgvSection_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                this.form_mode = FORM_MODE.READ_ITEM;
+                this.ResetControlState();
+
+                int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+
+                if (row_index > -1)
+                    ((XDatagrid)sender).Rows[row_index].Cells[this.col_sect_name.Name].Selected = true;
+
+                ContextMenu cm = new ContextMenu();
+                MenuItem mnu_add = new MenuItem("เพิ่ม");
+                mnu_add.Click += delegate
+                {
+                    this.btnAddSection.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_add);
+
+                MenuItem mnu_edit = new MenuItem("แก้ไข");
+                mnu_edit.Click += delegate
+                {
+                    this.btnEditSection.PerformClick();
+                };
+                mnu_edit.Enabled = row_index == -1 ? false : true;
+                cm.MenuItems.Add(mnu_edit);
+
+                MenuItem mnu_delete = new MenuItem("ลบ");
+                mnu_delete.Click += delegate
+                {
+                    this.btnDeleteSection.PerformClick();
+                };
+                mnu_delete.Enabled = row_index == -1 ? false : true;
+                cm.MenuItems.Add(mnu_delete);
+
+                cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
+            }
+        }
+
+        private void inlineSectionName__ButtonClick(object sender, EventArgs e)
+        {
+            DialogLoccodSelection loc = new DialogLoccodSelection(this.main_form);
+            if(loc.ShowDialog() == DialogResult.OK)
+            {
+                if (this.tmp_sectionVM != null)
+                {
+                    this.tmp_sectionVM.name = loc.selected_stloc.typdes.Trim();
+                    this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
+                }
+
+                ((XBrowseBox)sender)._Text = loc.selected_stloc.typdes.Trim();
+            }
+        }
+
+        private void inlineStkcod__ButtonClick(object sender, EventArgs e)
+        {
+            var stmas = DbfTable.Stmas(this.main_form.working_express_db).ToStmasList().Where(s => s.stktyp == "0").Select(s => new { stkcod = s.stkcod.Trim(), stkdes = s.stkdes.Trim()}).ToList<dynamic>();
+
+            List<DataGridViewColumn> cols = new List<DataGridViewColumn>()
+            {
+                new DataGridViewTextBoxColumn { Name = "รหัสสินค้า", DataPropertyName = "stkcod", HeaderText = "col_stkcod", MinimumWidth = 180, Width = 180 },
+                new DataGridViewTextBoxColumn { Name = "ชื่อสินค้า/รายละเอียด", DataPropertyName = "stkdes", HeaderText = "col_stkdes" , MinimumWidth = 80, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill }
+            };
+
+            DialogInquiry st = new DialogInquiry(stmas, cols, cols[0]);
+            if(st.ShowDialog() == DialogResult.OK)
+            {
+                if(this.tmp_sectionVM != null)
+                {
+                    MessageBox.Show(st.selected_row.Cells[0].Value.ToString());
+                }
+            }
+            
+            //DialogInquiryStmas s = new DialogInquiryStmas(this.main_form, null);
+            //if(s.ShowDialog() == DialogResult.OK)
+            //{
+
+            //}
         }
     }
 }

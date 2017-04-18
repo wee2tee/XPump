@@ -79,6 +79,36 @@ namespace XPump.Model
             }
         }
         public string name { get; set; }
+        public string stkcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
+                }
+            }
+        }
+        public string stkdes
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
+                }
+            }
+        }
+        public int nozzlecount
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.nozzle.Where(n => n.section_id == this.id).Count();
+                }
+            }
+        }
         public decimal capacity { get; set; }
         public decimal begtak { get; set; }
         public decimal begacc { get; set; }
@@ -118,32 +148,7 @@ namespace XPump.Model
         }
         public int tank_id { get; set; }
         public int stmas_id { get; set; }
-        
-        public string stkcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
-                }
-            }
-        }
-
-        public string stkdes
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
-                }
-            }
-        }
-
         public string loccod { get; set; }
-
-
         public DateTime start_date
         {
             get
@@ -154,7 +159,6 @@ namespace XPump.Model
                 }
             }
         }
-
         public DateTime? end_date
         {
             get
@@ -165,18 +169,6 @@ namespace XPump.Model
                 }
             }
         }
-
-        public int nozzlecount
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.nozzle.Where(n => n.section_id == this.id).Count();
-                }
-            }
-        }
-
         public section section { get; set; }
         public int state
         {

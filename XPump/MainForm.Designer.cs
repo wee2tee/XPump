@@ -47,6 +47,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.testBindingListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -92,7 +93,8 @@
             this.ToolStripStock.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuStmas,
             this.toolStripMenuItem2,
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.testBindingListToolStripMenuItem});
             this.ToolStripStock.Name = "ToolStripStock";
             this.ToolStripStock.Size = new System.Drawing.Size(107, 20);
             this.ToolStripStock.Text = "ฐานข้อมูลเริ่มต้น";
@@ -212,6 +214,13 @@
             this.lblVersion.Text = "version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // testBindingListToolStripMenuItem
+            // 
+            this.testBindingListToolStripMenuItem.Name = "testBindingListToolStripMenuItem";
+            this.testBindingListToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.testBindingListToolStripMenuItem.Text = "_TestBindingList";
+            this.testBindingListToolStripMenuItem.Click += new System.EventHandler(this.testBindingListToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -259,6 +268,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblUserID;
         private System.Windows.Forms.ToolStripStatusLabel lblVersion;
         private System.Windows.Forms.ToolStripMenuItem mnuChangeCompany;
+        private System.Windows.Forms.ToolStripMenuItem testBindingListToolStripMenuItem;
     }
 }
 
