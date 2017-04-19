@@ -114,10 +114,7 @@ namespace XPump.Misc
                 id = tank.id,
                 name = tank.name,
                 description = tank.description,
-                startdate = tank.startdate,
-                enddate = tank.enddate,
                 remark = tank.remark,
-                isactive = tank.isactive,
                 creby = tank.creby,
                 cretime = tank.cretime,
                 chgby = tank.chgby,
@@ -148,6 +145,7 @@ namespace XPump.Misc
             sectionVM s = new sectionVM
             {
                 working_express_db = working_express_db,
+                stkcod = section.stkcod,
                 id = section.id,
                 name = section.name,
                 capacity = section.capacity,
@@ -156,8 +154,7 @@ namespace XPump.Misc
                 begdif = section.begdif,
                 loccod = section.loccod,
                 tank_id = section.tank_id,
-                stmas_id = section.stmas_id,
-                section = section,
+                section = section
             };
 
             return s;
@@ -204,56 +201,57 @@ namespace XPump.Misc
             return n;
         }
 
-        public static stmasVM ToViewModel(this stmas stmas, SccompDbf working_express_db)
+        //public static stmasVM ToViewModel(this stmas stmas, SccompDbf working_express_db)
+        //{
+        //    if (stmas == null)
+        //        return null;
+
+        //    stmasVM s = new stmasVM
+        //    {
+        //        working_express_db = working_express_db,
+        //        id = stmas.id,
+        //        name = stmas.name,
+        //        description = stmas.description,
+        //        remark = stmas.remark,
+        //        stmas = stmas
+        //    };
+
+        //    return s;
+        //}
+
+        //public static List<stmasVM> ToViewModel(this IEnumerable<stmas> stmas_list, SccompDbf working_express_db)
+        //{
+        //    List<stmasVM> s = new List<stmasVM>();
+        //    foreach (var stmas in stmas_list)
+        //    {
+        //        s.Add(stmas.ToViewModel(working_express_db));
+        //    }
+
+        //    return s;
+        //}
+
+        public static stmasPriceVM ToPriceViewModel(this StmasDbf stmas, SccompDbf working_express_db)
         {
             if (stmas == null)
-                return null;
-
-            stmasVM s = new stmasVM
-            {
-                working_express_db = working_express_db,
-                id = stmas.id,
-                name = stmas.name,
-                description = stmas.description,
-                remark = stmas.remark,
-                stmas = stmas
-            };
-
-            return s;
-        }
-
-        public static List<stmasVM> ToViewModel(this IEnumerable<stmas> stmas_list, SccompDbf working_express_db)
-        {
-            List<stmasVM> s = new List<stmasVM>();
-            foreach (var stmas in stmas_list)
-            {
-                s.Add(stmas.ToViewModel(working_express_db));
-            }
-
-            return s;
-        }
-
-        public static stmasPriceVM ToPriceViewModel(this stmasVM stmas_vm, SccompDbf working_express_db)
-        {
-            if (stmas_vm == null)
                 return null;
 
             stmasPriceVM s = new stmasPriceVM
             {
                 working_express_db = working_express_db,
-                price_id = stmas_vm.price_id,
-                stmas_id = stmas_vm.id,
-                price_date = stmas_vm.price_date,
-                unitpr = stmas_vm.unitpr
+                stkcod = stmas.stkcod.Trim(),
+                //price_id = stmas_vm.price_id,
+                //stmas_id = stmas_vm.id,
+                //price_date = stmas_vm.price_date,
+                //unitpr = stmas_vm.unitpr
             };
 
             return s;
         }
 
-        public static List<stmasPriceVM> ToPriceViewModel(this IEnumerable<stmasVM> stmas_vm_list, SccompDbf working_express_db)
+        public static List<stmasPriceVM> ToPriceViewModel(this IEnumerable<StmasDbf> stmas_list, SccompDbf working_express_db)
         {
             List<stmasPriceVM> s = new List<stmasPriceVM>();
-            foreach (var stmas_vm in stmas_vm_list)
+            foreach (var stmas_vm in stmas_list)
             {
                 s.Add(stmas_vm.ToPriceViewModel(working_express_db));
             }
@@ -271,7 +269,6 @@ namespace XPump.Misc
                 working_express_db = working_express_db,
                 id = price.id,
                 unitpr = price.unitpr,
-                stmas_id = price.stmas_id,
             };
             return p;
         }
@@ -322,12 +319,12 @@ namespace XPump.Misc
                 id = sales.id,
                 saldat = sales.saldat,
                 dtest = sales.dtest,
-                dother = sales.dother,
+                //dother = sales.dother,
                 //dothertxt = sales.dothertxt,
                 ddisc = sales.ddisc,
                 purvat = sales.purvat,
-                shift_id = sales.shift_id,
-                stmas_id = sales.stmas_id,
+                //shift_id = sales.shift_id,
+                //stmas_id = sales.stmas_id,
                 pricelist_id = sales.pricelist_id,
                 shiftsales_id = sales.shiftsales_id,
                 salessummary = sales
@@ -351,20 +348,20 @@ namespace XPump.Misc
         {
             using (xpumpEntities db = DBX.DataSet(working_express_db))
             {
-                var salessummary = db.salessummary.Include("shift").Include("stmas").Where(s => s.id == sales.id).FirstOrDefault();
+                var salessummary = db.salessummary.Include("shiftsales").Include("shiftsales.shift").Include("stmas").Where(s => s.id == sales.id).FirstOrDefault();
 
                 if (salessummary == null)
                     return 0m;
 
-                string hp_prefix = salessummary.shift.phpprefix;
-                string rr_prefix = salessummary.shift.prrprefix;
+                string hp_prefix = salessummary.shiftsales.shift.phpprefix;
+                string rr_prefix = salessummary.shiftsales.shift.prrprefix;
                 DateTime saldat = salessummary.saldat;
 
                 var purvat = DbfTable.Stcrd(working_express_db).ToStcrdList()
                             .Where(s => s.docdat.HasValue)
                             .Where(s => s.docdat.Value == saldat)
                             .Where(s => s.posopr.Trim() == "0")
-                            .Where(s => s.stkcod.Trim() == salessummary.stmas.name.Trim())
+                            .Where(s => s.stkcod.Trim() == salessummary.stkcod.Trim())
                             .Where(s => (s.docnum.Substring(0, 2) == hp_prefix || s.docnum.Substring(0, 2) == rr_prefix))
                             .Sum(s => (s.netval * 7) / 100);
 
@@ -386,10 +383,7 @@ namespace XPump.Misc
                 mitend = saleshistory.mitend,
                 salqty = saleshistory.salqty,
                 salval = saleshistory.salval,
-                shift_id = saleshistory.shift_id,
                 nozzle_id = saleshistory.nozzle_id,
-                stmas_id = saleshistory.stmas_id,
-                pricelist_id = saleshistory.pricelist_id,
                 salessummary_id = saleshistory.salessummary_id,
                 saleshistory = saleshistory
             };
@@ -449,8 +443,7 @@ namespace XPump.Misc
                 id = dayend.id,
                 saldat = dayend.saldat,
                 //dothertxt = dayend.dothertxt,
-                dother = dayend.dother,
-                stmas_id = dayend.stmas_id,
+                dother = dayend.ToViewModel(working_express_db).dother,
                 dayend = dayend
             };
 
@@ -487,22 +480,22 @@ namespace XPump.Misc
             return s;
         }
 
-        public static monthendVM GetMonthEndVM(this stmas stmas, DateTime first_date_of_month, DateTime last_date_of_month, SccompDbf working_express_db)
-        {
-            if (stmas == null)
-                return null;
+        //public static monthendVM GetMonthEndVM(this stmas stmas, DateTime first_date_of_month, DateTime last_date_of_month, SccompDbf working_express_db)
+        //{
+        //    if (stmas == null)
+        //        return null;
 
-            monthendVM m = new monthendVM
-            {
-                working_express_db = working_express_db,
-                stmas_id = stmas.id,
-                first_date = first_date_of_month,
-                last_date = last_date_of_month,
-                dothertxt = string.Empty
-            };
+        //    monthendVM m = new monthendVM
+        //    {
+        //        working_express_db = working_express_db,
+        //        //stmas_id = stmas.id,
+        //        first_date = first_date_of_month,
+        //        last_date = last_date_of_month,
+        //        //dothertxt = string.Empty
+        //    };
 
-            return m;
-        }
+        //    return m;
+        //}
 
         public static List<daysttakVM> ToViewModel(this IEnumerable<daysttak> sttak_list, SccompDbf working_express_db)
         {

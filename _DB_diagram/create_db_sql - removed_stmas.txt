@@ -18,36 +18,14 @@ CREATE SCHEMA IF NOT EXISTS `xpump` DEFAULT CHARACTER SET utf8 ;
 USE `xpump` ;
 
 -- -----------------------------------------------------
--- Table `xpump`.`istab`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `xpump`.`istab` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `tabtyp` VARCHAR(2) NOT NULL DEFAULT '' COMMENT '01 = deduct cause',
-  `typcod` VARCHAR(4) NOT NULL DEFAULT '',
-  `shortnam` VARCHAR(15) NULL DEFAULT NULL,
-  `shortnam2` VARCHAR(15) NULL DEFAULT NULL,
-  `typdes` VARCHAR(50) NULL DEFAULT NULL,
-  `typdes2` VARCHAR(50) NULL DEFAULT NULL,
-  `creby` VARCHAR(20) NOT NULL DEFAULT '',
-  `cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `chgby` VARCHAR(20) NULL DEFAULT NULL,
-  `chgtime` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `unq - istab` (`tabtyp` ASC, `typcod` ASC))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
 -- Table `xpump`.`dayend`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `xpump`.`dayend` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `saldat` DATE NOT NULL,
+  `stkcod` VARCHAR(40) NOT NULL DEFAULT '',
   `rcvqty` DECIMAL(14,2) NOT NULL,
   `salqty` DECIMAL(14,2) NOT NULL,
-  `dothercause_id` INT(11) NULL DEFAULT NULL,
-  `dother` DECIMAL(14,2) NOT NULL,
   `difqty` DECIMAL(14,2) NOT NULL,
   `creby` VARCHAR(20) NOT NULL DEFAULT '',
   `cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -56,13 +34,7 @@ CREATE TABLE IF NOT EXISTS `xpump`.`dayend` (
   `apprby` VARCHAR(20) NULL DEFAULT NULL,
   `apprtime` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `unq - dayend - saldat` (`saldat` ASC),
-  INDEX `ndx-dayend-dothercause_id` (`dothercause_id` ASC),
-  CONSTRAINT `fk-dayend-dothercause_id`
-    FOREIGN KEY (`dothercause_id`)
-    REFERENCES `xpump`.`istab` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `unq - dayend - saldat` (`saldat` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -88,18 +60,15 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `xpump`.`tank` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(20) NOT NULL,
-  `startdate` DATE NOT NULL,
-  `enddate` DATE NULL DEFAULT NULL,
   `description` VARCHAR(50) NULL DEFAULT NULL,
   `remark` VARCHAR(50) NULL DEFAULT NULL,
-  `isactive` TINYINT(1) NOT NULL DEFAULT '1',
   `creby` VARCHAR(20) NOT NULL DEFAULT '',
   `cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `chgby` VARCHAR(20) NULL DEFAULT NULL,
   `chgtime` DATETIME NULL DEFAULT NULL,
   `tanksetup_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `unq - tank - name` (`name` ASC),
+  UNIQUE INDEX `unq-tank-name` (`tanksetup_id` ASC, `name` ASC),
   INDEX `ndx-tank-tanksetup_id` (`tanksetup_id` ASC),
   CONSTRAINT `fk-tank-tanksetup_id`
     FOREIGN KEY (`tanksetup_id`)
@@ -179,6 +148,27 @@ CREATE TABLE IF NOT EXISTS `xpump`.`dbver` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `xpump`.`istab`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `xpump`.`istab` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `tabtyp` VARCHAR(2) NOT NULL DEFAULT '' COMMENT '01 = deduct cause',
+  `typcod` VARCHAR(4) NOT NULL DEFAULT '',
+  `shortnam` VARCHAR(15) NULL DEFAULT NULL,
+  `shortnam2` VARCHAR(15) NULL DEFAULT NULL,
+  `typdes` VARCHAR(50) NULL DEFAULT NULL,
+  `typdes2` VARCHAR(50) NULL DEFAULT NULL,
+  `creby` VARCHAR(20) NOT NULL DEFAULT '',
+  `cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `chgby` VARCHAR(20) NULL DEFAULT NULL,
+  `chgtime` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `unq - istab` (`tabtyp` ASC, `typcod` ASC))
+ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -283,12 +273,10 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `xpump`.`salessummary` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `saldat` DATE NOT NULL,
+  `stkcod` VARCHAR(40) NOT NULL DEFAULT '',
   `dtest` DECIMAL(14,2) NOT NULL,
-  `dothercause_id` INT(11) NULL DEFAULT NULL,
-  `dother` DECIMAL(14,2) NOT NULL,
   `ddisc` DECIMAL(14,2) NOT NULL,
   `purvat` DECIMAL(14,2) NOT NULL,
-  `shift_id` INT(11) NOT NULL,
   `pricelist_id` INT(11) NOT NULL,
   `shiftsales_id` INT(11) NOT NULL,
   `creby` VARCHAR(20) NOT NULL DEFAULT '',
@@ -296,28 +284,17 @@ CREATE TABLE IF NOT EXISTS `xpump`.`salessummary` (
   `chgby` VARCHAR(20) NULL DEFAULT NULL,
   `chgtime` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `ndx - salessummary - shift_id` (`shift_id` ASC),
   INDEX `ndx - salessummary - pricelist_id` (`pricelist_id` ASC),
   INDEX `ndx - salessummary - shiftsales_id` (`shiftsales_id` ASC),
-  INDEX `ndx-salessummary-dothercause_id` (`dothercause_id` ASC),
+  UNIQUE INDEX `unq-salessummary` (`shiftsales_id` ASC, `stkcod` ASC),
   CONSTRAINT `fk - salessummary - pricelist_id`
     FOREIGN KEY (`pricelist_id`)
     REFERENCES `xpump`.`pricelist` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk - salessummary - shift_id`
-    FOREIGN KEY (`shift_id`)
-    REFERENCES `xpump`.`shift` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk - salessummary - shiftsales_id`
     FOREIGN KEY (`shiftsales_id`)
     REFERENCES `xpump`.`shiftsales` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk-salessummary-dothercause_id`
-    FOREIGN KEY (`dothercause_id`)
-    REFERENCES `xpump`.`istab` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -334,37 +311,24 @@ CREATE TABLE IF NOT EXISTS `xpump`.`saleshistory` (
   `mitend` DECIMAL(14,2) NOT NULL,
   `salqty` DECIMAL(14,2) NOT NULL,
   `salval` DECIMAL(14,2) NOT NULL,
-  `shift_id` INT(11) NOT NULL,
   `nozzle_id` INT(11) NOT NULL,
-  `pricelist_id` INT(11) NOT NULL,
   `salessummary_id` INT(11) NOT NULL,
   `creby` VARCHAR(20) NOT NULL DEFAULT '',
   `cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `chgby` VARCHAR(20) NULL DEFAULT NULL,
   `chgtime` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `ndx - saleshistory - shift_id` (`shift_id` ASC),
-  INDEX `ndx - saleshistory_nozzle_id` (`nozzle_id` ASC),
-  INDEX `ndx - saleshistory - pricelist_id` (`pricelist_id` ASC),
-  INDEX `ndx - saleshistory - salessummary_id` (`salessummary_id` ASC),
+  INDEX `ndx - saleshistory-nozzle_id` (`nozzle_id` ASC),
+  INDEX `ndx - saleshistory-salessummary_id` (`salessummary_id` ASC),
+  UNIQUE INDEX `unq-saleshistory` (`salessummary_id` ASC, `nozzle_id` ASC),
   CONSTRAINT `fk - saleshistory - nozzle_id`
     FOREIGN KEY (`nozzle_id`)
     REFERENCES `xpump`.`nozzle` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk - saleshistory - pricelist_id`
-    FOREIGN KEY (`pricelist_id`)
-    REFERENCES `xpump`.`pricelist` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk - saleshistory - salessummary_id`
     FOREIGN KEY (`salessummary_id`)
     REFERENCES `xpump`.`salessummary` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk - saleshistory - shift_id`
-    FOREIGN KEY (`shift_id`)
-    REFERENCES `xpump`.`shift` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -414,6 +378,38 @@ CREATE TABLE IF NOT EXISTS `xpump`.`shiftsttak` (
   CONSTRAINT `fk - sttak - shiftsales_id`
     FOREIGN KEY (`shiftsales_id`)
     REFERENCES `xpump`.`shiftsales` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `xpump`.`dother`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `xpump`.`dother` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `qty` DECIMAL(14,2) NOT NULL DEFAULT 0,
+  `istab_id` INT(11) NOT NULL,
+  `salessummary_id` INT(11) NULL,
+  `dayend_id` INT(11) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_dother_istab1_idx` (`istab_id` ASC),
+  INDEX `fk_dother_salessummary1_idx` (`salessummary_id` ASC),
+  INDEX `fk_dother_dayend1_idx` (`dayend_id` ASC),
+  CONSTRAINT `fk_dother_istab1`
+    FOREIGN KEY (`istab_id`)
+    REFERENCES `xpump`.`istab` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dother_salessummary1`
+    FOREIGN KEY (`salessummary_id`)
+    REFERENCES `xpump`.`salessummary` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dother_dayend1`
+    FOREIGN KEY (`dayend_id`)
+    REFERENCES `xpump`.`dayend` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

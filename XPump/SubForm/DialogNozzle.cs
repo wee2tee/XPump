@@ -16,7 +16,7 @@ namespace XPump.SubForm
     public partial class DialogNozzle : Form
     {
         private MainForm main_form;
-        private FormTankSetup form_tanksetup;
+        private FormTankConfig form_tankconfig;
         //private tank tank;
         private section section;
         private nozzle temp_nozzle;
@@ -34,12 +34,12 @@ namespace XPump.SubForm
         //    InitializeComponent();
         //}
 
-        public DialogNozzle(MainForm main_form, FormTankSetup form_tanksetup, section section_object)
+        public DialogNozzle(MainForm main_form, FormTankConfig form_tanksetup, section section_object)
         {
             InitializeComponent();
             this.main_form = main_form;
             this.section = section_object;
-            this.form_tanksetup = form_tanksetup;
+            this.form_tankconfig = form_tanksetup;
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -290,8 +290,10 @@ namespace XPump.SubForm
                     this.list_nozzle = this.GetNozzleList();
                     this.bs.ResetBindings(true);
                     this.bs.DataSource = this.list_nozzle.ToViewModel(this.main_form.working_express_db);
-                    if (this.form_tanksetup != null)
-                        this.form_tanksetup.RefreshDgvSection();
+                    if (this.form_tankconfig != null)
+                    {
+                        //this.form_tankconfig.RefreshDgvSection();
+                    }
                 }
             }
             catch (Exception ex)
@@ -335,8 +337,10 @@ namespace XPump.SubForm
                         this.list_nozzle = this.GetNozzleList();
                         this.bs.ResetBindings(true);
                         this.bs.DataSource = this.list_nozzle.ToViewModel(this.main_form.working_express_db);
-                        if (this.form_tanksetup != null)
-                            this.form_tanksetup.RefreshDgvSection();
+                        if (this.form_tankconfig != null)
+                        {
+                            //this.form_tankconfig.RefreshDgvSection();
+                        }
 
                         this.btnStopItem.PerformClick();
                         this.btnAddItem.PerformClick();

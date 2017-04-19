@@ -274,7 +274,7 @@ namespace XPump.SubForm
             this.lblPurvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).purvat);
 
             this.numDtest._Value = this.salessummary.dtest;
-            this.numDother._Value = this.salessummary.dother;
+            this.numDother._Value = this.salessummary.ToViewModel(this.main_form.working_express_db).dother;
             //this.txtDother._Text = this.salessummary.dothertxt;
             this.numDdisc._Value = this.salessummary.ddisc;
         }
@@ -286,7 +286,7 @@ namespace XPump.SubForm
 
         private void numDother__ValueChanged(object sender, EventArgs e)
         {
-            this.salessummary.dother = ((XNumEdit)sender)._Value;
+            //this.salessummary.dother = ((XNumEdit)sender)._Value;
         }
 
         private void numDdisc__ValueChanged(object sender, EventArgs e)

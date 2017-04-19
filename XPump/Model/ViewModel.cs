@@ -32,10 +32,10 @@ namespace XPump.Model
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public System.DateTime startdate { get; set; }
-        public Nullable<System.DateTime> enddate { get; set; }
+        //public System.DateTime startdate { get; set; }
+        //public Nullable<System.DateTime> enddate { get; set; }
         public string remark { get; set; }
-        public bool isactive { get; set; }
+        //public bool isactive { get; set; }
         public int tanksetup_id { get; set; }
         public DateTime? tanksetup_startdate
         {
@@ -55,13 +55,13 @@ namespace XPump.Model
 
         public tank tank { get; set; }
 
-        public string _isactive
-        {
-            get
-            {
-                return this.isactive ? "ใช้งาน" : "ไม่ใช้งาน";
-            }
-        }
+        //public string _isactive
+        //{
+        //    get
+        //    {
+        //        return this.isactive ? "ใช้งาน" : "ไม่ใช้งาน";
+        //    }
+        //}
     }
 
     public class sectionVM
@@ -79,24 +79,13 @@ namespace XPump.Model
             }
         }
         public string name { get; set; }
-        public string stkcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
-                }
-            }
-        }
+        public string stkcod { get; set; }
         public string stkdes
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
-                }
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes : string.Empty;
             }
         }
         public int nozzlecount
@@ -122,32 +111,10 @@ namespace XPump.Model
                     int[] nozzle_ids = db.nozzle.Where(n => n.section_id == this.id).Select(n => n.id).ToArray<int>();
 
                     return this.begacc - db.saleshistory.Where(s => nozzle_ids.Contains<int>(s.nozzle_id)).ToList().Sum(s => s.salqty);
-                    decimal beg_qty;
-
-                    //var last_sttak = db.daysttak.Include("dayend").Where(d => d.dayend.stmas_id == this.stmas_id && d.section_id == this.id).OrderByDescending(d => d.dayend.saldat).First();
-                    //if(last_sttak != null)
-                    //{
-                    //    var tak_date = db.dayend.Find(last_sttak.dayend_id).saldat;
-                    //    var rcvqty =
-                    //    var salqty = db.saleshistory.Include("nozzle")
-                    //                .Where(s => s.nozzle.section_id == this.id)
-                    //                .Where(s => s.saldat.CompareTo(tak_date) > 0)
-                    //                .ToList().Sum(s => s.salqty);
-                    //    return last_sttak.qty - salqty;
-                    //}
-                    //else
-                    //{
-                    //    var salqty = db.saleshistory.Include("nozzle")
-                    //                .Where(s => s.nozzle.section_id == this.id)
-                    //                .ToList().Sum(s => s.salqty);
-                    //    return this.begtak - salqty;
-                    //}
-
                 }
             }
         }
         public int tank_id { get; set; }
-        public int stmas_id { get; set; }
         public string loccod { get; set; }
         public DateTime start_date
         {
@@ -155,17 +122,8 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    return db.tank.Find(this.tank_id) != null ? db.tank.Find(this.tank_id).startdate : DateTime.Now;
-                }
-            }
-        }
-        public DateTime? end_date
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.tank.Find(this.tank_id) != null ? db.tank.Find(this.tank_id).enddate : null;
+                    var tank = db.tank.Include("tanksetup").Where(t => t.id == this.tank_id).FirstOrDefault();
+                    return tank != null ? tank.tanksetup.startdate : DateTime.Now;
                 }
             }
         }
@@ -199,117 +157,88 @@ namespace XPump.Model
         }
     }
 
-    public class stmasVM
-    {
-        public SccompDbf working_express_db { get; set; }
-        public int id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string remark { get; set; }
+    //public class stmasVM
+    //{
+    //    public SccompDbf working_express_db { get; set; }
+    //    public int id { get; set; }
+    //    public string name { get; set; }
+    //    public string description { get; set; }
+    //    public string remark { get; set; }
 
-        public stmas stmas { get; set; }
-        public int price_id
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
+    //    public stmas stmas { get; set; }
+    //    public int price_id
+    //    {
+    //        get
+    //        {
+    //            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+    //            {
+    //                pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
 
-                    if (price != null)
-                    {
-                        return price.id;
-                    }
-                    else
-                    {
-                        return -1;
-                    }
-                }
-            }
-        }
-        public decimal unitpr
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
+    //                if (price != null)
+    //                {
+    //                    return price.id;
+    //                }
+    //                else
+    //                {
+    //                    return -1;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    public decimal unitpr
+    //    {
+    //        get
+    //        {
+    //            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+    //            {
+    //                pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
 
-                    if (price != null)
-                    {
-                        return price.unitpr;
-                    }
-                    else
-                    {
-                        return 0m;
-                    }
-                }
-            }
-        }
-        public DateTime? price_date
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
+    //                if (price != null)
+    //                {
+    //                    return price.unitpr;
+    //                }
+    //                else
+    //                {
+    //                    return 0m;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    public DateTime? price_date
+    //    {
+    //        get
+    //        {
+    //            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+    //            {
+    //                pricelist price = db.pricelist.Where(p => p.stmas_id == this.id).Where(p => DateTime.Now.CompareTo(p.date) >= 0).OrderByDescending(p => p.date).ThenByDescending(p => p.id).FirstOrDefault();
 
-                    if (price != null)
-                    {
-                        return price.date;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-            }
-        }
-    }
+    //                if (price != null)
+    //                {
+    //                    return price.date;
+    //                }
+    //                else
+    //                {
+    //                    return null;
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     public class stmasPriceVM
     {
         public SccompDbf working_express_db { get; set; }
         public int price_id { get; set; }
-        public int stmas_id { get; set; }
         public DateTime? price_date { get; set; }
         public decimal unitpr { get; set; }
 
-        public string stkcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    stmas s = db.stmas.Find(this.stmas_id);
-                    if(s != null)
-                    {
-                        return s.name;
-                    }
-                    else
-                    {
-                        return string.Empty;
-                    }
-                }
-            }
-        }
-
+        public string stkcod { get; set; }
         public string stkdes
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    stmas s = db.stmas.Find(this.stmas_id);
-                    if (s != null)
-                    {
-                        return s.description;
-                    }
-                    else
-                    {
-                        return string.Empty;
-                    }
-                }
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes : string.Empty;
             }
         }
     }
@@ -388,8 +317,16 @@ namespace XPump.Model
             }
         }
         public decimal dtest { get; set; }
-        public decimal dother { get; set; }
-        public string dothertxt { get; set; }
+        public decimal dother
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.dother.Where(d => d.salessummary_id == this.id).Sum(d => d.qty);
+                }
+            }
+        }
         public decimal totqty
         {
             get
@@ -430,66 +367,41 @@ namespace XPump.Model
             }
         }
         public decimal purvat { get; set; }
-        public int shift_id { get; set; }
-        public int stmas_id { get; set; }
         public int pricelist_id { get; set; }
         public int shiftsales_id { get; set; }
-
         public string shift_name
         {
             get
             {
-                using(xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).name : string.Empty;
-                }
+                shiftsales shiftsale = this.GetShiftsales();
+                return shiftsale != null ? shiftsale.shift.name : string.Empty;
             }
         }
-
         public TimeSpan shift_start
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).starttime : TimeSpan.Parse("0:0:0");
-                }
+                shiftsales shiftsale = this.GetShiftsales();
+                return shiftsale != null ? shiftsale.shift.starttime : TimeSpan.Parse("0:0:0");
             }
         }
-
         public TimeSpan shift_end
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.shift.Find(this.shift_id) != null ? db.shift.Find(this.shift_id).endtime : TimeSpan.Parse("0:0:0");
-                }
+                shiftsales shiftsale = this.GetShiftsales();
+                return shiftsale != null ? shiftsale.shift.endtime : TimeSpan.Parse("0:0:0");
             }
         }
-
-        public string stkcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
-                }
-            }
-        }
-
+        public string stkcod { get; set; }
         public string stkdes
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
-                }
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
-
         public DateTime? price_date
         {
             get
@@ -500,9 +412,16 @@ namespace XPump.Model
                 }
             }
         }
-
-
         public salessummary salessummary { get; set; }
+
+        private shiftsales GetShiftsales()
+        {
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                var shiftsale = db.shiftsales.Include("shift").Where(s => s.id == this.shiftsales_id).FirstOrDefault();
+                return shiftsale;
+            }
+        }
     }
 
     public class saleshistoryVM
@@ -568,28 +487,37 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    return db.pricelist.Find(this.pricelist_id) != null ? db.pricelist.Find(this.pricelist_id).unitpr : 0m;
+                    var salessummary = db.salessummary.Include("pricelist").Where(s => s.id == this.salessummary_id).FirstOrDefault();
+                    return salessummary != null ? salessummary.pricelist.unitpr : 0m;
                 }
             }
         }
         public decimal salval { get; set; }
-        public int shift_id { get; set; }
+        public int shift_id
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    var salessummary = db.salessummary.Include("shiftsales").Where(s => s.id == this.salessummary_id).FirstOrDefault();
+                    return salessummary != null ? salessummary.shiftsales.shift_id : -1;
+                }
+            }
+        }
         public int nozzle_id { get; set; }
-        public int stmas_id { get; set; }
-        public int pricelist_id { get; set; }
+        //public int pricelist_id { get; set; }
         public int salessummary_id { get; set; }
-
         public DateTime price_date
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    return db.pricelist.Find(this.pricelist_id) != null ? db.pricelist.Find(this.pricelist_id).date : DateTime.Now;
+                    var salessummary = db.salessummary.Include("pricelist").Where(s => s.id == this.salessummary_id).FirstOrDefault();
+                    return salessummary != null ? salessummary.pricelist.date : DateTime.Now;
                 }
             }
         }
-
         public string shift_name
         {
             get
@@ -600,26 +528,13 @@ namespace XPump.Model
                 }
             }
         }
-
-        public string stkcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
-                }
-            }
-        }
-
+        public string stkcod { get; set; }
         public string stkdes
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
-                }
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
 
@@ -685,9 +600,9 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    return db.saleshistory.Where(s => s.saldat == this.saldat)
+                    return db.saleshistory.Include("salessummary").Where(s => s.saldat == this.saldat)
                             .Where(s => s.nozzle_id == this.nozzle_id)
-                            .Where(s => s.stmas_id == this.stmas_id)
+                            .Where(s => s.salessummary.stkcod == this.stkcod)
                             .Sum(s => s.salqty);
                 }
             }
@@ -698,36 +613,22 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    var val = db.saleshistory.Include("pricelist").Where(s => s.saldat == this.saldat)
+                    var val = db.saleshistory.Include("salessummary").Include("salessummary.pricelist").Where(s => s.saldat == this.saldat)
                                 .Where(s => s.nozzle_id == this.nozzle_id)
-                                .Where(s => s.stmas_id == this.stmas_id)
-                                .Sum(s => s.salqty * s.pricelist.unitpr);
+                                .Where(s => s.salessummary.stkcod == this.stkcod)
+                                .Sum(s => s.salqty * s.salessummary.pricelist.unitpr);
                     return val;
                 }
             }
         }
         public int nozzle_id { get; set; }
-        public int stmas_id { get; set; }
-
-        public string stkcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
-                }
-            }
-        }
-
+        public string stkcod { get; set; }
         public string stkdes
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
-                }
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
     }
@@ -736,27 +637,13 @@ namespace XPump.Model
     {
         public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
-        public int stmas_id { get; set; }
-
-        public string stkcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id).name;
-                }
-            }
-        }
-
+        public string stkcod { get; set; }
         public string stkdes
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id).description;
-                }
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
         public DateTime price_date { get; set; }
@@ -776,40 +663,13 @@ namespace XPump.Model
         public int id { get; set; }
         public DateTime takdat { get; set; }
         public int section_id { get; set; }
-        public string stkcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    try
-                    {
-                        var sect = db.section.Find(this.section_id);
-                        return db.stmas.Find(sect.stmas_id).name;
-                    }
-                    catch (Exception)
-                    {
-                        return string.Empty;
-                    }
-                }
-            }
-        }
+        public string stkcod { get; set; }
         public string stkdes
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    try
-                    {
-                        var sect = db.section.Find(this.section_id);
-                        return db.stmas.Find(sect.stmas_id).description;
-                    }
-                    catch (Exception)
-                    {
-                        return string.Empty;
-                    }
-                }
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
         public string tank_name
@@ -856,29 +716,15 @@ namespace XPump.Model
         public SccompDbf working_express_db { get; set; }
         public int id { get; set; }
         public DateTime saldat { get; set; }
-
-        public string stkcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
-                }
-            }
-        }
-
+        public string stkcod { get; set; }
         public string stkdes
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
-                }
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
-
         public decimal endbal
         {
             get
@@ -895,7 +741,6 @@ namespace XPump.Model
                 }
             }
         }
-
         public decimal begbal
         {
             get
@@ -904,7 +749,7 @@ namespace XPump.Model
                 {
                     decimal beg;
                     var prev_dayend = db.dayend.Where(d => d.saldat.CompareTo(this.saldat) < 0)
-                                    .Where(d => d.stmas_id == this.stmas_id)
+                                    .Where(d => d.stkcod == this.stkcod)
                                     .OrderByDescending(d => d.saldat).FirstOrDefault();
                     if(prev_dayend != null)
                     {
@@ -919,15 +764,13 @@ namespace XPump.Model
                     }
                     else
                     {
-                        beg = db.section.Where(s => s.stmas_id == this.stmas_id).ToList().Sum(s => s.begtak);
+                        beg = db.section.Where(s => s.stkcod == this.stkcod).ToList().Sum(s => s.begtak);
                     }
 
                     return beg;
                 }
             }
         }
-
-        //public decimal rcvqty { get; set; }
         public decimal rcvqty
         {
             get
@@ -950,27 +793,25 @@ namespace XPump.Model
                 }
             }
         }
-        //public decimal salqty { get; set; }
         public decimal salqty
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    var sum_sal = db.saleshistory.Where(s => s.saldat == this.saldat)
-                                .Where(s => s.stmas_id == this.stmas_id)
+                    var sum_sal = db.saleshistory.Include("salessummary").Where(s => s.saldat == this.saldat)
+                                .Where(s => s.salessummary.stkcod == this.stkcod)
                                 .ToList()
                                 .Sum(s => s.salqty);
 
                     var sum_dtest = db.salessummary.Where(s => s.saldat == this.saldat)
-                                .Where(s => s.stmas_id == this.stmas_id)
+                                .Where(s => s.stkcod == this.stkcod)
                                 .ToList()
                                 .Sum(s => s.dtest);
 
                     var sum_dother = db.salessummary.Where(s => s.saldat == this.saldat)
-                                .Where(s => s.stmas_id == this.stmas_id)
-                                .ToList()
-                                .Sum(s => s.dother);
+                                .Where(s => s.stkcod == this.stkcod)
+                                .ToList().ToViewModel(this.working_express_db).Sum(s => s.dother);
 
                     var sum = sum_sal - (sum_dtest + sum_dother);
                     this.dayend.salqty = sum;
@@ -987,7 +828,6 @@ namespace XPump.Model
                 return this.begbal + this.rcvqty - (this.salqty + this.dother);
             }
         }
-        //public decimal difqty { get; set; }
         public decimal difqty
         {
             get
@@ -1004,16 +844,15 @@ namespace XPump.Model
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
                     var tmp = db.dayend
-                            .Where(d => d.stmas_id == this.stmas_id)
+                            .Where(d => d.stkcod == this.stkcod)
                             .Where(d => d.saldat.CompareTo(this.saldat) < 0).ToViewModel(this.working_express_db);
 
-                    var section_beg_dif = db.section.Where(s => s.stmas_id == this.stmas_id).Sum(s => s.begdif);
+                    var section_beg_dif = db.section.Where(s => s.stkcod == this.stkcod).Sum(s => s.begdif);
 
                     return tmp.Sum(d => (d.endbal - d.accbal)) + section_beg_dif;
                 }
             }
         }
-        public int stmas_id { get; set; }
 
         public dayend dayend { get; set; }
     }
@@ -1061,40 +900,25 @@ namespace XPump.Model
         public SccompDbf working_express_db { get; set; }
         public DateTime first_date { get; set; }
         public DateTime last_date { get; set; }
-
-        public string stkcod
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).name : string.Empty;
-                }
-            }
-        }
-
+        public string stkcod { get; set; }
         public string stkdes
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.stmas.Find(this.stmas_id) != null ? db.stmas.Find(this.stmas_id).description : string.Empty;
-                }
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
-
         private List<daysttak> sttaks
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    return db.daysttak.Include("dayend").Where(d => d.dayend.stmas_id == this.stmas_id && d.dayend.saldat.CompareTo(this.first_date) >= 0 && d.dayend.saldat.CompareTo(this.last_date) <= 0).ToList();
+                    return db.daysttak.Include("dayend").Where(d => d.dayend.stkcod == this.stkcod && d.dayend.saldat.CompareTo(this.first_date) >= 0 && d.dayend.saldat.CompareTo(this.last_date) <= 0).ToList();
                 }
             }
         }
-
         public decimal endbal
         {
             get
@@ -1103,14 +927,13 @@ namespace XPump.Model
                 return qty;
             }
         }
-
         public decimal begbal
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    var prev_month_sttak = db.daysttak.Include("dayend").Where(d => d.dayend.stmas_id == this.stmas_id && d.dayend.saldat.CompareTo(this.first_date) < 0).OrderByDescending(d => d.dayend.saldat).ToList();
+                    var prev_month_sttak = db.daysttak.Include("dayend").Where(d => d.dayend.stkcod == this.stkcod && d.dayend.saldat.CompareTo(this.first_date) < 0).OrderByDescending(d => d.dayend.saldat).ToList();
 
                     if(prev_month_sttak.Count > 0)
                     {
@@ -1118,35 +941,11 @@ namespace XPump.Model
                     }
                     else
                     {
-                        return db.section.Where(s => s.stmas_id == this.stmas_id).ToList().Sum(s => s.begtak);
+                        return db.section.Where(s => s.stkcod == this.stkcod).ToList().Sum(s => s.begtak);
                     }
-                    
-                    //decimal beg;
-                    //var prev_dayend = db.dayend.Where(d => d.saldat.CompareTo(this.saldat) < 0)
-                    //                .Where(d => d.stmas_id == this.stmas_id)
-                    //                .OrderByDescending(d => d.saldat).FirstOrDefault();
-                    //if (prev_dayend != null)
-                    //{
-                    //    if (db.daysttak.Where(d => d.dayend_id == prev_dayend.id).Select(d => d.qty).Contains<decimal>(-1m))
-                    //    {
-                    //        beg = -1;
-                    //    }
-                    //    else
-                    //    {
-                    //        beg = db.daysttak.Where(d => d.dayend_id == prev_dayend.id).ToList().Sum(d => d.qty);
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    beg = db.section.Where(s => s.stmas_id == this.stmas_id).ToList().Sum(s => s.begtak);
-                    //}
-
-                    //return beg;
                 }
             }
         }
-
-        //public decimal rcvqty { get; set; }
         public decimal rcvqty
         {
             get
@@ -1169,41 +968,38 @@ namespace XPump.Model
                 }
             }
         }
-        //public decimal salqty { get; set; }
         public decimal salqty
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    var sum_sal = db.saleshistory.Where(s => s.saldat.CompareTo(this.first_date) >= 0 && s.saldat.CompareTo(this.last_date) <= 0)
-                                .Where(s => s.stmas_id == this.stmas_id)
+                    var sum_sal = db.saleshistory.Include("salessummary").Where(s => s.saldat.CompareTo(this.first_date) >= 0 && s.saldat.CompareTo(this.last_date) <= 0)
+                                .Where(s => s.salessummary.stkcod == this.stkcod)
                                 .ToList()
                                 .Sum(s => s.salqty);
 
                     var sum_dtest = db.salessummary.Where(s => s.saldat.CompareTo(this.first_date) >= 0 && s.saldat.CompareTo(this.last_date) <= 0)
-                                .Where(s => s.stmas_id == this.stmas_id)
+                                .Where(s => s.stkcod == this.stkcod)
                                 .ToList()
                                 .Sum(s => s.dtest);
 
                     var sum_dother = db.salessummary.Where(s => s.saldat.CompareTo(this.first_date) >= 0 && s.saldat.CompareTo(this.last_date) <= 0)
-                                .Where(s => s.stmas_id == this.stmas_id)
-                                .ToList()
-                                .Sum(s => s.dother);
-
+                                .Where(s => s.stkcod == this.stkcod)
+                                .ToList().ToViewModel(this.working_express_db).Sum(s => s.dother);
+                                
                     var sum = sum_sal - (sum_dtest + sum_dother);
                     return sum;
                 }
             }
         }
-        public string dothertxt { get; set; }
         public decimal dother
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    var disc = db.dayend.Where(d => d.stmas_id == this.stmas_id && d.saldat.CompareTo(this.first_date) >= 0 && d.saldat.CompareTo(this.last_date) <= 0).ToList().Sum(d => d.dother);
+                    var disc = db.dayend.Where(d => d.stkcod == this.stkcod && d.saldat.CompareTo(this.first_date) >= 0 && d.saldat.CompareTo(this.last_date) <= 0).ToList().ToViewModel(this.working_express_db).Sum(d => d.dother);
                     return disc;
                 }
             }
@@ -1215,7 +1011,6 @@ namespace XPump.Model
                 return this.begbal + this.rcvqty - (this.salqty + this.dother);
             }
         }
-        //public decimal difqty { get; set; }
         public decimal difqty
         {
             get
@@ -1230,23 +1025,13 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    decimal trans_dif = db.dayend.Where(d => d.stmas_id == this.stmas_id && d.saldat.CompareTo(this.first_date) < 0).ToViewModel(this.working_express_db).Sum(d => d.difqty);
-                    decimal beg_dif = db.section.Where(s => s.stmas_id == this.stmas_id).ToList().Sum(s => s.begdif);
+                    decimal trans_dif = db.dayend.Where(d => d.stkcod == this.stkcod && d.saldat.CompareTo(this.first_date) < 0).ToViewModel(this.working_express_db).Sum(d => d.difqty);
+                    decimal beg_dif = db.section.Where(s => s.stkcod == this.stkcod).ToList().Sum(s => s.begdif);
 
                     return beg_dif + trans_dif;
-
-                    //var tmp = db.dayend
-                    //        .Where(d => d.stmas_id == this.stmas_id)
-                    //        .Where(d => d.saldat.CompareTo(this.saldat) < 0).ToViewModel();
-
-                    //var section_beg_dif = db.section.Where(s => s.stmas_id == this.stmas_id).Sum(s => s.begdif);
-
-                    //return tmp.Sum(d => (d.endbal - d.accbal)) + section_beg_dif;
                 }
             }
         }
-        public int stmas_id { get; set; }
-
         public List<monthsttakVM> monthsttakVM
         {
             get
@@ -1611,19 +1396,20 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    var stmas_id_movement_in_month = db.dayend.Include("stmas").Where(d => d.saldat.CompareTo(this.first_date) >= 0 && d.saldat.CompareTo(this.last_date) <= 0).GroupBy(d => d.stmas_id).Select(d => d.Key).ToList();
+                //using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                //{
+                //    var stmas_id_movement_in_month = db.dayend.Include("stmas").Where(d => d.saldat.CompareTo(this.first_date) >= 0 && d.saldat.CompareTo(this.last_date) <= 0).GroupBy(d => d.stkcod).Select(d => d.Key).ToList();
 
-                    var monthend = new List<monthendVM>();
-                    foreach (var stmas_id in stmas_id_movement_in_month)
-                    {
-                        var me = db.stmas.Find(stmas_id).GetMonthEndVM(this.first_date, this.last_date, this.working_express_db);
-                        monthend.Add(me);
-                    }
+                //    var monthend = new List<monthendVM>();
+                //    foreach (var stmas_id in stmas_id_movement_in_month)
+                //    {
+                //        var me = db.stmas.Find(stmas_id).GetMonthEndVM(this.first_date, this.last_date, this.working_express_db);
+                //        monthend.Add(me);
+                //    }
 
-                    return monthend;
-                }
+                //    return monthend;
+                //}
+                return null;
             }
         }
     }

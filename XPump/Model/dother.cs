@@ -12,22 +12,16 @@ namespace XPump.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class saleshistory
+    public partial class dother
     {
         public int id { get; set; }
-        public System.DateTime saldat { get; set; }
-        public decimal mitbeg { get; set; }
-        public decimal mitend { get; set; }
-        public decimal salqty { get; set; }
-        public decimal salval { get; set; }
-        public int nozzle_id { get; set; }
-        public int salessummary_id { get; set; }
-        public string creby { get; set; }
-        public System.DateTime cretime { get; set; }
-        public string chgby { get; set; }
-        public Nullable<System.DateTime> chgtime { get; set; }
+        public decimal qty { get; set; }
+        public int istab_id { get; set; }
+        public Nullable<int> salessummary_id { get; set; }
+        public Nullable<int> dayend_id { get; set; }
     
-        public virtual nozzle nozzle { get; set; }
+        public virtual dayend dayend { get; set; }
+        public virtual istab istab { get; set; }
         public virtual salessummary salessummary { get; set; }
     }
 }

@@ -11,12 +11,10 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="saldat" Type="date" Nullable="false" />
+          <Property Name="stkcod" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="rcvqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="salqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="dothercause_id" Type="int" />
-          <Property Name="dother" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="difqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="stmas_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
@@ -44,7 +42,17 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
-          <Property Name="chgtime" Type="timestamp" Precision="0" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="dother">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="istab_id" Type="int" Nullable="false" />
+          <Property Name="salessummary_id" Type="int" />
+          <Property Name="dayend_id" Type="int" />
         </EntityType>
         <EntityType Name="istab">
           <Key>
@@ -84,7 +92,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
           <Property Name="unitpr" Type="decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="stmas_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
@@ -100,10 +107,7 @@
           <Property Name="mitend" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="salqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="salval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="shift_id" Type="int" Nullable="false" />
           <Property Name="nozzle_id" Type="int" Nullable="false" />
-          <Property Name="stmas_id" Type="int" Nullable="false" />
-          <Property Name="pricelist_id" Type="int" Nullable="false" />
           <Property Name="salessummary_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
@@ -116,13 +120,10 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="saldat" Type="date" Nullable="false" />
+          <Property Name="stkcod" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="dtest" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="dothercause_id" Type="int" />
-          <Property Name="dother" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="ddisc" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="purvat" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="shift_id" Type="int" Nullable="false" />
-          <Property Name="stmas_id" Type="int" Nullable="false" />
           <Property Name="pricelist_id" Type="int" Nullable="false" />
           <Property Name="shiftsales_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
@@ -137,12 +138,13 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="loccod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="stkcod" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="stkdes" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="capacity" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="begacc" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="begtak" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="begdif" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="tank_id" Type="int" Nullable="false" />
-          <Property Name="stmas_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
@@ -212,30 +214,14 @@
           <Property Name="chgby" Type="varchar" MaxLength="20" />
           <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
-        <EntityType Name="stmas">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="description" Type="varchar" MaxLength="50" />
-          <Property Name="remark" Type="varchar" MaxLength="50" />
-          <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
-          <Property Name="chgby" Type="varchar" MaxLength="20" />
-          <Property Name="chgtime" Type="datetime" Precision="0" />
-        </EntityType>
         <EntityType Name="tank">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="startdate" Type="date" Nullable="false" />
-          <Property Name="enddate" Type="date" />
           <Property Name="description" Type="varchar" MaxLength="50" />
           <Property Name="remark" Type="varchar" MaxLength="50" />
-          <Property Name="isactive" Type="bool" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
@@ -253,18 +239,6 @@
           <Property Name="chgby" Type="varchar" MaxLength="20" />
           <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
-        <Association Name="fk - dayend - stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="dayend" Type="Self.dayend" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="stmas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="dayend">
-              <PropertyRef Name="stmas_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk - daysttak - dayend_id">
           <End Role="dayend" Type="Self.dayend" Multiplicity="1" />
           <End Role="daysttak" Type="Self.daysttak" Multiplicity="*" />
@@ -289,30 +263,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk - nozzle - section_id">
-          <End Role="section" Type="Self.section" Multiplicity="1" />
-          <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="section">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="nozzle">
-              <PropertyRef Name="section_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk - pricelist - stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="pricelist" Type="Self.pricelist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="stmas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="pricelist">
-              <PropertyRef Name="stmas_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk - saleshistory - nozzle_id">
           <End Role="nozzle" Type="Self.nozzle" Multiplicity="1" />
           <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
@@ -322,18 +272,6 @@
             </Principal>
             <Dependent Role="saleshistory">
               <PropertyRef Name="nozzle_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk - saleshistory - pricelist_id">
-          <End Role="pricelist" Type="Self.pricelist" Multiplicity="1" />
-          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="pricelist">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="saleshistory">
-              <PropertyRef Name="pricelist_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -349,31 +287,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk - saleshistory - shift_id">
-          <End Role="shift" Type="Self.shift" Multiplicity="1" />
-          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+        <Association Name="fk_dother_dayend1">
+          <End Role="dayend" Type="Self.dayend" Multiplicity="0..1" />
+          <End Role="dother" Type="Self.dother" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="shift">
+            <Principal Role="dayend">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="saleshistory">
-              <PropertyRef Name="shift_id" />
+            <Dependent Role="dother">
+              <PropertyRef Name="dayend_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk - saleshistory - stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
+        <Association Name="fk_dother_istab1">
+          <End Role="istab" Type="Self.istab" Multiplicity="1" />
+          <End Role="dother" Type="Self.dother" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="stmas">
+            <Principal Role="istab">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="saleshistory">
-              <PropertyRef Name="stmas_id" />
+            <Dependent Role="dother">
+              <PropertyRef Name="istab_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk - salessummary - pricelist_id">
+        <Association Name="fk_dother_salessummary1">
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="0..1" />
+          <End Role="dother" Type="Self.dother" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salessummary">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dother">
+              <PropertyRef Name="salessummary_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-nozzle-section_id">
+          <End Role="section" Type="Self.section" Multiplicity="1" />
+          <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="section">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nozzle">
+              <PropertyRef Name="section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk-salessummary-pricelist_id">
           <End Role="pricelist" Type="Self.pricelist" Multiplicity="1" />
           <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
           <ReferentialConstraint>
@@ -385,19 +347,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk - salessummary - shift_id">
-          <End Role="shift" Type="Self.shift" Multiplicity="1" />
-          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="shift">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="salessummary">
-              <PropertyRef Name="shift_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk - salessummary - shiftsales_id">
+        <Association Name="fk-salessummary-shiftsales_id">
           <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="1" />
           <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
           <ReferentialConstraint>
@@ -409,31 +359,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk - salessummary - stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="stmas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="salessummary">
-              <PropertyRef Name="stmas_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk - section - stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="section" Type="Self.section" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="stmas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="section">
-              <PropertyRef Name="stmas_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk - section - tank_id">
+        <Association Name="fk-section-tank_id">
           <End Role="tank" Type="Self.tank" Multiplicity="1" />
           <End Role="section" Type="Self.section" Multiplicity="*" />
           <ReferentialConstraint>
@@ -445,7 +371,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk - shiftsales - shift_id">
+        <Association Name="fk-shiftsales-shift_id">
           <End Role="shift" Type="Self.shift" Multiplicity="1" />
           <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="*" />
           <ReferentialConstraint>
@@ -457,7 +383,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk - sttak - section_id">
+        <Association Name="fk-sttak-section_id">
           <End Role="section" Type="Self.section" Multiplicity="1" />
           <End Role="shiftsttak" Type="Self.shiftsttak" Multiplicity="*" />
           <ReferentialConstraint>
@@ -469,7 +395,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk - sttak - shiftsales_id">
+        <Association Name="fk-sttak-shiftsales_id">
           <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="1" />
           <End Role="shiftsttak" Type="Self.shiftsttak" Multiplicity="*" />
           <ReferentialConstraint>
@@ -478,30 +404,6 @@
             </Principal>
             <Dependent Role="shiftsttak">
               <PropertyRef Name="shiftsales_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk-dayend-dothercause_id">
-          <End Role="istab" Type="Self.istab" Multiplicity="0..1" />
-          <End Role="dayend" Type="Self.dayend" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="istab">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="dayend">
-              <PropertyRef Name="dothercause_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk-salessummary-dothercause_id">
-          <End Role="istab" Type="Self.istab" Multiplicity="0..1" />
-          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="istab">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="salessummary">
-              <PropertyRef Name="dothercause_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -521,6 +423,7 @@
           <EntitySet Name="dayend" EntityType="Self.dayend" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="daysttak" EntityType="Self.daysttak" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="dbver" EntityType="Self.dbver" Schema="xpump" store:Type="Tables" />
+          <EntitySet Name="dother" EntityType="Self.dother" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="istab" EntityType="Self.istab" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="nozzle" EntityType="Self.nozzle" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="pricelist" EntityType="Self.pricelist" Schema="xpump" store:Type="Tables" />
@@ -531,13 +434,8 @@
           <EntitySet Name="shift" EntityType="Self.shift" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="shiftsales" EntityType="Self.shiftsales" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="shiftsttak" EntityType="Self.shiftsttak" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="stmas" EntityType="Self.stmas" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
           <EntitySet Name="tanksetup" EntityType="Self.tanksetup" Schema="xpump" store:Type="Tables" />
-          <AssociationSet Name="fk - dayend - stmas_id" Association="Self.fk - dayend - stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="dayend" EntitySet="dayend" />
-          </AssociationSet>
           <AssociationSet Name="fk - daysttak - dayend_id" Association="Self.fk - daysttak - dayend_id">
             <End Role="dayend" EntitySet="dayend" />
             <End Role="daysttak" EntitySet="daysttak" />
@@ -546,77 +444,53 @@
             <End Role="section" EntitySet="section" />
             <End Role="daysttak" EntitySet="daysttak" />
           </AssociationSet>
-          <AssociationSet Name="fk - nozzle - section_id" Association="Self.fk - nozzle - section_id">
-            <End Role="section" EntitySet="section" />
-            <End Role="nozzle" EntitySet="nozzle" />
-          </AssociationSet>
-          <AssociationSet Name="fk - pricelist - stmas_id" Association="Self.fk - pricelist - stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="pricelist" EntitySet="pricelist" />
-          </AssociationSet>
           <AssociationSet Name="fk - saleshistory - nozzle_id" Association="Self.fk - saleshistory - nozzle_id">
             <End Role="nozzle" EntitySet="nozzle" />
-            <End Role="saleshistory" EntitySet="saleshistory" />
-          </AssociationSet>
-          <AssociationSet Name="fk - saleshistory - pricelist_id" Association="Self.fk - saleshistory - pricelist_id">
-            <End Role="pricelist" EntitySet="pricelist" />
             <End Role="saleshistory" EntitySet="saleshistory" />
           </AssociationSet>
           <AssociationSet Name="fk - saleshistory - salessummary_id" Association="Self.fk - saleshistory - salessummary_id">
             <End Role="salessummary" EntitySet="salessummary" />
             <End Role="saleshistory" EntitySet="saleshistory" />
           </AssociationSet>
-          <AssociationSet Name="fk - saleshistory - shift_id" Association="Self.fk - saleshistory - shift_id">
-            <End Role="shift" EntitySet="shift" />
-            <End Role="saleshistory" EntitySet="saleshistory" />
+          <AssociationSet Name="fk_dother_dayend1" Association="Self.fk_dother_dayend1">
+            <End Role="dayend" EntitySet="dayend" />
+            <End Role="dother" EntitySet="dother" />
           </AssociationSet>
-          <AssociationSet Name="fk - saleshistory - stmas_id" Association="Self.fk - saleshistory - stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="saleshistory" EntitySet="saleshistory" />
+          <AssociationSet Name="fk_dother_istab1" Association="Self.fk_dother_istab1">
+            <End Role="istab" EntitySet="istab" />
+            <End Role="dother" EntitySet="dother" />
           </AssociationSet>
-          <AssociationSet Name="fk - salessummary - pricelist_id" Association="Self.fk - salessummary - pricelist_id">
+          <AssociationSet Name="fk_dother_salessummary1" Association="Self.fk_dother_salessummary1">
+            <End Role="salessummary" EntitySet="salessummary" />
+            <End Role="dother" EntitySet="dother" />
+          </AssociationSet>
+          <AssociationSet Name="fk-nozzle-section_id" Association="Self.fk-nozzle-section_id">
+            <End Role="section" EntitySet="section" />
+            <End Role="nozzle" EntitySet="nozzle" />
+          </AssociationSet>
+          <AssociationSet Name="fk-salessummary-pricelist_id" Association="Self.fk-salessummary-pricelist_id">
             <End Role="pricelist" EntitySet="pricelist" />
             <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
-          <AssociationSet Name="fk - salessummary - shift_id" Association="Self.fk - salessummary - shift_id">
-            <End Role="shift" EntitySet="shift" />
-            <End Role="salessummary" EntitySet="salessummary" />
-          </AssociationSet>
-          <AssociationSet Name="fk - salessummary - shiftsales_id" Association="Self.fk - salessummary - shiftsales_id">
+          <AssociationSet Name="fk-salessummary-shiftsales_id" Association="Self.fk-salessummary-shiftsales_id">
             <End Role="shiftsales" EntitySet="shiftsales" />
             <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
-          <AssociationSet Name="fk - salessummary - stmas_id" Association="Self.fk - salessummary - stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="salessummary" EntitySet="salessummary" />
-          </AssociationSet>
-          <AssociationSet Name="fk - section - stmas_id" Association="Self.fk - section - stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="section" EntitySet="section" />
-          </AssociationSet>
-          <AssociationSet Name="fk - section - tank_id" Association="Self.fk - section - tank_id">
+          <AssociationSet Name="fk-section-tank_id" Association="Self.fk-section-tank_id">
             <End Role="tank" EntitySet="tank" />
             <End Role="section" EntitySet="section" />
           </AssociationSet>
-          <AssociationSet Name="fk - shiftsales - shift_id" Association="Self.fk - shiftsales - shift_id">
+          <AssociationSet Name="fk-shiftsales-shift_id" Association="Self.fk-shiftsales-shift_id">
             <End Role="shift" EntitySet="shift" />
             <End Role="shiftsales" EntitySet="shiftsales" />
           </AssociationSet>
-          <AssociationSet Name="fk - sttak - section_id" Association="Self.fk - sttak - section_id">
+          <AssociationSet Name="fk-sttak-section_id" Association="Self.fk-sttak-section_id">
             <End Role="section" EntitySet="section" />
             <End Role="shiftsttak" EntitySet="shiftsttak" />
           </AssociationSet>
-          <AssociationSet Name="fk - sttak - shiftsales_id" Association="Self.fk - sttak - shiftsales_id">
+          <AssociationSet Name="fk-sttak-shiftsales_id" Association="Self.fk-sttak-shiftsales_id">
             <End Role="shiftsales" EntitySet="shiftsales" />
             <End Role="shiftsttak" EntitySet="shiftsttak" />
-          </AssociationSet>
-          <AssociationSet Name="fk-dayend-dothercause_id" Association="Self.fk-dayend-dothercause_id">
-            <End Role="istab" EntitySet="istab" />
-            <End Role="dayend" EntitySet="dayend" />
-          </AssociationSet>
-          <AssociationSet Name="fk-salessummary-dothercause_id" Association="Self.fk-salessummary-dothercause_id">
-            <End Role="istab" EntitySet="istab" />
-            <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
           <AssociationSet Name="fk-tank-tanksetup_id" Association="Self.fk-tank-tanksetup_id">
             <End Role="tanksetup" EntitySet="tanksetup" />
@@ -634,21 +508,18 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="saldat" Type="DateTime" Nullable="false" />
+          <Property Name="stkcod" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="rcvqty" Type="Decimal" Nullable="false" />
           <Property Name="salqty" Type="Decimal" Nullable="false" />
-          <Property Name="dothercause_id" Type="Int32" />
-          <Property Name="dother" Type="Decimal" Nullable="false" />
           <Property Name="difqty" Type="Decimal" Nullable="false" />
-          <Property Name="stmas_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
           <Property Name="apprby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="apprtime" Type="DateTime" />
-          <NavigationProperty Name="stmas" Relationship="Self.fk___dayend___stmas_id" FromRole="dayend" ToRole="stmas" />
           <NavigationProperty Name="daysttak" Relationship="Self.fk___daysttak___dayend_id" FromRole="dayend" ToRole="daysttak" />
-          <NavigationProperty Name="istab" Relationship="Self.fk_dayend_dothercause_id" FromRole="dayend" ToRole="istab" />
+          <NavigationProperty Name="dother" Relationship="Self.fk_dother_dayend1" FromRole="dayend" ToRole="dother" />
         </EntityType>
         <EntityType Name="daysttak">
           <Key>
@@ -674,6 +545,19 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgtime" Type="DateTime" />
         </EntityType>
+        <EntityType Name="dother">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qty" Type="Decimal" Nullable="false" />
+          <Property Name="istab_id" Type="Int32" Nullable="false" />
+          <Property Name="salessummary_id" Type="Int32" />
+          <Property Name="dayend_id" Type="Int32" />
+          <NavigationProperty Name="dayend" Relationship="Self.fk_dother_dayend1" FromRole="dother" ToRole="dayend" />
+          <NavigationProperty Name="istab" Relationship="Self.fk_dother_istab1" FromRole="dother" ToRole="istab" />
+          <NavigationProperty Name="salessummary" Relationship="Self.fk_dother_salessummary1" FromRole="dother" ToRole="salessummary" />
+        </EntityType>
         <EntityType Name="istab">
           <Key>
             <PropertyRef Name="id" />
@@ -689,8 +573,7 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
-          <NavigationProperty Name="dayend" Relationship="Self.fk_dayend_dothercause_id" FromRole="istab" ToRole="dayend" />
-          <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_dothercause_id" FromRole="istab" ToRole="salessummary" />
+          <NavigationProperty Name="dother" Relationship="Self.fk_dother_istab1" FromRole="istab" ToRole="dother" />
         </EntityType>
         <EntityType Name="nozzle">
           <Key>
@@ -706,8 +589,8 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
-          <NavigationProperty Name="section" Relationship="Self.fk___nozzle___section_id" FromRole="nozzle" ToRole="section" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk___saleshistory___nozzle_id" FromRole="nozzle" ToRole="saleshistory" />
+          <NavigationProperty Name="section" Relationship="Self.fk_nozzle_section_id" FromRole="nozzle" ToRole="section" />
         </EntityType>
         <EntityType Name="pricelist">
           <Key>
@@ -716,14 +599,11 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="DateTime" Nullable="false" />
           <Property Name="unitpr" Type="Decimal" Nullable="false" />
-          <Property Name="stmas_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
-          <NavigationProperty Name="stmas" Relationship="Self.fk___pricelist___stmas_id" FromRole="pricelist" ToRole="stmas" />
-          <NavigationProperty Name="saleshistory" Relationship="Self.fk___saleshistory___pricelist_id" FromRole="pricelist" ToRole="saleshistory" />
-          <NavigationProperty Name="salessummary" Relationship="Self.fk___salessummary___pricelist_id" FromRole="pricelist" ToRole="salessummary" />
+          <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_pricelist_id" FromRole="pricelist" ToRole="salessummary" />
         </EntityType>
         <EntityType Name="saleshistory">
           <Key>
@@ -735,20 +615,14 @@
           <Property Name="mitend" Type="Decimal" Nullable="false" />
           <Property Name="salqty" Type="Decimal" Nullable="false" />
           <Property Name="salval" Type="Decimal" Nullable="false" />
-          <Property Name="shift_id" Type="Int32" Nullable="false" />
           <Property Name="nozzle_id" Type="Int32" Nullable="false" />
-          <Property Name="stmas_id" Type="Int32" Nullable="false" />
-          <Property Name="pricelist_id" Type="Int32" Nullable="false" />
           <Property Name="salessummary_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="nozzle" Relationship="Self.fk___saleshistory___nozzle_id" FromRole="saleshistory" ToRole="nozzle" />
-          <NavigationProperty Name="pricelist" Relationship="Self.fk___saleshistory___pricelist_id" FromRole="saleshistory" ToRole="pricelist" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk___saleshistory___salessummary_id" FromRole="saleshistory" ToRole="salessummary" />
-          <NavigationProperty Name="shift" Relationship="Self.fk___saleshistory___shift_id" FromRole="saleshistory" ToRole="shift" />
-          <NavigationProperty Name="stmas" Relationship="Self.fk___saleshistory___stmas_id" FromRole="saleshistory" ToRole="stmas" />
         </EntityType>
         <EntityType Name="salessummary">
           <Key>
@@ -756,25 +630,20 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="saldat" Type="DateTime" Nullable="false" />
+          <Property Name="stkcod" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="dtest" Type="Decimal" Nullable="false" />
-          <Property Name="dothercause_id" Type="Int32" />
-          <Property Name="dother" Type="Decimal" Nullable="false" />
           <Property Name="ddisc" Type="Decimal" Nullable="false" />
           <Property Name="purvat" Type="Decimal" Nullable="false" />
-          <Property Name="shift_id" Type="Int32" Nullable="false" />
-          <Property Name="stmas_id" Type="Int32" Nullable="false" />
           <Property Name="pricelist_id" Type="Int32" Nullable="false" />
           <Property Name="shiftsales_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
-          <NavigationProperty Name="istab" Relationship="Self.fk_salessummary_dothercause_id" FromRole="salessummary" ToRole="istab" />
-          <NavigationProperty Name="pricelist" Relationship="Self.fk___salessummary___pricelist_id" FromRole="salessummary" ToRole="pricelist" />
+          <NavigationProperty Name="dother" Relationship="Self.fk_dother_salessummary1" FromRole="salessummary" ToRole="dother" />
+          <NavigationProperty Name="pricelist" Relationship="Self.fk_salessummary_pricelist_id" FromRole="salessummary" ToRole="pricelist" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk___saleshistory___salessummary_id" FromRole="salessummary" ToRole="saleshistory" />
-          <NavigationProperty Name="shift" Relationship="Self.fk___salessummary___shift_id" FromRole="salessummary" ToRole="shift" />
-          <NavigationProperty Name="shiftsales" Relationship="Self.fk___salessummary___shiftsales_id" FromRole="salessummary" ToRole="shiftsales" />
-          <NavigationProperty Name="stmas" Relationship="Self.fk___salessummary___stmas_id" FromRole="salessummary" ToRole="stmas" />
+          <NavigationProperty Name="shiftsales" Relationship="Self.fk_salessummary_shiftsales_id" FromRole="salessummary" ToRole="shiftsales" />
         </EntityType>
         <EntityType Name="section">
           <Key>
@@ -783,21 +652,21 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="loccod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stkcod" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stkdes" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="capacity" Type="Decimal" Nullable="false" />
           <Property Name="begacc" Type="Decimal" Nullable="false" />
           <Property Name="begtak" Type="Decimal" Nullable="false" />
           <Property Name="begdif" Type="Decimal" Nullable="false" />
           <Property Name="tank_id" Type="Int32" Nullable="false" />
-          <Property Name="stmas_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="daysttak" Relationship="Self.fk___daysttak___section_id" FromRole="section" ToRole="daysttak" />
-          <NavigationProperty Name="nozzle" Relationship="Self.fk___nozzle___section_id" FromRole="section" ToRole="nozzle" />
-          <NavigationProperty Name="stmas" Relationship="Self.fk___section___stmas_id" FromRole="section" ToRole="stmas" />
-          <NavigationProperty Name="tank" Relationship="Self.fk___section___tank_id" FromRole="section" ToRole="tank" />
-          <NavigationProperty Name="shiftsttak" Relationship="Self.fk___sttak___section_id" FromRole="section" ToRole="shiftsttak" />
+          <NavigationProperty Name="nozzle" Relationship="Self.fk_nozzle_section_id" FromRole="section" ToRole="nozzle" />
+          <NavigationProperty Name="tank" Relationship="Self.fk_section_tank_id" FromRole="section" ToRole="tank" />
+          <NavigationProperty Name="shiftsttak" Relationship="Self.fk_sttak_section_id" FromRole="section" ToRole="shiftsttak" />
         </EntityType>
         <EntityType Name="settings">
           <Key>
@@ -833,9 +702,7 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
-          <NavigationProperty Name="saleshistory" Relationship="Self.fk___saleshistory___shift_id" FromRole="shift" ToRole="saleshistory" />
-          <NavigationProperty Name="salessummary" Relationship="Self.fk___salessummary___shift_id" FromRole="shift" ToRole="salessummary" />
-          <NavigationProperty Name="shiftsales" Relationship="Self.fk___shiftsales___shift_id" FromRole="shift" ToRole="shiftsales" />
+          <NavigationProperty Name="shiftsales" Relationship="Self.fk_shiftsales_shift_id" FromRole="shift" ToRole="shiftsales" />
         </EntityType>
         <EntityType Name="shiftsales">
           <Key>
@@ -851,9 +718,9 @@
           <Property Name="chgtime" Type="DateTime" />
           <Property Name="apprby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="apprtime" Type="DateTime" />
-          <NavigationProperty Name="salessummary" Relationship="Self.fk___salessummary___shiftsales_id" FromRole="shiftsales" ToRole="salessummary" />
-          <NavigationProperty Name="shift" Relationship="Self.fk___shiftsales___shift_id" FromRole="shiftsales" ToRole="shift" />
-          <NavigationProperty Name="shiftsttak" Relationship="Self.fk___sttak___shiftsales_id" FromRole="shiftsales" ToRole="shiftsttak" />
+          <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shiftsales_id" FromRole="shiftsales" ToRole="salessummary" />
+          <NavigationProperty Name="shift" Relationship="Self.fk_shiftsales_shift_id" FromRole="shiftsales" ToRole="shift" />
+          <NavigationProperty Name="shiftsttak" Relationship="Self.fk_sttak_shiftsales_id" FromRole="shiftsales" ToRole="shiftsttak" />
         </EntityType>
         <EntityType Name="shiftsttak">
           <Key>
@@ -868,26 +735,8 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
-          <NavigationProperty Name="section" Relationship="Self.fk___sttak___section_id" FromRole="shiftsttak" ToRole="section" />
-          <NavigationProperty Name="shiftsales" Relationship="Self.fk___sttak___shiftsales_id" FromRole="shiftsttak" ToRole="shiftsales" />
-        </EntityType>
-        <EntityType Name="stmas">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cretime" Type="DateTime" Nullable="false" />
-          <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="chgtime" Type="DateTime" />
-          <NavigationProperty Name="dayend" Relationship="Self.fk___dayend___stmas_id" FromRole="stmas" ToRole="dayend" />
-          <NavigationProperty Name="pricelist" Relationship="Self.fk___pricelist___stmas_id" FromRole="stmas" ToRole="pricelist" />
-          <NavigationProperty Name="saleshistory" Relationship="Self.fk___saleshistory___stmas_id" FromRole="stmas" ToRole="saleshistory" />
-          <NavigationProperty Name="salessummary" Relationship="Self.fk___salessummary___stmas_id" FromRole="stmas" ToRole="salessummary" />
-          <NavigationProperty Name="section" Relationship="Self.fk___section___stmas_id" FromRole="stmas" ToRole="section" />
+          <NavigationProperty Name="section" Relationship="Self.fk_sttak_section_id" FromRole="shiftsttak" ToRole="section" />
+          <NavigationProperty Name="shiftsales" Relationship="Self.fk_sttak_shiftsales_id" FromRole="shiftsttak" ToRole="shiftsales" />
         </EntityType>
         <EntityType Name="tank">
           <Key>
@@ -895,17 +744,14 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="startdate" Type="DateTime" Nullable="false" />
-          <Property Name="enddate" Type="DateTime" />
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="isactive" Type="Boolean" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
           <Property Name="tanksetup_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="section" Relationship="Self.fk___section___tank_id" FromRole="tank" ToRole="section" />
+          <NavigationProperty Name="section" Relationship="Self.fk_section_tank_id" FromRole="tank" ToRole="section" />
           <NavigationProperty Name="tanksetup" Relationship="Self.fk_tank_tanksetup_id" FromRole="tank" ToRole="tanksetup" />
         </EntityType>
         <EntityType Name="tanksetup">
@@ -920,18 +766,6 @@
           <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="tank" Relationship="Self.fk_tank_tanksetup_id" FromRole="tanksetup" ToRole="tank" />
         </EntityType>
-        <Association Name="fk___dayend___stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="dayend" Type="Self.dayend" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="stmas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="dayend">
-              <PropertyRef Name="stmas_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk___daysttak___dayend_id">
           <End Role="dayend" Type="Self.dayend" Multiplicity="1" />
           <End Role="daysttak" Type="Self.daysttak" Multiplicity="*" />
@@ -944,15 +778,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_dayend_dothercause_id">
-          <End Role="istab" Type="Self.istab" Multiplicity="0..1" />
-          <End Role="dayend" Type="Self.dayend" Multiplicity="*" />
+        <Association Name="fk_dother_dayend1">
+          <End Role="dayend" Type="Self.dayend" Multiplicity="0..1" />
+          <End Role="dother" Type="Self.dother" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="istab">
+            <Principal Role="dayend">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="dayend">
-              <PropertyRef Name="dothercause_id" />
+            <Dependent Role="dother">
+              <PropertyRef Name="dayend_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -968,27 +802,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_salessummary_dothercause_id">
-          <End Role="istab" Type="Self.istab" Multiplicity="0..1" />
-          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
+        <Association Name="fk_dother_istab1">
+          <End Role="istab" Type="Self.istab" Multiplicity="1" />
+          <End Role="dother" Type="Self.dother" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="istab">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="salessummary">
-              <PropertyRef Name="dothercause_id" />
+            <Dependent Role="dother">
+              <PropertyRef Name="istab_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk___nozzle___section_id">
-          <End Role="section" Type="Self.section" Multiplicity="1" />
-          <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
+        <Association Name="fk_dother_salessummary1">
+          <End Role="salessummary" Type="Self.salessummary" Multiplicity="0..1" />
+          <End Role="dother" Type="Self.dother" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="section">
+            <Principal Role="salessummary">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="nozzle">
-              <PropertyRef Name="section_id" />
+            <Dependent Role="dother">
+              <PropertyRef Name="salessummary_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1004,31 +838,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk___pricelist___stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="pricelist" Type="Self.pricelist" Multiplicity="*" />
+        <Association Name="fk_nozzle_section_id">
+          <End Role="section" Type="Self.section" Multiplicity="1" />
+          <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="stmas">
+            <Principal Role="section">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="pricelist">
-              <PropertyRef Name="stmas_id" />
+            <Dependent Role="nozzle">
+              <PropertyRef Name="section_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk___saleshistory___pricelist_id">
-          <End Role="pricelist" Type="Self.pricelist" Multiplicity="1" />
-          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="pricelist">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="saleshistory">
-              <PropertyRef Name="pricelist_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk___salessummary___pricelist_id">
+        <Association Name="fk_salessummary_pricelist_id">
           <End Role="pricelist" Type="Self.pricelist" Multiplicity="1" />
           <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1052,43 +874,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk___saleshistory___shift_id">
-          <End Role="shift" Type="Self.shift" Multiplicity="1" />
-          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="shift">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="saleshistory">
-              <PropertyRef Name="shift_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk___saleshistory___stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="stmas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="saleshistory">
-              <PropertyRef Name="stmas_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk___salessummary___shift_id">
-          <End Role="shift" Type="Self.shift" Multiplicity="1" />
-          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="shift">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="salessummary">
-              <PropertyRef Name="shift_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk___salessummary___shiftsales_id">
+        <Association Name="fk_salessummary_shiftsales_id">
           <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="1" />
           <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1100,31 +886,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk___salessummary___stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="salessummary" Type="Self.salessummary" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="stmas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="salessummary">
-              <PropertyRef Name="stmas_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk___section___stmas_id">
-          <End Role="stmas" Type="Self.stmas" Multiplicity="1" />
-          <End Role="section" Type="Self.section" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="stmas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="section">
-              <PropertyRef Name="stmas_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk___section___tank_id">
+        <Association Name="fk_section_tank_id">
           <End Role="tank" Type="Self.tank" Multiplicity="1" />
           <End Role="section" Type="Self.section" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1136,7 +898,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk___sttak___section_id">
+        <Association Name="fk_sttak_section_id">
           <End Role="section" Type="Self.section" Multiplicity="1" />
           <End Role="shiftsttak" Type="Self.shiftsttak" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1148,7 +910,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk___shiftsales___shift_id">
+        <Association Name="fk_shiftsales_shift_id">
           <End Role="shift" Type="Self.shift" Multiplicity="1" />
           <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1160,7 +922,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk___sttak___shiftsales_id">
+        <Association Name="fk_sttak_shiftsales_id">
           <End Role="shiftsales" Type="Self.shiftsales" Multiplicity="1" />
           <End Role="shiftsttak" Type="Self.shiftsttak" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1188,6 +950,7 @@
           <EntitySet Name="dayend" EntityType="Self.dayend" />
           <EntitySet Name="daysttak" EntityType="Self.daysttak" />
           <EntitySet Name="dbver" EntityType="Self.dbver" />
+          <EntitySet Name="dother" EntityType="Self.dother" />
           <EntitySet Name="istab" EntityType="Self.istab" />
           <EntitySet Name="nozzle" EntityType="Self.nozzle" />
           <EntitySet Name="pricelist" EntityType="Self.pricelist" />
@@ -1198,46 +961,37 @@
           <EntitySet Name="shift" EntityType="Self.shift" />
           <EntitySet Name="shiftsales" EntityType="Self.shiftsales" />
           <EntitySet Name="shiftsttak" EntityType="Self.shiftsttak" />
-          <EntitySet Name="stmas" EntityType="Self.stmas" />
           <EntitySet Name="tank" EntityType="Self.tank" />
           <EntitySet Name="tanksetup" EntityType="Self.tanksetup" />
-          <AssociationSet Name="fk___dayend___stmas_id" Association="Self.fk___dayend___stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="dayend" EntitySet="dayend" />
-          </AssociationSet>
           <AssociationSet Name="fk___daysttak___dayend_id" Association="Self.fk___daysttak___dayend_id">
             <End Role="dayend" EntitySet="dayend" />
             <End Role="daysttak" EntitySet="daysttak" />
           </AssociationSet>
-          <AssociationSet Name="fk_dayend_dothercause_id" Association="Self.fk_dayend_dothercause_id">
-            <End Role="istab" EntitySet="istab" />
+          <AssociationSet Name="fk_dother_dayend1" Association="Self.fk_dother_dayend1">
             <End Role="dayend" EntitySet="dayend" />
+            <End Role="dother" EntitySet="dother" />
           </AssociationSet>
           <AssociationSet Name="fk___daysttak___section_id" Association="Self.fk___daysttak___section_id">
             <End Role="section" EntitySet="section" />
             <End Role="daysttak" EntitySet="daysttak" />
           </AssociationSet>
-          <AssociationSet Name="fk_salessummary_dothercause_id" Association="Self.fk_salessummary_dothercause_id">
+          <AssociationSet Name="fk_dother_istab1" Association="Self.fk_dother_istab1">
             <End Role="istab" EntitySet="istab" />
-            <End Role="salessummary" EntitySet="salessummary" />
+            <End Role="dother" EntitySet="dother" />
           </AssociationSet>
-          <AssociationSet Name="fk___nozzle___section_id" Association="Self.fk___nozzle___section_id">
-            <End Role="section" EntitySet="section" />
-            <End Role="nozzle" EntitySet="nozzle" />
+          <AssociationSet Name="fk_dother_salessummary1" Association="Self.fk_dother_salessummary1">
+            <End Role="salessummary" EntitySet="salessummary" />
+            <End Role="dother" EntitySet="dother" />
           </AssociationSet>
           <AssociationSet Name="fk___saleshistory___nozzle_id" Association="Self.fk___saleshistory___nozzle_id">
             <End Role="nozzle" EntitySet="nozzle" />
             <End Role="saleshistory" EntitySet="saleshistory" />
           </AssociationSet>
-          <AssociationSet Name="fk___pricelist___stmas_id" Association="Self.fk___pricelist___stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="pricelist" EntitySet="pricelist" />
+          <AssociationSet Name="fk_nozzle_section_id" Association="Self.fk_nozzle_section_id">
+            <End Role="section" EntitySet="section" />
+            <End Role="nozzle" EntitySet="nozzle" />
           </AssociationSet>
-          <AssociationSet Name="fk___saleshistory___pricelist_id" Association="Self.fk___saleshistory___pricelist_id">
-            <End Role="pricelist" EntitySet="pricelist" />
-            <End Role="saleshistory" EntitySet="saleshistory" />
-          </AssociationSet>
-          <AssociationSet Name="fk___salessummary___pricelist_id" Association="Self.fk___salessummary___pricelist_id">
+          <AssociationSet Name="fk_salessummary_pricelist_id" Association="Self.fk_salessummary_pricelist_id">
             <End Role="pricelist" EntitySet="pricelist" />
             <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
@@ -1245,43 +999,23 @@
             <End Role="salessummary" EntitySet="salessummary" />
             <End Role="saleshistory" EntitySet="saleshistory" />
           </AssociationSet>
-          <AssociationSet Name="fk___saleshistory___shift_id" Association="Self.fk___saleshistory___shift_id">
-            <End Role="shift" EntitySet="shift" />
-            <End Role="saleshistory" EntitySet="saleshistory" />
-          </AssociationSet>
-          <AssociationSet Name="fk___saleshistory___stmas_id" Association="Self.fk___saleshistory___stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="saleshistory" EntitySet="saleshistory" />
-          </AssociationSet>
-          <AssociationSet Name="fk___salessummary___shift_id" Association="Self.fk___salessummary___shift_id">
-            <End Role="shift" EntitySet="shift" />
-            <End Role="salessummary" EntitySet="salessummary" />
-          </AssociationSet>
-          <AssociationSet Name="fk___salessummary___shiftsales_id" Association="Self.fk___salessummary___shiftsales_id">
+          <AssociationSet Name="fk_salessummary_shiftsales_id" Association="Self.fk_salessummary_shiftsales_id">
             <End Role="shiftsales" EntitySet="shiftsales" />
             <End Role="salessummary" EntitySet="salessummary" />
           </AssociationSet>
-          <AssociationSet Name="fk___salessummary___stmas_id" Association="Self.fk___salessummary___stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="salessummary" EntitySet="salessummary" />
-          </AssociationSet>
-          <AssociationSet Name="fk___section___stmas_id" Association="Self.fk___section___stmas_id">
-            <End Role="stmas" EntitySet="stmas" />
-            <End Role="section" EntitySet="section" />
-          </AssociationSet>
-          <AssociationSet Name="fk___section___tank_id" Association="Self.fk___section___tank_id">
+          <AssociationSet Name="fk_section_tank_id" Association="Self.fk_section_tank_id">
             <End Role="tank" EntitySet="tank" />
             <End Role="section" EntitySet="section" />
           </AssociationSet>
-          <AssociationSet Name="fk___sttak___section_id" Association="Self.fk___sttak___section_id">
+          <AssociationSet Name="fk_sttak_section_id" Association="Self.fk_sttak_section_id">
             <End Role="section" EntitySet="section" />
             <End Role="shiftsttak" EntitySet="shiftsttak" />
           </AssociationSet>
-          <AssociationSet Name="fk___shiftsales___shift_id" Association="Self.fk___shiftsales___shift_id">
+          <AssociationSet Name="fk_shiftsales_shift_id" Association="Self.fk_shiftsales_shift_id">
             <End Role="shift" EntitySet="shift" />
             <End Role="shiftsales" EntitySet="shiftsales" />
           </AssociationSet>
-          <AssociationSet Name="fk___sttak___shiftsales_id" Association="Self.fk___sttak___shiftsales_id">
+          <AssociationSet Name="fk_sttak_shiftsales_id" Association="Self.fk_sttak_shiftsales_id">
             <End Role="shiftsales" EntitySet="shiftsales" />
             <End Role="shiftsttak" EntitySet="shiftsttak" />
           </AssociationSet>
@@ -1301,12 +1035,10 @@
               <MappingFragment StoreEntitySet="dayend">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
+                <ScalarProperty Name="stkcod" ColumnName="stkcod" />
                 <ScalarProperty Name="rcvqty" ColumnName="rcvqty" />
                 <ScalarProperty Name="salqty" ColumnName="salqty" />
-                <ScalarProperty Name="dothercause_id" ColumnName="dothercause_id" />
-                <ScalarProperty Name="dother" ColumnName="dother" />
                 <ScalarProperty Name="difqty" ColumnName="difqty" />
-                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />
@@ -1337,6 +1069,17 @@
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgtime" ColumnName="chgtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dother">
+            <EntityTypeMapping TypeName="xpumpModel.dother">
+              <MappingFragment StoreEntitySet="dother">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="istab_id" ColumnName="istab_id" />
+                <ScalarProperty Name="salessummary_id" ColumnName="salessummary_id" />
+                <ScalarProperty Name="dayend_id" ColumnName="dayend_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1379,7 +1122,6 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="unitpr" ColumnName="unitpr" />
-                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />
@@ -1396,10 +1138,7 @@
                 <ScalarProperty Name="mitend" ColumnName="mitend" />
                 <ScalarProperty Name="salqty" ColumnName="salqty" />
                 <ScalarProperty Name="salval" ColumnName="salval" />
-                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
                 <ScalarProperty Name="nozzle_id" ColumnName="nozzle_id" />
-                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
-                <ScalarProperty Name="pricelist_id" ColumnName="pricelist_id" />
                 <ScalarProperty Name="salessummary_id" ColumnName="salessummary_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
@@ -1413,13 +1152,10 @@
               <MappingFragment StoreEntitySet="salessummary">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
+                <ScalarProperty Name="stkcod" ColumnName="stkcod" />
                 <ScalarProperty Name="dtest" ColumnName="dtest" />
-                <ScalarProperty Name="dothercause_id" ColumnName="dothercause_id" />
-                <ScalarProperty Name="dother" ColumnName="dother" />
                 <ScalarProperty Name="ddisc" ColumnName="ddisc" />
                 <ScalarProperty Name="purvat" ColumnName="purvat" />
-                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
-                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
                 <ScalarProperty Name="pricelist_id" ColumnName="pricelist_id" />
                 <ScalarProperty Name="shiftsales_id" ColumnName="shiftsales_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
@@ -1435,12 +1171,13 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="loccod" ColumnName="loccod" />
+                <ScalarProperty Name="stkcod" ColumnName="stkcod" />
+                <ScalarProperty Name="stkdes" ColumnName="stkdes" />
                 <ScalarProperty Name="capacity" ColumnName="capacity" />
                 <ScalarProperty Name="begacc" ColumnName="begacc" />
                 <ScalarProperty Name="begtak" ColumnName="begtak" />
                 <ScalarProperty Name="begdif" ColumnName="begdif" />
                 <ScalarProperty Name="tank_id" ColumnName="tank_id" />
-                <ScalarProperty Name="stmas_id" ColumnName="stmas_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />
@@ -1516,30 +1253,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="stmas">
-            <EntityTypeMapping TypeName="xpumpModel.stmas">
-              <MappingFragment StoreEntitySet="stmas">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="creby" ColumnName="creby" />
-                <ScalarProperty Name="cretime" ColumnName="cretime" />
-                <ScalarProperty Name="chgby" ColumnName="chgby" />
-                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tank">
             <EntityTypeMapping TypeName="xpumpModel.tank">
               <MappingFragment StoreEntitySet="tank">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="startdate" ColumnName="startdate" />
-                <ScalarProperty Name="enddate" ColumnName="enddate" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="isactive" ColumnName="isactive" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />

@@ -18,16 +18,15 @@ namespace XPump.Model
         public dayend()
         {
             this.daysttak = new HashSet<daysttak>();
+            this.dother = new HashSet<dother>();
         }
     
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
+        public string stkcod { get; set; }
         public decimal rcvqty { get; set; }
         public decimal salqty { get; set; }
-        public Nullable<int> dothercause_id { get; set; }
-        public decimal dother { get; set; }
         public decimal difqty { get; set; }
-        public int stmas_id { get; set; }
         public string creby { get; set; }
         public System.DateTime cretime { get; set; }
         public string chgby { get; set; }
@@ -35,9 +34,9 @@ namespace XPump.Model
         public string apprby { get; set; }
         public Nullable<System.DateTime> apprtime { get; set; }
     
-        public virtual stmas stmas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<daysttak> daysttak { get; set; }
-        public virtual istab istab { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<dother> dother { get; set; }
     }
 }

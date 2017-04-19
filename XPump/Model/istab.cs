@@ -17,8 +17,7 @@ namespace XPump.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public istab()
         {
-            this.dayend = new HashSet<dayend>();
-            this.salessummary = new HashSet<salessummary>();
+            this.dother = new HashSet<dother>();
         }
     
         public int id { get; set; }
@@ -34,8 +33,6 @@ namespace XPump.Model
         public Nullable<System.DateTime> chgtime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<dayend> dayend { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<salessummary> salessummary { get; set; }
+        public virtual ICollection<dother> dother { get; set; }
     }
 }

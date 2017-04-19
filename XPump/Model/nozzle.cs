@@ -31,8 +31,8 @@ namespace XPump.Model
         public string chgby { get; set; }
         public Nullable<System.DateTime> chgtime { get; set; }
     
-        public virtual section section { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<saleshistory> saleshistory { get; set; }
+        public virtual section section { get; set; }
     }
 }

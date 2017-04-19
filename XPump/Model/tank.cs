@@ -22,11 +22,8 @@ namespace XPump.Model
     
         public int id { get; set; }
         public string name { get; set; }
-        public System.DateTime startdate { get; set; }
-        public Nullable<System.DateTime> enddate { get; set; }
         public string description { get; set; }
         public string remark { get; set; }
-        public bool isactive { get; set; }
         public string creby { get; set; }
         public System.DateTime cretime { get; set; }
         public string chgby { get; set; }

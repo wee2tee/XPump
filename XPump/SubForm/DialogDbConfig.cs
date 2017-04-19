@@ -233,7 +233,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "UNIQUE INDEX `unq - istab` (`tabtyp` ASC, `typcod` ASC)) ";
+                cmd.CommandText += "UNIQUE INDEX `unq-istab` (`tabtyp` ASC, `typcod` ASC)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -257,7 +257,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "UNIQUE INDEX `unq - shift - name` (`name` ASC)) ";
+                cmd.CommandText += "UNIQUE INDEX `unq-shift-name` (`name` ASC)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -277,18 +277,18 @@ namespace XPump.SubForm
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`tank` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
-                cmd.CommandText += "`startdate` DATE NOT NULL,";
-                cmd.CommandText += "`enddate` DATE NULL,";
+                //cmd.CommandText += "`startdate` DATE NOT NULL,";
+                //cmd.CommandText += "`enddate` DATE NULL,";
                 cmd.CommandText += "`description` VARCHAR(50) NULL,";
                 cmd.CommandText += "`remark` VARCHAR(50) NULL,";
-                cmd.CommandText += "`isactive` TINYINT(1) NOT NULL DEFAULT 1,";
+                //cmd.CommandText += "`isactive` TINYINT(1) NOT NULL DEFAULT 1,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "`tanksetup_id` INT(11) NOT NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "UNIQUE INDEX `unq - tank - name` (`name` ASC),";
+                cmd.CommandText += "UNIQUE INDEX `unq-tank-name` (`tanksetup_id` ASC, `name` ASC),";
                 cmd.CommandText += "INDEX `ndx-tank-tanksetup_id` (`tanksetup_id` ASC),";
                 cmd.CommandText += "CONSTRAINT `fk-tank-tanksetup_id` FOREIGN KEY (`tanksetup_id`) REFERENCES `" + local_config.dbname + "`.`tanksetup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
@@ -322,9 +322,9 @@ namespace XPump.SubForm
                 cmd.CommandText += "`apprby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`apprtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "INDEX `ndx - shiftsales - shift_id` (`shift_id` ASC),";
-                cmd.CommandText += "UNIQUE INDEX `unq - shiftsales` (`saldat` ASC, `shift_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - shiftsales - shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "INDEX `ndx-shiftsales-shift_id` (`shift_id` ASC),";
+                cmd.CommandText += "UNIQUE INDEX `unq-shiftsales` (`saldat` ASC, `shift_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk-shiftsales-shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -333,21 +333,20 @@ namespace XPump.SubForm
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
                 cmd.CommandText += "`loccod` VARCHAR(4) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`stkcod` VARCHAR(40) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`stkdes` VARCHAR(100) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`capacity` DECIMAL(14,2) NOT NULL DEFAULT 0,";
                 cmd.CommandText += "`begacc` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`begtak` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`begdif` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`tank_id` INT(11) NOT NULL,";
-                cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "INDEX `ndx - section - tank_id` (`tank_id` ASC),";
-                cmd.CommandText += "INDEX `ndx - section - stmas_id` (`stmas_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - section - tank_id` FOREIGN KEY (`tank_id`) REFERENCES `" + local_config.dbname + "`.`tank` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk - section - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "INDEX `ndx-section-tank_id` (`tank_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk-section-tank_id` FOREIGN KEY (`tank_id`) REFERENCES `" + local_config.dbname + "`.`tank` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -356,14 +355,11 @@ namespace XPump.SubForm
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`date` DATE NOT NULL,";
                 cmd.CommandText += "`unitpr` DECIMAL(9, 2) NOT NULL,";
-                cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
-                cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "INDEX `ndx - pricelist - stmas_id` (`stmas_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - pricelist - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "PRIMARY KEY (`id`)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -380,9 +376,9 @@ namespace XPump.SubForm
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "UNIQUE INDEX `unq - nozzle - name` (`name` ASC, `section_id` ASC),";
-                cmd.CommandText += "INDEX `ndx - nozzle - section_id` (`section_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - nozzle - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "UNIQUE INDEX `unq-nozzle-name` (`name` ASC, `section_id` ASC),";
+                cmd.CommandText += "INDEX `ndx-nozzle-section_id` (`section_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk-nozzle-section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -398,11 +394,11 @@ namespace XPump.SubForm
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "INDEX `ndx - sttak - section_id` (`section_id` ASC),";
-                cmd.CommandText += "INDEX `ndx - sttak - shiftsales_id` (`shiftsales_id` ASC),";
-                cmd.CommandText += "UNIQUE INDEX `unq - sttak` (`shiftsales_id` ASC, `section_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - sttak - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk - sttak - shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "INDEX `ndx-sttak-section_id` (`section_id` ASC),";
+                cmd.CommandText += "INDEX `ndx-sttak-shiftsales_id` (`shiftsales_id` ASC),";
+                cmd.CommandText += "UNIQUE INDEX `unq-sttak` (`shiftsales_id` ASC, `section_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk-sttak-section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk-sttak-shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -410,13 +406,10 @@ namespace XPump.SubForm
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`salessummary` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`saldat` DATE NOT NULL,";
+                cmd.CommandText += "`stkcod` VARCHAR(40) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`dtest` DECIMAL(14, 2) NOT NULL,";
-                cmd.CommandText += "`dothercause_id` INT(11) NULL,";
-                cmd.CommandText += "`dother` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`ddisc` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`purvat` DECIMAL(14, 2) NOT NULL,";
-                cmd.CommandText += "`shift_id` INT(11) NOT NULL,";
-                cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`pricelist_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`shiftsales_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
@@ -424,17 +417,11 @@ namespace XPump.SubForm
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "INDEX `ndx - salessummary - shift_id` (`shift_id` ASC),";
-                cmd.CommandText += "INDEX `ndx - salessummary - stmas_id` (`stmas_id` ASC),";
-                cmd.CommandText += "UNIQUE INDEX `unq - salessummary` (`stmas_id` ASC, `saldat` ASC, `shift_id` ASC, `shiftsales_id` ASC),";
-                cmd.CommandText += "INDEX `ndx - salessummary - pricelist_id` (`pricelist_id` ASC),";
-                cmd.CommandText += "INDEX `ndx - salessummary - shiftsales_id` (`shiftsales_id` ASC),";
-                cmd.CommandText += "INDEX `ndx-salessummary-dothercause_id` (`dothercause_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - salessummary - shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk - salessummary - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk - salessummary - pricelist_id` FOREIGN KEY (`pricelist_id`) REFERENCES `" + local_config.dbname + "`.`pricelist` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk - salessummary - shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk-salessummary-dothercause_id` FOREIGN KEY (`dothercause_id`) REFERENCES `" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "UNIQUE INDEX `unq-salessummary` (`shiftsales_id` ASC, `stkcod` ASC),";
+                cmd.CommandText += "INDEX `ndx-salessummary-pricelist_id` (`pricelist_id` ASC),";
+                cmd.CommandText += "INDEX `ndx-salessummary-shiftsales_id` (`shiftsales_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk-salessummary-pricelist_id` FOREIGN KEY (`pricelist_id`) REFERENCES `" + local_config.dbname + "`.`pricelist` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk-salessummary-shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -446,26 +433,17 @@ namespace XPump.SubForm
                 cmd.CommandText += "`mitend` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`salval` DECIMAL(14, 2) NOT NULL,";
-                cmd.CommandText += "`shift_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`nozzle_id` INT(11) NOT NULL,";
-                cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
-                cmd.CommandText += "`pricelist_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`salessummary_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "INDEX `ndx - saleshistory - shift_id` (`shift_id` ASC),";
-                cmd.CommandText += "INDEX `ndx - saleshistory_nozzle_id` (`nozzle_id` ASC),";
-                cmd.CommandText += "INDEX `ndx - saleshistory - stmas_id` (`stmas_id` ASC),";
-                cmd.CommandText += "UNIQUE INDEX `unq - saleshistory` (`stmas_id` ASC, `saldat` ASC, `shift_id` ASC, `nozzle_id` ASC),";
-                cmd.CommandText += "INDEX `ndx - saleshistory - pricelist_id` (`pricelist_id` ASC),";
+                cmd.CommandText += "UNIQUE INDEX `unq-saleshistory` (`salessummary_id` ASC, `nozzle_id` ASC),";
+                cmd.CommandText += "INDEX `ndx-saleshistory-nozzle_id` (`nozzle_id` ASC),";
                 cmd.CommandText += "INDEX `ndx - saleshistory - salessummary_id` (`salessummary_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - saleshistory - shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
                 cmd.CommandText += "CONSTRAINT `fk - saleshistory - nozzle_id` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk - saleshistory - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk - saleshistory - pricelist_id` FOREIGN KEY (`pricelist_id`) REFERENCES `" + local_config.dbname + "`.`pricelist` (`id`) ON DELETE NO ACTION ON UPDATE  NO ACTION,";
                 cmd.CommandText += "CONSTRAINT `fk - saleshistory - salessummary_id` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
@@ -474,12 +452,10 @@ namespace XPump.SubForm
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dayend` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`saldat` DATE NOT NULL,";
+                cmd.CommandText += "`stkcod` VARCHAR(40) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`rcvqty` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
-                cmd.CommandText += "`dothercause_id` INT(11) NULL,";
-                cmd.CommandText += "`dother` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`difqty` DECIMAL(14, 2) NOT NULL,";
-                cmd.CommandText += "`stmas_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
@@ -487,11 +463,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`apprby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`apprtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "INDEX `ndx - dayend - stmas_id` (`stmas_id` ASC),";
-                cmd.CommandText += "UNIQUE INDEX `unq - dayend - saldat` (`saldat` ASC, `stmas_id` ASC),";
-                cmd.CommandText += "INDEX `ndx-dayend-dothercause_id` (`dothercause_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - dayend - stmas_id` FOREIGN KEY (`stmas_id`) REFERENCES `" + local_config.dbname + "`.`stmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk-dayend-dothercause_id` FOREIGN KEY (`dothercause_id`) REFERENCES `" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "UNIQUE INDEX `unq - dayend - saldat` (`saldat` ASC)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -511,6 +483,22 @@ namespace XPump.SubForm
                 cmd.CommandText += "CONSTRAINT `fk - daysttak - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
                 cmd.CommandText += "CONSTRAINT `fk - daysttak - dayend_id` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dother` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`qty` DECIMAL(14,2) NOT NULL DEFAULT 0,";
+                cmd.CommandText += "`istab_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`salessummary_id` INT(11) NULL,";
+                cmd.CommandText += "`dayend_id` INT(11) NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "INDEX `fk_dother_istab1_idx` (`istab_id` ASC),";
+                cmd.CommandText += "INDEX `fk_dother_salessummary1_idx` (`salessummary_id` ASC),";
+                cmd.CommandText += "INDEX `fk_dother_dayend1_idx` (`dayend_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk_dother_istab1` FOREIGN KEY (`istab_id`) REFERENCES `" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk_dother_salessummary1` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk_dother_dayend1` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;";
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`dbver` (`version`) VALUES ('1.0.0.0')";

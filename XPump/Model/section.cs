@@ -25,12 +25,13 @@ namespace XPump.Model
         public int id { get; set; }
         public string name { get; set; }
         public string loccod { get; set; }
+        public string stkcod { get; set; }
+        public string stkdes { get; set; }
         public decimal capacity { get; set; }
         public decimal begacc { get; set; }
         public decimal begtak { get; set; }
         public decimal begdif { get; set; }
         public int tank_id { get; set; }
-        public int stmas_id { get; set; }
         public string creby { get; set; }
         public System.DateTime cretime { get; set; }
         public string chgby { get; set; }
@@ -40,7 +41,6 @@ namespace XPump.Model
         public virtual ICollection<daysttak> daysttak { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<nozzle> nozzle { get; set; }
-        public virtual stmas stmas { get; set; }
         public virtual tank tank { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<shiftsttak> shiftsttak { get; set; }

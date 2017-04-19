@@ -376,149 +376,6 @@ namespace XPump.SubForm
             this.tmp_shiftsales = null;
         }
 
-        //private void btnSave_Click(object sender, EventArgs e)
-        //{
-        //    if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
-        //    {
-        //        if (this.SaveSttak())
-        //        {
-        //            this.RemoveSttakInlineForm();
-        //            this.form_mode = FORM_MODE.READ_ITEM;
-        //            this.ResetControlState();
-        //        }
-        //        else
-        //        {
-        //            this.dgvSttak.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_sttak_stkcod.Name].Selected = true;
-        //        }
-        //        return;
-        //    }
-
-        //    if(this.tmp_shiftsales.shift_id == -1)
-        //    {
-        //        this.brShift.Focus();
-        //        SendKeys.Send("{F6}");
-        //        return;
-        //    }
-
-        //    if(this.form_mode == FORM_MODE.ADD)
-        //    {
-        //        DialogPrice price = new DialogPrice(this.main_form);
-        //        if (price.ShowDialog() != DialogResult.OK)
-        //            return;
-
-        //        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-        //        {
-        //            try
-        //            {
-        //                if(db.dayend.Where(d => d.saldat == this.tmp_shiftsales.saldat).FirstOrDefault() != null)
-        //                {
-        //                    MessageBox.Show("วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถเพิ่มรายการของวันที่นี้ได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-        //                    return;
-        //                }
-
-        //                db.shiftsales.Add(this.tmp_shiftsales);
-        //                foreach (stmas s in db.stmas.ToList())
-        //                {
-        //                    // add salessummary
-        //                    var x = new salessummary
-        //                    {
-        //                        saldat = this.tmp_shiftsales.saldat,
-        //                        dtest = 0m,
-        //                        dother = 0m,
-        //                        dothertxt = string.Empty,
-        //                        ddisc = 0m,
-        //                        purvat = 0m,
-        //                        shift_id = this.tmp_shiftsales.shift_id,
-        //                        stmas_id = s.id,
-        //                        pricelist_id = price.price_list.Where(p => p.stmas_id == s.id).FirstOrDefault() != null ? price.price_list.Where(p => p.stmas_id == s.id).First().id : -1,
-        //                        shiftsales_id = this.tmp_shiftsales.id
-        //                    };
-        //                    db.salessummary.Add(x);
-
-        //                    // add sttak
-        //                    var sections = db.section.Include("tank")
-        //                                    .Where(sect => sect.tank.isactive)
-        //                                    .Where(sect => sect.tank.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
-        //                                    .Where(sect => !sect.tank.enddate.HasValue || sect.tank.enddate.Value.CompareTo(this.tmp_shiftsales.saldat) >= 0)
-        //                                    .Where(sect => sect.stmas_id == s.id).ToList();
-        //                    foreach (var item in sections)
-        //                    {
-        //                        db.shiftsttak.Add(new shiftsttak
-        //                        {
-        //                            takdat = this.tmp_shiftsales.saldat,
-        //                            qty = -1,
-        //                            section_id = item.id,
-        //                            shiftsales_id = this.tmp_shiftsales.id
-        //                        });
-        //                    }
-        //                }
-
-        //                db.SaveChanges();
-        //                this.curr_shiftsales = this.GetShiftSales(this.tmp_shiftsales.id);
-        //                this.FillForm();
-        //                this.form_mode = FORM_MODE.READ;
-        //                this.ResetControlState();
-        //                //this.dgv_SelectionChanged(this.dgv, new EventArgs());
-        //                this.dgvSalesSummary.Focus();
-        //                this.tmp_shiftsales = null;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.Message);
-        //            }
-        //        }
-
-        //        return;
-        //    }
-
-        //    if(this.form_mode == FORM_MODE.EDIT)
-        //    {
-        //        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-        //        {
-        //            try
-        //            {
-        //                shiftsales shiftsales_to_update = db.shiftsales.Find(this.tmp_shiftsales.id);
-        //                if(shiftsales_to_update == null)
-        //                {
-        //                    MessageBox.Show("ค้นหารายการเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-        //                    return;
-        //                }
-
-        //                shiftsales_to_update.saldat = this.tmp_shiftsales.saldat;
-        //                shiftsales_to_update.shift_id = this.tmp_shiftsales.shift_id;
-
-        //                foreach (var item in db.salessummary.Where(s => s.shiftsales_id == shiftsales_to_update.id).ToList())
-        //                {
-        //                    item.saldat = this.tmp_shiftsales.saldat;
-        //                    item.shift_id = this.tmp_shiftsales.shift_id;
-
-        //                    foreach (var sh in db.saleshistory.Where(s => s.salessummary_id == item.id).ToList())
-        //                    {
-        //                        sh.saldat = this.tmp_shiftsales.saldat;
-        //                        sh.shift_id = this.tmp_shiftsales.shift_id;
-        //                    }
-        //                }
-
-        //                foreach (var item in db.shiftsttak.Where(s => s.shiftsales_id == shiftsales_to_update.id).ToList())
-        //                {
-        //                    item.takdat = this.tmp_shiftsales.saldat;
-        //                }
-
-        //                db.SaveChanges();
-
-        //                this.form_mode = FORM_MODE.READ;
-        //                this.ResetControlState();
-        //                this.tmp_shiftsales = null;
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show(ex.Message);
-        //            }
-        //        }
-        //        return;
-        //    }
-        //}
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
@@ -553,11 +410,9 @@ namespace XPump.SubForm
                         return;
                     }
 
-                    var stmas_ids = db.section.Include("tank")
-                                    .Where(s => s.tank.isactive)
-                                    .Where(s => s.tank.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
-                                    .Where(s => !s.tank.enddate.HasValue || s.tank.enddate.Value.CompareTo(this.tmp_shiftsales.saldat) >= 0)
-                                    .GroupBy(s => s.stmas_id)
+                    var stmas_ids = db.section.Include("tank").Include("tanksetup")
+                                    .Where(s => s.tank.tanksetup.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
+                                    .GroupBy(s => s.stkcod)
                                     .Select(s => s.Key).ToArray();
 
                     DialogPrice price = new DialogPrice(this.main_form, stmas_ids);
@@ -574,30 +429,24 @@ namespace XPump.SubForm
 
                         db.shiftsales.Add(this.tmp_shiftsales);
 
-                        foreach (int stmas_id in stmas_ids)
+                        foreach (string stkcod in stmas_ids)
                         {
                             // add salessummary
                             var x = new salessummary
                             {
                                 saldat = this.tmp_shiftsales.saldat,
                                 dtest = 0m,
-                                dother = 0m,
-                                //dothertxt = string.Empty,
                                 ddisc = 0m,
                                 purvat = 0m,
-                                shift_id = this.tmp_shiftsales.shift_id,
-                                stmas_id = stmas_id,
-                                pricelist_id = price.price_list.Where(p => p.stmas_id == stmas_id).FirstOrDefault() != null ? price.price_list.Where(p => p.stmas_id == stmas_id).First().id : -1,
+                                //pricelist_id = price.price_list.Where(p => p.stmas_id == stmas_id).FirstOrDefault() != null ? price.price_list.Where(p => p.stmas_id == stmas_id).First().id : -1,
                                 shiftsales_id = this.tmp_shiftsales.id
                             };
                             db.salessummary.Add(x);
 
                             // add sttak
-                            var sections = db.section.Include("tank")
-                                            .Where(sect => sect.tank.isactive)
-                                            .Where(sect => sect.tank.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
-                                            .Where(sect => !sect.tank.enddate.HasValue || sect.tank.enddate.Value.CompareTo(this.tmp_shiftsales.saldat) >= 0)
-                                            .Where(sect => sect.stmas_id == stmas_id).ToList();
+                            var sections = db.section.Include("tank").Include("tanksetup")
+                                            .Where(sect => sect.tank.tanksetup.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
+                                            .Where(sect => sect.stkcod == stkcod).ToList();
                             foreach (var item in sections)
                             {
                                 db.shiftsttak.Add(new shiftsttak
@@ -615,14 +464,12 @@ namespace XPump.SubForm
                         this.FillForm();
                         this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
-                        //this.dgv_SelectionChanged(this.dgv, new EventArgs());
                         this.dgvSalesSummary.Focus();
                         this.tmp_shiftsales = null;
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
-                        //ex.ShowMessage("วันที่ \"" + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\"", "");
                     }
                 }
 
@@ -648,12 +495,12 @@ namespace XPump.SubForm
                         foreach (var item in db.salessummary.Where(s => s.shiftsales_id == shiftsales_to_update.id).ToList())
                         {
                             item.saldat = this.tmp_shiftsales.saldat;
-                            item.shift_id = this.tmp_shiftsales.shift_id;
+                            //item.shift_id = this.tmp_shiftsales.shift_id;
 
                             foreach (var sh in db.saleshistory.Where(s => s.salessummary_id == item.id).ToList())
                             {
                                 sh.saldat = this.tmp_shiftsales.saldat;
-                                sh.shift_id = this.tmp_shiftsales.shift_id;
+                                //sh.shift_id = this.tmp_shiftsales.shift_id;
                             }
                         }
 
@@ -1112,11 +959,9 @@ namespace XPump.SubForm
 
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                var sections = db.section.Include("tank").Include("nozzle")
-                    .Where(s => s.stmas_id == this.curr_salessummary.stmas_id)
-                    .Where(s => s.tank.startdate.CompareTo(this.curr_salessummary.saldat) <= 0)
-                    .Where(s => s.tank.isactive)
-                    .Where(s => !s.tank.enddate.HasValue || s.tank.enddate.Value.CompareTo(this.curr_salessummary.saldat) >= 0).ToList();
+                var sections = db.section.Include("tank").Include("tanksetup").Include("nozzle")
+                    .Where(s => s.stkcod == this.curr_salessummary.stkcod)
+                    .Where(s => s.tank.tanksetup.startdate.CompareTo(this.curr_salessummary.saldat) <= 0).ToList();
 
                 foreach (section sec in sections)
                 {
@@ -1124,10 +969,10 @@ namespace XPump.SubForm
                     {
                         try
                         {
-                            var tmp = db.saleshistory.Where(s => s.saldat == this.curr_salessummary.saldat)
-                                        .Where(s => s.shift_id == this.curr_salessummary.shift_id)
+                            var tmp = db.saleshistory.Include("salessummary").Where(s => s.saldat == this.curr_salessummary.saldat)
+                                        //.Where(s => s.shift_id == this.curr_salessummary.shift_id)
                                         .Where(s => s.nozzle_id == noz.id)
-                                        .Where(s => s.stmas_id == this.curr_salessummary.stmas_id).FirstOrDefault();
+                                        .Where(s => s.salessummary.stkcod == this.curr_salessummary.stkcod).FirstOrDefault();
 
                             if (tmp != null)
                                 continue;
@@ -1139,10 +984,10 @@ namespace XPump.SubForm
                                 mitend = 0m,
                                 salqty = 0m,
                                 salval = 0m,
-                                shift_id = this.curr_salessummary.shift_id,
+                                //shift_id = this.curr_salessummary.shift_id,
                                 nozzle_id = noz.id,
-                                stmas_id = this.curr_salessummary.stmas_id,
-                                pricelist_id = this.curr_salessummary.pricelist_id,
+                                //stmas_id = this.curr_salessummary.stmas_id,
+                                //pricelist_id = this.curr_salessummary.pricelist_id,
                                 salessummary_id = this.curr_salessummary.id
                             });
                             db.SaveChanges();
@@ -1553,7 +1398,7 @@ namespace XPump.SubForm
 
                     rect_dother_txt.X += 60;
                     rect_dother_txt.Width -= 60;
-                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].dothertxt, fnt_bold, brush, rect_dother_txt);
+                    //e.Graphics.DrawString(report_data.salessummaryVM_list[i].dothertxt, fnt_bold, brush, rect_dother_txt);
 
                     Rectangle rect_dother = new Rectangle(rect_salqty.X, rect_dother_txt.Y, rect_total.Width, line_height);
                     e.Graphics.DrawString(report_data.salessummaryVM_list[i].dother.FormatCurrency(), fnt, brush, rect_dother, new StringFormat { Alignment = StringAlignment.Far });

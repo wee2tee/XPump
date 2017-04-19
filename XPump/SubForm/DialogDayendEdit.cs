@@ -160,7 +160,7 @@ namespace XPump.SubForm
 
         private void numDother__ValueChanged(object sender, EventArgs e)
         {
-            this.curr_dayend.dother = ((XNumEdit)sender)._Value;
+            //this.curr_dayend.dother = ((XNumEdit)sender)._Value;
         }
 
         private void inline_qty__ValueChanged(object sender, EventArgs e)

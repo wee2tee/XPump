@@ -39,11 +39,11 @@ namespace XPump.SubForm
             
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                this.sales_history = db.saleshistory.Include("shift").Where(s => s.saldat == this.saldat && s.nozzle_id == this.nozzle_id).OrderBy(s => s.shift.name).ToList();
+                //this.sales_history = db.saleshistory.Include("shift").Where(s => s.saldat == this.saldat && s.nozzle_id == this.nozzle_id).OrderBy(s => s.shift.name).ToList();
                 this.bs.DataSource = this.sales_history.ToViewModel(this.main_form.working_express_db);
             }
             var x = this.position_to_display.X - this.window_width;
-            //int hscroll_height = this.dgv.Controls.OfType<HScrollBar>().Count() > 0 && this.dgv.Controls.OfType<HScrollBar>().First().Visible ? SystemInformation.HorizontalScrollBarHeight : 0;
+            
             var height = this.dgv.ColumnHeadersHeight + (this.dgv.RowTemplate.Height * this.sales_history.Count) + 10;
             this.SetBounds(x, this.position_to_display.Y, this.window_width, height);
         }

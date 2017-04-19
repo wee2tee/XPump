@@ -86,6 +86,7 @@
             this.btnAddTank = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.inlineStkcod = new CC.XBrowseBox();
             this.inlineSectionName = new CC.XBrowseBox();
             this.inlineBegacc = new CC.XNumEdit();
             this.inlineBegtak = new CC.XNumEdit();
@@ -115,7 +116,6 @@
             this.col_sect_end_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.inlineStkcod = new CC.XBrowseBox();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -152,7 +152,7 @@
             this.btnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(952, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(1023, 43);
             this.toolStrip1.TabIndex = 4;
             // 
             // btnAdd
@@ -360,7 +360,7 @@
             this.tabControl1.Location = new System.Drawing.Point(5, 103);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(944, 439);
+            this.tabControl1.Size = new System.Drawing.Size(1015, 439);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -371,7 +371,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(936, 410);
+            this.tabPage1.Size = new System.Drawing.Size(1007, 410);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "แท๊งค์ / ถัง / หัวจ่ายน้ำมัน";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -395,8 +395,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.btnEditSection);
             this.splitContainer1.Panel2.Controls.Add(this.btnAddSection);
-            this.splitContainer1.Size = new System.Drawing.Size(930, 404);
-            this.splitContainer1.SplitterDistance = 190;
+            this.splitContainer1.Size = new System.Drawing.Size(1001, 404);
+            this.splitContainer1.SplitterDistance = 204;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -411,7 +411,7 @@
             this.panel1.Controls.Add(this.btnAddTank);
             this.panel1.Location = new System.Drawing.Point(3, 25);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(184, 376);
+            this.panel1.Size = new System.Drawing.Size(198, 376);
             this.panel1.TabIndex = 10;
             // 
             // inline_tankname
@@ -486,7 +486,7 @@
             this.dgvTank.RowHeadersVisible = false;
             this.dgvTank.RowTemplate.Height = 26;
             this.dgvTank.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTank.Size = new System.Drawing.Size(184, 376);
+            this.dgvTank.Size = new System.Drawing.Size(198, 376);
             this.dgvTank.StandardTab = true;
             this.dgvTank.TabIndex = 0;
             this.dgvTank.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTank_CellDoubleClick);
@@ -677,8 +677,27 @@
             this.panel2.Controls.Add(this.dgvSection);
             this.panel2.Location = new System.Drawing.Point(3, 25);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(730, 376);
+            this.panel2.Size = new System.Drawing.Size(787, 376);
             this.panel2.TabIndex = 10;
+            // 
+            // inlineStkcod
+            // 
+            this.inlineStkcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inlineStkcod._ReadOnly = false;
+            this.inlineStkcod._Text = "";
+            this.inlineStkcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.inlineStkcod._UseImage = true;
+            this.inlineStkcod.BackColor = System.Drawing.Color.White;
+            this.inlineStkcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inlineStkcod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.inlineStkcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inlineStkcod.Location = new System.Drawing.Point(145, 58);
+            this.inlineStkcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inlineStkcod.Name = "inlineStkcod";
+            this.inlineStkcod.Size = new System.Drawing.Size(137, 23);
+            this.inlineStkcod.TabIndex = 10;
+            this.inlineStkcod.Visible = false;
+            this.inlineStkcod._ButtonClick += new System.EventHandler(this.inlineStkcod__ButtonClick);
             // 
             // inlineSectionName
             // 
@@ -694,7 +713,7 @@
             this.inlineSectionName.Location = new System.Drawing.Point(3, 58);
             this.inlineSectionName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineSectionName.Name = "inlineSectionName";
-            this.inlineSectionName.Size = new System.Drawing.Size(117, 23);
+            this.inlineSectionName.Size = new System.Drawing.Size(141, 23);
             this.inlineSectionName.TabIndex = 10;
             this.inlineSectionName.Visible = false;
             this.inlineSectionName._ButtonClick += new System.EventHandler(this.inlineSectionName__ButtonClick);
@@ -723,7 +742,7 @@
             this.inlineBegacc.BackColor = System.Drawing.Color.White;
             this.inlineBegacc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inlineBegacc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inlineBegacc.Location = new System.Drawing.Point(528, 58);
+            this.inlineBegacc.Location = new System.Drawing.Point(584, 58);
             this.inlineBegacc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineBegacc.Name = "inlineBegacc";
             this.inlineBegacc.Size = new System.Drawing.Size(113, 23);
@@ -754,7 +773,7 @@
             this.inlineBegtak.BackColor = System.Drawing.Color.White;
             this.inlineBegtak.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inlineBegtak.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inlineBegtak.Location = new System.Drawing.Point(420, 58);
+            this.inlineBegtak.Location = new System.Drawing.Point(476, 58);
             this.inlineBegtak.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineBegtak.Name = "inlineBegtak";
             this.inlineBegtak.Size = new System.Drawing.Size(107, 23);
@@ -785,7 +804,7 @@
             this.inlineCapacity.BackColor = System.Drawing.Color.White;
             this.inlineCapacity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inlineCapacity.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inlineCapacity.Location = new System.Drawing.Point(320, 58);
+            this.inlineCapacity.Location = new System.Drawing.Point(376, 58);
             this.inlineCapacity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineCapacity.Name = "inlineCapacity";
             this.inlineCapacity.Size = new System.Drawing.Size(99, 23);
@@ -849,7 +868,7 @@
             this.dgvSection.RowHeadersVisible = false;
             this.dgvSection.RowTemplate.Height = 26;
             this.dgvSection.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSection.Size = new System.Drawing.Size(730, 376);
+            this.dgvSection.Size = new System.Drawing.Size(787, 376);
             this.dgvSection.StandardTab = true;
             this.dgvSection.TabIndex = 0;
             this.dgvSection.CurrentCellChanged += new System.EventHandler(this.dgvSection_CurrentCellChanged);
@@ -949,7 +968,6 @@
             // 
             this.col_sect_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.col_sect_stkcod.DataPropertyName = "stkcod";
-            this.col_sect_stkcod.FillWeight = 80F;
             this.col_sect_stkcod.HeaderText = "ชนิดน้ำมัน";
             this.col_sect_stkcod.MinimumWidth = 100;
             this.col_sect_stkcod.Name = "col_sect_stkcod";
@@ -963,8 +981,10 @@
             dataGridViewCellStyle4.NullValue = null;
             this.col_sect_nozzlecount.DefaultCellStyle = dataGridViewCellStyle4;
             this.col_sect_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
+            this.col_sect_nozzlecount.MinimumWidth = 90;
             this.col_sect_nozzlecount.Name = "col_sect_nozzlecount";
             this.col_sect_nozzlecount.ReadOnly = true;
+            this.col_sect_nozzlecount.Width = 90;
             // 
             // col_sect_capacity
             // 
@@ -1089,31 +1109,12 @@
             this.col_sect_state.ReadOnly = true;
             this.col_sect_state.Visible = false;
             // 
-            // inlineStkcod
-            // 
-            this.inlineStkcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inlineStkcod._ReadOnly = false;
-            this.inlineStkcod._Text = "";
-            this.inlineStkcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.inlineStkcod._UseImage = true;
-            this.inlineStkcod.BackColor = System.Drawing.Color.White;
-            this.inlineStkcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inlineStkcod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.inlineStkcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inlineStkcod.Location = new System.Drawing.Point(126, 58);
-            this.inlineStkcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inlineStkcod.Name = "inlineStkcod";
-            this.inlineStkcod.Size = new System.Drawing.Size(117, 23);
-            this.inlineStkcod.TabIndex = 10;
-            this.inlineStkcod.Visible = false;
-            this.inlineStkcod._ButtonClick += new System.EventHandler(this.inlineStkcod__ButtonClick);
-            // 
             // FormTankConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(952, 546);
+            this.ClientSize = new System.Drawing.Size(1023, 546);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.dtStartDate);
             this.Controls.Add(this.label5);
@@ -1206,6 +1207,7 @@
         private CC.XNumEdit inlineBegacc;
         private CC.XNumEdit inlineBegtak;
         private CC.XNumEdit inlineCapacity;
+        private CC.XBrowseBox inlineStkcod;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_working_express_db;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_tank_name;
@@ -1225,6 +1227,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_end_date;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_section;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_state;
-        private CC.XBrowseBox inlineStkcod;
     }
 }

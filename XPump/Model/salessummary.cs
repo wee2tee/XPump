@@ -17,18 +17,16 @@ namespace XPump.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public salessummary()
         {
+            this.dother = new HashSet<dother>();
             this.saleshistory = new HashSet<saleshistory>();
         }
     
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
+        public string stkcod { get; set; }
         public decimal dtest { get; set; }
-        public Nullable<int> dothercause_id { get; set; }
-        public decimal dother { get; set; }
         public decimal ddisc { get; set; }
         public decimal purvat { get; set; }
-        public int shift_id { get; set; }
-        public int stmas_id { get; set; }
         public int pricelist_id { get; set; }
         public int shiftsales_id { get; set; }
         public string creby { get; set; }
@@ -36,12 +34,11 @@ namespace XPump.Model
         public string chgby { get; set; }
         public Nullable<System.DateTime> chgtime { get; set; }
     
-        public virtual istab istab { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<dother> dother { get; set; }
         public virtual pricelist pricelist { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<saleshistory> saleshistory { get; set; }
-        public virtual shift shift { get; set; }
         public virtual shiftsales shiftsales { get; set; }
-        public virtual stmas stmas { get; set; }
     }
 }

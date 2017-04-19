@@ -116,6 +116,9 @@
     <Compile Include="Model\dbver.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\dother.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\istab.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
@@ -149,9 +152,6 @@
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\shiftsttak.cs">
-      <DependentUpon>XPumpModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\stmas.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\tank.cs">
@@ -225,12 +225,6 @@
     </Compile>
     <Compile Include="SubForm\DialogInquiry.Designer.cs">
       <DependentUpon>DialogInquiry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SubForm\DialogInquiryStmas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\DialogInquiryStmas.Designer.cs">
-      <DependentUpon>DialogInquiryStmas.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm\DialogLoccodSelection.cs">
       <SubType>Form</SubType>
@@ -316,24 +310,6 @@
     <Compile Include="SubForm\DialogSimpleSearch.Designer.cs">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForm\DialogStmasChangeCode.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\DialogStmasChangeCode.Designer.cs">
-      <DependentUpon>DialogStmasChangeCode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SubForm\DialogStmasImportProgress.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\DialogStmasImportProgress.Designer.cs">
-      <DependentUpon>DialogStmasImportProgress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SubForm\DialogStmasImportSelection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\DialogStmasImportSelection.Designer.cs">
-      <DependentUpon>DialogStmasImportSelection.cs</DependentUpon>
-    </Compile>
     <Compile Include="SubForm\FormDailyClose.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -364,12 +340,6 @@
     <Compile Include="SubForm\FormTankConfig.Designer.cs">
       <DependentUpon>FormTankConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForm\FormTankSetup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\FormTankSetup.Designer.cs">
-      <DependentUpon>FormTankSetup.cs</DependentUpon>
-    </Compile>
     <Compile Include="SubForm\LoadingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -393,12 +363,6 @@
     </Compile>
     <Compile Include="SubForm\FormShift.Designer.cs">
       <DependentUpon>FormShift.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SubForm\FormStmas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\FormStmas.Designer.cs">
-      <DependentUpon>FormStmas.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm\_TestForm1.cs">
       <SubType>Form</SubType>
@@ -443,9 +407,6 @@
     <EmbeddedResource Include="SubForm\DialogInquiry.resx">
       <DependentUpon>DialogInquiry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\DialogInquiryStmas.resx">
-      <DependentUpon>DialogInquiryStmas.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogLoccodSelection.resx">
       <DependentUpon>DialogLoccodSelection.cs</DependentUpon>
     </EmbeddedResource>
@@ -488,15 +449,6 @@
     <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\DialogStmasChangeCode.resx">
-      <DependentUpon>DialogStmasChangeCode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\DialogStmasImportProgress.resx">
-      <DependentUpon>DialogStmasImportProgress.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\DialogStmasImportSelection.resx">
-      <DependentUpon>DialogStmasImportSelection.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormDailyClose.resx">
       <DependentUpon>FormDailyClose.cs</DependentUpon>
     </EmbeddedResource>
@@ -512,9 +464,6 @@
     <EmbeddedResource Include="SubForm\FormTankConfig.resx">
       <DependentUpon>FormTankConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\FormTankSetup.resx">
-      <DependentUpon>FormTankSetup.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -526,9 +475,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormShift.resx">
       <DependentUpon>FormShift.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\FormStmas.resx">
-      <DependentUpon>FormStmas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\_TestForm1.resx">
       <DependentUpon>_TestForm1.cs</DependentUpon>

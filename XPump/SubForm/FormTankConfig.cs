@@ -172,21 +172,39 @@ namespace XPump.SubForm
             this.inlineStkcod.SetInlineControlPosition(this.dgvSection, row_index, col_index);
             this.inlineStkcod._Text = this.tmp_sectionVM.stkcod;
             this.inlineStkcod.Visible = true;
-            
+
+            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_capacity.DataPropertyName).First().Index;
+            this.inlineCapacity.SetInlineControlPosition(this.dgvSection, row_index, col_index);
+            this.inlineCapacity._Value = this.tmp_sectionVM.capacity;
+            this.inlineCapacity.Visible = true;
+
+            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_begtak.DataPropertyName).First().Index;
+            this.inlineBegtak.SetInlineControlPosition(this.dgvSection, row_index, col_index);
+            this.inlineBegtak._Value = this.tmp_sectionVM.begtak;
+            this.inlineBegtak.Visible = true;
+
+            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_begacc.DataPropertyName).First().Index;
+            this.inlineBegacc.SetInlineControlPosition(this.dgvSection, row_index, col_index);
+            this.inlineBegacc._Value = this.tmp_sectionVM.begacc;
+            this.inlineBegacc.Visible = true;
         }
 
         private void RemoveInlineTankForm()
         {
-            if (this.inline_tankname.Visible)
-            {
-                this.inline_tankname.Visible = false;
-                this.tmp_tankVM = null;
-            }
+            this.inline_tankname.Visible = false;
+
+            this.tmp_tankVM = null;
         }
 
         private void RemoveInlineSectionForm()
         {
+            this.inlineSectionName.Visible = false;
+            this.inlineStkcod.Visible = false;
+            this.inlineCapacity.Visible = false;
+            this.inlineBegtak.Visible = false;
+            this.inlineBegacc.Visible = false;
 
+            this.tmp_sectionVM = null;
         }
 
         private void dgvTank_CurrentCellChanged(object sender, EventArgs e)
@@ -349,11 +367,11 @@ namespace XPump.SubForm
                             db.tank.Add(new tank
                             {
                                 name = this.tmp_tankVM.name,
-                                startdate = this.tmp_tankVM.startdate,
-                                enddate = this.tmp_tankVM.enddate,
+                                //startdate = this.tmp_tankVM.startdate,
+                                //enddate = this.tmp_tankVM.enddate,
                                 description = this.tmp_tankVM.description,
                                 remark = this.tmp_tankVM.remark,
-                                isactive = this.tmp_tankVM.isactive,
+                                //isactive = this.tmp_tankVM.isactive,
                                 creby = this.tmp_tankVM.creby,
                                 cretime = this.tmp_tankVM.cretime,
                                 tanksetup_id = this.tmp_tankVM.tanksetup_id
@@ -484,10 +502,10 @@ namespace XPump.SubForm
             {
                 name = string.Empty,
                 description = string.Empty,
-                startdate = this.tanksetup.startdate,
-                enddate = null,
+                //startdate = this.tanksetup.startdate,
+                //enddate = null,
                 remark = string.Empty,
-                isactive = true,
+                //isactive = true,
                 tanksetup_id = this.tanksetup.id,
                 creby = this.main_form.loged_in_status.loged_in_user_name,
             }.ToViewModel(this.main_form.working_express_db));
@@ -557,7 +575,7 @@ namespace XPump.SubForm
                 begtak = 0m,
                 begdif = 0m,
                 tank_id = -1,
-                stmas_id = -1,
+                //stmas_id = -1,
                 creby = this.main_form.loged_in_status.loged_in_user_name
             }.ToViewModel(this.main_form.working_express_db);
 
@@ -696,43 +714,51 @@ namespace XPump.SubForm
 
         private void inlineSectionName__ButtonClick(object sender, EventArgs e)
         {
-            DialogLoccodSelection loc = new DialogLoccodSelection(this.main_form);
-            if(loc.ShowDialog() == DialogResult.OK)
+            string main_loc = DbfTable.Isinfo(this.main_form.working_express_db).ToList<IsinfoDbf>().First().mainloc.Trim();
+            var loc = DbfTable.Istab(this.main_form.working_express_db).ToIstabList().Where(s => s.tabtyp.Trim() == "21" && s.typcod.Trim() != main_loc).Select(s => new { typdes = s.typdes.TrimEnd(), loccod = s.typcod.TrimEnd() }).ToList<dynamic>();
+
+            List<DataGridViewColumn> cols = new List<DataGridViewColumn>()
+            {
+                new DataGridViewTextBoxColumn { Name = "col_typdes", DataPropertyName = "typdes", HeaderText = "เลขที่ถัง", MinimumWidth = 180, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill },
+                new DataGridViewTextBoxColumn { Name = "col_loccod", DataPropertyName = "loccod", HeaderText = "รหัสคลัง", MinimumWidth = 100, Width = 100 }
+            };
+
+            var init_loc = loc.Where(l => l.typdes == this.tmp_sectionVM.name).Select(s => s.typdes).FirstOrDefault();
+
+            DialogInquiry st = new DialogInquiry(loc, cols, cols[0], init_loc, true);
+            if (st.ShowDialog() == DialogResult.OK)
             {
                 if (this.tmp_sectionVM != null)
                 {
-                    this.tmp_sectionVM.name = loc.selected_stloc.typdes.Trim();
+                    this.tmp_sectionVM.name = st.selected_row.Cells[0].Value.ToString();
                     this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
                 }
-
-                ((XBrowseBox)sender)._Text = loc.selected_stloc.typdes.Trim();
+                ((XBrowseBox)sender)._Text = st.selected_row.Cells[0].Value.ToString();
             }
         }
 
         private void inlineStkcod__ButtonClick(object sender, EventArgs e)
         {
-            var stmas = DbfTable.Stmas(this.main_form.working_express_db).ToStmasList().Where(s => s.stktyp == "0").Select(s => new { stkcod = s.stkcod.Trim(), stkdes = s.stkdes.Trim()}).ToList<dynamic>();
+            var stmas = DbfTable.Stmas(this.main_form.working_express_db).ToStmasList().Where(s => s.stktyp == "0").Select(s => new { stkcod = s.stkcod.TrimEnd(), stkdes = s.stkdes.TrimEnd()}).ToList<dynamic>();
 
             List<DataGridViewColumn> cols = new List<DataGridViewColumn>()
             {
-                new DataGridViewTextBoxColumn { Name = "รหัสสินค้า", DataPropertyName = "stkcod", HeaderText = "col_stkcod", MinimumWidth = 180, Width = 180 },
-                new DataGridViewTextBoxColumn { Name = "ชื่อสินค้า/รายละเอียด", DataPropertyName = "stkdes", HeaderText = "col_stkdes" , MinimumWidth = 80, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill }
+                new DataGridViewTextBoxColumn { Name = "col_stkcod", DataPropertyName = "stkcod", HeaderText = "รหัสสินค้า", MinimumWidth = 180, Width = 180 },
+                new DataGridViewTextBoxColumn { Name = "col_stkdes", DataPropertyName = "stkdes", HeaderText = "ชื่อสินค้า/รายละเอียด" , MinimumWidth = 80, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill }
             };
 
-            DialogInquiry st = new DialogInquiry(stmas, cols, cols[0]);
+            var init_st = stmas.Where(s => s.stkcod == this.tmp_sectionVM.stkcod).Select(s => s.stkcod).FirstOrDefault();
+
+            DialogInquiry st = new DialogInquiry(stmas, cols, cols[0], init_st, true);
             if(st.ShowDialog() == DialogResult.OK)
             {
                 if(this.tmp_sectionVM != null)
                 {
-                    MessageBox.Show(st.selected_row.Cells[0].Value.ToString());
+                    this.tmp_sectionVM.stkcod = st.selected_row.Cells[0].Value.ToString();
+                    this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
                 }
+                ((XBrowseBox)sender)._Text = st.selected_row.Cells[0].Value.ToString();
             }
-            
-            //DialogInquiryStmas s = new DialogInquiryStmas(this.main_form, null);
-            //if(s.ShowDialog() == DialogResult.OK)
-            //{
-
-            //}
         }
     }
 }

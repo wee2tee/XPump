@@ -52,18 +52,19 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                var s = db.stmas.ToList().ToViewModel(this.main_form.working_express_db).ToPriceViewModel(this.main_form.working_express_db);
+                //var s = db.stmas.ToList().ToViewModel(this.main_form.working_express_db).ToPriceViewModel(this.main_form.working_express_db);
 
-                foreach (var item in s)
-                {
-                    item.price_date = this.price_list.Where(p => p.stmas_id == item.stmas_id).FirstOrDefault() != null ? (DateTime?)this.price_list.Where(p => p.stmas_id == item.stmas_id).First().date : null;
+                //foreach (var item in s)
+                //{
+                //    item.price_date = this.price_list.Where(p => p.stmas_id == item.stmas_id).FirstOrDefault() != null ? (DateTime?)this.price_list.Where(p => p.stmas_id == item.stmas_id).First().date : null;
 
-                    item.price_id = this.price_list.Where(p => p.stmas_id == item.stmas_id).FirstOrDefault() != null ? this.price_list.Where(p => p.stmas_id == item.stmas_id).First().id : -1;
+                //    item.price_id = this.price_list.Where(p => p.stmas_id == item.stmas_id).FirstOrDefault() != null ? this.price_list.Where(p => p.stmas_id == item.stmas_id).First().id : -1;
 
-                    item.unitpr = this.price_list.Where(p => p.stmas_id == item.stmas_id).FirstOrDefault() != null ? this.price_list.Where(p => p.stmas_id == item.stmas_id).First().unitpr : 0m;
-                }
+                //    item.unitpr = this.price_list.Where(p => p.stmas_id == item.stmas_id).FirstOrDefault() != null ? this.price_list.Where(p => p.stmas_id == item.stmas_id).First().unitpr : 0m;
+                //}
 
-                return s;
+                //return s;
+                return null;
             }
         }
 

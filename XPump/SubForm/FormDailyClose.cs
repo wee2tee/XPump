@@ -135,7 +135,7 @@ namespace XPump.SubForm
                     try
                     {
                         var stmas_ids = db.salessummary.Where(s => s.saldat == dlg.selected_date)
-                                        .GroupBy(s => s.stmas_id)
+                                        .GroupBy(s => s.stkcod)
                                         .Select(s => s.Key).ToArray();
 
                         if(stmas_ids.Count() == 0)
@@ -144,12 +144,12 @@ namespace XPump.SubForm
                             return;
                         }
 
-                        foreach (int stmas_id in stmas_ids)
+                        foreach (string stkcod in stmas_ids)
                         {
                             dayendVM d = new dayend()
                             {
                                 id = -1,
-                                stmas_id = stmas_id,
+                                //stmas_id = stmas_id,
                                 //dothertxt = string.Empty,
                                 saldat = dlg.selected_date,
 
@@ -157,7 +157,7 @@ namespace XPump.SubForm
                             db.dayend.Add(d.dayend);
                             db.SaveChanges();
 
-                            var sections = db.section.Where(s => s.stmas_id == stmas_id).ToList();
+                            var sections = db.section.Where(s => s.stkcod == stkcod).ToList();
 
                             foreach (var sect in sections)
                             {

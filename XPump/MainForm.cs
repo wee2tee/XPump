@@ -210,17 +210,17 @@ namespace XPump
 
         private void MnuStmas_Click(object sender, EventArgs e)
         {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormStmas)).FirstOrDefault() != null)
-            {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormStmas)).First().form.Activate();
-                return;
-            }
+            //if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormStmas)).FirstOrDefault() != null)
+            //{
+            //    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormStmas)).First().form.Activate();
+            //    return;
+            //}
 
-            FormStmas stmas = new FormStmas(this);
-            stmas.MdiParent = this;
-            stmas.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-            stmas.Show();
-            this.opened_child_form.Add(new ChildFormDetail() { form = stmas, docPrefix = string.Empty });
+            //FormStmas stmas = new FormStmas(this);
+            //stmas.MdiParent = this;
+            //stmas.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            //stmas.Show();
+            //this.opened_child_form.Add(new ChildFormDetail() { form = stmas, docPrefix = string.Empty });
         }
 
         private void MnuShiftTransaction_Click(object sender, EventArgs e)

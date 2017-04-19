@@ -19,10 +19,10 @@ namespace XPump.SubForm
         private List<stmasPriceVM> stmas_list;
         private BindingSource bs;
         private FORM_MODE form_mode;
-        private int[] stmas_ids;
+        private string[] stmas_ids;
         public List<pricelist> price_list = new List<pricelist>();
 
-        public DialogPrice(MainForm main_form, int[] stmas_ids)
+        public DialogPrice(MainForm main_form, string[] stmas_ids)
         {
             InitializeComponent();
             this.main_form = main_form;
@@ -64,7 +64,8 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                return db.stmas.Where(s => this.stmas_ids.Contains(s.id)).OrderBy(s => s.name).ToList().ToViewModel(this.main_form.working_express_db).ToPriceViewModel(this.main_form.working_express_db);
+                return DbfTable.Stmas(this.main_form.working_express_db).ToStmasList().ToPriceViewModel(this.main_form.working_express_db);
+                //return db.stmas.Where(s => this.stmas_ids.Contains(s.id)).OrderBy(s => s.name).ToList().ToViewModel(this.main_form.working_express_db).ToPriceViewModel(this.main_form.working_express_db);
             }
         }
 
@@ -125,7 +126,7 @@ namespace XPump.SubForm
                         pricelist p = new pricelist
                         {
                             date = item.price_date.HasValue ? item.price_date.Value : DateTime.Now,
-                            stmas_id = item.stmas_id,
+                            //stmas_id = item.stmas_id,
                             unitpr = item.unitpr
                         };
                         this.price_list.Add(p);
@@ -221,7 +222,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode == FORM_MODE.EDIT_ITEM && this.inline_date.Visible)
             {
-                this.stmas_list.Where(l => l.stmas_id == (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_stmas_id"].Value).First().price_date = ((XDatePicker)sender)._SelectedDate;
+                this.stmas_list.Where(l => l.stkcod == (string)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_stkcod.Name].Value).First().price_date = ((XDatePicker)sender)._SelectedDate;
                 this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_date"].Value = ((XDatePicker)sender)._SelectedDate;
             }
         }
@@ -230,7 +231,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode == FORM_MODE.EDIT_ITEM && this.inline_unitpr.Visible)
             {
-                this.stmas_list.Where(l => l.stmas_id == (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_stmas_id"].Value).First().unitpr = ((XNumEdit)sender)._Value;
+                this.stmas_list.Where(l => l.stkcod == (string)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_stkcod.Name].Value).First().unitpr = ((XNumEdit)sender)._Value;
                 this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_unitpr"].Value = ((XNumEdit)sender)._Value;
             }
         }

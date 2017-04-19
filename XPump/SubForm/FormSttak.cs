@@ -194,10 +194,8 @@ namespace XPump.SubForm
                     {
                         try
                         {
-                            var sections = db.section.Include("tank")
-                                        .Where(s => s.tank.startdate.CompareTo(ds.selected_date) <= 0)
-                                        .Where(s => s.tank.isactive)
-                                        .Where(s => !s.tank.enddate.HasValue || s.tank.enddate.Value.CompareTo(ds.selected_date) >= 0).ToList();
+                            var sections = db.section.Include("tank").Include("tank.tanksetup")
+                                        .Where(s => s.tank.tanksetup.startdate.CompareTo(ds.selected_date) <= 0).ToList();
 
                             foreach (section sec in sections)
                             {
