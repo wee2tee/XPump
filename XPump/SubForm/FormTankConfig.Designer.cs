@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -63,6 +63,15 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDeleteTank = new System.Windows.Forms.Button();
+            this.btnEditTank = new System.Windows.Forms.Button();
+            this.btnAddTank = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnDeleteSection = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnEditSection = new System.Windows.Forms.Button();
+            this.btnAddSection = new System.Windows.Forms.Button();
             this.inline_tankname = new CC.XTextEdit();
             this.dgvTank = new CC.XDatagrid();
             this.col_tank_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,22 +90,12 @@
             this.col_tank_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tank_tank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tank__isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDeleteTank = new System.Windows.Forms.Button();
-            this.btnEditTank = new System.Windows.Forms.Button();
-            this.btnAddTank = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.inlineStkcod = new CC.XBrowseBox();
             this.inlineSectionName = new CC.XBrowseBox();
             this.inlineBegacc = new CC.XNumEdit();
             this.inlineBegtak = new CC.XNumEdit();
             this.inlineCapacity = new CC.XNumEdit();
             this.dgvSection = new CC.XDatagrid();
-            this.btnDeleteSection = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnEditSection = new System.Windows.Forms.Button();
-            this.btnAddSection = new System.Windows.Forms.Button();
-            this.dtStartDate = new CC.XDatePicker();
             this.col_sect_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -116,6 +115,7 @@
             this.col_sect_end_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtStartDate = new CC.XDatePicker();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -124,8 +124,8 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSection)).BeginInit();
             this.SuspendLayout();
             // 
@@ -414,6 +414,108 @@
             this.panel1.Size = new System.Drawing.Size(198, 376);
             this.panel1.TabIndex = 10;
             // 
+            // btnDeleteTank
+            // 
+            this.btnDeleteTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDeleteTank.Location = new System.Drawing.Point(161, 88);
+            this.btnDeleteTank.Name = "btnDeleteTank";
+            this.btnDeleteTank.Size = new System.Drawing.Size(72, 27);
+            this.btnDeleteTank.TabIndex = 9;
+            this.btnDeleteTank.Text = "delete_tank";
+            this.btnDeleteTank.UseVisualStyleBackColor = true;
+            this.btnDeleteTank.Click += new System.EventHandler(this.btnDeleteTank_Click);
+            // 
+            // btnEditTank
+            // 
+            this.btnEditTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnEditTank.Location = new System.Drawing.Point(87, 88);
+            this.btnEditTank.Name = "btnEditTank";
+            this.btnEditTank.Size = new System.Drawing.Size(68, 27);
+            this.btnEditTank.TabIndex = 9;
+            this.btnEditTank.Text = "edit_tank";
+            this.btnEditTank.UseVisualStyleBackColor = true;
+            this.btnEditTank.Click += new System.EventHandler(this.btnEditTank_Click);
+            // 
+            // btnAddTank
+            // 
+            this.btnAddTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAddTank.Location = new System.Drawing.Point(13, 88);
+            this.btnAddTank.Name = "btnAddTank";
+            this.btnAddTank.Size = new System.Drawing.Size(68, 27);
+            this.btnAddTank.TabIndex = 9;
+            this.btnAddTank.Text = "add_tank";
+            this.btnAddTank.UseVisualStyleBackColor = true;
+            this.btnAddTank.Click += new System.EventHandler(this.btnAddTank_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 16);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "แท๊งค์ <F8>";
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.inlineStkcod);
+            this.panel2.Controls.Add(this.inlineSectionName);
+            this.panel2.Controls.Add(this.inlineBegacc);
+            this.panel2.Controls.Add(this.inlineBegtak);
+            this.panel2.Controls.Add(this.inlineCapacity);
+            this.panel2.Controls.Add(this.dgvSection);
+            this.panel2.Location = new System.Drawing.Point(3, 25);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(787, 376);
+            this.panel2.TabIndex = 10;
+            // 
+            // btnDeleteSection
+            // 
+            this.btnDeleteSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDeleteSection.Location = new System.Drawing.Point(338, 87);
+            this.btnDeleteSection.Name = "btnDeleteSection";
+            this.btnDeleteSection.Size = new System.Drawing.Size(86, 27);
+            this.btnDeleteSection.TabIndex = 9;
+            this.btnDeleteSection.Text = "delete_section";
+            this.btnDeleteSection.UseVisualStyleBackColor = true;
+            this.btnDeleteSection.Click += new System.EventHandler(this.btnDeleteSection_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label2.Location = new System.Drawing.Point(3, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 16);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "ถังน้ำมัน <F7>";
+            // 
+            // btnEditSection
+            // 
+            this.btnEditSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnEditSection.Location = new System.Drawing.Point(258, 87);
+            this.btnEditSection.Name = "btnEditSection";
+            this.btnEditSection.Size = new System.Drawing.Size(74, 27);
+            this.btnEditSection.TabIndex = 9;
+            this.btnEditSection.Text = "edit_section";
+            this.btnEditSection.UseVisualStyleBackColor = true;
+            this.btnEditSection.Click += new System.EventHandler(this.btnEditSection_Click);
+            // 
+            // btnAddSection
+            // 
+            this.btnAddSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAddSection.Location = new System.Drawing.Point(178, 87);
+            this.btnAddSection.Name = "btnAddSection";
+            this.btnAddSection.Size = new System.Drawing.Size(74, 27);
+            this.btnAddSection.TabIndex = 9;
+            this.btnAddSection.Text = "add_section";
+            this.btnAddSection.UseVisualStyleBackColor = true;
+            this.btnAddSection.Click += new System.EventHandler(this.btnAddSection_Click);
+            // 
             // inline_tankname
             // 
             this.inline_tankname._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -439,14 +541,14 @@
             this.dgvTank.AllowUserToDeleteRows = false;
             this.dgvTank.AllowUserToResizeColumns = false;
             this.dgvTank.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTank.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTank.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.dgvTank.ColumnHeadersHeight = 28;
             this.dgvTank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvTank.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -466,14 +568,14 @@
             this.col_tank_chgtime,
             this.col_tank_tank,
             this.col_tank__isactive});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvTank.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvTank.DefaultCellStyle = dataGridViewCellStyle27;
             this.dgvTank.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTank.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvTank.EnableHeadersVisualStyles = false;
@@ -621,65 +723,6 @@
             this.col_tank__isactive.ReadOnly = true;
             this.col_tank__isactive.Visible = false;
             // 
-            // btnDeleteTank
-            // 
-            this.btnDeleteTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnDeleteTank.Location = new System.Drawing.Point(161, 88);
-            this.btnDeleteTank.Name = "btnDeleteTank";
-            this.btnDeleteTank.Size = new System.Drawing.Size(72, 27);
-            this.btnDeleteTank.TabIndex = 9;
-            this.btnDeleteTank.Text = "delete_tank";
-            this.btnDeleteTank.UseVisualStyleBackColor = true;
-            this.btnDeleteTank.Click += new System.EventHandler(this.btnDeleteTank_Click);
-            // 
-            // btnEditTank
-            // 
-            this.btnEditTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnEditTank.Location = new System.Drawing.Point(87, 88);
-            this.btnEditTank.Name = "btnEditTank";
-            this.btnEditTank.Size = new System.Drawing.Size(68, 27);
-            this.btnEditTank.TabIndex = 9;
-            this.btnEditTank.Text = "edit_tank";
-            this.btnEditTank.UseVisualStyleBackColor = true;
-            this.btnEditTank.Click += new System.EventHandler(this.btnEditTank_Click);
-            // 
-            // btnAddTank
-            // 
-            this.btnAddTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnAddTank.Location = new System.Drawing.Point(13, 88);
-            this.btnAddTank.Name = "btnAddTank";
-            this.btnAddTank.Size = new System.Drawing.Size(68, 27);
-            this.btnAddTank.TabIndex = 9;
-            this.btnAddTank.Text = "add_tank";
-            this.btnAddTank.UseVisualStyleBackColor = true;
-            this.btnAddTank.Click += new System.EventHandler(this.btnAddTank_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label1.Location = new System.Drawing.Point(3, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 16);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "แท๊งค์ <F8>";
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.inlineStkcod);
-            this.panel2.Controls.Add(this.inlineSectionName);
-            this.panel2.Controls.Add(this.inlineBegacc);
-            this.panel2.Controls.Add(this.inlineBegtak);
-            this.panel2.Controls.Add(this.inlineCapacity);
-            this.panel2.Controls.Add(this.dgvSection);
-            this.panel2.Location = new System.Drawing.Point(3, 25);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(787, 376);
-            this.panel2.TabIndex = 10;
-            // 
             // inlineStkcod
             // 
             this.inlineStkcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -748,6 +791,7 @@
             this.inlineBegacc.Size = new System.Drawing.Size(113, 23);
             this.inlineBegacc.TabIndex = 10;
             this.inlineBegacc.Visible = false;
+            this.inlineBegacc._ValueChanged += new System.EventHandler(this.inlineBegacc__ValueChanged);
             // 
             // inlineBegtak
             // 
@@ -779,6 +823,7 @@
             this.inlineBegtak.Size = new System.Drawing.Size(107, 23);
             this.inlineBegtak.TabIndex = 10;
             this.inlineBegtak.Visible = false;
+            this.inlineBegtak._ValueChanged += new System.EventHandler(this.inlineBegtak__ValueChanged);
             // 
             // inlineCapacity
             // 
@@ -810,6 +855,7 @@
             this.inlineCapacity.Size = new System.Drawing.Size(99, 23);
             this.inlineCapacity.TabIndex = 10;
             this.inlineCapacity.Visible = false;
+            this.inlineCapacity._ValueChanged += new System.EventHandler(this.inlineCapacity__ValueChanged);
             // 
             // dgvSection
             // 
@@ -818,14 +864,14 @@
             this.dgvSection.AllowUserToDeleteRows = false;
             this.dgvSection.AllowUserToResizeColumns = false;
             this.dgvSection.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dgvSection.ColumnHeadersHeight = 28;
             this.dgvSection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvSection.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -848,14 +894,14 @@
             this.col_sect_end_date,
             this.col_sect_section,
             this.col_sect_state});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSection.DefaultCellStyle = dataGridViewCellStyle25;
             this.dgvSection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSection.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvSection.EnableHeadersVisualStyles = false;
@@ -873,63 +919,6 @@
             this.dgvSection.TabIndex = 0;
             this.dgvSection.CurrentCellChanged += new System.EventHandler(this.dgvSection_CurrentCellChanged);
             this.dgvSection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSection_MouseClick);
-            // 
-            // btnDeleteSection
-            // 
-            this.btnDeleteSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnDeleteSection.Location = new System.Drawing.Point(338, 87);
-            this.btnDeleteSection.Name = "btnDeleteSection";
-            this.btnDeleteSection.Size = new System.Drawing.Size(86, 27);
-            this.btnDeleteSection.TabIndex = 9;
-            this.btnDeleteSection.Text = "delete_section";
-            this.btnDeleteSection.UseVisualStyleBackColor = true;
-            this.btnDeleteSection.Click += new System.EventHandler(this.btnDeleteSection_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label2.Location = new System.Drawing.Point(3, 3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 16);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "ถังน้ำมัน <F7>";
-            // 
-            // btnEditSection
-            // 
-            this.btnEditSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnEditSection.Location = new System.Drawing.Point(258, 87);
-            this.btnEditSection.Name = "btnEditSection";
-            this.btnEditSection.Size = new System.Drawing.Size(74, 27);
-            this.btnEditSection.TabIndex = 9;
-            this.btnEditSection.Text = "edit_section";
-            this.btnEditSection.UseVisualStyleBackColor = true;
-            this.btnEditSection.Click += new System.EventHandler(this.btnEditSection_Click);
-            // 
-            // btnAddSection
-            // 
-            this.btnAddSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnAddSection.Location = new System.Drawing.Point(178, 87);
-            this.btnAddSection.Name = "btnAddSection";
-            this.btnAddSection.Size = new System.Drawing.Size(74, 27);
-            this.btnAddSection.TabIndex = 9;
-            this.btnAddSection.Text = "add_section";
-            this.btnAddSection.UseVisualStyleBackColor = true;
-            this.btnAddSection.Click += new System.EventHandler(this.btnAddSection_Click);
-            // 
-            // dtStartDate
-            // 
-            this.dtStartDate._ReadOnly = true;
-            this.dtStartDate._SelectedDate = null;
-            this.dtStartDate.BackColor = System.Drawing.Color.White;
-            this.dtStartDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtStartDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtStartDate.Location = new System.Drawing.Point(97, 60);
-            this.dtStartDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtStartDate.Name = "dtStartDate";
-            this.dtStartDate.Size = new System.Drawing.Size(103, 23);
-            this.dtStartDate.TabIndex = 6;
-            this.dtStartDate._SelectedDateChanged += new System.EventHandler(this.dtStartDate__SelectedDateChanged);
             // 
             // col_sect_working_express_db
             // 
@@ -976,10 +965,10 @@
             // col_sect_nozzlecount
             // 
             this.col_sect_nozzlecount.DataPropertyName = "nozzlecount";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N0";
-            dataGridViewCellStyle4.NullValue = null;
-            this.col_sect_nozzlecount.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle20.Format = "N0";
+            dataGridViewCellStyle20.NullValue = null;
+            this.col_sect_nozzlecount.DefaultCellStyle = dataGridViewCellStyle20;
             this.col_sect_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
             this.col_sect_nozzlecount.MinimumWidth = 90;
             this.col_sect_nozzlecount.Name = "col_sect_nozzlecount";
@@ -989,10 +978,10 @@
             // col_sect_capacity
             // 
             this.col_sect_capacity.DataPropertyName = "capacity";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.col_sect_capacity.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle21.Format = "N2";
+            dataGridViewCellStyle21.NullValue = null;
+            this.col_sect_capacity.DefaultCellStyle = dataGridViewCellStyle21;
             this.col_sect_capacity.HeaderText = "ความจุ(ลิตร)";
             this.col_sect_capacity.MinimumWidth = 100;
             this.col_sect_capacity.Name = "col_sect_capacity";
@@ -1001,10 +990,10 @@
             // col_sect_begtak
             // 
             this.col_sect_begtak.DataPropertyName = "begtak";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.col_sect_begtak.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle22.Format = "N2";
+            dataGridViewCellStyle22.NullValue = null;
+            this.col_sect_begtak.DefaultCellStyle = dataGridViewCellStyle22;
             this.col_sect_begtak.HeaderText = "ยกมา(ตรวจนับ)";
             this.col_sect_begtak.MinimumWidth = 110;
             this.col_sect_begtak.Name = "col_sect_begtak";
@@ -1014,10 +1003,10 @@
             // col_sect_begacc
             // 
             this.col_sect_begacc.DataPropertyName = "begacc";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.col_sect_begacc.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle23.Format = "N2";
+            dataGridViewCellStyle23.NullValue = null;
+            this.col_sect_begacc.DefaultCellStyle = dataGridViewCellStyle23;
             this.col_sect_begacc.HeaderText = "ยกมา(ตามบัญชี)";
             this.col_sect_begacc.MinimumWidth = 110;
             this.col_sect_begacc.Name = "col_sect_begacc";
@@ -1027,10 +1016,10 @@
             // col_sect_begdif
             // 
             this.col_sect_begdif.DataPropertyName = "begdif";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = null;
-            this.col_sect_begdif.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle24.Format = "N2";
+            dataGridViewCellStyle24.NullValue = null;
+            this.col_sect_begdif.DefaultCellStyle = dataGridViewCellStyle24;
             this.col_sect_begdif.HeaderText = "ผลต่างยกมา";
             this.col_sect_begdif.MinimumWidth = 90;
             this.col_sect_begdif.Name = "col_sect_begdif";
@@ -1109,6 +1098,20 @@
             this.col_sect_state.ReadOnly = true;
             this.col_sect_state.Visible = false;
             // 
+            // dtStartDate
+            // 
+            this.dtStartDate._ReadOnly = true;
+            this.dtStartDate._SelectedDate = null;
+            this.dtStartDate.BackColor = System.Drawing.Color.White;
+            this.dtStartDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtStartDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtStartDate.Location = new System.Drawing.Point(97, 60);
+            this.dtStartDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtStartDate.Name = "dtStartDate";
+            this.dtStartDate.Size = new System.Drawing.Size(103, 23);
+            this.dtStartDate.TabIndex = 6;
+            this.dtStartDate._SelectedDateChanged += new System.EventHandler(this.dtStartDate__SelectedDateChanged);
+            // 
             // FormTankConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1138,8 +1141,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSection)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

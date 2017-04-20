@@ -125,16 +125,16 @@ namespace XPump.SubForm
             this.bs_tank.ResetBindings(true);
             this.bs_tank.DataSource = this.list_tankVM;
 
-            if (this.selected_tank != null)
+            if (this.dgvTank.CurrentCell != null)
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
-                    int tank_id = this.selected_tank.id;
-                    
+                    int tank_id = (int)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
+
                     this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).OrderBy(s => s.name).ToViewModel(this.main_form.working_express_db));
+                    this.dgvSection.DataSource = this.list_sectionVM;
                 }
             }
-            
         }
 
         private void ShowInlineTankForm()
@@ -209,12 +209,20 @@ namespace XPump.SubForm
 
         private void dgvTank_CurrentCellChanged(object sender, EventArgs e)
         {
-            
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            var tank_id = (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).ToViewModel(this.main_form.working_express_db));
+                this.dgvSection.DataSource = this.list_sectionVM;
+            }
         }
 
         private void dgvSection_CurrentCellChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -351,7 +359,8 @@ namespace XPump.SubForm
                     }
                 }
 
-                if(this.form_mode == FORM_MODE.ADD_ITEM && this.inline_tankname.Visible)
+                #region add/edit tank
+                if (this.form_mode == FORM_MODE.ADD_ITEM && this.inline_tankname.Visible)
                 {
                     if(this.tmp_tankVM != null)
                     {
@@ -367,11 +376,8 @@ namespace XPump.SubForm
                             db.tank.Add(new tank
                             {
                                 name = this.tmp_tankVM.name,
-                                //startdate = this.tmp_tankVM.startdate,
-                                //enddate = this.tmp_tankVM.enddate,
                                 description = this.tmp_tankVM.description,
                                 remark = this.tmp_tankVM.remark,
-                                //isactive = this.tmp_tankVM.isactive,
                                 creby = this.tmp_tankVM.creby,
                                 cretime = this.tmp_tankVM.cretime,
                                 tanksetup_id = this.tmp_tankVM.tanksetup_id
@@ -434,6 +440,40 @@ namespace XPump.SubForm
                         return;
                     }
                 }
+                #endregion add/edit tank
+
+                #region add/edit section
+                if (this.form_mode == FORM_MODE.ADD_ITEM && this.inlineSectionName.Visible)
+                {
+                    if(this.tmp_sectionVM != null)
+                    {
+                        var sect = db.section.Include("tank").Where(s => s.tank_id == this.tmp_sectionVM.tank_id && s.name == this.tmp_sectionVM.name).FirstOrDefault();
+                        if (sect != null)
+                        {
+                            MessageBox.Show("เลขที่ถัง \"" + this.tmp_sectionVM.name + "\" ถูกกำหนดไว้แล้วในแท๊งค์ \"" + sect.tank.name + "\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+                        else
+                        {
+                            this.tmp_sectionVM.section.cretime = DateTime.Now;
+                            db.section.Add(this.tmp_sectionVM.section);
+                            db.SaveChanges();
+                            this.form_mode = FORM_MODE.READ_ITEM;
+                            this.ResetControlState();
+                            this.FillForm();
+                        }
+                    }
+                    return;
+                }
+                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.inlineSectionName.Visible)
+                {
+                    if(this.tmp_sectionVM != null)
+                    {
+
+                    }
+                    return;
+                }
+                #endregion add/edit section
             }
         }
 
@@ -570,32 +610,21 @@ namespace XPump.SubForm
             {
                 name = string.Empty,
                 loccod = string.Empty,
+                stkcod = string.Empty,
                 capacity = 0m,
                 begacc = 0m,
                 begtak = 0m,
                 begdif = 0m,
-                tank_id = -1,
-                //stmas_id = -1,
+                tank_id = (int)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value,
                 creby = this.main_form.loged_in_status.loged_in_user_name
             }.ToViewModel(this.main_form.working_express_db);
 
             this.list_sectionVM.Add(this.tmp_sectionVM);
-            //this.list_sectionVM.Add(new section
-            //{
-            //    name = string.Empty,
-            //    loccod = string.Empty,
-            //    capacity = 0m,
-            //    begacc = 0m,
-            //    begtak = 0m,
-            //    begdif = 0m,
-            //    tank_id = -1,
-            //    stmas_id = -1,
-            //    creby = this.main_form.loged_in_status.loged_in_user_name
-            //}.ToViewModel(this.main_form.working_express_db));
 
             this.form_mode = FORM_MODE.ADD_ITEM;
             this.ResetControlState();
             this.dgvSection.Enabled = true;
+            this.dgvSection.DataSource = this.list_sectionVM;
             this.dgvTank.Enabled = false;
 
             this.dgvSection.Rows[this.list_sectionVM.Count - 1].Cells[this.col_sect_name.Name].Selected = true;
@@ -731,6 +760,9 @@ namespace XPump.SubForm
                 if (this.tmp_sectionVM != null)
                 {
                     this.tmp_sectionVM.name = st.selected_row.Cells[0].Value.ToString();
+                    this.tmp_sectionVM.section.name = st.selected_row.Cells[0].Value.ToString();
+                    this.tmp_sectionVM.loccod = st.selected_row.Cells[1].Value.ToString();
+                    this.tmp_sectionVM.section.loccod = st.selected_row.Cells[1].Value.ToString();
                     this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
                 }
                 ((XBrowseBox)sender)._Text = st.selected_row.Cells[0].Value.ToString();
@@ -754,10 +786,41 @@ namespace XPump.SubForm
             {
                 if(this.tmp_sectionVM != null)
                 {
-                    this.tmp_sectionVM.stkcod = st.selected_row.Cells[0].Value.ToString();
+                    this.tmp_sectionVM.stkcod = st.selected_row.Cells["col_stkcod"].Value.ToString();
+                    this.tmp_sectionVM.section.stkcod = st.selected_row.Cells[0].Value.ToString();
                     this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
                 }
                 ((XBrowseBox)sender)._Text = st.selected_row.Cells[0].Value.ToString();
+            }
+        }
+
+        private void inlineCapacity__ValueChanged(object sender, EventArgs e)
+        {
+            if(this.tmp_sectionVM != null)
+            {
+                this.tmp_sectionVM.capacity = ((XNumEdit)sender)._Value;
+                this.tmp_sectionVM.section.capacity = ((XNumEdit)sender)._Value;
+                this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
+            }
+        }
+
+        private void inlineBegtak__ValueChanged(object sender, EventArgs e)
+        {
+            if(this.tmp_sectionVM != null)
+            {
+                this.tmp_sectionVM.begtak = ((XNumEdit)sender)._Value;
+                this.tmp_sectionVM.section.begtak = ((XNumEdit)sender)._Value;
+                this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
+            }
+        }
+
+        private void inlineBegacc__ValueChanged(object sender, EventArgs e)
+        {
+            if(this.tmp_sectionVM != null)
+            {
+                this.tmp_sectionVM.begacc = ((XNumEdit)sender)._Value;
+                this.tmp_sectionVM.section.begacc = ((XNumEdit)sender)._Value;
+                this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
             }
         }
     }

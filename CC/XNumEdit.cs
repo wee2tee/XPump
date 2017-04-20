@@ -347,7 +347,11 @@ namespace CC
                     (Keys.Shift | Keys.End),
                     (Keys.Control | Keys.C),
                     (Keys.Control | Keys.V),
-                    (Keys.Control | Keys.X)
+                    (Keys.Control | Keys.X),
+                    Keys.Subtract,
+                    Keys.Add,
+                    (Keys.Shift | Keys.OemMinus),
+                    (Keys.Shift | Keys.Oemplus)
                 };
             }
             else
@@ -394,12 +398,35 @@ namespace CC
                     (Keys.Shift | Keys.End),
                     (Keys.Control | Keys.C),
                     (Keys.Control | Keys.V),
-                    (Keys.Control | Keys.X)
+                    (Keys.Control | Keys.X),
+                    Keys.Subtract,
+                    Keys.Add,
+                    (Keys.Shift | Keys.OemMinus),
+                    (Keys.Shift | Keys.Oemplus)
                 };
             }
-
+            Console.WriteLine(e.KeyData);
             if (allow_keys.Where(k => k == e.KeyData).Count() == 0)
             {
+                e.SuppressKeyPress = true;
+            }
+            if (((TextBox)sender).Text.Contains("-") && (e.KeyData == Keys.Subtract || e.KeyData == (Keys.Shift | Keys.OemMinus)))
+            {
+                e.SuppressKeyPress = true;
+            }
+            if (!((TextBox)sender).Text.Contains("-") && (e.KeyData == Keys.Subtract || e.KeyData == (Keys.Shift | Keys.OemMinus)))
+            {
+                ((TextBox)sender).SelectionStart = 0;
+                e.SuppressKeyPress = false;
+            }
+            if (e.KeyData == Keys.Add || e.KeyData == (Keys.Shift | Keys.Oemplus))
+            {
+                var cursor_position = ((TextBox)sender).SelectionStart;
+                if (((TextBox)sender).Text.Contains("-"))
+                {
+                    ((TextBox)sender).Text = ((TextBox)sender).Text.TrimStart('-');
+                    ((TextBox)sender).SelectionStart = cursor_position - 1;
+                }
                 e.SuppressKeyPress = true;
             }
         }
