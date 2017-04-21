@@ -67,7 +67,10 @@ namespace XPump.Model
     public class sectionVM
     {
         public SccompDbf working_express_db { get; set; }
-        public int id { get; set; }
+        public int id /*{ get; set; }*/
+        {
+            get { return this.section.id; }
+        }
         public string tank_name
         {
             get
@@ -78,13 +81,19 @@ namespace XPump.Model
                 }
             }
         }
-        public string name { get; set; }
-        public string stkcod { get; set; }
+        public string name /*{ get; set; }*/
+        {
+            get { return this.section.name; }
+        }
+        public string stkcod /*{ get; set; }*/
+        {
+            get { return this.section.stkcod; }
+        }
         public string stkdes
         {
             get
             {
-                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.section.stkcod).FirstOrDefault();
                 return st != null ? st.stkdes : string.Empty;
             }
         }
@@ -94,14 +103,26 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    return db.nozzle.Where(n => n.section_id == this.id).Count();
+                    return db.nozzle.Where(n => n.section_id == this.section.id).Count();
                 }
             }
         }
-        public decimal capacity { get; set; }
-        public decimal begtak { get; set; }
-        public decimal begacc { get; set; }
-        public decimal begdif { get; set; }
+        public decimal capacity /*{ get; set; }*/
+        {
+            get { return this.section.capacity; }
+        }
+        public decimal begtak /*{ get; set; }*/
+        {
+            get { return this.section.begtak; }
+        }
+        public decimal begacc /*{ get; set; }*/
+        {
+            get { return this.section.begacc; }
+        }
+        public decimal begdif /*{ get; set; }*/
+        {
+            get { return this.section.begtak - this.section.begacc; }
+        }
         public decimal totbal
         {
             get
@@ -114,8 +135,14 @@ namespace XPump.Model
                 }
             }
         }
-        public int tank_id { get; set; }
-        public string loccod { get; set; }
+        public int tank_id /*{ get; set; }*/
+        {
+            get { return this.section.tank_id; }
+        }
+        public string loccod /*{ get; set; }*/
+        {
+            get { return this.section.loccod; }
+        }
         public DateTime start_date
         {
             get

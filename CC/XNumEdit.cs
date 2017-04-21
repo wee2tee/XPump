@@ -405,7 +405,7 @@ namespace CC
                     (Keys.Shift | Keys.Oemplus)
                 };
             }
-            Console.WriteLine(e.KeyData);
+            //Console.WriteLine(e.KeyData);
             if (allow_keys.Where(k => k == e.KeyData).Count() == 0)
             {
                 e.SuppressKeyPress = true;

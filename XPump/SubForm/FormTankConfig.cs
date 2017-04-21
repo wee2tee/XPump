@@ -135,6 +135,11 @@ namespace XPump.SubForm
                     this.dgvSection.DataSource = this.list_sectionVM;
                 }
             }
+            else
+            {
+                this.list_sectionVM = new BindingList<sectionVM>();
+                this.dgvSection.DataSource = this.list_sectionVM;
+            }
         }
 
         private void ShowInlineTankForm()
@@ -161,11 +166,13 @@ namespace XPump.SubForm
 
             int row_index = this.dgvSection.CurrentCell.RowIndex;
 
+            this.tmp_sectionVM = this.list_sectionVM[row_index];
+
             int col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_name.DataPropertyName).First().Index;
 
             this.inlineSectionName.SetInlineControlPosition(this.dgvSection, row_index, col_index);
             this.inlineSectionName._Text = this.tmp_sectionVM.name;
-            this.inlineSectionName.Visible = true;
+            this.inlineSectionName.Visible = this.form_mode == FORM_MODE.ADD_ITEM ? true : false;
             this.inlineSectionName.Focus();
 
             col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_stkcod.DataPropertyName).First().Index;
@@ -187,6 +194,12 @@ namespace XPump.SubForm
             this.inlineBegacc.SetInlineControlPosition(this.dgvSection, row_index, col_index);
             this.inlineBegacc._Value = this.tmp_sectionVM.begacc;
             this.inlineBegacc.Visible = true;
+
+            if (this.form_mode == FORM_MODE.ADD_ITEM)
+                this.inlineSectionName.Focus();
+
+            if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                this.inlineStkcod.Focus();
         }
 
         private void RemoveInlineTankForm()
@@ -215,7 +228,7 @@ namespace XPump.SubForm
             var tank_id = (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).ToViewModel(this.main_form.working_express_db));
+                this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).OrderBy(s => s.name).ToViewModel(this.main_form.working_express_db));
                 this.dgvSection.DataSource = this.list_sectionVM;
             }
         }
@@ -252,7 +265,47 @@ namespace XPump.SubForm
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if(MessageBox.Show("ลบการตั้งค่าแท๊งค์เก็บน้ำมัน ของวันที่ \"" + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var tank_ids = db.tank.Where(t => t.tanksetup_id == this.tanksetup.id).Select(s => s.id).ToArray();
+                    var section_ids = db.section.Where(s => tank_ids.Contains(s.tank_id)).Select(s => s.id).ToArray();
+                    var nozzle_ids = db.nozzle.Where(n => section_ids.Contains(n.section_id)).Select(s => s.id).ToArray();
+                    
+                    if(db.saleshistory.Where(s => nozzle_ids.Contains(s.nozzle_id)).FirstOrDefault() != null)
+                    {
+                        MessageBox.Show("การตั้งค่าแท็งค์เก็บน้ำมันนี้มีการนำไปใช้งานแล้ว ไม่สามารถลบทิ้งได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            //** delete nozzle **//
+                            foreach (var n_id in nozzle_ids)
+                            {
+                                db.nozzle.Remove(db.nozzle.Find(n_id));
+                            }
+                            //** delete section **//
+                            foreach (var s_id in section_ids)
+                            {
+                                db.section.Remove(db.section.Find(s_id));
+                            }
+                            //** delete tank **//
+                            foreach (var t_id in tank_ids)
+                            {
+                                db.tank.Remove(db.tank.Find(t_id));
+                            }
 
+                            db.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -262,6 +315,7 @@ namespace XPump.SubForm
                 this.form_mode = FORM_MODE.READ;
                 this.ResetControlState();
                 this.tmp_tanksetup = null;
+                this.btnRefresh.PerformClick();
                 return;
             }
 
@@ -360,10 +414,16 @@ namespace XPump.SubForm
                 }
 
                 #region add/edit tank
-                if (this.form_mode == FORM_MODE.ADD_ITEM && this.inline_tankname.Visible)
+                if (this.form_mode == FORM_MODE.ADD_ITEM && this.dgvTank.Enabled)
                 {
                     if(this.tmp_tankVM != null)
                     {
+                        if(this.tmp_tankVM.name.Trim().Length == 0)
+                        {
+                            MessageBox.Show("กรุณาระบุรหัสแท๊งค์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
                         try
                         {
                             if (db.tank.Where(t => t.tanksetup_id == this.tmp_tankVM.tanksetup_id && t.name == this.tmp_tankVM.name).FirstOrDefault() != null)
@@ -400,10 +460,16 @@ namespace XPump.SubForm
                     }
                 }
 
-                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.inline_tankname.Visible)
+                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.dgvTank.Enabled)
                 {
                     if(this.tmp_tankVM != null)
                     {
+                        if (this.tmp_tankVM.name.Trim().Length == 0)
+                        {
+                            MessageBox.Show("กรุณาระบุรหัสแท๊งค์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
                         try
                         {
                             if(db.tank.Where(t => t.tanksetup_id == this.tmp_tankVM.tanksetup_id && t.name == this.tmp_tankVM.name && t.id != this.tmp_tankVM.id).FirstOrDefault() != null)
@@ -443,33 +509,89 @@ namespace XPump.SubForm
                 #endregion add/edit tank
 
                 #region add/edit section
-                if (this.form_mode == FORM_MODE.ADD_ITEM && this.inlineSectionName.Visible)
+                if (this.form_mode == FORM_MODE.ADD_ITEM && this.dgvSection.Enabled)
                 {
                     if(this.tmp_sectionVM != null)
                     {
-                        var sect = db.section.Include("tank").Where(s => s.tank_id == this.tmp_sectionVM.tank_id && s.name == this.tmp_sectionVM.name).FirstOrDefault();
-                        if (sect != null)
+                        if(this.tmp_sectionVM.name.Trim().Length == 0)
                         {
-                            MessageBox.Show("เลขที่ถัง \"" + this.tmp_sectionVM.name + "\" ถูกกำหนดไว้แล้วในแท๊งค์ \"" + sect.tank.name + "\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MessageBox.Show("กรุณาระบุเลขที่ถัง", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
-                        else
+                        if(this.tmp_sectionVM.stkcod.Trim().Length == 0)
                         {
-                            this.tmp_sectionVM.section.cretime = DateTime.Now;
-                            db.section.Add(this.tmp_sectionVM.section);
-                            db.SaveChanges();
-                            this.form_mode = FORM_MODE.READ_ITEM;
-                            this.ResetControlState();
-                            this.FillForm();
+                            MessageBox.Show("กรุณาระบุชนิดน้ำมัน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
+                        try
+                        {
+                            var sect = db.section.Include("tank").Where(s => s.tank_id == this.tmp_sectionVM.tank_id && s.name == this.tmp_sectionVM.name).FirstOrDefault();
+                            if (sect != null)
+                            {
+                                MessageBox.Show("เลขที่ถัง \"" + this.tmp_sectionVM.name + "\" ถูกกำหนดไว้แล้วในแท๊งค์ \"" + sect.tank.name + "\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
+                            else
+                            {
+                                this.tmp_sectionVM.section.begdif = this.tmp_sectionVM.begdif;
+                                this.tmp_sectionVM.section.cretime = DateTime.Now;
+                                db.section.Add(this.tmp_sectionVM.section);
+                                db.SaveChanges();
+                                this.form_mode = FORM_MODE.READ_ITEM;
+                                this.ResetControlState();
+                                this.btnAddSection.PerformClick();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     return;
                 }
-                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.inlineSectionName.Visible)
+                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.dgvSection.Enabled)
                 {
                     if(this.tmp_sectionVM != null)
                     {
+                        if (this.tmp_sectionVM.name.Trim().Length == 0)
+                        {
+                            MessageBox.Show("กรุณาระบุเลขที่ถัง", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+                        if (this.tmp_sectionVM.stkcod.Trim().Length == 0)
+                        {
+                            MessageBox.Show("กรุณาระบุชนิดน้ำมัน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
 
+                        try
+                        {
+                            var sect_to_update = db.section.Find(this.tmp_sectionVM.id);
+                            if (sect_to_update != null)
+                            {
+                                sect_to_update.stkcod = this.tmp_sectionVM.stkcod;
+                                sect_to_update.stkdes = this.tmp_sectionVM.stkdes;
+                                sect_to_update.capacity = this.tmp_sectionVM.capacity;
+                                sect_to_update.begtak = this.tmp_sectionVM.begtak;
+                                sect_to_update.begacc = this.tmp_sectionVM.begacc;
+                                sect_to_update.begdif = this.tmp_sectionVM.begdif;
+                                sect_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                                sect_to_update.chgtime = DateTime.Now;
+
+                                db.SaveChanges();
+                                this.RemoveInlineSectionForm();
+                            }
+                            else
+                            {
+                                MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     return;
                 }
@@ -533,7 +655,11 @@ namespace XPump.SubForm
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-
+            if(this.tanksetup != null)
+            {
+                this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
+                this.FillForm();
+            }
         }
 
         private void btnAddTank_Click(object sender, EventArgs e)
@@ -542,10 +668,7 @@ namespace XPump.SubForm
             {
                 name = string.Empty,
                 description = string.Empty,
-                //startdate = this.tanksetup.startdate,
-                //enddate = null,
                 remark = string.Empty,
-                //isactive = true,
                 tanksetup_id = this.tanksetup.id,
                 creby = this.main_form.loged_in_status.loged_in_user_name,
             }.ToViewModel(this.main_form.working_express_db));
@@ -582,7 +705,7 @@ namespace XPump.SubForm
             if (this.dgvTank.CurrentCell == null)
                 return;
 
-            if (MessageBox.Show("ลบรหัสแท๊งค์ \"" + (string)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_name.Name].Value + "\"", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            if (MessageBox.Show("ลบรหัสแท๊งค์ \"" + (string)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_name.Name].Value + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
                 return;
 
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
@@ -590,12 +713,19 @@ namespace XPump.SubForm
                 try
                 {
                     int deleting_id = (int)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
+                    if(db.tank.Find(deleting_id) != null)
+                    {
+                        db.tank.Remove(db.tank.Find(deleting_id));
+                        db.SaveChanges();
 
-                    db.tank.Remove(db.tank.Find(deleting_id));
-                    db.SaveChanges();
+                        this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
+                        this.FillForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
 
-                    this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
-                    this.FillForm();
                 }
                 catch (Exception ex)
                 {
@@ -606,7 +736,7 @@ namespace XPump.SubForm
 
         private void btnAddSection_Click(object sender, EventArgs e)
         {
-            this.tmp_sectionVM = new section
+            this.list_sectionVM.Add(new section
             {
                 name = string.Empty,
                 loccod = string.Empty,
@@ -617,9 +747,7 @@ namespace XPump.SubForm
                 begdif = 0m,
                 tank_id = (int)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value,
                 creby = this.main_form.loged_in_status.loged_in_user_name
-            }.ToViewModel(this.main_form.working_express_db);
-
-            this.list_sectionVM.Add(this.tmp_sectionVM);
+            }.ToViewModel(this.main_form.working_express_db));
 
             this.form_mode = FORM_MODE.ADD_ITEM;
             this.ResetControlState();
@@ -633,12 +761,37 @@ namespace XPump.SubForm
 
         private void btnEditSection_Click(object sender, EventArgs e)
         {
+            this.form_mode = FORM_MODE.EDIT_ITEM;
+            this.ResetControlState();
+            this.dgvSection.Enabled = true;
+            this.dgvTank.Enabled = false;
 
+            this.ShowInlineSectionForm();
         }
 
         private void btnDeleteSection_Click(object sender, EventArgs e)
         {
+            if (this.dgvSection.CurrentCell == null)
+                return;
 
+            if(MessageBox.Show("ลบถังน้ำมันเลขที่ \"" + (string)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells[this.col_sect_name.Name].Value + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    int deleting_id = (int)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells[this.col_sect_id.Name].Value;
+                    if(db.section.Find(deleting_id) != null)
+                    {
+                        db.section.Remove(db.section.Find(deleting_id));
+                        db.SaveChanges();
+                        this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
+                        this.FillForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                }
+            }
         }
 
         private void dtStartDate__SelectedDateChanged(object sender, EventArgs e)
@@ -661,9 +814,17 @@ namespace XPump.SubForm
             this.btnEditTank.PerformClick();
         }
 
+        private void dgvSection_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.form_mode = FORM_MODE.READ_ITEM;
+            this.ResetControlState();
+
+            this.btnEditSection.PerformClick();
+        }
+
         private void dgvTank_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right && (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM))
             {
                 this.form_mode = FORM_MODE.READ_ITEM;
                 this.ResetControlState();
@@ -703,7 +864,7 @@ namespace XPump.SubForm
 
         private void dgvSection_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right)
+            if(e.Button == MouseButtons.Right && (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM))
             {
                 this.form_mode = FORM_MODE.READ_ITEM;
                 this.ResetControlState();
@@ -759,9 +920,9 @@ namespace XPump.SubForm
             {
                 if (this.tmp_sectionVM != null)
                 {
-                    this.tmp_sectionVM.name = st.selected_row.Cells[0].Value.ToString();
+                    //this.tmp_sectionVM.name = st.selected_row.Cells[0].Value.ToString();
                     this.tmp_sectionVM.section.name = st.selected_row.Cells[0].Value.ToString();
-                    this.tmp_sectionVM.loccod = st.selected_row.Cells[1].Value.ToString();
+                    //this.tmp_sectionVM.loccod = st.selected_row.Cells[1].Value.ToString();
                     this.tmp_sectionVM.section.loccod = st.selected_row.Cells[1].Value.ToString();
                     this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
                 }
@@ -786,8 +947,9 @@ namespace XPump.SubForm
             {
                 if(this.tmp_sectionVM != null)
                 {
-                    this.tmp_sectionVM.stkcod = st.selected_row.Cells["col_stkcod"].Value.ToString();
-                    this.tmp_sectionVM.section.stkcod = st.selected_row.Cells[0].Value.ToString();
+                    //this.tmp_sectionVM.stkcod = st.selected_row.Cells["col_stkcod"].Value.ToString();
+                    this.tmp_sectionVM.section.stkcod = st.selected_row.Cells["col_stkcod"].Value.ToString();
+                    this.tmp_sectionVM.section.stkdes = st.selected_row.Cells["col_stkdes"].Value.ToString();
                     this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
                 }
                 ((XBrowseBox)sender)._Text = st.selected_row.Cells[0].Value.ToString();
@@ -798,7 +960,7 @@ namespace XPump.SubForm
         {
             if(this.tmp_sectionVM != null)
             {
-                this.tmp_sectionVM.capacity = ((XNumEdit)sender)._Value;
+                //this.tmp_sectionVM.capacity = ((XNumEdit)sender)._Value;
                 this.tmp_sectionVM.section.capacity = ((XNumEdit)sender)._Value;
                 this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
             }
@@ -808,7 +970,7 @@ namespace XPump.SubForm
         {
             if(this.tmp_sectionVM != null)
             {
-                this.tmp_sectionVM.begtak = ((XNumEdit)sender)._Value;
+                //this.tmp_sectionVM.begtak = ((XNumEdit)sender)._Value;
                 this.tmp_sectionVM.section.begtak = ((XNumEdit)sender)._Value;
                 this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
             }
@@ -818,7 +980,7 @@ namespace XPump.SubForm
         {
             if(this.tmp_sectionVM != null)
             {
-                this.tmp_sectionVM.begacc = ((XNumEdit)sender)._Value;
+                //this.tmp_sectionVM.begacc = ((XNumEdit)sender)._Value;
                 this.tmp_sectionVM.section.begacc = ((XNumEdit)sender)._Value;
                 this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
             }

@@ -145,15 +145,15 @@ namespace XPump.Misc
             sectionVM s = new sectionVM
             {
                 working_express_db = working_express_db,
-                stkcod = section.stkcod,
-                id = section.id,
-                name = section.name,
-                capacity = section.capacity,
-                begacc = section.begacc,
-                begtak = section.begtak,
-                begdif = section.begdif,
-                loccod = section.loccod,
-                tank_id = section.tank_id,
+                //stkcod = section.stkcod,
+                //id = section.id,
+                //name = section.name,
+                //capacity = section.capacity,
+                //begacc = section.begacc,
+                //begtak = section.begtak,
+                //begdif = section.begdif,
+                //loccod = section.loccod,
+                //tank_id = section.tank_id,
                 section = section
             };
 
