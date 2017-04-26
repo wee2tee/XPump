@@ -39,15 +39,11 @@ namespace XPump.SubForm
             this.bs_tank = new BindingSource();
             this.bs_tank.DataSource = this.list_tankVM;
             this.dgvTank.DataSource = this.bs_tank;
-
-            //this.bs_section = new BindingSource();
-            //this.bs_section.DataSource = this.list_sectionVM;
             this.dgvSection.DataSource = this.list_sectionVM;
-
-            this.btnLast.PerformClick();
 
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
+            this.btnLast.PerformClick();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -116,6 +112,16 @@ namespace XPump.SubForm
                 this.btnTank.Enabled = false;
                 this.btnSection.Enabled = false;
                 this.btnRefresh.Enabled = false;
+
+                this.dtStartDate.SetDate(null);
+
+                this.list_tankVM = new List<tankVM>();
+                this.bs_tank.ResetBindings(true);
+                this.bs_tank.DataSource = this.list_tankVM;
+
+                this.list_sectionVM = new BindingList<sectionVM>();
+                this.dgvSection.DataSource = this.list_sectionVM;
+
                 return;
             }
 
@@ -296,8 +302,12 @@ namespace XPump.SubForm
                             {
                                 db.tank.Remove(db.tank.Find(t_id));
                             }
+                            //** delete tanksetup **//
+                            db.tanksetup.Remove(db.tanksetup.Find(this.tanksetup.id));
 
                             db.SaveChanges();
+
+                            this.btnPrevious.PerformClick();
                         }
                         catch (Exception ex)
                         {
@@ -601,17 +611,65 @@ namespace XPump.SubForm
 
         private void btnFirst_Click(object sender, EventArgs e)
         {
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                var tanksetup = db.tanksetup.Include("tank").OrderBy(t => t.startdate).FirstOrDefault();
 
+                this.tanksetup = tanksetup;
+                this.FillForm();
+            }
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                tanksetup tanksetup;
+                if(this.tanksetup != null)
+                {
+                    tanksetup = db.tanksetup.Include("tank").OrderByDescending(t => t.startdate).Where(t => t.startdate.CompareTo(this.tanksetup.startdate) < 0).FirstOrDefault();
+                    
+                    if(tanksetup != null)
+                    {
+                        this.tanksetup = tanksetup;
+                        this.FillForm();
+                    }
+                    else
+                    {
+                        this.btnFirst.PerformClick();
+                    }    
+                }
+                else
+                {
+                    this.btnFirst.PerformClick();
+                }
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                tanksetup tanksetup;
+                if (this.tanksetup != null)
+                {
+                    tanksetup = db.tanksetup.Include("tank").OrderBy(t => t.startdate).Where(t => t.startdate.CompareTo(this.tanksetup.startdate) > 0).FirstOrDefault();
 
+                    if(tanksetup != null)
+                    {
+                        this.tanksetup = tanksetup;
+                        this.FillForm();
+                    }
+                    else
+                    {
+                        this.btnLast.PerformClick();
+                    }
+                }
+                else
+                {
+                    this.btnLast.PerformClick();
+                }
+            }
         }
 
         private void btnLast_Click(object sender, EventArgs e)
@@ -620,27 +678,104 @@ namespace XPump.SubForm
             {
                 var tanksetup = db.tanksetup.Include("tank").OrderByDescending(t => t.startdate).FirstOrDefault();
 
-                if(tanksetup != null)
-                {
-                    this.tanksetup = tanksetup;
-                    this.FillForm();
-                }
+                this.tanksetup = tanksetup;
+                this.FillForm();
             }
         }
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
         {
+            DialogDateSelector sel = new DialogDateSelector("สำหรับวันที่", DateTime.Now);
+            if(sel.ShowDialog() == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    tanksetup tanksetup = db.tanksetup.Include("tank").OrderByDescending(t => t.startdate).Where(t => t.startdate.CompareTo(sel.selected_date) <= 0).FirstOrDefault();
 
+                    if(tanksetup != null)
+                    {
+                        this.tanksetup = tanksetup;
+                        this.FillForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ไม่พบการตั้งค่าแท๊งค์น้ำมันสำหรับวันที่ \"" + sel.selected_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + "\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                }
+            }
         }
 
         private void btnInquiryAll_Click(object sender, EventArgs e)
         {
+            List<DataGridViewColumn> cols = new List<DataGridViewColumn>
+            {
+                new DataGridViewTextBoxColumn { Name = "col_id", DataPropertyName = "id", HeaderText = "ID", Visible = false },
+                new DataGridViewTextBoxColumn { Name = "col_startdate", DataPropertyName = "startdate", HeaderText = "วันที่เริ่มใช้", MinimumWidth = 180, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill },
+            };
+            cols[1].DefaultCellStyle.Format = "dd/MM/yyyy";
 
+            List<dynamic> setup_list;
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                setup_list = db.tanksetup.OrderBy(t => t.startdate).Select(t => new { id = t.id, startdate = t.startdate }).ToList<dynamic>();
+            }
+
+            DialogInquiry inq = new DialogInquiry(setup_list, cols, cols.Where(c => c.DataPropertyName == "startdate").First(), null, false);
+            if(inq.ShowDialog() == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    int selected_id = (int)inq.selected_row.Cells["col_id"].Value;
+                    tanksetup tanksetup = db.tanksetup.Include("tank").Where(t => t.id == selected_id).FirstOrDefault();
+
+                    if(tanksetup != null)
+                    {
+                        this.tanksetup = tanksetup;
+                        this.FillForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ข้อมูลที่ท่านเลือกไม่มีอยู่ในระบบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                }
+            }
         }
 
         private void btnInquiryRest_Click(object sender, EventArgs e)
         {
+            List<DataGridViewColumn> cols = new List<DataGridViewColumn>
+            {
+                new DataGridViewTextBoxColumn { Name = "col_id", DataPropertyName = "id", HeaderText = "ID", Visible = false },
+                new DataGridViewTextBoxColumn { Name = "col_startdate", DataPropertyName = "startdate", HeaderText = "วันที่เริ่มใช้", MinimumWidth = 180, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill },
+            };
+            cols[1].DefaultCellStyle.Format = "dd/MM/yyyy";
 
+            List<dynamic> setup_list;
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                setup_list = db.tanksetup.OrderBy(t => t.startdate).Select(t => new { id = t.id, startdate = t.startdate }).ToList<dynamic>();
+            }
+
+            DateTime? current_date = this.tanksetup != null ? (DateTime?)this.tanksetup.startdate : null;
+            DialogInquiry inq = new DialogInquiry(setup_list, cols, cols.Where(c => c.DataPropertyName == "startdate").First(), current_date, false);
+            if (inq.ShowDialog() == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    int selected_id = (int)inq.selected_row.Cells["col_id"].Value;
+                    tanksetup tanksetup = db.tanksetup.Include("tank").Where(t => t.id == selected_id).FirstOrDefault();
+
+                    if (tanksetup != null)
+                    {
+                        this.tanksetup = tanksetup;
+                        this.FillForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ข้อมูลที่ท่านเลือกไม่มีอยู่ในระบบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                }
+            }
         }
 
         private void btnTank_Click(object sender, EventArgs e)
@@ -984,6 +1119,27 @@ namespace XPump.SubForm
                 this.tmp_sectionVM.section.begacc = ((XNumEdit)sender)._Value;
                 this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                if (this.form_mode == FORM_MODE.ADD && this.dtStartDate._Focused ||
+                   ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) && this.inline_tankname._Focused) ||
+                   ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) && this.inlineBegacc._Focused))
+                {
+                    this.btnSave.PerformClick();
+                    return true;
+                }
+                else if (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    SendKeys.Send("{TAB}");
+                    return true;
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

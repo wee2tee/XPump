@@ -36,6 +36,7 @@
             this.MnuStmas = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.testBindingListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.อนๆToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuChangeCompany = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +48,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.testBindingListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -61,7 +61,7 @@
             this.อนๆToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1012, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1084, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -120,6 +120,13 @@
             this.toolStripMenuItem1.Text = "กำหนดผลัดพนักงาน";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.MnuShift_Click);
             // 
+            // testBindingListToolStripMenuItem
+            // 
+            this.testBindingListToolStripMenuItem.Name = "testBindingListToolStripMenuItem";
+            this.testBindingListToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.testBindingListToolStripMenuItem.Text = "_TestBindingList";
+            this.testBindingListToolStripMenuItem.Click += new System.EventHandler(this.testBindingListToolStripMenuItem_Click);
+            // 
             // อนๆToolStripMenuItem
             // 
             this.อนๆToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -132,14 +139,14 @@
             // mnuSettings
             // 
             this.mnuSettings.Name = "mnuSettings";
-            this.mnuSettings.Size = new System.Drawing.Size(152, 22);
+            this.mnuSettings.Size = new System.Drawing.Size(145, 22);
             this.mnuSettings.Text = "ตั้งค่าระบบ";
             this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
             // 
             // mnuChangeCompany
             // 
             this.mnuChangeCompany.Name = "mnuChangeCompany";
-            this.mnuChangeCompany.Size = new System.Drawing.Size(152, 22);
+            this.mnuChangeCompany.Size = new System.Drawing.Size(145, 22);
             this.mnuChangeCompany.Text = "เปลี่ยนบริษัท";
             this.mnuChangeCompany.Click += new System.EventHandler(this.mnuChangeCompany_Click);
             // 
@@ -153,9 +160,9 @@
             this.toolStripStatusLabel2,
             this.lblMysqlDbName,
             this.lblVersion});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 643);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 637);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1012, 24);
+            this.statusStrip1.Size = new System.Drawing.Size(1084, 24);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -209,23 +216,16 @@
             // lblVersion
             // 
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(656, 19);
+            this.lblVersion.Size = new System.Drawing.Size(870, 19);
             this.lblVersion.Spring = true;
             this.lblVersion.Text = "version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // testBindingListToolStripMenuItem
-            // 
-            this.testBindingListToolStripMenuItem.Name = "testBindingListToolStripMenuItem";
-            this.testBindingListToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.testBindingListToolStripMenuItem.Text = "_TestBindingList";
-            this.testBindingListToolStripMenuItem.Click += new System.EventHandler(this.testBindingListToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1012, 667);
+            this.ClientSize = new System.Drawing.Size(1084, 661);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
