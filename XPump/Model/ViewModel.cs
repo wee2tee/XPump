@@ -29,14 +29,26 @@ namespace XPump.Model
     public class tankVM
     {
         public SccompDbf working_express_db { get; set; }
-        public int id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        //public System.DateTime startdate { get; set; }
-        //public Nullable<System.DateTime> enddate { get; set; }
-        public string remark { get; set; }
-        //public bool isactive { get; set; }
-        public int tanksetup_id { get; set; }
+        public int id
+        {
+            get { return this.tank.id; }
+        }
+        public string name
+        {
+            get { return this.tank.name; }
+        }
+        public string description
+        {
+            get { return this.tank.description; }
+        }
+        public string remark
+        {
+            get { return this.tank.remark; }
+        }
+        public int tanksetup_id
+        {
+            get { return this.tank.tanksetup_id; }
+        }
         public DateTime? tanksetup_startdate
         {
             get
@@ -48,20 +60,24 @@ namespace XPump.Model
                 }
             }
         }
-        public string creby { get; set; }
-        public DateTime cretime { get; set; }
-        public string chgby { get; set; }
-        public DateTime? chgtime { get; set; }
+        public string creby
+        {
+            get { return this.tank.creby; }
+        }
+        public DateTime cretime
+        {
+            get { return this.tank.cretime; }
+        }
+        public string chgby
+        {
+            get { return this.tank.chgby; }
+        }
+        public DateTime? chgtime
+        {
+            get { return this.tank.chgtime; }
+        }
 
         public tank tank { get; set; }
-
-        //public string _isactive
-        //{
-        //    get
-        //    {
-        //        return this.isactive ? "ใช้งาน" : "ไม่ใช้งาน";
-        //    }
-        //}
     }
 
     public class sectionVM

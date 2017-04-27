@@ -111,16 +111,16 @@ namespace XPump.Misc
             tankVM t = new tankVM
             {
                 working_express_db = working_express_db,
-                id = tank.id,
-                name = tank.name,
-                description = tank.description,
-                remark = tank.remark,
-                creby = tank.creby,
-                cretime = tank.cretime,
-                chgby = tank.chgby,
-                chgtime = tank.chgtime,
+                //id = tank.id,
+                //name = tank.name,
+                //description = tank.description,
+                //remark = tank.remark,
+                //creby = tank.creby,
+                //cretime = tank.cretime,
+                //chgby = tank.chgby,
+                //chgtime = tank.chgtime,
                 tank = tank,
-                tanksetup_id = tank.tanksetup_id
+                //tanksetup_id = tank.tanksetup_id
             };
 
             return t;

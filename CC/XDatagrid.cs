@@ -214,8 +214,8 @@ namespace CC
             if (this.CurrentCell == null)
                 return;
 
-            //if (!this.Focused)
-            //    return;
+            if (!this.Enabled)
+                return;
 
             Rectangle rect = this.GetRowDisplayRectangle(this.CurrentCell.RowIndex, false);
 

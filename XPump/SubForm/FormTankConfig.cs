@@ -18,12 +18,13 @@ namespace XPump.SubForm
         private MainForm main_form;
         private FORM_MODE form_mode;
         private tanksetup tanksetup;
-        private List<tankVM> list_tankVM = new List<tankVM>();
+        //private List<tankVM> list_tankVM = new List<tankVM>();
+        private BindingList<tankVM> list_tankVM = new BindingList<tankVM>();
         private BindingList<sectionVM> list_sectionVM = new BindingList<sectionVM>();
         private tanksetup tmp_tanksetup;
         private tankVM tmp_tankVM;
         private sectionVM tmp_sectionVM;
-        private BindingSource bs_tank;
+        //private BindingSource bs_tank;
         //private BindingSource bs_section;
         private tank selected_tank;
         private section selected_section;
@@ -36,9 +37,9 @@ namespace XPump.SubForm
 
         private void FormTankConfig_Load(object sender, EventArgs e)
         {
-            this.bs_tank = new BindingSource();
-            this.bs_tank.DataSource = this.list_tankVM;
-            this.dgvTank.DataSource = this.bs_tank;
+            //this.bs_tank = new BindingSource();
+            //this.bs_tank.DataSource = this.list_tankVM;
+            this.dgvTank.DataSource = this.list_tankVM;
             this.dgvSection.DataSource = this.list_sectionVM;
 
             this.form_mode = FORM_MODE.READ;
@@ -79,8 +80,6 @@ namespace XPump.SubForm
             this.btnEditSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
             this.btnDeleteSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
             this.dtStartDate.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
-            this.dgvTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
-            this.dgvSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
         }
 
         public static tanksetup GetTankSetup(SccompDbf working_express_db, int tanksetup_id)
@@ -115,10 +114,11 @@ namespace XPump.SubForm
 
                 this.dtStartDate.SetDate(null);
 
-                this.list_tankVM = new List<tankVM>();
-                this.bs_tank.ResetBindings(true);
-                this.bs_tank.DataSource = this.list_tankVM;
+                //this.list_tankVM = new List<tankVM>();
+                //this.bs_tank.ResetBindings(true);
+                //this.bs_tank.DataSource = this.list_tankVM;
 
+                this.list_tankVM = new BindingList<tankVM>();
                 this.list_sectionVM = new BindingList<sectionVM>();
                 this.dgvSection.DataSource = this.list_sectionVM;
 
@@ -127,9 +127,8 @@ namespace XPump.SubForm
 
             this.dtStartDate.SetDate((DateTime?)tanksetup.startdate);
 
-            this.list_tankVM = tanksetup.tank.OrderBy(t => t.name).ToViewModel(this.main_form.working_express_db);
-            this.bs_tank.ResetBindings(true);
-            this.bs_tank.DataSource = this.list_tankVM;
+            this.list_tankVM = new BindingList<tankVM>(tanksetup.tank.OrderBy(t => t.name).ToViewModel(this.main_form.working_express_db));
+            this.dgvTank.DataSource = this.list_tankVM;
 
             if (this.dgvTank.CurrentCell != null)
             {
@@ -228,20 +227,37 @@ namespace XPump.SubForm
 
         private void dgvTank_CurrentCellChanged(object sender, EventArgs e)
         {
-            if (((XDatagrid)sender).CurrentCell == null)
-                return;
+            //if (((XDatagrid)sender).CurrentCell == null)
+            //    return;
 
-            var tank_id = (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
-            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-            {
-                this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).OrderBy(s => s.name).ToViewModel(this.main_form.working_express_db));
-                this.dgvSection.DataSource = this.list_sectionVM;
-            }
+            //Console.WriteLine("currentcell changed ; current row = " + ((XDatagrid)sender).CurrentCell.RowIndex);
+
+            //if ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) &&
+            //    this.tmp_tankVM != null &&
+            //    this.tmp_tankVM.id != (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value)
+            //{
+            //    this.btnSave.PerformClick();
+            //}
+
+            //var tank_id = (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
+            //using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            //{
+            //    this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).OrderBy(s => s.name).ToViewModel(this.main_form.working_express_db));
+            //    this.dgvSection.DataSource = this.list_sectionVM;
+            //}
         }
 
         private void dgvSection_CurrentCellChanged(object sender, EventArgs e)
         {
-            
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            if ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) &&
+                this.tmp_sectionVM != null &&
+                this.tmp_sectionVM.id != (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_sect_id.Name].Value)
+            {
+                this.btnSave.PerformClick();
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -324,6 +340,8 @@ namespace XPump.SubForm
             {
                 this.form_mode = FORM_MODE.READ;
                 this.ResetControlState();
+                this.dgvTank.Enabled = true;
+                this.dgvSection.Enabled = true;
                 this.tmp_tanksetup = null;
                 this.btnRefresh.PerformClick();
                 return;
@@ -334,8 +352,18 @@ namespace XPump.SubForm
                 this.RemoveInlineTankForm();
                 this.RemoveInlineSectionForm();
 
-                this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
-                this.FillForm();
+                if(this.form_mode == FORM_MODE.ADD_ITEM)
+                {
+                    this.list_tankVM.Remove(this.list_tankVM.Where(t => t.id == -1).FirstOrDefault());
+                    this.list_sectionVM.Remove(this.list_sectionVM.Where(s => s.id == -1).FirstOrDefault());
+                }
+                else if(this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    if(this.dgvTank.CurrentCell != null)
+                        this.list_tankVM.ResetItem(this.dgvTank.CurrentCell.RowIndex);
+                    if (this.dgvSection.CurrentCell != null)
+                        this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
+                }
 
                 this.form_mode = FORM_MODE.READ_ITEM;
                 this.ResetControlState();
@@ -430,7 +458,7 @@ namespace XPump.SubForm
                     {
                         if(this.tmp_tankVM.name.Trim().Length == 0)
                         {
-                            MessageBox.Show("กรุณาระบุรหัสแท๊งค์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            //MessageBox.Show("กรุณาระบุรหัสแท๊งค์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
@@ -442,7 +470,7 @@ namespace XPump.SubForm
                                 return;
                             }
 
-                            this.tmp_tankVM.cretime = DateTime.Now;
+                            this.tmp_tankVM.tank.cretime = DateTime.Now;
                             db.tank.Add(new tank
                             {
                                 name = this.tmp_tankVM.name,
@@ -476,7 +504,7 @@ namespace XPump.SubForm
                     {
                         if (this.tmp_tankVM.name.Trim().Length == 0)
                         {
-                            MessageBox.Show("กรุณาระบุรหัสแท๊งค์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            //MessageBox.Show("กรุณาระบุรหัสแท๊งค์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
@@ -498,8 +526,8 @@ namespace XPump.SubForm
 
                                 db.SaveChanges();
 
-                                this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
-                                this.FillForm();
+                                //this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
+                                //this.FillForm();
                                 this.RemoveInlineTankForm();
                             }
                             else
@@ -780,12 +808,18 @@ namespace XPump.SubForm
 
         private void btnTank_Click(object sender, EventArgs e)
         {
-
+            this.form_mode = FORM_MODE.READ_ITEM;
+            this.ResetControlState();
+            this.dgvTank.Enabled = true;
+            this.dgvSection.Enabled = false;
         }
 
         private void btnSection_Click(object sender, EventArgs e)
         {
-
+            this.form_mode = FORM_MODE.READ_ITEM;
+            this.ResetControlState();
+            this.dgvTank.Enabled = false;
+            this.dgvSection.Enabled = true;
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -801,6 +835,7 @@ namespace XPump.SubForm
         {
             this.list_tankVM.Add(new tank
             {
+                id = -1,
                 name = string.Empty,
                 description = string.Empty,
                 remark = string.Empty,
@@ -813,8 +848,8 @@ namespace XPump.SubForm
             this.dgvTank.Enabled = true;
             this.dgvSection.Enabled = false;
 
-            this.bs_tank.ResetBindings(true);
-            this.bs_tank.DataSource = this.list_tankVM;
+            //this.bs_tank.ResetBindings(true);
+            //this.bs_tank.DataSource = this.list_tankVM;
             this.dgvTank.Rows[this.list_tankVM.Count - 1].Cells[this.col_tank_name.Name].Selected = true;
             this.ShowInlineTankForm();
         }
@@ -873,6 +908,7 @@ namespace XPump.SubForm
         {
             this.list_sectionVM.Add(new section
             {
+                id = -1,
                 name = string.Empty,
                 loccod = string.Empty,
                 stkcod = string.Empty,
@@ -938,7 +974,7 @@ namespace XPump.SubForm
         private void inline_tankname__TextChanged(object sender, EventArgs e)
         {
             if (this.tmp_tankVM != null)
-                this.tmp_tankVM.name = ((XTextEdit)sender)._Text;
+                this.tmp_tankVM.tank.name = ((XTextEdit)sender)._Text;
         }
 
         private void dgvTank_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1055,9 +1091,7 @@ namespace XPump.SubForm
             {
                 if (this.tmp_sectionVM != null)
                 {
-                    //this.tmp_sectionVM.name = st.selected_row.Cells[0].Value.ToString();
                     this.tmp_sectionVM.section.name = st.selected_row.Cells[0].Value.ToString();
-                    //this.tmp_sectionVM.loccod = st.selected_row.Cells[1].Value.ToString();
                     this.tmp_sectionVM.section.loccod = st.selected_row.Cells[1].Value.ToString();
                     this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
                 }
@@ -1082,7 +1116,6 @@ namespace XPump.SubForm
             {
                 if(this.tmp_sectionVM != null)
                 {
-                    //this.tmp_sectionVM.stkcod = st.selected_row.Cells["col_stkcod"].Value.ToString();
                     this.tmp_sectionVM.section.stkcod = st.selected_row.Cells["col_stkcod"].Value.ToString();
                     this.tmp_sectionVM.section.stkdes = st.selected_row.Cells["col_stkdes"].Value.ToString();
                     this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
@@ -1095,7 +1128,6 @@ namespace XPump.SubForm
         {
             if(this.tmp_sectionVM != null)
             {
-                //this.tmp_sectionVM.capacity = ((XNumEdit)sender)._Value;
                 this.tmp_sectionVM.section.capacity = ((XNumEdit)sender)._Value;
                 this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
             }
@@ -1105,7 +1137,6 @@ namespace XPump.SubForm
         {
             if(this.tmp_sectionVM != null)
             {
-                //this.tmp_sectionVM.begtak = ((XNumEdit)sender)._Value;
                 this.tmp_sectionVM.section.begtak = ((XNumEdit)sender)._Value;
                 this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
             }
@@ -1115,7 +1146,6 @@ namespace XPump.SubForm
         {
             if(this.tmp_sectionVM != null)
             {
-                //this.tmp_sectionVM.begacc = ((XNumEdit)sender)._Value;
                 this.tmp_sectionVM.section.begacc = ((XNumEdit)sender)._Value;
                 this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
             }
@@ -1139,7 +1169,122 @@ namespace XPump.SubForm
                 }
             }
 
+            if (keyData == Keys.Escape)
+            {
+                this.btnStop.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.F7)
+            {
+                this.btnSection.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.F8)
+            {
+                this.btnTank.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.F9)
+            {
+                this.btnSave.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.A))
+            {
+                if (this.form_mode == FORM_MODE.READ)
+                    this.btnAdd.PerformClick();
+
+                if (this.form_mode == FORM_MODE.READ_ITEM && this.dgvTank.Enabled)
+                    this.btnAddTank.PerformClick();
+
+                if (this.form_mode == FORM_MODE.READ_ITEM && this.dgvSection.Enabled)
+                    this.btnAddSection.PerformClick();
+
+                return true;
+            }
+
+
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgvTank_EnabledChanged(object sender, EventArgs e)
+        {
+            this.lblTank.ForeColor = ((XDatagrid)sender).Enabled ? Color.Black : Color.Gray;
+        }
+
+        private void dgvSection_EnabledChanged(object sender, EventArgs e)
+        {
+            this.lblSection.ForeColor = ((XDatagrid)sender).Enabled ? Color.Black : Color.Gray;
+        }
+
+        private void dgvTank_Resize(object sender, EventArgs e)
+        {
+            if((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) && this.inline_tankname.Visible)
+            {
+                if (((XDatagrid)sender).CurrentCell == null)
+                    return;
+
+                int col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_tank_name.DataPropertyName).First().Index;
+                this.inline_tankname.SetInlineControlPosition(((XDatagrid)sender), ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
+            }
+        }
+
+        private void dgvSection_Resize(object sender, EventArgs e)
+        {
+            if((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) && this.inlineBegtak.Visible)
+            {
+                if (((XDatagrid)sender).CurrentCell == null)
+                    return;
+
+                int col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_name.DataPropertyName).First().Index;
+                this.inlineSectionName.SetInlineControlPosition(((XDatagrid)sender), ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
+
+                col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_stkcod.DataPropertyName).First().Index;
+                this.inlineStkcod.SetInlineControlPosition(((XDatagrid)sender), ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
+
+                col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_capacity.DataPropertyName).First().Index;
+                this.inlineCapacity.SetInlineControlPosition(((XDatagrid)sender), ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
+
+                col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_begtak.DataPropertyName).First().Index;
+                this.inlineBegtak.SetInlineControlPosition(((XDatagrid)sender), ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
+
+                col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_begacc.DataPropertyName).First().Index;
+                this.inlineBegacc.SetInlineControlPosition(((XDatagrid)sender), ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
+            }
+        }
+
+        private void dgvTank_SelectionChanged(object sender, EventArgs e)
+        {
+            //if (((XDatagrid)sender).CurrentCell == null)
+            //    return;
+
+            //Console.WriteLine("selection change ; current row = " + ((XDatagrid)sender).CurrentCell.RowIndex);
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            if ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) &&
+                this.tmp_tankVM != null &&
+                this.tmp_tankVM.id != (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value)
+            {
+                if(this.tmp_tankVM.name.Trim().Length == 0)
+                {
+                    ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_tank_id.Name].Value == this.tmp_tankVM.id).First().Cells[this.col_tank_name.Name].Selected = true;
+                    this.inline_tankname.Focus();
+                }
+
+                this.btnSave.PerformClick();
+            }
+
+            var tank_id = (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).OrderBy(s => s.name).ToViewModel(this.main_form.working_express_db));
+                this.dgvSection.DataSource = this.list_sectionVM;
+            }
         }
     }
 }
