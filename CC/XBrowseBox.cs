@@ -82,6 +82,18 @@ namespace CC
             }
         }
 
+        //public bool _AllowTextEdit
+        //{
+        //    get
+        //    {
+        //        return !this._textBox.ReadOnly;
+        //    }
+        //    set
+        //    {
+        //        this._textBox.ReadOnly = !value;
+        //    }
+        //}
+
         private bool use_image = true;
         public bool _UseImage
         {

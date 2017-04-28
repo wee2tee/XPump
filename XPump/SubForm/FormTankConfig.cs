@@ -18,16 +18,20 @@ namespace XPump.SubForm
         private MainForm main_form;
         private FORM_MODE form_mode;
         private tanksetup tanksetup;
-        //private List<tankVM> list_tankVM = new List<tankVM>();
         private BindingList<tankVM> list_tankVM = new BindingList<tankVM>();
         private BindingList<sectionVM> list_sectionVM = new BindingList<sectionVM>();
         private tanksetup tmp_tanksetup;
         private tankVM tmp_tankVM;
         private sectionVM tmp_sectionVM;
-        //private BindingSource bs_tank;
-        //private BindingSource bs_section;
         private tank selected_tank;
         private section selected_section;
+        private ITEM_TAB item_tab = ITEM_TAB.NONE;
+        private enum ITEM_TAB
+        {
+            NONE,
+            F7,
+            F8
+        }
 
         public FormTankConfig(MainForm main_form)
         {
@@ -68,8 +72,9 @@ namespace XPump.SubForm
             this.btnSearch.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryRest.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             /** Form control **/
@@ -80,6 +85,16 @@ namespace XPump.SubForm
             this.btnEditSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
             this.btnDeleteSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
             this.dtStartDate.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.dgvTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.dgvSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+
+            if (this.form_mode == FORM_MODE.READ ||
+                this.form_mode == FORM_MODE.ADD ||
+                this.form_mode == FORM_MODE.EDIT)
+            {
+                this.lblTank.BackColor = Color.Transparent;
+                this.lblSection.BackColor = Color.Transparent;
+            }
         }
 
         public static tanksetup GetTankSetup(SccompDbf working_express_db, int tanksetup_id)
@@ -119,6 +134,7 @@ namespace XPump.SubForm
                 //this.bs_tank.DataSource = this.list_tankVM;
 
                 this.list_tankVM = new BindingList<tankVM>();
+                this.dgvTank.DataSource = this.list_tankVM;
                 this.list_sectionVM = new BindingList<sectionVM>();
                 this.dgvSection.DataSource = this.list_sectionVM;
 
@@ -338,12 +354,13 @@ namespace XPump.SubForm
         {
             if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.READ_ITEM)
             {
+                this.item_tab = ITEM_TAB.NONE;
                 this.form_mode = FORM_MODE.READ;
                 this.ResetControlState();
                 this.dgvTank.Enabled = true;
                 this.dgvSection.Enabled = true;
                 this.tmp_tanksetup = null;
-                this.btnRefresh.PerformClick();
+                //this.btnRefresh.PerformClick();
                 return;
             }
 
@@ -402,8 +419,9 @@ namespace XPump.SubForm
                             this.FillForm();
                             loading.Close();
 
-                            this.form_mode = FORM_MODE.READ_ITEM;
+                            this.form_mode = FORM_MODE.READ;
                             this.ResetControlState();
+                            this.btnTank.PerformClick();
                             this.btnAddTank.PerformClick();
                         }
                         catch (Exception ex)
@@ -452,13 +470,12 @@ namespace XPump.SubForm
                 }
 
                 #region add/edit tank
-                if (this.form_mode == FORM_MODE.ADD_ITEM && this.dgvTank.Enabled)
+                if (this.form_mode == FORM_MODE.ADD_ITEM && this.item_tab == ITEM_TAB.F8)
                 {
                     if(this.tmp_tankVM != null)
                     {
                         if(this.tmp_tankVM.name.Trim().Length == 0)
                         {
-                            //MessageBox.Show("กรุณาระบุรหัสแท๊งค์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
@@ -467,6 +484,7 @@ namespace XPump.SubForm
                             if (db.tank.Where(t => t.tanksetup_id == this.tmp_tankVM.tanksetup_id && t.name == this.tmp_tankVM.name).FirstOrDefault() != null)
                             {
                                 MessageBox.Show("รหัสแท๊งค์ \"" + this.tmp_tankVM.name + "\" นี้มีอยู่แล้ว ควรเปลี่ยนใหม่", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                this.inline_tankname.Focus();
                                 return;
                             }
 
@@ -481,7 +499,7 @@ namespace XPump.SubForm
                                 tanksetup_id = this.tmp_tankVM.tanksetup_id
                             });
                             db.SaveChanges();
-
+                            this.RemoveInlineTankForm();
                             this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
                             this.FillForm();
 
@@ -498,13 +516,12 @@ namespace XPump.SubForm
                     }
                 }
 
-                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.dgvTank.Enabled)
+                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.item_tab == ITEM_TAB.F8)
                 {
                     if(this.tmp_tankVM != null)
                     {
                         if (this.tmp_tankVM.name.Trim().Length == 0)
                         {
-                            //MessageBox.Show("กรุณาระบุรหัสแท๊งค์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
@@ -513,6 +530,7 @@ namespace XPump.SubForm
                             if(db.tank.Where(t => t.tanksetup_id == this.tmp_tankVM.tanksetup_id && t.name == this.tmp_tankVM.name && t.id != this.tmp_tankVM.id).FirstOrDefault() != null)
                             {
                                 MessageBox.Show("รหัสแท๊งค์ \"" + this.tmp_tankVM.name + "\" นี้มีอยู่แล้ว ควรเปลี่ยนใหม่", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                this.inline_tankname.Focus();
                                 return;
                             }
 
@@ -526,8 +544,6 @@ namespace XPump.SubForm
 
                                 db.SaveChanges();
 
-                                //this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
-                                //this.FillForm();
                                 this.RemoveInlineTankForm();
                             }
                             else
@@ -547,27 +563,30 @@ namespace XPump.SubForm
                 #endregion add/edit tank
 
                 #region add/edit section
-                if (this.form_mode == FORM_MODE.ADD_ITEM && this.dgvSection.Enabled)
+                if (this.form_mode == FORM_MODE.ADD_ITEM && this.item_tab == ITEM_TAB.F7)
                 {
                     if(this.tmp_sectionVM != null)
                     {
                         if(this.tmp_sectionVM.name.Trim().Length == 0)
                         {
                             MessageBox.Show("กรุณาระบุเลขที่ถัง", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            this.inlineSectionName.Focus();
                             return;
                         }
                         if(this.tmp_sectionVM.stkcod.Trim().Length == 0)
                         {
                             MessageBox.Show("กรุณาระบุชนิดน้ำมัน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            this.inlineStkcod.Focus();
                             return;
                         }
 
                         try
                         {
-                            var sect = db.section.Include("tank").Where(s => s.tank_id == this.tmp_sectionVM.tank_id && s.name == this.tmp_sectionVM.name).FirstOrDefault();
+                            var sect = db.section.Include("tank").Where(s => s.tank.tanksetup_id == this.tanksetup.id && s.name == this.tmp_sectionVM.name).FirstOrDefault();
                             if (sect != null)
                             {
                                 MessageBox.Show("เลขที่ถัง \"" + this.tmp_sectionVM.name + "\" ถูกกำหนดไว้แล้วในแท๊งค์ \"" + sect.tank.name + "\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                this.inlineSectionName.Focus();
                                 return;
                             }
                             else
@@ -576,6 +595,7 @@ namespace XPump.SubForm
                                 this.tmp_sectionVM.section.cretime = DateTime.Now;
                                 db.section.Add(this.tmp_sectionVM.section);
                                 db.SaveChanges();
+                                this.RemoveInlineSectionForm();
                                 this.form_mode = FORM_MODE.READ_ITEM;
                                 this.ResetControlState();
                                 this.btnAddSection.PerformClick();
@@ -588,18 +608,20 @@ namespace XPump.SubForm
                     }
                     return;
                 }
-                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.dgvSection.Enabled)
+                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.item_tab == ITEM_TAB.F7)
                 {
                     if(this.tmp_sectionVM != null)
                     {
                         if (this.tmp_sectionVM.name.Trim().Length == 0)
                         {
                             MessageBox.Show("กรุณาระบุเลขที่ถัง", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            this.inlineSectionName.Focus();
                             return;
                         }
                         if (this.tmp_sectionVM.stkcod.Trim().Length == 0)
                         {
                             MessageBox.Show("กรุณาระบุชนิดน้ำมัน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            this.inlineStkcod.Focus();
                             return;
                         }
 
@@ -808,18 +830,22 @@ namespace XPump.SubForm
 
         private void btnTank_Click(object sender, EventArgs e)
         {
+            this.item_tab = ITEM_TAB.F8;
+            this.lblTank.BackColor = Color.FromKnownColor(KnownColor.Tan);
+            this.lblSection.BackColor = Color.Transparent;
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
-            this.dgvTank.Enabled = true;
-            this.dgvSection.Enabled = false;
+            this.ActiveControl = this.dgvTank;
         }
 
         private void btnSection_Click(object sender, EventArgs e)
         {
+            this.item_tab = ITEM_TAB.F7;
+            this.lblTank.BackColor = Color.Transparent;
+            this.lblSection.BackColor = Color.FromKnownColor(KnownColor.Tan);
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
-            this.dgvTank.Enabled = false;
-            this.dgvSection.Enabled = true;
+            this.ActiveControl = this.dgvSection;
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -848,8 +874,6 @@ namespace XPump.SubForm
             this.dgvTank.Enabled = true;
             this.dgvSection.Enabled = false;
 
-            //this.bs_tank.ResetBindings(true);
-            //this.bs_tank.DataSource = this.list_tankVM;
             this.dgvTank.Rows[this.list_tankVM.Count - 1].Cells[this.col_tank_name.Name].Selected = true;
             this.ShowInlineTankForm();
         }
@@ -875,17 +899,35 @@ namespace XPump.SubForm
             if (this.dgvTank.CurrentCell == null)
                 return;
 
-            if (MessageBox.Show("ลบรหัสแท๊งค์ \"" + (string)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_name.Name].Value + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            if (MessageBox.Show("ลบรหัสแท๊งค์ \"" + (string)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_name.Name].Value + "\" และ ถังน้ำมันในแท๊งค์นี้ทั้งหมด, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
                 return;
 
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
-                    int deleting_id = (int)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
-                    if(db.tank.Find(deleting_id) != null)
+                    int tank_id = (int)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
+
+                    var nozzle_ids = db.nozzle.Include("section").Where(n => n.section.tank_id == tank_id).Select(n => n.id).ToArray<int>();
+                    if(db.saleshistory.Where(s => nozzle_ids.Contains(s.nozzle_id)).Count() > 0)
                     {
-                        db.tank.Remove(db.tank.Find(deleting_id));
+                        MessageBox.Show("รหัสแท๊งค์ \"" + (string)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_name.Name].Value + "\" มีการเดินรายการแล้ว, ไม่สามารถลบได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
+                    if(db.tank.Find(tank_id) != null)
+                    {
+                        foreach (int noz_id in nozzle_ids)
+                        {
+                            db.nozzle.Remove(db.nozzle.Find(noz_id));
+                        }
+
+                        foreach (int sec_id in db.section.Where(s => s.tank_id == tank_id).Select(s => s.id).ToArray<int>())
+                        {
+                            db.section.Remove(db.section.Find(sec_id));
+                        }
+
+                        db.tank.Remove(db.tank.Find(tank_id));
                         db.SaveChanges();
 
                         this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
@@ -995,10 +1037,12 @@ namespace XPump.SubForm
 
         private void dgvTank_MouseClick(object sender, MouseEventArgs e)
         {
+            if(this.form_mode == FORM_MODE.READ_ITEM)
+                this.btnTank.PerformClick();
+
             if (e.Button == MouseButtons.Right && (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM))
             {
-                this.form_mode = FORM_MODE.READ_ITEM;
-                this.ResetControlState();
+                this.btnTank.PerformClick();
 
                 int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
 
@@ -1035,10 +1079,12 @@ namespace XPump.SubForm
 
         private void dgvSection_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right && (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM))
+            if(this.form_mode == FORM_MODE.READ_ITEM)
+                this.btnSection.PerformClick();
+
+            if (e.Button == MouseButtons.Right && (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM))
             {
-                this.form_mode = FORM_MODE.READ_ITEM;
-                this.ResetControlState();
+                this.btnSection.PerformClick();
 
                 int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
 
@@ -1072,6 +1118,62 @@ namespace XPump.SubForm
                 cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
             }
         }
+
+        private void inlineSectionName__Leave(object sender, EventArgs e)
+        {
+            if (this.tmp_sectionVM == null)
+                return;
+
+            if(((XBrowseBox)sender)._Text.Trim().Length == 0)
+            {
+                ((XBrowseBox)sender).Focus();
+                return;
+            }
+
+            string main_loc = DbfTable.Isinfo(this.main_form.working_express_db).ToList<IsinfoDbf>().First().mainloc.Trim();
+            var loc = DbfTable.Istab(this.main_form.working_express_db).ToIstabList().Where(s => s.tabtyp.Trim() == "21" && s.typcod.Trim() != main_loc).Select(s => new { typdes = s.typdes.TrimEnd(), loccod = s.typcod.TrimEnd() }).ToList();
+
+            var loc_selected = loc.Where(l => l.typdes == ((XBrowseBox)sender)._Text).FirstOrDefault();
+
+            if (loc_selected != null)
+            {
+                this.tmp_sectionVM.section.loccod = loc_selected.loccod;
+                this.tmp_sectionVM.section.name = loc_selected.typdes;
+                return;
+            }
+            else
+            {
+                ((XBrowseBox)sender).Focus();
+                return;
+            }
+        }
+
+        private void inlineStkcod__Leave(object sender, EventArgs e)
+        {
+            if (this.tmp_sectionVM == null)
+                return;
+
+            if(((XBrowseBox)sender)._Text.Trim().Length == 0)
+            {
+                ((XBrowseBox)sender).Focus();
+                return;
+            }
+
+            var stmas = DbfTable.Stmas(this.main_form.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == ((XBrowseBox)sender)._Text).FirstOrDefault();
+
+            if(stmas != null)
+            {
+                this.tmp_sectionVM.section.stkcod = stmas.stkcod.Trim();
+                this.tmp_sectionVM.section.stkdes = stmas.stkdes.Trim();
+                return;
+            }
+            else
+            {
+                ((XBrowseBox)sender).Focus();
+                return;
+            }
+        }
+
 
         private void inlineSectionName__ButtonClick(object sender, EventArgs e)
         {
@@ -1151,76 +1253,6 @@ namespace XPump.SubForm
             }
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Enter)
-            {
-                if (this.form_mode == FORM_MODE.ADD && this.dtStartDate._Focused ||
-                   ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) && this.inline_tankname._Focused) ||
-                   ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) && this.inlineBegacc._Focused))
-                {
-                    this.btnSave.PerformClick();
-                    return true;
-                }
-                else if (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
-                {
-                    SendKeys.Send("{TAB}");
-                    return true;
-                }
-            }
-
-            if (keyData == Keys.Escape)
-            {
-                this.btnStop.PerformClick();
-                return true;
-            }
-
-            if (keyData == Keys.F7)
-            {
-                this.btnSection.PerformClick();
-                return true;
-            }
-
-            if (keyData == Keys.F8)
-            {
-                this.btnTank.PerformClick();
-                return true;
-            }
-
-            if (keyData == Keys.F9)
-            {
-                this.btnSave.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Alt | Keys.A))
-            {
-                if (this.form_mode == FORM_MODE.READ)
-                    this.btnAdd.PerformClick();
-
-                if (this.form_mode == FORM_MODE.READ_ITEM && this.dgvTank.Enabled)
-                    this.btnAddTank.PerformClick();
-
-                if (this.form_mode == FORM_MODE.READ_ITEM && this.dgvSection.Enabled)
-                    this.btnAddSection.PerformClick();
-
-                return true;
-            }
-
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void dgvTank_EnabledChanged(object sender, EventArgs e)
-        {
-            this.lblTank.ForeColor = ((XDatagrid)sender).Enabled ? Color.Black : Color.Gray;
-        }
-
-        private void dgvSection_EnabledChanged(object sender, EventArgs e)
-        {
-            this.lblSection.ForeColor = ((XDatagrid)sender).Enabled ? Color.Black : Color.Gray;
-        }
-
         private void dgvTank_Resize(object sender, EventArgs e)
         {
             if((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) && this.inline_tankname.Visible)
@@ -1285,6 +1317,129 @@ namespace XPump.SubForm
                 this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).OrderBy(s => s.name).ToViewModel(this.main_form.working_express_db));
                 this.dgvSection.DataSource = this.list_sectionVM;
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                if ((this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT) && this.dtStartDate._Focused ||
+                   ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) && this.inline_tankname._Focused) ||
+                   ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) && this.inlineBegacc._Focused))
+                {
+                    this.btnSave.PerformClick();
+                    return true;
+                }
+                else if (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    SendKeys.Send("{TAB}");
+                    return true;
+                }
+            }
+
+            if (keyData == Keys.Escape)
+            {
+                this.btnStop.PerformClick();
+                return true;
+            }
+
+            //if (keyData == Keys.F7)
+            //{
+            //    this.btnSection.PerformClick();
+            //    return true;
+            //}
+
+            //if (keyData == Keys.F8)
+            //{
+            //    this.btnTank.PerformClick();
+            //    return true;
+            //}
+
+            if (keyData == Keys.F9)
+            {
+                this.btnSave.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.A))
+            {
+                if (this.form_mode == FORM_MODE.READ)
+                    this.btnAdd.PerformClick();
+
+                if (this.form_mode == FORM_MODE.READ_ITEM && this.item_tab == ITEM_TAB.F8)
+                    this.btnAddTank.PerformClick();
+
+                if (this.form_mode == FORM_MODE.READ_ITEM && this.item_tab == ITEM_TAB.F7)
+                    this.btnAddSection.PerformClick();
+
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.E))
+            {
+                if (this.form_mode == FORM_MODE.READ)
+                    this.btnEdit.PerformClick();
+
+                if (this.form_mode == FORM_MODE.READ_ITEM && this.item_tab == ITEM_TAB.F8)
+                    this.btnEditTank.PerformClick();
+
+                if (this.form_mode == FORM_MODE.READ_ITEM && this.item_tab == ITEM_TAB.F7)
+                    this.btnEditSection.PerformClick();
+
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.D))
+            {
+                if (this.form_mode == FORM_MODE.READ)
+                    this.btnDelete.PerformClick();
+
+                if (this.form_mode == FORM_MODE.READ_ITEM && this.item_tab == ITEM_TAB.F8)
+                    this.btnDeleteTank.PerformClick();
+
+                if (this.form_mode == FORM_MODE.READ_ITEM && this.item_tab == ITEM_TAB.F7)
+                    this.btnDeleteSection.PerformClick();
+
+                return true;
+            }
+
+            if(keyData == Keys.PageUp)
+            {
+                this.btnPrevious.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.PageDown)
+            {
+                this.btnNext.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.Home))
+            {
+                this.btnFirst.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.End))
+            {
+                this.btnLast.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.S))
+            {
+                this.btnSearch.PerformButtonClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.F5))
+            {
+                this.btnRefresh.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }
