@@ -216,6 +216,10 @@ namespace XPump.SubForm
             this.inlineBegacc._Value = this.tmp_sectionVM.begacc;
             this.inlineBegacc.Visible = true;
 
+            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_nozzlecount.DataPropertyName).First().Index;
+            var default_padding = this.dgvSection.Rows[row_index].Cells[col_index].Style.Padding;
+            this.dgvSection.Rows[row_index].Cells[col_index].Style.Padding = new Padding(default_padding.Left, default_padding.Top, default_padding.Right, 35);
+
             if (this.form_mode == FORM_MODE.ADD_ITEM)
                 this.inlineSectionName.Focus();
 
@@ -239,41 +243,6 @@ namespace XPump.SubForm
             this.inlineBegacc.Visible = false;
 
             this.tmp_sectionVM = null;
-        }
-
-        private void dgvTank_CurrentCellChanged(object sender, EventArgs e)
-        {
-            //if (((XDatagrid)sender).CurrentCell == null)
-            //    return;
-
-            //Console.WriteLine("currentcell changed ; current row = " + ((XDatagrid)sender).CurrentCell.RowIndex);
-
-            //if ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) &&
-            //    this.tmp_tankVM != null &&
-            //    this.tmp_tankVM.id != (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value)
-            //{
-            //    this.btnSave.PerformClick();
-            //}
-
-            //var tank_id = (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
-            //using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-            //{
-            //    this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).OrderBy(s => s.name).ToViewModel(this.main_form.working_express_db));
-            //    this.dgvSection.DataSource = this.list_sectionVM;
-            //}
-        }
-
-        private void dgvSection_CurrentCellChanged(object sender, EventArgs e)
-        {
-            if (((XDatagrid)sender).CurrentCell == null)
-                return;
-
-            if ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) &&
-                this.tmp_sectionVM != null &&
-                this.tmp_sectionVM.id != (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_sect_id.Name].Value)
-            {
-                this.btnSave.PerformClick();
-            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -357,10 +326,12 @@ namespace XPump.SubForm
                 this.item_tab = ITEM_TAB.NONE;
                 this.form_mode = FORM_MODE.READ;
                 this.ResetControlState();
-                this.dgvTank.Enabled = true;
-                this.dgvSection.Enabled = true;
+                //this.dgvTank.Enabled = true;
+                //this.dgvSection.Enabled = true;
                 this.tmp_tanksetup = null;
-                //this.btnRefresh.PerformClick();
+                this.tmp_tankVM = null;
+                this.tmp_sectionVM = null;
+                this.btnRefresh.PerformClick();
                 return;
             }
 
@@ -569,14 +540,16 @@ namespace XPump.SubForm
                     {
                         if(this.tmp_sectionVM.name.Trim().Length == 0)
                         {
-                            MessageBox.Show("กรุณาระบุเลขที่ถัง", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            this.dgvSection.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sect_id.Name].Value == this.tmp_sectionVM.id).First().Cells[this.col_sect_name.Name].Selected = true;
                             this.inlineSectionName.Focus();
+                            //this.inlineSectionName.PerformButtonClick();
                             return;
                         }
                         if(this.tmp_sectionVM.stkcod.Trim().Length == 0)
                         {
-                            MessageBox.Show("กรุณาระบุชนิดน้ำมัน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            this.dgvSection.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sect_id.Name].Value == this.tmp_sectionVM.id).First().Cells[this.col_sect_stkcod.Name].Selected = true;
                             this.inlineStkcod.Focus();
+                            //this.inlineStkcod.PerformButtonClick();
                             return;
                         }
 
@@ -853,8 +826,9 @@ namespace XPump.SubForm
             if(this.tanksetup != null)
             {
                 this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
-                this.FillForm();
             }
+
+            this.FillForm();
         }
 
         private void btnAddTank_Click(object sender, EventArgs e)
@@ -1027,8 +1001,39 @@ namespace XPump.SubForm
             this.btnEditTank.PerformClick();
         }
 
+        private void dgvSection_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                if (this.inlineSectionName.Visible)
+                {
+                    this.inlineSectionName.Focus();
+                    return;
+                }
+                if (this.inlineStkcod.Visible)
+                {
+                    this.inlineStkcod.Focus();
+                    return;
+                }
+            }
+        }
+
         private void dgvSection_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                if (this.inlineSectionName.Visible)
+                {
+                    this.inlineSectionName.Focus();
+                    return;
+                }
+                if (this.inlineStkcod.Visible)
+                {
+                    this.inlineStkcod.Focus();
+                    return;
+                }
+            }
+
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
 
@@ -1037,6 +1042,9 @@ namespace XPump.SubForm
 
         private void dgvTank_MouseClick(object sender, MouseEventArgs e)
         {
+            if (this.tanksetup == null)
+                return;
+
             if(this.form_mode == FORM_MODE.READ_ITEM)
                 this.btnTank.PerformClick();
 
@@ -1079,6 +1087,9 @@ namespace XPump.SubForm
 
         private void dgvSection_MouseClick(object sender, MouseEventArgs e)
         {
+            if (this.tanksetup == null)
+                return;
+
             if(this.form_mode == FORM_MODE.READ_ITEM)
                 this.btnSection.PerformClick();
 
@@ -1124,28 +1135,28 @@ namespace XPump.SubForm
             if (this.tmp_sectionVM == null)
                 return;
 
-            if(((XBrowseBox)sender)._Text.Trim().Length == 0)
-            {
-                ((XBrowseBox)sender).Focus();
-                return;
-            }
+            //if(((XBrowseBox)sender)._Text.Trim().Length == 0)
+            //{
+            //    ((XBrowseBox)sender).Focus();
+            //    return;
+            //}
 
-            string main_loc = DbfTable.Isinfo(this.main_form.working_express_db).ToList<IsinfoDbf>().First().mainloc.Trim();
-            var loc = DbfTable.Istab(this.main_form.working_express_db).ToIstabList().Where(s => s.tabtyp.Trim() == "21" && s.typcod.Trim() != main_loc).Select(s => new { typdes = s.typdes.TrimEnd(), loccod = s.typcod.TrimEnd() }).ToList();
+            //string main_loc = DbfTable.Isinfo(this.main_form.working_express_db).ToList<IsinfoDbf>().First().mainloc.Trim();
+            //var loc = DbfTable.Istab(this.main_form.working_express_db).ToIstabList().Where(s => s.tabtyp.Trim() == "21" && s.typcod.Trim() != main_loc).Select(s => new { typdes = s.typdes.TrimEnd(), loccod = s.typcod.TrimEnd() }).ToList();
 
-            var loc_selected = loc.Where(l => l.typdes == ((XBrowseBox)sender)._Text).FirstOrDefault();
+            //var loc_selected = loc.Where(l => l.typdes == ((XBrowseBox)sender)._Text).FirstOrDefault();
 
-            if (loc_selected != null)
-            {
-                this.tmp_sectionVM.section.loccod = loc_selected.loccod;
-                this.tmp_sectionVM.section.name = loc_selected.typdes;
-                return;
-            }
-            else
-            {
-                ((XBrowseBox)sender).Focus();
-                return;
-            }
+            //if (loc_selected != null)
+            //{
+            //    this.tmp_sectionVM.section.loccod = loc_selected.loccod;
+            //    this.tmp_sectionVM.section.name = loc_selected.typdes;
+            //    return;
+            //}
+            //else
+            //{
+            //    ((XBrowseBox)sender).Focus();
+            //    return;
+            //}
         }
 
         private void inlineStkcod__Leave(object sender, EventArgs e)
@@ -1153,25 +1164,25 @@ namespace XPump.SubForm
             if (this.tmp_sectionVM == null)
                 return;
 
-            if(((XBrowseBox)sender)._Text.Trim().Length == 0)
-            {
-                ((XBrowseBox)sender).Focus();
-                return;
-            }
+            //if(((XBrowseBox)sender)._Text.Trim().Length == 0)
+            //{
+            //    ((XBrowseBox)sender).Focus();
+            //    return;
+            //}
 
-            var stmas = DbfTable.Stmas(this.main_form.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == ((XBrowseBox)sender)._Text).FirstOrDefault();
+            //var stmas = DbfTable.Stmas(this.main_form.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == ((XBrowseBox)sender)._Text).FirstOrDefault();
 
-            if(stmas != null)
-            {
-                this.tmp_sectionVM.section.stkcod = stmas.stkcod.Trim();
-                this.tmp_sectionVM.section.stkdes = stmas.stkdes.Trim();
-                return;
-            }
-            else
-            {
-                ((XBrowseBox)sender).Focus();
-                return;
-            }
+            //if(stmas != null)
+            //{
+            //    this.tmp_sectionVM.section.stkcod = stmas.stkcod.Trim();
+            //    this.tmp_sectionVM.section.stkdes = stmas.stkdes.Trim();
+            //    return;
+            //}
+            //else
+            //{
+            //    ((XBrowseBox)sender).Focus();
+            //    return;
+            //}
         }
 
 
@@ -1291,10 +1302,6 @@ namespace XPump.SubForm
 
         private void dgvTank_SelectionChanged(object sender, EventArgs e)
         {
-            //if (((XDatagrid)sender).CurrentCell == null)
-            //    return;
-
-            //Console.WriteLine("selection change ; current row = " + ((XDatagrid)sender).CurrentCell.RowIndex);
             if (((XDatagrid)sender).CurrentCell == null)
                 return;
 
@@ -1306,6 +1313,7 @@ namespace XPump.SubForm
                 {
                     ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_tank_id.Name].Value == this.tmp_tankVM.id).First().Cells[this.col_tank_name.Name].Selected = true;
                     this.inline_tankname.Focus();
+                    return;
                 }
 
                 this.btnSave.PerformClick();
@@ -1316,6 +1324,33 @@ namespace XPump.SubForm
             {
                 this.list_sectionVM = new BindingList<sectionVM>(db.section.Where(s => s.tank_id == tank_id).OrderBy(s => s.name).ToViewModel(this.main_form.working_express_db));
                 this.dgvSection.DataSource = this.list_sectionVM;
+            }
+        }
+
+        private void dgvSection_SelectionChanged(object sender, EventArgs e)
+        {
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            if((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) &&
+                this.tmp_sectionVM != null &&
+                this.tmp_sectionVM.id != (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_sect_id.Name].Value)
+            {
+                //if(this.tmp_sectionVM.name.Trim().Length == 0)
+                //{
+                //    ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sect_id.Name].Value == this.tmp_sectionVM.id).First().Cells[this.col_sect_name.Name].Selected = true;
+                //    this.inlineSectionName.Focus();
+                //    return;
+                //}
+
+                //if(this.tmp_sectionVM.stkcod.Trim().Length == 0)
+                //{
+                //    ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sect_id.Name].Value == this.tmp_sectionVM.id).First().Cells[this.col_sect_name.Name].Selected = true;
+                //    this.inlineStkcod.Focus();
+                //    return;
+                //}
+
+                this.btnSave.PerformClick();
             }
         }
 

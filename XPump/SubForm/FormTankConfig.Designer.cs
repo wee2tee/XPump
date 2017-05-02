@@ -63,12 +63,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnDeleteTank = new System.Windows.Forms.Button();
-            this.btnEditTank = new System.Windows.Forms.Button();
-            this.btnAddTank = new System.Windows.Forms.Button();
-            this.lblTank = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblSection = new System.Windows.Forms.Label();
             this.inline_tankname = new CC.XTextEdit();
             this.dgvTank = new CC.XDatagrid();
             this.col_tank_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -87,18 +81,28 @@
             this.col_tank_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tank_tank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tank__isactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDeleteTank = new System.Windows.Forms.Button();
+            this.btnEditTank = new System.Windows.Forms.Button();
+            this.btnAddTank = new System.Windows.Forms.Button();
+            this.lblTank = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.inlineStkcod = new CC.XBrowseBox();
             this.inlineSectionName = new CC.XBrowseBox();
             this.inlineBegacc = new CC.XNumEdit();
             this.inlineBegtak = new CC.XNumEdit();
             this.inlineCapacity = new CC.XNumEdit();
             this.dgvSection = new CC.XDatagrid();
+            this.btnDeleteSection = new System.Windows.Forms.Button();
+            this.btnEditSection = new System.Windows.Forms.Button();
+            this.btnAddSection = new System.Windows.Forms.Button();
+            this.lblSection = new System.Windows.Forms.Label();
+            this.dtStartDate = new CC.XDatePicker();
             this.col_sect_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sect_nozzlecount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sect_nozzlecount = new System.Windows.Forms.DataGridViewButtonColumn();
             this.col_sect_capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_begtak = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_begacc = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -112,10 +116,6 @@
             this.col_sect_end_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_section = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dtStartDate = new CC.XDatePicker();
-            this.btnDeleteSection = new System.Windows.Forms.Button();
-            this.btnEditSection = new System.Windows.Forms.Button();
-            this.btnAddSection = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -124,8 +124,8 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSection)).BeginInit();
             this.SuspendLayout();
             // 
@@ -326,7 +326,7 @@
             this.btnTank.Name = "btnTank";
             this.btnTank.ShortcutKeys = System.Windows.Forms.Keys.F8;
             this.btnTank.ShowShortcutKeys = false;
-            this.btnTank.Size = new System.Drawing.Size(152, 22);
+            this.btnTank.Size = new System.Drawing.Size(135, 22);
             this.btnTank.Text = "แท๊งค์ <F8>";
             this.btnTank.Click += new System.EventHandler(this.btnTank_Click);
             // 
@@ -335,7 +335,7 @@
             this.btnSection.Name = "btnSection";
             this.btnSection.ShortcutKeys = System.Windows.Forms.Keys.F7;
             this.btnSection.ShowShortcutKeys = false;
-            this.btnSection.Size = new System.Drawing.Size(152, 22);
+            this.btnSection.Size = new System.Drawing.Size(135, 22);
             this.btnSection.Text = "ถังน้ำมัน <F7>";
             this.btnSection.Click += new System.EventHandler(this.btnSection_Click);
             // 
@@ -421,83 +421,6 @@
             this.panel1.Size = new System.Drawing.Size(212, 372);
             this.panel1.TabIndex = 10;
             // 
-            // btnDeleteTank
-            // 
-            this.btnDeleteTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnDeleteTank.Location = new System.Drawing.Point(161, 88);
-            this.btnDeleteTank.Name = "btnDeleteTank";
-            this.btnDeleteTank.Size = new System.Drawing.Size(72, 27);
-            this.btnDeleteTank.TabIndex = 9;
-            this.btnDeleteTank.Text = "delete_tank";
-            this.btnDeleteTank.UseVisualStyleBackColor = true;
-            this.btnDeleteTank.Click += new System.EventHandler(this.btnDeleteTank_Click);
-            // 
-            // btnEditTank
-            // 
-            this.btnEditTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnEditTank.Location = new System.Drawing.Point(87, 88);
-            this.btnEditTank.Name = "btnEditTank";
-            this.btnEditTank.Size = new System.Drawing.Size(68, 27);
-            this.btnEditTank.TabIndex = 9;
-            this.btnEditTank.Text = "edit_tank";
-            this.btnEditTank.UseVisualStyleBackColor = true;
-            this.btnEditTank.Click += new System.EventHandler(this.btnEditTank_Click);
-            // 
-            // btnAddTank
-            // 
-            this.btnAddTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnAddTank.Location = new System.Drawing.Point(13, 88);
-            this.btnAddTank.Name = "btnAddTank";
-            this.btnAddTank.Size = new System.Drawing.Size(68, 27);
-            this.btnAddTank.TabIndex = 9;
-            this.btnAddTank.Text = "add_tank";
-            this.btnAddTank.UseVisualStyleBackColor = true;
-            this.btnAddTank.Click += new System.EventHandler(this.btnAddTank_Click);
-            // 
-            // lblTank
-            // 
-            this.lblTank.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTank.BackColor = System.Drawing.Color.Transparent;
-            this.lblTank.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblTank.Location = new System.Drawing.Point(3, 4);
-            this.lblTank.Name = "lblTank";
-            this.lblTank.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.lblTank.Size = new System.Drawing.Size(211, 20);
-            this.lblTank.TabIndex = 9;
-            this.lblTank.Text = "แท๊งค์ <F8>";
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.inlineStkcod);
-            this.panel2.Controls.Add(this.inlineSectionName);
-            this.panel2.Controls.Add(this.inlineBegacc);
-            this.panel2.Controls.Add(this.inlineBegtak);
-            this.panel2.Controls.Add(this.inlineCapacity);
-            this.panel2.Controls.Add(this.dgvSection);
-            this.panel2.Controls.Add(this.btnDeleteSection);
-            this.panel2.Controls.Add(this.btnEditSection);
-            this.panel2.Controls.Add(this.btnAddSection);
-            this.panel2.Location = new System.Drawing.Point(3, 29);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(773, 372);
-            this.panel2.TabIndex = 10;
-            // 
-            // lblSection
-            // 
-            this.lblSection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSection.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblSection.Location = new System.Drawing.Point(3, 4);
-            this.lblSection.Name = "lblSection";
-            this.lblSection.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.lblSection.Size = new System.Drawing.Size(773, 20);
-            this.lblSection.TabIndex = 9;
-            this.lblSection.Text = "ถังน้ำมัน <F7>";
-            // 
             // inline_tankname
             // 
             this.inline_tankname._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -574,7 +497,6 @@
             this.dgvTank.StandardTab = true;
             this.dgvTank.TabIndex = 0;
             this.dgvTank.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTank_CellDoubleClick);
-            this.dgvTank.CurrentCellChanged += new System.EventHandler(this.dgvTank_CurrentCellChanged);
             this.dgvTank.SelectionChanged += new System.EventHandler(this.dgvTank_SelectionChanged);
             this.dgvTank.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvTank_MouseClick);
             this.dgvTank.Resize += new System.EventHandler(this.dgvTank_Resize);
@@ -706,6 +628,71 @@
             this.col_tank__isactive.Name = "col_tank__isactive";
             this.col_tank__isactive.ReadOnly = true;
             this.col_tank__isactive.Visible = false;
+            // 
+            // btnDeleteTank
+            // 
+            this.btnDeleteTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDeleteTank.Location = new System.Drawing.Point(161, 88);
+            this.btnDeleteTank.Name = "btnDeleteTank";
+            this.btnDeleteTank.Size = new System.Drawing.Size(72, 27);
+            this.btnDeleteTank.TabIndex = 9;
+            this.btnDeleteTank.Text = "delete_tank";
+            this.btnDeleteTank.UseVisualStyleBackColor = true;
+            this.btnDeleteTank.Click += new System.EventHandler(this.btnDeleteTank_Click);
+            // 
+            // btnEditTank
+            // 
+            this.btnEditTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnEditTank.Location = new System.Drawing.Point(87, 88);
+            this.btnEditTank.Name = "btnEditTank";
+            this.btnEditTank.Size = new System.Drawing.Size(68, 27);
+            this.btnEditTank.TabIndex = 9;
+            this.btnEditTank.Text = "edit_tank";
+            this.btnEditTank.UseVisualStyleBackColor = true;
+            this.btnEditTank.Click += new System.EventHandler(this.btnEditTank_Click);
+            // 
+            // btnAddTank
+            // 
+            this.btnAddTank.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAddTank.Location = new System.Drawing.Point(13, 88);
+            this.btnAddTank.Name = "btnAddTank";
+            this.btnAddTank.Size = new System.Drawing.Size(68, 27);
+            this.btnAddTank.TabIndex = 9;
+            this.btnAddTank.Text = "add_tank";
+            this.btnAddTank.UseVisualStyleBackColor = true;
+            this.btnAddTank.Click += new System.EventHandler(this.btnAddTank_Click);
+            // 
+            // lblTank
+            // 
+            this.lblTank.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTank.BackColor = System.Drawing.Color.Transparent;
+            this.lblTank.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblTank.Location = new System.Drawing.Point(3, 4);
+            this.lblTank.Name = "lblTank";
+            this.lblTank.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.lblTank.Size = new System.Drawing.Size(211, 20);
+            this.lblTank.TabIndex = 9;
+            this.lblTank.Text = "แท๊งค์ <F8>";
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.inlineStkcod);
+            this.panel2.Controls.Add(this.inlineSectionName);
+            this.panel2.Controls.Add(this.inlineBegacc);
+            this.panel2.Controls.Add(this.inlineBegtak);
+            this.panel2.Controls.Add(this.inlineCapacity);
+            this.panel2.Controls.Add(this.dgvSection);
+            this.panel2.Controls.Add(this.btnDeleteSection);
+            this.panel2.Controls.Add(this.btnEditSection);
+            this.panel2.Controls.Add(this.btnAddSection);
+            this.panel2.Location = new System.Drawing.Point(3, 29);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(773, 372);
+            this.panel2.TabIndex = 10;
             // 
             // inlineStkcod
             // 
@@ -903,10 +890,70 @@
             this.dgvSection.Size = new System.Drawing.Size(773, 372);
             this.dgvSection.StandardTab = true;
             this.dgvSection.TabIndex = 0;
+            this.dgvSection.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSection_CellClick);
             this.dgvSection.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSection_CellDoubleClick);
-            this.dgvSection.CurrentCellChanged += new System.EventHandler(this.dgvSection_CurrentCellChanged);
+            this.dgvSection.SelectionChanged += new System.EventHandler(this.dgvSection_SelectionChanged);
             this.dgvSection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSection_MouseClick);
             this.dgvSection.Resize += new System.EventHandler(this.dgvSection_Resize);
+            // 
+            // btnDeleteSection
+            // 
+            this.btnDeleteSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDeleteSection.Location = new System.Drawing.Point(171, 24);
+            this.btnDeleteSection.Name = "btnDeleteSection";
+            this.btnDeleteSection.Size = new System.Drawing.Size(86, 27);
+            this.btnDeleteSection.TabIndex = 11;
+            this.btnDeleteSection.Text = "delete_section";
+            this.btnDeleteSection.UseVisualStyleBackColor = true;
+            this.btnDeleteSection.Click += new System.EventHandler(this.btnDeleteSection_Click);
+            // 
+            // btnEditSection
+            // 
+            this.btnEditSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnEditSection.Location = new System.Drawing.Point(91, 24);
+            this.btnEditSection.Name = "btnEditSection";
+            this.btnEditSection.Size = new System.Drawing.Size(74, 27);
+            this.btnEditSection.TabIndex = 12;
+            this.btnEditSection.Text = "edit_section";
+            this.btnEditSection.UseVisualStyleBackColor = true;
+            this.btnEditSection.Click += new System.EventHandler(this.btnEditSection_Click);
+            // 
+            // btnAddSection
+            // 
+            this.btnAddSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAddSection.Location = new System.Drawing.Point(15, 24);
+            this.btnAddSection.Name = "btnAddSection";
+            this.btnAddSection.Size = new System.Drawing.Size(74, 27);
+            this.btnAddSection.TabIndex = 13;
+            this.btnAddSection.Text = "add_section";
+            this.btnAddSection.UseVisualStyleBackColor = true;
+            this.btnAddSection.Click += new System.EventHandler(this.btnAddSection_Click);
+            // 
+            // lblSection
+            // 
+            this.lblSection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSection.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblSection.Location = new System.Drawing.Point(3, 4);
+            this.lblSection.Name = "lblSection";
+            this.lblSection.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.lblSection.Size = new System.Drawing.Size(773, 20);
+            this.lblSection.TabIndex = 9;
+            this.lblSection.Text = "ถังน้ำมัน <F7>";
+            // 
+            // dtStartDate
+            // 
+            this.dtStartDate._ReadOnly = true;
+            this.dtStartDate._SelectedDate = null;
+            this.dtStartDate.BackColor = System.Drawing.Color.White;
+            this.dtStartDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtStartDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtStartDate.Location = new System.Drawing.Point(97, 60);
+            this.dtStartDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtStartDate.Name = "dtStartDate";
+            this.dtStartDate.Size = new System.Drawing.Size(103, 23);
+            this.dtStartDate.TabIndex = 6;
+            this.dtStartDate._SelectedDateChanged += new System.EventHandler(this.dtStartDate__SelectedDateChanged);
             // 
             // col_sect_working_express_db
             // 
@@ -955,12 +1002,13 @@
             this.col_sect_nozzlecount.DataPropertyName = "nozzlecount";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle4.Format = "N0";
-            dataGridViewCellStyle4.NullValue = null;
             this.col_sect_nozzlecount.DefaultCellStyle = dataGridViewCellStyle4;
             this.col_sect_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
             this.col_sect_nozzlecount.MinimumWidth = 90;
             this.col_sect_nozzlecount.Name = "col_sect_nozzlecount";
             this.col_sect_nozzlecount.ReadOnly = true;
+            this.col_sect_nozzlecount.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_sect_nozzlecount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.col_sect_nozzlecount.Width = 90;
             // 
             // col_sect_capacity
@@ -1086,53 +1134,6 @@
             this.col_sect_state.ReadOnly = true;
             this.col_sect_state.Visible = false;
             // 
-            // dtStartDate
-            // 
-            this.dtStartDate._ReadOnly = true;
-            this.dtStartDate._SelectedDate = null;
-            this.dtStartDate.BackColor = System.Drawing.Color.White;
-            this.dtStartDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtStartDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtStartDate.Location = new System.Drawing.Point(97, 60);
-            this.dtStartDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtStartDate.Name = "dtStartDate";
-            this.dtStartDate.Size = new System.Drawing.Size(103, 23);
-            this.dtStartDate.TabIndex = 6;
-            this.dtStartDate._SelectedDateChanged += new System.EventHandler(this.dtStartDate__SelectedDateChanged);
-            // 
-            // btnDeleteSection
-            // 
-            this.btnDeleteSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnDeleteSection.Location = new System.Drawing.Point(171, 24);
-            this.btnDeleteSection.Name = "btnDeleteSection";
-            this.btnDeleteSection.Size = new System.Drawing.Size(86, 27);
-            this.btnDeleteSection.TabIndex = 11;
-            this.btnDeleteSection.Text = "delete_section";
-            this.btnDeleteSection.UseVisualStyleBackColor = true;
-            this.btnDeleteSection.Click += new System.EventHandler(this.btnDeleteSection_Click);
-            // 
-            // btnEditSection
-            // 
-            this.btnEditSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnEditSection.Location = new System.Drawing.Point(91, 24);
-            this.btnEditSection.Name = "btnEditSection";
-            this.btnEditSection.Size = new System.Drawing.Size(74, 27);
-            this.btnEditSection.TabIndex = 12;
-            this.btnEditSection.Text = "edit_section";
-            this.btnEditSection.UseVisualStyleBackColor = true;
-            this.btnEditSection.Click += new System.EventHandler(this.btnEditSection_Click);
-            // 
-            // btnAddSection
-            // 
-            this.btnAddSection.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnAddSection.Location = new System.Drawing.Point(15, 24);
-            this.btnAddSection.Name = "btnAddSection";
-            this.btnAddSection.Size = new System.Drawing.Size(74, 27);
-            this.btnAddSection.TabIndex = 13;
-            this.btnAddSection.Text = "add_section";
-            this.btnAddSection.UseVisualStyleBackColor = true;
-            this.btnAddSection.Click += new System.EventHandler(this.btnAddSection_Click);
-            // 
             // FormTankConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1160,8 +1161,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTank)).EndInit();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSection)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1227,12 +1228,15 @@
         private CC.XNumEdit inlineBegtak;
         private CC.XNumEdit inlineCapacity;
         private CC.XBrowseBox inlineStkcod;
+        private System.Windows.Forms.Button btnDeleteSection;
+        private System.Windows.Forms.Button btnEditSection;
+        private System.Windows.Forms.Button btnAddSection;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_working_express_db;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_tank_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_stkcod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_nozzlecount;
+        private System.Windows.Forms.DataGridViewButtonColumn col_sect_nozzlecount;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_capacity;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_begtak;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_begacc;
@@ -1246,8 +1250,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_end_date;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_section;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_state;
-        private System.Windows.Forms.Button btnDeleteSection;
-        private System.Windows.Forms.Button btnEditSection;
-        private System.Windows.Forms.Button btnAddSection;
     }
 }
