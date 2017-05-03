@@ -102,7 +102,8 @@
             this.col_sect_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sect_nozzlecount = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.col_sect_nozzlecount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sect_nozzle_btn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.col_sect_capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_begtak = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sect_begacc = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -404,6 +405,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.lblSection);
             this.splitContainer1.Size = new System.Drawing.Size(1001, 404);
             this.splitContainer1.SplitterDistance = 218;
+            this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -691,7 +693,7 @@
             this.panel2.Controls.Add(this.btnAddSection);
             this.panel2.Location = new System.Drawing.Point(3, 29);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(773, 372);
+            this.panel2.Size = new System.Drawing.Size(775, 372);
             this.panel2.TabIndex = 10;
             // 
             // inlineStkcod
@@ -854,6 +856,7 @@
             this.col_sect_name,
             this.col_sect_stkcod,
             this.col_sect_nozzlecount,
+            this.col_sect_nozzle_btn,
             this.col_sect_capacity,
             this.col_sect_begtak,
             this.col_sect_begacc,
@@ -887,11 +890,13 @@
             this.dgvSection.RowHeadersVisible = false;
             this.dgvSection.RowTemplate.Height = 26;
             this.dgvSection.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSection.Size = new System.Drawing.Size(773, 372);
+            this.dgvSection.Size = new System.Drawing.Size(775, 372);
             this.dgvSection.StandardTab = true;
             this.dgvSection.TabIndex = 0;
             this.dgvSection.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSection_CellClick);
+            this.dgvSection.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSection_CellContentClick);
             this.dgvSection.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSection_CellDoubleClick);
+            this.dgvSection.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvSection_CellPainting);
             this.dgvSection.SelectionChanged += new System.EventHandler(this.dgvSection_SelectionChanged);
             this.dgvSection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSection_MouseClick);
             this.dgvSection.Resize += new System.EventHandler(this.dgvSection_Resize);
@@ -937,7 +942,7 @@
             this.lblSection.Location = new System.Drawing.Point(3, 4);
             this.lblSection.Name = "lblSection";
             this.lblSection.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.lblSection.Size = new System.Drawing.Size(773, 20);
+            this.lblSection.Size = new System.Drawing.Size(775, 20);
             this.lblSection.TabIndex = 9;
             this.lblSection.Text = "ถังน้ำมัน <F7>";
             // 
@@ -1003,13 +1008,20 @@
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle4.Format = "N0";
             this.col_sect_nozzlecount.DefaultCellStyle = dataGridViewCellStyle4;
-            this.col_sect_nozzlecount.HeaderText = "จำนวนหัวจ่าย";
-            this.col_sect_nozzlecount.MinimumWidth = 90;
+            this.col_sect_nozzlecount.HeaderText = "หัวจ่าย";
+            this.col_sect_nozzlecount.MinimumWidth = 60;
             this.col_sect_nozzlecount.Name = "col_sect_nozzlecount";
             this.col_sect_nozzlecount.ReadOnly = true;
             this.col_sect_nozzlecount.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_sect_nozzlecount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_sect_nozzlecount.Width = 90;
+            this.col_sect_nozzlecount.Width = 60;
+            // 
+            // col_sect_nozzle_btn
+            // 
+            this.col_sect_nozzle_btn.HeaderText = "";
+            this.col_sect_nozzle_btn.MinimumWidth = 25;
+            this.col_sect_nozzle_btn.Name = "col_sect_nozzle_btn";
+            this.col_sect_nozzle_btn.ReadOnly = true;
+            this.col_sect_nozzle_btn.Width = 25;
             // 
             // col_sect_capacity
             // 
@@ -1236,7 +1248,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_tank_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_stkcod;
-        private System.Windows.Forms.DataGridViewButtonColumn col_sect_nozzlecount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_nozzlecount;
+        private System.Windows.Forms.DataGridViewButtonColumn col_sect_nozzle_btn;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_capacity;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_begtak;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sect_begacc;

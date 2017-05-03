@@ -15,6 +15,7 @@ namespace XPump.SubForm
 {
     public partial class FormTankConfig : Form
     {
+        public string menu_id;
         private MainForm main_form;
         private FORM_MODE form_mode;
         private tanksetup tanksetup;
@@ -36,6 +37,7 @@ namespace XPump.SubForm
         public FormTankConfig(MainForm main_form)
         {
             InitializeComponent();
+            this.menu_id = this.GetType().Name;
             this.main_form = main_form;
         }
 
@@ -216,9 +218,8 @@ namespace XPump.SubForm
             this.inlineBegacc._Value = this.tmp_sectionVM.begacc;
             this.inlineBegacc.Visible = true;
 
-            col_index = this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_nozzlecount.DataPropertyName).First().Index;
-            var default_padding = this.dgvSection.Rows[row_index].Cells[col_index].Style.Padding;
-            this.dgvSection.Rows[row_index].Cells[col_index].Style.Padding = new Padding(default_padding.Left, default_padding.Top, default_padding.Right, 35);
+            this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_nozzle_btn.DataPropertyName).First().DefaultCellStyle.Padding = new Padding(0, 0, 0, 50);
+            
 
             if (this.form_mode == FORM_MODE.ADD_ITEM)
                 this.inlineSectionName.Focus();
@@ -241,6 +242,8 @@ namespace XPump.SubForm
             this.inlineCapacity.Visible = false;
             this.inlineBegtak.Visible = false;
             this.inlineBegacc.Visible = false;
+
+            this.dgvSection.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_nozzle_btn.DataPropertyName).First().DefaultCellStyle.Padding = new Padding(0, 0, 0, 0);
 
             this.tmp_sectionVM = null;
         }
@@ -386,6 +389,10 @@ namespace XPump.SubForm
                             db.tanksetup.Add(this.tmp_tanksetup);
                             db.SaveChanges();
 
+                            // kept log
+                            this.main_form.islog.AddData(this.menu_id, "การตั้งค่าแท๊งค์เก็บน้ำมันสำหรับวันที่ " + this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "").Save();
+                           
+
                             this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tmp_tanksetup.id);
                             this.FillForm();
                             loading.Close();
@@ -414,9 +421,13 @@ namespace XPump.SubForm
                             tanksetup tanksetup_to_update = db.tanksetup.Find(this.tmp_tanksetup.id);
                             if(tanksetup_to_update != null)
                             {
+                                var old_date = tanksetup_to_update.startdate;
                                 tanksetup_to_update.startdate = this.tmp_tanksetup.startdate;
                                 tanksetup_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                                 tanksetup_to_update.chgtime = DateTime.Now;
+
+                                // kept log
+                                this.main_form.islog.EditData(this.menu_id, "การตั้งค่าแท๊งค์เก็บน้ำมัน โดยเปลี่ยนจากวันที่ " + old_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " เป็นวันที่ " + this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "").Save();
 
                                 db.SaveChanges();
                                 this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tmp_tanksetup.id);
@@ -995,6 +1006,9 @@ namespace XPump.SubForm
 
         private void dgvTank_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1)
+                return;
+
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
 
@@ -1020,6 +1034,9 @@ namespace XPump.SubForm
 
         private void dgvSection_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1)
+                return;
+
             if (this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
             {
                 if (this.inlineSectionName.Visible)
@@ -1475,6 +1492,66 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgvSection_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if(e.RowIndex == -1)
+            {
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_nozzlecount.DataPropertyName).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground);
+                    e.Handled = true;
+                    return;
+                }
+
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_nozzle_btn.DataPropertyName).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                    var bg_clr = ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor;
+                    using (SolidBrush brush = new SolidBrush(bg_clr))
+                    {
+                        e.Graphics.FillRectangle(brush, new RectangleF(e.CellBounds.X - 4, e.CellBounds.Y + 2, 8, e.CellBounds.Height - 3));
+                    }
+
+                    TextRenderer.DrawText(e.Graphics, "จำนวนหัวจ่าย", ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, new Rectangle(e.CellBounds.X - 55, e.CellBounds.Y, e.CellBounds.Width + 15, e.CellBounds.Height), ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.ForeColor, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor, TextFormatFlags.NoClipping | TextFormatFlags.VerticalCenter);
+
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            if(e.RowIndex > -1)
+            {
+                if ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) && this.item_tab == ITEM_TAB.F7)
+                    return;
+
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_nozzle_btn.DataPropertyName).First().Index)
+                {
+                    var img_w = XPump.Properties.Resources.nozzle2_16.Width;
+                    var img_h = XPump.Properties.Resources.nozzle2_16.Height;
+                    var padding_x = Convert.ToInt32(Math.Floor((decimal)(e.CellBounds.Width - img_w) / 2));
+                    var padding_y = Convert.ToInt32(Math.Floor((decimal)(e.CellBounds.Height - img_h) / 2));
+
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    e.Graphics.DrawImage(new Bitmap(XPump.Properties.Resources.nozzle2_16), new Rectangle(e.CellBounds.X + padding_x, e.CellBounds.Y + padding_y, img_w, img_h));
+                    e.Handled = true;
+                    return;
+                }
+            }
+        }
+
+        private void dgvSection_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_nozzle_btn.DataPropertyName).First().Index)
+            {
+                DialogNozzle noz = new DialogNozzle(this.main_form, this, (section)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_sect_section.Name].Value);
+                noz.ShowDialog();
+            }
         }
     }
 }

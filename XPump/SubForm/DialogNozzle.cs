@@ -75,15 +75,7 @@ namespace XPump.SubForm
                 }
                 this.lblSection.Text = this.section.name;
 
-                //this.tank = db.tank.Find(this.section.tank_id);
-                //if(this.tank == null)
-                //{
-                //    MessageBox.Show("ไม่สามารถค้นหาแท๊งค์ที่ต้องการแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                //    this.DialogResult = DialogResult.Cancel;
-                //    this.Close();
-                //    return;
-                //}
-                //this.lblTank.Text = this.tank.name + " / " + this.tank.description;
+                this.lblTank.Text = db.tank.Find(this.section.tank_id) != null ? db.tank.Find(this.section.tank_id).name : string.Empty;
 
                 this.list_nozzle = this.GetNozzleList();
 
@@ -244,7 +236,8 @@ namespace XPump.SubForm
                 description = string.Empty,
                 isactive = true,
                 remark = string.Empty,
-                section_id = this.section.id
+                section_id = this.section.id,
+                creby = this.main_form.loged_in_status.loged_in_user_name,
             };
             this.list_nozzle.Add(this.temp_nozzle);
 
@@ -331,6 +324,7 @@ namespace XPump.SubForm
                 {
                     try
                     {
+                        this.temp_nozzle.cretime = DateTime.Now;
                         db.nozzle.Add(this.temp_nozzle);
                         db.SaveChanges();
 
@@ -380,6 +374,8 @@ namespace XPump.SubForm
                         nozzle_to_update.description = this.temp_nozzle.description;
                         nozzle_to_update.isactive = this.temp_nozzle.isactive;
                         nozzle_to_update.remark = this.temp_nozzle.remark;
+                        nozzle_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        nozzle_to_update.chgtime = DateTime.Now;
 
                         db.SaveChanges();
 
