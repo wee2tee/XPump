@@ -10,11 +10,13 @@ using XPump.Model;
 using XPump.Misc;
 using CC;
 using System.Data.Entity.Infrastructure;
+using System.Globalization;
 
 namespace XPump.SubForm
 {
     public partial class DialogNozzle : Form
     {
+        private string menu_id;
         private MainForm main_form;
         private FormTankConfig form_tankconfig;
         //private tank tank;
@@ -37,6 +39,7 @@ namespace XPump.SubForm
         public DialogNozzle(MainForm main_form, FormTankConfig form_tanksetup, section section_object)
         {
             InitializeComponent();
+            this.menu_id = this.GetType().Name;
             this.main_form = main_form;
             this.section = section_object;
             this.form_tankconfig = form_tanksetup;
@@ -277,8 +280,11 @@ namespace XPump.SubForm
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
-                    db.nozzle.Remove(db.nozzle.Find(tmp.id));
+                    var nozzle_to_delete = db.nozzle.Find(tmp.id);
+                    db.nozzle.Remove(nozzle_to_delete);
                     db.SaveChanges();
+
+                    this.main_form.islog.DeleteData(this.menu_id, "ลบรหัสหัวจ่ายน้ำมัน \"" + nozzle_to_delete.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.form_tankconfig.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), nozzle_to_delete.name, "nozzle", nozzle_to_delete.id).Save();
 
                     this.list_nozzle = this.GetNozzleList();
                     this.bs.ResetBindings(true);
@@ -328,6 +334,8 @@ namespace XPump.SubForm
                         db.nozzle.Add(this.temp_nozzle);
                         db.SaveChanges();
 
+                        this.main_form.islog.AddData(this.menu_id, "เพิ่มรหัสหัวจ่ายน้ำมัน \"" + this.temp_nozzle.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.form_tankconfig.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.temp_nozzle.name, "nozzle", this.temp_nozzle.id).Save();
+
                         this.list_nozzle = this.GetNozzleList();
                         this.bs.ResetBindings(true);
                         this.bs.DataSource = this.list_nozzle.ToViewModel(this.main_form.working_express_db);
@@ -343,14 +351,6 @@ namespace XPump.SubForm
                     {
                         ex.ShowMessage("รหัส", this.temp_nozzle.name, "รหัสช่องเก็บน้ำมัน", this.section.name);
                     }
-                    //catch (DbUpdateException ex)
-                    //{
-                    //    if (ex.InnerException.Message.ToLower().Contains("duplicate entry") || ex.InnerException.InnerException.Message.ToLower().Contains("duplicate entry"))
-                    //    {
-                    //        MessageBox.Show("รหัส \"" + this.temp_nozzle.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    //        this.inline_name.Focus();
-                    //    }
-                    //}
                 }
 
                 return;
@@ -378,6 +378,8 @@ namespace XPump.SubForm
                         nozzle_to_update.chgtime = DateTime.Now;
 
                         db.SaveChanges();
+
+                        this.main_form.islog.EditData(this.menu_id, "แก้ไขรายละเอียดหัวจ่ายน้ำมัน \"" + this.temp_nozzle.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.form_tankconfig.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.temp_nozzle.name, "nozzle", this.temp_nozzle.id).Save();
 
                         this.list_nozzle = this.GetNozzleList();
                         this.bs.ResetBindings(true);

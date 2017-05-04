@@ -184,6 +184,12 @@
     <Compile Include="SubForm\DialogConnectDbServer.Designer.cs">
       <DependentUpon>DialogConnectDbServer.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogDataInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDataInfo.Designer.cs">
+      <DependentUpon>DialogDataInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogDateSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -385,6 +391,9 @@
     </Compile>
     <EmbeddedResource Include="SubForm\DialogConnectDbServer.resx">
       <DependentUpon>DialogConnectDbServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDataInfo.resx">
+      <DependentUpon>DialogDataInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogDateSelector.resx">
       <DependentUpon>DialogDateSelector.cs</DependentUpon>

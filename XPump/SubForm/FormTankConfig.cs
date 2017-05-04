@@ -18,7 +18,7 @@ namespace XPump.SubForm
         public string menu_id;
         private MainForm main_form;
         private FORM_MODE form_mode;
-        private tanksetup tanksetup;
+        public tanksetup tanksetup;
         private BindingList<tankVM> list_tankVM = new BindingList<tankVM>();
         private BindingList<sectionVM> list_sectionVM = new BindingList<sectionVM>();
         private tanksetup tmp_tanksetup;
@@ -310,7 +310,7 @@ namespace XPump.SubForm
                             db.tanksetup.Remove(db.tanksetup.Find(this.tanksetup.id));
 
                             db.SaveChanges();
-
+                            this.main_form.islog.DeleteData(this.menu_id, "ลบการตั้งค่าแท๊งค์น้ำมันวันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "tanksetup", this.tanksetup.id).Save();
                             this.btnPrevious.PerformClick();
                         }
                         catch (Exception ex)
@@ -374,7 +374,6 @@ namespace XPump.SubForm
                     if (last_sale != null && last_sale.saldat.CompareTo(this.tmp_tanksetup.startdate) >= 0)
                     {
                         MessageBox.Show("วันที่เริ่มใช้ต้องเป็นวันที่หลังจากรายการขายครั้งสุดท้าย, รายการขายครั้งสุดท้ายวันที่ \"" + last_sale.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + "\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
                         return;
                     }
 
@@ -390,7 +389,7 @@ namespace XPump.SubForm
                             db.SaveChanges();
 
                             // kept log
-                            this.main_form.islog.AddData(this.menu_id, "การตั้งค่าแท๊งค์เก็บน้ำมันสำหรับวันที่ " + this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "").Save();
+                            this.main_form.islog.AddData(this.menu_id, "เพิ่มการตั้งค่าแท๊งค์เก็บน้ำมันวันที่ " + this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "tanksetup", this.tmp_tanksetup.id).Save();
                            
 
                             this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tmp_tanksetup.id);
@@ -427,7 +426,7 @@ namespace XPump.SubForm
                                 tanksetup_to_update.chgtime = DateTime.Now;
 
                                 // kept log
-                                this.main_form.islog.EditData(this.menu_id, "การตั้งค่าแท๊งค์เก็บน้ำมัน โดยเปลี่ยนจากวันที่ " + old_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " เป็นวันที่ " + this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "").Save();
+                                this.main_form.islog.EditData(this.menu_id, "แก้ไขการตั้งค่าแท๊งค์เก็บน้ำมัน, เปลี่ยนวันที่ " + old_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " => " + this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "tanksetup", this.tmp_tanksetup.id).Save();
 
                                 db.SaveChanges();
                                 this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tmp_tanksetup.id);
@@ -471,16 +470,9 @@ namespace XPump.SubForm
                             }
 
                             this.tmp_tankVM.tank.cretime = DateTime.Now;
-                            db.tank.Add(new tank
-                            {
-                                name = this.tmp_tankVM.name,
-                                description = this.tmp_tankVM.description,
-                                remark = this.tmp_tankVM.remark,
-                                creby = this.tmp_tankVM.creby,
-                                cretime = this.tmp_tankVM.cretime,
-                                tanksetup_id = this.tmp_tankVM.tanksetup_id
-                            });
+                            db.tank.Add(this.tmp_tankVM.tank);
                             db.SaveChanges();
+                            this.main_form.islog.AddData(this.menu_id, "เพิ่มรหัสแท๊งค์ \"" + this.tmp_tankVM.name + "\", ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tankVM.tank.name, "tank", this.tmp_tankVM.tank.id).Save();
                             this.RemoveInlineTankForm();
                             this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
                             this.FillForm();
@@ -520,13 +512,17 @@ namespace XPump.SubForm
 
                             if(tank_to_update != null)
                             {
+                                var old_name = tank_to_update.name;
                                 tank_to_update.name = this.tmp_tankVM.name;
                                 tank_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                                 tank_to_update.chgtime = DateTime.Now;
 
                                 db.SaveChanges();
+                                this.main_form.islog.EditData(this.menu_id, "แก้ไขรหัสแท๊งค์ \"" + old_name + "\" => \"" + this.tmp_tankVM.name + "\", ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tankVM.name, "tank", this.tmp_tankVM.id).Save();
 
                                 this.RemoveInlineTankForm();
+                                this.form_mode = FORM_MODE.READ_ITEM;
+                                this.ResetControlState();
                             }
                             else
                             {
@@ -551,16 +547,14 @@ namespace XPump.SubForm
                     {
                         if(this.tmp_sectionVM.name.Trim().Length == 0)
                         {
-                            this.dgvSection.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sect_id.Name].Value == this.tmp_sectionVM.id).First().Cells[this.col_sect_name.Name].Selected = true;
+                            MessageBox.Show("กรุณาระบุเลขที่ถัง", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             this.inlineSectionName.Focus();
-                            //this.inlineSectionName.PerformButtonClick();
                             return;
                         }
                         if(this.tmp_sectionVM.stkcod.Trim().Length == 0)
                         {
-                            this.dgvSection.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sect_id.Name].Value == this.tmp_sectionVM.id).First().Cells[this.col_sect_stkcod.Name].Selected = true;
+                            MessageBox.Show("กรุณาระบุชนิดน้ำมัน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             this.inlineStkcod.Focus();
-                            //this.inlineStkcod.PerformButtonClick();
                             return;
                         }
 
@@ -579,6 +573,7 @@ namespace XPump.SubForm
                                 this.tmp_sectionVM.section.cretime = DateTime.Now;
                                 db.section.Add(this.tmp_sectionVM.section);
                                 db.SaveChanges();
+                                this.main_form.islog.AddData(this.menu_id, "เพิ่มเลขที่ถังน้ำมัน \"" + this.tmp_sectionVM.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_sectionVM.name, "section", this.tmp_sectionVM.id).Save();
                                 this.RemoveInlineSectionForm();
                                 this.form_mode = FORM_MODE.READ_ITEM;
                                 this.ResetControlState();
@@ -624,7 +619,10 @@ namespace XPump.SubForm
                                 sect_to_update.chgtime = DateTime.Now;
 
                                 db.SaveChanges();
+                                this.main_form.islog.AddData(this.menu_id, "แก้ไขรายละเอียดถังน้ำมัน \"" + this.tmp_sectionVM.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_sectionVM.name, "section", this.tmp_sectionVM.id).Save();
                                 this.RemoveInlineSectionForm();
+                                this.form_mode = FORM_MODE.READ_ITEM;
+                                this.ResetControlState();
                             }
                             else
                             {
@@ -871,6 +869,8 @@ namespace XPump.SubForm
             if (this.dgvTank.CurrentCell.RowIndex == -1)
                 return;
 
+            this.btnTank.PerformClick();
+
             this.form_mode = FORM_MODE.EDIT_ITEM;
             this.ResetControlState();
             this.dgvTank.Enabled = true;
@@ -911,10 +911,11 @@ namespace XPump.SubForm
                         {
                             db.section.Remove(db.section.Find(sec_id));
                         }
-
-                        db.tank.Remove(db.tank.Find(tank_id));
+                        var tank_to_delete = db.tank.Find(tank_id);
+                        db.tank.Remove(tank_to_delete);
                         db.SaveChanges();
 
+                        this.main_form.islog.DeleteData(this.menu_id, "ลบรหัสแท๊งค์ \"" + tank_to_delete.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), tank_to_delete.name, "tank", tank_to_delete.id).Save();
                         this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
                         this.FillForm();
                     }
@@ -959,6 +960,11 @@ namespace XPump.SubForm
 
         private void btnEditSection_Click(object sender, EventArgs e)
         {
+            this.btnSection.PerformClick();
+
+            if (this.dgvSection.CurrentCell == null)
+                return;
+
             this.form_mode = FORM_MODE.EDIT_ITEM;
             this.ResetControlState();
             this.dgvSection.Enabled = true;
@@ -979,8 +985,11 @@ namespace XPump.SubForm
                     int deleting_id = (int)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells[this.col_sect_id.Name].Value;
                     if(db.section.Find(deleting_id) != null)
                     {
-                        db.section.Remove(db.section.Find(deleting_id));
+                        var section_to_delete = db.section.Find(deleting_id);
+                        db.section.Remove(section_to_delete);
                         db.SaveChanges();
+
+                        this.main_form.islog.DeleteData(this.menu_id, "ลบถังน้ำมันเลขที่ \"" + section_to_delete.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), section_to_delete.name, "section", section_to_delete.id).Save();
                         this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
                         this.FillForm();
                     }
@@ -1072,7 +1081,10 @@ namespace XPump.SubForm
                 int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
 
                 if (row_index > -1)
+                {
                     ((XDatagrid)sender).Rows[row_index].Cells[this.col_tank_name.Name].Selected = true;
+                    this.dgvTank_SelectionChanged(sender, e);
+                }
 
                 ContextMenu cm = new ContextMenu();
                 MenuItem mnu_add = new MenuItem("เพิ่ม");
@@ -1172,6 +1184,7 @@ namespace XPump.SubForm
             //else
             //{
             //    ((XBrowseBox)sender).Focus();
+            //    ((XBrowseBox)sender).PerformButtonClick();
             //    return;
             //}
         }
@@ -1189,7 +1202,7 @@ namespace XPump.SubForm
 
             //var stmas = DbfTable.Stmas(this.main_form.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == ((XBrowseBox)sender)._Text).FirstOrDefault();
 
-            //if(stmas != null)
+            //if (stmas != null)
             //{
             //    this.tmp_sectionVM.section.stkcod = stmas.stkcod.Trim();
             //    this.tmp_sectionVM.section.stkdes = stmas.stkdes.Trim();
@@ -1198,6 +1211,7 @@ namespace XPump.SubForm
             //else
             //{
             //    ((XBrowseBox)sender).Focus();
+            //    ((XBrowseBox)sender).PerformButtonClick();
             //    return;
             //}
         }
@@ -1349,25 +1363,13 @@ namespace XPump.SubForm
             if (((XDatagrid)sender).CurrentCell == null)
                 return;
 
-            if((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) &&
+            if ((this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM) &&
                 this.tmp_sectionVM != null &&
                 this.tmp_sectionVM.id != (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_sect_id.Name].Value)
             {
-                //if(this.tmp_sectionVM.name.Trim().Length == 0)
-                //{
-                //    ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sect_id.Name].Value == this.tmp_sectionVM.id).First().Cells[this.col_sect_name.Name].Selected = true;
-                //    this.inlineSectionName.Focus();
-                //    return;
-                //}
+                ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sect_id.Name].Value == this.tmp_sectionVM.id).First().Cells[this.col_sect_name.Name].Selected = true;
 
-                //if(this.tmp_sectionVM.stkcod.Trim().Length == 0)
-                //{
-                //    ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sect_id.Name].Value == this.tmp_sectionVM.id).First().Cells[this.col_sect_name.Name].Selected = true;
-                //    this.inlineStkcod.Focus();
-                //    return;
-                //}
-
-                this.btnSave.PerformClick();
+                this.inlineSectionName.Focus();
             }
         }
 
@@ -1489,6 +1491,65 @@ namespace XPump.SubForm
             {
                 this.btnRefresh.PerformClick();
                 return true;
+            }
+
+            if(keyData == Keys.Tab)
+            {
+                if(this.form_mode == FORM_MODE.READ)
+                {
+                    if(this.tanksetup != null)
+                    {
+                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                        {
+                            var tmp = db.tanksetup.Find(this.tanksetup.id);
+                            var total_row = db.tanksetup.AsEnumerable().Count();
+                            if(tmp != null)
+                            {
+                                DialogDataInfo info = new DialogDataInfo("Tanksetup", tmp.id, total_row, tmp.creby, tmp.cretime, tmp.chgby, tmp.chgtime);
+                                info.ShowDialog();
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+                if(this.form_mode == FORM_MODE.READ_ITEM && this.item_tab == ITEM_TAB.F8)
+                {
+                    if (this.dgvTank.CurrentCell == null)
+                        return false;
+
+                    int tank_id = (int)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var tmp = db.tank.Find(tank_id);
+                        var total_rec = db.tank.AsEnumerable().Count();
+                        if(tmp != null)
+                        {
+                            DialogDataInfo info = new DialogDataInfo("Tank", tmp.id, total_rec, tmp.creby, tmp.cretime, tmp.chgby, tmp.chgtime);
+                            info.ShowDialog();
+                            return true;
+                        }
+                    }
+                }
+
+                if (this.form_mode == FORM_MODE.READ_ITEM && this.item_tab == ITEM_TAB.F7)
+                {
+                    if (this.dgvSection.CurrentCell == null)
+                        return false;
+
+                    int sect_id = (int)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells[this.col_sect_id.Name].Value;
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var tmp = db.section.Find(sect_id);
+                        var total_rec = db.section.AsEnumerable().Count();
+                        if (tmp != null)
+                        {
+                            DialogDataInfo info = new DialogDataInfo("Section", tmp.id, total_rec, tmp.creby, tmp.cretime, tmp.chgby, tmp.chgtime);
+                            info.ShowDialog();
+                            return true;
+                        }
+                    }
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

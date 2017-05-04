@@ -118,38 +118,86 @@ namespace XPump.Misc
             return l;
         }
 
-        public LogObject AddData(string menu_id, string added_key, string added_value)
+        public LogObject AddData(string menu_id, string added_key, string added_value, string docnum, string affected_table = null, int? affected_id = null)
         {
             LogObject l = new LogObject(this.main_form)
             {
                 Code = "008",
                 Description = string.Format("เพิ่ม{0} {1} สำเร็จ", added_key, added_value),
                 Module = menu_id,
-                Docnum = added_value
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id
             };
             return l;
         }
 
-        public LogObject EditData(string menu_id, string edited_key, string edited_value)
+        public LogObject AddData(string menu_id, string description, string docnum, string affected_table = null, int? affected_id = null)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "008",
+                Description = description,
+                Module = menu_id,
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id
+            };
+            return l;
+        }
+
+        public LogObject EditData(string menu_id, string edited_key, string edited_value, string docnum, string affected_table = null, int? affected_id = null)
         {
             LogObject l = new LogObject(this.main_form)
             {
                 Code = "009",
                 Description = string.Format("แก้ไข{0} {1} สำเร็จ", edited_key, edited_value),
                 Module = menu_id,
-                Docnum = edited_value
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id
             };
             return l;
         }
 
-        public LogObject DeleteData(string menu_id, string deleted_key, string deleted_value)
+        public LogObject EditData(string menu_id, string description, string docnum, string affected_table = null, int? affected_id = null)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "009",
+                Description = description,
+                Module = menu_id,
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id
+            };
+            return l;
+        }
+
+        public LogObject DeleteData(string menu_id, string deleted_key, string deleted_value, string docnum, string affected_table = null, int? affected_id = null)
         {
             LogObject l = new LogObject(this.main_form)
             {
                 Code = "010",
                 Description = string.Format("ลบ{0} {1} สำเร็จ", deleted_key, deleted_value),
                 Module = menu_id,
-                Docnum = deleted_value
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id
+            };
+            return l;
+        }
+
+        public LogObject DeleteData(string menu_id, string description, string docnum, string affected_table = null, int? affected_id = null)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "010",
+                Description = description,
+                Module = menu_id,
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id
             };
             return l;
         }
@@ -264,6 +312,8 @@ namespace XPump.Misc
         public string Docnum { get; set; }
         public string Description { get; set; }
         public string Module { get; set; }
+        public string afftable { get; set; }
+        public int? affid { get; set; }
         public string UserName
         {
             get
@@ -293,10 +343,11 @@ namespace XPump.Misc
             {
                 string module = this.Module != null ? this.Module : string.Empty;
                 string docnum = this.Docnum != null ? this.Docnum : string.Empty;
+                
                 //string data = this.main_form.working_express_db != null ? this.ExpressData : string.Empty;
                 //string xpump_data = this.XPumpData != null ? this.XPumpData : string.Empty;
 
-                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + this.UserName + "')";
+                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `afftable`, `affid`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', " + (this.afftable != null ? "'" + this.afftable + "'" : "NULL") + ", " + (this.affid != null ? this.affid.ToString() : "NULL") + ", '" + docnum + "', '" + this.Description + "', '" + this.UserName + "')";
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();

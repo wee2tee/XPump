@@ -36,7 +36,6 @@
             this.MnuStmas = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.testBindingListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.อนๆToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuChangeCompany = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,8 +92,7 @@
             this.ToolStripStock.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuStmas,
             this.toolStripMenuItem2,
-            this.toolStripMenuItem1,
-            this.testBindingListToolStripMenuItem});
+            this.toolStripMenuItem1});
             this.ToolStripStock.Name = "ToolStripStock";
             this.ToolStripStock.Size = new System.Drawing.Size(107, 20);
             this.ToolStripStock.Text = "ฐานข้อมูลเริ่มต้น";
@@ -104,6 +102,7 @@
             this.MnuStmas.Name = "MnuStmas";
             this.MnuStmas.Size = new System.Drawing.Size(195, 22);
             this.MnuStmas.Text = "รายละเอียดสินค้า";
+            this.MnuStmas.Visible = false;
             this.MnuStmas.Click += new System.EventHandler(this.MnuStmas_Click);
             // 
             // toolStripMenuItem2
@@ -119,13 +118,6 @@
             this.toolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
             this.toolStripMenuItem1.Text = "กำหนดผลัดพนักงาน";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.MnuShift_Click);
-            // 
-            // testBindingListToolStripMenuItem
-            // 
-            this.testBindingListToolStripMenuItem.Name = "testBindingListToolStripMenuItem";
-            this.testBindingListToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.testBindingListToolStripMenuItem.Text = "_TestBindingList";
-            this.testBindingListToolStripMenuItem.Click += new System.EventHandler(this.testBindingListToolStripMenuItem_Click);
             // 
             // อนๆToolStripMenuItem
             // 
@@ -216,7 +208,7 @@
             // lblVersion
             // 
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(870, 19);
+            this.lblVersion.Size = new System.Drawing.Size(728, 19);
             this.lblVersion.Spring = true;
             this.lblVersion.Text = "version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -268,7 +260,6 @@
         private System.Windows.Forms.ToolStripStatusLabel lblUserID;
         private System.Windows.Forms.ToolStripStatusLabel lblVersion;
         private System.Windows.Forms.ToolStripMenuItem mnuChangeCompany;
-        private System.Windows.Forms.ToolStripMenuItem testBindingListToolStripMenuItem;
     }
 }
 
