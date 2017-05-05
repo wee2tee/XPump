@@ -91,6 +91,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="stkcod" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="unitpr" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
@@ -598,6 +599,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="stkcod" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="unitpr" Type="Decimal" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
@@ -1121,6 +1123,7 @@
               <MappingFragment StoreEntitySet="pricelist">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="stkcod" ColumnName="stkcod" />
                 <ScalarProperty Name="unitpr" ColumnName="unitpr" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />

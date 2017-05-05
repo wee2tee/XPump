@@ -285,7 +285,7 @@ namespace XPump.Model
             get
             {
                 var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
-                return st != null ? st.stkdes : string.Empty;
+                return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
     }

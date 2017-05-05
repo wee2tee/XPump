@@ -19,7 +19,7 @@ namespace XPump.Model
             : base("name=xpumpEntities")
         {
         }
-    
+        
         public xpumpEntities(string connection_string)
             : base(connection_string)
         {

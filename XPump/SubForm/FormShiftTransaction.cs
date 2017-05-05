@@ -410,12 +410,12 @@ namespace XPump.SubForm
                         return;
                     }
 
-                    var stmas_ids = db.section.Include("tank").Include("tanksetup")
+                    var stkcods = db.section.Include("nozzle").Include("tank").Include("tank.tanksetup")
                                     .Where(s => s.tank.tanksetup.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
                                     .GroupBy(s => s.stkcod)
                                     .Select(s => s.Key).ToArray();
 
-                    DialogPrice price = new DialogPrice(this.main_form, stmas_ids);
+                    DialogPrice price = new DialogPrice(this.main_form, stkcods);
                     if (price.ShowDialog() != DialogResult.OK)
                         return;
 
@@ -429,7 +429,7 @@ namespace XPump.SubForm
 
                         db.shiftsales.Add(this.tmp_shiftsales);
 
-                        foreach (string stkcod in stmas_ids)
+                        foreach (string stkcod in stkcods)
                         {
                             // add salessummary
                             var x = new salessummary

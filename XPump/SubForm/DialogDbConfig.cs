@@ -354,6 +354,7 @@ namespace XPump.SubForm
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`pricelist` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`date` DATE NOT NULL,";
+                cmd.CommandText += "`stkcod` VARCHAR(40) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`unitpr` DECIMAL(9, 2) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";

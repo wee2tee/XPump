@@ -22,6 +22,7 @@ namespace XPump.Model
     
         public int id { get; set; }
         public System.DateTime date { get; set; }
+        public string stkcod { get; set; }
         public decimal unitpr { get; set; }
         public string creby { get; set; }
         public System.DateTime cretime { get; set; }

@@ -28,18 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.inline_date = new CC.XDatePicker();
             this.inline_unitpr = new CC.XNumEdit();
             this.dgv = new CC.XDatagrid();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.col_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +45,8 @@
             this.col_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_price_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -106,7 +106,6 @@
             this.inline_date.Name = "inline_date";
             this.inline_date.Size = new System.Drawing.Size(103, 23);
             this.inline_date.TabIndex = 5;
-            this.inline_date.Visible = false;
             this.inline_date._SelectedDateChanged += new System.EventHandler(this.inline_date__SelectedDateChanged);
             // 
             // inline_unitpr
@@ -138,7 +137,6 @@
             this.inline_unitpr.Name = "inline_unitpr";
             this.inline_unitpr.Size = new System.Drawing.Size(90, 23);
             this.inline_unitpr.TabIndex = 6;
-            this.inline_unitpr.Visible = false;
             this.inline_unitpr._ValueChanged += new System.EventHandler(this.inline_unitpr__ValueChanged);
             // 
             // dgv
@@ -148,14 +146,14 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -166,14 +164,14 @@
             this.col_stmas_id,
             this.col_price_id,
             this.col_working_express_db});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -192,6 +190,71 @@
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
             this.dgv.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_Scroll);
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
+            // 
+            // col_stkcod
+            // 
+            this.col_stkcod.DataPropertyName = "stkcod";
+            this.col_stkcod.HeaderText = "รหัสสินค้า";
+            this.col_stkcod.MinimumWidth = 170;
+            this.col_stkcod.Name = "col_stkcod";
+            this.col_stkcod.ReadOnly = true;
+            this.col_stkcod.Width = 170;
+            // 
+            // col_stkdes
+            // 
+            this.col_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_stkdes.DataPropertyName = "stkdes";
+            this.col_stkdes.HeaderText = "รายละเอียด";
+            this.col_stkdes.Name = "col_stkdes";
+            this.col_stkdes.ReadOnly = true;
+            // 
+            // col_date
+            // 
+            this.col_date.DataPropertyName = "price_date";
+            dataGridViewCellStyle6.Format = "dd/MM/yyyy";
+            this.col_date.DefaultCellStyle = dataGridViewCellStyle6;
+            this.col_date.HeaderText = "วันที่กำหนดราคา";
+            this.col_date.MinimumWidth = 110;
+            this.col_date.Name = "col_date";
+            this.col_date.ReadOnly = true;
+            this.col_date.Width = 110;
+            // 
+            // col_unitpr
+            // 
+            this.col_unitpr.DataPropertyName = "unitpr";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "N2";
+            dataGridViewCellStyle7.NullValue = null;
+            this.col_unitpr.DefaultCellStyle = dataGridViewCellStyle7;
+            this.col_unitpr.HeaderText = "ราคาต่อหน่วย(ลิตร)";
+            this.col_unitpr.MinimumWidth = 130;
+            this.col_unitpr.Name = "col_unitpr";
+            this.col_unitpr.ReadOnly = true;
+            this.col_unitpr.Width = 130;
+            // 
+            // col_stmas_id
+            // 
+            this.col_stmas_id.DataPropertyName = "stmas_id";
+            this.col_stmas_id.HeaderText = "Stmas Id";
+            this.col_stmas_id.Name = "col_stmas_id";
+            this.col_stmas_id.ReadOnly = true;
+            this.col_stmas_id.Visible = false;
+            // 
+            // col_price_id
+            // 
+            this.col_price_id.DataPropertyName = "price_id";
+            this.col_price_id.HeaderText = "Price Id";
+            this.col_price_id.Name = "col_price_id";
+            this.col_price_id.ReadOnly = true;
+            this.col_price_id.Visible = false;
+            // 
+            // col_working_express_db
+            // 
+            this.col_working_express_db.DataPropertyName = "working_express_db";
+            this.col_working_express_db.HeaderText = "Working Express DB";
+            this.col_working_express_db.Name = "col_working_express_db";
+            this.col_working_express_db.ReadOnly = true;
+            this.col_working_express_db.Visible = false;
             // 
             // btnSave
             // 
@@ -224,71 +287,6 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Visible = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // col_stkcod
-            // 
-            this.col_stkcod.DataPropertyName = "stkcod";
-            this.col_stkcod.HeaderText = "รหัสสินค้า";
-            this.col_stkcod.MinimumWidth = 170;
-            this.col_stkcod.Name = "col_stkcod";
-            this.col_stkcod.ReadOnly = true;
-            this.col_stkcod.Width = 170;
-            // 
-            // col_stkdes
-            // 
-            this.col_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_stkdes.DataPropertyName = "stkdes";
-            this.col_stkdes.HeaderText = "รายละเอียด";
-            this.col_stkdes.Name = "col_stkdes";
-            this.col_stkdes.ReadOnly = true;
-            // 
-            // col_date
-            // 
-            this.col_date.DataPropertyName = "price_date";
-            dataGridViewCellStyle2.Format = "dd/MM/yyyy";
-            this.col_date.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_date.HeaderText = "วันที่กำหนดราคา";
-            this.col_date.MinimumWidth = 110;
-            this.col_date.Name = "col_date";
-            this.col_date.ReadOnly = true;
-            this.col_date.Width = 110;
-            // 
-            // col_unitpr
-            // 
-            this.col_unitpr.DataPropertyName = "unitpr";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.col_unitpr.DefaultCellStyle = dataGridViewCellStyle3;
-            this.col_unitpr.HeaderText = "ราคาต่อหน่วย(ลิตร)";
-            this.col_unitpr.MinimumWidth = 130;
-            this.col_unitpr.Name = "col_unitpr";
-            this.col_unitpr.ReadOnly = true;
-            this.col_unitpr.Width = 130;
-            // 
-            // col_stmas_id
-            // 
-            this.col_stmas_id.DataPropertyName = "stmas_id";
-            this.col_stmas_id.HeaderText = "Stmas Id";
-            this.col_stmas_id.Name = "col_stmas_id";
-            this.col_stmas_id.ReadOnly = true;
-            this.col_stmas_id.Visible = false;
-            // 
-            // col_price_id
-            // 
-            this.col_price_id.DataPropertyName = "price_id";
-            this.col_price_id.HeaderText = "Price Id";
-            this.col_price_id.Name = "col_price_id";
-            this.col_price_id.ReadOnly = true;
-            this.col_price_id.Visible = false;
-            // 
-            // col_working_express_db
-            // 
-            this.col_working_express_db.DataPropertyName = "working_express_db";
-            this.col_working_express_db.HeaderText = "Working Express DB";
-            this.col_working_express_db.Name = "col_working_express_db";
-            this.col_working_express_db.ReadOnly = true;
-            this.col_working_express_db.Visible = false;
             // 
             // DialogPrice
             // 

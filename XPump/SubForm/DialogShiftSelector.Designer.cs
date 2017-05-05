@@ -48,6 +48,10 @@
             this.col_remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_shift = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_creby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_chgby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,7 +90,11 @@
             this.col_end_time,
             this.col_remark,
             this.col_shift,
-            this.col_working_express_db});
+            this.col_working_express_db,
+            this.col_creby,
+            this.col_cretime,
+            this.col_chgby,
+            this.col_chgtime});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -99,14 +107,14 @@
             this.dgv.EnableHeadersVisualStyles = false;
             this.dgv.FillEmptyRow = false;
             this.dgv.FocusedRowBorderRedLine = true;
-            this.dgv.Location = new System.Drawing.Point(2, 2);
+            this.dgv.Location = new System.Drawing.Point(4, 1);
             this.dgv.MultiSelect = false;
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(439, 164);
+            this.dgv.Size = new System.Drawing.Size(424, 131);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
@@ -117,7 +125,7 @@
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Enabled = false;
-            this.btnOK.Location = new System.Drawing.Point(7, 176);
+            this.btnOK.Location = new System.Drawing.Point(7, 143);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(70, 30);
             this.btnOK.TabIndex = 1;
@@ -128,7 +136,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(83, 176);
+            this.btnCancel.Location = new System.Drawing.Point(83, 143);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(70, 30);
             this.btnCancel.TabIndex = 1;
@@ -203,10 +211,10 @@
             // 
             this.col_name.DataPropertyName = "name";
             this.col_name.HeaderText = "รหัส";
-            this.col_name.MinimumWidth = 120;
+            this.col_name.MinimumWidth = 110;
             this.col_name.Name = "col_name";
             this.col_name.ReadOnly = true;
-            this.col_name.Width = 120;
+            this.col_name.Width = 110;
             // 
             // col_desc
             // 
@@ -220,17 +228,19 @@
             // 
             this.col_start_time.DataPropertyName = "starttime";
             this.col_start_time.HeaderText = "เวลาเริ่มต้น";
-            this.col_start_time.MinimumWidth = 100;
+            this.col_start_time.MinimumWidth = 80;
             this.col_start_time.Name = "col_start_time";
             this.col_start_time.ReadOnly = true;
+            this.col_start_time.Width = 80;
             // 
             // col_end_time
             // 
             this.col_end_time.DataPropertyName = "endtime";
             this.col_end_time.HeaderText = "เวลาสิ้นสุด";
-            this.col_end_time.MinimumWidth = 100;
+            this.col_end_time.MinimumWidth = 80;
             this.col_end_time.Name = "col_end_time";
             this.col_end_time.ReadOnly = true;
+            this.col_end_time.Width = 80;
             // 
             // col_remark
             // 
@@ -256,11 +266,43 @@
             this.col_working_express_db.ReadOnly = true;
             this.col_working_express_db.Visible = false;
             // 
+            // col_creby
+            // 
+            this.col_creby.DataPropertyName = "creby";
+            this.col_creby.HeaderText = "Created By";
+            this.col_creby.Name = "col_creby";
+            this.col_creby.ReadOnly = true;
+            this.col_creby.Visible = false;
+            // 
+            // col_cretime
+            // 
+            this.col_cretime.DataPropertyName = "cretime";
+            this.col_cretime.HeaderText = "Created Time";
+            this.col_cretime.Name = "col_cretime";
+            this.col_cretime.ReadOnly = true;
+            this.col_cretime.Visible = false;
+            // 
+            // col_chgby
+            // 
+            this.col_chgby.DataPropertyName = "chgby";
+            this.col_chgby.HeaderText = "Changed By";
+            this.col_chgby.Name = "col_chgby";
+            this.col_chgby.ReadOnly = true;
+            this.col_chgby.Visible = false;
+            // 
+            // col_chgtime
+            // 
+            this.col_chgtime.DataPropertyName = "chgtime";
+            this.col_chgtime.HeaderText = "Changed Time";
+            this.col_chgtime.Name = "col_chgtime";
+            this.col_chgtime.ReadOnly = true;
+            this.col_chgtime.Visible = false;
+            // 
             // DialogShiftSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 213);
+            this.ClientSize = new System.Drawing.Size(432, 180);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -301,5 +343,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_remark;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_shift;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_creby;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_cretime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_chgby;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_chgtime;
     }
 }

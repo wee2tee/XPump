@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b823c3cb3130480cac00b0ff96f53c78" Name="Diagram1">
+      <Diagram DiagramId="cd727354a6164905be4dea03a8bb3787" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="xpumpModel.dayend" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.daysttak" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.dbver" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.dother" Width="1.5" PointX="10.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.istab" Width="1.5" PointX="8.5" PointY="26.375" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.nozzle" Width="1.5" PointX="7.5" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpModel.pricelist" Width="1.5" PointX="5.25" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpModel.pricelist" Width="1.5" PointX="5.25" PointY="21.875" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.saleshistory" Width="1.5" PointX="9.75" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.salessummary" Width="1.5" PointX="7.5" PointY="21.25" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpModel.section" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />

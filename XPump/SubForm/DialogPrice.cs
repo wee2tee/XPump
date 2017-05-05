@@ -19,22 +19,25 @@ namespace XPump.SubForm
         private List<stmasPriceVM> stmas_list;
         private BindingSource bs;
         private FORM_MODE form_mode;
-        private string[] stmas_ids;
+        private string[] stkcods;
         public List<pricelist> price_list = new List<pricelist>();
 
-        public DialogPrice(MainForm main_form, string[] stmas_ids)
+        public DialogPrice(MainForm main_form, string[] stkcods)
         {
             InitializeComponent();
             this.main_form = main_form;
-            this.stmas_ids = stmas_ids;
+            this.stkcods = stkcods;
         }
 
         private void DialogPrice_Load(object sender, EventArgs e)
         {
+            this.inline_date.SetBounds(-9999, 0, 0, 0);
+            this.inline_unitpr.SetBounds(-9999, 0, 0, 0);
+
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
             this.bs = new BindingSource();
-            this.stmas_list = this.GetStmasList();
+            this.stmas_list = this.GetStmasList().Where(s => this.stkcods.Contains(s.stkcod.Trim())).ToList();
 
             this.FillForm();
 
@@ -97,19 +100,17 @@ namespace XPump.SubForm
             //int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_date.DataPropertyName).First().Index;
             //this.inline_date.SetInlineControlPosition(this.dgv, row_index, col_index);
             //this.inline_date._SelectedDate = (DateTime?)this.dgv.Rows[row_index].Cells["col_date"].Value;
-            //this.inline_date.Visible = true;
 
             int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index;
             this.inline_unitpr.SetInlineControlPosition(this.dgv, row_index, col_index);
             this.inline_unitpr._Value = (decimal)this.dgv.Rows[row_index].Cells["col_unitpr"].Value;
-            this.inline_unitpr.Visible = true;
         }
 
         private void RemoveInlineForm()
         {
             this.inline_date.Visible = false;
             this.inline_date._SelectedDate = null;
-            this.inline_unitpr.Visible = false;
+            this.inline_unitpr.SetBounds(-9999, 0, 0, 0);
             this.inline_unitpr._Value = 0m;
         }
 
@@ -126,8 +127,10 @@ namespace XPump.SubForm
                         pricelist p = new pricelist
                         {
                             date = item.price_date.HasValue ? item.price_date.Value : DateTime.Now,
-                            //stmas_id = item.stmas_id,
-                            unitpr = item.unitpr
+                            stkcod = item.stkcod,
+                            unitpr = item.unitpr,
+                            creby = this.main_form.loged_in_status.loged_in_user_name,
+                            cretime = DateTime.Now                            
                         };
                         this.price_list.Add(p);
                         db.pricelist.Add(p);
@@ -181,7 +184,7 @@ namespace XPump.SubForm
             this.RemoveInlineForm();
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
-            this.stmas_list = this.GetStmasList();
+            this.stmas_list = this.GetStmasList().Where(s => this.stkcods.Contains(s.stkcod.Trim())).ToList();
             this.FillForm();
         }
 
