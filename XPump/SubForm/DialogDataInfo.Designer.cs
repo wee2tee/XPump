@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtCreBy = new CC.XTextEdit();
-            this.txtChgBy = new CC.XTextEdit();
             this.txtApprBy = new CC.XTextEdit();
-            this.txtCreTime = new CC.XTextEdit();
-            this.txtChgTime = new CC.XTextEdit();
+            this.txtChgBy = new CC.XTextEdit();
             this.txtApprTime = new CC.XTextEdit();
+            this.txtChgTime = new CC.XTextEdit();
+            this.txtCreTime = new CC.XTextEdit();
+            this.txtCreBy = new CC.XTextEdit();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -70,59 +70,85 @@
             this.panel1.Size = new System.Drawing.Size(366, 103);
             this.panel1.TabIndex = 0;
             // 
-            // label1
+            // txtApprBy
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "ผู้สร้าง";
+            this.txtApprBy._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtApprBy._MaxLength = 32767;
+            this.txtApprBy._ReadOnly = true;
+            this.txtApprBy._Text = "";
+            this.txtApprBy._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtApprBy.BackColor = System.Drawing.Color.White;
+            this.txtApprBy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtApprBy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtApprBy.Location = new System.Drawing.Point(63, 67);
+            this.txtApprBy.Name = "txtApprBy";
+            this.txtApprBy.Size = new System.Drawing.Size(112, 20);
+            this.txtApprBy.TabIndex = 1;
+            this.txtApprBy.TabStop = false;
             // 
-            // label2
+            // txtChgBy
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 42);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "ผู้บันทึก";
+            this.txtChgBy._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtChgBy._MaxLength = 32767;
+            this.txtChgBy._ReadOnly = true;
+            this.txtChgBy._Text = "";
+            this.txtChgBy._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtChgBy.BackColor = System.Drawing.Color.White;
+            this.txtChgBy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtChgBy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtChgBy.Location = new System.Drawing.Point(63, 39);
+            this.txtChgBy.Name = "txtChgBy";
+            this.txtChgBy.Size = new System.Drawing.Size(112, 20);
+            this.txtChgBy.TabIndex = 1;
+            this.txtChgBy.TabStop = false;
             // 
-            // label3
+            // txtApprTime
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 70);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "ผู้รับรอง";
+            this.txtApprTime._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtApprTime._MaxLength = 32767;
+            this.txtApprTime._ReadOnly = true;
+            this.txtApprTime._Text = "";
+            this.txtApprTime._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtApprTime.BackColor = System.Drawing.Color.White;
+            this.txtApprTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtApprTime.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtApprTime.Location = new System.Drawing.Point(226, 67);
+            this.txtApprTime.Name = "txtApprTime";
+            this.txtApprTime.Size = new System.Drawing.Size(122, 20);
+            this.txtApprTime.TabIndex = 1;
+            this.txtApprTime.TabStop = false;
             // 
-            // label4
+            // txtChgTime
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(193, 15);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(27, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "วันที่";
+            this.txtChgTime._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtChgTime._MaxLength = 32767;
+            this.txtChgTime._ReadOnly = true;
+            this.txtChgTime._Text = "";
+            this.txtChgTime._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtChgTime.BackColor = System.Drawing.Color.White;
+            this.txtChgTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtChgTime.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtChgTime.Location = new System.Drawing.Point(226, 39);
+            this.txtChgTime.Name = "txtChgTime";
+            this.txtChgTime.Size = new System.Drawing.Size(122, 20);
+            this.txtChgTime.TabIndex = 1;
+            this.txtChgTime.TabStop = false;
             // 
-            // label5
+            // txtCreTime
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(193, 42);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(27, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "วันที่";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(193, 70);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(27, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "วันที่";
+            this.txtCreTime._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCreTime._MaxLength = 32767;
+            this.txtCreTime._ReadOnly = true;
+            this.txtCreTime._Text = "";
+            this.txtCreTime._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtCreTime.BackColor = System.Drawing.Color.White;
+            this.txtCreTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCreTime.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtCreTime.Location = new System.Drawing.Point(226, 12);
+            this.txtCreTime.Name = "txtCreTime";
+            this.txtCreTime.Size = new System.Drawing.Size(122, 20);
+            this.txtCreTime.TabIndex = 1;
+            this.txtCreTime.TabStop = false;
             // 
             // txtCreBy
             // 
@@ -140,80 +166,59 @@
             this.txtCreBy.TabIndex = 1;
             this.txtCreBy.TabStop = false;
             // 
-            // txtChgBy
+            // label3
             // 
-            this.txtChgBy._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtChgBy._MaxLength = 32767;
-            this.txtChgBy._ReadOnly = true;
-            this.txtChgBy._Text = "";
-            this.txtChgBy._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtChgBy.BackColor = System.Drawing.Color.White;
-            this.txtChgBy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtChgBy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtChgBy.Location = new System.Drawing.Point(63, 39);
-            this.txtChgBy.Name = "txtChgBy";
-            this.txtChgBy.Size = new System.Drawing.Size(112, 20);
-            this.txtChgBy.TabIndex = 1;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 70);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "ผู้รับรอง";
             // 
-            // txtApprBy
+            // label2
             // 
-            this.txtApprBy._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtApprBy._MaxLength = 32767;
-            this.txtApprBy._ReadOnly = true;
-            this.txtApprBy._Text = "";
-            this.txtApprBy._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtApprBy.BackColor = System.Drawing.Color.White;
-            this.txtApprBy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtApprBy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtApprBy.Location = new System.Drawing.Point(63, 67);
-            this.txtApprBy.Name = "txtApprBy";
-            this.txtApprBy.Size = new System.Drawing.Size(112, 20);
-            this.txtApprBy.TabIndex = 1;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "ผู้บันทึก";
             // 
-            // txtCreTime
+            // label6
             // 
-            this.txtCreTime._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCreTime._MaxLength = 32767;
-            this.txtCreTime._ReadOnly = true;
-            this.txtCreTime._Text = "";
-            this.txtCreTime._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtCreTime.BackColor = System.Drawing.Color.White;
-            this.txtCreTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCreTime.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtCreTime.Location = new System.Drawing.Point(226, 12);
-            this.txtCreTime.Name = "txtCreTime";
-            this.txtCreTime.Size = new System.Drawing.Size(122, 20);
-            this.txtCreTime.TabIndex = 1;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(193, 70);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(27, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "วันที่";
             // 
-            // txtChgTime
+            // label5
             // 
-            this.txtChgTime._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtChgTime._MaxLength = 32767;
-            this.txtChgTime._ReadOnly = true;
-            this.txtChgTime._Text = "";
-            this.txtChgTime._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtChgTime.BackColor = System.Drawing.Color.White;
-            this.txtChgTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtChgTime.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtChgTime.Location = new System.Drawing.Point(226, 39);
-            this.txtChgTime.Name = "txtChgTime";
-            this.txtChgTime.Size = new System.Drawing.Size(122, 20);
-            this.txtChgTime.TabIndex = 1;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(193, 42);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(27, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "วันที่";
             // 
-            // txtApprTime
+            // label4
             // 
-            this.txtApprTime._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtApprTime._MaxLength = 32767;
-            this.txtApprTime._ReadOnly = true;
-            this.txtApprTime._Text = "";
-            this.txtApprTime._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtApprTime.BackColor = System.Drawing.Color.White;
-            this.txtApprTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtApprTime.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtApprTime.Location = new System.Drawing.Point(226, 67);
-            this.txtApprTime.Name = "txtApprTime";
-            this.txtApprTime.Size = new System.Drawing.Size(122, 20);
-            this.txtApprTime.TabIndex = 1;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(193, 15);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(27, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "วันที่";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "ผู้สร้าง";
             // 
             // btnClose
             // 
@@ -258,6 +263,7 @@
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.Size = new System.Drawing.Size(92, 20);
             this.txtTotal.TabIndex = 1;
+            this.txtTotal.TabStop = false;
             // 
             // txtId
             // 
@@ -273,6 +279,7 @@
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(92, 20);
             this.txtId.TabIndex = 1;
+            this.txtId.TabStop = false;
             // 
             // label9
             // 

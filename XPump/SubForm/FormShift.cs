@@ -49,13 +49,14 @@ namespace XPump.SubForm
             this.shift_list = this.GetShiftList().ToViewModel(this.main_form.working_express_db);
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.shift_list;
+            this.ActiveControl = this.dgv;
         }
 
         public List<shift> GetShiftList()
         {
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                return db.shift.Include("saleshistory").Include("salessummary").OrderBy(s => s.seq).ToList();
+                return db.shift.Include("shiftsales").OrderBy(s => s.seq).ToList();
             }
         }
 
@@ -306,7 +307,7 @@ namespace XPump.SubForm
             {
                 if (this.temp_shift.shift.name.Trim().Length == 0)
                 {
-                    MessageBox.Show("กรุณาป้อนชื่อผลัด");
+                    MessageBox.Show("กรุณาระบุชื่อผลัด");
 
                     this.inline_name.Focus();
                     return;
@@ -325,7 +326,8 @@ namespace XPump.SubForm
                         {
                             this.temp_shift.shift.seq = tmp.seq + 1;
                         }
-
+                        this.temp_shift.shift.creby = this.main_form.loged_in_status.loged_in_user_name;
+                        this.temp_shift.shift.cretime = DateTime.Now;
                         db.shift.Add(this.temp_shift.shift);
                         db.SaveChanges();
                         this.RemoveInlineControl();
@@ -354,7 +356,8 @@ namespace XPump.SubForm
                             MessageBox.Show("ค้นหา \"" + this.temp_shift.name + "\" เพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
-
+                        shift.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        shift.chgtime = DateTime.Now;
                         shift.name = this.temp_shift.shift.name;
                         shift.starttime = this.temp_shift.shift.starttime;
                         shift.endtime = this.temp_shift.shift.endtime;
@@ -585,6 +588,30 @@ namespace XPump.SubForm
             {
                 this.btnSave.PerformClick();
                 return true;
+            }
+
+            if(keyData == Keys.Tab)
+            {
+                if (this.form_mode != FORM_MODE.READ)
+                    return false;
+
+                if (this.dgv.CurrentCell == null)
+                    return false;
+
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    int id = (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_id.Name].Value;
+
+                    var shift = db.shift.Find(id);
+                    var total_recs = db.shift.AsEnumerable().Count();
+
+                    if(shift != null)
+                    {
+                        DialogDataInfo info = new DialogDataInfo("Shift", shift.id, total_recs, shift.creby, shift.cretime, shift.chgby, shift.chgtime);
+                        info.ShowDialog();
+                        return true;
+                    }
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

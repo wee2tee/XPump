@@ -1493,6 +1493,28 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if(keyData == (Keys.Control | Keys.Space))
+            {
+                if(this.form_mode == FORM_MODE.READ_ITEM && this.item_tab == ITEM_TAB.F7)
+                {
+                    if (this.dgvSection.CurrentCell == null)
+                        return false;
+
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var id = (int)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells[this.col_sect_id.Name].Value;
+                        var sect = db.section.Find(id);
+
+                        if(sect != null)
+                        {
+                            DialogNozzle noz = new DialogNozzle(this.main_form, this, sect);
+                            noz.ShowDialog();
+                            return true;
+                        }
+                    }
+                }
+            }
+
             if(keyData == Keys.Tab)
             {
                 if(this.form_mode == FORM_MODE.READ)
@@ -1612,6 +1634,18 @@ namespace XPump.SubForm
             {
                 DialogNozzle noz = new DialogNozzle(this.main_form, this, (section)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_sect_section.Name].Value);
                 noz.ShowDialog();
+            }
+        }
+
+        private void dgvSection_CellToolTipTextNeeded(object sender, DataGridViewCellToolTipTextNeededEventArgs e)
+        {
+            if(e.RowIndex > -1 && e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sect_nozzle_btn.DataPropertyName).First().Index)
+            {
+                e.ToolTipText = "จัดการหัวจ่ายน้ำมัน <Ctrl + Space>";
+            }
+            else
+            {
+                e.ToolTipText = string.Empty;
             }
         }
     }

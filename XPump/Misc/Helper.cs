@@ -72,20 +72,6 @@ namespace XPump.Misc
             shiftVM s = new shiftVM
             {
                 working_express_db = working_express_db,
-                id = shift.id,
-                seq = shift.seq,
-                name = shift.name,
-                description = shift.description,
-                starttime = shift.starttime,
-                endtime = shift.endtime,
-                remark = shift.remark,
-                paeprefix = shift.paeprefix,
-                phpprefix = shift.phpprefix,
-                prrprefix = shift.prrprefix,
-                saiprefix = shift.saiprefix,
-                shsprefix = shift.shsprefix,
-                sivprefix = shift.sivprefix,
-
                 shift = shift
             };
 

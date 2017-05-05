@@ -86,6 +86,7 @@ namespace XPump.SubForm
                 this.bs.DataSource = this.list_nozzle.ToViewModel(this.main_form.working_express_db);
                 this.dgv.DataSource = this.bs;
             }
+            this.ActiveControl = this.dgv;
         }
 
         public List<nozzle> GetNozzleList()
@@ -452,6 +453,22 @@ namespace XPump.SubForm
             {
                 this.btnDeleteItem.PerformClick();
                 return true;
+            }
+
+            if(keyData == Keys.Tab)
+            {
+                if (!(this.form_mode == FORM_MODE.READ_ITEM && this.dgv.CurrentCell != null))
+                    return false;
+
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    int noz_id = (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_id.Name].Value;
+                    var tmp = db.nozzle.Find(noz_id);
+                    var total_recs = db.nozzle.AsEnumerable().Count();
+                    DialogDataInfo info = new DialogDataInfo("Nozzle", tmp.id, total_recs, tmp.creby, tmp.cretime, tmp.chgby, tmp.chgtime);
+                    info.ShowDialog();
+                    return true;
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

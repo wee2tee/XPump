@@ -10,19 +10,23 @@ namespace XPump.Model
     public class shiftVM
     {
         public SccompDbf working_express_db { get; set; }
-        public int id { get; set; }
-        public int seq { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public TimeSpan starttime { get; set; }
-        public TimeSpan endtime { get; set; }
-        public string saiprefix { get; set; }
-        public string shsprefix { get; set; }
-        public string sivprefix { get; set; }
-        public string paeprefix { get; set; }
-        public string phpprefix { get; set; }
-        public string prrprefix { get; set; }
-        public string remark { get; set; }
+        public int id { get { return this.shift.id; } }
+        public int seq { get { return this.shift.seq; } }
+        public string name { get { return this.shift.name; } }
+        public string description { get { return this.shift.description; } }
+        public TimeSpan starttime { get { return this.shift.starttime; } }
+        public TimeSpan endtime { get { return this.shift.endtime; } }
+        public string saiprefix { get { return this.shift.saiprefix; } }
+        public string shsprefix { get { return this.shift.shsprefix; } }
+        public string sivprefix { get { return this.shift.sivprefix; } }
+        public string paeprefix { get { return this.shift.paeprefix; } }
+        public string phpprefix { get { return this.shift.phpprefix; } }
+        public string prrprefix { get { return this.shift.prrprefix; } }
+        public string remark { get { return this.shift.remark; } }
+        public string creby { get { return this.shift.creby; } }
+        public DateTime cretime { get { return this.shift.cretime; } }
+        public string chgby { get { return this.shift.chgby; } }
+        public DateTime? chgtime { get { return this.shift.chgtime; } }
         public shift shift { get; set; }
     }
 

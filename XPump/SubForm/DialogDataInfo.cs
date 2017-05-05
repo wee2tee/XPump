@@ -56,6 +56,8 @@ namespace XPump.SubForm
 
             this.txtId._Text = this.current_id.ToString();
             this.txtTotal._Text = this.total_record.ToString();
+
+            this.ActiveControl = this.btnClose;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -63,6 +65,11 @@ namespace XPump.SubForm
             if(keyData == Keys.Escape)
             {
                 this.btnClose.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Tab)
+            {
                 return true;
             }
 
