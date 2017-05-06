@@ -351,26 +351,26 @@ namespace XPump.Model
     public class salessummaryVM
     {
         public SccompDbf working_express_db { get; set; }
-        public int id { get; set; }
-        public System.DateTime saldat { get; set; }
+        public int id { get { return this.salessummary.id; } }
+        public System.DateTime saldat { get { return this.salessummary.saldat; } }
         public decimal total
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    return db.saleshistory.Where(s => s.salessummary_id == this.id).Count() > 0 ? db.saleshistory.Where(s => s.salessummary_id == this.id).Sum(s => s.salqty) : 0m;
+                    return db.saleshistory.Where(s => s.salessummary_id == this.id).ToList().Sum(s => s.salqty);
                 }
             }
         }
-        public decimal dtest { get; set; }
+        public decimal dtest { get { return this.salessummary.dtest; } }
         public decimal dother
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    return db.dother.Where(d => d.salessummary_id == this.id).Sum(d => d.qty);
+                    return db.dother.Where(d => d.salessummary_id == this.id).ToList().Sum(d => d.qty);
                 }
             }
         }
@@ -398,7 +398,7 @@ namespace XPump.Model
                 return this.totqty * this.unitpr;
             }
         }
-        public decimal ddisc { get; set; }
+        public decimal ddisc { get { return this.salessummary.ddisc; } }
         public decimal netval
         {
             get
@@ -413,9 +413,9 @@ namespace XPump.Model
                 return (this.netval * 7) / 107;
             }
         }
-        public decimal purvat { get; set; }
-        public int pricelist_id { get; set; }
-        public int shiftsales_id { get; set; }
+        public decimal purvat { get { return this.salessummary.purvat; } }
+        public int pricelist_id { get { return this.salessummary.pricelist_id; } }
+        public int shiftsales_id { get { return this.salessummary.shiftsales_id; } }
         public string shift_name
         {
             get
@@ -440,7 +440,7 @@ namespace XPump.Model
                 return shiftsale != null ? shiftsale.shift.endtime : TimeSpan.Parse("0:0:0");
             }
         }
-        public string stkcod { get; set; }
+        public string stkcod { get { return this.salessummary.stkcod; } }
         public string stkdes
         {
             get
@@ -707,18 +707,9 @@ namespace XPump.Model
     public class shiftsttakVM
     {
         public SccompDbf working_express_db { get; set; }
-        public int id { get; set; }
-        public DateTime takdat { get; set; }
-        public int section_id { get; set; }
-        public string stkcod { get; set; }
-        public string stkdes
-        {
-            get
-            {
-                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
-                return st != null ? st.stkdes.Trim() : string.Empty;
-            }
-        }
+        public int id { get { return this.shiftsttak.id; } }
+        public DateTime takdat { get { return this.shiftsttak.takdat; } }
+        public int section_id { get { return this.shiftsttak.section_id; } }
         public string tank_name
         {
             get
@@ -754,8 +745,26 @@ namespace XPump.Model
                 }
             }
         }
-        public decimal qty { get; set; }
-        public shiftsttak sttak { get; set; }
+        public string stkcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.section.Where(s => s.id == this.section_id).FirstOrDefault() != null ? db.section.Where(s => s.id == this.section_id).First().stkcod : string.Empty;
+                }
+            }
+        }
+        public string stkdes
+        {
+            get
+            {
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
+            }
+        }
+        public decimal qty { get { return this.shiftsttak.qty; } }
+        public shiftsttak shiftsttak { get; set; }
     }
 
     public class dayendVM

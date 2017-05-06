@@ -37,7 +37,7 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
             this.bs = new BindingSource();
-            this.stmas_list = this.GetStmasList().Where(s => this.stkcods.Contains(s.stkcod.Trim())).ToList();
+            this.stmas_list = this.GetStmasList().Where(s => this.stkcods.Contains(s.stkcod.Trim())).OrderBy(s => s.stkcod).ToList();
 
             this.FillForm();
 
@@ -184,7 +184,7 @@ namespace XPump.SubForm
             this.RemoveInlineForm();
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
-            this.stmas_list = this.GetStmasList().Where(s => this.stkcods.Contains(s.stkcod.Trim())).ToList();
+            this.stmas_list = this.GetStmasList().Where(s => this.stkcods.Contains(s.stkcod.Trim())).OrderBy(s => s.stkcod).ToList();
             this.FillForm();
         }
 

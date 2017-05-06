@@ -302,17 +302,6 @@ namespace XPump.Misc
             salessummaryVM s = new salessummaryVM
             {
                 working_express_db = working_express_db,
-                id = sales.id,
-                saldat = sales.saldat,
-                dtest = sales.dtest,
-                //dother = sales.dother,
-                //dothertxt = sales.dothertxt,
-                ddisc = sales.ddisc,
-                purvat = sales.purvat,
-                //shift_id = sales.shift_id,
-                //stmas_id = sales.stmas_id,
-                pricelist_id = sales.pricelist_id,
-                shiftsales_id = sales.shiftsales_id,
                 salessummary = sales
             };
 
@@ -396,11 +385,7 @@ namespace XPump.Misc
             shiftsttakVM s = new shiftsttakVM
             {
                 working_express_db = working_express_db,
-                id = sttak.id,
-                takdat = sttak.takdat,
-                qty = sttak.qty,
-                section_id = sttak.section_id,
-                sttak = sttak
+                shiftsttak = sttak
             };
 
             return s;

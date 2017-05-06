@@ -980,23 +980,39 @@ namespace XPump.SubForm
 
             if(MessageBox.Show("ลบถังน้ำมันเลขที่ \"" + (string)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells[this.col_sect_name.Name].Value + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                try
                 {
-                    int deleting_id = (int)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells[this.col_sect_id.Name].Value;
-                    if(db.section.Find(deleting_id) != null)
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                     {
-                        var section_to_delete = db.section.Find(deleting_id);
-                        db.section.Remove(section_to_delete);
-                        db.SaveChanges();
+                        int deleting_id = (int)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells[this.col_sect_id.Name].Value;
 
-                        this.main_form.islog.DeleteData(this.menu_id, "ลบถังน้ำมันเลขที่ \"" + section_to_delete.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), section_to_delete.name, "section", section_to_delete.id).Save();
-                        this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
-                        this.FillForm();
+                        if(db.nozzle.Where(n => n.section_id == deleting_id).ToList().Count() > 0 ||
+                           db.shiftsttak.Where(n => n.section_id == deleting_id).ToList().Count() > 0 ||
+                           db.daysttak.Where(n => n.section_id == deleting_id).ToList().Count() > 0)
+                        {
+                            MessageBox.Show("ข้อมูลที่ต้องการลบมีการนำไปใช้เดินรายการแล้ว ไม่สามารถลบได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
+                        if (db.section.Find(deleting_id) != null)
+                        {
+                            var section_to_delete = db.section.Find(deleting_id);
+                            db.section.Remove(section_to_delete);
+                            db.SaveChanges();
+
+                            this.main_form.islog.DeleteData(this.menu_id, "ลบถังน้ำมันเลขที่ \"" + section_to_delete.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), section_to_delete.name, "section", section_to_delete.id).Save();
+                            this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
+                            this.FillForm();
+                        }
+                        else
+                        {
+                            MessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
                     }
-                    else
-                    {
-                        MessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -427,6 +427,8 @@ namespace XPump.SubForm
                             return;
                         }
 
+                        this.tmp_shiftsales.creby = this.main_form.loged_in_status.loged_in_user_name;
+                        this.tmp_shiftsales.cretime = DateTime.Now;
                         db.shiftsales.Add(this.tmp_shiftsales);
 
                         foreach (string stkcod in stkcods)
@@ -435,16 +437,19 @@ namespace XPump.SubForm
                             var x = new salessummary
                             {
                                 saldat = this.tmp_shiftsales.saldat,
+                                stkcod = stkcod,
+                                pricelist_id = price.price_list.Where(p => p.stkcod == stkcod).First().id,
                                 dtest = 0m,
                                 ddisc = 0m,
                                 purvat = 0m,
-                                //pricelist_id = price.price_list.Where(p => p.stmas_id == stmas_id).FirstOrDefault() != null ? price.price_list.Where(p => p.stmas_id == stmas_id).First().id : -1,
-                                shiftsales_id = this.tmp_shiftsales.id
+                                shiftsales_id = this.tmp_shiftsales.id,
+                                creby = this.main_form.loged_in_status.loged_in_user_name,
+                                cretime = DateTime.Now
                             };
                             db.salessummary.Add(x);
 
                             // add sttak
-                            var sections = db.section.Include("tank").Include("tanksetup")
+                            var sections = db.section.Include("tank").Include("tank.tanksetup")
                                             .Where(sect => sect.tank.tanksetup.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
                                             .Where(sect => sect.stkcod == stkcod).ToList();
                             foreach (var item in sections)
@@ -454,7 +459,9 @@ namespace XPump.SubForm
                                     takdat = this.tmp_shiftsales.saldat,
                                     qty = -1,
                                     section_id = item.id,
-                                    shiftsales_id = this.tmp_shiftsales.id
+                                    shiftsales_id = this.tmp_shiftsales.id,
+                                    creby = this.main_form.loged_in_status.loged_in_user_name,
+                                    cretime = DateTime.Now
                                 });
                             }
                         }
@@ -1155,7 +1162,7 @@ namespace XPump.SubForm
 
                     foreach (var item in report_data.salessummaryVM_list)
                     {
-                        item.purvat = Convert.ToDecimal(report_data.phpvattransVM.Where(p => p.stkcod == item.stkcod.Trim()).Sum(p => p.vatamt) + report_data.prrvattransVM.Where(p => p.stkcod == item.stkcod.Trim()).Sum(p => p.vatamt));
+                        //item.purvat = Convert.ToDecimal(report_data.phpvattransVM.Where(p => p.stkcod == item.stkcod.Trim()).Sum(p => p.vatamt) + report_data.prrvattransVM.Where(p => p.stkcod == item.stkcod.Trim()).Sum(p => p.vatamt));
                     }
                 }
                 catch (Exception)
