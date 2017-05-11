@@ -29,41 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormShiftTransaction));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnAdd = new System.Windows.Forms.ToolStripButton();
-            this.btnEdit = new System.Windows.Forms.ToolStripButton();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnStop = new System.Windows.Forms.ToolStripButton();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnFirst = new System.Windows.Forms.ToolStripButton();
-            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
-            this.btnNext = new System.Windows.Forms.ToolStripButton();
-            this.btnLast = new System.Windows.Forms.ToolStripButton();
-            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPrint = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnPrintALandscape = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPrintAPortrait = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvSalesSummary = new CC.XDatagrid();
@@ -93,34 +71,37 @@
             this.col_salessummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.inline_btnSaleshistory = new System.Windows.Forms.Button();
-            this.inline_btnEdit = new System.Windows.Forms.Button();
             this.brShift = new CC.XBrowseBox();
             this.dtSaldat = new CC.XDatePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.inline_qty = new CC.XNumEdit();
-            this.dgvSttak = new CC.XDatagrid();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.btnSttak = new System.Windows.Forms.Button();
+            this.inline_btnSaleshistory = new System.Windows.Forms.Button();
+            this.inline_btnEdit = new System.Windows.Forms.Button();
             this.lblDayEnded = new System.Windows.Forms.Label();
-            this.col_sttak_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sttak_takdat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sttak_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sttak_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sttak_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sttak_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sttak_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sttak_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sttak_sttak = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sttak_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.ToolStripButton();
+            this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
+            this.btnStop = new System.Windows.Forms.ToolStripButton();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
+            this.btnFirst = new System.Windows.Forms.ToolStripButton();
+            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
+            this.btnNext = new System.Windows.Forms.ToolStripButton();
+            this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrint = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnPrintALandscape = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrintAPortrait = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSalesSummary)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSttak)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -150,221 +131,25 @@
             this.toolStrip1.Size = new System.Drawing.Size(911, 43);
             this.toolStrip1.TabIndex = 4;
             // 
-            // btnAdd
-            // 
-            this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnAdd.Image = global::XPump.Properties.Resources.add;
-            this.btnAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(36, 40);
-            this.btnAdd.Text = "เพิ่มข้อมูล <Alt+A>";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnEdit.Image = global::XPump.Properties.Resources.edit;
-            this.btnEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(36, 40);
-            this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
-            this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(36, 40);
-            this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 43);
-            // 
-            // btnStop
-            // 
-            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnStop.Image = global::XPump.Properties.Resources.stop;
-            this.btnStop.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(36, 40);
-            this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSave.Image = global::XPump.Properties.Resources.save;
-            this.btnSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(36, 40);
-            this.btnSave.Text = "บันทึกข้อมูล <F9>";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 43);
             // 
-            // btnFirst
-            // 
-            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFirst.Image = global::XPump.Properties.Resources.first;
-            this.btnFirst.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Size = new System.Drawing.Size(36, 40);
-            this.btnFirst.Text = "ข้อมูลแรก <Ctrl+Home>";
-            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
-            // 
-            // btnPrevious
-            // 
-            this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
-            this.btnPrevious.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(36, 40);
-            this.btnPrevious.Text = "ข้อมูลที่แล้ว <PageUp>";
-            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnNext.Image = global::XPump.Properties.Resources.next;
-            this.btnNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(36, 40);
-            this.btnNext.Text = "ข้อมูลถัดไป <PageDown>";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnLast
-            // 
-            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnLast.Image = global::XPump.Properties.Resources.last;
-            this.btnLast.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnLast.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnLast.Name = "btnLast";
-            this.btnLast.Size = new System.Drawing.Size(36, 40);
-            this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
-            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSearch.DropDownButtonWidth = 15;
-            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnInquiryAll,
-            this.btnInquiryRest});
-            this.btnSearch.Image = global::XPump.Properties.Resources.search;
-            this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(52, 40);
-            this.btnSearch.Text = "ค้นหา <Alt+S>";
-            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
-            // 
-            // btnInquiryAll
-            // 
-            this.btnInquiryAll.Name = "btnInquiryAll";
-            this.btnInquiryAll.Size = new System.Drawing.Size(245, 22);
-            this.btnInquiryAll.Text = "เรียกดูข้อมูล ตั้งแต่ต้น <Ctrl+L>";
-            this.btnInquiryAll.Click += new System.EventHandler(this.btnInquiryAll_Click);
-            // 
-            // btnInquiryRest
-            // 
-            this.btnInquiryRest.Name = "btnInquiryRest";
-            this.btnInquiryRest.Size = new System.Drawing.Size(245, 22);
-            this.btnInquiryRest.Text = "เรียกดูข้อมูล ตั้งแต่รายการนี้ <Alt+L>";
-            this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
             // 
-            // btnPrint
-            // 
-            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnPrintALandscape,
-            this.btnPrintAPortrait});
-            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
-            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnPrint.Size = new System.Drawing.Size(51, 40);
-            this.btnPrint.Text = "พิมพ์รายงานส่วน ก.";
-            // 
-            // btnPrintALandscape
-            // 
-            this.btnPrintALandscape.Name = "btnPrintALandscape";
-            this.btnPrintALandscape.Size = new System.Drawing.Size(296, 22);
-            this.btnPrintALandscape.Text = "พิมพ์รายงานส่วน ก. กระดาษแนวนอน (12 หัวจ่าย)";
-            this.btnPrintALandscape.ToolTipText = "พิมพ์รายงานส่วน ก.";
-            this.btnPrintALandscape.Click += new System.EventHandler(this.btnPrintALandscape_Click);
-            // 
-            // btnPrintAPortrait
-            // 
-            this.btnPrintAPortrait.Name = "btnPrintAPortrait";
-            this.btnPrintAPortrait.Size = new System.Drawing.Size(296, 22);
-            this.btnPrintAPortrait.Text = "พิมพ์รายงานส่วน ก. กระดาษแนวตั้ง (30 หัวจ่าย)";
-            this.btnPrintAPortrait.Click += new System.EventHandler(this.btnPrintAPortrait_Click);
-            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 43);
-            // 
-            // btnItem
-            // 
-            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnItemF8,
-            this.btnItemF7});
-            this.btnItem.Image = global::XPump.Properties.Resources.item;
-            this.btnItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.btnItem.Name = "btnItem";
-            this.btnItem.Size = new System.Drawing.Size(45, 40);
-            // 
-            // btnItemF8
-            // 
-            this.btnItemF8.Name = "btnItemF8";
-            this.btnItemF8.Size = new System.Drawing.Size(267, 22);
-            this.btnItemF8.Text = "บันทึกรายการขาย <F8>";
-            this.btnItemF8.Click += new System.EventHandler(this.btnItemF8_Click);
-            // 
-            // btnItemF7
-            // 
-            this.btnItemF7.Name = "btnItemF7";
-            this.btnItemF7.Size = new System.Drawing.Size(267, 22);
-            this.btnItemF7.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้จริง <F7>";
-            this.btnItemF7.Click += new System.EventHandler(this.btnItemF7_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
-            this.btnRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(36, 40);
-            this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // label5
             // 
@@ -391,14 +176,14 @@
             this.dgvSalesSummary.AllowUserToDeleteRows = false;
             this.dgvSalesSummary.AllowUserToResizeColumns = false;
             this.dgvSalesSummary.AllowUserToResizeRows = false;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSalesSummary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSalesSummary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dgvSalesSummary.ColumnHeadersHeight = 28;
             this.dgvSalesSummary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvSalesSummary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -427,14 +212,14 @@
             this.col_total,
             this.col_salessummary,
             this.col_working_express_db});
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSalesSummary.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSalesSummary.DefaultCellStyle = dataGridViewCellStyle21;
             this.dgvSalesSummary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSalesSummary.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvSalesSummary.EnableHeadersVisualStyles = false;
@@ -485,10 +270,10 @@
             // col_totqty
             // 
             this.col_totqty.DataPropertyName = "totqty";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle12.Format = "N2";
-            dataGridViewCellStyle12.NullValue = null;
-            this.col_totqty.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle16.Format = "N2";
+            dataGridViewCellStyle16.NullValue = null;
+            this.col_totqty.DefaultCellStyle = dataGridViewCellStyle16;
             this.col_totqty.HeaderText = "ปริมาณขาย(ลิตร)";
             this.col_totqty.MinimumWidth = 120;
             this.col_totqty.Name = "col_totqty";
@@ -498,10 +283,10 @@
             // col_unitpr
             // 
             this.col_unitpr.DataPropertyName = "unitpr";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "N2";
-            dataGridViewCellStyle13.NullValue = null;
-            this.col_unitpr.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle17.Format = "N2";
+            dataGridViewCellStyle17.NullValue = null;
+            this.col_unitpr.DefaultCellStyle = dataGridViewCellStyle17;
             this.col_unitpr.HeaderText = "ราคาขาย/ลิตร";
             this.col_unitpr.MinimumWidth = 120;
             this.col_unitpr.Name = "col_unitpr";
@@ -511,10 +296,10 @@
             // col_totval
             // 
             this.col_totval.DataPropertyName = "totval";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "N2";
-            dataGridViewCellStyle14.NullValue = null;
-            this.col_totval.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle18.Format = "N2";
+            dataGridViewCellStyle18.NullValue = null;
+            this.col_totval.DefaultCellStyle = dataGridViewCellStyle18;
             this.col_totval.HeaderText = "มูลค่าขาย(บาท)";
             this.col_totval.MinimumWidth = 120;
             this.col_totval.Name = "col_totval";
@@ -524,10 +309,10 @@
             // col_ddisc
             // 
             this.col_ddisc.DataPropertyName = "ddisc";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "N2";
-            dataGridViewCellStyle15.NullValue = null;
-            this.col_ddisc.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle19.Format = "N2";
+            dataGridViewCellStyle19.NullValue = null;
+            this.col_ddisc.DefaultCellStyle = dataGridViewCellStyle19;
             this.col_ddisc.HeaderText = "ส่วนลดหน้าลาน(บาท)";
             this.col_ddisc.MinimumWidth = 140;
             this.col_ddisc.Name = "col_ddisc";
@@ -537,10 +322,10 @@
             // col_netval
             // 
             this.col_netval.DataPropertyName = "netval";
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle16.Format = "N2";
-            dataGridViewCellStyle16.NullValue = null;
-            this.col_netval.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle20.Format = "N2";
+            dataGridViewCellStyle20.NullValue = null;
+            this.col_netval.DefaultCellStyle = dataGridViewCellStyle20;
             this.col_netval.HeaderText = "มูลค่าขายสุทธิ(บาท)";
             this.col_netval.MinimumWidth = 140;
             this.col_netval.Name = "col_netval";
@@ -683,32 +468,6 @@
             this.col_working_express_db.ReadOnly = true;
             this.col_working_express_db.Visible = false;
             // 
-            // inline_btnSaleshistory
-            // 
-            this.inline_btnSaleshistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inline_btnSaleshistory.Image = global::XPump.Properties.Resources.edit_list_16;
-            this.inline_btnSaleshistory.Location = new System.Drawing.Point(257, 29);
-            this.inline_btnSaleshistory.Name = "inline_btnSaleshistory";
-            this.inline_btnSaleshistory.Size = new System.Drawing.Size(23, 25);
-            this.inline_btnSaleshistory.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.inline_btnSaleshistory, "บันทึกปริมาณการขาย <Ctrl+Space>");
-            this.inline_btnSaleshistory.UseVisualStyleBackColor = true;
-            this.inline_btnSaleshistory.Visible = false;
-            this.inline_btnSaleshistory.Click += new System.EventHandler(this.inline_btnSaleshistory_Click);
-            // 
-            // inline_btnEdit
-            // 
-            this.inline_btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inline_btnEdit.Image = global::XPump.Properties.Resources.edit_16;
-            this.inline_btnEdit.Location = new System.Drawing.Point(376, 29);
-            this.inline_btnEdit.Name = "inline_btnEdit";
-            this.inline_btnEdit.Size = new System.Drawing.Size(23, 25);
-            this.inline_btnEdit.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.inline_btnEdit, "แก้ไขราคาขาย <Alt+E>");
-            this.inline_btnEdit.UseVisualStyleBackColor = true;
-            this.inline_btnEdit.Visible = false;
-            this.inline_btnEdit.Click += new System.EventHandler(this.inline_unitpr_Click);
-            // 
             // brShift
             // 
             this.brShift._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -751,7 +510,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.ImageList = this.imageList1;
             this.tabControl1.Location = new System.Drawing.Point(4, 153);
             this.tabControl1.Name = "tabControl1";
@@ -772,114 +530,52 @@
             this.tabPage1.Text = "บันทึกรายการขาย <F8>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.inline_qty);
-            this.tabPage2.Controls.Add(this.dgvSttak);
-            this.tabPage2.ImageIndex = 0;
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(897, 332);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้จริง <F7>";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // inline_qty
-            // 
-            this.inline_qty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_qty._DecimalDigit = 2;
-            this.inline_qty._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.inline_qty._MaxLength = 30;
-            this.inline_qty._ReadOnly = false;
-            this.inline_qty._SelectionLength = 0;
-            this.inline_qty._SelectionStart = 4;
-            this.inline_qty._Text = "0.00";
-            this.inline_qty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.inline_qty._UseThoundsandSeparate = true;
-            this.inline_qty._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.inline_qty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inline_qty.BackColor = System.Drawing.Color.White;
-            this.inline_qty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_qty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_qty.Location = new System.Drawing.Point(756, 37);
-            this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_qty.Name = "inline_qty";
-            this.inline_qty.Size = new System.Drawing.Size(140, 23);
-            this.inline_qty.TabIndex = 1;
-            this.inline_qty.Visible = false;
-            this.inline_qty._ValueChanged += new System.EventHandler(this.inline_qty__ValueChanged);
-            // 
-            // dgvSttak
-            // 
-            this.dgvSttak.AllowSortByColumnHeaderClicked = false;
-            this.dgvSttak.AllowUserToAddRows = false;
-            this.dgvSttak.AllowUserToDeleteRows = false;
-            this.dgvSttak.AllowUserToResizeColumns = false;
-            this.dgvSttak.AllowUserToResizeRows = false;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSttak.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
-            this.dgvSttak.ColumnHeadersHeight = 28;
-            this.dgvSttak.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvSttak.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_sttak_id,
-            this.col_sttak_takdat,
-            this.col_sttak_section_id,
-            this.col_sttak_tank_name,
-            this.col_sttak_section_name,
-            this.col_sttak_stkcod,
-            this.col_sttak_stkdes,
-            this.col_sttak_qty,
-            this.col_sttak_sttak,
-            this.col_sttak_working_express_db});
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSttak.DefaultCellStyle = dataGridViewCellStyle20;
-            this.dgvSttak.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvSttak.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvSttak.EnableHeadersVisualStyles = false;
-            this.dgvSttak.FillEmptyRow = false;
-            this.dgvSttak.FocusedRowBorderRedLine = true;
-            this.dgvSttak.Location = new System.Drawing.Point(0, 0);
-            this.dgvSttak.MultiSelect = false;
-            this.dgvSttak.Name = "dgvSttak";
-            this.dgvSttak.ReadOnly = true;
-            this.dgvSttak.RowHeadersVisible = false;
-            this.dgvSttak.RowTemplate.Height = 26;
-            this.dgvSttak.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSttak.Size = new System.Drawing.Size(897, 332);
-            this.dgvSttak.StandardTab = true;
-            this.dgvSttak.TabIndex = 0;
-            this.dgvSttak.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSttak_CellClick);
-            this.dgvSttak.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSttak_CellDoubleClick);
-            this.dgvSttak.CurrentCellChanged += new System.EventHandler(this.dgvSttak_CurrentCellChanged);
-            this.dgvSttak.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvSttak_Scroll);
-            this.dgvSttak.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSttak_MouseClick);
-            this.dgvSttak.Resize += new System.EventHandler(this.dgvSttak_Resize);
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "exclaimation_16.png");
+            // 
+            // btnSttak
+            // 
+            this.btnSttak.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSttak.Image = global::XPump.Properties.Resources.exclaimation_16;
+            this.btnSttak.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSttak.Location = new System.Drawing.Point(43, 111);
+            this.btnSttak.Name = "btnSttak";
+            this.btnSttak.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnSttak.Size = new System.Drawing.Size(233, 36);
+            this.btnSttak.TabIndex = 22;
+            this.btnSttak.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้";
+            this.btnSttak.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSttak.UseVisualStyleBackColor = true;
+            this.btnSttak.Click += new System.EventHandler(this.btnSttak_Click);
+            // 
+            // inline_btnSaleshistory
+            // 
+            this.inline_btnSaleshistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.inline_btnSaleshistory.Image = global::XPump.Properties.Resources.edit_list_16;
+            this.inline_btnSaleshistory.Location = new System.Drawing.Point(257, 29);
+            this.inline_btnSaleshistory.Name = "inline_btnSaleshistory";
+            this.inline_btnSaleshistory.Size = new System.Drawing.Size(23, 25);
+            this.inline_btnSaleshistory.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.inline_btnSaleshistory, "บันทึกปริมาณการขาย <Ctrl+Space>");
+            this.inline_btnSaleshistory.UseVisualStyleBackColor = true;
+            this.inline_btnSaleshistory.Visible = false;
+            this.inline_btnSaleshistory.Click += new System.EventHandler(this.inline_btnSaleshistory_Click);
+            // 
+            // inline_btnEdit
+            // 
+            this.inline_btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.inline_btnEdit.Image = global::XPump.Properties.Resources.edit_16;
+            this.inline_btnEdit.Location = new System.Drawing.Point(376, 29);
+            this.inline_btnEdit.Name = "inline_btnEdit";
+            this.inline_btnEdit.Size = new System.Drawing.Size(23, 25);
+            this.inline_btnEdit.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.inline_btnEdit, "แก้ไขราคาขาย <Alt+E>");
+            this.inline_btnEdit.UseVisualStyleBackColor = true;
+            this.inline_btnEdit.Visible = false;
+            this.inline_btnEdit.Click += new System.EventHandler(this.inline_unitpr_Click);
             // 
             // lblDayEnded
             // 
@@ -894,116 +590,200 @@
             this.lblDayEnded.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblDayEnded.Visible = false;
             // 
-            // col_sttak_id
+            // btnAdd
             // 
-            this.col_sttak_id.DataPropertyName = "id";
-            this.col_sttak_id.HeaderText = "ID";
-            this.col_sttak_id.Name = "col_sttak_id";
-            this.col_sttak_id.ReadOnly = true;
-            this.col_sttak_id.Visible = false;
+            this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAdd.Image = global::XPump.Properties.Resources.add;
+            this.btnAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(36, 40);
+            this.btnAdd.Text = "เพิ่มข้อมูล <Alt+A>";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // col_sttak_takdat
+            // btnEdit
             // 
-            this.col_sttak_takdat.DataPropertyName = "takdat";
-            this.col_sttak_takdat.HeaderText = "วันที่";
-            this.col_sttak_takdat.MinimumWidth = 80;
-            this.col_sttak_takdat.Name = "col_sttak_takdat";
-            this.col_sttak_takdat.ReadOnly = true;
-            this.col_sttak_takdat.Visible = false;
-            this.col_sttak_takdat.Width = 80;
+            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnEdit.Image = global::XPump.Properties.Resources.edit;
+            this.btnEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(36, 40);
+            this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // col_sttak_section_id
+            // btnDelete
             // 
-            this.col_sttak_section_id.DataPropertyName = "section_id";
-            this.col_sttak_section_id.HeaderText = "Section ID";
-            this.col_sttak_section_id.Name = "col_sttak_section_id";
-            this.col_sttak_section_id.ReadOnly = true;
-            this.col_sttak_section_id.Visible = false;
+            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
+            this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(36, 40);
+            this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // col_sttak_tank_name
+            // btnStop
             // 
-            this.col_sttak_tank_name.DataPropertyName = "tank_name";
-            this.col_sttak_tank_name.HeaderText = "รหัสแท๊งค์";
-            this.col_sttak_tank_name.MinimumWidth = 140;
-            this.col_sttak_tank_name.Name = "col_sttak_tank_name";
-            this.col_sttak_tank_name.ReadOnly = true;
-            this.col_sttak_tank_name.Width = 140;
+            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnStop.Image = global::XPump.Properties.Resources.stop;
+            this.btnStop.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(36, 40);
+            this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // col_sttak_section_name
+            // btnSave
             // 
-            this.col_sttak_section_name.DataPropertyName = "section_name";
-            this.col_sttak_section_name.HeaderText = "เลขที่ถัง";
-            this.col_sttak_section_name.MinimumWidth = 140;
-            this.col_sttak_section_name.Name = "col_sttak_section_name";
-            this.col_sttak_section_name.ReadOnly = true;
-            this.col_sttak_section_name.Width = 140;
+            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSave.Image = global::XPump.Properties.Resources.save;
+            this.btnSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(36, 40);
+            this.btnSave.Text = "บันทึกข้อมูล <F9>";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // col_sttak_stkcod
+            // btnFirst
             // 
-            this.col_sttak_stkcod.DataPropertyName = "stkcod";
-            this.col_sttak_stkcod.HeaderText = "รหัสสินค้า";
-            this.col_sttak_stkcod.MinimumWidth = 140;
-            this.col_sttak_stkcod.Name = "col_sttak_stkcod";
-            this.col_sttak_stkcod.ReadOnly = true;
-            this.col_sttak_stkcod.Width = 140;
+            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFirst.Image = global::XPump.Properties.Resources.first;
+            this.btnFirst.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFirst.Name = "btnFirst";
+            this.btnFirst.Size = new System.Drawing.Size(36, 40);
+            this.btnFirst.Text = "ข้อมูลแรก <Ctrl+Home>";
+            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
             // 
-            // col_sttak_stkdes
+            // btnPrevious
             // 
-            this.col_sttak_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_sttak_stkdes.DataPropertyName = "stkdes";
-            this.col_sttak_stkdes.HeaderText = "รายละเอียด";
-            this.col_sttak_stkdes.Name = "col_sttak_stkdes";
-            this.col_sttak_stkdes.ReadOnly = true;
+            this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
+            this.btnPrevious.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(36, 40);
+            this.btnPrevious.Text = "ข้อมูลที่แล้ว <PageUp>";
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
-            // col_sttak_qty
+            // btnNext
             // 
-            this.col_sttak_qty.DataPropertyName = "qty";
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle19.Format = "N2";
-            dataGridViewCellStyle19.NullValue = null;
-            this.col_sttak_qty.DefaultCellStyle = dataGridViewCellStyle19;
-            this.col_sttak_qty.HeaderText = "ปริมาณที่วัดได้ (ลิตร)";
-            this.col_sttak_qty.MinimumWidth = 140;
-            this.col_sttak_qty.Name = "col_sttak_qty";
-            this.col_sttak_qty.ReadOnly = true;
-            this.col_sttak_qty.Width = 140;
+            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNext.Image = global::XPump.Properties.Resources.next;
+            this.btnNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(36, 40);
+            this.btnNext.Text = "ข้อมูลถัดไป <PageDown>";
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
-            // col_sttak_sttak
+            // btnLast
             // 
-            this.col_sttak_sttak.DataPropertyName = "shiftsttak";
-            this.col_sttak_sttak.HeaderText = "Shift Sttak";
-            this.col_sttak_sttak.Name = "col_sttak_sttak";
-            this.col_sttak_sttak.ReadOnly = true;
-            this.col_sttak_sttak.Visible = false;
+            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnLast.Image = global::XPump.Properties.Resources.last;
+            this.btnLast.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnLast.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnLast.Name = "btnLast";
+            this.btnLast.Size = new System.Drawing.Size(36, 40);
+            this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
+            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
             // 
-            // col_sttak_working_express_db
+            // btnSearch
             // 
-            this.col_sttak_working_express_db.DataPropertyName = "working_express_db";
-            this.col_sttak_working_express_db.HeaderText = "Working Express DB";
-            this.col_sttak_working_express_db.Name = "col_sttak_working_express_db";
-            this.col_sttak_working_express_db.ReadOnly = true;
-            this.col_sttak_working_express_db.Visible = false;
+            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSearch.DropDownButtonWidth = 15;
+            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnInquiryAll,
+            this.btnInquiryRest});
+            this.btnSearch.Image = global::XPump.Properties.Resources.search;
+            this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(52, 40);
+            this.btnSearch.Text = "ค้นหา <Alt+S>";
+            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
             // 
-            // button1
+            // btnInquiryAll
             // 
-            this.button1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button1.Image = global::XPump.Properties.Resources.exclaimation_16;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(43, 111);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.button1.Size = new System.Drawing.Size(233, 36);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnInquiryAll.Name = "btnInquiryAll";
+            this.btnInquiryAll.Size = new System.Drawing.Size(245, 22);
+            this.btnInquiryAll.Text = "เรียกดูข้อมูล ตั้งแต่ต้น <Ctrl+L>";
+            this.btnInquiryAll.Click += new System.EventHandler(this.btnInquiryAll_Click);
+            // 
+            // btnInquiryRest
+            // 
+            this.btnInquiryRest.Name = "btnInquiryRest";
+            this.btnInquiryRest.Size = new System.Drawing.Size(245, 22);
+            this.btnInquiryRest.Text = "เรียกดูข้อมูล ตั้งแต่รายการนี้ <Alt+L>";
+            this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnPrintALandscape,
+            this.btnPrintAPortrait});
+            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
+            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnPrint.Size = new System.Drawing.Size(51, 40);
+            this.btnPrint.Text = "พิมพ์รายงานส่วน ก.";
+            // 
+            // btnPrintALandscape
+            // 
+            this.btnPrintALandscape.Name = "btnPrintALandscape";
+            this.btnPrintALandscape.Size = new System.Drawing.Size(296, 22);
+            this.btnPrintALandscape.Text = "พิมพ์รายงานส่วน ก. กระดาษแนวนอน (12 หัวจ่าย)";
+            this.btnPrintALandscape.ToolTipText = "พิมพ์รายงานส่วน ก.";
+            this.btnPrintALandscape.Click += new System.EventHandler(this.btnPrintALandscape_Click);
+            // 
+            // btnPrintAPortrait
+            // 
+            this.btnPrintAPortrait.Name = "btnPrintAPortrait";
+            this.btnPrintAPortrait.Size = new System.Drawing.Size(296, 22);
+            this.btnPrintAPortrait.Text = "พิมพ์รายงานส่วน ก. กระดาษแนวตั้ง (30 หัวจ่าย)";
+            this.btnPrintAPortrait.Click += new System.EventHandler(this.btnPrintAPortrait_Click);
+            // 
+            // btnItem
+            // 
+            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnItemF8});
+            this.btnItem.Image = global::XPump.Properties.Resources.item;
+            this.btnItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.btnItem.Name = "btnItem";
+            this.btnItem.Size = new System.Drawing.Size(45, 40);
+            // 
+            // btnItemF8
+            // 
+            this.btnItemF8.Name = "btnItemF8";
+            this.btnItemF8.Size = new System.Drawing.Size(267, 22);
+            this.btnItemF8.Text = "บันทึกรายการขาย <F8>";
+            this.btnItemF8.Click += new System.EventHandler(this.btnItemF8_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
+            this.btnRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(36, 40);
+            this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // FormShiftTransaction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(911, 517);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSttak);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lblDayEnded);
             this.Controls.Add(this.brShift);
@@ -1026,8 +806,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvSalesSummary)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSttak)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1067,13 +845,9 @@
         private System.Windows.Forms.Label lblDayEnded;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ImageList imageList1;
-        private CC.XDatagrid dgvSttak;
-        private CC.XNumEdit inline_qty;
         private System.Windows.Forms.ToolStripDropDownButton btnItem;
         private System.Windows.Forms.ToolStripMenuItem btnItemF8;
-        private System.Windows.Forms.ToolStripMenuItem btnItemF7;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkcod;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkdes;
@@ -1099,16 +873,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_total;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salessummary;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_takdat;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_section_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_tank_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_section_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_stkcod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_stkdes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_qty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_sttak;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_working_express_db;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSttak;
     }
 }

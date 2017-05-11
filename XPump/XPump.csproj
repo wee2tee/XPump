@@ -310,6 +310,12 @@
     <Compile Include="SubForm\DialogShiftSelector.Designer.cs">
       <DependentUpon>DialogShiftSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogShiftSttak.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogShiftSttak.Designer.cs">
+      <DependentUpon>DialogShiftSttak.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogSimpleSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -454,6 +460,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogShiftSelector.resx">
       <DependentUpon>DialogShiftSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogShiftSttak.resx">
+      <DependentUpon>DialogShiftSttak.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>

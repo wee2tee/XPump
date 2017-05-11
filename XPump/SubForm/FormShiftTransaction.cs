@@ -45,7 +45,7 @@ namespace XPump.SubForm
             this.dgvSalesSummary.DataSource = this.bs_sales;
 
             this.bs_sttak = new BindingSource();
-            this.dgvSttak.DataSource = this.bs_sttak;
+            //this.dgvSttak.DataSource = this.bs_sttak;
 
             this.btnLast.PerformClick();
             this.ActiveControl = this.dgvSalesSummary;
@@ -69,7 +69,7 @@ namespace XPump.SubForm
             this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnPrintALandscape.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnItemF7.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            //this.btnItemF7.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnItemF8.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
@@ -240,7 +240,7 @@ namespace XPump.SubForm
 
             this.bs_sttak.ResetBindings(true);
             this.bs_sttak.DataSource = sales.shiftsttak.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ToList();
-            this.tabPage2.ImageIndex = sales.shiftsttak.Where(s => s.qty == -1).Count() > 0 ? 0 : -1;
+            //this.tabPage2.ImageIndex = sales.shiftsttak.Where(s => s.qty == -1).Count() > 0 ? 0 : -1;
 
             /*Form control state depend on data*/
             if(this.form_mode == FORM_MODE.READ)
@@ -361,13 +361,13 @@ namespace XPump.SubForm
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
-            {
-                this.RemoveSttakInlineForm();
-                this.form_mode = FORM_MODE.READ_ITEM;
-                this.ResetControlState();
-                return;
-            }
+            //if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
+            //{
+            //    this.RemoveSttakInlineForm();
+            //    this.form_mode = FORM_MODE.READ_ITEM;
+            //    this.ResetControlState();
+            //    return;
+            //}
 
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
@@ -378,21 +378,6 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
-            {
-                if (this.SaveSttak())
-                {
-                    this.RemoveSttakInlineForm();
-                    this.form_mode = FORM_MODE.READ_ITEM;
-                    this.ResetControlState();
-                }
-                else
-                {
-                    this.dgvSttak.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_sttak_stkcod.Name].Selected = true;
-                }
-                return;
-            }
-
             if (this.tmp_shiftsales.shift_id == -1)
             {
                 this.brShift.Focus();
@@ -1573,60 +1558,6 @@ namespace XPump.SubForm
             this.inline_btnSaleshistory.Visible = true;
         }
 
-        private void ShowSttakInlineForm(int row_index)
-        {
-            if (this.dgvSttak.CurrentCell == null)
-                return;
-
-            this.tmp_sttak = (shiftsttak)this.dgvSttak.Rows[row_index].Cells[this.col_sttak_sttak.Name].Value;
-            int col_index = this.dgvSttak.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sttak_qty.DataPropertyName).First().Index;
-
-            this.inline_qty.SetInlineControlPosition(this.dgvSttak, row_index, col_index);
-            this.inline_qty._Value = this.tmp_sttak.qty;
-            this.inline_qty.Visible = true;
-            this.inline_qty.Focus();
-        }
-
-        private void RemoveSttakInlineForm()
-        {
-            this.inline_qty.Visible = false;
-            this.tmp_sttak = null;
-        }
-
-        private void inline_qty__ValueChanged(object sender, EventArgs e)
-        {
-            if(this.tmp_sttak != null)
-            {
-                this.tmp_sttak.qty = ((XNumEdit)sender)._Value;
-            }
-        }
-
-        private void dgvSttak_CurrentCellChanged(object sender, EventArgs e)
-        {
-            if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
-            {
-                if ((int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id)
-                {
-                    this.inline_qty.Focus();
-                    return;
-                }
-
-                if (this.SaveSttak())
-                {
-                    this.curr_shiftsales.shiftsttak.Where(s => s.id == this.tmp_sttak.id).First().qty = this.tmp_sttak.qty;
-                    //((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_sttak_qty.Name].Value = this.tmp_sttak.qty;
-                    //((shiftsttak)((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_sttak_sttak.Name].Value).qty = this.tmp_sttak.qty;
-                    this.RemoveSttakInlineForm();
-                    this.FillForm();
-                    this.ShowSttakInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
-                }
-                else
-                {
-                    ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_sttak_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_sttak_stkcod.Name].Selected = true;
-                }
-            }
-        }
-
         private bool SaveSttak()
         {
             if (this.tmp_sttak == null)
@@ -1669,48 +1600,6 @@ namespace XPump.SubForm
             }
         }
 
-        private void dgvSttak_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (((XDatagrid)sender).CurrentCell == null)
-                return;
-
-            if (this.ValidateClosedShiftSales(this.curr_shiftsales))
-            {
-                return;
-            }
-
-            this.form_mode = FORM_MODE.EDIT_ITEM;
-            this.ResetControlState();
-
-            this.ShowSttakInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
-        }
-
-        private void dgvSttak_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1)
-                this.dgvSttak_CurrentCellChanged(sender, e);
-                
-        }
-
-        private void dgvSttak_MouseClick(object sender, MouseEventArgs e)
-        {
-            int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
-
-            if(row_index > -1 && e.Button == MouseButtons.Right)
-            {
-                ContextMenu cm = new ContextMenu();
-                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
-                mnu_edit.Click += delegate
-                {
-                    this.form_mode = FORM_MODE.EDIT_ITEM;
-                    this.ResetControlState();
-                    this.ShowSttakInlineForm(((XDatagrid)sender).CurrentCell.RowIndex);
-                };
-                cm.MenuItems.Add(mnu_edit);
-                cm.Show(this.dgvSttak, new Point(e.X, e.Y));
-            }
-        }
-
         private void btnItemF8_Click(object sender, EventArgs e)
         {
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
@@ -1722,16 +1611,7 @@ namespace XPump.SubForm
             this.dgvSalesSummary.Focus();
         }
 
-        private void btnItemF7_Click(object sender, EventArgs e)
-        {
-            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
-                return;
-
-            this.tabControl1.SelectedTab = this.tabPage2;
-            this.form_mode = FORM_MODE.READ_ITEM;
-            this.ResetControlState();
-            this.dgvSttak.Focus();
-        }
+        
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -1748,19 +1628,6 @@ namespace XPump.SubForm
                     {
                         SendKeys.Send("{TAB}");
                         return true;
-                    }
-                }
-
-                if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null  && this.inline_qty._Focused)
-                {
-                    int curr_row_index = this.dgvSttak.CurrentCell.RowIndex;
-                    if(curr_row_index < this.dgvSttak.Rows.Count - 1)
-                    {
-                        this.dgvSttak.Rows[curr_row_index + 1].Cells[this.col_sttak_stkcod.Name].Selected = true;
-                    }
-                    else
-                    {
-                        this.btnSave.PerformClick();
                     }
                 }
             }
@@ -1784,16 +1651,6 @@ namespace XPump.SubForm
                     if(this.tabControl1.SelectedTab == this.tabPage1)
                     {
                         this.inline_btnEdit.PerformClick();
-                        return true;
-                    }
-                    if(this.tabControl1.SelectedTab == this.tabPage2)
-                    {
-                        if (this.dgvSttak.CurrentCell == null)
-                            return true;
-
-                        this.form_mode = FORM_MODE.EDIT_ITEM;
-                        this.ResetControlState();
-                        this.ShowSttakInlineForm(this.dgvSttak.CurrentCell.RowIndex);
                         return true;
                     }
                 }
@@ -1877,12 +1734,6 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if(keyData == Keys.F7)
-            {
-                this.btnItemF7.PerformClick();
-                return true;
-            }
-
             if (keyData == Keys.F8)
             {
                 this.btnItemF8.PerformClick();
@@ -1898,22 +1749,10 @@ namespace XPump.SubForm
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void dgvSttak_Resize(object sender, EventArgs e)
+        private void btnSttak_Click(object sender, EventArgs e)
         {
-            if (this.inline_qty.Visible)
-            {
-                int col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sttak_qty.DataPropertyName).First().Index;
-                this.inline_qty.SetInlineControlPosition(((XDatagrid)sender), ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
-            }
-        }
-
-        private void dgvSttak_Scroll(object sender, ScrollEventArgs e)
-        {
-            if (this.inline_qty.Visible)
-            {
-                int col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_sttak_qty.DataPropertyName).First().Index;
-                this.inline_qty.SetInlineControlPosition(((XDatagrid)sender), ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
-            }
+            DialogShiftSttak sttak = new DialogShiftSttak(this.main_form, this.curr_shiftsales);
+            sttak.ShowDialog();
         }
     }
 }
