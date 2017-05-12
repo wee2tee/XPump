@@ -253,8 +253,9 @@ namespace XPump.Misc
             pricelistVM p = new pricelistVM
             {
                 working_express_db = working_express_db,
-                id = price.id,
-                unitpr = price.unitpr,
+                //id = price.id,
+                //unitpr = price.unitpr,
+                pricelist = price
             };
             return p;
         }
@@ -323,7 +324,7 @@ namespace XPump.Misc
         {
             using (xpumpEntities db = DBX.DataSet(working_express_db))
             {
-                var salessummary = db.salessummary.Include("shiftsales").Include("shiftsales.shift").Include("stmas").Where(s => s.id == sales.id).FirstOrDefault();
+                var salessummary = db.salessummary.Include("shiftsales").Include("shiftsales.shift").Where(s => s.id == sales.id).FirstOrDefault();
 
                 if (salessummary == null)
                     return 0m;

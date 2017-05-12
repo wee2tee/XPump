@@ -208,6 +208,12 @@
     <Compile Include="SubForm\DialogDbConfig.Designer.cs">
       <DependentUpon>DialogDbConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogDother.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDother.Designer.cs">
+      <DependentUpon>DialogDother.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogEditPrice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -409,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogDbConfig.resx">
       <DependentUpon>DialogDbConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDother.resx">
+      <DependentUpon>DialogDother.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogEditPrice.resx">
       <DependentUpon>DialogEditPrice.cs</DependentUpon>

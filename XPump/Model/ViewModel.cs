@@ -352,26 +352,13 @@ namespace XPump.Model
     {
         public SccompDbf working_express_db { get; set; }
         public int id { get { return this.salessummary.id; } }
-        public System.DateTime saldat { get { return this.salessummary.saldat; } }
-        public decimal total
+        public string stkcod { get { return this.salessummary.stkcod; } }
+        public string stkdes
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.saleshistory.Where(s => s.salessummary_id == this.id).ToList().Sum(s => s.salqty);
-                }
-            }
-        }
-        public decimal dtest { get { return this.salessummary.dtest; } }
-        public decimal dother
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.dother.Where(d => d.salessummary_id == this.id).ToList().Sum(d => d.qty);
-                }
+                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
         public decimal totqty
@@ -404,6 +391,28 @@ namespace XPump.Model
             get
             {
                 return this.totval - this.ddisc;
+            }
+        }
+        public System.DateTime saldat { get { return this.salessummary.saldat; } }
+        public decimal total
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.saleshistory.Where(s => s.salessummary_id == this.id).ToList().Sum(s => s.salqty);
+                }
+            }
+        }
+        public decimal dtest { get { return this.salessummary.dtest; } }
+        public decimal dother
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.dother.Where(d => d.salessummary_id == this.id).ToList().Sum(d => d.qty);
+                }
             }
         }
         public decimal salvat
@@ -440,15 +449,6 @@ namespace XPump.Model
                 return shiftsale != null ? shiftsale.shift.endtime : TimeSpan.Parse("0:0:0");
             }
         }
-        public string stkcod { get { return this.salessummary.stkcod; } }
-        public string stkdes
-        {
-            get
-            {
-                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
-                return st != null ? st.stkdes.Trim() : string.Empty;
-            }
-        }
         public DateTime? price_date
         {
             get
@@ -460,7 +460,6 @@ namespace XPump.Model
             }
         }
         public salessummary salessummary { get; set; }
-
         private shiftsales GetShiftsales()
         {
             using (xpumpEntities db = DBX.DataSet(this.working_express_db))
@@ -683,8 +682,8 @@ namespace XPump.Model
     public class pricelistVM
     {
         public SccompDbf working_express_db { get; set; }
-        public int id { get; set; }
-        public string stkcod { get; set; }
+        public int id { get { return this.pricelist.id; } }
+        public string stkcod { get { return this.pricelist.stkcod; } }
         public string stkdes
         {
             get
@@ -693,8 +692,8 @@ namespace XPump.Model
                 return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
-        public DateTime price_date { get; set; }
-        public decimal unitpr { get; set; }
+        public DateTime price_date { get { return this.pricelist.date; } }
+        public decimal unitpr { get { return this.pricelist.unitpr; } }
         public string currency
         {
             get
@@ -702,6 +701,7 @@ namespace XPump.Model
                 return "บาท";
             }
         }
+        public pricelist pricelist { get; set; }
     }
 
     public class shiftsttakVM

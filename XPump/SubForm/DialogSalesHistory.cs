@@ -38,6 +38,8 @@ namespace XPump.SubForm
 
         private void DialogSalesHistory_Load(object sender, EventArgs e)
         {
+            this.RemoveInlineForm();
+
             this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
@@ -59,7 +61,8 @@ namespace XPump.SubForm
 
             this.FillSummary();
 
-            this.ActiveControl = this.dgvNozzle;
+            //this.ShowInlineForm(0);
+            //this.ActiveControl = this.inline_mit_start;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -114,7 +117,6 @@ namespace XPump.SubForm
             this.numDtest.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.numDother.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.numDdisc.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.txtDother.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
         }
@@ -124,31 +126,18 @@ namespace XPump.SubForm
             this.tmp_saleshistory = this.GetSalesHistoryById((int)this.dgvNozzle.Rows[row_index].Cells[this.col_id.Name].Value);
 
             int col_index = this.dgvNozzle.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_mitbeg.DataPropertyName).First().Index;
-            Rectangle rect = this.dgvNozzle.GetCellDisplayRectangle(col_index, row_index, false);
-            this.inline_mit_start.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 3);
+            this.inline_mit_start.SetInlineControlPosition(this.dgvNozzle, this.dgvNozzle.CurrentCell.RowIndex, col_index);
             this.inline_mit_start._Value = this.tmp_saleshistory.mitbeg;
-            this.inline_mit_start.Visible = true;
 
             col_index = this.dgvNozzle.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_mitend.DataPropertyName).First().Index;
-            rect = this.dgvNozzle.GetCellDisplayRectangle(col_index, row_index, false);
-            this.inline_mit_end.SetBounds(rect.X, rect.Y + 1, rect.Width - 1, rect.Height - 3);
+            this.inline_mit_end.SetInlineControlPosition(this.dgvNozzle, this.dgvNozzle.CurrentCell.RowIndex, col_index);
             this.inline_mit_end._Value = this.tmp_saleshistory.mitend;
-            this.inline_mit_end.Visible = true;
-
-            this.inline_mit_start.Focus();
         }
 
         private void RemoveInlineForm()
         {
-            if(this.inline_mit_start.Visible)
-            {
-                this.inline_mit_start.Visible = false;
-            }
-
-            if (this.inline_mit_end.Visible)
-            {
-                this.inline_mit_end.Visible = false;
-            }
+            this.inline_mit_start.SetBounds(-9999, 0, 0, 0);
+            this.inline_mit_end.SetBounds(-9999, 0, 0, 0);
 
             this.tmp_saleshistory = null;
         }
@@ -174,6 +163,8 @@ namespace XPump.SubForm
                         sh.mitend = this.tmp_saleshistory.mitend;
                         sh.salqty = this.tmp_saleshistory.salqty;
                         sh.salval = this.tmp_saleshistory.salval;
+                        sh.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        sh.chgtime = DateTime.Now;
 
                         db.SaveChanges();
 
@@ -299,11 +290,6 @@ namespace XPump.SubForm
             this.salessummary.purvat = ((XNumEdit)sender)._Value;
         }
 
-        private void txtDother__TextChanged(object sender, EventArgs e)
-        {
-            //this.salessummary.dothertxt = ((XTextEdit)sender)._Text;
-        }
-
         private void inline_mit_start__ValueChanged(object sender, EventArgs e)
         {
             if(this.tmp_saleshistory != null)
@@ -388,6 +374,7 @@ namespace XPump.SubForm
                     this.form_mode = FORM_MODE.EDIT_ITEM;
                     this.ResetControlState();
                     this.ShowInlineForm(e.RowIndex);
+                    this.inline_mit_start.Focus();
                     return;
                 }
                 if(this.form_mode == FORM_MODE.EDIT_ITEM && this.inline_mit_start.Visible)
@@ -400,8 +387,6 @@ namespace XPump.SubForm
 
         private void dgvNozzle_CurrentCellChanged(object sender, EventArgs e)
         {
-
-
             if (this.form_mode != FORM_MODE.EDIT_ITEM)
                 return;
 
@@ -485,17 +470,19 @@ namespace XPump.SubForm
 
             if(keyData == Keys.Enter)
             {
-                if(this.inline_mit_start.Visible && this.inline_mit_end.Visible && this.inline_mit_start._Focused)
+                if(this.inline_mit_start._Focused)
                 {
                     this.inline_mit_end.Focus();
                     return true;
                 }
 
-                if (this.inline_mit_start.Visible && this.inline_mit_end.Visible && this.inline_mit_end._Focused)
+                if (this.inline_mit_end._Focused)
                 {
                     if(this.dgvNozzle.CurrentCell.RowIndex < this.dgvNozzle.Rows.Count - 1)
                     {
                         this.dgvNozzle.Rows[this.dgvNozzle.CurrentCell.RowIndex + 1].Cells[this.col_nozzle_name.Name].Selected = true;
+                        this.ShowInlineForm(this.dgvNozzle.CurrentCell.RowIndex);
+                        this.inline_mit_start.Focus();
                         return true;
                     }
                     else
@@ -569,6 +556,18 @@ namespace XPump.SubForm
                     ((XDatagrid)sender).Rows[row.Index].Cells[this.col_price_stkcod.Name].Selected = true;
                 }
             }
+        }
+
+        private void inline_mit_start__GotFocus(object sender, EventArgs e)
+        {
+            ((XNumEdit)sender)._SelectionStart = ((XNumEdit)sender)._Text.Contains(".") ? ((XNumEdit)sender)._Text.IndexOf(".") : 0;
+        }
+
+        private void btnDother_Click(object sender, EventArgs e)
+        {
+            DialogDother d = new DialogDother();
+            d.SetBounds(((Button)sender).PointToScreen(Point.Empty).X + ((Button)sender).Width, ((Button)sender).PointToScreen(Point.Empty).Y, d.Width, d.Height);
+            d.Show();
         }
     }
 }

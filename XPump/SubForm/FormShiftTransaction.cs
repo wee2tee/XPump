@@ -77,27 +77,7 @@ namespace XPump.SubForm
             this.brShift.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.dtSaldat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.dgvSalesSummary.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
-            this.inline_btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
-            this.inline_btnSaleshistory.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
-
-            this.inline_btnEdit.SetControlVisibility(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
-            this.inline_btnSaleshistory.SetControlVisibility(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
         }
-
-        //protected override void OnFormClosing(FormClosingEventArgs e)
-        //{
-        //    if (this.form_mode != FORM_MODE.READ && this.form_mode != FORM_MODE.READ_ITEM)
-        //    {
-        //        if (MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
-        //        {
-        //            e.Cancel = true;
-        //            return;
-        //        }
-        //    }
-
-        //    this.main_form.opened_child_form.Remove(this.main_form.opened_child_form.Where(f => f.form.GetType() == this.GetType()).First());
-        //    base.OnFormClosing(e);
-        //}
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
@@ -240,10 +220,11 @@ namespace XPump.SubForm
 
             this.bs_sttak.ResetBindings(true);
             this.bs_sttak.DataSource = sales.shiftsttak.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ToList();
-            //this.tabPage2.ImageIndex = sales.shiftsttak.Where(s => s.qty == -1).Count() > 0 ? 0 : -1;
+
+            this.ValidateSttak();
 
             /*Form control state depend on data*/
-            if(this.form_mode == FORM_MODE.READ)
+            if (this.form_mode == FORM_MODE.READ)
             {
                 this.btnEdit.Enabled = sales == null || sales.id == -1 ? false : true;
                 this.btnDelete.Enabled = sales == null || sales.id == -1 ? false : true;
@@ -716,17 +697,6 @@ namespace XPump.SubForm
             }
         }
 
-        //private void btnItem_Click(object sender, EventArgs e)
-        //{
-        //    if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
-        //        return;
-
-        //    this.form_mode = FORM_MODE.READ_ITEM;
-        //    this.ResetControlState();
-        //    this.dgvSalesSummary.Focus();
-        //    //this.dgv_SelectionChanged(this.dgv, new EventArgs());
-        //}
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
@@ -877,153 +847,6 @@ namespace XPump.SubForm
             }
         }
 
-        private void dgv_Scroll(object sender, ScrollEventArgs e)
-        {
-            if (!this.inline_btnEdit.Visible)
-                return;
-
-            this.SetInlineBtnPosition();
-        }
-
-        private void SetInlineBtnPosition()
-        {
-            if (this.dgvSalesSummary.CurrentCell == null)
-                return;
-
-            int col_index = this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index;
-            int row_index = this.dgvSalesSummary.CurrentCell.RowIndex;
-
-            Rectangle rect = this.dgvSalesSummary.GetCellDisplayRectangle(col_index, row_index, true);
-            this.inline_btnEdit.SetBounds(rect.X, rect.Y + 1, this.inline_btnEdit.Width, rect.Height - 3);
-
-            col_index = this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_totqty.DataPropertyName).First().Index;
-
-            rect = this.dgvSalesSummary.GetCellDisplayRectangle(col_index, row_index, true);
-            this.inline_btnSaleshistory.SetBounds(rect.X, rect.Y + 1, this.inline_btnSaleshistory.Width, rect.Height - 3);
-        }
-
-        private void dgv_Resize(object sender, EventArgs e)
-        {
-            if (this.inline_btnEdit.Visible || this.inline_btnSaleshistory.Visible)
-            {
-                this.SetInlineBtnPosition();
-            }
-        }
-
-        private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex == -1)
-                return;
-
-            this.form_mode = FORM_MODE.READ_ITEM;
-            this.ResetControlState();
-            ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_stkcod.Name].Selected = true;
-            //this.dgv_SelectionChanged((XDatagrid)sender, new EventArgs());
-
-            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index)
-            {
-                this.inline_btnEdit.PerformClick();
-                return;
-            }
-            else
-            {
-                this.inline_btnSaleshistory.PerformClick();
-                return;
-            }
-
-        }
-
-        private void inline_btnSaleshistory_Click(object sender, EventArgs e)
-        {
-            if (this.curr_salessummary == null)
-                return;
-
-            //if (this.ValidateClosedShiftSales(this.curr_shiftsales))
-            //{
-            //    return;
-            //}
-
-            if(this.form_mode != FORM_MODE.READ_ITEM)
-            {
-                this.form_mode = FORM_MODE.READ_ITEM;
-                this.ResetControlState();
-            }
-
-            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-            {
-                var sections = db.section.Include("tank").Include("tanksetup").Include("nozzle")
-                    .Where(s => s.stkcod == this.curr_salessummary.stkcod)
-                    .Where(s => s.tank.tanksetup.startdate.CompareTo(this.curr_salessummary.saldat) <= 0).ToList();
-
-                foreach (section sec in sections)
-                {
-                    foreach (nozzle noz in sec.nozzle.Where(n => n.isactive))
-                    {
-                        try
-                        {
-                            var tmp = db.saleshistory.Include("salessummary").Where(s => s.saldat == this.curr_salessummary.saldat)
-                                        //.Where(s => s.shift_id == this.curr_salessummary.shift_id)
-                                        .Where(s => s.nozzle_id == noz.id)
-                                        .Where(s => s.salessummary.stkcod == this.curr_salessummary.stkcod).FirstOrDefault();
-
-                            if (tmp != null)
-                                continue;
-
-                            db.saleshistory.Add(new saleshistory
-                            {
-                                saldat = this.curr_salessummary.saldat,
-                                mitbeg = 0m,
-                                mitend = 0m,
-                                salqty = 0m,
-                                salval = 0m,
-                                //shift_id = this.curr_salessummary.shift_id,
-                                nozzle_id = noz.id,
-                                //stmas_id = this.curr_salessummary.stmas_id,
-                                //pricelist_id = this.curr_salessummary.pricelist_id,
-                                salessummary_id = this.curr_salessummary.id
-                            });
-                            db.SaveChanges();
-                        }
-                        catch (Exception ex)
-                        {
-                            continue;
-                        }
-                    }
-                }
-            }
-
-            DialogSalesHistory sh = new DialogSalesHistory(this.main_form, this.curr_salessummary);
-            sh.ShowDialog();
-        }
-
-        private void inline_unitpr_Click(object sender, EventArgs e)
-        {
-            if (this.dgvSalesSummary.CurrentCell == null)
-                return;
-
-            if (this.ValidateClosedShiftSales(this.curr_shiftsales))
-            {
-                return;
-            }
-
-            if (this.form_mode != FORM_MODE.READ_ITEM)
-            {
-                this.form_mode = FORM_MODE.READ_ITEM;
-                this.ResetControlState();
-            }
-
-            int pricelist_id = (int)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_pricelist_id.Name].Value;
-            Rectangle rect = this.dgvSalesSummary.GetCellDisplayRectangle(this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index, this.dgvSalesSummary.CurrentCell.RowIndex, false);
-
-            DialogEditPrice pr = new DialogEditPrice(this.main_form, pricelist_id, new Size(rect.Width + 4, rect.Height), new Point(this.dgvSalesSummary.PointToScreen(Point.Empty).X + rect.X - 2, this.dgvSalesSummary.PointToScreen(Point.Empty).Y + rect.Y - 2), this.curr_salessummary.ToViewModel(this.main_form.working_express_db).unitpr);
-            if (pr.ShowDialog() == DialogResult.OK)
-            {
-                this.curr_shiftsales = this.GetShiftSales(this.curr_shiftsales.id);
-                this.FillForm();
-            }
-            this.dgvSalesSummary.Focus();
-        }
-
         private void dgv_MouseClick(object sender, MouseEventArgs e)
         {
             if(e.Button == MouseButtons.Right && (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM))
@@ -1043,7 +866,7 @@ namespace XPump.SubForm
                 mnu_sales.Text = "บันทึกปริมาณการขาย <Ctrl+Space>";
                 mnu_sales.Click += delegate
                 {
-                    this.inline_btnSaleshistory.PerformClick();
+                    this.ShowSalesForm();
                     return;
                 };
                 cm.MenuItems.Add(mnu_sales);
@@ -1052,7 +875,7 @@ namespace XPump.SubForm
                 mnu_price.Text = "แก้ไขราคาขาย <Alt+E>";
                 mnu_price.Click += delegate
                 {
-                    this.inline_btnEdit.PerformClick();
+                    this.ShowEditPrice();
                     return;
                 };
                 cm.MenuItems.Add(mnu_price);
@@ -1547,17 +1370,6 @@ namespace XPump.SubForm
             return docs;
         }
 
-        private void dgvSalesSummary_CurrentCellChanged(object sender, EventArgs e)
-        {
-            if (((XDatagrid)sender).CurrentCell == null)
-                return;
-
-            this.curr_salessummary = (salessummary)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells["col_salessummary"].Value;
-            this.SetInlineBtnPosition();
-            this.inline_btnEdit.Visible = true;
-            this.inline_btnSaleshistory.Visible = true;
-        }
-
         private bool SaveSttak()
         {
             if (this.tmp_sttak == null)
@@ -1640,17 +1452,17 @@ namespace XPump.SubForm
 
             if (keyData == (Keys.Alt | Keys.E))
             {
-                if (this.form_mode == FORM_MODE.READ)
-                {
-                    this.btnEdit.PerformClick();
-                    return true;
-                }
+                //if (this.form_mode == FORM_MODE.READ)
+                //{
+                //    this.btnEdit.PerformClick();
+                //    return true;
+                //}
 
                 if (this.form_mode == FORM_MODE.READ_ITEM)
                 {
                     if(this.tabControl1.SelectedTab == this.tabPage1)
                     {
-                        this.inline_btnEdit.PerformClick();
+                        this.ShowEditPrice();
                         return true;
                     }
                 }
@@ -1662,9 +1474,9 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if (keyData == (Keys.Control | Keys.Space) && this.dgvSalesSummary.Focused && this.inline_btnEdit.Visible)
+            if (keyData == (Keys.Control | Keys.Space) && this.form_mode == FORM_MODE.READ_ITEM)
             {
-                this.inline_btnSaleshistory.PerformClick();
+                this.ShowSalesForm();
                 return true;
             }
 
@@ -1752,7 +1564,233 @@ namespace XPump.SubForm
         private void btnSttak_Click(object sender, EventArgs e)
         {
             DialogShiftSttak sttak = new DialogShiftSttak(this.main_form, this.curr_shiftsales);
-            sttak.ShowDialog();
+            if(sttak.ShowDialog() == DialogResult.OK)
+            {
+                this.ValidateSttak();
+            }
+        }
+
+        private void ValidateSttak()
+        {
+            if(this.curr_shiftsales == null)
+            {
+                this.btnSttak.Image = XPump.Properties.Resources.exclaimation_16;
+                return;
+            }
+
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                if(db.shiftsttak.Where(s => s.shiftsales_id == this.curr_shiftsales.id && s.qty < 0).ToList().Count > 0)
+                {
+                    this.btnSttak.Image = XPump.Properties.Resources.exclaimation_16;
+                    return;
+                }
+                else
+                {
+                    this.btnSttak.Image = XPump.Properties.Resources.ok_16;
+                }
+            }
+        }
+
+        private void dgvSalesSummary_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if(e.RowIndex == -1)
+            {
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_totqty.DataPropertyName).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground);
+                    e.Handled = true;
+                    return;
+                }
+
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_qty.Name).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground);
+                    using (SolidBrush brush = new SolidBrush(((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor))
+                    {
+                        e.Graphics.FillRectangle(brush, new Rectangle(e.CellBounds.X - 3, e.CellBounds.Y + 2, 6, e.CellBounds.Height - 4));
+                    }
+                    TextRenderer.DrawText(e.Graphics, "ปริมาณขาย(ลิตร)", ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, new Rectangle(e.CellBounds.X - 85, e.CellBounds.Y, e.CellBounds.Width + 85, e.CellBounds.Height), ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.ForeColor, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor, TextFormatFlags.VerticalCenter);
+                    e.Handled = true;
+                    return;
+                }
+
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground);
+                    e.Handled = true;
+                    return;
+                }
+
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_price.Name).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground);
+                    using (SolidBrush brush = new SolidBrush(((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor))
+                    {
+                        e.Graphics.FillRectangle(brush, new Rectangle(e.CellBounds.X - 3, e.CellBounds.Y + 2, 6, e.CellBounds.Height - 4));
+                    }
+                    TextRenderer.DrawText(e.Graphics, "ราคาขาย/ลิตร(บาท)", ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, new Rectangle(e.CellBounds.X - 98, e.CellBounds.Y, e.CellBounds.Width + 98, e.CellBounds.Height), ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.ForeColor, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor, TextFormatFlags.VerticalCenter);
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            if(e.RowIndex > -1)
+            {
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_qty.Name).First().Index)
+                {
+                    int img_w = XPump.Properties.Resources.edit_list_16.Width;
+                    int img_h = XPump.Properties.Resources.edit_list_16.Height;
+                    int x = e.CellBounds.X + (int)Math.Floor((decimal)(e.CellBounds.Width - img_w) / 2);
+                    int y = e.CellBounds.Y + (int)Math.Floor((decimal)(e.CellBounds.Height - img_h) / 2);
+
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    e.Graphics.DrawImage(XPump.Properties.Resources.edit_list_16, new Rectangle(x, y, img_w, img_h));
+                    e.Handled = true;
+                    return;
+                }
+
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_price.Name).First().Index)
+                {
+                    int img_w = XPump.Properties.Resources.edit_16.Width;
+                    int img_h = XPump.Properties.Resources.edit_16.Height;
+                    int x = e.CellBounds.X + (int)Math.Floor((decimal)(e.CellBounds.Width - img_w) / 2);
+                    int y = e.CellBounds.Y + (int)Math.Floor((decimal)(e.CellBounds.Height - img_h) / 2);
+
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    e.Graphics.DrawImage(XPump.Properties.Resources.edit_16, new Rectangle(x, y, img_w, img_h));
+                    e.Handled = true;
+                    return;
+                }
+            }
+        }
+
+        private void dgvSalesSummary_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(this.dgvSalesSummary.CurrentCell.ColumnIndex == this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_qty.Name).First().Index)
+            {
+                this.ShowSalesForm();
+                return;
+            }
+
+            if (this.dgvSalesSummary.CurrentCell.ColumnIndex == this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_price.Name).First().Index)
+            {
+                this.ShowEditPrice();
+                return;
+            }
+        }
+
+        private void ShowSalesForm()
+        {
+            if (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM)
+            {
+                if (this.dgvSalesSummary.CurrentCell == null)
+                    return;
+
+                if (this.dgvSalesSummary.CurrentCell == null)
+                    return;
+
+                if (this.form_mode != FORM_MODE.READ_ITEM)
+                {
+                    this.form_mode = FORM_MODE.READ_ITEM;
+                    this.ResetControlState();
+                }
+
+                var sales = (salessummary)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_salessummary.Name].Value;
+
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var tanksetup = db.tanksetup.OrderByDescending(t => t.startdate).Where(t => t.startdate.CompareTo(sales.saldat) <= 0).FirstOrDefault();
+
+                    if (tanksetup == null)
+                    {
+                        MessageBox.Show("ไม่พบการกำหนดค่าแท๊งค์เก็บน้ำมัน สำหรับการขายในวันที่ \"" + this.curr_salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + "\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
+                    var nozz = db.nozzle.Include("section").Include("section.tank").Where(n => n.section.tank.tanksetup_id == tanksetup.id && n.section.stkcod == sales.stkcod && n.isactive).ToList();
+
+                    try
+                    {
+                        foreach (var n in nozz)
+                        {
+                            if (db.saleshistory.Where(s => s.salessummary_id == sales.id && s.nozzle_id == n.id).Count() > 0)
+                                continue;
+
+                            db.saleshistory.Add(new saleshistory
+                            {
+                                saldat = sales.saldat,
+                                mitbeg = 0m,
+                                mitend = 0m,
+                                salqty = 0m,
+                                salval = 0m,
+                                nozzle_id = n.id,
+                                salessummary_id = sales.id,
+                                creby = this.main_form.loged_in_status.loged_in_user_name,
+                                cretime = DateTime.Now
+                            });
+
+                            db.SaveChanges();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                DialogSalesHistory sh = new DialogSalesHistory(this.main_form, sales);
+                sh.ShowDialog();
+            }
+        }
+
+        private void ShowEditPrice()
+        {
+            if (this.dgvSalesSummary.CurrentCell == null)
+                return;
+
+            if (this.ValidateClosedShiftSales(this.curr_shiftsales))
+            {
+                MessageBox.Show("ปิดยอดขายแล้ว ไม่สามารถแก้ไขราคาได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (this.form_mode != FORM_MODE.READ_ITEM)
+            {
+                this.form_mode = FORM_MODE.READ_ITEM;
+                this.ResetControlState();
+            }
+
+            salessummary sales = (salessummary)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_salessummary.Name].Value;
+
+            int pricelist_id = (int)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_pricelist_id.Name].Value;
+            Rectangle rect = this.dgvSalesSummary.GetCellDisplayRectangle(this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index, this.dgvSalesSummary.CurrentCell.RowIndex, false);
+
+            DialogEditPrice pr = new DialogEditPrice(this.main_form, pricelist_id, new Size(rect.Width + 4, rect.Height), new Point(this.dgvSalesSummary.PointToScreen(Point.Empty).X + rect.X - 2, this.dgvSalesSummary.PointToScreen(Point.Empty).Y + rect.Y - 2), sales.ToViewModel(this.main_form.working_express_db).unitpr);
+            if (pr.ShowDialog() == DialogResult.OK)
+            {
+                this.curr_shiftsales = this.GetShiftSales(this.curr_shiftsales.id);
+                this.FillForm();
+            }
+            this.dgvSalesSummary.Focus();
+        }
+
+        private void dgvSalesSummary_CellToolTipTextNeeded(object sender, DataGridViewCellToolTipTextNeededEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_qty.Name).First().Index)
+            {
+                e.ToolTipText = "บันทึกปริมาณการขาย <Ctrl+Space>";
+                return;
+            }
+
+            if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_price.Name).First().Index)
+            {
+                e.ToolTipText = "แก้ไขราคาขาย <Alt+E>";
+                return;
+            }
         }
     }
 }
