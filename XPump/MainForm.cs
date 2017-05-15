@@ -223,6 +223,22 @@ namespace XPump
             //this.opened_child_form.Add(new ChildFormDetail() { form = stmas, docPrefix = string.Empty });
         }
 
+        private void mnuDotherMessage_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+                return;
+            }
+
+            FormIstab i = new FormIstab(this, "08", ((ToolStripMenuItem)sender).Text);
+            i.MdiParent = this;
+            i.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            i.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = i, docPrefix = string.Empty });
+        }
+
         private void MnuShiftTransaction_Click(object sender, EventArgs e)
         {
             if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShiftTransaction)).FirstOrDefault() != null)

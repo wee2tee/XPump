@@ -29,21 +29,31 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.inline_qty = new CC.XNumEdit();
+            this.inline_dother = new CC.XDropdownList();
+            this.dgv = new CC.XDatagrid();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.xDatagrid1 = new CC.XDatagrid();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_dother = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_typcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_creby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_chgby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_typdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_istab_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_salessummary_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dayend_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.xDatagrid1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -51,11 +61,112 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.xDatagrid1);
+            this.panel1.Controls.Add(this.inline_qty);
+            this.panel1.Controls.Add(this.inline_dother);
+            this.panel1.Controls.Add(this.dgv);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(301, 123);
             this.panel1.TabIndex = 0;
+            // 
+            // inline_qty
+            // 
+            this.inline_qty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_qty._DecimalDigit = 2;
+            this.inline_qty._MaximumValue = new decimal(new int[] {
+            1410065407,
+            2,
+            0,
+            262144});
+            this.inline_qty._MaxLength = 30;
+            this.inline_qty._ReadOnly = false;
+            this.inline_qty._SelectionLength = 0;
+            this.inline_qty._SelectionStart = 4;
+            this.inline_qty._Text = "0.00";
+            this.inline_qty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_qty._UseThoundsandSeparate = true;
+            this.inline_qty._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_qty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.inline_qty.BackColor = System.Drawing.Color.White;
+            this.inline_qty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_qty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_qty.Location = new System.Drawing.Point(201, 31);
+            this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_qty.Name = "inline_qty";
+            this.inline_qty.Size = new System.Drawing.Size(98, 23);
+            this.inline_qty.TabIndex = 2;
+            // 
+            // inline_dother
+            // 
+            this.inline_dother._ReadOnly = false;
+            this.inline_dother._SelectedItem = null;
+            this.inline_dother._Text = "";
+            this.inline_dother.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_dother.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_dother.Location = new System.Drawing.Point(3, 31);
+            this.inline_dother.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_dother.Name = "inline_dother";
+            this.inline_dother.Size = new System.Drawing.Size(196, 23);
+            this.inline_dother.TabIndex = 1;
+            // 
+            // dgv
+            // 
+            this.dgv.AllowSortByColumnHeaderClicked = false;
+            this.dgv.AllowUserToAddRows = false;
+            this.dgv.AllowUserToDeleteRows = false;
+            this.dgv.AllowUserToResizeColumns = false;
+            this.dgv.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv.ColumnHeadersHeight = 28;
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_id,
+            this.col_working_express_db,
+            this.col_dother,
+            this.col_typcod,
+            this.col_creby,
+            this.col_cretime,
+            this.col_chgby,
+            this.col_chgtime,
+            this.col_typdes,
+            this.col_qty,
+            this.col_istab_id,
+            this.col_salessummary_id,
+            this.col_dayend_id});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgv.EnableHeadersVisualStyles = false;
+            this.dgv.FillEmptyRow = false;
+            this.dgv.FocusedRowBorderRedLine = true;
+            this.dgv.Location = new System.Drawing.Point(0, 0);
+            this.dgv.MultiSelect = false;
+            this.dgv.Name = "dgv";
+            this.dgv.ReadOnly = true;
+            this.dgv.RowHeadersVisible = false;
+            this.dgv.RowTemplate.Height = 26;
+            this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv.Size = new System.Drawing.Size(301, 123);
+            this.dgv.StandardTab = true;
+            this.dgv.TabIndex = 0;
             // 
             // btnAdd
             // 
@@ -71,6 +182,7 @@
             this.btnAdd.Text = "เพิ่ม";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnDelete
             // 
@@ -132,46 +244,6 @@
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.UseVisualStyleBackColor = true;
             // 
-            // xDatagrid1
-            // 
-            this.xDatagrid1.AllowSortByColumnHeaderClicked = false;
-            this.xDatagrid1.AllowUserToAddRows = false;
-            this.xDatagrid1.AllowUserToDeleteRows = false;
-            this.xDatagrid1.AllowUserToResizeColumns = false;
-            this.xDatagrid1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.xDatagrid1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.xDatagrid1.ColumnHeadersHeight = 28;
-            this.xDatagrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.xDatagrid1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_id,
-            this.col_typdes,
-            this.col_qty,
-            this.col_istab_id,
-            this.col_salessummary_id,
-            this.col_dayend_id});
-            this.xDatagrid1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xDatagrid1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.xDatagrid1.EnableHeadersVisualStyles = false;
-            this.xDatagrid1.FillEmptyRow = false;
-            this.xDatagrid1.FocusedRowBorderRedLine = false;
-            this.xDatagrid1.Location = new System.Drawing.Point(0, 0);
-            this.xDatagrid1.MultiSelect = false;
-            this.xDatagrid1.Name = "xDatagrid1";
-            this.xDatagrid1.ReadOnly = true;
-            this.xDatagrid1.RowHeadersVisible = false;
-            this.xDatagrid1.RowTemplate.Height = 26;
-            this.xDatagrid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.xDatagrid1.Size = new System.Drawing.Size(301, 123);
-            this.xDatagrid1.StandardTab = true;
-            this.xDatagrid1.TabIndex = 0;
-            // 
             // col_id
             // 
             this.col_id.DataPropertyName = "id";
@@ -179,6 +251,62 @@
             this.col_id.Name = "col_id";
             this.col_id.ReadOnly = true;
             this.col_id.Visible = false;
+            // 
+            // col_working_express_db
+            // 
+            this.col_working_express_db.DataPropertyName = "working_express_db";
+            this.col_working_express_db.HeaderText = "Working Express DB";
+            this.col_working_express_db.Name = "col_working_express_db";
+            this.col_working_express_db.ReadOnly = true;
+            this.col_working_express_db.Visible = false;
+            // 
+            // col_dother
+            // 
+            this.col_dother.DataPropertyName = "dother";
+            this.col_dother.HeaderText = "Dother";
+            this.col_dother.Name = "col_dother";
+            this.col_dother.ReadOnly = true;
+            this.col_dother.Visible = false;
+            // 
+            // col_typcod
+            // 
+            this.col_typcod.DataPropertyName = "typcod";
+            this.col_typcod.HeaderText = "Typcod";
+            this.col_typcod.Name = "col_typcod";
+            this.col_typcod.ReadOnly = true;
+            this.col_typcod.Visible = false;
+            // 
+            // col_creby
+            // 
+            this.col_creby.DataPropertyName = "creby";
+            this.col_creby.HeaderText = "Created By";
+            this.col_creby.Name = "col_creby";
+            this.col_creby.ReadOnly = true;
+            this.col_creby.Visible = false;
+            // 
+            // col_cretime
+            // 
+            this.col_cretime.DataPropertyName = "cretime";
+            this.col_cretime.HeaderText = "Created Time";
+            this.col_cretime.Name = "col_cretime";
+            this.col_cretime.ReadOnly = true;
+            this.col_cretime.Visible = false;
+            // 
+            // col_chgby
+            // 
+            this.col_chgby.DataPropertyName = "chgby";
+            this.col_chgby.HeaderText = "Changed By";
+            this.col_chgby.Name = "col_chgby";
+            this.col_chgby.ReadOnly = true;
+            this.col_chgby.Visible = false;
+            // 
+            // col_chgtime
+            // 
+            this.col_chgtime.DataPropertyName = "chgtime";
+            this.col_chgtime.HeaderText = "Changed Time";
+            this.col_chgtime.Name = "col_chgtime";
+            this.col_chgtime.ReadOnly = true;
+            this.col_chgtime.Visible = false;
             // 
             // col_typdes
             // 
@@ -243,7 +371,7 @@
             this.Deactivate += new System.EventHandler(this.DialogDother_Deactivate);
             this.Load += new System.EventHandler(this.DialogDother_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.xDatagrid1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -256,8 +384,17 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnSave;
-        private CC.XDatagrid xDatagrid1;
+        private CC.XDatagrid dgv;
+        private CC.XNumEdit inline_qty;
+        private CC.XDropdownList inline_dother;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dother;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_typcod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_creby;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_cretime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_chgby;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_chgtime;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_typdes;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_qty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_istab_id;

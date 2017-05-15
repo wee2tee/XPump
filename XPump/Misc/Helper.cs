@@ -64,6 +64,58 @@ namespace XPump.Misc
     // Extension Method
     public static class Helper
     {
+        public static istabVM ToViewModel(this istab istab, SccompDbf working_express_db)
+        {
+            if(istab == null)
+            {
+                return null;
+            }
+
+            istabVM i = new istabVM
+            {
+                working_express_db = working_express_db,
+                istab = istab
+            };
+
+            return i;
+        }
+
+        public static List<istabVM> ToViewModel(this IEnumerable<istab> istabs, SccompDbf working_express_db)
+        {
+            List<istabVM> i = new List<istabVM>();
+            foreach (var istab in istabs)
+            {
+                i.Add(istab.ToViewModel(working_express_db));
+            }
+
+            return i;
+        }
+
+        public static dotherVM ToViewModel(this dother dother, SccompDbf working_express_db)
+        {
+            if (dother == null)
+                return null;
+
+            dotherVM d = new dotherVM
+            {
+                working_express_db = working_express_db,
+                dother = dother
+            };
+
+            return d;
+        }
+
+        public static List<dotherVM> ToViewModel(this IEnumerable<dother> dothers, SccompDbf working_express_db)
+        {
+            List<dotherVM> d = new List<dotherVM>();
+            foreach (var dother in dothers)
+            {
+                d.Add(dother.ToViewModel(working_express_db));
+            }
+
+            return d;
+        }
+
         public static shiftVM ToViewModel(this shift shift, SccompDbf working_express_db)
         {
             if (shift == null)

@@ -565,7 +565,7 @@ namespace XPump.SubForm
 
         private void btnDother_Click(object sender, EventArgs e)
         {
-            DialogDother d = new DialogDother();
+            DialogDother d = new DialogDother(this.main_form, this.salessummary);
             d.SetBounds(((Button)sender).PointToScreen(Point.Empty).X + ((Button)sender).Width, ((Button)sender).PointToScreen(Point.Empty).Y, d.Width, d.Height);
             d.Show();
         }

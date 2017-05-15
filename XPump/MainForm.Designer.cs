@@ -47,6 +47,8 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ตารางขอมลToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDotherMessage = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -92,7 +94,8 @@
             this.ToolStripStock.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuStmas,
             this.toolStripMenuItem2,
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.ตารางขอมลToolStripMenuItem});
             this.ToolStripStock.Name = "ToolStripStock";
             this.ToolStripStock.Size = new System.Drawing.Size(107, 20);
             this.ToolStripStock.Text = "ฐานข้อมูลเริ่มต้น";
@@ -213,6 +216,21 @@
             this.lblVersion.Text = "version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // ตารางขอมลToolStripMenuItem
+            // 
+            this.ตารางขอมลToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuDotherMessage});
+            this.ตารางขอมลToolStripMenuItem.Name = "ตารางขอมลToolStripMenuItem";
+            this.ตารางขอมลToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.ตารางขอมลToolStripMenuItem.Text = "ตารางข้อมูล";
+            // 
+            // mnuDotherMessage
+            // 
+            this.mnuDotherMessage.Name = "mnuDotherMessage";
+            this.mnuDotherMessage.Size = new System.Drawing.Size(235, 22);
+            this.mnuDotherMessage.Text = "หักยอดขายประจำผลัด (อื่น ๆ)";
+            this.mnuDotherMessage.Click += new System.EventHandler(this.mnuDotherMessage_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -260,6 +278,8 @@
         private System.Windows.Forms.ToolStripStatusLabel lblUserID;
         private System.Windows.Forms.ToolStripStatusLabel lblVersion;
         private System.Windows.Forms.ToolStripMenuItem mnuChangeCompany;
+        private System.Windows.Forms.ToolStripMenuItem ตารางขอมลToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuDotherMessage;
     }
 }
 

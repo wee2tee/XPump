@@ -7,6 +7,60 @@ using XPump.Misc;
 
 namespace XPump.Model
 {
+    public class istabVM
+    {
+        public SccompDbf working_express_db { get; set; }
+        public istab istab { get; set; }
+        public int id { get { return this.istab.id; } }
+        public string tabtyp { get { return this.istab.tabtyp; } }
+        public string typcod { get { return this.istab.typcod; } }
+        public string shortnam { get { return this.istab.shortnam; } }
+        public string shortnam2 { get { return this.istab.shortnam2; } }
+        public string typdes { get { return this.istab.typdes; } }
+        public string typdes2 { get { return this.istab.typdes2; } }
+        public string is_shiftsales { get { return this.istab.is_shiftsales ? "Y" : "N"; } }
+        public string is_dayend { get { return this.istab.is_dayend ? "Y" : "N"; } }
+        public string creby { get { return this.istab.creby; } }
+        public DateTime cretime { get { return this.istab.cretime; } }
+        public string chgby { get { return this.istab.chgby; } }
+        public DateTime? chgtime { get { return this.istab.chgtime; } }
+    }
+
+    public class dotherVM
+    {
+        public SccompDbf working_express_db { get; set; }
+        public dother dother { get; set; }
+        public int id { get { return this.dother.id; } }
+        public int istab_id { get { return this.dother.istab_id; } }
+        public int? salessummary_id { get { return this.dother.salessummary_id; } }
+        public int? dayend_id { get { return this.dother.dayend_id; } }
+        public string creby { get { return this.dother.creby; } }
+        public DateTime cretime { get { return this.dother.cretime; } }
+        public string chgby { get { return this.dother.chgby; } }
+        public DateTime? chgtime { get { return this.dother.chgtime; } }
+        public string typcod
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.istab.Find(this.istab_id) != null ? db.istab.Find(this.istab_id).typcod : string.Empty;
+                }
+            }
+        }
+        public string typdes
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.istab.Find(this.istab_id) != null ? db.istab.Find(this.istab_id).typdes : string.Empty;
+                }
+            }
+        }
+        public decimal qty { get { return this.dother.qty; } }
+    }
+
     public class shiftVM
     {
         public SccompDbf working_express_db { get; set; }

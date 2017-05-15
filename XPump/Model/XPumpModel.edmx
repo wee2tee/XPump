@@ -53,6 +53,10 @@
           <Property Name="istab_id" Type="int" Nullable="false" />
           <Property Name="salessummary_id" Type="int" />
           <Property Name="dayend_id" Type="int" />
+          <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="chgby" Type="varchar" MaxLength="20" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="istab">
           <Key>
@@ -65,6 +69,8 @@
           <Property Name="shortnam2" Type="varchar" MaxLength="15" />
           <Property Name="typdes" Type="varchar" MaxLength="50" />
           <Property Name="typdes2" Type="varchar" MaxLength="50" />
+          <Property Name="is_shiftsales" Type="bool" Nullable="false" />
+          <Property Name="is_dayend" Type="bool" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
@@ -555,6 +561,10 @@
           <Property Name="istab_id" Type="Int32" Nullable="false" />
           <Property Name="salessummary_id" Type="Int32" />
           <Property Name="dayend_id" Type="Int32" />
+          <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cretime" Type="DateTime" Nullable="false" />
+          <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="dayend" Relationship="Self.fk_dother_dayend1" FromRole="dother" ToRole="dayend" />
           <NavigationProperty Name="istab" Relationship="Self.fk_dother_istab1" FromRole="dother" ToRole="istab" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_dother_salessummary1" FromRole="dother" ToRole="salessummary" />
@@ -570,6 +580,8 @@
           <Property Name="shortnam2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="typdes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="typdes2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="is_shiftsales" Type="Boolean" Nullable="false" />
+          <Property Name="is_dayend" Type="Boolean" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -1082,6 +1094,10 @@
                 <ScalarProperty Name="istab_id" ColumnName="istab_id" />
                 <ScalarProperty Name="salessummary_id" ColumnName="salessummary_id" />
                 <ScalarProperty Name="dayend_id" ColumnName="dayend_id" />
+                <ScalarProperty Name="creby" ColumnName="creby" />
+                <ScalarProperty Name="cretime" ColumnName="cretime" />
+                <ScalarProperty Name="chgby" ColumnName="chgby" />
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1095,6 +1111,8 @@
                 <ScalarProperty Name="shortnam2" ColumnName="shortnam2" />
                 <ScalarProperty Name="typdes" ColumnName="typdes" />
                 <ScalarProperty Name="typdes2" ColumnName="typdes2" />
+                <ScalarProperty Name="is_shiftsales" ColumnName="is_shiftsales" />
+                <ScalarProperty Name="is_dayend" ColumnName="is_dayend" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />

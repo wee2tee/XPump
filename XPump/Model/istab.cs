@@ -27,6 +27,8 @@ namespace XPump.Model
         public string shortnam2 { get; set; }
         public string typdes { get; set; }
         public string typdes2 { get; set; }
+        public bool is_shiftsales { get; set; }
+        public bool is_dayend { get; set; }
         public string creby { get; set; }
         public System.DateTime cretime { get; set; }
         public string chgby { get; set; }

@@ -228,6 +228,8 @@ namespace XPump.SubForm
                 cmd.CommandText += "`shortnam2` VARCHAR(15) NULL,";
                 cmd.CommandText += "`typdes` VARCHAR(50) NULL,";
                 cmd.CommandText += "`typdes2` VARCHAR(50) NULL,";
+                cmd.CommandText += "`is_shiftsales` TINYINT(1) NOT NULL DEFAULT 0,";
+                cmd.CommandText += "`is_dayend` TINYINT(1) NOT NULL DEFAULT 0,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
@@ -486,12 +488,17 @@ namespace XPump.SubForm
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
+                // Dother Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dother` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`qty` DECIMAL(14,2) NOT NULL DEFAULT 0,";
                 cmd.CommandText += "`istab_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`salessummary_id` INT(11) NULL,";
                 cmd.CommandText += "`dayend_id` INT(11) NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "INDEX `fk_dother_istab1_idx` (`istab_id` ASC),";
                 cmd.CommandText += "INDEX `fk_dother_salessummary1_idx` (`salessummary_id` ASC),";

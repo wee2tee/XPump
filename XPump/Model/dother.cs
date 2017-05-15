@@ -19,6 +19,10 @@ namespace XPump.Model
         public int istab_id { get; set; }
         public Nullable<int> salessummary_id { get; set; }
         public Nullable<int> dayend_id { get; set; }
+        public string creby { get; set; }
+        public System.DateTime cretime { get; set; }
+        public string chgby { get; set; }
+        public Nullable<System.DateTime> chgtime { get; set; }
     
         public virtual dayend dayend { get; set; }
         public virtual istab istab { get; set; }
