@@ -29,17 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle51 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle57 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle53 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle54 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle55 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle58 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle59 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle60 = new System.Windows.Forms.DataGridViewCellStyle();
             this.inline_mit_start = new CC.XNumEdit();
             this.inline_mit_end = new CC.XNumEdit();
             this.dgvNozzle = new CC.XDatagrid();
@@ -72,12 +71,17 @@
             this.lblSaleDate = new System.Windows.Forms.Label();
             this.lblShiftName = new System.Windows.Forms.Label();
             this.dgvPrice = new CC.XDatagrid();
+            this.col_price_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_price_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_unitpr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_price_pricelist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label25 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnOK = new System.Windows.Forms.Button();
-            this.numDother = new CC.XNumEdit();
             this.numDdisc = new CC.XNumEdit();
             this.numDtest = new CC.XNumEdit();
             this.label14 = new System.Windows.Forms.Label();
@@ -91,7 +95,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.lblPurvat = new System.Windows.Forms.Label();
             this.lblSalvat = new System.Windows.Forms.Label();
             this.lblNetval = new System.Windows.Forms.Label();
             this.lblTotval = new System.Windows.Forms.Label();
@@ -101,14 +104,11 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnDother = new System.Windows.Forms.Button();
-            this.col_price_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_price_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_unitpr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_price_pricelist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblDother = new System.Windows.Forms.Label();
+            this.btnSyncPurvat = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.numPurvat = new CC.XNumEdit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNozzle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrice)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -140,7 +140,7 @@
             this.inline_mit_start.BackColor = System.Drawing.Color.White;
             this.inline_mit_start.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_mit_start.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_mit_start.Location = new System.Drawing.Point(384, 51);
+            this.inline_mit_start.Location = new System.Drawing.Point(384, 48);
             this.inline_mit_start.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_mit_start.Name = "inline_mit_start";
             this.inline_mit_start.Size = new System.Drawing.Size(108, 23);
@@ -173,7 +173,7 @@
             this.inline_mit_end.BackColor = System.Drawing.Color.White;
             this.inline_mit_end.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_mit_end.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_mit_end.Location = new System.Drawing.Point(497, 51);
+            this.inline_mit_end.Location = new System.Drawing.Point(497, 48);
             this.inline_mit_end.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_mit_end.Name = "inline_mit_end";
             this.inline_mit_end.Size = new System.Drawing.Size(106, 23);
@@ -187,14 +187,14 @@
             this.dgvNozzle.AllowUserToDeleteRows = false;
             this.dgvNozzle.AllowUserToResizeColumns = false;
             this.dgvNozzle.AllowUserToResizeRows = false;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvNozzle.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle51.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle51.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle51.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle51.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle51.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle51.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvNozzle.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle51;
             this.dgvNozzle.ColumnHeadersHeight = 28;
             this.dgvNozzle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvNozzle.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -219,14 +219,14 @@
             this.col_stkdes,
             this.col_saleshistory,
             this.col_working_express_db});
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNozzle.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle57.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle57.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle57.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle57.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle57.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle57.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle57.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvNozzle.DefaultCellStyle = dataGridViewCellStyle57;
             this.dgvNozzle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvNozzle.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvNozzle.EnableHeadersVisualStyles = false;
@@ -291,10 +291,10 @@
             // col_mitbeg
             // 
             this.col_mitbeg.DataPropertyName = "mitbeg";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "N2";
-            dataGridViewCellStyle13.NullValue = null;
-            this.col_mitbeg.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle52.Format = "N2";
+            dataGridViewCellStyle52.NullValue = null;
+            this.col_mitbeg.DefaultCellStyle = dataGridViewCellStyle52;
             this.col_mitbeg.HeaderText = "มิเตอร์เริ่มต้น";
             this.col_mitbeg.MinimumWidth = 110;
             this.col_mitbeg.Name = "col_mitbeg";
@@ -304,10 +304,10 @@
             // col_mitend
             // 
             this.col_mitend.DataPropertyName = "mitend";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "N2";
-            dataGridViewCellStyle14.NullValue = null;
-            this.col_mitend.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle53.Format = "N2";
+            dataGridViewCellStyle53.NullValue = null;
+            this.col_mitend.DefaultCellStyle = dataGridViewCellStyle53;
             this.col_mitend.HeaderText = "มิเตอร์สิ้นสุด";
             this.col_mitend.MinimumWidth = 110;
             this.col_mitend.Name = "col_mitend";
@@ -317,10 +317,10 @@
             // col_salqty
             // 
             this.col_salqty.DataPropertyName = "salqty";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "N2";
-            dataGridViewCellStyle15.NullValue = null;
-            this.col_salqty.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle54.Format = "N2";
+            dataGridViewCellStyle54.NullValue = null;
+            this.col_salqty.DefaultCellStyle = dataGridViewCellStyle54;
             this.col_salqty.HeaderText = "ปริมาณขาย(ลิตร)";
             this.col_salqty.MinimumWidth = 110;
             this.col_salqty.Name = "col_salqty";
@@ -330,10 +330,10 @@
             // col_unitpr
             // 
             this.col_unitpr.DataPropertyName = "unitpr";
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle16.Format = "N2";
-            dataGridViewCellStyle16.NullValue = null;
-            this.col_unitpr.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle55.Format = "N2";
+            dataGridViewCellStyle55.NullValue = null;
+            this.col_unitpr.DefaultCellStyle = dataGridViewCellStyle55;
             this.col_unitpr.HeaderText = "ราคาขาย/ลิตร";
             this.col_unitpr.MinimumWidth = 110;
             this.col_unitpr.Name = "col_unitpr";
@@ -344,10 +344,10 @@
             // col_salval
             // 
             this.col_salval.DataPropertyName = "salval";
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle17.Format = "N2";
-            dataGridViewCellStyle17.NullValue = null;
-            this.col_salval.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle56.Format = "N2";
+            dataGridViewCellStyle56.NullValue = null;
+            this.col_salval.DefaultCellStyle = dataGridViewCellStyle56;
             this.col_salval.HeaderText = "มูลค่าขาย(บาท)";
             this.col_salval.MinimumWidth = 120;
             this.col_salval.Name = "col_salval";
@@ -512,14 +512,14 @@
             this.dgvPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvPrice.BackgroundColor = System.Drawing.Color.White;
             this.dgvPrice.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPrice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle58.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle58.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle58.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle58.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle58.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle58.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPrice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle58;
             this.dgvPrice.ColumnHeadersHeight = 28;
             this.dgvPrice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvPrice.ColumnHeadersVisible = false;
@@ -532,14 +532,6 @@
             this.col_price_currency,
             this.col_price_working_express_db,
             this.col_price_pricelist});
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPrice.DefaultCellStyle = dataGridViewCellStyle22;
             this.dgvPrice.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvPrice.Enabled = false;
             this.dgvPrice.EnableHeadersVisualStyles = false;
@@ -560,6 +552,79 @@
             this.dgvPrice.StandardTab = true;
             this.dgvPrice.TabIndex = 41;
             this.dgvPrice.Paint += new System.Windows.Forms.PaintEventHandler(this.dgvPrice_Paint);
+            // 
+            // col_price_id
+            // 
+            this.col_price_id.DataPropertyName = "id";
+            this.col_price_id.HeaderText = "ID";
+            this.col_price_id.Name = "col_price_id";
+            this.col_price_id.ReadOnly = true;
+            this.col_price_id.Visible = false;
+            // 
+            // col_price_stkcod
+            // 
+            this.col_price_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_price_stkcod.DataPropertyName = "stkcod";
+            dataGridViewCellStyle59.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.col_price_stkcod.DefaultCellStyle = dataGridViewCellStyle59;
+            this.col_price_stkcod.HeaderText = "รหัสสินค้า";
+            this.col_price_stkcod.MinimumWidth = 40;
+            this.col_price_stkcod.Name = "col_price_stkcod";
+            this.col_price_stkcod.ReadOnly = true;
+            // 
+            // col_price_stkdes
+            // 
+            this.col_price_stkdes.DataPropertyName = "stkdes";
+            this.col_price_stkdes.HeaderText = "Stkdes";
+            this.col_price_stkdes.Name = "col_price_stkdes";
+            this.col_price_stkdes.ReadOnly = true;
+            this.col_price_stkdes.Visible = false;
+            // 
+            // col_price_price_date
+            // 
+            this.col_price_price_date.DataPropertyName = "price_date";
+            this.col_price_price_date.HeaderText = "Price Date";
+            this.col_price_price_date.Name = "col_price_price_date";
+            this.col_price_price_date.ReadOnly = true;
+            this.col_price_price_date.Visible = false;
+            // 
+            // col_price_unitpr
+            // 
+            this.col_price_unitpr.DataPropertyName = "unitpr";
+            dataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle60.Format = "N2";
+            dataGridViewCellStyle60.NullValue = null;
+            this.col_price_unitpr.DefaultCellStyle = dataGridViewCellStyle60;
+            this.col_price_unitpr.HeaderText = "ราคา/ลิตร";
+            this.col_price_unitpr.MinimumWidth = 50;
+            this.col_price_unitpr.Name = "col_price_unitpr";
+            this.col_price_unitpr.ReadOnly = true;
+            this.col_price_unitpr.Width = 50;
+            // 
+            // col_price_currency
+            // 
+            this.col_price_currency.DataPropertyName = "currency";
+            this.col_price_currency.HeaderText = "หน่วย";
+            this.col_price_currency.MinimumWidth = 35;
+            this.col_price_currency.Name = "col_price_currency";
+            this.col_price_currency.ReadOnly = true;
+            this.col_price_currency.Width = 35;
+            // 
+            // col_price_working_express_db
+            // 
+            this.col_price_working_express_db.DataPropertyName = "working_express_db";
+            this.col_price_working_express_db.HeaderText = "Working Express DB";
+            this.col_price_working_express_db.Name = "col_price_working_express_db";
+            this.col_price_working_express_db.ReadOnly = true;
+            this.col_price_working_express_db.Visible = false;
+            // 
+            // col_price_pricelist
+            // 
+            this.col_price_pricelist.DataPropertyName = "pricelist";
+            this.col_price_pricelist.HeaderText = "Price List";
+            this.col_price_pricelist.Name = "col_price_pricelist";
+            this.col_price_pricelist.ReadOnly = true;
+            this.col_price_pricelist.Visible = false;
             // 
             // label25
             // 
@@ -593,69 +658,6 @@
             this.tabPage1.Text = "บันทึกปริมาณการขาย";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
-            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(621, 494);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Padding = new System.Windows.Forms.Padding(3);
-            this.btnCancel.Size = new System.Drawing.Size(130, 32);
-            this.btnCancel.TabIndex = 95;
-            this.btnCancel.Text = "ยกเลิกการแก้ไข";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnOK
-            // 
-            this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnOK.Enabled = false;
-            this.btnOK.Image = global::XPump.Properties.Resources.save_16;
-            this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(539, 494);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Padding = new System.Windows.Forms.Padding(3);
-            this.btnOK.Size = new System.Drawing.Size(78, 32);
-            this.btnOK.TabIndex = 94;
-            this.btnOK.Text = "บันทึก";
-            this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // numDother
-            // 
-            this.numDother._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numDother._DecimalDigit = 2;
-            this.numDother._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.numDother._MaxLength = 30;
-            this.numDother._ReadOnly = true;
-            this.numDother._SelectionLength = 0;
-            this.numDother._SelectionStart = 4;
-            this.numDother._Text = "0.00";
-            this.numDother._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numDother._UseThoundsandSeparate = true;
-            this.numDother._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.numDother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numDother.BackColor = System.Drawing.Color.White;
-            this.numDother.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numDother.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numDother.Location = new System.Drawing.Point(623, 326);
-            this.numDother.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numDother.Name = "numDother";
-            this.numDother.Size = new System.Drawing.Size(110, 23);
-            this.numDother.TabIndex = 92;
-            this.numDother._ValueChanged += new System.EventHandler(this.numDother__ValueChanged);
-            // 
             // numDdisc
             // 
             this.numDdisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -685,8 +687,9 @@
             this.numDdisc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numDdisc.Name = "numDdisc";
             this.numDdisc.Size = new System.Drawing.Size(110, 23);
-            this.numDdisc.TabIndex = 93;
+            this.numDdisc.TabIndex = 92;
             this.numDdisc._ValueChanged += new System.EventHandler(this.numDdisc__ValueChanged);
+            this.numDdisc._DoubleClicked += new System.EventHandler(this.numDdisc__DoubleClicked);
             // 
             // numDtest
             // 
@@ -719,6 +722,7 @@
             this.numDtest.Size = new System.Drawing.Size(110, 23);
             this.numDtest.TabIndex = 90;
             this.numDtest._ValueChanged += new System.EventHandler(this.numDtest__ValueChanged);
+            this.numDtest._DoubleClicked += new System.EventHandler(this.numDtest__DoubleClicked);
             // 
             // label14
             // 
@@ -841,17 +845,6 @@
             this.label6.TabIndex = 78;
             this.label6.Text = "ยอดขายน้ำมันทดสอบ";
             // 
-            // lblPurvat
-            // 
-            this.lblPurvat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPurvat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblPurvat.Location = new System.Drawing.Point(735, 465);
-            this.lblPurvat.Name = "lblPurvat";
-            this.lblPurvat.Size = new System.Drawing.Size(110, 17);
-            this.lblPurvat.TabIndex = 76;
-            this.lblPurvat.Text = "0.00";
-            this.lblPurvat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // lblSalvat
             // 
             this.lblSalvat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -945,93 +938,110 @@
             this.btnDother.Location = new System.Drawing.Point(486, 326);
             this.btnDother.Name = "btnDother";
             this.btnDother.Size = new System.Drawing.Size(66, 23);
-            this.btnDother.TabIndex = 96;
+            this.btnDother.TabIndex = 91;
+            this.btnDother.TabStop = false;
             this.btnDother.Text = "อื่น ๆ  ...";
             this.btnDother.UseVisualStyleBackColor = true;
             this.btnDother.Click += new System.EventHandler(this.btnDother_Click);
             // 
-            // col_price_id
+            // lblDother
             // 
-            this.col_price_id.DataPropertyName = "id";
-            this.col_price_id.HeaderText = "ID";
-            this.col_price_id.Name = "col_price_id";
-            this.col_price_id.ReadOnly = true;
-            this.col_price_id.Visible = false;
+            this.lblDother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDother.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblDother.Location = new System.Drawing.Point(624, 329);
+            this.lblDother.Name = "lblDother";
+            this.lblDother.Size = new System.Drawing.Size(110, 17);
+            this.lblDother.TabIndex = 73;
+            this.lblDother.Text = "0.00";
+            this.lblDother.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // col_price_stkcod
+            // btnSyncPurvat
             // 
-            this.col_price_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_price_stkcod.DataPropertyName = "stkcod";
-            dataGridViewCellStyle20.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.col_price_stkcod.DefaultCellStyle = dataGridViewCellStyle20;
-            this.col_price_stkcod.HeaderText = "รหัสสินค้า";
-            this.col_price_stkcod.MinimumWidth = 40;
-            this.col_price_stkcod.Name = "col_price_stkcod";
-            this.col_price_stkcod.ReadOnly = true;
+            this.btnSyncPurvat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSyncPurvat.Image = global::XPump.Properties.Resources.sync_16;
+            this.btnSyncPurvat.Location = new System.Drawing.Point(710, 459);
+            this.btnSyncPurvat.Name = "btnSyncPurvat";
+            this.btnSyncPurvat.Size = new System.Drawing.Size(25, 25);
+            this.btnSyncPurvat.TabIndex = 97;
+            this.btnSyncPurvat.TabStop = false;
+            this.toolTip1.SetToolTip(this.btnSyncPurvat, "ดึงยอดภาษีซื้อจากเอ็กซ์เพรส");
+            this.btnSyncPurvat.UseVisualStyleBackColor = true;
+            this.btnSyncPurvat.Click += new System.EventHandler(this.btnSyncPurvat_Click);
             // 
-            // col_price_stkdes
+            // btnCancel
             // 
-            this.col_price_stkdes.DataPropertyName = "stkdes";
-            this.col_price_stkdes.HeaderText = "Stkdes";
-            this.col_price_stkdes.Name = "col_price_stkdes";
-            this.col_price_stkdes.ReadOnly = true;
-            this.col_price_stkdes.Visible = false;
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(621, 494);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(3);
+            this.btnCancel.Size = new System.Drawing.Size(130, 32);
+            this.btnCancel.TabIndex = 95;
+            this.btnCancel.Text = "ยกเลิกการแก้ไข";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // col_price_price_date
+            // btnOK
             // 
-            this.col_price_price_date.DataPropertyName = "price_date";
-            this.col_price_price_date.HeaderText = "Price Date";
-            this.col_price_price_date.Name = "col_price_price_date";
-            this.col_price_price_date.ReadOnly = true;
-            this.col_price_price_date.Visible = false;
+            this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnOK.Enabled = false;
+            this.btnOK.Image = global::XPump.Properties.Resources.save_16;
+            this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOK.Location = new System.Drawing.Point(539, 494);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Padding = new System.Windows.Forms.Padding(3);
+            this.btnOK.Size = new System.Drawing.Size(78, 32);
+            this.btnOK.TabIndex = 94;
+            this.btnOK.Text = "บันทึก";
+            this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // col_price_unitpr
+            // numPurvat
             // 
-            this.col_price_unitpr.DataPropertyName = "unitpr";
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle21.Format = "N2";
-            dataGridViewCellStyle21.NullValue = null;
-            this.col_price_unitpr.DefaultCellStyle = dataGridViewCellStyle21;
-            this.col_price_unitpr.HeaderText = "ราคา/ลิตร";
-            this.col_price_unitpr.MinimumWidth = 50;
-            this.col_price_unitpr.Name = "col_price_unitpr";
-            this.col_price_unitpr.ReadOnly = true;
-            this.col_price_unitpr.Width = 50;
-            // 
-            // col_price_currency
-            // 
-            this.col_price_currency.DataPropertyName = "currency";
-            this.col_price_currency.HeaderText = "หน่วย";
-            this.col_price_currency.MinimumWidth = 35;
-            this.col_price_currency.Name = "col_price_currency";
-            this.col_price_currency.ReadOnly = true;
-            this.col_price_currency.Width = 35;
-            // 
-            // col_price_working_express_db
-            // 
-            this.col_price_working_express_db.DataPropertyName = "working_express_db";
-            this.col_price_working_express_db.HeaderText = "Working Express DB";
-            this.col_price_working_express_db.Name = "col_price_working_express_db";
-            this.col_price_working_express_db.ReadOnly = true;
-            this.col_price_working_express_db.Visible = false;
-            // 
-            // col_price_pricelist
-            // 
-            this.col_price_pricelist.DataPropertyName = "pricelist";
-            this.col_price_pricelist.HeaderText = "Price List";
-            this.col_price_pricelist.Name = "col_price_pricelist";
-            this.col_price_pricelist.ReadOnly = true;
-            this.col_price_pricelist.Visible = false;
+            this.numPurvat._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numPurvat._DecimalDigit = 2;
+            this.numPurvat._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.numPurvat._MaxLength = 30;
+            this.numPurvat._ReadOnly = true;
+            this.numPurvat._SelectionLength = 0;
+            this.numPurvat._SelectionStart = 4;
+            this.numPurvat._Text = "0.00";
+            this.numPurvat._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numPurvat._UseThoundsandSeparate = true;
+            this.numPurvat._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.numPurvat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numPurvat.BackColor = System.Drawing.Color.White;
+            this.numPurvat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numPurvat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.numPurvat.Location = new System.Drawing.Point(736, 460);
+            this.numPurvat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numPurvat.Name = "numPurvat";
+            this.numPurvat.Size = new System.Drawing.Size(110, 23);
+            this.numPurvat.TabIndex = 93;
+            this.numPurvat._ValueChanged += new System.EventHandler(this.numPurvat__ValueChanged);
+            this.numPurvat._DoubleClicked += new System.EventHandler(this.numPurvat__DoubleClicked);
             // 
             // DialogSalesHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(857, 540);
+            this.Controls.Add(this.btnSyncPurvat);
             this.Controls.Add(this.btnDother);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.numDother);
+            this.Controls.Add(this.numPurvat);
             this.Controls.Add(this.numDdisc);
             this.Controls.Add(this.numDtest);
             this.Controls.Add(this.label14);
@@ -1045,11 +1055,11 @@
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.lblPurvat);
             this.Controls.Add(this.lblSalvat);
             this.Controls.Add(this.lblNetval);
             this.Controls.Add(this.lblTotval);
             this.Controls.Add(this.lblNetqty);
+            this.Controls.Add(this.lblDother);
             this.Controls.Add(this.lblTotqty);
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.label10);
@@ -1100,7 +1110,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
-        private CC.XNumEdit numDother;
         private CC.XNumEdit numDdisc;
         private CC.XNumEdit numDtest;
         private System.Windows.Forms.Label label14;
@@ -1114,7 +1123,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lblPurvat;
         private System.Windows.Forms.Label lblSalvat;
         private System.Windows.Forms.Label lblNetval;
         private System.Windows.Forms.Label lblTotval;
@@ -1153,5 +1161,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_price_currency;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_price_working_express_db;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_price_pricelist;
+        private System.Windows.Forms.Label lblDother;
+        private System.Windows.Forms.Button btnSyncPurvat;
+        private CC.XNumEdit numPurvat;
     }
 }

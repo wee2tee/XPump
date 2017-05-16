@@ -477,6 +477,13 @@ namespace XPump.Model
             }
         }
         public decimal purvat { get { return this.salessummary.purvat; } }
+        //public decimal purvat
+        //{
+        //    get
+        //    {
+
+        //    }
+        //}
         public int pricelist_id { get { return this.salessummary.pricelist_id; } }
         public int shiftsales_id { get { return this.salessummary.shiftsales_id; } }
         public string shift_name

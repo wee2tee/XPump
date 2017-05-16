@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.inline_qty = new CC.XNumEdit();
@@ -52,6 +54,7 @@
             this.col_istab_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_salessummary_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dayend_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -64,9 +67,9 @@
             this.panel1.Controls.Add(this.inline_qty);
             this.panel1.Controls.Add(this.inline_dother);
             this.panel1.Controls.Add(this.dgv);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(301, 123);
+            this.panel1.Size = new System.Drawing.Size(313, 127);
             this.panel1.TabIndex = 0;
             // 
             // inline_qty
@@ -94,11 +97,12 @@
             this.inline_qty.BackColor = System.Drawing.Color.White;
             this.inline_qty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_qty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_qty.Location = new System.Drawing.Point(201, 31);
+            this.inline_qty.Location = new System.Drawing.Point(213, 31);
             this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_qty.Name = "inline_qty";
             this.inline_qty.Size = new System.Drawing.Size(98, 23);
             this.inline_qty.TabIndex = 2;
+            this.inline_qty._ValueChanged += new System.EventHandler(this.inline_qty__ValueChanged);
             // 
             // inline_dother
             // 
@@ -110,8 +114,9 @@
             this.inline_dother.Location = new System.Drawing.Point(3, 31);
             this.inline_dother.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_dother.Name = "inline_dother";
-            this.inline_dother.Size = new System.Drawing.Size(196, 23);
+            this.inline_dother.Size = new System.Drawing.Size(208, 23);
             this.inline_dother.TabIndex = 1;
+            this.inline_dother._SelectedItemChanged += new System.EventHandler(this.inline_dother__SelectedItemChanged);
             // 
             // dgv
             // 
@@ -144,14 +149,14 @@
             this.col_istab_id,
             this.col_salessummary_id,
             this.col_dayend_id});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -164,9 +169,10 @@
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(301, 123);
+            this.dgv.Size = new System.Drawing.Size(313, 127);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
+            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             // 
             // btnAdd
             // 
@@ -174,13 +180,14 @@
             this.btnAdd.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnAdd.Image = global::XPump.Properties.Resources.add_16;
             this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdd.Location = new System.Drawing.Point(0, 127);
+            this.btnAdd.Location = new System.Drawing.Point(12, 134);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Padding = new System.Windows.Forms.Padding(1, 0, 0, 0);
             this.btnAdd.Size = new System.Drawing.Size(49, 24);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "เพิ่ม";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.btnAdd, "เพิ่ม <Alt+A>");
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -190,14 +197,16 @@
             this.btnDelete.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnDelete.Image = global::XPump.Properties.Resources.delete_16;
             this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDelete.Location = new System.Drawing.Point(248, 127);
+            this.btnDelete.Location = new System.Drawing.Point(249, 134);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Padding = new System.Windows.Forms.Padding(1, 0, 0, 0);
             this.btnDelete.Size = new System.Drawing.Size(53, 24);
             this.btnDelete.TabIndex = 1;
             this.btnDelete.Text = "ลบ";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.btnDelete, "ลบ <Alt+D>");
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -205,14 +214,16 @@
             this.btnEdit.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnEdit.Image = global::XPump.Properties.Resources.edit_16;
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEdit.Location = new System.Drawing.Point(51, 127);
+            this.btnEdit.Location = new System.Drawing.Point(63, 134);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Padding = new System.Windows.Forms.Padding(1, 0, 0, 0);
             this.btnEdit.Size = new System.Drawing.Size(56, 24);
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "แก้ไข";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.btnEdit, "แก้ไข <Alt+E>");
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnStop
             // 
@@ -220,14 +231,16 @@
             this.btnStop.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnStop.Image = global::XPump.Properties.Resources.stop_16;
             this.btnStop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStop.Location = new System.Drawing.Point(109, 127);
+            this.btnStop.Location = new System.Drawing.Point(121, 134);
             this.btnStop.Name = "btnStop";
             this.btnStop.Padding = new System.Windows.Forms.Padding(1, 0, 0, 0);
             this.btnStop.Size = new System.Drawing.Size(63, 24);
             this.btnStop.TabIndex = 1;
             this.btnStop.Text = "ยกเลิก";
             this.btnStop.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.btnStop, "ยกเลิก <Esc>");
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnSave
             // 
@@ -235,14 +248,16 @@
             this.btnSave.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSave.Image = global::XPump.Properties.Resources.save_16;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(174, 127);
+            this.btnSave.Location = new System.Drawing.Point(186, 134);
             this.btnSave.Name = "btnSave";
             this.btnSave.Padding = new System.Windows.Forms.Padding(1, 0, 0, 0);
             this.btnSave.Size = new System.Drawing.Size(61, 24);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "บันทึก";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip1.SetToolTip(this.btnSave, "บันทึก <F9>");
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // col_id
             // 
@@ -312,13 +327,17 @@
             // 
             this.col_typdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.col_typdes.DataPropertyName = "typdes";
-            this.col_typdes.HeaderText = "หัก";
+            this.col_typdes.HeaderText = "รายละเอียด";
             this.col_typdes.Name = "col_typdes";
             this.col_typdes.ReadOnly = true;
             // 
             // col_qty
             // 
             this.col_qty.DataPropertyName = "qty";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.col_qty.DefaultCellStyle = dataGridViewCellStyle2;
             this.col_qty.HeaderText = "ปริมาณ(ลิตร)";
             this.col_qty.MinimumWidth = 100;
             this.col_qty.Name = "col_qty";
@@ -352,8 +371,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(302, 154);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(314, 169);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnEdit);
@@ -361,12 +379,14 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(330, 160);
             this.Name = "DialogDother";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Deactivate += new System.EventHandler(this.DialogDother_Deactivate);
             this.Load += new System.EventHandler(this.DialogDother_Load);
@@ -400,5 +420,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_istab_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salessummary_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dayend_id;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

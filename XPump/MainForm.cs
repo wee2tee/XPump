@@ -231,8 +231,8 @@ namespace XPump
                 this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
                 return;
             }
-
-            FormIstab i = new FormIstab(this, "08", ((ToolStripMenuItem)sender).Text);
+            
+            FormIstab i = new FormIstab(this, ISTAB_TABTYP.DOTHER, ((ToolStripMenuItem)sender).Text);
             i.MdiParent = this;
             i.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
             i.Show();

@@ -49,7 +49,7 @@ namespace XPump.SubForm
             this.lblStkdes.Text = this.salessummary.ToViewModel(this.main_form.working_express_db).stkcod + " / " + this.salessummary.ToViewModel(this.main_form.working_express_db).stkdes;
 
             this.salessummary = this.GetSalesSummary(this.salessummary.id);
-            this.salessummary.purvat = this.salessummary.GetPurVatFromExpress(this.main_form.working_express_db);
+            //this.salessummary.purvat = this.salessummary.GetPurVatFromExpress(this.main_form.working_express_db);
             this.saleshistory = this.salessummary.saleshistory.ToList();
             this.bs_sales = new BindingSource();
             this.dgvNozzle.DataSource = this.bs_sales;
@@ -115,10 +115,12 @@ namespace XPump.SubForm
         {
             this.dgvNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.numDtest.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.numDother.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnDother.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
             this.numDdisc.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.numPurvat.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnSyncPurvat.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
+            this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
         }
 
         private void ShowInlineForm(int row_index)
@@ -257,15 +259,18 @@ namespace XPump.SubForm
         private void FillSummary()
         {
             this.lblTotal.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).total);
+            this.lblDother.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).dother);
             this.lblTotqty.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).totqty);
             this.lblTotval.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).totval);
             this.lblNetqty.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).totqty);
             this.lblNetval.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).netval);
             this.lblSalvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).salvat);
-            this.lblPurvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).purvat);
+            //this.lblPurvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).purvat);
+            this.numPurvat._Value = this.salessummary.ToViewModel(this.main_form.working_express_db).purvat;
 
             this.numDtest._Value = this.salessummary.dtest;
-            this.numDother._Value = this.salessummary.ToViewModel(this.main_form.working_express_db).dother;
+            //this.numDother._Value = this.salessummary.ToViewModel(this.main_form.working_express_db).dother;
+            
             //this.txtDother._Text = this.salessummary.dothertxt;
             this.numDdisc._Value = this.salessummary.ddisc;
         }
@@ -273,11 +278,6 @@ namespace XPump.SubForm
         private void numDtest__ValueChanged(object sender, EventArgs e)
         {
             this.salessummary.dtest = ((XNumEdit)sender)._Value;
-        }
-
-        private void numDother__ValueChanged(object sender, EventArgs e)
-        {
-            //this.salessummary.dother = ((XNumEdit)sender)._Value;
         }
 
         private void numDdisc__ValueChanged(object sender, EventArgs e)
@@ -327,32 +327,46 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            if(this.form_mode == FORM_MODE.EDIT_ITEM)
             {
-                salessummary sales_to_update = db.salessummary.Find(this.salessummary.id);
-                if (sales_to_update == null)
-                {
-                    MessageBox.Show("ค้นหาข้อมูลที่ต้องการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    return;
-                }
-
-                sales_to_update.dtest = this.salessummary.dtest;
-                sales_to_update.dother = this.salessummary.dother;
-                //sales_to_update.dothertxt = this.salessummary.dothertxt;
-                sales_to_update.ddisc = this.salessummary.ddisc;
-                sales_to_update.purvat = this.salessummary.purvat;
-
-                db.SaveChanges();
+                this.SaveTmpSalesHistory();
+                this.RemoveInlineForm();
+                this.form_mode = FORM_MODE.READ_ITEM;
+                this.ResetControlState();
+                return;
             }
 
-            this.salessummary = this.GetSalesSummary(this.salessummary.id);
-            this.form_mode = FORM_MODE.READ;
-            this.ResetControlState();
-            this.FillForm();
+            if(this.form_mode == FORM_MODE.EDIT)
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    salessummary sales_to_update = db.salessummary.Find(this.salessummary.id);
+                    if (sales_to_update == null)
+                    {
+                        MessageBox.Show("ค้นหาข้อมูลที่ต้องการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
+                    sales_to_update.dtest = this.salessummary.dtest;
+                    //sales_to_update.dother = this.salessummary.dother;
+                    //sales_to_update.dothertxt = this.salessummary.dothertxt;
+                    sales_to_update.ddisc = this.salessummary.ddisc;
+                    sales_to_update.purvat = this.salessummary.purvat;
+
+                    db.SaveChanges();
+                }
+
+                this.salessummary = this.GetSalesSummary(this.salessummary.id);
+                this.form_mode = FORM_MODE.READ;
+                this.ResetControlState();
+                this.FillForm();
+                return;
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            this.RemoveInlineForm();
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
             this.salessummary = this.GetSalesSummary(this.salessummary.id);
@@ -498,7 +512,7 @@ namespace XPump.SubForm
 
                 if(this.form_mode == FORM_MODE.EDIT)
                 {
-                    if (this.numDdisc._Focused)
+                    if (this.numPurvat._Focused)
                     {
                         this.btnOK.PerformClick();
                         return true;
@@ -511,25 +525,25 @@ namespace XPump.SubForm
             
             if(keyData == Keys.Escape)
             {
-                if (this.form_mode == FORM_MODE.EDIT_ITEM)
-                {
-                    this.form_mode = FORM_MODE.READ_ITEM;
-                    this.ResetControlState();
-                    this.dgvNozzle.Focus();
-                    this.RemoveInlineForm();
+                //if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                //{
+                //    this.form_mode = FORM_MODE.READ_ITEM;
+                //    this.ResetControlState();
+                //    this.dgvNozzle.Focus();
+                //    this.RemoveInlineForm();
 
-                    this.FillDgvSales();
-                    return true;
-                }
+                //    this.FillDgvSales();
+                //    return true;
+                //}
 
-                if(this.form_mode == FORM_MODE.READ_ITEM)
-                {
-                    this.form_mode = FORM_MODE.READ;
-                    this.ResetControlState();
-                    return true;
-                }
+                //if(this.form_mode == FORM_MODE.READ_ITEM)
+                //{
+                //    this.form_mode = FORM_MODE.READ;
+                //    this.ResetControlState();
+                //    return true;
+                //}
 
-                if(this.form_mode == FORM_MODE.EDIT)
+                if(this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.EDIT_ITEM)
                 {
                     this.btnCancel.PerformClick();
                     return true;
@@ -567,7 +581,59 @@ namespace XPump.SubForm
         {
             DialogDother d = new DialogDother(this.main_form, this.salessummary);
             d.SetBounds(((Button)sender).PointToScreen(Point.Empty).X + ((Button)sender).Width, ((Button)sender).PointToScreen(Point.Empty).Y, d.Width, d.Height);
-            d.Show();
+            d.ShowDialog();
+        }
+
+        private void numDtest__DoubleClicked(object sender, EventArgs e)
+        {
+            if (this.form_mode == FORM_MODE.EDIT)
+                return;
+
+            if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                this.btnOK.PerformClick();
+
+            this.form_mode = FORM_MODE.EDIT;
+            this.ResetControlState();
+            ((XNumEdit)sender).Focus();
+        }
+
+        private void numDdisc__DoubleClicked(object sender, EventArgs e)
+        {
+            if (this.form_mode == FORM_MODE.EDIT)
+                return;
+
+            if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                this.btnOK.PerformClick();
+
+            this.form_mode = FORM_MODE.EDIT;
+            this.ResetControlState();
+            ((XNumEdit)sender).Focus();
+        }
+
+        private void numPurvat__DoubleClicked(object sender, EventArgs e)
+        {
+            if (this.form_mode == FORM_MODE.EDIT)
+                return;
+
+            if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                this.btnOK.PerformClick();
+
+            this.form_mode = FORM_MODE.EDIT;
+            this.ResetControlState();
+            ((XNumEdit)sender).Focus();
+        }
+
+        private void btnSyncPurvat_Click(object sender, EventArgs e)
+        {
+            var exp_purvat = this.salessummary.GetPurVatFromExpress(this.main_form.working_express_db);
+
+            if(this.salessummary.purvat != exp_purvat)
+            {
+                if(MessageBox.Show("ภาษีซื้อของน้ำมันเชื้อเพลิง เปลี่ยนจาก " + string.Format("{0:#,#0.00}", this.salessummary.purvat) + " เป็น " + string.Format("{0:#,#0.00}", exp_purvat) + " ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    this.numPurvat._Value = exp_purvat;
+                }
+            }
         }
     }
 }

@@ -310,6 +310,11 @@ namespace XPump.SubForm
                 {
                     try
                     {
+                        foreach (var d in db.dother.Include("salessummary").Where(d => d.salessummary.shiftsales_id == this.curr_shiftsales.id))
+                        {
+                            db.dother.Remove(d);
+                        }
+
                         foreach (var s in db.salessummary.Where(ss => ss.shiftsales_id == this.curr_shiftsales.id).ToList())
                         {
                             int sales_summary_id = s.id;
@@ -1474,7 +1479,7 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if (keyData == (Keys.Control | Keys.Space) && this.form_mode == FORM_MODE.READ_ITEM)
+            if (keyData == (Keys.Control | Keys.Space))
             {
                 this.ShowSalesForm();
                 return true;

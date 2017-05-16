@@ -234,6 +234,25 @@ namespace XPump.SubForm
                             return;
                         }
 
+                        if(this.tmp_istab.tabtyp == ISTAB_TABTYP.DOTHER)
+                        {
+                            if (this.tmp_istab.is_shiftsales == false && db.dother.Where(d => d.salessummary_id != null && d.istab_id == this.tmp_istab.id).Count() > 0)
+                            {
+                                MessageBox.Show("มีการนำไปใช้บันทึกยอดขายประจำผลัดแล้วไม่สามารถแก้ไขช่อง \"แสดงในสรุปผลัด\" เป็น \"N\" ได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                this.inline_isshiftsales.Focus();
+                                SendKeys.Send("{F6}");
+                                return;
+                            }
+
+                            if (this.tmp_istab.is_dayend == false && db.dother.Where(d => d.dayend_id != null && d.istab_id == this.tmp_istab.id).Count() > 0)
+                            {
+                                MessageBox.Show("มีการนำไปใช้บันทึกปิดขายประจำวันแล้วไม่สามารถแก้ไขช่อง \"แสดงในสรุปวัน\" เป็น \"N\" ได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                this.inline_isdayend.Focus();
+                                SendKeys.Send("{F6}");
+                                return;
+                            }
+                        }
+
                         istab_to_update.shortnam = this.tmp_istab.shortnam;
                         istab_to_update.shortnam2 = this.tmp_istab.shortnam2;
                         istab_to_update.typdes = this.tmp_istab.typdes;
@@ -271,6 +290,12 @@ namespace XPump.SubForm
                         if(istab_to_delete == null)
                         {
                             MessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
+                        if(db.dother.Where(d => d.istab_id == istab_to_delete.id).Count() > 0)
+                        {
+                            MessageBox.Show("มีการนำไปใช้งานแล้ว, ไม่สามารถลบได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
@@ -525,5 +550,10 @@ namespace XPump.SubForm
                 }
             }
         }
+    }
+
+    public static class ISTAB_TABTYP
+    {
+        public const String DOTHER = "01";
     }
 }
