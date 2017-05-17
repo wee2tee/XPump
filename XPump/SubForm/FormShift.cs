@@ -25,6 +25,7 @@ namespace XPump.SubForm
         private shift curr_shift; // current focused row
         private FORM_MODE form_mode;
         private shiftVM temp_shift; // model for add/edit shift
+        private string menu_id;
 
         public FormShift()
         {
@@ -39,6 +40,7 @@ namespace XPump.SubForm
 
         private void ShiftForm_Load(object sender, EventArgs e)
         {
+            this.menu_id = this.GetType().Name;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
@@ -282,6 +284,8 @@ namespace XPump.SubForm
                         //db.shift.Remove(shift_to_delete);
                         db.shift.Remove(db.shift.Find(this.curr_shift.id));
                         db.SaveChanges();
+                        this.main_form.islog.DeleteData(this.menu_id, "ลบผลัดพนักงาน \"" + this.curr_shift.name + "\"", this.curr_shift.name, "shift", this.curr_shift.id).Save();
+
                         this.btnRefresh.PerformClick();
                     }
                     catch (Exception ex)
@@ -330,6 +334,9 @@ namespace XPump.SubForm
                         this.temp_shift.shift.cretime = DateTime.Now;
                         db.shift.Add(this.temp_shift.shift);
                         db.SaveChanges();
+
+                        this.main_form.islog.AddData(this.menu_id, "เพิ่มผลัดพนักงาน \"" + this.temp_shift.name + "\"", this.temp_shift.name, "shift", this.temp_shift.id).Save();
+
                         this.RemoveInlineControl();
                         this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
@@ -370,6 +377,9 @@ namespace XPump.SubForm
                         shift.shsprefix = this.temp_shift.shift.shsprefix;
                         shift.sivprefix = this.temp_shift.shift.sivprefix;
                         db.SaveChanges();
+
+                        this.main_form.islog.EditData(this.menu_id, "แก้ไขผลัดพนักงาน \"" + this.temp_shift.name + "\"", this.temp_shift.name, "shift", this.temp_shift.id).Save();
+
                         this.RemoveInlineControl();
                         this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();

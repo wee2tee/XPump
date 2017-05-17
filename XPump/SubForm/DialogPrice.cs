@@ -20,13 +20,15 @@ namespace XPump.SubForm
         private BindingSource bs;
         private FORM_MODE form_mode;
         private string[] stkcods;
+        private DateTime price_date;
         public List<pricelist> price_list = new List<pricelist>();
 
-        public DialogPrice(MainForm main_form, string[] stkcods)
+        public DialogPrice(MainForm main_form, string[] stkcods, DateTime price_date)
         {
             InitializeComponent();
             this.main_form = main_form;
             this.stkcods = stkcods;
+            this.price_date = price_date;
         }
 
         private void DialogPrice_Load(object sender, EventArgs e)
@@ -38,6 +40,7 @@ namespace XPump.SubForm
             this.ResetControlState();
             this.bs = new BindingSource();
             this.stmas_list = this.GetStmasList().Where(s => this.stkcods.Contains(s.stkcod.Trim())).OrderBy(s => s.stkcod).ToList();
+            this.stmas_list.SetLatestPrice(this.price_date);
 
             this.FillForm();
 
@@ -163,7 +166,8 @@ namespace XPump.SubForm
             foreach (var item in this.stmas_list)
             {
                 //item.unitpr = 0m;
-                item.price_date = DateTime.Now;
+                //item.price_date = DateTime.Now;
+                item.price_date = this.price_date;
             }
             var x = this.stmas_list;
             this.FillForm();
@@ -185,6 +189,7 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ_ITEM;
             this.ResetControlState();
             this.stmas_list = this.GetStmasList().Where(s => this.stkcods.Contains(s.stkcod.Trim())).OrderBy(s => s.stkcod).ToList();
+            this.stmas_list.SetLatestPrice(this.price_date);
             this.FillForm();
         }
 

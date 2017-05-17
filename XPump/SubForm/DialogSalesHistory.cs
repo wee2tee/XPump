@@ -23,15 +23,17 @@ namespace XPump.SubForm
         private BindingSource bs_sales;
         private BindingSource bs_price;
         private FORM_MODE form_mode;
+        private FormShiftTransaction form_shifttransaction;
 
-        public DialogSalesHistory(MainForm main_form)
+        public DialogSalesHistory(MainForm main_form, FormShiftTransaction form_shifttransaction)
         {
             InitializeComponent();
             this.main_form = main_form;
+            this.form_shifttransaction = form_shifttransaction;
         }
 
-        public DialogSalesHistory(MainForm main_form, salessummary salessummary)
-            : this(main_form)
+        public DialogSalesHistory(MainForm main_form, FormShiftTransaction form_shifttransaction, salessummary salessummary)
+            : this(main_form, form_shifttransaction)
         {
             this.salessummary = salessummary;
         }
@@ -60,9 +62,14 @@ namespace XPump.SubForm
             this.FillDgvPrice();
 
             this.FillSummary();
-
-            //this.ShowInlineForm(0);
-            //this.ActiveControl = this.inline_mit_start;
+            //if (this.dgvNozzle.Rows.Count > 0)
+            //{
+            //    this.form_mode = FORM_MODE.EDIT_ITEM;
+            //    this.ResetControlState();
+            //    this.dgvNozzle.Rows[0].Cells[this.col_nozzle_name.Name].Selected = true;
+            //    this.ShowInlineForm(0);
+            //    this.ActiveControl = this.inline_mit_start;
+            //}
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -121,6 +128,12 @@ namespace XPump.SubForm
             this.btnSyncPurvat.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
+
+
+            this.dgvNozzle.TabStop = this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
+            this.numDtest.TabStop = this.form_mode == FORM_MODE.EDIT ? true : false;
+            this.numDdisc.TabStop = this.form_mode == FORM_MODE.EDIT ? true : false;
+            this.numPurvat.TabStop = this.form_mode == FORM_MODE.EDIT ? true : false;
         }
 
         private void ShowInlineForm(int row_index)
@@ -169,6 +182,8 @@ namespace XPump.SubForm
                         sh.chgtime = DateTime.Now;
 
                         db.SaveChanges();
+
+                        this.main_form.islog.EditData(this.form_shifttransaction.menu_id, "แก้ไขยอดขายของหัวจ่าย \"" + this.tmp_saleshistory.ToViewModel(this.main_form.working_express_db).nozzle_name + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "saleshistory", this.tmp_saleshistory.id).Save();
 
                         this.salessummary = this.GetSalesSummary(this.salessummary.id);
 
@@ -354,6 +369,7 @@ namespace XPump.SubForm
                     sales_to_update.purvat = this.salessummary.purvat;
 
                     db.SaveChanges();
+                    this.main_form.islog.EditData(this.form_shifttransaction.menu_id, "แก้ไขรายละเอียดการขายสินค้ารหัส \"" + this.salessummary.stkcod + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "salessummary", this.salessummary.id).Save();
                 }
 
                 this.salessummary = this.GetSalesSummary(this.salessummary.id);
@@ -554,6 +570,11 @@ namespace XPump.SubForm
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
+            }
+
+            if(keyData == Keys.Tab)
+            {
+                Console.WriteLine("## >> focused at " + this.ActiveControl.Name);
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

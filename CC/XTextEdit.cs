@@ -257,6 +257,7 @@ namespace CC
         {
             this.read_only = ((TextBox)sender).ReadOnly;
             this.TabStop = this._ReadOnly ? false : true;
+            this.textBox1.TabStop = this._ReadOnly ? false : true;
             ((TextBox)sender).TabStop = this._ReadOnly ? false : true;
             this.textBox1.Visible = this.read_only ? false : true;
 

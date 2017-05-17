@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.inline_qty = new CC.XNumEdit();
             this.dgv = new CC.XDatagrid();
             this.col_sttak_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sttak_takdat = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,7 +46,6 @@
             this.col_sttak_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.inline_qty = new CC.XNumEdit();
             this.btnEdit = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
@@ -63,6 +63,39 @@
             this.panel1.Size = new System.Drawing.Size(697, 190);
             this.panel1.TabIndex = 0;
             // 
+            // inline_qty
+            // 
+            this.inline_qty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_qty._DecimalDigit = 2;
+            this.inline_qty._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.inline_qty._MaxLength = 30;
+            this.inline_qty._ReadOnly = false;
+            this.inline_qty._SelectionLength = 0;
+            this.inline_qty._SelectionStart = 5;
+            this.inline_qty._Text = "-1.00";
+            this.inline_qty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_qty._UseThoundsandSeparate = true;
+            this.inline_qty._Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147352576});
+            this.inline_qty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.inline_qty.BackColor = System.Drawing.Color.White;
+            this.inline_qty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_qty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_qty.Location = new System.Drawing.Point(554, 35);
+            this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_qty.Name = "inline_qty";
+            this.inline_qty.Size = new System.Drawing.Size(140, 23);
+            this.inline_qty.TabIndex = 2;
+            this.inline_qty._ValueChanged += new System.EventHandler(this.inline_qty__ValueChanged);
+            this.inline_qty._GotFocus += new System.EventHandler(this.inline_qty__GotFocus);
+            // 
             // dgv
             // 
             this.dgv.AllowSortByColumnHeaderClicked = false;
@@ -70,14 +103,14 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -91,14 +124,14 @@
             this.col_sttak_qty,
             this.col_sttak_sttak,
             this.col_sttak_working_express_db});
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -182,10 +215,10 @@
             // col_sttak_qty
             // 
             this.col_sttak_qty.DataPropertyName = "qty";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "N2";
-            dataGridViewCellStyle14.NullValue = null;
-            this.col_sttak_qty.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.col_sttak_qty.DefaultCellStyle = dataGridViewCellStyle2;
             this.col_sttak_qty.HeaderText = "ปริมาณที่วัดได้ (ลิตร)";
             this.col_sttak_qty.MinimumWidth = 140;
             this.col_sttak_qty.Name = "col_sttak_qty";
@@ -230,39 +263,6 @@
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "ยกเลิก <Esc>";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // inline_qty
-            // 
-            this.inline_qty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_qty._DecimalDigit = 2;
-            this.inline_qty._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.inline_qty._MaxLength = 30;
-            this.inline_qty._ReadOnly = false;
-            this.inline_qty._SelectionLength = 0;
-            this.inline_qty._SelectionStart = 5;
-            this.inline_qty._Text = "-1.00";
-            this.inline_qty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.inline_qty._UseThoundsandSeparate = true;
-            this.inline_qty._Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147352576});
-            this.inline_qty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inline_qty.BackColor = System.Drawing.Color.White;
-            this.inline_qty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_qty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_qty.Location = new System.Drawing.Point(401, 71);
-            this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_qty.Name = "inline_qty";
-            this.inline_qty.Size = new System.Drawing.Size(140, 23);
-            this.inline_qty.TabIndex = 2;
-            this.inline_qty._ValueChanged += new System.EventHandler(this.inline_qty__ValueChanged);
-            this.inline_qty._GotFocus += new System.EventHandler(this.inline_qty__GotFocus);
             // 
             // btnEdit
             // 

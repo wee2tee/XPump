@@ -17,7 +17,7 @@ namespace XPump.SubForm
     public partial class FormShiftTransaction : Form
     {
         private MainForm main_form;
-        private shiftsales curr_shiftsales;
+        public shiftsales curr_shiftsales;
         private shiftsales tmp_shiftsales;
         private shiftsttak tmp_sttak;
         private List<salessummaryVM> sales_list;
@@ -25,6 +25,7 @@ namespace XPump.SubForm
         private BindingSource bs_sales;
         private BindingSource bs_sttak;
         private FORM_MODE form_mode;
+        public string menu_id;
         //private List<salessummaryVM> reportAData;
         //private List<salessummaryVM> reportBData;
         //private List<salessummaryVM> reportCData;
@@ -37,6 +38,7 @@ namespace XPump.SubForm
 
         private void FormShiftTransaction_Load(object sender, EventArgs e)
         {
+            this.menu_id = this.GetType().Name;
             this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
@@ -332,8 +334,12 @@ namespace XPump.SubForm
                             db.shiftsttak.Remove(db.shiftsttak.Find(item.id));
                         }
 
-                        db.shiftsales.Remove(db.shiftsales.Find(this.curr_shiftsales.id));
+                        var shiftsales_to_delete = db.shiftsales.Find(this.curr_shiftsales.id);
+                        var shift_name = shiftsales_to_delete.ToViewModel(this.main_form.working_express_db).shift_name;
+                        db.shiftsales.Remove(shiftsales_to_delete);
                         db.SaveChanges();
+
+                        this.main_form.islog.AddData(this.menu_id, "ลบบันทึกรายการประจำผลัด \"" + shift_name + "\" วันที่ " + shiftsales_to_delete.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_delete.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shift_name, "shiftsales", shiftsales_to_delete.id).Save();
 
                         this.btnRefresh.PerformClick();
                     }
@@ -381,12 +387,21 @@ namespace XPump.SubForm
                         return;
                     }
 
+                    var tanksetup = db.tanksetup.OrderByDescending(t => t.startdate).Where(t => t.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0).FirstOrDefault();
+
+                    if (tanksetup == null)
+                    {
+                        MessageBox.Show("ไม่พบการตั้งค่าแท๊งค์เก็บน้ำมันที่เริ่มใช้วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
                     var stkcods = db.section.Include("nozzle").Include("tank").Include("tank.tanksetup")
-                                    .Where(s => s.tank.tanksetup.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
+                                    //.Where(s => s.tank.tanksetup.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
+                                    .Where(s => s.tank.tanksetup_id == tanksetup.id)
                                     .GroupBy(s => s.stkcod)
                                     .Select(s => s.Key).ToArray();
 
-                    DialogPrice price = new DialogPrice(this.main_form, stkcods);
+                    DialogPrice price = new DialogPrice(this.main_form, stkcods, this.tmp_shiftsales.saldat);
                     if (price.ShowDialog() != DialogResult.OK)
                         return;
 
@@ -438,6 +453,9 @@ namespace XPump.SubForm
                         }
 
                         db.SaveChanges();
+
+                        this.main_form.islog.AddData(this.menu_id, "เพิ่มบันทึกรายการประจำผลัด \"" + this.tmp_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.tmp_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.tmp_shiftsales.id).Save();
+
                         this.curr_shiftsales = this.GetShiftSales(this.tmp_shiftsales.id);
                         this.FillForm();
                         this.form_mode = FORM_MODE.READ;
@@ -1568,7 +1586,7 @@ namespace XPump.SubForm
 
         private void btnSttak_Click(object sender, EventArgs e)
         {
-            DialogShiftSttak sttak = new DialogShiftSttak(this.main_form, this.curr_shiftsales);
+            DialogShiftSttak sttak = new DialogShiftSttak(this.main_form, this, this.curr_shiftsales);
             if(sttak.ShowDialog() == DialogResult.OK)
             {
                 this.ValidateSttak();
@@ -1672,6 +1690,9 @@ namespace XPump.SubForm
 
         private void dgvSalesSummary_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1)
+                return;
+
             if(this.dgvSalesSummary.CurrentCell.ColumnIndex == this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_qty.Name).First().Index)
             {
                 this.ShowSalesForm();
@@ -1744,7 +1765,7 @@ namespace XPump.SubForm
                     }
                 }
 
-                DialogSalesHistory sh = new DialogSalesHistory(this.main_form, sales);
+                DialogSalesHistory sh = new DialogSalesHistory(this.main_form, this, sales);
                 sh.ShowDialog();
             }
         }
@@ -1771,7 +1792,7 @@ namespace XPump.SubForm
             int pricelist_id = (int)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_pricelist_id.Name].Value;
             Rectangle rect = this.dgvSalesSummary.GetCellDisplayRectangle(this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index, this.dgvSalesSummary.CurrentCell.RowIndex, false);
 
-            DialogEditPrice pr = new DialogEditPrice(this.main_form, pricelist_id, new Size(rect.Width + 4, rect.Height), new Point(this.dgvSalesSummary.PointToScreen(Point.Empty).X + rect.X - 2, this.dgvSalesSummary.PointToScreen(Point.Empty).Y + rect.Y - 2), sales.ToViewModel(this.main_form.working_express_db).unitpr);
+            DialogEditPrice pr = new DialogEditPrice(this.main_form, this, pricelist_id, new Size(rect.Width + 4, rect.Height), new Point(this.dgvSalesSummary.PointToScreen(Point.Empty).X + rect.X - 2, this.dgvSalesSummary.PointToScreen(Point.Empty).Y + rect.Y - 2), sales.ToViewModel(this.main_form.working_express_db).unitpr);
             if (pr.ShowDialog() == DialogResult.OK)
             {
                 this.curr_shiftsales = this.GetShiftSales(this.curr_shiftsales.id);
@@ -1796,6 +1817,25 @@ namespace XPump.SubForm
                 e.ToolTipText = "แก้ไขราคาขาย <Alt+E>";
                 return;
             }
+        }
+
+        private void dgvSalesSummary_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_unitpr.DataPropertyName).First().Index ||
+                e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_btn_price.DataPropertyName).First().Index)
+            {
+                this.ShowEditPrice();
+                return;
+            }
+            else
+            {
+                this.ShowSalesForm();
+                return;
+            }
+            
         }
     }
 }

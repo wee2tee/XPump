@@ -1684,5 +1684,24 @@ namespace XPump.Misc
                 return 0;
             }
         }
+
+        public static void SetLastestPrice(this stmasPriceVM stmas_price, DateTime price_date)
+        {
+            using (xpumpEntities db = DBX.DataSet(stmas_price.working_express_db))
+            {
+                var latest_price = db.pricelist.OrderByDescending(p => p.date).Where(p => p.stkcod == stmas_price.stkcod && p.date.CompareTo(price_date) <= 0).FirstOrDefault();
+
+                stmas_price.unitpr = latest_price != null ? latest_price.unitpr : 0m;
+                stmas_price.price_date = latest_price != null ? (DateTime?)latest_price.date : null;
+            }
+        }
+
+        public static void SetLatestPrice(this IEnumerable<stmasPriceVM> stmas_prices, DateTime price_date)
+        {
+            foreach (var s in stmas_prices)
+            {
+                s.SetLastestPrice(price_date);
+            }
+        }
     }
 }

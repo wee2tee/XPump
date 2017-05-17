@@ -9,21 +9,24 @@ using System.Windows.Forms;
 using XPump.Misc;
 using XPump.Model;
 using CC;
+using System.Globalization;
 
 namespace XPump.SubForm
 {
     public partial class DialogShiftSttak : Form
     {
         private MainForm main_form;
+        private FormShiftTransaction form_shifttransaction;
         private shiftsales shiftsales;
         private BindingList<shiftsttakVM> sttak;
         private shiftsttakVM editing_sttak;
         private FORM_MODE form_mode;
 
-        public DialogShiftSttak(MainForm main_form, shiftsales shiftsales)
+        public DialogShiftSttak(MainForm main_form, FormShiftTransaction form_shifttransaction, shiftsales shiftsales)
         {
             InitializeComponent();
             this.main_form = main_form;
+            this.form_shifttransaction = form_shifttransaction;
             this.shiftsales = shiftsales;
         }
 
@@ -199,6 +202,8 @@ namespace XPump.SubForm
                         sttak_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                         sttak_to_update.chgtime = DateTime.Now;
                         db.SaveChanges();
+
+                        this.main_form.islog.EditData(this.form_shifttransaction.menu_id, "บันทึกปริมาณน้ำมันที่ตรวจวัดได้ รหัส \"" + sttak_to_update.ToViewModel(this.main_form.working_express_db).stkcod + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.form_shifttransaction.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsttak", sttak_to_update.id).Save();
                     }
 
                     this.DialogResult = DialogResult.OK;
