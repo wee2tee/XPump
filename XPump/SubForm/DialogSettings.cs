@@ -97,7 +97,7 @@ namespace XPump.SubForm
                             }
                         }
 
-                        this.settings = GetSettings();
+                        this.settings = GetSettings(this.main_form.working_express_db);
                     };
                     w.RunWorkerCompleted += delegate
                     {
@@ -144,26 +144,25 @@ namespace XPump.SubForm
                     id = -1,
                     //express_data_path = string.Empty,
                     orgname = string.Empty,
-                    shiftauthlev = string.Empty,
+                    shiftauthlev = 0,
                     shiftprintmet = "0",
-                    dayauthlev = string.Empty,
+                    dayauthlev = 0,
                     dayprintmet = "0"
                 };
             }
 
             this.lblConnected.Visible = this.is_mysql_connected ? true : false;
             this.lblNotConnect.Visible = this.is_mysql_connected ? false : true;
-            //this.txtExpressData._Text = settings.express_data_path;
             this.txtOrgname._Text = settings.orgname;
-            this.numShiftAuthLevel._Text = settings.shiftauthlev;
+            this.numShiftAuthLevel._Text = settings.shiftauthlev.ToString();
             this.drShiftPrintMethod._SelectedItem = this.drShiftPrintMethod._Items.Cast<XDropdownListItem>().Where(i => (string)i.Value == settings.shiftprintmet).First();
-            this.numDayAuthLevel._Text = settings.dayauthlev;
+            this.numDayAuthLevel._Text = settings.dayauthlev.ToString();
             this.drDayPrintMethod._SelectedItem = this.drDayPrintMethod._Items.Cast<XDropdownListItem>().Where(i => (string)i.Value == settings.dayprintmet).First();
         }
 
-        public settings GetSettings()
+        public static settings GetSettings(SccompDbf working_express_db)
         {
-            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            using (xpumpEntities db = DBX.DataSet(working_express_db))
             {
                 return db.settings.First();
             }
@@ -173,7 +172,7 @@ namespace XPump.SubForm
         {
             if (this.is_mysql_connected)
             {
-                this.tmp_settings = GetSettings();
+                this.tmp_settings = GetSettings(this.main_form.working_express_db);
                 this.FillForm(this.tmp_settings);
 
                 this.form_mode = FORM_MODE.EDIT;
@@ -196,9 +195,15 @@ namespace XPump.SubForm
                     settings setting_to_update = db.settings.First();
                     //setting_to_update.express_data_path = this.tmp_settings.express_data_path;
                     setting_to_update.orgname = this.tmp_settings.orgname;
+                    setting_to_update.shiftprintmet = this.tmp_settings.shiftprintmet;
+                    setting_to_update.shiftauthlev = this.tmp_settings.shiftauthlev;
+                    setting_to_update.dayprintmet = this.tmp_settings.dayprintmet;
+                    setting_to_update.dayauthlev = this.tmp_settings.dayauthlev;
+                    setting_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                    setting_to_update.chgtime = DateTime.Now;
 
                     db.SaveChanges();
-                    this.settings = GetSettings();
+                    this.settings = GetSettings(this.main_form.working_express_db);
                     this.FillForm();
 
                     this.form_mode = FORM_MODE.READ;
@@ -215,7 +220,7 @@ namespace XPump.SubForm
         private void btnStop_Click(object sender, EventArgs e)
         {
 
-            this.settings = GetSettings();
+            this.settings = GetSettings(this.main_form.working_express_db);
             this.FillForm();
 
             this.form_mode = FORM_MODE.READ;
@@ -248,6 +253,65 @@ namespace XPump.SubForm
         //{
         //    //this.PerformEdit(sender, e);
         //}
+
+        private void btnEditMysqlConnection_Click(object sender, EventArgs e)
+        {
+            DialogDbConfig db_config = new DialogDbConfig(this.main_form);
+            if (db_config.ShowDialog() == DialogResult.OK)
+            {
+                this.BindConfigData2Control();
+            }
+        }
+
+        private void txtOrgname__TextChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_settings != null)
+                this.tmp_settings.orgname = ((XTextEdit)sender)._Text.Trim();
+        }
+
+        private void numShiftAuthLevel__TextChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_settings != null)
+            {
+                int out_lev;
+                if(Int32.TryParse(((XNumTextEdit)sender)._Text, out out_lev))
+                {
+                    this.tmp_settings.shiftauthlev = out_lev;
+                }
+                else
+                {
+                    this.tmp_settings.shiftauthlev = 0;
+                }
+            }
+        }
+
+        private void numDayAuthLevel__TextChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_settings != null)
+            {
+                int out_lev;
+                if (Int32.TryParse(((XNumTextEdit)sender)._Text, out out_lev))
+                {
+                    this.tmp_settings.dayauthlev = out_lev;
+                }
+                else
+                {
+                    this.tmp_settings.dayauthlev = 0;
+                }
+            }
+        }
+
+        private void drShiftPrintMethod__SelectedItemChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_settings != null)
+                this.tmp_settings.shiftprintmet = (string)((XDropdownListItem)((XDropdownList)sender)._SelectedItem).Value;
+        }
+
+        private void drDayPrintMethod__SelectedItemChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_settings != null)
+                this.tmp_settings.dayprintmet = (string)((XDropdownListItem)((XDropdownList)sender)._SelectedItem).Value;
+        }
 
         private void PerformEdit(object sender, EventArgs e)
         {
@@ -296,22 +360,17 @@ namespace XPump.SubForm
                 return true;
             }
 
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void txtOrgname__TextChanged(object sender, EventArgs e)
-        {
-            if(this.tmp_settings != null)
-                this.tmp_settings.orgname = ((XTextEdit)sender)._Text.Trim();
-        }
-
-        private void btnEditMysqlConnection_Click(object sender, EventArgs e)
-        {
-            DialogDbConfig db_config = new DialogDbConfig(this.main_form);
-            if(db_config.ShowDialog() == DialogResult.OK)
+            if(keyData == Keys.Tab)
             {
-                this.BindConfigData2Control();
+                if(this.form_mode == FORM_MODE.READ)
+                {
+                    DialogDataInfo info = new DialogDataInfo("Settings", this.settings.id, 1, "%System%", null, this.settings.chgby, this.settings.chgtime);
+                    info.ShowDialog();
+                    return true;
+                }
             }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

@@ -439,7 +439,14 @@ namespace XPump.Model
                 return this.totqty * this.unitpr;
             }
         }
-        public decimal ddisc { get { return this.salessummary.ddisc; } }
+        public decimal ddisc {
+            get {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.salessummary.Find(this.id) != null ? db.salessummary.Find(this.id).ddisc : 0m;
+                }
+            }
+        }
         public decimal netval
         {
             get
@@ -458,7 +465,14 @@ namespace XPump.Model
                 }
             }
         }
-        public decimal dtest { get { return this.salessummary.dtest; } }
+        public decimal dtest {
+            get {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.salessummary.Find(this.id) != null ? db.salessummary.Find(this.id).dtest : 0m;
+                }
+            }
+        }
         public decimal dother
         {
             get
@@ -476,14 +490,14 @@ namespace XPump.Model
                 return (this.netval * 7) / 107;
             }
         }
-        public decimal purvat { get { return this.salessummary.purvat; } }
-        //public decimal purvat
-        //{
-        //    get
-        //    {
-
-        //    }
-        //}
+        public decimal purvat {
+            get {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.salessummary.Find(this.id) != null ? db.salessummary.Find(this.id).purvat : 0m;
+                }
+            }
+        }
         public int pricelist_id { get { return this.salessummary.pricelist_id; } }
         public int shiftsales_id { get { return this.salessummary.shiftsales_id; } }
         public string shift_name

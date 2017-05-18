@@ -201,6 +201,11 @@ namespace XPump.SubForm
                         sttak_to_update.qty = s.qty;
                         sttak_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                         sttak_to_update.chgtime = DateTime.Now;
+
+                        var shiftsales_to_update = db.shiftsales.Find(this.shiftsales.id);
+                        shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        shiftsales_to_update.chgtime = DateTime.Now;
+
                         db.SaveChanges();
 
                         this.main_form.islog.EditData(this.form_shifttransaction.menu_id, "บันทึกปริมาณน้ำมันที่ตรวจวัดได้ รหัส \"" + sttak_to_update.ToViewModel(this.main_form.working_express_db).stkcod + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.form_shifttransaction.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsttak", sttak_to_update.id).Save();
@@ -254,6 +259,30 @@ namespace XPump.SubForm
             {
                 this.btnEdit.PerformClick();
                 return true;
+            }
+
+            if(keyData == Keys.Tab)
+            {
+                if(this.form_mode == FORM_MODE.READ_ITEM)
+                {
+                    if (this.dgv.CurrentCell == null)
+                        return false;
+
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var sttak = (shiftsttak)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_sttak_sttak.Name].Value;
+
+                        var total_recs = db.shiftsttak.AsEnumerable().Count();
+                        var data_info = db.shiftsttak.Find(sttak.id);
+
+                        if (data_info == null)
+                            return false;
+
+                        DialogDataInfo info = new DialogDataInfo("Shiftsttak", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime);
+                        info.ShowDialog();
+                        return true;
+                    }
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

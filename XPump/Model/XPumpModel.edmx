@@ -164,9 +164,9 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="orgname" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="shiftprintmet" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="shiftauthlev" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="shiftauthlev" Type="int" Nullable="false" />
           <Property Name="dayprintmet" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="dayauthlev" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="dayauthlev" Type="int" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
           <Property Name="chgtime" Type="timestamp" Precision="0" />
         </EntityType>
@@ -689,9 +689,9 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="orgname" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="shiftprintmet" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="shiftauthlev" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="shiftauthlev" Type="Int32" Nullable="false" />
           <Property Name="dayprintmet" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="dayauthlev" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dayauthlev" Type="Int32" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
         </EntityType>

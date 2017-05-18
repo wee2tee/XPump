@@ -181,6 +181,14 @@ namespace XPump.SubForm
                         sh.chgby = this.main_form.loged_in_status.loged_in_user_name;
                         sh.chgtime = DateTime.Now;
 
+                        salessummary sales_to_update = db.salessummary.Find(sh.salessummary_id);
+                        sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        sales_to_update.chgtime = DateTime.Now;
+
+                        shiftsales shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
+                        shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        shiftsales_to_update.chgtime = DateTime.Now;
+
                         db.SaveChanges();
 
                         this.main_form.islog.EditData(this.form_shifttransaction.menu_id, "แก้ไขยอดขายของหัวจ่าย \"" + this.tmp_saleshistory.ToViewModel(this.main_form.working_express_db).nozzle_name + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "saleshistory", this.tmp_saleshistory.id).Save();
@@ -280,13 +288,9 @@ namespace XPump.SubForm
             this.lblNetqty.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).totqty);
             this.lblNetval.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).netval);
             this.lblSalvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).salvat);
-            //this.lblPurvat.Text = string.Format("{0:#,#0.00}", this.salessummary.ToViewModel(this.main_form.working_express_db).purvat);
-            this.numPurvat._Value = this.salessummary.ToViewModel(this.main_form.working_express_db).purvat;
 
+            this.numPurvat._Value = this.salessummary.ToViewModel(this.main_form.working_express_db).purvat;
             this.numDtest._Value = this.salessummary.dtest;
-            //this.numDother._Value = this.salessummary.ToViewModel(this.main_form.working_express_db).dother;
-            
-            //this.txtDother._Text = this.salessummary.dothertxt;
             this.numDdisc._Value = this.salessummary.ddisc;
         }
 
@@ -363,10 +367,14 @@ namespace XPump.SubForm
                     }
 
                     sales_to_update.dtest = this.salessummary.dtest;
-                    //sales_to_update.dother = this.salessummary.dother;
-                    //sales_to_update.dothertxt = this.salessummary.dothertxt;
                     sales_to_update.ddisc = this.salessummary.ddisc;
                     sales_to_update.purvat = this.salessummary.purvat;
+                    sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                    sales_to_update.chgtime = DateTime.Now;
+
+                    shiftsales shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
+                    shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                    shiftsales_to_update.chgtime = DateTime.Now;
 
                     db.SaveChanges();
                     this.main_form.islog.EditData(this.form_shifttransaction.menu_id, "แก้ไขรายละเอียดการขายสินค้ารหัส \"" + this.salessummary.stkcod + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "salessummary", this.salessummary.id).Save();
@@ -574,7 +582,26 @@ namespace XPump.SubForm
 
             if(keyData == Keys.Tab)
             {
-                Console.WriteLine("## >> focused at " + this.ActiveControl.Name);
+                if(this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM)
+                {
+                    if (this.dgvNozzle.CurrentCell == null)
+                        return false;
+
+                    saleshistory s = (saleshistory)this.dgvNozzle.Rows[this.dgvNozzle.CurrentCell.RowIndex].Cells[this.col_saleshistory.Name].Value;
+
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var total_recs = db.saleshistory.AsEnumerable().Count();
+                        var data_info = db.saleshistory.Find(s.id);
+
+                        if (data_info == null)
+                            return false;
+
+                        DialogDataInfo info = new DialogDataInfo("Saleshistory", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime);
+                        info.ShowDialog();
+                        return true;
+                    }
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -603,6 +630,7 @@ namespace XPump.SubForm
             DialogDother d = new DialogDother(this.main_form, this.salessummary);
             d.SetBounds(((Button)sender).PointToScreen(Point.Empty).X + ((Button)sender).Width, ((Button)sender).PointToScreen(Point.Empty).Y, d.Width, d.Height);
             d.ShowDialog();
+            this.FillSummary();
         }
 
         private void numDtest__DoubleClicked(object sender, EventArgs e)

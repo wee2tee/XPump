@@ -200,6 +200,15 @@ namespace XPump.SubForm
                     {
                         this.tmp_dother.cretime = DateTime.Now;
                         db.dother.Add(this.tmp_dother);
+
+                        var sales_to_update = db.salessummary.Find(this.salessummary.id);
+                        sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        sales_to_update.chgtime = DateTime.Now;
+
+                        var shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
+                        shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        shiftsales_to_update.chgtime = DateTime.Now;
+
                         db.SaveChanges();
 
                         this.RemoveInlineForm();
@@ -230,6 +239,14 @@ namespace XPump.SubForm
                         dother_to_update.qty = this.tmp_dother.qty;
                         dother_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                         dother_to_update.chgtime = DateTime.Now;
+
+                        var sales_to_update = db.salessummary.Find(this.salessummary.id);
+                        sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        sales_to_update.chgtime = DateTime.Now;
+
+                        var shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
+                        shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        shiftsales_to_update.chgtime = DateTime.Now;
 
                         db.SaveChanges();
                         this.RemoveInlineForm();
@@ -267,6 +284,15 @@ namespace XPump.SubForm
                         else
                         {
                             db.dother.Remove(dother_to_delete);
+
+                            var sales_to_update = db.salessummary.Find(this.salessummary.id);
+                            sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                            sales_to_update.chgtime = DateTime.Now;
+
+                            var shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
+                            shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                            shiftsales_to_update.chgtime = DateTime.Now;
+
                             db.SaveChanges();
 
                             this.bl_dother.Remove(this.bl_dother.Where(d => d.id == dother_to_delete.id).First());
@@ -379,6 +405,16 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            this.ResetControlState(FORM_MODE.EDIT_ITEM);
+            this.ShowInlineForm();
+            this.inline_qty.Focus();
         }
     }
 }

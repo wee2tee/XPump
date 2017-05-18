@@ -202,6 +202,32 @@ namespace XPump.Misc
             return l;
         }
 
+        public LogObject Approve(string menu_id, string description, string docnum, string affected_table = null, int? affected_id = null)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "013",
+                Description = description,
+                Module = menu_id,
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id
+            };
+            return l;
+        }
+
+        //public LogObject Approve(string menu_id, string approved_key, string approved_val)
+        //{
+        //    LogObject l = new LogObject(this.main_form)
+        //    {
+        //        Code = "013",
+        //        Description = string.Format("รับรองรายการ{0} {1}", approved_key, approved_val),
+        //        Module = menu_id,
+        //        Docnum = approved_val
+        //    };
+        //    return l;
+        //}
+
         public LogObject ImportData(string menu_id, string imported_key, int imported_item_count)
         {
             LogObject l = new LogObject(this.main_form)
@@ -221,18 +247,6 @@ namespace XPump.Misc
                 Description = string.Format("เปลี่ยนรหัส{0} \"{1}\" เป็น \"{2}\" สำเร็จ", changed_key, old_code, new_code),
                 Module = menu_id,
                 Docnum = new_code
-            };
-            return l;
-        }
-
-        public LogObject Approve(string menu_id, string approved_key, string approved_val)
-        {
-            LogObject l = new LogObject(this.main_form)
-            {
-                Code = "013",
-                Description = string.Format("รับรองรายการ{0} {1}", approved_key, approved_val),
-                Module = menu_id,
-                Docnum = approved_val
             };
             return l;
         }
@@ -357,6 +371,36 @@ namespace XPump.Misc
             catch (MySqlException ex)
             {
                 if(conn.State == System.Data.ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+                MessageBox.Show(ex.Message);
+                return new LogSaveResult { isSuccess = false, errMessage = ex.Message };
+            }
+        }
+
+        public LogSaveResult Save(string user_name)
+        {
+            MySqlConnection conn = this.main_form.secure_db_config.GetSecureDbConnection();
+
+            try
+            {
+                string module = this.Module != null ? this.Module : string.Empty;
+                string docnum = this.Docnum != null ? this.Docnum : string.Empty;
+
+                //string data = this.main_form.working_express_db != null ? this.ExpressData : string.Empty;
+                //string xpump_data = this.XPumpData != null ? this.XPumpData : string.Empty;
+
+                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `afftable`, `affid`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', " + (this.afftable != null ? "'" + this.afftable + "'" : "NULL") + ", " + (this.affid != null ? this.affid.ToString() : "NULL") + ", '" + docnum + "', '" + this.Description + "', '" + user_name + "')";
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                return new LogSaveResult { isSuccess = true, errMessage = string.Empty };
+            }
+            catch (MySqlException ex)
+            {
+                if (conn.State == System.Data.ConnectionState.Open)
                 {
                     conn.Close();
                 }

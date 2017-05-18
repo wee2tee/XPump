@@ -446,6 +446,30 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if(keyData == Keys.Tab)
+            {
+                if(this.form_mode == FORM_MODE.READ_ITEM)
+                {
+                    if (this.dgv.CurrentCell == null)
+                        return false;
+
+                    var istab = (istab)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_istab.Name].Value;
+
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var total_recs = db.istab.AsEnumerable().Count();
+                        var data_info = db.istab.Find(istab.id);
+
+                        if (data_info == null)
+                            return false;
+
+                        DialogDataInfo info = new DialogDataInfo("Istab", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime);
+                        info.ShowDialog();
+                        return true;
+                    }
+                }
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

@@ -156,6 +156,8 @@ namespace CC
 
             if (this._SelectedItemChanged != null)
                 this._SelectedItemChanged(this, e);
+
+            this.label1.Text = ((ComboBox)sender).Text;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -179,7 +181,7 @@ namespace CC
 
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
-            this.label1.Text = ((ComboBox)sender).Text;
+            //this.label1.Text = ((ComboBox)sender).Text;
         }
 
         private void label1_DoubleClick(object sender, EventArgs e)

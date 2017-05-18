@@ -40,17 +40,16 @@ namespace XPump.SubForm
         {
             this.menu_id = this.GetType().Name;
             this.BackColor = MiscResource.WIND_BG;
-            this.form_mode = FORM_MODE.READ;
-            this.ResetControlState();
 
             this.bs_sales = new BindingSource();
             this.dgvSalesSummary.DataSource = this.bs_sales;
 
             this.bs_sttak = new BindingSource();
-            //this.dgvSttak.DataSource = this.bs_sttak;
 
             this.btnLast.PerformClick();
             this.ActiveControl = this.dgvSalesSummary;
+            this.form_mode = FORM_MODE.READ;
+            this.ResetControlState();
         }
 
         private void ResetControlState()
@@ -72,13 +71,26 @@ namespace XPump.SubForm
             this.btnPrintALandscape.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             //this.btnItemF7.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnItemF8.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnUnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             /* Form control */
             this.brShift.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.dtSaldat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.dgvSalesSummary.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+
+            this.ResetApproveBtn();
+        }
+
+        private void ResetApproveBtn()
+        {
+            if (this.form_mode == FORM_MODE.READ)
+            {
+                this.btnApprove.Enabled = this.curr_shiftsales != null && !this.curr_shiftsales.apprtime.HasValue ? true : false;
+                this.btnUnApprove.Enabled = this.curr_shiftsales != null && this.curr_shiftsales.apprtime.HasValue ? true : false;
+            }
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -243,6 +255,8 @@ namespace XPump.SubForm
                 this.btnRefresh.Enabled = sales == null || sales.id == -1 ? false : true;
 
                 this.dtSaldat._SelectedDate = sales == null || sales.id == -1 ? null : (DateTime?)sales.saldat;
+
+                this.ResetApproveBtn();
             }
         }
 
@@ -301,8 +315,16 @@ namespace XPump.SubForm
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
                 return;
 
+            var is_approved = this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if(is_approved != null && is_approved == true)
+            {
+                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถลบได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             if (this.ValidateClosedShiftSales(this.curr_shiftsales))
             {
+                MessageBox.Show("ปิดยอดขายของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ไปแล้ว ไม่สามารถลบได้, ต้องไปลบรายการปิดยอดขายก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
 
@@ -803,6 +825,16 @@ namespace XPump.SubForm
         private void btnPrintC_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnItem_Click(object sender, EventArgs e)
+        {
+            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
+                return;
+
+            this.form_mode = FORM_MODE.READ_ITEM;
+            this.ResetControlState();
+            this.dgvSalesSummary.Focus();
         }
 
         private void dtSaldat__SelectedDateChanged(object sender, EventArgs e)
@@ -1446,144 +1478,6 @@ namespace XPump.SubForm
             this.dgvSalesSummary.Focus();
         }
 
-        
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Enter)
-            {
-                if (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
-                {
-                    if (this.brShift._Focused)
-                    {
-                        this.btnSave.PerformClick();
-                        return true;
-                    }
-                    else
-                    {
-                        SendKeys.Send("{TAB}");
-                        return true;
-                    }
-                }
-            }
-
-            if (keyData == (Keys.Alt | Keys.A))
-            {
-                this.btnAdd.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Alt | Keys.E))
-            {
-                //if (this.form_mode == FORM_MODE.READ)
-                //{
-                //    this.btnEdit.PerformClick();
-                //    return true;
-                //}
-
-                if (this.form_mode == FORM_MODE.READ_ITEM)
-                {
-                    if(this.tabControl1.SelectedTab == this.tabPage1)
-                    {
-                        this.ShowEditPrice();
-                        return true;
-                    }
-                }
-            }
-
-            if (keyData == (Keys.Alt | Keys.D))
-            {
-                this.btnDelete.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Space))
-            {
-                this.ShowSalesForm();
-                return true;
-            }
-
-            if (keyData == Keys.Escape)
-            {
-                this.btnStop.PerformClick();
-                return true;
-            }
-
-            if (keyData == Keys.F9)
-            {
-                this.btnSave.PerformClick();
-                return true;
-            }
-
-            if (keyData == Keys.PageUp)
-            {
-                this.btnPrevious.PerformClick();
-                return true;
-            }
-
-            if (keyData == Keys.PageDown)
-            {
-                this.btnNext.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Home))
-            {
-                this.btnFirst.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.End))
-            {
-                this.btnLast.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Alt | Keys.S))
-            {
-                this.btnSearch.PerformButtonClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.L))
-            {
-                this.btnInquiryAll.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Alt | Keys.L))
-            {
-                this.btnInquiryRest.PerformClick();
-                return true;
-            }
-
-            if(keyData == (Keys.Alt | Keys.P))
-            {
-                this.btnPrintALandscape.PerformClick();
-                return true;
-            }
-
-            if(keyData == (Keys.Control | Keys.P))
-            {
-                this.btnPrintAPortrait.PerformClick();
-                return true;
-            }
-
-            if (keyData == Keys.F8)
-            {
-                this.btnItemF8.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.F5))
-            {
-                this.btnRefresh.PerformClick();
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
         private void btnSttak_Click(object sender, EventArgs e)
         {
             DialogShiftSttak sttak = new DialogShiftSttak(this.main_form, this, this.curr_shiftsales);
@@ -1795,6 +1689,19 @@ namespace XPump.SubForm
             DialogEditPrice pr = new DialogEditPrice(this.main_form, this, pricelist_id, new Size(rect.Width + 4, rect.Height), new Point(this.dgvSalesSummary.PointToScreen(Point.Empty).X + rect.X - 2, this.dgvSalesSummary.PointToScreen(Point.Empty).Y + rect.Y - 2), sales.ToViewModel(this.main_form.working_express_db).unitpr);
             if (pr.ShowDialog() == DialogResult.OK)
             {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var sales_to_update = db.salessummary.Find(sales.id);
+                    sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                    sales_to_update.chgtime = DateTime.Now;
+
+                    var shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
+                    shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                    shiftsales_to_update.chgtime = DateTime.Now;
+
+                    db.SaveChanges();
+                }
+
                 this.curr_shiftsales = this.GetShiftSales(this.curr_shiftsales.id);
                 this.FillForm();
             }
@@ -1836,6 +1743,266 @@ namespace XPump.SubForm
                 return;
             }
             
+        }
+
+        private void btnApprove_Click(object sender, EventArgs e)
+        {
+            if (this.curr_shiftsales == null)
+                return;
+            string approved_user = this.main_form.loged_in_status.loged_in_user_name;
+
+            settings settings = DialogSettings.GetSettings(this.main_form.working_express_db);
+            if (this.main_form.loged_in_status.loged_in_user_level < settings.shiftauthlev)
+            {
+                DialogValidateUser validate = new DialogValidateUser(this.main_form, settings.shiftauthlev);
+                if (validate.ShowDialog() != DialogResult.OK)
+                    return;
+
+                approved_user = validate.validated_status.loged_in_user_name;
+            }
+
+            if (MessageBox.Show("กรุณายืนยันเพื่อทำการรับรองรายการ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                return;
+
+            try
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var shiftsales_to_appr = db.shiftsales.Find(this.curr_shiftsales.id);
+                    shiftsales_to_appr.apprby = approved_user;
+                    shiftsales_to_appr.apprtime = DateTime.Now;
+
+                    db.SaveChanges();
+
+                    this.main_form.islog.Approve(this.menu_id, "รับรองรายการ บันทึกรายการประจำผลัด \"" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + shiftsales_to_appr.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_appr.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", shiftsales_to_appr.id).Save(approved_user);
+
+                    this.btnRefresh.PerformClick();
+                    this.ResetApproveBtn();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnUnApprove_Click(object sender, EventArgs e)
+        {
+            if (this.curr_shiftsales == null)
+                return;
+
+            string unapproved_user = this.main_form.loged_in_status.loged_in_user_name;
+
+            settings settings = DialogSettings.GetSettings(this.main_form.working_express_db);
+            if (this.main_form.loged_in_status.loged_in_user_level < settings.shiftauthlev)
+            {
+                DialogValidateUser validate = new DialogValidateUser(this.main_form, settings.shiftauthlev);
+                if (validate.ShowDialog() != DialogResult.OK)
+                    return;
+
+                unapproved_user = validate.validated_status.loged_in_user_name;
+            }
+
+            if (MessageBox.Show("กรุณายืนยันเพื่อยกเลิกการรับรองรายการ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                return;
+
+            try
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var shiftsales_to_appr = db.shiftsales.Find(this.curr_shiftsales.id);
+                    shiftsales_to_appr.apprby = null;
+                    shiftsales_to_appr.apprtime = null;
+
+                    db.SaveChanges();
+
+                    this.main_form.islog.Approve(this.menu_id, "ยกเลิกการรับรองรายการ บันทึกรายการประจำผลัด \"" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + shiftsales_to_appr.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_appr.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", shiftsales_to_appr.id).Save(unapproved_user);
+
+                    this.btnRefresh.PerformClick();
+                    this.ResetApproveBtn();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                if (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                {
+                    if (this.brShift._Focused)
+                    {
+                        this.btnSave.PerformClick();
+                        return true;
+                    }
+                    else
+                    {
+                        SendKeys.Send("{TAB}");
+                        return true;
+                    }
+                }
+            }
+
+            if (keyData == (Keys.Alt | Keys.A))
+            {
+                this.btnAdd.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.E))
+            {
+                //if (this.form_mode == FORM_MODE.READ)
+                //{
+                //    this.btnEdit.PerformClick();
+                //    return true;
+                //}
+
+                if (this.form_mode == FORM_MODE.READ_ITEM)
+                {
+                    if (this.tabControl1.SelectedTab == this.tabPage1)
+                    {
+                        this.ShowEditPrice();
+                        return true;
+                    }
+                }
+            }
+
+            if (keyData == (Keys.Alt | Keys.D))
+            {
+                this.btnDelete.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.Space))
+            {
+                this.ShowSalesForm();
+                return true;
+            }
+
+            if (keyData == Keys.Escape)
+            {
+                this.btnStop.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.F9)
+            {
+                this.btnSave.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.PageUp)
+            {
+                this.btnPrevious.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.PageDown)
+            {
+                this.btnNext.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.Home))
+            {
+                this.btnFirst.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.End))
+            {
+                this.btnLast.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.S))
+            {
+                this.btnSearch.PerformButtonClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.L))
+            {
+                this.btnInquiryAll.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.L))
+            {
+                this.btnInquiryRest.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.P))
+            {
+                this.btnPrintALandscape.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.P))
+            {
+                this.btnPrintAPortrait.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.F8)
+            {
+                this.btnItem.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.F5))
+            {
+                this.btnRefresh.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Tab)
+            {
+                if(this.form_mode == FORM_MODE.READ)
+                {
+                    if (this.curr_shiftsales == null)
+                        return false;
+
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var total_recs = db.shiftsales.AsEnumerable().Count();
+                        var data_info = db.shiftsales.Find(this.curr_shiftsales.id);
+                        if (data_info == null)
+                            return false;
+
+                        DialogDataInfo info = new DialogDataInfo("Shiftsales", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime, data_info.apprby, data_info.apprtime);
+                        info.ShowDialog();
+                        return true;
+                    }
+                }
+                if(this.form_mode == FORM_MODE.READ_ITEM)
+                {
+                    if (this.dgvSalesSummary.CurrentCell == null)
+                        return false;
+
+                    var sales = (salessummary)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_salessummary.Name].Value;
+
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var total_recs = db.salessummary.AsEnumerable().Count();
+                        var data_info = db.salessummary.Find(sales.id);
+
+                        if (data_info == null)
+                            return false;
+
+                        DialogDataInfo info = new DialogDataInfo("Salessummary", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime);
+                        info.ShowDialog();
+                        return true;
+                    }
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

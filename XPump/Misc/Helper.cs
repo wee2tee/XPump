@@ -1703,5 +1703,17 @@ namespace XPump.Misc
                 s.SetLastestPrice(price_date);
             }
         }
+
+        public static bool? IsApproved(this shiftsalesVM shiftsales)
+        {
+            using (xpumpEntities db = DBX.DataSet(shiftsales.working_express_db))
+            {
+                var sales = db.shiftsales.Find(shiftsales.id);
+                if (sales == null)
+                    return null;
+
+                return sales.apprtime.HasValue ? true : false;
+            }
+        }
     }
 }

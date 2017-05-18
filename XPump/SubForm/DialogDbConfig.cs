@@ -210,9 +210,9 @@ namespace XPump.SubForm
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`orgname` VARCHAR(60) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`shiftprintmet` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '0 = not stricted, 1 = printed before authorize, 2 = authorized before print',";
-                cmd.CommandText += "`shiftauthlev` VARCHAR(1) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`shiftauthlev` INT(1) NOT NULL DEFAULT 0,";
                 cmd.CommandText += "`dayprintmet` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '0 = not stricted, 1 = printed before authorize, 2 = authorized before print',";
-                cmd.CommandText += "`dayauthlev` VARCHAR(1) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`dayauthlev` INT(1) NOT NULL DEFAULT 0,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`chgtime` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,";
                 cmd.CommandText += "PRIMARY KEY (`id`)) ";

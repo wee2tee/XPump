@@ -83,6 +83,16 @@ namespace XPump.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap approve {
+            get {
+                object obj = ResourceManager.GetObject("approve", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap change_scope {
             get {
                 object obj = ResourceManager.GetObject("change_scope", resourceCulture);
@@ -466,6 +476,16 @@ namespace XPump.Properties {
         internal static System.Drawing.Bitmap trash {
             get {
                 object obj = ResourceManager.GetObject("trash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unapprove {
+            get {
+                object obj = ResourceManager.GetObject("unapprove", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

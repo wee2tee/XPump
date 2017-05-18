@@ -66,16 +66,16 @@ namespace XPump.SubForm
 
                 if(validating_user.status == "X")
                 {
-                    return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = is_secure, err_message = "ถูกกำหนดสถานะห้ามใช้งาน" };
+                    return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = is_secure, err_message = "ถูกกำหนดสถานะห้ามใช้งาน", loged_in_user_level = 0 };
                 }
                 else
                 {
-                    return new LoginStatus { result = true, loged_in_user_name = user_name, loged_in_user_group = validating_user.connectgrp, is_secure = is_secure, err_message = string.Empty };
+                    return new LoginStatus { result = true, loged_in_user_name = user_name, loged_in_user_group = validating_user.connectgrp, is_secure = is_secure, err_message = string.Empty, loged_in_user_level = Convert.ToInt32(validating_user.authlev) };
                 }
             }
             else
             {
-                return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = false, err_message = "รหัสผู้ใช้/รหัสผ่าน ไม่ถูกต้อง" };
+                return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = false, err_message = "รหัสผู้ใช้/รหัสผ่าน ไม่ถูกต้อง", loged_in_user_level = 0 };
             }
         }
 
@@ -105,6 +105,7 @@ namespace XPump.SubForm
         public bool result { get; set; }
         public string loged_in_user_name { get; set; }
         public string loged_in_user_group { get; set; }
+        public int loged_in_user_level { get; set; }
         public bool is_secure { get; set; }
         public string err_message { get; set; }
     }
