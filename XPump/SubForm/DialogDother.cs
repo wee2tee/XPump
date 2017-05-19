@@ -24,7 +24,16 @@ namespace XPump.SubForm
         {
             InitializeComponent();
             this.main_form = main_form;
-            this.salessummary = salessummary;
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.salessummary = db.salessummary.Include("shiftsales").Where(s => s.id == salessummary.id).FirstOrDefault();
+                if(this.salessummary == null)
+                {
+                    MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    this.DialogResult = DialogResult.Abort;
+                    this.Close();
+                }
+            }
         }
 
         private void DialogDother_Load(object sender, EventArgs e)
@@ -128,6 +137,13 @@ namespace XPump.SubForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if (is_approved != null && is_approved == true)
+            {
+                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             this.bl_dother.Add(new dother
             {
                 id = -1,
@@ -146,6 +162,13 @@ namespace XPump.SubForm
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if (is_approved != null && is_approved == true)
+            {
+                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             this.ResetControlState(FORM_MODE.EDIT_ITEM);
             this.ShowInlineForm();
             this.inline_qty.Focus();
@@ -179,7 +202,14 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(this.tmp_dother.istab_id == -1)
+            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if (is_approved != null && is_approved == true)
+            {
+                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (this.tmp_dother.istab_id == -1)
             {
                 MessageBox.Show("กรุณาระบุรายละเอียดการหักฯ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 this.inline_dother.Focus();
@@ -266,6 +296,13 @@ namespace XPump.SubForm
         {
             if (this.dgv.CurrentCell == null)
                 return;
+
+            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if (is_approved != null && is_approved == true)
+            {
+                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
 
             var dother = (dother)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_dother.Name].Value;
 

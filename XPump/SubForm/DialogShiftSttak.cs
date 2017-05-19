@@ -52,7 +52,11 @@ namespace XPump.SubForm
 
         private void DialogShiftSttak_Shown(object sender, EventArgs e)
         {
-            this.btnEdit.PerformClick();
+            var is_approved = this.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if (is_approved.HasValue && is_approved.Value == false)
+            {
+                this.btnEdit.PerformClick();
+            }
         }
 
         private void FillForm()
@@ -88,6 +92,13 @@ namespace XPump.SubForm
         {
             if (this.dgv.CurrentCell == null)
                 return;
+
+            var is_approved = this.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if(is_approved.HasValue && is_approved.Value == true)
+            {
+                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
 
             if (this.form_mode == FORM_MODE.EDIT_ITEM)
                 return;

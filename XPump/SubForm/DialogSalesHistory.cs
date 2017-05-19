@@ -331,22 +331,41 @@ namespace XPump.SubForm
 
         private void PerformEditSummary(object sender, EventArgs e)
         {
+            if (this.form_mode == FORM_MODE.EDIT)
+                return;
+
+            if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                this.btnOK.PerformClick();
+
             if (this.salessummary.shiftsales.IsClosedShiftSales(this.main_form.working_express_db))
             {
                 MessageBox.Show("วันที่ " + this.salessummary.shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
 
+            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if (is_approved != null && is_approved == true)
+            {
+                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
-            this.btnCancel.Focus();
 
             ((Control)sender).Focus();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if(this.form_mode == FORM_MODE.EDIT_ITEM)
+            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if (is_approved != null && is_approved == true)
+            {
+                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (this.form_mode == FORM_MODE.EDIT_ITEM)
             {
                 this.SaveTmpSalesHistory();
                 this.RemoveInlineForm();
@@ -402,6 +421,13 @@ namespace XPump.SubForm
             if (this.salessummary.shiftsales.IsClosedShiftSales(this.main_form.working_express_db))
             {
                 MessageBox.Show("วันที่ " + this.salessummary.shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if (is_approved.HasValue && is_approved.Value == true)
+            {
+                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
 
@@ -487,16 +513,16 @@ namespace XPump.SubForm
             {
                 if(this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM)
                 {
-                //    this.form_mode = FORM_MODE.EDIT;
-                //    this.ResetControlState();
-                //    this.numDtest.Focus();
-                //    return true;
-                //}
-
-                //if(this.form_mode == FORM_MODE.READ_ITEM)
-                //{
                     if (this.dgvNozzle.Rows.Count > 0 && this.dgvNozzle.CurrentCell != null)
                     {
+                        var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+                        if (is_approved.HasValue && is_approved.Value == true)
+                        {
+                            MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return true;
+                        }
+
+                        this.dgvNozzle.Rows[0].Cells[this.col_mitbeg.Name].Selected = true;
                         this.form_mode = FORM_MODE.EDIT_ITEM;
                         this.ResetControlState();
                         this.ShowInlineForm(this.dgvNozzle.CurrentCell.RowIndex);
@@ -631,45 +657,6 @@ namespace XPump.SubForm
             d.SetBounds(((Button)sender).PointToScreen(Point.Empty).X + ((Button)sender).Width, ((Button)sender).PointToScreen(Point.Empty).Y, d.Width, d.Height);
             d.ShowDialog();
             this.FillSummary();
-        }
-
-        private void numDtest__DoubleClicked(object sender, EventArgs e)
-        {
-            if (this.form_mode == FORM_MODE.EDIT)
-                return;
-
-            if (this.form_mode == FORM_MODE.EDIT_ITEM)
-                this.btnOK.PerformClick();
-
-            this.form_mode = FORM_MODE.EDIT;
-            this.ResetControlState();
-            ((XNumEdit)sender).Focus();
-        }
-
-        private void numDdisc__DoubleClicked(object sender, EventArgs e)
-        {
-            if (this.form_mode == FORM_MODE.EDIT)
-                return;
-
-            if (this.form_mode == FORM_MODE.EDIT_ITEM)
-                this.btnOK.PerformClick();
-
-            this.form_mode = FORM_MODE.EDIT;
-            this.ResetControlState();
-            ((XNumEdit)sender).Focus();
-        }
-
-        private void numPurvat__DoubleClicked(object sender, EventArgs e)
-        {
-            if (this.form_mode == FORM_MODE.EDIT)
-                return;
-
-            if (this.form_mode == FORM_MODE.EDIT_ITEM)
-                this.btnOK.PerformClick();
-
-            this.form_mode = FORM_MODE.EDIT;
-            this.ResetControlState();
-            ((XNumEdit)sender).Focus();
         }
 
         private void btnSyncPurvat_Click(object sender, EventArgs e)

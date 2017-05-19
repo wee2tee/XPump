@@ -1675,6 +1675,13 @@ namespace XPump.SubForm
                 return;
             }
 
+            var is_approved = this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+            if(is_approved.HasValue && is_approved.Value == true)
+            {
+                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             if (this.form_mode != FORM_MODE.READ_ITEM)
             {
                 this.form_mode = FORM_MODE.READ_ITEM;
@@ -1750,6 +1757,15 @@ namespace XPump.SubForm
             if (this.curr_shiftsales == null)
                 return;
             string approved_user = this.main_form.loged_in_status.loged_in_user_name;
+
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                if(db.shiftsttak.Where(s => s.shiftsales_id == this.curr_shiftsales.id && s.qty < 0).Count() > 0)
+                {
+                    if (MessageBox.Show("ปริมาณน้ำมันที่ตรวจนับได้ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                        return;
+                }
+            }
 
             settings settings = DialogSettings.GetSettings(this.main_form.working_express_db);
             if (this.main_form.loged_in_status.loged_in_user_level < settings.shiftauthlev)
