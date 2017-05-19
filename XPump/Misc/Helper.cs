@@ -405,15 +405,8 @@ namespace XPump.Misc
             saleshistoryVM s = new saleshistoryVM
             {
                 working_express_db = working_express_db,
-                id = saleshistory.id,
-                saldat = saleshistory.saldat,
-                mitbeg = saleshistory.mitbeg,
-                mitend = saleshistory.mitend,
-                salqty = saleshistory.salqty,
-                salval = saleshistory.salval,
-                nozzle_id = saleshistory.nozzle_id,
-                salessummary_id = saleshistory.salessummary_id,
-                saleshistory = saleshistory
+                saleshistory = saleshistory,
+                mitbeg = saleshistory.mitbeg
             };
 
             return s;
@@ -428,6 +421,32 @@ namespace XPump.Misc
             }
 
             return s;
+        }
+
+        public static saleshistoryVM SetMitBeg(this saleshistoryVM sales)
+        {
+            using (xpumpEntities db = DBX.DataSet(sales.working_express_db))
+            {
+                var sales_vm = db.saleshistory.Find(sales.id).ToViewModel(sales.working_express_db);
+                if (sales_vm == null)
+                    return null;
+
+                var find_latest = db.saleshistory.OrderByDescending(s => s.saldat).ThenByDescending(s => s.mitend).Where(s => s.saldat.CompareTo(sales.saldat) <= 0 && s.nozzle_id == sales.nozzle_id && s.mitbeg >= 0 && s.id != sales.id).FirstOrDefault();
+
+                sales_vm.mitbeg = find_latest != null ? find_latest.mitend : 0m;
+                return sales_vm;
+            }
+        }
+
+        public static List<saleshistoryVM> SetMitBeg(this IEnumerable<saleshistoryVM> sales)
+        {
+            List<saleshistoryVM> sales_vm = new List<saleshistoryVM>();
+            foreach (var s in sales)
+            {
+                sales_vm.Add(s.SetMitBeg());
+            }
+
+            return sales_vm;
         }
 
         public static shiftsttakVM ToViewModel(this shiftsttak sttak, SccompDbf working_express_db)
@@ -464,8 +483,6 @@ namespace XPump.Misc
             dayendVM d = new dayendVM
             {
                 working_express_db = working_express_db,
-                id = dayend.id,
-                saldat = dayend.saldat,
                 //dothertxt = dayend.dothertxt,
                 dother = dayend.ToViewModel(working_express_db).dother,
                 dayend = dayend
@@ -1715,5 +1732,6 @@ namespace XPump.Misc
                 return sales.apprtime.HasValue ? true : false;
             }
         }
+
     }
 }

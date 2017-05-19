@@ -142,7 +142,7 @@ namespace XPump.SubForm
 
             int col_index = this.dgvNozzle.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_mitbeg.DataPropertyName).First().Index;
             this.inline_mit_start.SetInlineControlPosition(this.dgvNozzle, this.dgvNozzle.CurrentCell.RowIndex, col_index);
-            this.inline_mit_start._Value = this.tmp_saleshistory.mitbeg;
+            this.inline_mit_start._Value = this.tmp_saleshistory.mitbeg < 0 ? this.tmp_saleshistory.ToViewModel(this.main_form.working_express_db).SetMitBeg().mitbeg : this.tmp_saleshistory.mitbeg;
 
             col_index = this.dgvNozzle.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_mitend.DataPropertyName).First().Index;
             this.inline_mit_end.SetInlineControlPosition(this.dgvNozzle, this.dgvNozzle.CurrentCell.RowIndex, col_index);
@@ -177,7 +177,7 @@ namespace XPump.SubForm
                         sh.mitbeg = this.tmp_saleshistory.mitbeg;
                         sh.mitend = this.tmp_saleshistory.mitend;
                         sh.salqty = this.tmp_saleshistory.salqty;
-                        sh.salval = this.tmp_saleshistory.salval;
+                        //sh.salval = this.tmp_saleshistory.salval;
                         sh.chgby = this.main_form.loged_in_status.loged_in_user_name;
                         sh.chgtime = DateTime.Now;
 
@@ -199,11 +199,11 @@ namespace XPump.SubForm
                         this.dgvNozzle.Rows[edited_row_index].Cells[this.col_mitbeg.Name].Value = this.tmp_saleshistory.mitbeg;
                         this.dgvNozzle.Rows[edited_row_index].Cells[this.col_mitend.Name].Value = this.tmp_saleshistory.mitend;
                         this.dgvNozzle.Rows[edited_row_index].Cells[this.col_salqty.Name].Value = this.tmp_saleshistory.salqty;
-                        this.dgvNozzle.Rows[edited_row_index].Cells[this.col_salval.Name].Value = this.tmp_saleshistory.salval;
+                        this.dgvNozzle.Rows[edited_row_index].Cells[this.col_salval.Name].Value = this.tmp_saleshistory.ToViewModel(this.main_form.working_express_db).salval;
                         ((saleshistory)this.dgvNozzle.Rows[edited_row_index].Cells[this.col_saleshistory.Name].Value).mitbeg = this.tmp_saleshistory.mitbeg;
                         ((saleshistory)this.dgvNozzle.Rows[edited_row_index].Cells[this.col_saleshistory.Name].Value).mitend = this.tmp_saleshistory.mitend;
                         ((saleshistory)this.dgvNozzle.Rows[edited_row_index].Cells[this.col_saleshistory.Name].Value).salqty = this.tmp_saleshistory.salqty;
-                        ((saleshistory)this.dgvNozzle.Rows[edited_row_index].Cells[this.col_saleshistory.Name].Value).salval = this.tmp_saleshistory.salval;
+                        //((saleshistory)this.dgvNozzle.Rows[edited_row_index].Cells[this.col_saleshistory.Name].Value).salval = this.tmp_saleshistory.salval;
 
                         this.FillSummary();
                     }
@@ -269,7 +269,8 @@ namespace XPump.SubForm
         {
             this.saleshistory = this.salessummary.saleshistory.ToList();
             this.bs_sales.ResetBindings(true);
-            this.bs_sales.DataSource = this.saleshistory.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ThenBy(s => s.nozzle_name).ToList();
+            var sh_list = this.saleshistory.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ThenBy(s => s.nozzle_name).ToList();
+            this.bs_sales.DataSource = sh_list;
         }
 
         private void FillDgvPrice()
@@ -315,7 +316,7 @@ namespace XPump.SubForm
             {
                 this.tmp_saleshistory.mitbeg = ((XNumEdit)sender)._Value;
                 this.tmp_saleshistory.salqty = this.tmp_saleshistory.mitend - this.tmp_saleshistory.mitbeg;
-                this.tmp_saleshistory.salval = this.tmp_saleshistory.salqty * this.salessummary.ToViewModel(this.main_form.working_express_db).unitpr;
+                //this.tmp_saleshistory.salval = this.tmp_saleshistory.salqty * this.salessummary.ToViewModel(this.main_form.working_express_db).unitpr;
             }
         }
 
@@ -325,7 +326,7 @@ namespace XPump.SubForm
             {
                 this.tmp_saleshistory.mitend = ((XNumEdit)sender)._Value;
                 this.tmp_saleshistory.salqty = this.tmp_saleshistory.mitend - this.tmp_saleshistory.mitbeg;
-                this.tmp_saleshistory.salval = this.tmp_saleshistory.salqty * this.salessummary.ToViewModel(this.main_form.working_express_db).unitpr;
+                //this.tmp_saleshistory.salval = this.tmp_saleshistory.salqty * this.salessummary.ToViewModel(this.main_form.working_express_db).unitpr;
             }
         }
 
@@ -498,17 +499,6 @@ namespace XPump.SubForm
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            //if(keyData == Keys.F8)
-            //{
-            //    if(this.form_mode == FORM_MODE.READ)
-            //    {
-            //        this.form_mode = FORM_MODE.READ_ITEM;
-            //        this.ResetControlState();
-            //        this.dgvNozzle.Focus();
-            //        return true;
-            //    }
-            //}
-
             if(keyData == (Keys.Alt | Keys.E))
             {
                 if(this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM)
@@ -575,24 +565,6 @@ namespace XPump.SubForm
             
             if(keyData == Keys.Escape)
             {
-                //if (this.form_mode == FORM_MODE.EDIT_ITEM)
-                //{
-                //    this.form_mode = FORM_MODE.READ_ITEM;
-                //    this.ResetControlState();
-                //    this.dgvNozzle.Focus();
-                //    this.RemoveInlineForm();
-
-                //    this.FillDgvSales();
-                //    return true;
-                //}
-
-                //if(this.form_mode == FORM_MODE.READ_ITEM)
-                //{
-                //    this.form_mode = FORM_MODE.READ;
-                //    this.ResetControlState();
-                //    return true;
-                //}
-
                 if(this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.EDIT_ITEM)
                 {
                     this.btnCancel.PerformClick();
@@ -604,6 +576,12 @@ namespace XPump.SubForm
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
+            }
+
+            if(keyData == Keys.F9)
+            {
+                this.btnOK.PerformClick();
+                return true;
             }
 
             if(keyData == Keys.Tab)

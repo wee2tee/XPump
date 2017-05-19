@@ -548,26 +548,23 @@ namespace XPump.Model
     public class saleshistoryVM
     {
         public SccompDbf working_express_db { get; set; }
-        public int id { get; set; }
-        public System.DateTime saldat { get; set; }
+        public int id { get { return this.saleshistory.id; } }
+        public DateTime saldat {
+            get
+            {
+                //return this.GetSaleshistory().saldat; 
+                return this.saleshistory.saldat;
+            }
+        }
         public string tank_name
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    try
-                    {
-                        var nozzle = db.nozzle.Find(this.nozzle_id);
-                        var section = db.section.Find(nozzle.section_id);
-                        var tank = db.tank.Find(section.tank_id);
-                        return tank != null ? tank.name : string.Empty;
-                    }
-                    catch (Exception)
-                    {
-                        return string.Empty;
-                    }
+                    return this.GetSaleshistory() != null ? db.saleshistory.Include("nozzle.section.tank").Where(s => s.id == this.id).First().nozzle.section.tank.name : string.Empty;
                 }
+                
             }
         }
         public string section_name
@@ -576,16 +573,7 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    try
-                    {
-                        var nozzle = db.nozzle.Find(this.nozzle_id);
-                        var section = db.section.Where(s => s.id == nozzle.section_id).First();
-                        return section != null ? section.name : string.Empty;
-                    }
-                    catch (Exception)
-                    {
-                        return string.Empty;
-                    }
+                    return this.GetSaleshistory() != null ? db.saleshistory.Include("nozzle.section").Where(s => s.id == this.id).First().nozzle.section.name : string.Empty;
                 }
             }
         }
@@ -593,27 +581,49 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    return db.nozzle.Find(this.nozzle_id) != null ? db.nozzle.Find(this.nozzle_id).name : string.Empty;
-                }
+                var s = this.GetSaleshistory();
+                return s != null ? s.nozzle.name : string.Empty;
             }
         }
-        public decimal mitbeg { get; set; }
-        public decimal mitend { get; set; }
-        public decimal salqty { get; set; }
+        public decimal mitbeg
+        {
+            get;
+            set;
+        }
+        public decimal mitend {
+            get
+            {
+                //var s = this.GetSaleshistory();
+                //return s != null ? s.mitend : -1m;
+                return this.saleshistory.mitend;
+            }
+        }
+        public decimal salqty
+        {
+            get
+            {
+                //var s = this.GetSaleshistory();
+                //return s != null ? s.salqty : -1m;
+                return this.saleshistory.salqty;
+            }
+        }
         public decimal unitpr
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    var salessummary = db.salessummary.Include("pricelist").Where(s => s.id == this.salessummary_id).FirstOrDefault();
-                    return salessummary != null ? salessummary.pricelist.unitpr : 0m;
+                    return this.GetSaleshistory() != null ? db.salessummary.Include("pricelist").Where(s => s.id == this.salessummary_id).First().pricelist.unitpr : 0m;
                 }
             }
         }
-        public decimal salval { get; set; }
+        public decimal salval
+        {
+            get
+            {
+                return this.GetSaleshistory() != null ? this.salqty * this.unitpr : 0m;
+            }
+        }
         public int shift_id
         {
             get
@@ -625,17 +635,30 @@ namespace XPump.Model
                 }
             }
         }
-        public int nozzle_id { get; set; }
-        //public int pricelist_id { get; set; }
-        public int salessummary_id { get; set; }
+        public int nozzle_id
+        {
+            get
+            {
+                //var s = this.GetSaleshistory();
+                //return s != null ? s.nozzle_id : -1;
+                return this.saleshistory.nozzle_id;
+            }
+        }
+        public int salessummary_id {
+            get
+            {
+                //var s = this.GetSaleshistory();
+                //return s != null ? s.salessummary_id : -1;
+                return this.saleshistory.salessummary_id;
+            }
+        }
         public DateTime price_date
         {
             get
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    var salessummary = db.salessummary.Include("pricelist").Where(s => s.id == this.salessummary_id).FirstOrDefault();
-                    return salessummary != null ? salessummary.pricelist.date : DateTime.Now;
+                    return this.GetSaleshistory() != null ? db.salessummary.Include("pricelist").Where(s => s.id == this.salessummary_id).First().pricelist.date : DateTime.Now;
                 }
             }
         }
@@ -649,7 +672,13 @@ namespace XPump.Model
                 }
             }
         }
-        public string stkcod { get; set; }
+        public string stkcod {
+            get
+            {
+                var s = this.GetSaleshistory();
+                return s != null ? s.salessummary.stkcod : string.Empty;
+            }
+        }
         public string stkdes
         {
             get
@@ -658,8 +687,14 @@ namespace XPump.Model
                 return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
-
         public saleshistory saleshistory { get; set; }
+        private saleshistory GetSaleshistory()
+        {
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                return db.saleshistory.Include("nozzle").Include("salessummary").Where(s => s.id == this.id).FirstOrDefault();
+            }
+        }
     }
 
     public class dailysaleshistoryVM
@@ -845,9 +880,20 @@ namespace XPump.Model
     public class dayendVM
     {
         public SccompDbf working_express_db { get; set; }
-        public int id { get; set; }
-        public DateTime saldat { get; set; }
-        public string stkcod { get; set; }
+        public int id { get { return this.dayend.id; } }
+        public DateTime? saldat
+        {
+            get
+            {
+                return this.GetDayend() != null ? (DateTime?)this.GetDayend().saldat : null;
+            }
+        }
+        public string stkcod {
+            get
+            {
+                return this.GetDayend() != null ? this.GetDayend().stkcod : string.Empty;
+            }
+        }
         public string stkdes
         {
             get
@@ -984,8 +1030,14 @@ namespace XPump.Model
                 }
             }
         }
-
         public dayend dayend { get; set; }
+        private dayend GetDayend()
+        {
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                return db.dayend.Where(d => d.id == this.dayend.id).FirstOrDefault();
+            }
+        }
     }
 
     public class daysttakVM

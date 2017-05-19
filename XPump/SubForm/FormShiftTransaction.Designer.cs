@@ -39,8 +39,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormShiftTransaction));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
-            this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
+            this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
@@ -142,6 +142,17 @@
             this.btnAdd.Text = "เพิ่มข้อมูล <Alt+A>";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // btnDelete
+            // 
+            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
+            this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(36, 40);
+            this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // btnEdit
             // 
             this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -153,17 +164,6 @@
             this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
             this.btnEdit.Visible = false;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
-            this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(36, 40);
-            this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // toolStripSeparator3
             // 
@@ -360,7 +360,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(40, 63);
+            this.label5.Location = new System.Drawing.Point(28, 63);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(31, 16);
             this.label5.TabIndex = 8;
@@ -369,7 +369,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(40, 87);
+            this.label1.Location = new System.Drawing.Point(28, 87);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 16);
             this.label1.TabIndex = 9;
@@ -699,7 +699,7 @@
             this.btnSttak.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSttak.Image = global::XPump.Properties.Resources.exclaimation_16;
             this.btnSttak.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSttak.Location = new System.Drawing.Point(43, 111);
+            this.btnSttak.Location = new System.Drawing.Point(31, 111);
             this.btnSttak.Name = "btnSttak";
             this.btnSttak.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnSttak.Size = new System.Drawing.Size(233, 36);
@@ -714,7 +714,7 @@
             this.lblDayEnded.ForeColor = System.Drawing.Color.Red;
             this.lblDayEnded.Image = global::XPump.Properties.Resources.lock_16;
             this.lblDayEnded.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDayEnded.Location = new System.Drawing.Point(192, 61);
+            this.lblDayEnded.Location = new System.Drawing.Point(180, 61);
             this.lblDayEnded.Name = "lblDayEnded";
             this.lblDayEnded.Size = new System.Drawing.Size(160, 18);
             this.lblDayEnded.TabIndex = 20;
@@ -733,7 +733,7 @@
             this.brShift.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.brShift.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.brShift.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.brShift.Location = new System.Drawing.Point(83, 85);
+            this.brShift.Location = new System.Drawing.Point(71, 85);
             this.brShift.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.brShift.Name = "brShift";
             this.brShift.Size = new System.Drawing.Size(178, 23);
@@ -749,7 +749,7 @@
             this.dtSaldat.BackColor = System.Drawing.Color.White;
             this.dtSaldat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dtSaldat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtSaldat.Location = new System.Drawing.Point(83, 59);
+            this.dtSaldat.Location = new System.Drawing.Point(71, 59);
             this.dtSaldat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtSaldat.Name = "dtSaldat";
             this.dtSaldat.Size = new System.Drawing.Size(103, 23);

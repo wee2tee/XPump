@@ -442,7 +442,7 @@ namespace XPump.SubForm
                         foreach (string stkcod in stkcods)
                         {
                             // add salessummary
-                            var x = new salessummary
+                            var salessummary = new salessummary
                             {
                                 saldat = this.tmp_shiftsales.saldat,
                                 stkcod = stkcod,
@@ -454,7 +454,7 @@ namespace XPump.SubForm
                                 creby = this.main_form.loged_in_status.loged_in_user_name,
                                 cretime = DateTime.Now
                             };
-                            db.salessummary.Add(x);
+                            db.salessummary.Add(salessummary);
 
                             // add sttak
                             var sections = db.section.Include("tank").Include("tank.tanksetup")
@@ -472,6 +472,45 @@ namespace XPump.SubForm
                                     cretime = DateTime.Now
                                 });
                             }
+
+                            //var sales = (salessummary)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_salessummary.Name].Value;
+
+                            /*************/
+                            if (tanksetup == null)
+                            {
+                                MessageBox.Show("ไม่พบการกำหนดค่าแท๊งค์เก็บน้ำมัน สำหรับการขายในวันที่ \"" + this.curr_salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + "\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
+
+                            var nozz = db.nozzle.Include("section").Include("section.tank").Where(n => n.section.tank.tanksetup_id == tanksetup.id && n.section.stkcod == salessummary.stkcod && n.isactive).ToList();
+
+                            try
+                            {
+                                foreach (var n in nozz)
+                                {
+                                    if (db.saleshistory.Where(s => s.salessummary_id == salessummary.id && s.nozzle_id == n.id).Count() > 0)
+                                        continue;
+
+                                    db.saleshistory.Add(new saleshistory
+                                    {
+                                        saldat = salessummary.saldat,
+                                        mitbeg = -1m,
+                                        mitend = -1m,
+                                        salqty = 0m,
+                                        nozzle_id = n.id,
+                                        salessummary_id = salessummary.id,
+                                        creby = this.main_form.loged_in_status.loged_in_user_name,
+                                        cretime = DateTime.Now
+                                    });
+
+                                    db.SaveChanges();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
                         }
 
                         db.SaveChanges();
@@ -1579,6 +1618,21 @@ namespace XPump.SubForm
                     e.Handled = true;
                     return;
                 }
+
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_totqty.DataPropertyName).First().Index)
+                {
+                    var salessummary = (salessummary)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_salessummary.Name].Value;
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        if(db.saleshistory.Where(s => s.salessummary_id == salessummary.id && s.mitbeg < 0).Count() > 0)
+                        {
+                            e.CellStyle.ForeColor = Color.Red;
+                            e.CellStyle.SelectionForeColor = Color.Red;
+                            e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                            e.Handled = true;
+                        }
+                    }
+                }
             }
         }
 
@@ -1617,47 +1671,6 @@ namespace XPump.SubForm
                 }
 
                 var sales = (salessummary)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_salessummary.Name].Value;
-
-                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-                {
-                    var tanksetup = db.tanksetup.OrderByDescending(t => t.startdate).Where(t => t.startdate.CompareTo(sales.saldat) <= 0).FirstOrDefault();
-
-                    if (tanksetup == null)
-                    {
-                        MessageBox.Show("ไม่พบการกำหนดค่าแท๊งค์เก็บน้ำมัน สำหรับการขายในวันที่ \"" + this.curr_salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + "\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        return;
-                    }
-
-                    var nozz = db.nozzle.Include("section").Include("section.tank").Where(n => n.section.tank.tanksetup_id == tanksetup.id && n.section.stkcod == sales.stkcod && n.isactive).ToList();
-
-                    try
-                    {
-                        foreach (var n in nozz)
-                        {
-                            if (db.saleshistory.Where(s => s.salessummary_id == sales.id && s.nozzle_id == n.id).Count() > 0)
-                                continue;
-
-                            db.saleshistory.Add(new saleshistory
-                            {
-                                saldat = sales.saldat,
-                                mitbeg = 0m,
-                                mitend = 0m,
-                                salqty = 0m,
-                                salval = 0m,
-                                nozzle_id = n.id,
-                                salessummary_id = sales.id,
-                                creby = this.main_form.loged_in_status.loged_in_user_name,
-                                cretime = DateTime.Now
-                            });
-
-                            db.SaveChanges();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
 
                 DialogSalesHistory sh = new DialogSalesHistory(this.main_form, this, sales);
                 sh.ShowDialog();

@@ -19,7 +19,6 @@ namespace XPump.Model
         public decimal mitbeg { get; set; }
         public decimal mitend { get; set; }
         public decimal salqty { get; set; }
-        public decimal salval { get; set; }
         public int nozzle_id { get; set; }
         public int salessummary_id { get; set; }
         public string creby { get; set; }

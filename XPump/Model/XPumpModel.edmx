@@ -113,7 +113,6 @@
           <Property Name="mitbeg" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="mitend" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="salqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="salval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="nozzle_id" Type="int" Nullable="false" />
           <Property Name="salessummary_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
@@ -628,7 +627,6 @@
           <Property Name="mitbeg" Type="Decimal" Nullable="false" />
           <Property Name="mitend" Type="Decimal" Nullable="false" />
           <Property Name="salqty" Type="Decimal" Nullable="false" />
-          <Property Name="salval" Type="Decimal" Nullable="false" />
           <Property Name="nozzle_id" Type="Int32" Nullable="false" />
           <Property Name="salessummary_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1158,7 +1156,6 @@
                 <ScalarProperty Name="mitbeg" ColumnName="mitbeg" />
                 <ScalarProperty Name="mitend" ColumnName="mitend" />
                 <ScalarProperty Name="salqty" ColumnName="salqty" />
-                <ScalarProperty Name="salval" ColumnName="salval" />
                 <ScalarProperty Name="nozzle_id" ColumnName="nozzle_id" />
                 <ScalarProperty Name="salessummary_id" ColumnName="salessummary_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />

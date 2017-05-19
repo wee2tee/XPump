@@ -435,7 +435,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`mitbeg` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`mitend` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
-                cmd.CommandText += "`salval` DECIMAL(14, 2) NOT NULL,";
+                //cmd.CommandText += "`salval` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`nozzle_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`salessummary_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";

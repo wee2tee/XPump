@@ -70,6 +70,12 @@ namespace XPump.SubForm
                 }
             }
 
+            if(keyData == Keys.Escape)
+            {
+                this.btnCancel.PerformClick();
+                return true;
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
