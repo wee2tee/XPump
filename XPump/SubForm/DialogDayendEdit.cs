@@ -92,7 +92,7 @@ namespace XPump.SubForm
         {
             dayendVM vm = this.curr_dayend.ToViewModel(this.main_form.working_express_db);
 
-            this.lblSaldat.Text = vm.saldat.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
+            this.lblSaldat.Text = vm.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
             this.lblStkcod.Text = vm.stkcod;
             this.lblStkdes.Text = vm.stkdes;
             this.lblEndbal.Text = string.Format("{0:#,#0.00}", vm.endbal);

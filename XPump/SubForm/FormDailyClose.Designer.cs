@@ -60,6 +60,8 @@
             this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
             this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnApprove = new System.Windows.Forms.ToolStripButton();
+            this.btnUnApprove = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
@@ -82,9 +84,6 @@
             this.col_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dayend = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnApprove = new System.Windows.Forms.ToolStripButton();
-            this.btnUnApprove = new System.Windows.Forms.ToolStripButton();
-            this.btnSttak = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -324,6 +323,28 @@
             this.btnItemF7.Size = new System.Drawing.Size(267, 22);
             this.btnItemF7.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้จริง <F7>";
             // 
+            // btnApprove
+            // 
+            this.btnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnApprove.Image = global::XPump.Properties.Resources.approve;
+            this.btnApprove.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnApprove.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnApprove.Name = "btnApprove";
+            this.btnApprove.Size = new System.Drawing.Size(36, 40);
+            this.btnApprove.Text = "toolStripButton1";
+            this.btnApprove.ToolTipText = "รับรองรายการ <Alt+O>";
+            // 
+            // btnUnApprove
+            // 
+            this.btnUnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnUnApprove.Image = global::XPump.Properties.Resources.unapprove;
+            this.btnUnApprove.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnUnApprove.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUnApprove.Name = "btnUnApprove";
+            this.btnUnApprove.Size = new System.Drawing.Size(36, 40);
+            this.btnUnApprove.Text = "toolStripButton2";
+            this.btnUnApprove.ToolTipText = "ยกเลิกการรับรองรายการ <Ctrl+O>";
+            // 
             // btnRefresh
             // 
             this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -361,10 +382,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(4, 127);
+            this.tabControl1.Location = new System.Drawing.Point(4, 94);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(965, 403);
+            this.tabControl1.Size = new System.Drawing.Size(965, 436);
             this.tabControl1.TabIndex = 7;
             // 
             // tabPage1
@@ -372,7 +393,7 @@
             this.tabPage1.Controls.Add(this.dgv);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(957, 374);
+            this.tabPage1.Size = new System.Drawing.Size(957, 407);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "สรุปยอดขายน้ำมัน";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -431,7 +452,7 @@
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(957, 374);
+            this.dgv.Size = new System.Drawing.Size(957, 407);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
@@ -604,48 +625,11 @@
             this.col_working_express_db.ReadOnly = true;
             this.col_working_express_db.Visible = false;
             // 
-            // btnApprove
-            // 
-            this.btnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnApprove.Image = global::XPump.Properties.Resources.approve;
-            this.btnApprove.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnApprove.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnApprove.Name = "btnApprove";
-            this.btnApprove.Size = new System.Drawing.Size(36, 40);
-            this.btnApprove.Text = "toolStripButton1";
-            this.btnApprove.ToolTipText = "รับรองรายการ <Alt+O>";
-            // 
-            // btnUnApprove
-            // 
-            this.btnUnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnUnApprove.Image = global::XPump.Properties.Resources.unapprove;
-            this.btnUnApprove.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnUnApprove.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnUnApprove.Name = "btnUnApprove";
-            this.btnUnApprove.Size = new System.Drawing.Size(36, 40);
-            this.btnUnApprove.Text = "toolStripButton2";
-            this.btnUnApprove.ToolTipText = "ยกเลิกการรับรองรายการ <Ctrl+O>";
-            // 
-            // btnSttak
-            // 
-            this.btnSttak.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnSttak.Image = global::XPump.Properties.Resources.exclaimation_16;
-            this.btnSttak.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSttak.Location = new System.Drawing.Point(29, 85);
-            this.btnSttak.Name = "btnSttak";
-            this.btnSttak.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnSttak.Size = new System.Drawing.Size(233, 36);
-            this.btnSttak.TabIndex = 23;
-            this.btnSttak.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้";
-            this.btnSttak.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSttak.UseVisualStyleBackColor = true;
-            // 
             // FormDailyClose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(971, 533);
-            this.Controls.Add(this.btnSttak);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.label1);
@@ -719,6 +703,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
         private System.Windows.Forms.ToolStripButton btnApprove;
         private System.Windows.Forms.ToolStripButton btnUnApprove;
-        private System.Windows.Forms.Button btnSttak;
     }
 }

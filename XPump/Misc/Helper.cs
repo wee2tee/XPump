@@ -397,6 +397,26 @@ namespace XPump.Misc
             }
         }
 
+        public static decimal GetRcvQtyFromExpress(this dayend dayend, SccompDbf working_express_db)
+        {
+            if (DbfTable.IsDataFileExist("Stcrd.dbf", working_express_db))
+            {
+                var xtrnqty = DbfTable.Stcrd(working_express_db).ToStcrdList()
+                        .Where(s => s.docdat.HasValue)
+                        .Where(s => s.docdat.Value == dayend.saldat)
+                        .Where(s => s.stkcod.Trim() == dayend.stkcod.Trim())
+                        .Sum(s => s.xtrnqty);
+
+                var rcv = Convert.ToDecimal(xtrnqty);
+                dayend.rcvqty = rcv;
+                return rcv;
+            }
+            else
+            {
+                return 0m;
+            }
+        }
+
         public static saleshistoryVM ToViewModel(this saleshistory saleshistory, SccompDbf working_express_db)
         {
             if (saleshistory == null)
@@ -483,8 +503,6 @@ namespace XPump.Misc
             dayendVM d = new dayendVM
             {
                 working_express_db = working_express_db,
-                //dothertxt = dayend.dothertxt,
-                dother = dayend.ToViewModel(working_express_db).dother,
                 dayend = dayend
             };
 

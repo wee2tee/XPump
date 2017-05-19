@@ -134,24 +134,31 @@ namespace XPump.SubForm
 
                     try
                     {
-                        var stmas_ids = db.salessummary.Where(s => s.saldat == dlg.selected_date)
+                        var imcomplete_trans = db.saleshistory.Include("salessummary.shiftsales").Where(s => s.salessummary.shiftsales.saldat == dlg.selected_date && s.mitbeg < 0).ToList();
+                        if(imcomplete_trans.Count > 0)
+                        {
+                            MessageBox.Show("มีบางรายการยังไม่ได้ป้อนเลขมิเตอร์เริ่มต้น/สิ้นสุด, กรุณาย้อนกลับไปตรวจสอบที่เมนู \"บันทึกรายการประจำผลัด\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
+                        var stkcods = db.salessummary.Include("shiftsales").Where(s => s.shiftsales.saldat == dlg.selected_date)
                                         .GroupBy(s => s.stkcod)
                                         .Select(s => s.Key).ToArray();
 
-                        if(stmas_ids.Count() == 0)
+                        if(stkcods.Count() == 0)
                         {
                             MessageBox.Show("ไม่พบการบันทึกรายการประจำผลัดของวันที่ \"" + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\", กรุณาบันทึกรายการประจำผลัดก่อนทำการปิดยอดขายประจำวัน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
                         }
 
-                        foreach (string stkcod in stmas_ids)
+                        foreach (string stkcod in stkcods)
                         {
                             dayendVM d = new dayend()
                             {
                                 id = -1,
                                 //stmas_id = stmas_id,
                                 //dothertxt = string.Empty,
-                                saldat = dlg.selected_date,
+                                saldat = dlg.selected_date
 
                             }.ToViewModel(this.main_form.working_express_db);
                             db.dayend.Add(d.dayend);
