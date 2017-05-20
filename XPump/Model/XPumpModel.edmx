@@ -12,6 +12,8 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="saldat" Type="date" Nullable="false" />
           <Property Name="stkcod" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="begbal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="begdif" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="rcvqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="salqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="difqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
@@ -515,6 +517,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="saldat" Type="DateTime" Nullable="false" />
           <Property Name="stkcod" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="begbal" Type="Decimal" Nullable="false" />
+          <Property Name="begdif" Type="Decimal" Nullable="false" />
           <Property Name="rcvqty" Type="Decimal" Nullable="false" />
           <Property Name="salqty" Type="Decimal" Nullable="false" />
           <Property Name="difqty" Type="Decimal" Nullable="false" />
@@ -1048,6 +1052,8 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
                 <ScalarProperty Name="stkcod" ColumnName="stkcod" />
+                <ScalarProperty Name="begbal" ColumnName="begbal" />
+                <ScalarProperty Name="begdif" ColumnName="begdif" />
                 <ScalarProperty Name="rcvqty" ColumnName="rcvqty" />
                 <ScalarProperty Name="salqty" ColumnName="salqty" />
                 <ScalarProperty Name="difqty" ColumnName="difqty" />

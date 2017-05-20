@@ -99,7 +99,7 @@ namespace XPump.SubForm
             this.lblBegbal.Text = string.Format("{0:#,#0.00}", vm.begbal);
             this.lblRcvqty.Text = string.Format("{0:#,#0.00}", vm.rcvqty);
             this.lblSalqty.Text = string.Format("{0:#,#0.00}", vm.salqty);
-            this.txtDothertxt._Text = vm.dothertxt;
+            //this.txtDothertxt._Text = vm.dothertxt;
             this.numDother._Value = vm.dother;
             this.lblAccbal.Text = string.Format("{0:#,#0.00}", vm.accbal);
             this.lblDifqty.Text = string.Format("{0:#,#0.00}", vm.difqty);

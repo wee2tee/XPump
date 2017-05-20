@@ -456,6 +456,8 @@ namespace XPump.SubForm
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`saldat` DATE NOT NULL,";
                 cmd.CommandText += "`stkcod` VARCHAR(40) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`begbal` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`begdif` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`rcvqty` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`difqty` DECIMAL(14, 2) NOT NULL,";

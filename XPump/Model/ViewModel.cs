@@ -897,84 +897,19 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    var qty = db.daysttak.Where(d => d.dayend_id == this.id).Select(d => d.qty).ToList();
-                    if (qty.Contains<decimal>(-1m))
-                    {
-                        return -1;
-                    }
+                    //var qty = db.daysttak.Where(d => d.dayend_id == this.id).Select(d => d.qty).ToList();
+                    //if (qty.Contains<decimal>(-1m))
+                    //{
+                    //    return -1;
+                    //}
 
                     return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.qty);
                 }
             }
         }
-        public decimal begbal
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    decimal beg;
-                    var prev_dayend = db.dayend.Where(d => d.saldat.CompareTo(this.saldat) < 0)
-                                    .Where(d => d.stkcod == this.stkcod)
-                                    .OrderByDescending(d => d.saldat).FirstOrDefault();
-                    if(prev_dayend != null)
-                    {
-                        if(db.daysttak.Where(d => d.dayend_id == prev_dayend.id).Select(d => d.qty).ToList().Contains<decimal>(-1m))
-                        {
-                            beg = -1;
-                        }
-                        else
-                        {
-                            beg = db.daysttak.Where(d => d.dayend_id == prev_dayend.id).ToList().Sum(d => d.qty);
-                        }
-                    }
-                    else
-                    {
-                        var tanksetup = db.tanksetup.Where(t => t.startdate.CompareTo(this.saldat) <= 0).OrderByDescending(t => t.startdate).FirstOrDefault();
-                        if(tanksetup != null)
-                        {
-                            beg = db.section.Include("tank").Where(s => s.tank.tanksetup_id == tanksetup.id && s.stkcod == this.stkcod).ToList().Sum(s => s.begtak);
-                        }
-                        else
-                        {
-                            beg = -1m;
-                        }
-                    }
-
-                    return beg;
-                }
-            }
-        }
+        public decimal begbal { get { return this.dayend.begbal; } }
         public decimal rcvqty { get { return this.dayend.rcvqty; } }
-        public decimal salqty
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    var sum_sal = db.saleshistory.Include("salessummary").Include("salessummary.shiftsales")
-                                .Where(s => s.salessummary.shiftsales.saldat == this.saldat)
-                                .Where(s => s.salessummary.stkcod == this.stkcod)
-                                .ToList()
-                                .Sum(s => s.salqty);
-
-                    var sum_dtest = db.salessummary.Include("shiftsales")
-                                .Where(s => s.shiftsales.saldat == this.saldat)
-                                .Where(s => s.stkcod == this.stkcod)
-                                .ToList()
-                                .Sum(s => s.dtest);
-
-                    var sum_dother = db.salessummary.Include("shiftsales")
-                                .Where(s => s.shiftsales.saldat == this.saldat)
-                                .Where(s => s.stkcod == this.stkcod)
-                                .ToList().ToViewModel(this.working_express_db).Sum(s => s.dother);
-
-                    var sum = sum_sal - (sum_dtest + sum_dother);
-                    this.dayend.salqty = sum;
-                    return sum;
-                }
-            }
-        }
+        public decimal salqty { get { return this.dayend.salqty; } }
         public decimal dother {
             get
             {
@@ -991,31 +926,14 @@ namespace XPump.Model
                 return this.begbal + this.rcvqty - (this.salqty + this.dother);
             }
         }
-        public decimal difqty
-        {
-            get
-            {
-                var dif = this.endbal - this.accbal;
-                this.dayend.difqty = dif;
-                return dif;
-            }
-        }
-        public decimal begdif
-        {
-            get
-            {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    var tmp = db.dayend
-                            .Where(d => d.stkcod == this.stkcod)
-                            .Where(d => d.saldat.CompareTo(this.saldat) < 0).ToViewModel(this.working_express_db);
-
-                    var section_beg_dif = db.section.Where(s => s.stkcod == this.stkcod).Sum(s => s.begdif);
-
-                    return tmp.Sum(d => (d.endbal - d.accbal)) + section_beg_dif;
-                }
-            }
-        }
+        public decimal difqty { get { return this.dayend.difqty; } }
+        public decimal begdif { get { return this.dayend.begdif; } }
+        public string creby { get { return this.dayend.creby; } }
+        public DateTime cretime { get { return this.dayend.cretime; } }
+        public string chgby { get { return this.dayend.chgby; } }
+        public DateTime? chgtime { get { return this.dayend.chgtime; } }
+        public string apprby { get { return this.dayend.apprby; } }
+        public DateTime? apprtime { get { return this.dayend.apprtime; } }
         public dayend dayend { get; set; }
         private dayend GetDayend()
         {
@@ -1023,6 +941,107 @@ namespace XPump.Model
             {
                 return db.dayend.Where(d => d.id == this.dayend.id).FirstOrDefault();
             }
+        }
+
+        public decimal GetRcvQty()
+        {
+            if (DbfTable.IsDataFileExist("Stcrd.dbf", working_express_db))
+            {
+                var xtrnqty = DbfTable.Stcrd(working_express_db).ToStcrdList()
+                        .Where(s => s.docdat.HasValue)
+                        .Where(s => s.docdat.Value == this.dayend.saldat)
+                        .Where(s => s.posopr == "0")
+                        .Where(s => s.stkcod.Trim() == this.dayend.stkcod.Trim())
+                        .Sum(s => s.xtrnqty);
+
+                return Convert.ToDecimal(xtrnqty);
+            }
+            else
+            {
+                return 0m;
+            }
+        }
+
+        public decimal GetSalQty()
+        {
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                var sum_totqty = db.salessummary.Include("shiftsales")
+                                .Where(s => s.shiftsales.saldat == this.saldat)
+                                .Where(s => s.stkcod == this.stkcod)
+                                .ToViewModel(this.working_express_db)
+                                .Sum(s => s.totqty);
+
+                return sum_totqty;
+            }
+        }
+
+        public decimal GetBegBal()
+        {
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                decimal beg;
+                var prev_dayend = db.dayend.Where(d => d.saldat.CompareTo(this.dayend.saldat) < 0)
+                                .Where(d => d.stkcod == this.dayend.stkcod)
+                                .OrderByDescending(d => d.saldat).FirstOrDefault();
+                if (prev_dayend != null)
+                {
+                    if (db.daysttak.Where(d => d.dayend_id == prev_dayend.id).Select(d => d.qty).ToList().Contains<decimal>(-1m))
+                    {
+                        beg = -1;
+                    }
+                    else
+                    {
+                        beg = db.daysttak.Where(d => d.dayend_id == prev_dayend.id).ToList().Sum(d => d.qty);
+                    }
+                }
+                else
+                {
+                    var tanksetup = db.tanksetup.Where(t => t.startdate.CompareTo(this.dayend.saldat) <= 0).OrderByDescending(t => t.startdate).FirstOrDefault();
+                    if (tanksetup != null)
+                    {
+                        beg = db.section.Include("tank").Where(s => s.tank.tanksetup_id == tanksetup.id && s.stkcod == this.dayend.stkcod).ToList().Sum(s => s.begtak);
+                    }
+                    else
+                    {
+                        beg = -1m;
+                    }
+                }
+
+                return beg;
+            }
+        }
+
+        public decimal GetBegDif()
+        {
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                var tanksetup = db.tanksetup
+                                .Where(t => t.startdate.CompareTo(this.dayend.saldat) <= 0).FirstOrDefault();
+
+                if (tanksetup == null)
+                    return 0m;
+
+                var section_beg_dif = db.section
+                                    .Include("tank")
+                                    .Where(s => s.stkcod == this.dayend.stkcod)
+                                    .Where(s => s.tank.tanksetup_id == tanksetup.id)
+                                    .ToList()
+                                    .Sum(s => s.begdif);
+
+                var dayend = db.dayend
+                        .Where(d => d.stkcod == this.dayend.stkcod)
+                        .Where(d => d.saldat.CompareTo(tanksetup.startdate) >= 0)
+                        .Where(d => d.saldat.CompareTo(this.dayend.saldat) < 0)
+                        .ToViewModel(this.working_express_db);
+
+                return section_beg_dif + dayend.Sum(d => d.difqty);
+            }
+        }
+
+        public decimal GetDifQty()
+        {
+            return this.endbal - this.accbal;
         }
     }
 
