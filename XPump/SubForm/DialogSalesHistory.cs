@@ -648,6 +648,7 @@ namespace XPump.SubForm
                     this.numPurvat._Value = exp_purvat;
                 }
             }
+            this.numPurvat.Focus();
         }
     }
 }

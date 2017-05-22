@@ -34,6 +34,7 @@ namespace XPump.SubForm
 
         private void DialogDayendEdit_Load(object sender, EventArgs e)
         {
+            this.RemoveInlineForm();
             this.BackColor = MiscResource.WIND_BG;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
@@ -91,27 +92,31 @@ namespace XPump.SubForm
         private void RefreshSummary()
         {
             dayendVM vm = this.curr_dayend.ToViewModel(this.main_form.working_express_db);
+            this.curr_dayend.difqty = vm.GetDifQty();
 
-            this.lblSaldat.Text = vm.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
-            this.lblStkcod.Text = vm.stkcod;
+            this.lblSaldat.Text = this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
+            this.lblStkcod.Text = this.curr_dayend.stkcod;
             this.lblStkdes.Text = vm.stkdes;
             this.lblEndbal.Text = string.Format("{0:#,#0.00}", vm.endbal);
-            this.lblBegbal.Text = string.Format("{0:#,#0.00}", vm.begbal);
-            this.lblRcvqty.Text = string.Format("{0:#,#0.00}", vm.rcvqty);
-            this.lblSalqty.Text = string.Format("{0:#,#0.00}", vm.salqty);
-            //this.txtDothertxt._Text = vm.dothertxt;
-            this.numDother._Value = vm.dother;
+            this.numBegbal._Value = this.curr_dayend.begbal;
+            this.numRcvqty._Value = this.curr_dayend.rcvqty;
+            this.numSalqty._Value = this.curr_dayend.salqty;
+            this.lblDother.Text = string.Format("{0:#,#0.00}", vm.dother);
             this.lblAccbal.Text = string.Format("{0:#,#0.00}", vm.accbal);
-            this.lblDifqty.Text = string.Format("{0:#,#0.00}", vm.difqty);
-            this.lblBegdif.Text = string.Format("{0:#,#0.00}", vm.begdif);
-            this.lblTotalDif.Text = string.Format("{0:#,#0.00}", vm.begdif + vm.difqty);
+            this.lblDifqty.Text = string.Format("{0:#,#0.00}", this.curr_dayend.difqty);
+            this.numBegdif._Value = this.curr_dayend.begdif;
+            this.lblTotalDif.Text = string.Format("{0:#,#0.00}", this.curr_dayend.begdif + this.curr_dayend.difqty);
         }
 
         private void ResetControlState()
         {
             this.inline_qty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT_ITEM }, this.form_mode);
-            this.txtDothertxt.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.numDother.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.numBegbal.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.numBegdif.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.numRcvqty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.numSalqty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnDother.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnSyncRcvqty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
         }
@@ -126,13 +131,14 @@ namespace XPump.SubForm
             int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_qty.DataPropertyName).First().Index;
             this.inline_qty.SetInlineControlPosition(this.dgv, row_index, col_index);
             this.inline_qty._Value = this.tmp_sttak.qty;
-            this.inline_qty.Visible = true;
+            //this.inline_qty.Visible = true;
             this.inline_qty.Focus();
         }
 
         private void RemoveInlineForm()
         {
-            this.inline_qty.Visible = false;
+            //this.inline_qty.Visible = false;
+            this.inline_qty.SetBounds(-9999, 0, 0, 0);
             this.tmp_sttak = null;
         }
 
@@ -140,27 +146,8 @@ namespace XPump.SubForm
         {
             this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
-            if(sender is XTextEdit)
-            {
-                ((XTextEdit)sender).textBox1.Focus();
-                return;
-            }
 
-            if(sender is XNumEdit)
-            {
-                ((XNumEdit)sender).textBox1.Focus();
-                return;
-            }
-        }
-
-        private void txtDothertxt__TextChanged(object sender, EventArgs e)
-        {
-            //this.curr_dayend.dothertxt = ((XTextEdit)sender)._Text;
-        }
-
-        private void numDother__ValueChanged(object sender, EventArgs e)
-        {
-            //this.curr_dayend.dother = ((XNumEdit)sender)._Value;
+            ((XNumEdit)sender).Focus();
         }
 
         private void inline_qty__ValueChanged(object sender, EventArgs e)
@@ -205,7 +192,10 @@ namespace XPump.SubForm
                     }
 
                     sttak_to_update.qty = sttak.qty;
+                    sttak_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                    sttak_to_update.chgtime = DateTime.Now;
                     db.SaveChanges();
+
                     this.curr_dayend.daysttak.Where(d => d.id == this.tmp_sttak.id).First().qty = this.tmp_sttak.qty;
                     this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_qty.Name].Value = this.tmp_sttak.qty;
                     this.RefreshSummary();
@@ -245,11 +235,13 @@ namespace XPump.SubForm
                             return;
                         }
 
-                        //dayend_to_update.dothertxt = this.curr_dayend.dothertxt;
-                        dayend_to_update.dother = this.curr_dayend.dother;
                         dayend_to_update.rcvqty = this.curr_dayend.rcvqty;
                         dayend_to_update.salqty = this.curr_dayend.salqty;
+                        dayend_to_update.begbal = this.curr_dayend.begbal;
+                        dayend_to_update.begdif = this.curr_dayend.begdif;
                         dayend_to_update.difqty = this.curr_dayend.difqty;
+                        dayend_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                        dayend_to_update.chgtime = DateTime.Now;
 
                         db.SaveChanges();
                         this.form_mode = FORM_MODE.READ;
@@ -259,7 +251,6 @@ namespace XPump.SubForm
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        this.numDother.Focus();
                     }
                 }
 
@@ -299,7 +290,6 @@ namespace XPump.SubForm
                 {
                     this.form_mode = FORM_MODE.EDIT;
                     this.ResetControlState();
-                    this.txtDothertxt.Focus();
                     return true;
                 }
 
@@ -326,14 +316,13 @@ namespace XPump.SubForm
                         this.RemoveInlineForm();
                         this.form_mode = FORM_MODE.EDIT;
                         this.ResetControlState();
-                        this.txtDothertxt.textBox1.Focus();
                     }
                     return true;
                 }
 
                 if (this.form_mode == FORM_MODE.EDIT)
                 {
-                    if (this.numDother._Focused)
+                    if (this.numBegdif._Focused)
                     {
                         this.btnOK.PerformClick();
                         return true;
@@ -361,6 +350,33 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void btnDother_Click(object sender, EventArgs e)
+        {
+            DialogDother d = new DialogDother(this.main_form, this.curr_dayend);
+            d.SetBounds(((Button)sender).PointToScreen(Point.Empty).X + ((Button)sender).Width, ((Button)sender).PointToScreen(Point.Empty).Y, d.Width, d.Height);
+            d.ShowDialog();
+            
+        }
+
+        private void btnSyncRcvqty_Click(object sender, EventArgs e)
+        {
+            var rcv = this.curr_dayend.ToViewModel(this.main_form.working_express_db).GetRcvQty();
+            if(this.curr_dayend.rcvqty != rcv)
+            {
+                if(MessageBox.Show("เปลี่ยนยอดรับน้ำมันจาก " + string.Format("{0:#,#0.00}", this.curr_dayend.rcvqty) + " ลิตร  ไปเป็น  " + string.Format("{0:#,#0.00}", rcv) + " ลิตร, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    this.curr_dayend.rcvqty = rcv;
+                    this.RefreshSummary();
+                }
+            }
+            this.numRcvqty.Focus();
+        }
+
+        private void numRcvqty__ValueChanged(object sender, EventArgs e)
+        {
+            this.curr_dayend.rcvqty = ((XNumEdit)sender)._Value;
         }
     }
 }

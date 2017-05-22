@@ -84,6 +84,12 @@
             this.col_stmas_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dayend = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_creby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_chgby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_apprby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_apprtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -431,7 +437,13 @@
             this.col_begdif,
             this.col_stmas_id,
             this.col_dayend,
-            this.col_working_express_db});
+            this.col_working_express_db,
+            this.col_creby,
+            this.col_cretime,
+            this.col_chgby,
+            this.col_chgtime,
+            this.col_apprby,
+            this.col_apprtime});
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -625,6 +637,54 @@
             this.col_working_express_db.ReadOnly = true;
             this.col_working_express_db.Visible = false;
             // 
+            // col_creby
+            // 
+            this.col_creby.DataPropertyName = "creby";
+            this.col_creby.HeaderText = "Created By";
+            this.col_creby.Name = "col_creby";
+            this.col_creby.ReadOnly = true;
+            this.col_creby.Visible = false;
+            // 
+            // col_cretime
+            // 
+            this.col_cretime.DataPropertyName = "cretime";
+            this.col_cretime.HeaderText = "Created Time";
+            this.col_cretime.Name = "col_cretime";
+            this.col_cretime.ReadOnly = true;
+            this.col_cretime.Visible = false;
+            // 
+            // col_chgby
+            // 
+            this.col_chgby.DataPropertyName = "chgby";
+            this.col_chgby.HeaderText = "Changed By";
+            this.col_chgby.Name = "col_chgby";
+            this.col_chgby.ReadOnly = true;
+            this.col_chgby.Visible = false;
+            // 
+            // col_chgtime
+            // 
+            this.col_chgtime.DataPropertyName = "chgtime";
+            this.col_chgtime.HeaderText = "Changed Time";
+            this.col_chgtime.Name = "col_chgtime";
+            this.col_chgtime.ReadOnly = true;
+            this.col_chgtime.Visible = false;
+            // 
+            // col_apprby
+            // 
+            this.col_apprby.DataPropertyName = "apprby";
+            this.col_apprby.HeaderText = "Approved By";
+            this.col_apprby.Name = "col_apprby";
+            this.col_apprby.ReadOnly = true;
+            this.col_apprby.Visible = false;
+            // 
+            // col_apprtime
+            // 
+            this.col_apprtime.DataPropertyName = "apprtime";
+            this.col_apprtime.HeaderText = "Approved Time";
+            this.col_apprtime.Name = "col_apprtime";
+            this.col_apprtime.ReadOnly = true;
+            this.col_apprtime.Visible = false;
+            // 
             // FormDailyClose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -685,6 +745,8 @@
         private System.Windows.Forms.ToolStripDropDownButton btnPrint;
         private System.Windows.Forms.ToolStripMenuItem btnPrintB;
         private System.Windows.Forms.ToolStripMenuItem btnPrintC;
+        private System.Windows.Forms.ToolStripButton btnApprove;
+        private System.Windows.Forms.ToolStripButton btnUnApprove;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_saldat;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkcod;
@@ -701,7 +763,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stmas_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dayend;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
-        private System.Windows.Forms.ToolStripButton btnApprove;
-        private System.Windows.Forms.ToolStripButton btnUnApprove;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_creby;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_cretime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_chgby;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_chgtime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_apprby;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_apprtime;
     }
 }

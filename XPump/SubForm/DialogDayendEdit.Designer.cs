@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblStkcod = new System.Windows.Forms.Label();
@@ -48,28 +48,29 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.numDother = new CC.XNumEdit();
-            this.txtDothertxt = new CC.XTextEdit();
             this.btnOK = new System.Windows.Forms.Button();
             this.lblEndbal = new System.Windows.Forms.Label();
-            this.lblBegbal = new System.Windows.Forms.Label();
-            this.lblRcvqty = new System.Windows.Forms.Label();
-            this.lblSalqty = new System.Windows.Forms.Label();
             this.lblAccbal = new System.Windows.Forms.Label();
             this.lblDifqty = new System.Windows.Forms.Label();
-            this.lblBegdif = new System.Windows.Forms.Label();
             this.lblTotalDif = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblSaldat = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnSyncPurvat = new System.Windows.Forms.Button();
+            this.btnSyncRcvqty = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numSalqty = new CC.XNumEdit();
+            this.numRcvqty = new CC.XNumEdit();
+            this.numBegbal = new CC.XNumEdit();
+            this.numBegdif = new CC.XNumEdit();
+            this.lblDother = new System.Windows.Forms.Label();
+            this.btnDother = new System.Windows.Forms.Button();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,8 +79,10 @@
             this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_daysttak = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.col_creby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_chgby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -134,14 +137,14 @@
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
             this.dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -152,15 +155,19 @@
             this.col_dayend_id,
             this.col_section_id,
             this.col_daysttak,
-            this.col_working_express_db});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle3;
+            this.col_working_express_db,
+            this.col_creby,
+            this.col_cretime,
+            this.col_chgby,
+            this.col_chgtime});
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle9;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -232,7 +239,6 @@
             this.inline_qty.Name = "inline_qty";
             this.inline_qty.Size = new System.Drawing.Size(156, 23);
             this.inline_qty.TabIndex = 1;
-            this.inline_qty.Visible = false;
             this.inline_qty._ValueChanged += new System.EventHandler(this.inline_qty__ValueChanged);
             // 
             // label5
@@ -330,17 +336,6 @@
             this.label13.TabIndex = 0;
             this.label13.Text = "หัก";
             // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label14.Location = new System.Drawing.Point(55, 404);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(58, 16);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "อื่น ๆ ระบุ";
-            // 
             // label15
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -403,58 +398,6 @@
             this.label20.TabIndex = 0;
             this.label20.Text = "9. ผลต่างสะสมปัจจุบันยกไป (7+8)";
             // 
-            // numDother
-            // 
-            this.numDother._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numDother._DecimalDigit = 2;
-            this.numDother._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.numDother._MaxLength = 30;
-            this.numDother._ReadOnly = true;
-            this.numDother._SelectionLength = 0;
-            this.numDother._SelectionStart = 4;
-            this.numDother._Text = "0.00";
-            this.numDother._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numDother._UseThoundsandSeparate = true;
-            this.numDother._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.numDother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numDother.BackColor = System.Drawing.Color.White;
-            this.numDother.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numDother.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numDother.Location = new System.Drawing.Point(3, 128);
-            this.numDother.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numDother.Name = "numDother";
-            this.numDother.Size = new System.Drawing.Size(129, 23);
-            this.numDother.TabIndex = 3;
-            this.numDother._ValueChanged += new System.EventHandler(this.numDother__ValueChanged);
-            this.numDother._DoubleClicked += new System.EventHandler(this.PerformEdit);
-            // 
-            // txtDothertxt
-            // 
-            this.txtDothertxt._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDothertxt._MaxLength = 30;
-            this.txtDothertxt._ReadOnly = true;
-            this.txtDothertxt._Text = "";
-            this.txtDothertxt._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtDothertxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtDothertxt.BackColor = System.Drawing.Color.White;
-            this.txtDothertxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDothertxt.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDothertxt.Location = new System.Drawing.Point(114, 399);
-            this.txtDothertxt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtDothertxt.Name = "txtDothertxt";
-            this.txtDothertxt.Size = new System.Drawing.Size(114, 23);
-            this.txtDothertxt.TabIndex = 2;
-            this.txtDothertxt._TextChanged += new System.EventHandler(this.txtDothertxt__TextChanged);
-            this.txtDothertxt._DoubleClicked += new System.EventHandler(this.PerformEdit);
-            // 
             // btnOK
             // 
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -475,53 +418,20 @@
             // 
             this.lblEndbal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEndbal.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblEndbal.Location = new System.Drawing.Point(27, 24);
+            this.lblEndbal.Location = new System.Drawing.Point(30, 24);
             this.lblEndbal.Name = "lblEndbal";
-            this.lblEndbal.Size = new System.Drawing.Size(105, 16);
+            this.lblEndbal.Size = new System.Drawing.Size(125, 16);
             this.lblEndbal.TabIndex = 0;
             this.lblEndbal.Text = "0.00";
             this.lblEndbal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblBegbal
-            // 
-            this.lblBegbal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblBegbal.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblBegbal.Location = new System.Drawing.Point(27, 51);
-            this.lblBegbal.Name = "lblBegbal";
-            this.lblBegbal.Size = new System.Drawing.Size(105, 16);
-            this.lblBegbal.TabIndex = 0;
-            this.lblBegbal.Text = "0.00";
-            this.lblBegbal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblRcvqty
-            // 
-            this.lblRcvqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRcvqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblRcvqty.Location = new System.Drawing.Point(27, 78);
-            this.lblRcvqty.Name = "lblRcvqty";
-            this.lblRcvqty.Size = new System.Drawing.Size(105, 16);
-            this.lblRcvqty.TabIndex = 0;
-            this.lblRcvqty.Text = "0.00";
-            this.lblRcvqty.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblSalqty
-            // 
-            this.lblSalqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSalqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblSalqty.Location = new System.Drawing.Point(27, 105);
-            this.lblSalqty.Name = "lblSalqty";
-            this.lblSalqty.Size = new System.Drawing.Size(105, 16);
-            this.lblSalqty.TabIndex = 0;
-            this.lblSalqty.Text = "0.00";
-            this.lblSalqty.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblAccbal
             // 
             this.lblAccbal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAccbal.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblAccbal.Location = new System.Drawing.Point(27, 158);
+            this.lblAccbal.Location = new System.Drawing.Point(30, 158);
             this.lblAccbal.Name = "lblAccbal";
-            this.lblAccbal.Size = new System.Drawing.Size(105, 16);
+            this.lblAccbal.Size = new System.Drawing.Size(125, 16);
             this.lblAccbal.TabIndex = 0;
             this.lblAccbal.Text = "0.00";
             this.lblAccbal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -530,31 +440,20 @@
             // 
             this.lblDifqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDifqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblDifqty.Location = new System.Drawing.Point(27, 186);
+            this.lblDifqty.Location = new System.Drawing.Point(30, 186);
             this.lblDifqty.Name = "lblDifqty";
-            this.lblDifqty.Size = new System.Drawing.Size(105, 16);
+            this.lblDifqty.Size = new System.Drawing.Size(125, 16);
             this.lblDifqty.TabIndex = 0;
             this.lblDifqty.Text = "0.00";
             this.lblDifqty.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblBegdif
-            // 
-            this.lblBegdif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblBegdif.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblBegdif.Location = new System.Drawing.Point(27, 212);
-            this.lblBegdif.Name = "lblBegdif";
-            this.lblBegdif.Size = new System.Drawing.Size(105, 16);
-            this.lblBegdif.TabIndex = 0;
-            this.lblBegdif.Text = "0.00";
-            this.lblBegdif.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblTotalDif
             // 
             this.lblTotalDif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotalDif.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblTotalDif.Location = new System.Drawing.Point(27, 240);
+            this.lblTotalDif.Location = new System.Drawing.Point(30, 240);
             this.lblTotalDif.Name = "lblTotalDif";
-            this.lblTotalDif.Size = new System.Drawing.Size(105, 16);
+            this.lblTotalDif.Size = new System.Drawing.Size(125, 16);
             this.lblTotalDif.TabIndex = 0;
             this.lblTotalDif.Text = "0.00";
             this.lblTotalDif.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -594,16 +493,201 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // btnSyncPurvat
+            // btnSyncRcvqty
             // 
-            this.btnSyncPurvat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSyncPurvat.Image = global::XPump.Properties.Resources.sync_16;
-            this.btnSyncPurvat.Location = new System.Drawing.Point(133, 346);
-            this.btnSyncPurvat.Name = "btnSyncPurvat";
-            this.btnSyncPurvat.Size = new System.Drawing.Size(25, 25);
-            this.btnSyncPurvat.TabIndex = 98;
-            this.btnSyncPurvat.TabStop = false;
-            this.btnSyncPurvat.UseVisualStyleBackColor = true;
+            this.btnSyncRcvqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSyncRcvqty.Image = global::XPump.Properties.Resources.sync_16;
+            this.btnSyncRcvqty.Location = new System.Drawing.Point(2, 73);
+            this.btnSyncRcvqty.Name = "btnSyncRcvqty";
+            this.btnSyncRcvqty.Size = new System.Drawing.Size(25, 25);
+            this.btnSyncRcvqty.TabIndex = 98;
+            this.btnSyncRcvqty.TabStop = false;
+            this.btnSyncRcvqty.UseVisualStyleBackColor = true;
+            this.btnSyncRcvqty.Click += new System.EventHandler(this.btnSyncRcvqty_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.btnSyncRcvqty);
+            this.panel1.Controls.Add(this.lblEndbal);
+            this.panel1.Controls.Add(this.numSalqty);
+            this.panel1.Controls.Add(this.numRcvqty);
+            this.panel1.Controls.Add(this.numBegbal);
+            this.panel1.Controls.Add(this.numBegdif);
+            this.panel1.Controls.Add(this.lblDother);
+            this.panel1.Controls.Add(this.lblAccbal);
+            this.panel1.Controls.Add(this.lblDifqty);
+            this.panel1.Controls.Add(this.lblTotalDif);
+            this.panel1.Location = new System.Drawing.Point(246, 271);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(160, 264);
+            this.panel1.TabIndex = 99;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label4.Location = new System.Drawing.Point(114, 4);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 16);
+            this.label4.TabIndex = 89;
+            this.label4.Text = "(ลิตร)";
+            // 
+            // numSalqty
+            // 
+            this.numSalqty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numSalqty._DecimalDigit = 2;
+            this.numSalqty._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.numSalqty._MaxLength = 30;
+            this.numSalqty._ReadOnly = true;
+            this.numSalqty._SelectionLength = 0;
+            this.numSalqty._SelectionStart = 4;
+            this.numSalqty._Text = "0.00";
+            this.numSalqty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numSalqty._UseThoundsandSeparate = true;
+            this.numSalqty._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.numSalqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numSalqty.BackColor = System.Drawing.Color.White;
+            this.numSalqty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numSalqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.numSalqty.Location = new System.Drawing.Point(3, 101);
+            this.numSalqty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numSalqty.Name = "numSalqty";
+            this.numSalqty.Size = new System.Drawing.Size(152, 23);
+            this.numSalqty.TabIndex = 3;
+            this.numSalqty._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // numRcvqty
+            // 
+            this.numRcvqty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numRcvqty._DecimalDigit = 2;
+            this.numRcvqty._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.numRcvqty._MaxLength = 30;
+            this.numRcvqty._ReadOnly = true;
+            this.numRcvqty._SelectionLength = 0;
+            this.numRcvqty._SelectionStart = 4;
+            this.numRcvqty._Text = "0.00";
+            this.numRcvqty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numRcvqty._UseThoundsandSeparate = true;
+            this.numRcvqty._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.numRcvqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numRcvqty.BackColor = System.Drawing.Color.White;
+            this.numRcvqty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numRcvqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.numRcvqty.Location = new System.Drawing.Point(28, 74);
+            this.numRcvqty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numRcvqty.Name = "numRcvqty";
+            this.numRcvqty.Size = new System.Drawing.Size(127, 23);
+            this.numRcvqty.TabIndex = 3;
+            this.numRcvqty._ValueChanged += new System.EventHandler(this.numRcvqty__ValueChanged);
+            this.numRcvqty._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // numBegbal
+            // 
+            this.numBegbal._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numBegbal._DecimalDigit = 2;
+            this.numBegbal._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.numBegbal._MaxLength = 30;
+            this.numBegbal._ReadOnly = true;
+            this.numBegbal._SelectionLength = 0;
+            this.numBegbal._SelectionStart = 4;
+            this.numBegbal._Text = "0.00";
+            this.numBegbal._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numBegbal._UseThoundsandSeparate = true;
+            this.numBegbal._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.numBegbal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numBegbal.BackColor = System.Drawing.Color.White;
+            this.numBegbal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numBegbal.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.numBegbal.Location = new System.Drawing.Point(3, 47);
+            this.numBegbal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numBegbal.Name = "numBegbal";
+            this.numBegbal.Size = new System.Drawing.Size(152, 23);
+            this.numBegbal.TabIndex = 3;
+            this.numBegbal._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // numBegdif
+            // 
+            this.numBegdif._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numBegdif._DecimalDigit = 2;
+            this.numBegdif._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.numBegdif._MaxLength = 30;
+            this.numBegdif._ReadOnly = true;
+            this.numBegdif._SelectionLength = 0;
+            this.numBegdif._SelectionStart = 4;
+            this.numBegdif._Text = "0.00";
+            this.numBegdif._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numBegdif._UseThoundsandSeparate = true;
+            this.numBegdif._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.numBegdif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numBegdif.BackColor = System.Drawing.Color.White;
+            this.numBegdif.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numBegdif.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.numBegdif.Location = new System.Drawing.Point(3, 208);
+            this.numBegdif.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numBegdif.Name = "numBegdif";
+            this.numBegdif.Size = new System.Drawing.Size(152, 23);
+            this.numBegdif.TabIndex = 3;
+            this.numBegdif._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // lblDother
+            // 
+            this.lblDother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDother.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblDother.Location = new System.Drawing.Point(30, 132);
+            this.lblDother.Name = "lblDother";
+            this.lblDother.Size = new System.Drawing.Size(125, 16);
+            this.lblDother.TabIndex = 0;
+            this.lblDother.Text = "0.00";
+            this.lblDother.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnDother
+            // 
+            this.btnDother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDother.Location = new System.Drawing.Point(57, 401);
+            this.btnDother.Name = "btnDother";
+            this.btnDother.Size = new System.Drawing.Size(66, 23);
+            this.btnDother.TabIndex = 100;
+            this.btnDother.TabStop = false;
+            this.btnDother.Text = "อื่น ๆ  ...";
+            this.btnDother.UseVisualStyleBackColor = true;
+            this.btnDother.Click += new System.EventHandler(this.btnDother_Click);
             // 
             // col_id
             // 
@@ -635,10 +719,10 @@
             // col_qty
             // 
             this.col_qty.DataPropertyName = "qty";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.col_qty.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = null;
+            this.col_qty.DefaultCellStyle = dataGridViewCellStyle8;
             this.col_qty.HeaderText = "ปริมาณที่ตรวจวัดได้ (ลิตร)";
             this.col_qty.MinimumWidth = 160;
             this.col_qty.Name = "col_qty";
@@ -677,49 +761,48 @@
             this.col_working_express_db.ReadOnly = true;
             this.col_working_express_db.Visible = false;
             // 
-            // panel1
+            // col_creby
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.lblEndbal);
-            this.panel1.Controls.Add(this.lblBegbal);
-            this.panel1.Controls.Add(this.lblRcvqty);
-            this.panel1.Controls.Add(this.numDother);
-            this.panel1.Controls.Add(this.lblSalqty);
-            this.panel1.Controls.Add(this.lblAccbal);
-            this.panel1.Controls.Add(this.lblDifqty);
-            this.panel1.Controls.Add(this.lblBegdif);
-            this.panel1.Controls.Add(this.lblTotalDif);
-            this.panel1.Location = new System.Drawing.Point(270, 271);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(137, 264);
-            this.panel1.TabIndex = 99;
+            this.col_creby.DataPropertyName = "creby";
+            this.col_creby.HeaderText = "Created By";
+            this.col_creby.Name = "col_creby";
+            this.col_creby.ReadOnly = true;
+            this.col_creby.Visible = false;
             // 
-            // label4
+            // col_cretime
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label4.Location = new System.Drawing.Point(91, 4);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 16);
-            this.label4.TabIndex = 89;
-            this.label4.Text = "(ลิตร)";
+            this.col_cretime.DataPropertyName = "cretime";
+            this.col_cretime.HeaderText = "Created Time";
+            this.col_cretime.Name = "col_cretime";
+            this.col_cretime.ReadOnly = true;
+            this.col_cretime.Visible = false;
+            // 
+            // col_chgby
+            // 
+            this.col_chgby.DataPropertyName = "chgby";
+            this.col_chgby.HeaderText = "Changed By";
+            this.col_chgby.Name = "col_chgby";
+            this.col_chgby.ReadOnly = true;
+            this.col_chgby.Visible = false;
+            // 
+            // col_chgtime
+            // 
+            this.col_chgtime.DataPropertyName = "chgtime";
+            this.col_chgtime.HeaderText = "Changed Time";
+            this.col_chgtime.Name = "col_chgtime";
+            this.col_chgtime.ReadOnly = true;
+            this.col_chgtime.Visible = false;
             // 
             // DialogDayendEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(413, 595);
+            this.Controls.Add(this.btnDother);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnSyncPurvat);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.txtDothertxt);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -780,29 +863,30 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
-        private CC.XNumEdit numDother;
-        private CC.XTextEdit txtDothertxt;
         private System.Windows.Forms.Button btnOK;
         private CC.XNumEdit inline_qty;
         private System.Windows.Forms.Label lblEndbal;
-        private System.Windows.Forms.Label lblBegbal;
-        private System.Windows.Forms.Label lblRcvqty;
-        private System.Windows.Forms.Label lblSalqty;
         private System.Windows.Forms.Label lblAccbal;
         private System.Windows.Forms.Label lblDifqty;
-        private System.Windows.Forms.Label lblBegdif;
         private System.Windows.Forms.Label lblTotalDif;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblSaldat;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnSyncPurvat;
+        private System.Windows.Forms.Button btnSyncRcvqty;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label4;
+        private CC.XNumEdit numSalqty;
+        private CC.XNumEdit numRcvqty;
+        private CC.XNumEdit numBegbal;
+        private CC.XNumEdit numBegdif;
+        private System.Windows.Forms.Label lblDother;
+        private System.Windows.Forms.Button btnDother;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_tank_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_name;
@@ -811,7 +895,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_daysttak;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_creby;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_cretime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_chgby;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_chgtime;
     }
 }

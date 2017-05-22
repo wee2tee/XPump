@@ -1751,5 +1751,17 @@ namespace XPump.Misc
             }
         }
 
+        public static bool? IsApproved(this dayendVM dayend)
+        {
+            using (xpumpEntities db = DBX.DataSet(dayend.working_express_db))
+            {
+                var d = db.dayend.Find(dayend.id);
+                if (d == null)
+                    return null;
+
+                return d.apprtime.HasValue ? true : false;
+            }
+        }
+
     }
 }

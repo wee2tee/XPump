@@ -16,16 +16,30 @@ namespace XPump.SubForm
     {
         private MainForm main_form;
         private salessummary salessummary;
+        private dayend dayend;
         private FORM_MODE form_mode;
         private BindingList<dotherVM> bl_dother;
         private dother tmp_dother;
+        private enum DOTHER
+        {
+            SHIFTSALES,
+            DAYEND
+        }
 
-        public DialogDother(MainForm main_form, salessummary salessummary)
+        private DOTHER dother_type;
+
+        public DialogDother(MainForm main_form)
         {
             InitializeComponent();
             this.main_form = main_form;
+        }
+
+        public DialogDother(MainForm main_form, salessummary salessummary)
+            : this(main_form)
+        {
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
+                this.dother_type = DOTHER.SHIFTSALES;
                 this.salessummary = db.salessummary.Include("shiftsales").Where(s => s.id == salessummary.id).FirstOrDefault();
                 if(this.salessummary == null)
                 {
@@ -36,9 +50,27 @@ namespace XPump.SubForm
             }
         }
 
+        public DialogDother(MainForm main_form, dayend dayend)
+            : this(main_form)
+        {
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.dother_type = DOTHER.DAYEND;
+                this.dayend = db.dayend.Where(d => d.id == dayend.id).FirstOrDefault();
+                if (this.dayend == null)
+                {
+                    MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    this.DialogResult = DialogResult.Abort;
+                    this.Close();
+                }
+            }
+        }
+
         private void DialogDother_Load(object sender, EventArgs e)
         {
-            foreach (var d in this.GetAvailableDother())
+            var available_dother = this.GetAvailableDother(this.dother_type);
+
+            foreach (var d in available_dother)
             {
                 this.inline_dother._Items.Add(new XDropdownListItem { Text = "[" + d.typcod + "]" + d.typdes, Value = d.id });
             }
@@ -66,26 +98,45 @@ namespace XPump.SubForm
             }
         }
 
-        private List<istab> GetAvailableDother()
+        private List<istab> GetAvailableDother(DOTHER dother_type)
         {
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                return db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.DOTHER && i.is_shiftsales).ToList();
+                switch (dother_type)
+                {
+                    case DOTHER.SHIFTSALES:
+                        return db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.DOTHER && i.is_shiftsales).ToList();
+                    case DOTHER.DAYEND:
+                        return db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.DOTHER && i.is_dayend).ToList();
+                    default:
+                        return null;
+                }
+                
             }
         }
 
-        private List<dother> GetDother()
+        private List<dother> GetDother(DOTHER dother_type)
         {
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                return db.dother.Where(d => d.salessummary_id == this.salessummary.id).ToList();
+                switch (dother_type)
+                {
+                    case DOTHER.SHIFTSALES:
+                        return db.dother.Where(d => d.salessummary_id == this.salessummary.id).ToList();
+                    case DOTHER.DAYEND:
+                        return db.dother.Where(d => d.dayend_id == this.dayend.id).ToList();
+                    default:
+                        return null;
+                }
+
+                
             }
         }
 
         private void FillForm()
         {
             this.bl_dother = null;
-            this.bl_dother = new BindingList<dotherVM>(this.GetDother().ToViewModel(this.main_form.working_express_db).OrderBy(d => d.typdes).ToList());
+            this.bl_dother = new BindingList<dotherVM>(this.GetDother(this.dother_type).ToViewModel(this.main_form.working_express_db).OrderBy(d => d.typdes).ToList());
             this.dgv.DataSource = this.bl_dother;
         }
 
@@ -123,6 +174,19 @@ namespace XPump.SubForm
             this.tmp_dother = null;
         }
 
+        private bool? IsApproved()
+        {
+            switch (this.dother_type)
+            {
+                case DOTHER.SHIFTSALES:
+                    return this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+                case DOTHER.DAYEND:
+                    return this.dayend.ToViewModel(this.main_form.working_express_db).IsApproved();
+                default:
+                    return null;
+            }
+        }
+
         private void inline_dother__SelectedItemChanged(object sender, EventArgs e)
         {
             if (this.tmp_dother != null)
@@ -137,8 +201,7 @@ namespace XPump.SubForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if (is_approved != null && is_approved == true)
+            if (this.IsApproved() != null && this.IsApproved() == true)
             {
                 MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
@@ -147,7 +210,8 @@ namespace XPump.SubForm
             this.bl_dother.Add(new dother
             {
                 id = -1,
-                salessummary_id = this.salessummary.id,
+                salessummary_id = this.salessummary != null ? (int?)this.salessummary.id : null,
+                dayend_id = this.dayend != null ? (int?)this.dayend.id : null,
                 istab_id = -1,
                 qty = 0m,
                 creby = this.main_form.loged_in_status.loged_in_user_name
@@ -162,8 +226,7 @@ namespace XPump.SubForm
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if (is_approved != null && is_approved == true)
+            if (this.IsApproved() != null && this.IsApproved() == true)
             {
                 MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
@@ -202,8 +265,7 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if (is_approved != null && is_approved == true)
+            if (this.IsApproved() != null && this.IsApproved() == true)
             {
                 MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
@@ -231,13 +293,22 @@ namespace XPump.SubForm
                         this.tmp_dother.cretime = DateTime.Now;
                         db.dother.Add(this.tmp_dother);
 
-                        var sales_to_update = db.salessummary.Find(this.salessummary.id);
-                        sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
-                        sales_to_update.chgtime = DateTime.Now;
+                        if(this.dother_type == DOTHER.SHIFTSALES)
+                        {
+                            var sales_to_update = db.salessummary.Find(this.salessummary.id);
+                            sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                            sales_to_update.chgtime = DateTime.Now;
 
-                        var shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
-                        shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
-                        shiftsales_to_update.chgtime = DateTime.Now;
+                            var shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
+                            shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                            shiftsales_to_update.chgtime = DateTime.Now;
+                        }
+                        else if(this.dother_type == DOTHER.DAYEND)
+                        {
+                            var dayend_to_update = db.dayend.Find(this.dayend.id);
+                            dayend_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                            dayend_to_update.chgtime = DateTime.Now;
+                        }
 
                         db.SaveChanges();
 
@@ -270,13 +341,22 @@ namespace XPump.SubForm
                         dother_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                         dother_to_update.chgtime = DateTime.Now;
 
-                        var sales_to_update = db.salessummary.Find(this.salessummary.id);
-                        sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
-                        sales_to_update.chgtime = DateTime.Now;
+                        if(this.dother_type == DOTHER.SHIFTSALES)
+                        {
+                            var sales_to_update = db.salessummary.Find(this.salessummary.id);
+                            sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                            sales_to_update.chgtime = DateTime.Now;
 
-                        var shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
-                        shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
-                        shiftsales_to_update.chgtime = DateTime.Now;
+                            var shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
+                            shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                            shiftsales_to_update.chgtime = DateTime.Now;
+                        }
+                        else
+                        {
+                            var dayend_to_update = db.dayend.Find(this.dayend.id);
+                            dayend_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                            dayend_to_update.chgtime = DateTime.Now;
+                        }
 
                         db.SaveChanges();
                         this.RemoveInlineForm();
@@ -297,8 +377,7 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if (is_approved != null && is_approved == true)
+            if (this.IsApproved() != null && this.IsApproved() == true)
             {
                 MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
@@ -322,13 +401,22 @@ namespace XPump.SubForm
                         {
                             db.dother.Remove(dother_to_delete);
 
-                            var sales_to_update = db.salessummary.Find(this.salessummary.id);
-                            sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
-                            sales_to_update.chgtime = DateTime.Now;
+                            if(this.dother_type == DOTHER.SHIFTSALES)
+                            {
+                                var sales_to_update = db.salessummary.Find(this.salessummary.id);
+                                sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                                sales_to_update.chgtime = DateTime.Now;
 
-                            var shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
-                            shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
-                            shiftsales_to_update.chgtime = DateTime.Now;
+                                var shiftsales_to_update = db.shiftsales.Find(sales_to_update.shiftsales_id);
+                                shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                                shiftsales_to_update.chgtime = DateTime.Now;
+                            }
+                            else if(this.dother_type == DOTHER.DAYEND)
+                            {
+                                var dayend_to_update = db.dayend.Find(this.dayend.id);
+                                dayend_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                                dayend_to_update.chgtime = DateTime.Now;
+                            }
 
                             db.SaveChanges();
 

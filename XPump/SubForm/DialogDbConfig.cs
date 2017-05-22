@@ -468,7 +468,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`apprby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`apprtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "UNIQUE INDEX `unq - dayend - saldat` (`saldat` ASC)) ";
+                cmd.CommandText += "UNIQUE INDEX `unq-dayend-saldat` (`saldat` ASC, `stkcod` ASC)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 

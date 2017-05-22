@@ -153,18 +153,32 @@ namespace XPump.SubForm
 
                         foreach (string stkcod in stkcods)
                         {
-                            dayendVM d = new dayend()
+                            dayend dayend = new dayend()
                             {
                                 id = -1,
-                                //stmas_id = stmas_id,
-                                //dothertxt = string.Empty,
-                                saldat = dlg.selected_date
+                                saldat = dlg.selected_date,
+                                stkcod = stkcod,
+                                creby = this.main_form.loged_in_status.loged_in_user_name,
+                                cretime = DateTime.Now
+                            };
+                            dayendVM dvm = dayend.ToViewModel(this.main_form.working_express_db);
+                            dayend.rcvqty = dvm.GetRcvQty();
+                            dayend.salqty = dvm.GetSalQty();
+                            dayend.begbal = dvm.GetBegBal();
+                            dayend.begdif = dvm.GetBegDif();
+                            dayend.difqty = dvm.GetDifQty();
 
-                            }.ToViewModel(this.main_form.working_express_db);
-                            db.dayend.Add(d.dayend);
+                            //dayendVM d = dayend.ToViewModel(this.main_form.working_express_db);
+                            db.dayend.Add(dayend);
                             db.SaveChanges();
 
-                            var sections = db.section.Where(s => s.stkcod == stkcod).ToList();
+                            var tanksetup = db.tanksetup.Where(t => t.startdate.CompareTo(dayend.saldat) <= 0).OrderByDescending(t => t.startdate).FirstOrDefault();
+
+                            var sections = db.section
+                                            .Include("tank")
+                                            .Where(s => s.stkcod == stkcod)
+                                            .Where(s => s.tank.tanksetup_id == tanksetup.id)
+                                            .ToList();
 
                             foreach (var sect in sections)
                             {
@@ -172,12 +186,13 @@ namespace XPump.SubForm
                                             .Where(s => s.section_id == sect.id)
                                             .Where(s => s.qty > -1).FirstOrDefault();
 
-
                                 db.daysttak.Add(new daysttak
                                 {
-                                    dayend_id = d.dayend.id,
+                                    dayend_id = dayend.id,
                                     qty = sttak != null ? sttak.qty : -1,
-                                    section_id = sect.id
+                                    section_id = sect.id,
+                                    creby = this.main_form.loged_in_status.loged_in_user_name,
+                                    cretime = DateTime.Now
                                 });
                                 db.SaveChanges();
 
@@ -187,6 +202,10 @@ namespace XPump.SubForm
                                     db.SaveChanges();
                                 }
                             }
+
+                            /* update difqty causing from daysttak that changed */
+                            dayend.difqty = dvm.GetDifQty();
+                            db.SaveChanges();
                         }
                     }
                     catch (Exception ex)
