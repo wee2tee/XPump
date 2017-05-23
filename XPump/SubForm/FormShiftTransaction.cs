@@ -260,17 +260,6 @@ namespace XPump.SubForm
             }
         }
 
-        private bool ValidateClosedShiftSales(shiftsales shiftsales)
-        {
-            bool isclosed = shiftsales.IsClosedShiftSales(this.main_form.working_express_db);
-            if (isclosed == true)
-            {
-                MessageBox.Show("วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-
-            return isclosed;
-        }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             this.tmp_shiftsales = new shiftsales
@@ -296,10 +285,8 @@ namespace XPump.SubForm
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
                 return;
 
-            if (this.ValidateClosedShiftSales(this.curr_shiftsales))
-            {
+            if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
                 return;
-            }
 
             this.tmp_shiftsales = this.GetShiftSales(this.curr_shiftsales.id);
             this.FillForm(this.tmp_shiftsales);
@@ -315,18 +302,8 @@ namespace XPump.SubForm
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
                 return;
 
-            var is_approved = this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if(is_approved != null && is_approved == true)
-            {
-                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถลบได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
                 return;
-            }
-
-            if (this.ValidateClosedShiftSales(this.curr_shiftsales))
-            {
-                MessageBox.Show("ปิดยอดขายของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ไปแล้ว ไม่สามารถลบได้, ต้องไปลบรายการปิดยอดขายก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
 
             if(MessageBox.Show("ลบบันทึกรายการขายประจำผลัด \"" + this.curr_shiftsales.shift.name + "\" วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + ", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
@@ -375,14 +352,6 @@ namespace XPump.SubForm
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            //if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
-            //{
-            //    this.RemoveSttakInlineForm();
-            //    this.form_mode = FORM_MODE.READ_ITEM;
-            //    this.ResetControlState();
-            //    return;
-            //}
-
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
@@ -457,8 +426,8 @@ namespace XPump.SubForm
                             db.salessummary.Add(salessummary);
 
                             // add sttak
-                            var sections = db.section.Include("tank").Include("tank.tanksetup")
-                                            .Where(sect => sect.tank.tanksetup.startdate.CompareTo(this.tmp_shiftsales.saldat) <= 0)
+                            var sections = db.section.Include("tank")
+                                            .Where(sect => sect.tank.tanksetup_id == tanksetup.id)
                                             .Where(sect => sect.stkcod == stkcod).ToList();
                             foreach (var item in sections)
                             {
@@ -1682,18 +1651,8 @@ namespace XPump.SubForm
             if (this.dgvSalesSummary.CurrentCell == null)
                 return;
 
-            if (this.ValidateClosedShiftSales(this.curr_shiftsales))
-            {
-                MessageBox.Show("ปิดยอดขายแล้ว ไม่สามารถแก้ไขราคาได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
                 return;
-            }
-
-            var is_approved = this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if(is_approved.HasValue && is_approved.Value == true)
-            {
-                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
 
             if (this.form_mode != FORM_MODE.READ_ITEM)
             {

@@ -852,22 +852,6 @@ namespace XPump.Misc
             return sccomp;
         }
 
-        public static bool IsClosedShiftSales(this shiftsales shiftsales, SccompDbf working_express_db)
-        {
-            using (xpumpEntities db = DBX.DataSet(working_express_db))
-            {
-                var tmp = db.shiftsales.Find(shiftsales.id);
-                if(tmp != null)
-                {
-                    return tmp.closed;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
         public static List<IsrunDbf> ToIsrunList(this DataTable isrun_dbf)
         {
             List<IsrunDbf> isrun = new List<IsrunDbf>();
@@ -1739,6 +1723,71 @@ namespace XPump.Misc
             }
         }
 
+        public static bool ValidateEditableShiftSales(this shiftsalesVM shiftsales, bool show_alert = true)
+        {
+            using (xpumpEntities db = DBX.DataSet(shiftsales.working_express_db))
+            {
+                var sales = db.shiftsales.Find(shiftsales.id);
+                if(sales == null)
+                {
+                    if(show_alert)
+                        MessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                if(shiftsales.IsClosedShiftSales().Value == true)
+                {
+                    if(show_alert)
+                        MessageBox.Show("ปิดยอดขายของวันที่ " + shiftsales.saldat.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ไปแล้ว ไม่สามารถแก้ไข/ลบ ได้, ต้องไปลบรายการปิดยอดขายออกก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                if(shiftsales.IsApproved().Value == true)
+                {
+                    if(show_alert)
+                        MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public static bool ValidateEditableDayend(this dayendVM dayend, bool show_alert = true)
+        {
+            using (xpumpEntities db = DBX.DataSet(dayend.working_express_db))
+            {
+                var de = db.dayend.Find(dayend.id);
+                if(de == null)
+                {
+                    if (show_alert)
+                        MessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                if(dayend.IsApproved().Value == true)
+                {
+                    if (show_alert)
+                        MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public static bool? IsClosedShiftSales(this shiftsalesVM shiftsales)
+        {
+            using (xpumpEntities db = DBX.DataSet(shiftsales.working_express_db))
+            {
+                var tmp = db.shiftsales.Find(shiftsales.id);
+                if (tmp == null)
+                    return null;
+
+                return tmp.closed;
+            }
+        }
+
         public static bool? IsApproved(this shiftsalesVM shiftsales)
         {
             using (xpumpEntities db = DBX.DataSet(shiftsales.working_express_db))
@@ -1763,5 +1812,12 @@ namespace XPump.Misc
             }
         }
 
+        public static List<daysttak> GetIncompleteDaysttak(this dayendVM dayend)
+        {
+            using (xpumpEntities db = DBX.DataSet(dayend.working_express_db))
+            {
+                return db.daysttak.Where(d => d.dayend_id == dayend.id && d.qty < 0).ToList();
+            }
+        }
     }
 }

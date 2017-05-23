@@ -52,8 +52,7 @@ namespace XPump.SubForm
 
         private void DialogShiftSttak_Shown(object sender, EventArgs e)
         {
-            var is_approved = this.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if (is_approved.HasValue && is_approved.Value == false)
+            if(this.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales(false) == true)
             {
                 this.btnEdit.PerformClick();
             }
@@ -93,12 +92,8 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            var is_approved = this.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if(is_approved.HasValue && is_approved.Value == true)
-            {
-                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (this.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
                 return;
-            }
 
             if (this.form_mode == FORM_MODE.EDIT_ITEM)
                 return;
@@ -193,6 +188,9 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (this.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
+                return;
+
             if(this.sttak.Where(s => s.qty < 0).Count() > 0)
             {
                 MessageBox.Show("กรุณาป้อนปริมาณน้ำมันที่วัดได้ให้ครบทุกรายการ(ห้ามติดลบ)", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);

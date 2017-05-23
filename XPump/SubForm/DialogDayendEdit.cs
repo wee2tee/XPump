@@ -41,21 +41,8 @@ namespace XPump.SubForm
             this.bs = new BindingSource();
             this.dgv.DataSource = this.bs;
 
-            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-            {
-                this.curr_dayend = this.GetDayEndData(this.curr_dayend);
-                
-                if(this.curr_dayend == null)
-                {
-                    MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    this.DialogResult = DialogResult.Cancel;
-                    this.Close();
-                    return;
-                }
-
-                this.FillForm();
-                this.ActiveControl = this.dgv;
-            }
+            this.FillForm();
+            this.ActiveControl = this.dgv;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -77,12 +64,26 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                return db.dayend.Include("daysttak").Where(d => d.id == this.curr_dayend.id).FirstOrDefault();
+                dayend de = db.dayend.Include("daysttak").Where(d => d.id == dayend.id).FirstOrDefault();
+
+                if (de == null)
+                {
+                    MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+                    return null;
+                }
+                else
+                {
+                    return de;
+                }
             }
         }
 
         private void FillForm()
         {
+            this.curr_dayend = this.GetDayEndData(this.curr_dayend);
+
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.curr_dayend.daysttak.ToViewModel(this.main_form.working_express_db);
 
@@ -277,6 +278,7 @@ namespace XPump.SubForm
             this.RemoveInlineForm();
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
+            this.FillForm();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -357,7 +359,7 @@ namespace XPump.SubForm
             DialogDother d = new DialogDother(this.main_form, this.curr_dayend);
             d.SetBounds(((Button)sender).PointToScreen(Point.Empty).X + ((Button)sender).Width, ((Button)sender).PointToScreen(Point.Empty).Y, d.Width, d.Height);
             d.ShowDialog();
-            
+            this.RefreshSummary();
         }
 
         private void btnSyncRcvqty_Click(object sender, EventArgs e)
@@ -368,7 +370,8 @@ namespace XPump.SubForm
                 if(MessageBox.Show("เปลี่ยนยอดรับน้ำมันจาก " + string.Format("{0:#,#0.00}", this.curr_dayend.rcvqty) + " ลิตร  ไปเป็น  " + string.Format("{0:#,#0.00}", rcv) + " ลิตร, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     this.curr_dayend.rcvqty = rcv;
-                    this.RefreshSummary();
+                    this.numRcvqty._Value = this.curr_dayend.rcvqty;
+                    //this.RefreshSummary();
                 }
             }
             this.numRcvqty.Focus();
@@ -377,6 +380,22 @@ namespace XPump.SubForm
         private void numRcvqty__ValueChanged(object sender, EventArgs e)
         {
             this.curr_dayend.rcvqty = ((XNumEdit)sender)._Value;
+            //this.RefreshSummary();
+        }
+
+        private void numBegbal__ValueChanged(object sender, EventArgs e)
+        {
+            this.curr_dayend.begbal = ((XNumEdit)sender)._Value;
+        }
+
+        private void numSalqty__ValueChanged(object sender, EventArgs e)
+        {
+            this.curr_dayend.salqty = ((XNumEdit)sender)._Value;
+        }
+
+        private void numBegdif__ValueChanged(object sender, EventArgs e)
+        {
+            this.curr_dayend.begdif = ((XNumEdit)sender)._Value;
         }
     }
 }

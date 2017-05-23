@@ -119,6 +119,19 @@ namespace XPump.SubForm
             }
         }
 
+        private void ShowEditForm()
+        {
+            if (this.curr_dayend == null)
+                return;
+
+            DialogDayendEdit dlg = new DialogDayendEdit(this.main_form, this.curr_dayend);
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                this.dayend_list = this.GetDayEnd(this.curr_date.Value);
+                this.FillForm();
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             DialogDateSelector dlg = new DialogDateSelector("วันที่ปิดยอดขาย", DateTime.Now);
@@ -184,7 +197,9 @@ namespace XPump.SubForm
                             {
                                 shiftsttak sttak = db.shiftsttak.Where(s => s.takdat == dlg.selected_date)
                                             .Where(s => s.section_id == sect.id)
-                                            .Where(s => s.qty > -1).FirstOrDefault();
+                                            .Where(s => s.qty > -1)
+                                            .OrderByDescending(s => s.id)
+                                            .FirstOrDefault();
 
                                 db.daysttak.Add(new daysttak
                                 {
@@ -221,19 +236,6 @@ namespace XPump.SubForm
             }
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            if (this.curr_dayend == null)
-                return;
-
-            DialogDayendEdit dlg = new DialogDayendEdit(this.main_form, this.curr_dayend);
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                this.dayend_list = this.GetDayEnd(this.curr_date.Value);
-                this.FillForm();
-            }
-        }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (!this.curr_date.HasValue)
@@ -252,6 +254,10 @@ namespace XPump.SubForm
                             foreach (var sttak in db.daysttak.Where(d => d.dayend_id == de.id).ToList())
                             {
                                 db.daysttak.Remove(db.daysttak.Find(sttak.id));
+                            }
+                            foreach (var dother in db.dother.Where(d => d.dayend_id == de.id).ToList())
+                            {
+                                db.dother.Remove(db.dother.Find(dother.id));
                             }
                             db.dayend.Remove(db.dayend.Find(de.id));
                         }
@@ -598,7 +604,7 @@ namespace XPump.SubForm
         {
             if(e.RowIndex > -1)
             {
-                this.btnEdit.PerformClick();
+                this.ShowEditForm();
             }
         }
 
@@ -617,7 +623,7 @@ namespace XPump.SubForm
                 MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
                 mnu_edit.Click += delegate
                 {
-                    this.btnEdit.PerformClick();
+                    this.ShowEditForm();
                 };
                 cm.MenuItems.Add(mnu_edit);
 
@@ -635,7 +641,7 @@ namespace XPump.SubForm
 
             if (keyData == (Keys.Alt | Keys.E))
             {
-                this.btnEdit.PerformClick();
+                this.ShowEditForm();
                 return true;
             }
 
@@ -1214,6 +1220,29 @@ namespace XPump.SubForm
             };
 
             return docs;
+        }
+
+        private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if(e.RowIndex == -1)
+            {
+
+            }
+
+            if(e.RowIndex > -1)
+            {
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_endbal.DataPropertyName).First().Index)
+                {
+                    var incomplete = this.dayend_list[e.RowIndex].ToViewModel(this.main_form.working_express_db).GetIncompleteDaysttak();
+                    if(incomplete.Count > 0)
+                    {
+                        e.CellStyle.ForeColor = Color.Red;
+                        e.CellStyle.SelectionForeColor = Color.Red;
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                        e.Handled = true;
+                    }
+                }
+            }
         }
     }
 }

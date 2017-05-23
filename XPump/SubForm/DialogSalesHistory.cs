@@ -62,14 +62,6 @@ namespace XPump.SubForm
             this.FillDgvPrice();
 
             this.FillSummary();
-            //if (this.dgvNozzle.Rows.Count > 0)
-            //{
-            //    this.form_mode = FORM_MODE.EDIT_ITEM;
-            //    this.ResetControlState();
-            //    this.dgvNozzle.Rows[0].Cells[this.col_nozzle_name.Name].Selected = true;
-            //    this.ShowInlineForm(0);
-            //    this.ActiveControl = this.inline_mit_start;
-            //}
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -146,7 +138,7 @@ namespace XPump.SubForm
 
             col_index = this.dgvNozzle.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_mitend.DataPropertyName).First().Index;
             this.inline_mit_end.SetInlineControlPosition(this.dgvNozzle, this.dgvNozzle.CurrentCell.RowIndex, col_index);
-            this.inline_mit_end._Value = this.tmp_saleshistory.mitend;
+            this.inline_mit_end._Value = this.tmp_saleshistory.mitend < 0 ? 0 : this.tmp_saleshistory.mitend;
         }
 
         private void RemoveInlineForm()
@@ -338,18 +330,8 @@ namespace XPump.SubForm
             if (this.form_mode == FORM_MODE.EDIT_ITEM)
                 this.btnOK.PerformClick();
 
-            if (this.salessummary.shiftsales.IsClosedShiftSales(this.main_form.working_express_db))
-            {
-                MessageBox.Show("วันที่ " + this.salessummary.shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
                 return;
-            }
-
-            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if (is_approved != null && is_approved == true)
-            {
-                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
 
             this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
@@ -359,12 +341,8 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if (is_approved != null && is_approved == true)
-            {
-                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
                 return;
-            }
 
             if (this.form_mode == FORM_MODE.EDIT_ITEM)
             {
@@ -419,18 +397,8 @@ namespace XPump.SubForm
 
         private void dgvNozzle_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (this.salessummary.shiftsales.IsClosedShiftSales(this.main_form.working_express_db))
-            {
-                MessageBox.Show("วันที่ " + this.salessummary.shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถแก้ไขได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
                 return;
-            }
-
-            var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-            if (is_approved.HasValue && is_approved.Value == true)
-            {
-                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
 
             if (e.RowIndex > -1 && ((XDatagrid)sender).CurrentCell != null)
             {
@@ -505,12 +473,8 @@ namespace XPump.SubForm
                 {
                     if (this.dgvNozzle.Rows.Count > 0 && this.dgvNozzle.CurrentCell != null)
                     {
-                        var is_approved = this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
-                        if (is_approved.HasValue && is_approved.Value == true)
-                        {
-                            MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
                             return true;
-                        }
 
                         this.dgvNozzle.Rows[0].Cells[this.col_mitbeg.Name].Selected = true;
                         this.form_mode = FORM_MODE.EDIT_ITEM;

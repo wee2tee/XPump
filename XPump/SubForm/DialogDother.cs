@@ -70,6 +70,8 @@ namespace XPump.SubForm
         {
             var available_dother = this.GetAvailableDother(this.dother_type);
 
+            this.inline_dother._Items.Add(new XDropdownListItem { Text = string.Empty, Value = -1 });
+
             foreach (var d in available_dother)
             {
                 this.inline_dother._Items.Add(new XDropdownListItem { Text = "[" + d.typcod + "]" + d.typdes, Value = d.id });
@@ -154,6 +156,8 @@ namespace XPump.SubForm
                 col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_typdes.DataPropertyName).First().Index;
                 this.inline_dother.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
                 this.inline_dother._ReadOnly = false;
+                var selected_item = this.inline_dother._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == this.tmp_dother.istab_id).FirstOrDefault();
+                this.inline_dother._SelectedItem = selected_item != null ? selected_item : this.inline_dother._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
             }
             else
             {
@@ -174,16 +178,29 @@ namespace XPump.SubForm
             this.tmp_dother = null;
         }
 
-        private bool? IsApproved()
+        //private bool? IsApproved()
+        //{
+        //    switch (this.dother_type)
+        //    {
+        //        case DOTHER.SHIFTSALES:
+        //            return this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+        //        case DOTHER.DAYEND:
+        //            return this.dayend.ToViewModel(this.main_form.working_express_db).IsApproved();
+        //        default:
+        //            return null;
+        //    }
+        //}
+
+        private bool IsEditable()
         {
             switch (this.dother_type)
             {
                 case DOTHER.SHIFTSALES:
-                    return this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsApproved();
+                    return this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales();
                 case DOTHER.DAYEND:
-                    return this.dayend.ToViewModel(this.main_form.working_express_db).IsApproved();
+                    return this.dayend.ToViewModel(this.main_form.working_express_db).ValidateEditableDayend();
                 default:
-                    return null;
+                    return false;
             }
         }
 
@@ -201,11 +218,8 @@ namespace XPump.SubForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (this.IsApproved() != null && this.IsApproved() == true)
-            {
-                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (this.IsEditable() == false)
                 return;
-            }
 
             this.bl_dother.Add(new dother
             {
@@ -226,11 +240,8 @@ namespace XPump.SubForm
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (this.IsApproved() != null && this.IsApproved() == true)
-            {
-                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (this.IsEditable() == false)
                 return;
-            }
 
             this.ResetControlState(FORM_MODE.EDIT_ITEM);
             this.ShowInlineForm();
@@ -265,11 +276,8 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (this.IsApproved() != null && this.IsApproved() == true)
-            {
-                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (this.IsEditable() == false)
                 return;
-            }
 
             if (this.tmp_dother.istab_id == -1)
             {
@@ -377,11 +385,8 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            if (this.IsApproved() != null && this.IsApproved() == true)
-            {
-                MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            if (this.IsEditable() == false)
                 return;
-            }
 
             var dother = (dother)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_dother.Name].Value;
 
@@ -421,6 +426,8 @@ namespace XPump.SubForm
                             db.SaveChanges();
 
                             this.bl_dother.Remove(this.bl_dother.Where(d => d.id == dother_to_delete.id).First());
+                            this.FillForm();
+                            this.ResetControlState(FORM_MODE.READ_ITEM);
                         }
                     }
                     catch (Exception ex)

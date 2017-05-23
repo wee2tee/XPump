@@ -36,6 +36,18 @@
             this.lblStkcod = new System.Windows.Forms.Label();
             this.lblStkdes = new System.Windows.Forms.Label();
             this.dgv = new CC.XDatagrid();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_dayend_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_daysttak = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_creby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_chgby = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.inline_qty = new CC.XNumEdit();
@@ -71,18 +83,6 @@
             this.numBegdif = new CC.XNumEdit();
             this.lblDother = new System.Windows.Forms.Label();
             this.btnDother = new System.Windows.Forms.Button();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_dayend_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_daysttak = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_creby = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_chgby = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -185,6 +185,110 @@
             this.dgv.TabIndex = 0;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
+            // 
+            // col_id
+            // 
+            this.col_id.DataPropertyName = "id";
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
+            // 
+            // col_tank_name
+            // 
+            this.col_tank_name.DataPropertyName = "tank_name";
+            this.col_tank_name.HeaderText = "รหัสแท๊งค์";
+            this.col_tank_name.MinimumWidth = 140;
+            this.col_tank_name.Name = "col_tank_name";
+            this.col_tank_name.ReadOnly = true;
+            this.col_tank_name.Visible = false;
+            this.col_tank_name.Width = 140;
+            // 
+            // col_section_name
+            // 
+            this.col_section_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_section_name.DataPropertyName = "section_name";
+            this.col_section_name.HeaderText = "เลขที่ถัง";
+            this.col_section_name.MinimumWidth = 140;
+            this.col_section_name.Name = "col_section_name";
+            this.col_section_name.ReadOnly = true;
+            // 
+            // col_qty
+            // 
+            this.col_qty.DataPropertyName = "qty";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = null;
+            this.col_qty.DefaultCellStyle = dataGridViewCellStyle8;
+            this.col_qty.HeaderText = "ปริมาณที่ตรวจวัดได้ (ลิตร)";
+            this.col_qty.MinimumWidth = 160;
+            this.col_qty.Name = "col_qty";
+            this.col_qty.ReadOnly = true;
+            this.col_qty.Width = 160;
+            // 
+            // col_dayend_id
+            // 
+            this.col_dayend_id.DataPropertyName = "dayend_id";
+            this.col_dayend_id.HeaderText = "Dayend Id";
+            this.col_dayend_id.Name = "col_dayend_id";
+            this.col_dayend_id.ReadOnly = true;
+            this.col_dayend_id.Visible = false;
+            // 
+            // col_section_id
+            // 
+            this.col_section_id.DataPropertyName = "section_id";
+            this.col_section_id.HeaderText = "Section Id";
+            this.col_section_id.Name = "col_section_id";
+            this.col_section_id.ReadOnly = true;
+            this.col_section_id.Visible = false;
+            // 
+            // col_daysttak
+            // 
+            this.col_daysttak.DataPropertyName = "daysttak";
+            this.col_daysttak.HeaderText = "Sttak";
+            this.col_daysttak.Name = "col_daysttak";
+            this.col_daysttak.ReadOnly = true;
+            this.col_daysttak.Visible = false;
+            // 
+            // col_working_express_db
+            // 
+            this.col_working_express_db.DataPropertyName = "working_express_db";
+            this.col_working_express_db.HeaderText = "Working Express DB";
+            this.col_working_express_db.Name = "col_working_express_db";
+            this.col_working_express_db.ReadOnly = true;
+            this.col_working_express_db.Visible = false;
+            // 
+            // col_creby
+            // 
+            this.col_creby.DataPropertyName = "creby";
+            this.col_creby.HeaderText = "Created By";
+            this.col_creby.Name = "col_creby";
+            this.col_creby.ReadOnly = true;
+            this.col_creby.Visible = false;
+            // 
+            // col_cretime
+            // 
+            this.col_cretime.DataPropertyName = "cretime";
+            this.col_cretime.HeaderText = "Created Time";
+            this.col_cretime.Name = "col_cretime";
+            this.col_cretime.ReadOnly = true;
+            this.col_cretime.Visible = false;
+            // 
+            // col_chgby
+            // 
+            this.col_chgby.DataPropertyName = "chgby";
+            this.col_chgby.HeaderText = "Changed By";
+            this.col_chgby.Name = "col_chgby";
+            this.col_chgby.ReadOnly = true;
+            this.col_chgby.Visible = false;
+            // 
+            // col_chgtime
+            // 
+            this.col_chgtime.DataPropertyName = "chgtime";
+            this.col_chgtime.HeaderText = "Changed Time";
+            this.col_chgtime.Name = "col_chgtime";
+            this.col_chgtime.ReadOnly = true;
+            this.col_chgtime.Visible = false;
             // 
             // tabControl1
             // 
@@ -567,6 +671,7 @@
             this.numSalqty.Name = "numSalqty";
             this.numSalqty.Size = new System.Drawing.Size(152, 23);
             this.numSalqty.TabIndex = 3;
+            this.numSalqty._ValueChanged += new System.EventHandler(this.numSalqty__ValueChanged);
             this.numSalqty._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // numRcvqty
@@ -632,6 +737,7 @@
             this.numBegbal.Name = "numBegbal";
             this.numBegbal.Size = new System.Drawing.Size(152, 23);
             this.numBegbal.TabIndex = 3;
+            this.numBegbal._ValueChanged += new System.EventHandler(this.numBegbal__ValueChanged);
             this.numBegbal._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // numBegdif
@@ -664,6 +770,7 @@
             this.numBegdif.Name = "numBegdif";
             this.numBegdif.Size = new System.Drawing.Size(152, 23);
             this.numBegdif.TabIndex = 3;
+            this.numBegdif._ValueChanged += new System.EventHandler(this.numBegdif__ValueChanged);
             this.numBegdif._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // lblDother
@@ -688,110 +795,6 @@
             this.btnDother.Text = "อื่น ๆ  ...";
             this.btnDother.UseVisualStyleBackColor = true;
             this.btnDother.Click += new System.EventHandler(this.btnDother_Click);
-            // 
-            // col_id
-            // 
-            this.col_id.DataPropertyName = "id";
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
-            // 
-            // col_tank_name
-            // 
-            this.col_tank_name.DataPropertyName = "tank_name";
-            this.col_tank_name.HeaderText = "รหัสแท๊งค์";
-            this.col_tank_name.MinimumWidth = 140;
-            this.col_tank_name.Name = "col_tank_name";
-            this.col_tank_name.ReadOnly = true;
-            this.col_tank_name.Visible = false;
-            this.col_tank_name.Width = 140;
-            // 
-            // col_section_name
-            // 
-            this.col_section_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_section_name.DataPropertyName = "section_name";
-            this.col_section_name.HeaderText = "เลขที่ถัง";
-            this.col_section_name.MinimumWidth = 140;
-            this.col_section_name.Name = "col_section_name";
-            this.col_section_name.ReadOnly = true;
-            // 
-            // col_qty
-            // 
-            this.col_qty.DataPropertyName = "qty";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = null;
-            this.col_qty.DefaultCellStyle = dataGridViewCellStyle8;
-            this.col_qty.HeaderText = "ปริมาณที่ตรวจวัดได้ (ลิตร)";
-            this.col_qty.MinimumWidth = 160;
-            this.col_qty.Name = "col_qty";
-            this.col_qty.ReadOnly = true;
-            this.col_qty.Width = 160;
-            // 
-            // col_dayend_id
-            // 
-            this.col_dayend_id.DataPropertyName = "dayend_id";
-            this.col_dayend_id.HeaderText = "Dayend Id";
-            this.col_dayend_id.Name = "col_dayend_id";
-            this.col_dayend_id.ReadOnly = true;
-            this.col_dayend_id.Visible = false;
-            // 
-            // col_section_id
-            // 
-            this.col_section_id.DataPropertyName = "section_id";
-            this.col_section_id.HeaderText = "Section Id";
-            this.col_section_id.Name = "col_section_id";
-            this.col_section_id.ReadOnly = true;
-            this.col_section_id.Visible = false;
-            // 
-            // col_daysttak
-            // 
-            this.col_daysttak.DataPropertyName = "daysttak";
-            this.col_daysttak.HeaderText = "Sttak";
-            this.col_daysttak.Name = "col_daysttak";
-            this.col_daysttak.ReadOnly = true;
-            this.col_daysttak.Visible = false;
-            // 
-            // col_working_express_db
-            // 
-            this.col_working_express_db.DataPropertyName = "working_express_db";
-            this.col_working_express_db.HeaderText = "Working Express DB";
-            this.col_working_express_db.Name = "col_working_express_db";
-            this.col_working_express_db.ReadOnly = true;
-            this.col_working_express_db.Visible = false;
-            // 
-            // col_creby
-            // 
-            this.col_creby.DataPropertyName = "creby";
-            this.col_creby.HeaderText = "Created By";
-            this.col_creby.Name = "col_creby";
-            this.col_creby.ReadOnly = true;
-            this.col_creby.Visible = false;
-            // 
-            // col_cretime
-            // 
-            this.col_cretime.DataPropertyName = "cretime";
-            this.col_cretime.HeaderText = "Created Time";
-            this.col_cretime.Name = "col_cretime";
-            this.col_cretime.ReadOnly = true;
-            this.col_cretime.Visible = false;
-            // 
-            // col_chgby
-            // 
-            this.col_chgby.DataPropertyName = "chgby";
-            this.col_chgby.HeaderText = "Changed By";
-            this.col_chgby.Name = "col_chgby";
-            this.col_chgby.ReadOnly = true;
-            this.col_chgby.Visible = false;
-            // 
-            // col_chgtime
-            // 
-            this.col_chgtime.DataPropertyName = "chgtime";
-            this.col_chgtime.HeaderText = "Changed Time";
-            this.col_chgtime.Name = "col_chgtime";
-            this.col_chgtime.ReadOnly = true;
-            this.col_chgtime.Visible = false;
             // 
             // DialogDayendEdit
             // 
