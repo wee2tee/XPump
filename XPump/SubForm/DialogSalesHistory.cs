@@ -330,7 +330,7 @@ namespace XPump.SubForm
             if (this.form_mode == FORM_MODE.EDIT_ITEM)
                 this.btnOK.PerformClick();
 
-            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
+            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
             this.form_mode = FORM_MODE.EDIT;
@@ -341,7 +341,7 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
+            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
             if (this.form_mode == FORM_MODE.EDIT_ITEM)
@@ -397,7 +397,7 @@ namespace XPump.SubForm
 
         private void dgvNozzle_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
+            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
             if (e.RowIndex > -1 && ((XDatagrid)sender).CurrentCell != null)
@@ -473,7 +473,7 @@ namespace XPump.SubForm
                 {
                     if (this.dgvNozzle.Rows.Count > 0 && this.dgvNozzle.CurrentCell != null)
                     {
-                        if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
+                        if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                             return true;
 
                         this.dgvNozzle.Rows[0].Cells[this.col_mitbeg.Name].Selected = true;

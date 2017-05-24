@@ -80,6 +80,8 @@ namespace XPump.SubForm
 
                 this.lblTank.Text = db.tank.Find(this.section.tank_id) != null ? db.tank.Find(this.section.tank_id).name : string.Empty;
 
+                this.lblStkdes.Text = this.section.stkcod + " / " + this.section.stkdes;
+
                 this.list_nozzle = this.GetNozzleList();
 
                 this.bs = new BindingSource();

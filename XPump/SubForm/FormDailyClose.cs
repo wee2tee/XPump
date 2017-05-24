@@ -22,6 +22,7 @@ namespace XPump.SubForm
         private List<dayend> dayend_list;
         private DateTime? curr_date;
         private dayend curr_dayend;
+        private string menu_id;
 
         public FormDailyClose(MainForm main_form)
         {
@@ -52,6 +53,7 @@ namespace XPump.SubForm
 
         private void DialogDailySummary_Load(object sender, EventArgs e)
         {
+            this.menu_id = this.GetType().Name;
             this.BackColor = MiscResource.WIND_BG;
             this.bs = new BindingSource();
             this.dgv.DataSource = this.bs;
@@ -83,7 +85,20 @@ namespace XPump.SubForm
             this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnPrintB.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnPrintC.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnUnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+
+            this.ResetApproveBtn();
+        }
+
+        private void ResetApproveBtn()
+        {
+            if(this.form_mode == FORM_MODE.READ)
+            {
+                this.btnApprove.Enabled = this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().HasValue && this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().Value == true ? false : true;
+                this.btnUnApprove.Enabled = this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().HasValue && this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().Value == true ? true : false;
+            }
         }
 
         private List<dayend> GetDayEnd(DateTime date)
@@ -117,6 +132,8 @@ namespace XPump.SubForm
                 this.btnItem.Enabled = this.dayend_list.Count == 0 ? false : true;
                 this.btnRefresh.Enabled = this.dayend_list.Count == 0 ? false : true;
             }
+
+            this.ResetApproveBtn();
         }
 
         private void ShowEditForm()
@@ -239,6 +256,9 @@ namespace XPump.SubForm
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (!this.curr_date.HasValue)
+                return;
+
+            if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
                 return;
 
             if(MessageBox.Show("ลบข้อมูลการปิดยอดขายของวันที่ \"" + this.curr_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" , ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
@@ -412,9 +432,63 @@ namespace XPump.SubForm
             col_saldat.HeaderText = "วันที่";
             col_saldat.Name = "col_saldat";
             col_saldat.DataPropertyName = "saldat";
-            col_saldat.MinimumWidth = 80;
-            col_saldat.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            col_saldat.DefaultCellStyle.Format = "dd/MM/yyyy";
+            col_saldat.Width = 100;
+            col_saldat.MinimumWidth = 100;
             cols.Add(col_saldat);
+
+            DataGridViewColumn col_creby = new DataGridViewTextBoxColumn();
+            col_creby.DataPropertyName = "creby";
+            col_creby.Visible = true;
+            col_creby.HeaderText = "สร้างโดย";
+            col_creby.MinimumWidth = 100;
+            col_creby.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            cols.Add(col_creby);
+
+            DataGridViewColumn col_cretime = new DataGridViewTextBoxColumn();
+            col_cretime.DataPropertyName = "cretime";
+            col_cretime.Visible = true;
+            col_cretime.HeaderText = "สร้างเมื่อ";
+            col_cretime.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+            col_cretime.Width = 140;
+            col_cretime.MinimumWidth = 140;
+            cols.Add(col_cretime);
+
+            DataGridViewColumn col_chgby = new DataGridViewTextBoxColumn();
+            col_chgby.DataPropertyName = "chgby";
+            col_chgby.Visible = true;
+            col_chgby.HeaderText = "บันทึกล่าสุดโดย";
+            col_chgby.MinimumWidth = 100;
+            col_chgby.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            cols.Add(col_chgby);
+
+            DataGridViewColumn col_chgtime = new DataGridViewTextBoxColumn();
+            col_chgtime.DataPropertyName = "chgtime";
+            col_chgtime.Visible = true;
+            col_chgtime.HeaderText = "บันทึกล่าสุดเมื่อ";
+            col_chgtime.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+            col_chgtime.Width = 140;
+            col_chgtime.MinimumWidth = 140;
+            cols.Add(col_chgtime);
+
+            DataGridViewColumn col_apprby = new DataGridViewTextBoxColumn();
+            col_apprby.DataPropertyName = "apprby";
+            col_apprby.Visible = true;
+            col_apprby.HeaderText = "รับรองโดย";
+            col_apprby.MinimumWidth = 100;
+            col_apprby.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            col_apprby.Visible = false;
+            cols.Add(col_apprby);
+
+            DataGridViewColumn col_apprtime = new DataGridViewTextBoxColumn();
+            col_apprtime.DataPropertyName = "apprtime";
+            col_apprtime.Visible = true;
+            col_apprtime.HeaderText = "รับรองเมื่อ";
+            col_apprtime.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+            col_apprtime.Width = 140;
+            col_apprtime.MinimumWidth = 140;
+            col_apprtime.Visible = false;
+            cols.Add(col_apprtime);
 
             DataGridViewColumn col_rcvqty = new DataGridViewTextBoxColumn();
             col_rcvqty.HeaderText = "Rcv qty.";
@@ -428,12 +502,6 @@ namespace XPump.SubForm
             col_salqty.Visible = false;
             cols.Add(col_salqty);
 
-            DataGridViewColumn col_dothertxt = new DataGridViewTextBoxColumn();
-            col_dothertxt.HeaderText = "Dothertxt";
-            col_dothertxt.DataPropertyName = "dothertxt";
-            col_dothertxt.Visible = false;
-            cols.Add(col_dothertxt);
-
             DataGridViewColumn col_dother = new DataGridViewTextBoxColumn();
             col_dother.HeaderText = "Dother";
             col_dother.DataPropertyName = "dother";
@@ -446,17 +514,29 @@ namespace XPump.SubForm
             col_difqty.Visible = false;
             cols.Add(col_difqty);
 
-            DataGridViewColumn col_stmas_id = new DataGridViewTextBoxColumn();
-            col_stmas_id.HeaderText = "Stmas Id";
-            col_stmas_id.DataPropertyName = "stmas_id";
-            col_stmas_id.Visible = false;
-            cols.Add(col_stmas_id);
+            DataGridViewColumn col_stkcod = new DataGridViewTextBoxColumn();
+            col_stkcod.HeaderText = "Stkcod";
+            col_stkcod.DataPropertyName = "stkcod";
+            col_stkcod.Visible = false;
+            cols.Add(col_stkcod);
 
             DataGridViewColumn col_stmas = new DataGridViewTextBoxColumn();
             col_stmas.HeaderText = "Stmas";
             col_stmas.DataPropertyName = "stmas";
             col_stmas.Visible = false;
             cols.Add(col_stmas);
+
+            DataGridViewColumn col_begbal = new DataGridViewTextBoxColumn();
+            col_begbal.HeaderText = "Begbal";
+            col_begbal.DataPropertyName = "begbal";
+            col_begbal.Visible = false;
+            cols.Add(col_begbal);
+
+            DataGridViewColumn col_begdif = new DataGridViewTextBoxColumn();
+            col_begdif.HeaderText = "Begdif";
+            col_begdif.DataPropertyName = "begdif";
+            col_begdif.Visible = false;
+            cols.Add(col_begdif);
 
             DataGridViewColumn col_daysttak = new DataGridViewTextBoxColumn();
             col_daysttak.HeaderText = "Day Sttak";
@@ -571,6 +651,103 @@ namespace XPump.SubForm
             }
         }
 
+        private void btnApprove_Click(object sender, EventArgs e)
+        {
+            if (this.curr_dayend == null)
+                return;
+            string approved_user = this.main_form.loged_in_status.loged_in_user_name;
+
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                var dayend_ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
+                if (db.daysttak.Where(s => dayend_ids.Contains(s.dayend_id) && s.qty < 0).Count() > 0)
+                {
+                    if (MessageBox.Show("ปริมาณน้ำมันที่ตรวจวัดได้ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                        return;
+                }
+
+                settings settings = DialogSettings.GetSettings(this.main_form.working_express_db);
+                if (this.main_form.loged_in_status.loged_in_user_level < settings.dayauthlev)
+                {
+                    DialogValidateUser validate = new DialogValidateUser(this.main_form, settings.dayauthlev);
+                    if (validate.ShowDialog() != DialogResult.OK)
+                        return;
+
+                    approved_user = validate.validated_status.loged_in_user_name;
+                }
+
+                if (MessageBox.Show("กรุณายืนยันเพื่อทำการรับรองรายการ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    foreach (var id in dayend_ids)
+                    {
+                        var dayend_to_appr = db.dayend.Find(id);
+                        dayend_to_appr.apprby = approved_user;
+                        dayend_to_appr.apprtime = DateTime.Now;
+
+                        db.SaveChanges();
+                    }
+
+                    this.main_form.islog.Approve(this.menu_id, "รับรองรายการ ปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", null).Save(approved_user);
+
+                    this.btnRefresh.PerformClick();
+                    this.ResetApproveBtn();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnUnApprove_Click(object sender, EventArgs e)
+        {
+            if (this.curr_dayend == null)
+                return;
+
+            string unapproved_user = this.main_form.loged_in_status.loged_in_user_name;
+
+            settings settings = DialogSettings.GetSettings(this.main_form.working_express_db);
+            if (this.main_form.loged_in_status.loged_in_user_level < settings.dayauthlev)
+            {
+                DialogValidateUser validate = new DialogValidateUser(this.main_form, settings.dayauthlev);
+                if (validate.ShowDialog() != DialogResult.OK)
+                    return;
+
+                unapproved_user = validate.validated_status.loged_in_user_name;
+            }
+
+            if (MessageBox.Show("กรุณายืนยันเพื่อยกเลิกการรับรองรายการ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                return;
+
+            try
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    foreach (var id in db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray())
+                    {
+                        var dayend_to_appr = db.dayend.Find(id);
+                        dayend_to_appr.apprby = null;
+                        dayend_to_appr.apprtime = null;
+
+                        db.SaveChanges();
+                    }
+                    
+
+                    this.main_form.islog.UnApprove(this.menu_id, "ยกเลิกการรับรองรายการ ปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", null).Save(unapproved_user);
+
+                    this.btnRefresh.PerformClick();
+                    this.ResetApproveBtn();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             if (this.curr_date.HasValue)
@@ -629,89 +806,6 @@ namespace XPump.SubForm
 
                 cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
             }
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == (Keys.Alt | Keys.A))
-            {
-                this.btnAdd.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Alt | Keys.E))
-            {
-                this.ShowEditForm();
-                return true;
-            }
-
-            if (keyData == (Keys.Alt | Keys.D))
-            {
-                this.btnDelete.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Home))
-            {
-                this.btnFirst.PerformClick();
-                return true;
-            }
-
-            if (keyData == Keys.PageUp)
-            {
-                this.btnPrevious.PerformClick();
-                return true;
-            }
-
-            if (keyData == Keys.PageDown)
-            {
-                this.btnNext.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.End))
-            {
-                this.btnLast.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Alt | Keys.S))
-            {
-                this.btnSearch.PerformButtonClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Alt | Keys.L))
-            {
-                this.btnInquiryRest.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.L))
-            {
-                this.btnInquiryAll.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Alt | Keys.P))
-            {
-                this.btnPrintB.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.P))
-            {
-                this.btnPrintC.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.F5))
-            {
-                this.btnRefresh.PerformClick();
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private PrintDocument PreparePrintDoc_B(ReportBModel report_data, int total_page = 0)
@@ -1226,7 +1320,42 @@ namespace XPump.SubForm
         {
             if(e.RowIndex == -1)
             {
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_endbal.DataPropertyName).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground);
+                    e.Handled = true;
+                    return;
+                }
 
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_button_edit.Name).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    Rectangle rect = new Rectangle(e.CellBounds.X - 3, e.CellBounds.Y + 2, 6, e.CellBounds.Height - 3);
+                    using (SolidBrush brush = new SolidBrush(((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor))
+                    {
+                        e.Graphics.FillRectangle(brush, rect);
+                    }
+                    using (Pen p = new Pen(((XDatagrid)sender).ColumnHeadersDefaultCellStyle.ForeColor))
+                    {
+                        rect = new Rectangle(e.CellBounds.X - this.col_endbal.Width, e.CellBounds.Y, this.col_endbal.Width + e.CellBounds.Width, e.CellBounds.Height);
+                        TextRenderer.DrawText(e.Graphics, this.col_endbal.HeaderText, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, rect, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+                    }
+                    
+                    e.Handled = true;
+                    return;
+                }
+
+                if(e.ColumnIndex != ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_stkcod.Name).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground);
+                    using (Pen p = new Pen(((XDatagrid)sender).ColumnHeadersDefaultCellStyle.ForeColor))
+                    {
+                        Rectangle rect = new Rectangle(e.CellBounds.X - this.col_endbal.Width, e.CellBounds.Y, this.col_endbal.Width + e.CellBounds.Width, e.CellBounds.Height);
+                        TextRenderer.DrawText(e.Graphics, ((XDatagrid)sender).Columns[e.ColumnIndex].HeaderText, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, rect, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+                    }
+                    e.Handled = true;
+                    return;
+                }
             }
 
             if(e.RowIndex > -1)
@@ -1242,7 +1371,130 @@ namespace XPump.SubForm
                         e.Handled = true;
                     }
                 }
+
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_button_edit.Name).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    var w = XPump.Properties.Resources.edit_list_16.Width;
+                    var h = XPump.Properties.Resources.edit_list_16.Height;
+                    Rectangle rect = new Rectangle(e.CellBounds.X + (int)Math.Floor((decimal)(e.CellBounds.Width - w) / 2), e.CellBounds.Y + (int)Math.Floor((decimal)(e.CellBounds.Height - h) / 2), w, h);
+                    e.Graphics.DrawImage(XPump.Properties.Resources.edit_list_16, rect);
+                    e.Handled = true;
+                }
             }
+        }
+
+        private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_button_edit.Name).First().Index)
+            {
+                this.ShowEditForm();
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Alt | Keys.A))
+            {
+                this.btnAdd.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.E))
+            {
+                this.ShowEditForm();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.D))
+            {
+                this.btnDelete.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.Home))
+            {
+                this.btnFirst.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.PageUp)
+            {
+                this.btnPrevious.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.PageDown)
+            {
+                this.btnNext.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.End))
+            {
+                this.btnLast.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.S))
+            {
+                this.btnSearch.PerformButtonClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.L))
+            {
+                this.btnInquiryRest.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.L))
+            {
+                this.btnInquiryAll.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Alt | Keys.P))
+            {
+                this.btnPrintB.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.P))
+            {
+                this.btnPrintC.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.F5))
+            {
+                this.btnRefresh.PerformClick();
+                return true;
+            }
+
+            if (keyData == Keys.Tab)
+            {
+                if(this.form_mode == FORM_MODE.READ)
+                {
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var data_info = db.dayend.Find(this.curr_dayend.id);
+                        if (data_info == null)
+                            return false;
+
+                        var total_recs = db.dayend.AsEnumerable().Count();
+
+                        DialogDataInfo info = new DialogDataInfo("Dayend", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime, data_info.apprby, data_info.apprtime);
+                        info.ShowDialog();
+                    }
+                    
+                    return true;
+                }
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

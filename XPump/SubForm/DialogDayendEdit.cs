@@ -145,6 +145,21 @@ namespace XPump.SubForm
 
         private void PerformEdit(object sender, EventArgs e)
         {
+            if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
+                return;
+
+            if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
+            {
+                if (this.SaveSttak(this.tmp_sttak))
+                {
+                    this.RemoveInlineForm();
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
 
@@ -215,6 +230,9 @@ namespace XPump.SubForm
         {
             if(e.RowIndex > -1)
             {
+                if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
+                    return;
+
                 this.form_mode = FORM_MODE.EDIT_ITEM;
                 this.ResetControlState();
                 this.ShowInlineForm(e.RowIndex);
@@ -223,6 +241,9 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
+                return;
+
             if (this.form_mode == FORM_MODE.EDIT)
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
@@ -318,6 +339,7 @@ namespace XPump.SubForm
                         this.RemoveInlineForm();
                         this.form_mode = FORM_MODE.EDIT;
                         this.ResetControlState();
+                        this.numBegbal.Focus();
                     }
                     return true;
                 }
@@ -396,6 +418,23 @@ namespace XPump.SubForm
         private void numBegdif__ValueChanged(object sender, EventArgs e)
         {
             this.curr_dayend.begdif = ((XNumEdit)sender)._Value;
+        }
+
+        private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_qty.Name).First().Index)
+            {
+                if((decimal)((XDatagrid)sender).Rows[e.RowIndex].Cells[e.ColumnIndex].Value < 0)
+                {
+                    e.CellStyle.ForeColor = Color.Red;
+                    e.CellStyle.SelectionForeColor = Color.Red;
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    e.Handled = true;
+                }
+            }
         }
     }
 }

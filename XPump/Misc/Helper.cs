@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using XPump.Model;
+using XPump.SubForm;
 
 namespace XPump.Misc
 {
@@ -1723,7 +1724,7 @@ namespace XPump.Misc
             }
         }
 
-        public static bool ValidateEditableShiftSales(this shiftsalesVM shiftsales, bool show_alert = true)
+        public static bool IsEditableShiftSales(this shiftsalesVM shiftsales, bool show_alert = true)
         {
             using (xpumpEntities db = DBX.DataSet(shiftsales.working_express_db))
             {
@@ -1753,19 +1754,19 @@ namespace XPump.Misc
             }
         }
 
-        public static bool ValidateEditableDayend(this dayendVM dayend, bool show_alert = true)
+        public static bool IsEditableDayend(this dayendVM dayend, bool show_alert = true)
         {
             using (xpumpEntities db = DBX.DataSet(dayend.working_express_db))
             {
                 var de = db.dayend.Find(dayend.id);
-                if(de == null)
+                if (de == null)
                 {
                     if (show_alert)
                         MessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return false;
                 }
 
-                if(dayend.IsApproved().Value == true)
+                if (dayend.IsApprovedAll().Value == true)
                 {
                     if (show_alert)
                         MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -1776,8 +1777,73 @@ namespace XPump.Misc
             }
         }
 
+        public static bool IsPrintableShiftSales(this shiftsalesVM shiftsales, bool show_alert = true)
+        {
+            using (xpumpEntities db = DBX.DataSet(shiftsales.working_express_db))
+            {
+                var sales = db.shiftsales.Find(shiftsales.id);
+                if (sales == null)
+                {
+                    if (show_alert)
+                        MessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                var settings = DialogSettings.GetSettings(shiftsales.working_express_db);
+                if(settings.shiftprintmet == ((int)PRINT_METHOD.APPROVED_BEFORE_PRINT).ToString() && shiftsales.IsApproved().Value == false)
+                {
+                    if (show_alert)
+                        MessageBox.Show("ต้องรับรองรายการก่อนพิมพ์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                if(settings.shiftprintmet == ((int)PRINT_METHOD.PRINT_BEFORE_APPROVED).ToString() && shiftsales.IsApproved().Value == true)
+                {
+                    if (show_alert)
+                        MessageBox.Show("รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public static bool IsPrintableDayend(this dayendVM dayend, bool show_alert = true)
+        {
+            using (xpumpEntities db = DBX.DataSet(dayend.working_express_db))
+            {
+                var de = db.dayend.Find(dayend.id);
+                if (de == null)
+                {
+                    if (show_alert)
+                        MessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                var settings = DialogSettings.GetSettings(dayend.working_express_db);
+                if (settings.dayprintmet == ((int)PRINT_METHOD.APPROVED_BEFORE_PRINT).ToString() && dayend.IsApproved().Value == false)
+                {
+                    if (show_alert)
+                        MessageBox.Show("ต้องรับรองรายการก่อนพิมพ์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                if (settings.dayprintmet == ((int)PRINT_METHOD.PRINT_BEFORE_APPROVED).ToString() && dayend.IsApproved().Value == true)
+                {
+                    if (show_alert)
+                        MessageBox.Show("รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
         public static bool? IsClosedShiftSales(this shiftsalesVM shiftsales)
         {
+            if (shiftsales == null)
+                return null;
+
             using (xpumpEntities db = DBX.DataSet(shiftsales.working_express_db))
             {
                 var tmp = db.shiftsales.Find(shiftsales.id);
@@ -1790,6 +1856,9 @@ namespace XPump.Misc
 
         public static bool? IsApproved(this shiftsalesVM shiftsales)
         {
+            if (shiftsales == null)
+                return null;
+
             using (xpumpEntities db = DBX.DataSet(shiftsales.working_express_db))
             {
                 var sales = db.shiftsales.Find(shiftsales.id);
@@ -1802,6 +1871,9 @@ namespace XPump.Misc
 
         public static bool? IsApproved(this dayendVM dayend)
         {
+            if (dayend == null)
+                return null;
+
             using (xpumpEntities db = DBX.DataSet(dayend.working_express_db))
             {
                 var d = db.dayend.Find(dayend.id);
@@ -1809,6 +1881,24 @@ namespace XPump.Misc
                     return null;
 
                 return d.apprtime.HasValue ? true : false;
+            }
+        }
+
+        public static bool? IsApprovedAll(this dayendVM dayend)
+        {
+            if (dayend == null)
+                return null;
+
+            using (xpumpEntities db = DBX.DataSet(dayend.working_express_db))
+            {
+                if (db.dayend.Where(d => d.saldat == dayend.saldat && d.apprtime.HasValue).ToList().Count() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

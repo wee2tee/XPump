@@ -52,7 +52,7 @@ namespace XPump.SubForm
 
         private void DialogShiftSttak_Shown(object sender, EventArgs e)
         {
-            if(this.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales(false) == true)
+            if(this.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales(false) == true)
             {
                 this.btnEdit.PerformClick();
             }
@@ -92,7 +92,7 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            if (this.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
+            if (this.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
             if (this.form_mode == FORM_MODE.EDIT_ITEM)
@@ -188,7 +188,7 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (this.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
+            if (this.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
             if(this.sttak.Where(s => s.qty < 0).Count() > 0)
@@ -295,6 +295,33 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_sttak_qty.Name).First().Index)
+            {
+                if((decimal)((XDatagrid)sender).Rows[e.RowIndex].Cells[e.ColumnIndex].Value < 0)
+                {
+                    e.CellStyle.ForeColor = Color.Red;
+                    e.CellStyle.SelectionForeColor = Color.Red;
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void dgv_Resize(object sender, EventArgs e)
+        {
+            if(this.form_mode == FORM_MODE.EDIT_ITEM && ((XDatagrid)sender).CurrentCell != null)
+            {
+                int col_index = ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_sttak_qty.Name).First().Index;
+
+                this.inline_qty.SetInlineControlPosition((XDatagrid)sender, ((XDatagrid)sender).CurrentCell.RowIndex, col_index);
+            }
         }
     }
 }

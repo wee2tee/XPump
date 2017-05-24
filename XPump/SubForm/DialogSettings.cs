@@ -14,6 +14,13 @@ using System.IO;
 
 namespace XPump.SubForm
 {
+    public enum PRINT_METHOD : int
+    {
+        NOT_ASSIGN = 0,
+        PRINT_BEFORE_APPROVED = 1,
+        APPROVED_BEFORE_PRINT = 2
+    }
+
     public partial class DialogSettings : Form
     {
         private MainForm main_form;

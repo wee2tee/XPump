@@ -216,6 +216,20 @@ namespace XPump.Misc
             return l;
         }
 
+        public LogObject UnApprove(string menu_id, string description, string docnum, string affected_table = null, int? affected_id = null)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "014",
+                Description = description,
+                Module = menu_id,
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id
+            };
+            return l;
+        }
+
         //public LogObject Approve(string menu_id, string approved_key, string approved_val)
         //{
         //    LogObject l = new LogObject(this.main_form)
@@ -255,7 +269,7 @@ namespace XPump.Misc
         {
             LogObject l = new LogObject(this.main_form)
             {
-                Code = "014",
+                Code = "015",
                 Description = string.Format("พิมพ์{0} {1} ออกทาง{2}", printed_key, printed_val, print_output),
                 Module = menu_id,
                 Docnum = printed_val
@@ -267,7 +281,7 @@ namespace XPump.Misc
         {
             LogObject l = new LogObject(this.main_form)
             {
-                Code = "015",
+                Code = "016",
                 Description = string.Format("เปลี่ยนแปลงการตั้งค่าระบบสำเร็จ")
             };
             return l;
@@ -277,7 +291,7 @@ namespace XPump.Misc
         {
             LogObject l = new LogObject(this.main_form)
             {
-                Code = "016",
+                Code = "017",
                 Description = string.Format("เปลี่ยนไปใช้ข้อมูล \"{0}\" [{1}]", absolute_data_path.Replace("\\", "\\\\"), company_name)
             };
             return l;

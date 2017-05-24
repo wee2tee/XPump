@@ -73,6 +73,7 @@
             this.col_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_endbal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_button_edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.col_begbal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcvqty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_salqty = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -339,6 +340,7 @@
             this.btnApprove.Size = new System.Drawing.Size(36, 40);
             this.btnApprove.Text = "toolStripButton1";
             this.btnApprove.ToolTipText = "รับรองรายการ <Alt+O>";
+            this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
             // 
             // btnUnApprove
             // 
@@ -350,6 +352,7 @@
             this.btnUnApprove.Size = new System.Drawing.Size(36, 40);
             this.btnUnApprove.Text = "toolStripButton2";
             this.btnUnApprove.ToolTipText = "ยกเลิกการรับรองรายการ <Ctrl+O>";
+            this.btnUnApprove.Click += new System.EventHandler(this.btnUnApprove_Click);
             // 
             // btnRefresh
             // 
@@ -427,6 +430,7 @@
             this.col_stkcod,
             this.col_stkdes,
             this.col_endbal,
+            this.col_button_edit,
             this.col_begbal,
             this.col_rcvqty,
             this.col_salqty,
@@ -467,6 +471,7 @@
             this.dgv.Size = new System.Drawing.Size(957, 407);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
+            this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_CellPainting);
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
@@ -517,6 +522,16 @@
             this.col_endbal.Name = "col_endbal";
             this.col_endbal.ReadOnly = true;
             this.col_endbal.Width = 130;
+            // 
+            // col_button_edit
+            // 
+            this.col_button_edit.HeaderText = "";
+            this.col_button_edit.MinimumWidth = 22;
+            this.col_button_edit.Name = "col_button_edit";
+            this.col_button_edit.ReadOnly = true;
+            this.col_button_edit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_button_edit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_button_edit.Width = 22;
             // 
             // col_begbal
             // 
@@ -753,6 +768,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkcod;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stkdes;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_endbal;
+        private System.Windows.Forms.DataGridViewButtonColumn col_button_edit;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_begbal;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcvqty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salqty;

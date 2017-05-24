@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgv = new CC.XDatagrid();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,6 +50,8 @@
             this.btnEditItem = new System.Windows.Forms.Button();
             this.btnStopItem = new System.Windows.Forms.Button();
             this.btnSaveItem = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblStkdes = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -60,9 +62,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.dgv);
-            this.panel1.Location = new System.Drawing.Point(5, 79);
+            this.panel1.Location = new System.Drawing.Point(5, 100);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(655, 218);
+            this.panel1.Size = new System.Drawing.Size(655, 230);
             this.panel1.TabIndex = 0;
             // 
             // dgv
@@ -72,14 +74,14 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -91,14 +93,14 @@
             this.col_isactive,
             this.col_nozzle,
             this.col_working_express_db});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -111,7 +113,7 @@
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(655, 218);
+            this.dgv.Size = new System.Drawing.Size(655, 230);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
@@ -223,7 +225,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label8.Location = new System.Drawing.Point(7, 58);
+            this.label8.Location = new System.Drawing.Point(7, 79);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(82, 16);
             this.label8.TabIndex = 8;
@@ -235,7 +237,7 @@
             this.btnAddItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnAddItem.Image = global::XPump.Properties.Resources.add_16;
             this.btnAddItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddItem.Location = new System.Drawing.Point(305, 52);
+            this.btnAddItem.Location = new System.Drawing.Point(305, 73);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(50, 24);
             this.btnAddItem.TabIndex = 3;
@@ -250,7 +252,7 @@
             this.btnDeleteItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnDeleteItem.Image = global::XPump.Properties.Resources.delete_16;
             this.btnDeleteItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeleteItem.Location = new System.Drawing.Point(414, 52);
+            this.btnDeleteItem.Location = new System.Drawing.Point(414, 73);
             this.btnDeleteItem.Name = "btnDeleteItem";
             this.btnDeleteItem.Size = new System.Drawing.Size(45, 24);
             this.btnDeleteItem.TabIndex = 5;
@@ -265,7 +267,7 @@
             this.btnEditItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnEditItem.Image = global::XPump.Properties.Resources.edit_16;
             this.btnEditItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditItem.Location = new System.Drawing.Point(356, 52);
+            this.btnEditItem.Location = new System.Drawing.Point(356, 73);
             this.btnEditItem.Name = "btnEditItem";
             this.btnEditItem.Size = new System.Drawing.Size(57, 24);
             this.btnEditItem.TabIndex = 4;
@@ -280,7 +282,7 @@
             this.btnStopItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnStopItem.Image = global::XPump.Properties.Resources.stop_16;
             this.btnStopItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStopItem.Location = new System.Drawing.Point(531, 52);
+            this.btnStopItem.Location = new System.Drawing.Point(531, 73);
             this.btnStopItem.Name = "btnStopItem";
             this.btnStopItem.Size = new System.Drawing.Size(129, 24);
             this.btnStopItem.TabIndex = 7;
@@ -295,7 +297,7 @@
             this.btnSaveItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSaveItem.Image = global::XPump.Properties.Resources.save_16;
             this.btnSaveItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveItem.Location = new System.Drawing.Point(470, 52);
+            this.btnSaveItem.Location = new System.Drawing.Point(470, 73);
             this.btnSaveItem.Name = "btnSaveItem";
             this.btnSaveItem.Size = new System.Drawing.Size(60, 24);
             this.btnSaveItem.TabIndex = 6;
@@ -304,18 +306,38 @@
             this.btnSaveItem.UseVisualStyleBackColor = true;
             this.btnSaveItem.Click += new System.EventHandler(this.btnSaveItem_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(34, 54);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 16);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "ชนิดน้ำมัน :";
+            // 
+            // lblStkdes
+            // 
+            this.lblStkdes.AutoSize = true;
+            this.lblStkdes.Location = new System.Drawing.Point(143, 54);
+            this.lblStkdes.Name = "lblStkdes";
+            this.lblStkdes.Size = new System.Drawing.Size(26, 16);
+            this.lblStkdes.TabIndex = 1;
+            this.lblStkdes.Text = "xxx";
+            // 
             // DialogNozzle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(664, 301);
+            this.ClientSize = new System.Drawing.Size(664, 334);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnAddItem);
             this.Controls.Add(this.btnDeleteItem);
             this.Controls.Add(this.btnEditItem);
             this.Controls.Add(this.btnStopItem);
             this.Controls.Add(this.btnSaveItem);
+            this.Controls.Add(this.lblStkdes);
             this.Controls.Add(this.lblSection);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblTank);
             this.Controls.Add(this.label1);
@@ -361,5 +383,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_isactive;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_nozzle;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblStkdes;
     }
 }

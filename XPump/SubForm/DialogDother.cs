@@ -196,9 +196,9 @@ namespace XPump.SubForm
             switch (this.dother_type)
             {
                 case DOTHER.SHIFTSALES:
-                    return this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales();
+                    return this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales();
                 case DOTHER.DAYEND:
-                    return this.dayend.ToViewModel(this.main_form.working_express_db).ValidateEditableDayend();
+                    return this.dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend();
                 default:
                     return false;
             }
@@ -544,9 +544,7 @@ namespace XPump.SubForm
             if (e.RowIndex == -1)
                 return;
 
-            this.ResetControlState(FORM_MODE.EDIT_ITEM);
-            this.ShowInlineForm();
-            this.inline_qty.Focus();
+            this.btnEdit.PerformClick();
         }
     }
 }

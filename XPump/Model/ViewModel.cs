@@ -362,13 +362,12 @@ namespace XPump.Model
                 return this.shiftsales != null ? this.shiftsales.shift.name : string.Empty;
             }
         }
-        public DateTime? cretime
-        {
-            get
-            {
-                return this.shiftsales != null ? (DateTime?)this.shiftsales.cretime : null;
-            }
-        }
+        public string creby { get { return this.shiftsales != null ? this.shiftsales.creby : string.Empty; } }
+        public DateTime? cretime { get { return this.shiftsales != null ? (DateTime?)this.shiftsales.cretime : null; } }
+        public string chgby { get { return this.shiftsales.chgby; } }
+        public DateTime? chgtime { get { return this.shiftsales != null ? (DateTime?)this.shiftsales.chgtime : null; } }
+        public string apprby { get { return this.shiftsales.apprby; } }
+        public DateTime? apprtime { get { return this.shiftsales != null ? (DateTime?)this.shiftsales.apprtime : null; } }
         public bool closed
         {
             get

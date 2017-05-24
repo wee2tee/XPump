@@ -285,7 +285,7 @@ namespace XPump.SubForm
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
                 return;
 
-            if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
+            if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
             this.tmp_shiftsales = this.GetShiftSales(this.curr_shiftsales.id);
@@ -302,7 +302,7 @@ namespace XPump.SubForm
             if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
                 return;
 
-            if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
+            if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
             if(MessageBox.Show("ลบบันทึกรายการขายประจำผลัด \"" + this.curr_shiftsales.shift.name + "\" วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + ", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
@@ -671,13 +671,6 @@ namespace XPump.SubForm
             col_shift_name.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             cols.Add(col_shift_name);
 
-            DataGridViewColumn col_cretime = new DataGridViewTextBoxColumn();
-            col_cretime.HeaderText = "เพิ่มวันที่";
-            col_cretime.DataPropertyName = "cretime";
-            col_cretime.DefaultCellStyle.Format = "dd/MM/yyyy";
-            col_cretime.Visible = false;
-            cols.Add(col_cretime);
-
             DataGridViewColumn col_closed = new DataGridViewTextBoxColumn();
             col_closed.HeaderText = "Closed";
             col_closed.DataPropertyName = "closed";
@@ -690,6 +683,51 @@ namespace XPump.SubForm
             col__closed.MinimumWidth = 130;
             col__closed.Width = 130;
             cols.Add(col__closed);
+
+            DataGridViewColumn col_creby = new DataGridViewTextBoxColumn();
+            col_creby.HeaderText = "เพิ่มโดย";
+            col_creby.DataPropertyName = "creby";
+            col_creby.MinimumWidth = 120;
+            col_creby.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            cols.Add(col_creby);
+
+            DataGridViewColumn col_cretime = new DataGridViewTextBoxColumn();
+            col_cretime.HeaderText = "เพิ่มเมื่อ";
+            col_cretime.DataPropertyName = "cretime";
+            col_cretime.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+            col_cretime.Width = 140;
+            col_cretime.MinimumWidth = 140;
+            cols.Add(col_cretime);
+
+            DataGridViewColumn col_chgby = new DataGridViewTextBoxColumn();
+            col_chgby.HeaderText = "บันทึกล่าสุดโดย";
+            col_chgby.DataPropertyName = "chgby";
+            col_chgby.MinimumWidth = 120;
+            col_chgby.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            cols.Add(col_chgby);
+
+            DataGridViewColumn col_chgtime = new DataGridViewTextBoxColumn();
+            col_chgtime.HeaderText = "บันทึกล่าสุดเมื่อ";
+            col_chgtime.DataPropertyName = "chgtime";
+            col_chgtime.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+            col_chgtime.Width = 140;
+            col_chgtime.MinimumWidth = 140;
+            cols.Add(col_chgtime);
+
+            DataGridViewColumn col_apprby = new DataGridViewTextBoxColumn();
+            col_apprby.HeaderText = "รับรองโดย";
+            col_apprby.DataPropertyName = "apprby";
+            col_apprby.MinimumWidth = 120;
+            col_apprby.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            col_apprby.Visible = false;
+            cols.Add(col_apprby);
+
+            DataGridViewColumn col_apprtime = new DataGridViewTextBoxColumn();
+            col_apprtime.HeaderText = "รับรองเมื่อ";
+            col_apprtime.DataPropertyName = "apprtime";
+            col_apprtime.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+            col_apprtime.Visible = false;
+            cols.Add(col_apprtime);
 
             DataGridViewColumn col_shift_id = new DataGridViewTextBoxColumn();
             col_shift_id.HeaderText = "Shift Id";
@@ -1303,7 +1341,7 @@ namespace XPump.SubForm
                     e.Graphics.DrawString(report_data.salessummaryVM_list[i].totqty.FormatCurrency(), fnt, brush, rect_netqty, new StringFormat { Alignment = StringAlignment.Far });
 
                     Rectangle rect_netval = new Rectangle(rect_salval.X, rect_net_txt.Y, rect_salval.Width, line_height);
-                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].totval.FormatCurrency(), fnt, brush, rect_netval, new StringFormat { Alignment = StringAlignment.Far });
+                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].netval.FormatCurrency(), fnt, brush, rect_netval, new StringFormat { Alignment = StringAlignment.Far });
 
                     Rectangle rect_salvat_txt = new Rectangle(x, rect_net_txt.Y + line_height, rect_net_txt.Width, line_height);
                     e.Graphics.DrawString("  6.ภาษีขาย ((5)X7)/107)", fnt_bold, brush, rect_salvat_txt);
@@ -1651,7 +1689,7 @@ namespace XPump.SubForm
             if (this.dgvSalesSummary.CurrentCell == null)
                 return;
 
-            if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).ValidateEditableShiftSales() == false)
+            if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
             if (this.form_mode != FORM_MODE.READ_ITEM)
@@ -1734,7 +1772,7 @@ namespace XPump.SubForm
             {
                 if(db.shiftsttak.Where(s => s.shiftsales_id == this.curr_shiftsales.id && s.qty < 0).Count() > 0)
                 {
-                    if (MessageBox.Show("ปริมาณน้ำมันที่ตรวจนับได้ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                    if (MessageBox.Show("ปริมาณน้ำมันที่ตรวจวัดได้ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
                         return;
                 }
             }
@@ -1804,7 +1842,7 @@ namespace XPump.SubForm
 
                     db.SaveChanges();
 
-                    this.main_form.islog.Approve(this.menu_id, "ยกเลิกการรับรองรายการ บันทึกรายการประจำผลัด \"" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + shiftsales_to_appr.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_appr.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", shiftsales_to_appr.id).Save(unapproved_user);
+                    this.main_form.islog.UnApprove(this.menu_id, "ยกเลิกการรับรองรายการ บันทึกรายการประจำผลัด \"" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + shiftsales_to_appr.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_appr.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", shiftsales_to_appr.id).Save(unapproved_user);
 
                     this.btnRefresh.PerformClick();
                     this.ResetApproveBtn();
