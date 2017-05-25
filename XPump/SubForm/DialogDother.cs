@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using XPump.Misc;
 using XPump.Model;
 using CC;
+using System.Globalization;
 
 namespace XPump.SubForm
 {
@@ -20,6 +21,7 @@ namespace XPump.SubForm
         private FORM_MODE form_mode;
         private BindingList<dotherVM> bl_dother;
         private dother tmp_dother;
+        private string menu_id;
         private enum DOTHER
         {
             SHIFTSALES,
@@ -34,9 +36,10 @@ namespace XPump.SubForm
             this.main_form = main_form;
         }
 
-        public DialogDother(MainForm main_form, salessummary salessummary)
+        public DialogDother(MainForm main_form,FormShiftTransaction form_shifttransaction, salessummary salessummary)
             : this(main_form)
         {
+            this.menu_id = form_shifttransaction.menu_id;
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.dother_type = DOTHER.SHIFTSALES;
@@ -50,9 +53,10 @@ namespace XPump.SubForm
             }
         }
 
-        public DialogDother(MainForm main_form, dayend dayend)
+        public DialogDother(MainForm main_form, FormDailyClose form_dailyclose, dayend dayend)
             : this(main_form)
         {
+            this.menu_id = form_dailyclose.menu_id;
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.dother_type = DOTHER.DAYEND;
@@ -294,14 +298,14 @@ namespace XPump.SubForm
             }
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                if(this.form_mode == FORM_MODE.ADD_ITEM)
+                try
                 {
-                    try
+                    if (this.form_mode == FORM_MODE.ADD_ITEM)
                     {
                         this.tmp_dother.cretime = DateTime.Now;
                         db.dother.Add(this.tmp_dother);
 
-                        if(this.dother_type == DOTHER.SHIFTSALES)
+                        if (this.dother_type == DOTHER.SHIFTSALES)
                         {
                             var sales_to_update = db.salessummary.Find(this.salessummary.id);
                             sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
@@ -311,7 +315,7 @@ namespace XPump.SubForm
                             shiftsales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                             shiftsales_to_update.chgtime = DateTime.Now;
                         }
-                        else if(this.dother_type == DOTHER.DAYEND)
+                        else if (this.dother_type == DOTHER.DAYEND)
                         {
                             var dayend_to_update = db.dayend.Find(this.dayend.id);
                             dayend_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
@@ -319,26 +323,19 @@ namespace XPump.SubForm
                         }
 
                         db.SaveChanges();
-
+                        this.SaveAddLog(this.tmp_dother);
                         this.RemoveInlineForm();
                         this.ResetControlState(FORM_MODE.READ_ITEM);
                         this.btnAdd.PerformClick();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return;
                     }
 
-                    return;
-                }
-                
-                if(this.form_mode == FORM_MODE.EDIT_ITEM)
-                {
-                    try
+                    if (this.form_mode == FORM_MODE.EDIT_ITEM)
                     {
                         var dother_to_update = db.dother.Find(this.tmp_dother.id);
 
-                        if(dother_to_update == null)
+                        if (dother_to_update == null)
                         {
                             MessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             return;
@@ -349,7 +346,7 @@ namespace XPump.SubForm
                         dother_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                         dother_to_update.chgtime = DateTime.Now;
 
-                        if(this.dother_type == DOTHER.SHIFTSALES)
+                        if (this.dother_type == DOTHER.SHIFTSALES)
                         {
                             var sales_to_update = db.salessummary.Find(this.salessummary.id);
                             sales_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
@@ -367,16 +364,62 @@ namespace XPump.SubForm
                         }
 
                         db.SaveChanges();
+                        this.SaveEditLog(this.tmp_dother);
                         this.RemoveInlineForm();
                         this.ResetControlState(FORM_MODE.READ_ITEM);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
 
-                    return;
+                        return;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void SaveAddLog(dother dother)
+        {
+            if (this.dother_type == DOTHER.SHIFTSALES)
+            {
+                this.main_form.islog.AddData(this.menu_id, "เพิ่มรายการหักอื่น ๆ ในบันทึกรายการประจำผลัด \"" + this.salessummary.ToViewModel(this.main_form.working_express_db).shift_name + "\", วันที่ " + this.salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + ", รหัสสินค้า \"" + this.salessummary.stkcod + "\"" , this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.salessummary.ToViewModel(this.main_form.working_express_db).shift_name + "|" + this.salessummary.stkcod, "dother", dother.id).Save();
+                return;
+            }
+
+            if (this.dother_type == DOTHER.DAYEND)
+            {
+                this.main_form.islog.AddData(this.menu_id, "เพิ่มรายการหักอื่น ๆ ในบันทึกปิดยอดขายประจำวันที่ " + this.dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + ", รหัสสินค้า \"" + this.dayend.stkcod + "\"", this.dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.dayend.stkcod, "dother", dother.id).Save();
+                return;
+            }
+        }
+
+        private void SaveEditLog(dother dother)
+        {
+            if(this.dother_type == DOTHER.SHIFTSALES)
+            {
+                this.main_form.islog.EditData(this.menu_id, "แก้ไขรายการหักอื่น ๆ ในบันทึกรายการประจำผลัด \"" + this.salessummary.ToViewModel(this.main_form.working_express_db).shift_name + "\", วันที่ " + this.salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + ", รหัสสินค้า \"" + this.salessummary.stkcod + "\"", this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.salessummary.ToViewModel(this.main_form.working_express_db).shift_name + "|" + this.salessummary.stkcod, "dother", dother.id).Save();
+                return;
+            }
+
+            if(this.dother_type == DOTHER.DAYEND)
+            {
+                this.main_form.islog.EditData(this.menu_id, "แก้ไขรายการหักอื่น ๆ ในบันทึกปิดยอดขายประจำวันที่ " + this.dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + ", รหัสสินค้า \"" + this.dayend.stkcod + "\"", this.dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.dayend.stkcod, "dother", dother.id).Save();
+                return;
+            }
+        }
+
+        private void SaveDeleteLog(dother dother)
+        {
+            if (this.dother_type == DOTHER.SHIFTSALES)
+            {
+                this.main_form.islog.DeleteData(this.menu_id, "ลบรายการหักอื่น ๆ ในบันทึกรายการประจำผลัด \"" + this.salessummary.ToViewModel(this.main_form.working_express_db).shift_name + "\", วันที่ " + this.salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + ", รหัสสินค้า \"" + this.salessummary.stkcod + "\"", this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.salessummary.ToViewModel(this.main_form.working_express_db).shift_name + "|" + this.salessummary.stkcod, "dother", dother.id).Save();
+                return;
+            }
+
+            if (this.dother_type == DOTHER.DAYEND)
+            {
+                this.main_form.islog.DeleteData(this.menu_id, "ลบรายการหักอื่น ๆ ในบันทึกปิดยอดขายประจำวันที่ " + this.dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + ", รหัสสินค้า \"" + this.dayend.stkcod + "\"", this.dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.dayend.stkcod, "dother", dother.id).Save();
+                return;
             }
         }
 
@@ -424,6 +467,7 @@ namespace XPump.SubForm
                             }
 
                             db.SaveChanges();
+                            this.SaveDeleteLog(dother_to_delete);
 
                             this.bl_dother.Remove(this.bl_dother.Where(d => d.id == dother_to_delete.id).First());
                             this.FillForm();
@@ -534,6 +578,32 @@ namespace XPump.SubForm
             {
                 this.btnSave.PerformClick();
                 return true;
+            }
+
+            if(keyData == Keys.Tab)
+            {
+                if(this.form_mode == FORM_MODE.READ_ITEM)
+                {
+                    if (this.dgv.CurrentCell == null)
+                        return false;
+
+                    dother dother = (dother)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_dother.Name].Value;
+
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var total_recs = db.dother.AsEnumerable().Count();
+                        var data_info = db.dother.Find(dother.id);
+
+                        if(data_info == null)
+                        {
+                            return false;
+                        }
+
+                        DialogDataInfo info = new DialogDataInfo("Dother", dother.id, total_recs, dother.creby, dother.cretime, dother.chgby, dother.chgtime);
+                        info.ShowDialog();
+                        return true;
+                    }
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

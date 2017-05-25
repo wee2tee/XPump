@@ -19,12 +19,14 @@ namespace XPump.SubForm
         private dayend curr_dayend;
         private daysttak tmp_sttak;
         private BindingSource bs;
+        private FormDailyClose form_dailyclose;
         private FORM_MODE form_mode;
 
-        public DialogDayendEdit(MainForm main_form, dayend curr_dayend)
+        public DialogDayendEdit(MainForm main_form, FormDailyClose form_dailyclose, dayend curr_dayend)
         {
             InitializeComponent();
             this.main_form = main_form;
+            this.form_dailyclose = form_dailyclose;
             this.curr_dayend = curr_dayend;
 
             DbfTable.Isinfo(this.main_form.working_express_db);
@@ -120,6 +122,7 @@ namespace XPump.SubForm
             this.btnSyncRcvqty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
+            this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
         }
 
         private void ShowInlineForm(int row_index)
@@ -210,7 +213,13 @@ namespace XPump.SubForm
                     sttak_to_update.qty = sttak.qty;
                     sttak_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                     sttak_to_update.chgtime = DateTime.Now;
+
+                    dayend dayend_to_update = db.dayend.Find(sttak_to_update.dayend_id);
+                    dayend_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                    dayend_to_update.chgtime = DateTime.Now;
+
                     db.SaveChanges();
+                    this.main_form.islog.EditData(this.form_dailyclose.menu_id, "แก้ไขปริมาณน้ำมันที่ตรวจวัดได้ ในรายการปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " , รหัสสินค้า \"" + this.curr_dayend.stkcod + "\", เลขที่ถัง \"" + sttak_to_update.ToViewModel(this.main_form.working_express_db).section_name + "\"", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_dayend.stkcod + "|" + sttak_to_update.ToViewModel(this.main_form.working_express_db).section_name, "daysttak", sttak_to_update.id).Save();
 
                     this.curr_dayend.daysttak.Where(d => d.id == this.tmp_sttak.id).First().qty = this.tmp_sttak.qty;
                     this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_qty.Name].Value = this.tmp_sttak.qty;
@@ -266,6 +275,8 @@ namespace XPump.SubForm
                         dayend_to_update.chgtime = DateTime.Now;
 
                         db.SaveChanges();
+                        this.main_form.islog.EditData(this.form_dailyclose.menu_id, "แก้ไขรายการปิดยอดขายประจำวันที่ " + dayend_to_update.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " , รหัสสินค้า \"" + dayend_to_update.stkcod + "\"", dayend_to_update.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + dayend_to_update.stkcod, "dayend", dayend_to_update.id).Save();
+
                         this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
                         this.RefreshSummary();
@@ -357,6 +368,12 @@ namespace XPump.SubForm
                 }
             }
 
+            if(keyData == Keys.F9)
+            {
+                this.btnOK.PerformClick();
+                return true;
+            }
+
             if(keyData == Keys.Escape)
             {
                 if(this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.EDIT_ITEM)
@@ -373,12 +390,32 @@ namespace XPump.SubForm
                 }
             }
 
+            if(keyData == Keys.Tab)
+            {
+                if((this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM) && this.dgv.CurrentCell != null)
+                {
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var daysttak = (daysttak)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_daysttak.Name].Value;
+                        var data_info = db.daysttak.Find(daysttak.id);
+                        var total_recs = db.daysttak.AsEnumerable().Count();
+
+                        if (data_info == null)
+                            return false;
+
+                        DialogDataInfo info = new DialogDataInfo("Daysttak", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime);
+                        info.ShowDialog();
+                        return true;
+                    }
+                }
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void btnDother_Click(object sender, EventArgs e)
         {
-            DialogDother d = new DialogDother(this.main_form, this.curr_dayend);
+            DialogDother d = new DialogDother(this.main_form, this.form_dailyclose, this.curr_dayend);
             d.SetBounds(((Button)sender).PointToScreen(Point.Empty).X + ((Button)sender).Width, ((Button)sender).PointToScreen(Point.Empty).Y, d.Width, d.Height);
             d.ShowDialog();
             this.RefreshSummary();
@@ -434,6 +471,32 @@ namespace XPump.SubForm
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                     e.Handled = true;
                 }
+            }
+        }
+
+        private void dgv_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                if (this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.EDIT_ITEM)
+                    return;
+
+                int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+
+                if (row_index == -1)
+                    return;
+
+                ((XDatagrid)sender).Rows[row_index].Cells[this.col_section_name.Name].Selected = true;
+                ContextMenu cm = new ContextMenu();
+                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
+                mnu_edit.Click += delegate
+                {
+                    this.form_mode = FORM_MODE.EDIT_ITEM;
+                    this.ResetControlState();
+                    this.ShowInlineForm(row_index);
+                };
+                cm.MenuItems.Add(mnu_edit);
+                cm.Show((XDatagrid)sender, new Point(e.X, e.Y));
             }
         }
     }

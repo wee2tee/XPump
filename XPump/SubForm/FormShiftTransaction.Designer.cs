@@ -320,6 +320,7 @@
             this.btnItem.Size = new System.Drawing.Size(36, 40);
             this.btnItem.Text = "toolStripButton1";
             this.btnItem.ToolTipText = "บันทึกรายการขาย <F8>";
+            this.btnItem.Visible = false;
             this.btnItem.Click += new System.EventHandler(this.btnItem_Click);
             // 
             // btnApprove

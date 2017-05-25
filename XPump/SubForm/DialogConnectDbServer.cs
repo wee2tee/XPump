@@ -208,7 +208,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`xpumpuser` VARCHAR(50) NULL,";
                 cmd.CommandText += "`module` VARCHAR(30) NULL,";
                 cmd.CommandText += "`afftable` VARCHAR(30) NULL,";
-                cmd.CommandText += "`affid` INT(15) NULL,";
+                cmd.CommandText += "`affid` VARCHAR(255) NULL,";
                 cmd.CommandText += "`docnum` VARCHAR(50) NULL,";
                 cmd.CommandText += "`description` VARCHAR(200) NULL,";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";

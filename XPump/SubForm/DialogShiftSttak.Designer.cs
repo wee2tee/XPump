@@ -247,11 +247,15 @@
             // 
             this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(253, 205);
+            this.btnSave.Image = global::XPump.Properties.Resources.save_16;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(236, 205);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(94, 31);
+            this.btnSave.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnSave.Size = new System.Drawing.Size(112, 31);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "บันทึก <F9>";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -259,11 +263,15 @@
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(353, 205);
+            this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(354, 205);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(94, 31);
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
+            this.btnCancel.Size = new System.Drawing.Size(112, 31);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "ยกเลิก <Esc>";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // btnEdit

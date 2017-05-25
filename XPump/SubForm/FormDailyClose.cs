@@ -22,7 +22,7 @@ namespace XPump.SubForm
         private List<dayend> dayend_list;
         private DateTime? curr_date;
         private dayend curr_dayend;
-        private string menu_id;
+        public string menu_id;
 
         public FormDailyClose(MainForm main_form)
         {
@@ -141,7 +141,7 @@ namespace XPump.SubForm
             if (this.curr_dayend == null)
                 return;
 
-            DialogDayendEdit dlg = new DialogDayendEdit(this.main_form, this.curr_dayend);
+            DialogDayendEdit dlg = new DialogDayendEdit(this.main_form, this, this.curr_dayend);
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 this.dayend_list = this.GetDayEnd(this.curr_date.Value);
@@ -181,6 +181,7 @@ namespace XPump.SubForm
                             return;
                         }
 
+                        List<int> inserted_id = new List<int>();
                         foreach (string stkcod in stkcods)
                         {
                             dayend dayend = new dayend()
@@ -201,6 +202,7 @@ namespace XPump.SubForm
                             //dayendVM d = dayend.ToViewModel(this.main_form.working_express_db);
                             db.dayend.Add(dayend);
                             db.SaveChanges();
+                            inserted_id.Add(dayend.id);
 
                             var tanksetup = db.tanksetup.Where(t => t.startdate.CompareTo(dayend.saldat) <= 0).OrderByDescending(t => t.startdate).FirstOrDefault();
 
@@ -238,7 +240,11 @@ namespace XPump.SubForm
                             /* update difqty causing from daysttak that changed */
                             dayend.difqty = dvm.GetDifQty();
                             db.SaveChanges();
+
+                            //this.main_form.islog.AddData(this.menu_id, "เพิ่มรายการปิดยอดขายประจำวันที่ " + dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + ", รหัสสินค้า \"" + dayend.stkcod + "\"", dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + dayend.stkcod, "dayend", dayend.id).Save();
                         }
+
+                        this.main_form.islog.AddData(this.menu_id, "เพิ่มรายการปิดยอดขายประจำวันที่ " + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), dlg.selected_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", inserted_id.ToArray()).Save();
                     }
                     catch (Exception ex)
                     {
@@ -269,6 +275,13 @@ namespace XPump.SubForm
                     {
                         var dayends = db.dayend.Where(d => d.saldat == this.curr_date.Value).ToList();
 
+                        if(dayends.Count == 0)
+                        {
+                            MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
+                        List<int> deleted_id = new List<int>();
                         foreach (var de in dayends)
                         {
                             foreach (var sttak in db.daysttak.Where(d => d.dayend_id == de.id).ToList())
@@ -280,7 +293,10 @@ namespace XPump.SubForm
                                 db.dother.Remove(db.dother.Find(dother.id));
                             }
                             db.dayend.Remove(db.dayend.Find(de.id));
+                            deleted_id.Add(de.id);
+                            //this.main_form.islog.DeleteData(this.menu_id, "ลบรายการปิดยอดขายประจำวันที่ " + de.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + ", รหัสสินค้า \"" + de.stkcod + "\"", de.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + de.stkcod, "dayend", de.id).Save();
                         }
+
 
                         var shiftsales = db.shiftsales.Where(s => s.saldat == this.curr_date.Value);
                         foreach (var sales in shiftsales)
@@ -289,6 +305,7 @@ namespace XPump.SubForm
                         }
 
                         db.SaveChanges();
+                        this.main_form.islog.DeleteData(this.menu_id, "ลบรายการปิดยอดขายประจำวันที่ " + dayends.First().saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), dayends.First().saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", deleted_id.ToArray()).Save();
                         this.btnNext.PerformClick();
                     }
                     catch (Exception ex)
@@ -690,7 +707,7 @@ namespace XPump.SubForm
                         db.SaveChanges();
                     }
 
-                    this.main_form.islog.Approve(this.menu_id, "รับรองรายการ ปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", null).Save(approved_user);
+                    this.main_form.islog.Approve(this.menu_id, "รับรองรายการ ปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", dayend_ids.ToArray()).Save(approved_user);
 
                     this.btnRefresh.PerformClick();
                     this.ResetApproveBtn();
@@ -726,6 +743,7 @@ namespace XPump.SubForm
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
+                    List<int> unapprove_id = new List<int>();
                     foreach (var id in db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray())
                     {
                         var dayend_to_appr = db.dayend.Find(id);
@@ -733,10 +751,11 @@ namespace XPump.SubForm
                         dayend_to_appr.apprtime = null;
 
                         db.SaveChanges();
+                        unapprove_id.Add(id);
                     }
                     
 
-                    this.main_form.islog.UnApprove(this.menu_id, "ยกเลิกการรับรองรายการ ปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", null).Save(unapproved_user);
+                    this.main_form.islog.UnApprove(this.menu_id, "ยกเลิกการรับรองรายการ ปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", unapprove_id.ToArray()).Save(unapproved_user);
 
                     this.btnRefresh.PerformClick();
                     this.ResetApproveBtn();
@@ -1475,6 +1494,18 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if (keyData == (Keys.Alt | Keys.C))
+            {
+                this.btnApprove.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.C))
+            {
+                this.btnUnApprove.PerformClick();
+                return true;
+            }
+
             if (keyData == Keys.Tab)
             {
                 if(this.form_mode == FORM_MODE.READ)
@@ -1495,6 +1526,17 @@ namespace XPump.SubForm
                 }
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgv_CellToolTipTextNeeded(object sender, DataGridViewCellToolTipTextNeededEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_button_edit.Name).First().Index)
+            {
+                e.ToolTipText = "แก้ไข <Alt+E>";
+            }
         }
     }
 }

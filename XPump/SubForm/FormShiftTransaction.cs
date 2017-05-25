@@ -875,12 +875,12 @@ namespace XPump.SubForm
 
         private void btnItem_Click(object sender, EventArgs e)
         {
-            if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
-                return;
+            //if (this.curr_shiftsales == null || this.curr_shiftsales.id == -1)
+            //    return;
 
-            this.form_mode = FORM_MODE.READ_ITEM;
-            this.ResetControlState();
-            this.dgvSalesSummary.Focus();
+            //this.form_mode = FORM_MODE.READ_ITEM;
+            //this.ResetControlState();
+            //this.dgvSalesSummary.Focus();
         }
 
         private void dtSaldat__SelectedDateChanged(object sender, EventArgs e)
@@ -957,14 +957,13 @@ namespace XPump.SubForm
                 if (row_index == -1)
                     return;
 
-                this.form_mode = FORM_MODE.READ_ITEM;
-                this.ResetControlState();
+                //this.form_mode = FORM_MODE.READ_ITEM;
+                //this.ResetControlState();
 
                 ((XDatagrid)sender).Rows[row_index].Cells[this.col_stkcod.Name].Selected = true;
-                //this.dgv_SelectionChanged((XDatagrid)sender, new EventArgs());
                 ContextMenu cm = new ContextMenu();
                 MenuItem mnu_sales = new MenuItem();
-                mnu_sales.Text = "บันทึกปริมาณการขาย <Ctrl+Space>";
+                mnu_sales.Text = "แก้ไขรายละเอียดการขาย <Alt+E>";
                 mnu_sales.Click += delegate
                 {
                     this.ShowSalesForm();
@@ -973,7 +972,7 @@ namespace XPump.SubForm
                 cm.MenuItems.Add(mnu_sales);
 
                 MenuItem mnu_price = new MenuItem();
-                mnu_price.Text = "แก้ไขราคาขาย <Alt+E>";
+                mnu_price.Text = "แก้ไขราคาขาย <Ctrl+E>";
                 mnu_price.Click += delegate
                 {
                     this.ShowEditPrice();
@@ -1671,16 +1670,17 @@ namespace XPump.SubForm
                 if (this.dgvSalesSummary.CurrentCell == null)
                     return;
 
-                if (this.form_mode != FORM_MODE.READ_ITEM)
-                {
-                    this.form_mode = FORM_MODE.READ_ITEM;
-                    this.ResetControlState();
-                }
+                //if (this.form_mode != FORM_MODE.READ_ITEM)
+                //{
+                //    this.form_mode = FORM_MODE.READ_ITEM;
+                //    this.ResetControlState();
+                //}
 
                 var sales = (salessummary)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_salessummary.Name].Value;
 
                 DialogSalesHistory sh = new DialogSalesHistory(this.main_form, this, sales);
                 sh.ShowDialog();
+                this.dgvSalesSummary.Focus();
             }
         }
 
@@ -1692,11 +1692,11 @@ namespace XPump.SubForm
             if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
-            if (this.form_mode != FORM_MODE.READ_ITEM)
-            {
-                this.form_mode = FORM_MODE.READ_ITEM;
-                this.ResetControlState();
-            }
+            //if (this.form_mode != FORM_MODE.READ_ITEM)
+            //{
+            //    this.form_mode = FORM_MODE.READ_ITEM;
+            //    this.ResetControlState();
+            //}
 
             salessummary sales = (salessummary)this.dgvSalesSummary.Rows[this.dgvSalesSummary.CurrentCell.RowIndex].Cells[this.col_salessummary.Name].Value;
 
@@ -1732,13 +1732,13 @@ namespace XPump.SubForm
 
             if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_qty.Name).First().Index)
             {
-                e.ToolTipText = "บันทึกปริมาณการขาย <Ctrl+Space>";
+                e.ToolTipText = "แก้ไขรายละเอียดการขาย <Alt+E>";
                 return;
             }
 
             if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_price.Name).First().Index)
             {
-                e.ToolTipText = "แก้ไขราคาขาย <Alt+E>";
+                e.ToolTipText = "แก้ไขราคาขาย <Ctrl+E>";
                 return;
             }
         }
@@ -1881,31 +1881,25 @@ namespace XPump.SubForm
 
             if (keyData == (Keys.Alt | Keys.E))
             {
-                //if (this.form_mode == FORM_MODE.READ)
-                //{
-                //    this.btnEdit.PerformClick();
-                //    return true;
-                //}
-
-                if (this.form_mode == FORM_MODE.READ_ITEM)
+                if (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM)
                 {
-                    if (this.tabControl1.SelectedTab == this.tabPage1)
-                    {
-                        this.ShowEditPrice();
-                        return true;
-                    }
+                    this.ShowSalesForm();
+                    return true;
+                }
+            }
+
+            if (keyData == (Keys.Control | Keys.E))
+            {
+                if (this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM)
+                {
+                    this.ShowEditPrice();
+                    return true;
                 }
             }
 
             if (keyData == (Keys.Alt | Keys.D))
             {
                 this.btnDelete.PerformClick();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Space))
-            {
-                this.ShowSalesForm();
                 return true;
             }
 
@@ -1987,26 +1981,38 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if (keyData == (Keys.Alt | Keys.C))
+            {
+                this.btnApprove.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.C))
+            {
+                this.btnUnApprove.PerformClick();
+                return true;
+            }
+
             if(keyData == Keys.Tab)
             {
+                //if(this.form_mode == FORM_MODE.READ)
+                //{
+                //    if (this.curr_shiftsales == null)
+                //        return false;
+
+                //    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                //    {
+                //        var total_recs = db.shiftsales.AsEnumerable().Count();
+                //        var data_info = db.shiftsales.Find(this.curr_shiftsales.id);
+                //        if (data_info == null)
+                //            return false;
+
+                //        DialogDataInfo info = new DialogDataInfo("Shiftsales", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime, data_info.apprby, data_info.apprtime);
+                //        info.ShowDialog();
+                //        return true;
+                //    }
+                //}
                 if(this.form_mode == FORM_MODE.READ)
-                {
-                    if (this.curr_shiftsales == null)
-                        return false;
-
-                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-                    {
-                        var total_recs = db.shiftsales.AsEnumerable().Count();
-                        var data_info = db.shiftsales.Find(this.curr_shiftsales.id);
-                        if (data_info == null)
-                            return false;
-
-                        DialogDataInfo info = new DialogDataInfo("Shiftsales", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime, data_info.apprby, data_info.apprtime);
-                        info.ShowDialog();
-                        return true;
-                    }
-                }
-                if(this.form_mode == FORM_MODE.READ_ITEM)
                 {
                     if (this.dgvSalesSummary.CurrentCell == null)
                         return false;

@@ -186,6 +186,7 @@
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_CellPainting);
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
+            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             // 
             // col_id
             // 
@@ -509,12 +510,12 @@
             this.btnOK.Enabled = false;
             this.btnOK.Image = global::XPump.Properties.Resources.save_16;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(74, 545);
+            this.btnOK.Location = new System.Drawing.Point(36, 545);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Padding = new System.Windows.Forms.Padding(5, 3, 34, 3);
-            this.btnOK.Size = new System.Drawing.Size(130, 34);
+            this.btnOK.Padding = new System.Windows.Forms.Padding(5, 3, 12, 3);
+            this.btnOK.Size = new System.Drawing.Size(168, 34);
             this.btnOK.TabIndex = 7;
-            this.btnOK.Text = "บันทึก";
+            this.btnOK.Text = "บันทึกข้อมูล <F9>";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -590,10 +591,10 @@
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCancel.Location = new System.Drawing.Point(210, 545);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Padding = new System.Windows.Forms.Padding(5, 3, 3, 3);
-            this.btnCancel.Size = new System.Drawing.Size(130, 34);
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(5, 3, 0, 3);
+            this.btnCancel.Size = new System.Drawing.Size(168, 34);
             this.btnCancel.TabIndex = 8;
-            this.btnCancel.Text = "ยกเลิกการแก้ไข";
+            this.btnCancel.Text = "ยกเลิกการแก้ไข <Esc>";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);

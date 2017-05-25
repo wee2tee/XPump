@@ -1153,7 +1153,7 @@
             this.Name = "DialogSalesHistory";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "บันทึกรายการขายแต่ละหัวจ่าย";
+            this.Text = "แก้ไขรายละเอียดการขาย";
             this.Load += new System.EventHandler(this.DialogSalesHistory_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
