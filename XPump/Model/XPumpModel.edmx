@@ -23,6 +23,9 @@
           <Property Name="chgtime" Type="datetime" Precision="0" />
           <Property Name="apprby" Type="varchar" MaxLength="20" />
           <Property Name="apprtime" Type="datetime" Precision="0" />
+          <Property Name="prnby" Type="varchar" MaxLength="20" />
+          <Property Name="prntime" Type="datetime" Precision="0" />
+          <Property Name="prncnt" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="daysttak">
           <Key>
@@ -207,6 +210,9 @@
           <Property Name="chgtime" Type="datetime" Precision="0" />
           <Property Name="apprby" Type="varchar" MaxLength="20" />
           <Property Name="apprtime" Type="datetime" Precision="0" />
+          <Property Name="prnby" Type="varchar" MaxLength="20" />
+          <Property Name="prntime" Type="datetime" Precision="0" />
+          <Property Name="prncnt" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="shiftsttak">
           <Key>
@@ -528,6 +534,9 @@
           <Property Name="chgtime" Type="DateTime" />
           <Property Name="apprby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="apprtime" Type="DateTime" />
+          <Property Name="prnby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="prntime" Type="DateTime" />
+          <Property Name="prncnt" Type="Int32" Nullable="false" />
           <NavigationProperty Name="daysttak" Relationship="Self.fk___daysttak___dayend_id" FromRole="dayend" ToRole="daysttak" />
           <NavigationProperty Name="dother" Relationship="Self.fk_dother_dayend1" FromRole="dayend" ToRole="dother" />
         </EntityType>
@@ -734,6 +743,9 @@
           <Property Name="chgtime" Type="DateTime" />
           <Property Name="apprby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="apprtime" Type="DateTime" />
+          <Property Name="prnby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="prntime" Type="DateTime" />
+          <Property Name="prncnt" Type="Int32" Nullable="false" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_salessummary_shiftsales_id" FromRole="shiftsales" ToRole="salessummary" />
           <NavigationProperty Name="shift" Relationship="Self.fk_shiftsales_shift_id" FromRole="shiftsales" ToRole="shift" />
           <NavigationProperty Name="shiftsttak" Relationship="Self.fk_sttak_shiftsales_id" FromRole="shiftsales" ToRole="shiftsttak" />
@@ -1063,6 +1075,9 @@
                 <ScalarProperty Name="chgtime" ColumnName="chgtime" />
                 <ScalarProperty Name="apprby" ColumnName="apprby" />
                 <ScalarProperty Name="apprtime" ColumnName="apprtime" />
+                <ScalarProperty Name="prnby" ColumnName="prnby" />
+                <ScalarProperty Name="prntime" ColumnName="prntime" />
+                <ScalarProperty Name="prncnt" ColumnName="prncnt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1259,6 +1274,9 @@
                 <ScalarProperty Name="chgtime" ColumnName="chgtime" />
                 <ScalarProperty Name="apprby" ColumnName="apprby" />
                 <ScalarProperty Name="apprtime" ColumnName="apprtime" />
+                <ScalarProperty Name="prnby" ColumnName="prnby" />
+                <ScalarProperty Name="prntime" ColumnName="prntime" />
+                <ScalarProperty Name="prncnt" ColumnName="prncnt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

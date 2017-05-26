@@ -323,6 +323,9 @@ namespace XPump.SubForm
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "`apprby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`apprtime` DATETIME NULL,";
+                cmd.CommandText += "`prnby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`prntime` DATETIME NULL,";
+                cmd.CommandText += "`prncnt` INT(7) NOT NULL DEFAULT 0,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "INDEX `ndx-shiftsales-shift_id` (`shift_id` ASC),";
                 cmd.CommandText += "UNIQUE INDEX `unq-shiftsales` (`saldat` ASC, `shift_id` ASC),";
@@ -467,6 +470,9 @@ namespace XPump.SubForm
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "`apprby` VARCHAR(20) NULL,";
                 cmd.CommandText += "`apprtime` DATETIME NULL,";
+                cmd.CommandText += "`prnby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`prntime` DATETIME NULL,";
+                cmd.CommandText += "`prncnt` INT(7) NOT NULL DEFAULT 0,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "UNIQUE INDEX `unq-dayend-saldat` (`saldat` ASC, `stkcod` ASC)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";

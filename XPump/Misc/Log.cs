@@ -335,14 +335,30 @@ namespace XPump.Misc
             return l;
         }
 
-        public LogObject Print(string menu_id, string printed_key, string printed_val, string print_output)
+        public LogObject Print(string menu_id, string description, string docnum, string affected_table, int? affected_id)
         {
             LogObject l = new LogObject(this.main_form)
             {
                 Code = "015",
-                Description = string.Format("พิมพ์{0} {1} ออกทาง{2}", printed_key, printed_val, print_output),
+                Description = description,
                 Module = menu_id,
-                Docnum = printed_val
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id != null ? affected_id.ToString() : string.Empty
+            };
+            return l;
+        }
+
+        public LogObject Print(string menu_id, string description, string docnum, string affected_table, int[] affected_id)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "015",
+                Description = description,
+                Module = menu_id,
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id != null ? string.Join("|", affected_id.Select(i => i.ToString()).ToArray()) : string.Empty
             };
             return l;
         }

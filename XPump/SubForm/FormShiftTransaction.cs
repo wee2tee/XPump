@@ -811,26 +811,41 @@ namespace XPump.SubForm
             DialogPrintSetupA print = new DialogPrintSetupA();
             if (print.ShowDialog() == DialogResult.OK)
             {
-                var report_data = this.GetReportAData();
+                settings settings = DialogSettings.GetSettings(this.main_form.working_express_db);
+
+                var report_data = new ReportAModel(this.curr_shiftsales, this.main_form.working_express_db);
                 int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data, true));
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
-                    //XPrintPreviewDialog pd = new XPrintPreviewDialog(total_page);
-                    //pd.MdiParent = this.main_form;
-                    //pd.Document = this.PreparePrintDoc_A(report_data, total_page);
-                    //pd.Show();
-
                     XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, true, total_page), total_page);
                     xp.MdiParent = this.main_form;
+                    xp.btnPrint.Enabled = settings.shiftprintmet == ((int)PRINT_METHOD.NOT_ASSIGN).ToString() ? true : false;
                     xp.Show();
                 }
 
                 if (print.output == PRINT_OUTPUT.PRINTER)
                 {
+                    if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsPrintableShiftSales() != true)
+                        return;
+
                     PrintDialog pd = new PrintDialog();
                     pd.Document = this.PreparePrintDoc_A(report_data, true, total_page);
                     if (pd.ShowDialog() == DialogResult.OK)
                     {
+                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                        {
+                            var shiftsales_to_update = db.shiftsales.Find(this.curr_shiftsales.id);
+                            if(shiftsales_to_update != null)
+                            {
+                                shiftsales_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                shiftsales_to_update.prntime = DateTime.Now;
+                                shiftsales_to_update.prncnt += 1;
+
+                                db.SaveChanges();
+                            }
+                        }
+                        this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
+
                         pd.Document.Print();
                     }
                 }
@@ -842,21 +857,41 @@ namespace XPump.SubForm
             DialogPrintSetupA print = new DialogPrintSetupA();
             if (print.ShowDialog() == DialogResult.OK)
             {
-                var report_data = this.GetReportAData();
+                var report_data = new ReportAModel(this.curr_shiftsales, this.main_form.working_express_db);
                 int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data, false));
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
+                    settings settings = DialogSettings.GetSettings(this.main_form.working_express_db);
+
                     XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, false, total_page), total_page);
                     xp.MdiParent = this.main_form;
+                    xp.btnPrint.Enabled = settings.shiftprintmet == ((int)PRINT_METHOD.NOT_ASSIGN).ToString() ? true : false;
                     xp.Show();
                 }
 
                 if (print.output == PRINT_OUTPUT.PRINTER)
                 {
+                    if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsPrintableShiftSales() != true)
+                        return;
+
                     PrintDialog pd = new PrintDialog();
                     pd.Document = this.PreparePrintDoc_A(report_data, false, total_page);
                     if (pd.ShowDialog() == DialogResult.OK)
                     {
+                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                        {
+                            var shiftsales_to_update = db.shiftsales.Find(this.curr_shiftsales.id);
+                            if (shiftsales_to_update != null)
+                            {
+                                shiftsales_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                shiftsales_to_update.prntime = DateTime.Now;
+                                shiftsales_to_update.prncnt += 1;
+
+                                db.SaveChanges();
+                            }
+                        }
+                        this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
+
                         pd.Document.Print();
                     }
                 }
@@ -991,97 +1026,6 @@ namespace XPump.SubForm
             ((Control)sender).Focus();
         }
 
-        private ReportAModel GetReportAData()
-        {
-            ReportAModel report_data = new ReportAModel();
-            report_data.reportDate = this.curr_shiftsales.saldat;
-
-            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-            {
-                try
-                {
-                    //int[] pricelist_id = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.pricelist_id).ToArray<int>();
-                    //report_data.pricelistVM_list = db.pricelist.Where(p => pricelist_id.Contains<int>(p.id)).ToViewModel();
-
-                    report_data.salessummaryVM_list = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).ToViewModel(this.main_form.working_express_db).OrderBy(s => s.stkcod).ToList();
-
-                    int[] salessummary_ids = db.salessummary.Where(s => s.shiftsales_id == this.curr_shiftsales.id).Select(s => s.id).ToArray<int>();
-                    report_data.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel(this.main_form.working_express_db).ToList();
-
-                    report_data.shift = db.shift.Find(this.curr_shiftsales.shift_id);
-                    report_data.isinfoDbfVM = DbfTable.Isinfo(this.main_form.working_express_db).Rows.Count > 0 ? DbfTable.Isinfo(this.main_form.working_express_db).ToList<IsinfoDbf>().First().ToViewModel(this.main_form.working_express_db) : new IsinfoDbfVM { compnam = string.Empty, addr = string.Empty, telnum = string.Empty, taxid = string.Empty };
-
-                    var aptrn = DbfTable.Aptrn(this.main_form.working_express_db).ToAptrnList()
-                        .Where(a => a.docdat.HasValue)
-                        .Where(a => a.docdat.Value == report_data.reportDate)
-                        .Where(a => (a.docnum.Substring(0, 2) == report_data.shift.phpprefix || a.docnum.Substring(0, 2) == report_data.shift.prrprefix)).ToList();
-                    var artrn = DbfTable.Artrn(this.main_form.working_express_db).ToArtrnList()
-                        .Where(a => a.docdat.HasValue)
-                        .Where(a => a.docdat.Value == report_data.reportDate)
-                        .Where(a => (a.docnum.Substring(0, 2) == report_data.shift.shsprefix || a.docnum.Substring(0, 2) == report_data.shift.sivprefix)).ToList();
-                    var stcrd = DbfTable.Stcrd(this.main_form.working_express_db).ToStcrdList()
-                        .Where(s => s.docdat.HasValue)
-                        .Where(s => s.docdat.Value == report_data.reportDate)
-                        .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum) || artrn.Select(a => a.docnum).Contains(s.docnum))
-                        .OrderBy(s => s.docnum).ToList();
-
-                    report_data.phpvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == report_data.shift.phpprefix)
-                        .Select(s => new VatTransDbfVM {
-                            docnum = s.docnum.Trim(),
-                            docdat = s.docdat.Value,
-                            people = s.people.Trim(), //apmas.Where(a => a.supcod.Trim() == s.people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().supnam.Trim() : string.Empty,
-                            stkcod = s.stkcod.Trim(),
-                            netval = s.netval,
-                            vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
-                        }).OrderBy(s => s.docnum).ToList();
-
-                    report_data.prrvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == report_data.shift.prrprefix)
-                        .Select(s => new VatTransDbfVM
-                        {
-                            docnum = s.docnum.Trim(),
-                            docdat = s.docdat.Value,
-                            people = s.people.Trim(),
-                            stkcod = s.stkcod.Trim(),
-                            netval = s.netval,
-                            vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
-                        }).OrderBy(s => s.docnum).ToList();
-
-                    report_data.shsvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == report_data.shift.shsprefix)
-                        .Select(s => new VatTransDbfVM
-                        {
-                            docnum = s.docnum.Trim(),
-                            docdat = s.docdat.Value,
-                            people = s.people.Trim(),
-                            stkcod = s.stkcod.Trim(),
-                            netval = s.netval,
-                            vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
-                        }).OrderBy(s => s.docnum).ToList();
-
-                    report_data.sivvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == report_data.shift.sivprefix)
-                        .Select(s => new VatTransDbfVM
-                        {
-                            docnum = s.docnum.Trim(),
-                            docdat = s.docdat.Value,
-                            people = s.people.Trim(),
-                            stkcod = s.stkcod.Trim(),
-                            netval = s.netval,
-                            vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
-                        }).OrderBy(s => s.docnum).ToList();
-
-                    foreach (var item in report_data.salessummaryVM_list)
-                    {
-                        //item.purvat = Convert.ToDecimal(report_data.phpvattransVM.Where(p => p.stkcod == item.stkcod.Trim()).Sum(p => p.vatamt) + report_data.prrvattransVM.Where(p => p.stkcod == item.stkcod.Trim()).Sum(p => p.vatamt));
-                    }
-                }
-                catch (Exception)
-                {
-                    return report_data;
-                }
-            }
-
-            return report_data;
-        }
-
         private PrintDocument PreparePrintDoc_A(ReportAModel report_data, bool landscape = true, int total_page = 0)
         {
             Font fnt_title_bold = new Font("angsana new", 12f, FontStyle.Bold);
@@ -1099,6 +1043,7 @@ namespace XPump.SubForm
             int page = 0;
             int item_count = 0;
             int item_per_page = landscape ? 4 : 3;
+            int print_vat_doc = 0;
 
             PrintDocument docs = new PrintDocument();
             //PaperSize ps = new PaperSize();
@@ -1110,12 +1055,13 @@ namespace XPump.SubForm
             {
                 page = 0;
                 item_count = 0;
+                print_vat_doc = 0;
             };
             docs.PrintPage += delegate (object sender, PrintPageEventArgs e)
             {
                 int x = e.MarginBounds.Left;
                 int y = e.MarginBounds.Top;
-                int line_height = fnt_header.Height - 1;
+                int line_height = fnt_header.Height - 2;
 
                 page++;
 
@@ -1131,7 +1077,7 @@ namespace XPump.SubForm
                 /* report header */
                 Rectangle rect = new Rectangle(x, y, e.MarginBounds.Right - x, line_height);
                 string str = "รายงานแสดงรายละเอียดการขายน้ำมันเชื้อเพลิง";
-                e.Graphics.DrawString(str, fnt_header_bold, brush, rect, format_center);
+                e.Graphics.DrawString(str, fnt_title_bold, brush, rect, format_center);
 
                 y += line_height; // new line
                 str = "วันที่ " + report_data.reportDate.ToString("d MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + report_data.reportDate.ToString("yyyy", CultureInfo.CurrentCulture);
@@ -1293,10 +1239,10 @@ namespace XPump.SubForm
                     Rectangle rect_total_txt = new Rectangle(x, rect_noz.Y, rect_noz.Width + rect_mitbeg.Width + rect_mitend.Width, line_height);
                     e.Graphics.DrawString("  1.รวม", fnt_bold, brush, rect_total_txt);
 
-                    Rectangle rect_qty = new Rectangle(x + rect_total_txt.Width, rect_salqty.Y, rect_salqty.Width, line_height * 8);
+                    Rectangle rect_qty = new Rectangle(x + rect_total_txt.Width, rect_salqty.Y, rect_salqty.Width, line_height * 11);
                     e.Graphics.DrawRectangle(p, rect_qty);
 
-                    Rectangle rect_val = new Rectangle(rect_qty.X + rect_qty.Width, rect_salval.Y, rect_salval.Width, line_height * 8);
+                    Rectangle rect_val = new Rectangle(rect_qty.X + rect_qty.Width, rect_salval.Y, rect_salval.Width, line_height * 11);
                     e.Graphics.DrawRectangle(p, rect_val);
 
                     Rectangle rect_total = new Rectangle(rect_salqty.X, rect_total_txt.Y, rect_salqty.Width, line_height);
@@ -1308,15 +1254,45 @@ namespace XPump.SubForm
                     Rectangle rect_dtest = new Rectangle(rect_salqty.X, rect_dtest_txt.Y, rect_total.Width, line_height);
                     e.Graphics.DrawString(report_data.salessummaryVM_list[i].dtest.FormatCurrency(), fnt, brush, rect_dtest, new StringFormat { Alignment = StringAlignment.Far });
 
-                    Rectangle rect_dother_txt = new Rectangle(x + 12, rect_dtest_txt.Y + line_height, rect_dtest_txt.Width - 12, line_height);
-                    e.Graphics.DrawString("หักอื่น ๆ ระบุ ______________________", fnt_bold, brush, rect_dother_txt);
+                    Rectangle rect_dother_txt = new Rectangle(x + 12, rect_dtest_txt.Y + line_height, rect_dtest_txt.Width, line_height);
+                    //e.Graphics.DrawString("หักอื่น ๆ ระบุ ______________________", fnt_bold, brush, rect_dother_txt);
+                    //e.Graphics.DrawRectangle(new Pen(Color.Red), rect_dother_txt);
+                    e.Graphics.DrawString("หักอื่น ๆ ระบุ", fnt_bold, brush, rect_dother_txt);
 
-                    rect_dother_txt.X += 60;
-                    rect_dother_txt.Width -= 60;
+                    rect_dother_txt.X += 50;
+                    rect_dother_txt.Width = rect_noz.Width + rect_mitbeg.Width + rect_mitend.Width - 50 - 16;
+                    //foreach (var d in report_data.salessummaryVM_list[i].dother_list)
+                    //{
+                    //    e.Graphics.DrawString(d.ToViewModel(this.main_form.working_express_db).typcod, fnt, brush, rect_dother_txt);
+                    //    rect_dother_txt.Y += line_height;
+                    //}
+
+                    for (int r = 0; r < 4; r++)
+                    {
+                        Rectangle rect_dother = new Rectangle(rect_salqty.X, rect_dother_txt.Y, rect_total.Width, line_height);
+                        if (report_data.salessummaryVM_list[i].dother_list.Count > r)
+                        {
+                            e.Graphics.DrawString(report_data.salessummaryVM_list[i].dother_list[r].ToViewModel(this.main_form.working_express_db).typdes, fnt, brush, rect_dother_txt);
+
+                            e.Graphics.DrawString(report_data.salessummaryVM_list[i].dother_list[r].qty.FormatCurrency(), fnt, brush, rect_dother, new StringFormat { Alignment = StringAlignment.Far });
+                        }
+                        else
+                        {
+                            e.Graphics.DrawString("-", fnt, brush, rect_dother, new StringFormat { Alignment = StringAlignment.Far });
+                        }
+
+                        e.Graphics.DrawLine(p, new Point(rect_dother_txt.X, rect_dother_txt.Y + rect_dother_txt.Height - 2), new Point(rect_dother_txt.X + rect_dother_txt.Width, rect_dother_txt.Y + rect_dother_txt.Height - 2));
+
+                        if(r < 3)
+                        {
+                            rect_dother_txt.Y += line_height;
+                            rect_dother.Y += line_height;
+                        }
+                    }
                     //e.Graphics.DrawString(report_data.salessummaryVM_list[i].dothertxt, fnt_bold, brush, rect_dother_txt);
 
-                    Rectangle rect_dother = new Rectangle(rect_salqty.X, rect_dother_txt.Y, rect_total.Width, line_height);
-                    e.Graphics.DrawString(report_data.salessummaryVM_list[i].dother.FormatCurrency(), fnt, brush, rect_dother, new StringFormat { Alignment = StringAlignment.Far });
+                    //Rectangle rect_dother = new Rectangle(rect_salqty.X, rect_dother_txt.Y, rect_total.Width, line_height);
+                    //e.Graphics.DrawString(report_data.salessummaryVM_list[i].dother.FormatCurrency(), fnt, brush, rect_dother, new StringFormat { Alignment = StringAlignment.Far });
 
                     Rectangle rect_totqty_txt = new Rectangle(x, rect_dother_txt.Y + line_height, rect_dtest_txt.Width, line_height);
                     e.Graphics.DrawString("  3.รวมยอดขายประจำวัน", fnt_bold, brush, rect_totqty_txt);
@@ -1384,72 +1360,7 @@ namespace XPump.SubForm
                         e.Graphics.DrawLine(p, new Point(rect_tot_purvat.X, rect_tot_purvat.Y + line_height), new Point(rect_tot_purvat.X + rect_tot_purvat.Width, rect_tot_purvat.Y + line_height));
                         e.Graphics.DrawLine(p, new Point(rect_tot_purvat.X, rect_tot_purvat.Y + line_height + 2), new Point(rect_tot_purvat.X + rect_tot_purvat.Width, rect_tot_purvat.Y + line_height + 2));
 
-                        str = "ใบกำกับภาษีเต็มรูปแบบตามมาตรา 86/4 แห่งประมวลรัษฎากร (จากการขายน้ำมันเชื้อเพลิงผ่านมิเตอร์หัวจ่าย)";
-                        Rectangle rect_vatdoc_title = new Rectangle(e.MarginBounds.Left, rect_tot_purvat_txt.Y + (line_height * 2), str.Width(fnt), line_height);
-                        e.Graphics.DrawString(str, fnt, brush, rect_vatdoc_title);
-
-                        y = rect_vatdoc_title.Y;
-                        var sal_hs = sal_vattrans.Where(s => s.docnum.Substring(0, 2) == report_data.shift.shsprefix).ToList();
-                        if(sal_hs.Count > 0)
-                        {
-                            y += line_height;
-                            if (sal_hs.Count == 1)
-                            {
-                                str = "เลขที่ " + sal_hs.First().docnum.PadLeft(12);
-                            }
-                            else
-                            {
-                                str = "เลขที่ " + sal_hs.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_hs.Last().docnum.PadLeft(12);
-                            }
-
-                            str += " จำนวน " + sal_hs.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.netval) + sal_hs.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
-                            Rectangle rect_hs_vat = str.GetDisplayRect(fnt, e.MarginBounds.Left, y);
-                            rect_hs_vat.Width += 15;
-                            e.Graphics.DrawString(str, fnt, brush, rect_hs_vat);
-                        }
-                        var sal_iv = sal_vattrans.Where(s => s.docnum.Substring(0, 2) == report_data.shift.sivprefix).ToList();
-                        if(sal_iv.Count > 0)
-                        {
-                            y += line_height;
-                            if(sal_iv.Count == 1)
-                            {
-                                str = "เลขที่ " + sal_iv.First().docnum.PadLeft(12);
-                            }
-                            else
-                            {
-                                str = "เลขที่ " + sal_iv.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_iv.Last().docnum.PadLeft(12);
-                            }
-
-                             str += " จำนวน " + sal_iv.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.netval) + sal_iv.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
-                            Rectangle rect_iv_vat = str.GetDisplayRect(fnt, e.MarginBounds.Left, y);
-                            rect_iv_vat.Width += 15;
-                            e.Graphics.DrawString(str, fnt, brush, rect_iv_vat);
-                        }
-
-                        using(Font fnt_price = new Font("angsana new", 9f))
-                        {
-                            Rectangle rect_price = new Rectangle(e.MarginBounds.Right - 200, rect_tot_purvat_txt.Y + line_height, 200, fnt_price.Height * 11);
-                            e.Graphics.FillRectangle(bg_gray, rect_price);
-                            e.Graphics.DrawRectangle(p, rect_price);
-
-                            rect = new Rectangle(rect_price.X, rect_price.Y, rect_price.Width, fnt_price.Height);
-                            e.Graphics.DrawString("ราคาน้ำมันวันนี้", fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Center });
-
-                            for (int k = 0; k < 10; k++)
-                            {
-                                if(k < report_data.salessummaryVM_list.Count)
-                                {
-                                    rect = new Rectangle(rect_price.X, rect_price.Y + (fnt_price.Height * (k + 1)), rect_price.Width * 2 / 4, fnt_price.Height);
-                                    e.Graphics.DrawString(report_data.salessummaryVM_list[k].stkcod, fnt_price, brush, rect);
-
-                                    rect = new Rectangle(rect.X + rect.Width, rect.Y, rect.Width / 2, fnt_price.Height);
-                                    e.Graphics.DrawString(report_data.salessummaryVM_list[k].unitpr.FormatCurrency(), fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Far });
-
-                                    rect = new Rectangle(rect.X + rect.Width, rect.Y, rect.Width, fnt_price.Height);
-                                    e.Graphics.DrawString("บาท", fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Center });
-                                }
-                            }
-                        }
+                        
                     }
 
                     /* Summary line end */
@@ -1465,6 +1376,86 @@ namespace XPump.SubForm
                         e.HasMorePages = false;
                     }
                 }
+
+                /* VAT. document */
+                if(print_vat_doc == 0)
+                {
+                    e.HasMorePages = true;
+                    print_vat_doc = 1;
+                    return;
+                }
+                for (int i = 0; i < 15; i++)
+                {
+                    rect = new Rectangle(rect.X, rect.Y + line_height, 400, line_height);
+                    e.Graphics.DrawString(i.ToString(), fnt, brush, rect);
+                }
+
+                //str = "ใบกำกับภาษีเต็มรูปแบบตามมาตรา 86/4 แห่งประมวลรัษฎากร (จากการขายน้ำมันเชื้อเพลิงผ่านมิเตอร์หัวจ่าย)";
+                //Rectangle rect_vatdoc_title = new Rectangle(e.MarginBounds.Left, rect_tot_purvat_txt.Y + (line_height * 2), str.Width(fnt), line_height);
+                //e.Graphics.DrawString(str, fnt, brush, rect_vatdoc_title);
+
+                //y = rect_vatdoc_title.Y;
+                //var sal_hs = sal_vattrans.Where(s => s.docnum.Substring(0, 2) == report_data.shift.shsprefix).ToList();
+                //if (sal_hs.Count > 0)
+                //{
+                //    y += line_height;
+                //    if (sal_hs.Count == 1)
+                //    {
+                //        str = "เลขที่ " + sal_hs.First().docnum.PadLeft(12);
+                //    }
+                //    else
+                //    {
+                //        str = "เลขที่ " + sal_hs.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_hs.Last().docnum.PadLeft(12);
+                //    }
+
+                //    str += " จำนวน " + sal_hs.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.netval) + sal_hs.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
+                //    Rectangle rect_hs_vat = str.GetDisplayRect(fnt, e.MarginBounds.Left, y);
+                //    rect_hs_vat.Width += 15;
+                //    e.Graphics.DrawString(str, fnt, brush, rect_hs_vat);
+                //}
+                //var sal_iv = sal_vattrans.Where(s => s.docnum.Substring(0, 2) == report_data.shift.sivprefix).ToList();
+                //if (sal_iv.Count > 0)
+                //{
+                //    y += line_height;
+                //    if (sal_iv.Count == 1)
+                //    {
+                //        str = "เลขที่ " + sal_iv.First().docnum.PadLeft(12);
+                //    }
+                //    else
+                //    {
+                //        str = "เลขที่ " + sal_iv.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_iv.Last().docnum.PadLeft(12);
+                //    }
+
+                //    str += " จำนวน " + sal_iv.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.netval) + sal_iv.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
+                //    Rectangle rect_iv_vat = str.GetDisplayRect(fnt, e.MarginBounds.Left, y);
+                //    rect_iv_vat.Width += 15;
+                //    e.Graphics.DrawString(str, fnt, brush, rect_iv_vat);
+                //}
+
+                //using (Font fnt_price = new Font("angsana new", 9f))
+                //{
+                //    Rectangle rect_price = new Rectangle(e.MarginBounds.Right - 200, rect_tot_purvat_txt.Y + line_height, 200, fnt_price.Height * 11);
+                //    e.Graphics.FillRectangle(bg_gray, rect_price);
+                //    e.Graphics.DrawRectangle(p, rect_price);
+
+                //    rect = new Rectangle(rect_price.X, rect_price.Y, rect_price.Width, fnt_price.Height);
+                //    e.Graphics.DrawString("ราคาน้ำมันวันนี้", fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Center });
+
+                //    for (int k = 0; k < 10; k++)
+                //    {
+                //        if (k < report_data.salessummaryVM_list.Count)
+                //        {
+                //            rect = new Rectangle(rect_price.X, rect_price.Y + (fnt_price.Height * (k + 1)), rect_price.Width * 2 / 4, fnt_price.Height);
+                //            e.Graphics.DrawString(report_data.salessummaryVM_list[k].stkcod, fnt_price, brush, rect);
+
+                //            rect = new Rectangle(rect.X + rect.Width, rect.Y, rect.Width / 2, fnt_price.Height);
+                //            e.Graphics.DrawString(report_data.salessummaryVM_list[k].unitpr.FormatCurrency(), fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Far });
+
+                //            rect = new Rectangle(rect.X + rect.Width, rect.Y, rect.Width, fnt_price.Height);
+                //            e.Graphics.DrawString("บาท", fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Center });
+                //        }
+                //    }
+                //}
             };
 
             return docs;

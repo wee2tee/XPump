@@ -21,6 +21,9 @@ namespace XPump.SubForm
         private DateTime? chgtime;
         private string apprby;
         private DateTime? apprtime;
+        private string prnby;
+        private DateTime? prntime;
+        private int? prncnt;
 
         public DialogDataInfo(string table_name, int current_id, int total_record, string creby, DateTime? cretime, string chgby, DateTime? chgtime)
         {
@@ -41,6 +44,14 @@ namespace XPump.SubForm
             this.apprtime = apprtime;
         }
 
+        public DialogDataInfo(string table_name, int current_id, int total_record, string creby, DateTime? cretime, string chgby, DateTime? chgtime, string apprby, DateTime? apprtime, string prnby, DateTime? prntime, int prncnt)
+            : this(table_name, current_id, total_record, creby, cretime, chgby, chgtime, apprby, apprtime)
+        {
+            this.prnby = prnby;
+            this.prntime = prntime;
+            this.prncnt = prncnt;
+        }
+
         private void DialogDataInfo_Load(object sender, EventArgs e)
         {
             this.Text = this.table_name;
@@ -53,6 +64,10 @@ namespace XPump.SubForm
 
             this.txtApprBy._Text = this.apprby != null ? this.apprby : string.Empty;
             this.txtApprTime._Text = this.apprtime.HasValue ? this.apprtime.Value.ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("th-TH")) : string.Empty;
+
+            this.txtPrnBy._Text = this.prnby != null ? this.prnby : string.Empty;
+            this.txtPrnTime._Text = this.prntime.HasValue ? this.prntime.Value.ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("th-TH")) : string.Empty;
+            this.txtPrnCnt._Text = this.prncnt.HasValue ? this.prntime.Value.ToString() : "0";
 
             this.txtId._Text = this.current_id.ToString();
             this.txtTotal._Text = this.total_record.ToString();

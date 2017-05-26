@@ -534,6 +534,16 @@ namespace XPump.Model
             }
         }
         public salessummary salessummary { get; set; }
+        public List<dother> dother_list
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.dother.Where(d => d.salessummary_id == this.salessummary.id).ToList();
+                }
+            }
+        }
         private shiftsales GetShiftsales()
         {
             using (xpumpEntities db = DBX.DataSet(this.working_express_db))
@@ -1374,16 +1384,96 @@ namespace XPump.Model
 
     public class ReportAModel
     {
-        public DateTime reportDate { get; set; }
-        public IsinfoDbfVM isinfoDbfVM { get; set; }
-        public shift shift { get; set; }
-        public List<VatTransDbfVM> phpvattransVM { get; set; }
-        public List<VatTransDbfVM> prrvattransVM { get; set; }
-        public List<VatTransDbfVM> shsvattransVM { get; set; }
-        public List<VatTransDbfVM> sivvattransVM { get; set; }
+        private SccompDbf working_express_db { get; set; }
+        private shiftsales shiftsales { get; set; }
+        public DateTime reportDate;
+        public IsinfoDbfVM isinfoDbfVM;
+        public shift shift;
+        public List<VatTransDbfVM> phpvattransVM;
+        public List<VatTransDbfVM> prrvattransVM;
+        public List<VatTransDbfVM> shsvattransVM;
+        public List<VatTransDbfVM> sivvattransVM;
         //public List<pricelistVM> pricelistVM_list { get; set; }
-        public List<salessummaryVM> salessummaryVM_list { get; set; }
-        public List<saleshistoryVM> saleshistoryVM_list { get; set; }
+        //public List<salessummaryVM> salessummaryVM_list { get; set; }
+        public List<salessummaryVM> salessummaryVM_list;
+        public List<saleshistoryVM> saleshistoryVM_list;
+
+        public ReportAModel(shiftsales shiftsales, SccompDbf working_express_db)
+        {
+            this.working_express_db = working_express_db;
+            this.shiftsales = shiftsales;
+
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                this.reportDate = this.shiftsales.saldat;
+                this.isinfoDbfVM = DbfTable.Isinfo(this.working_express_db).Rows.Count > 0 ? DbfTable.Isinfo(this.working_express_db).ToList<IsinfoDbf>().First().ToViewModel(this.working_express_db) : new IsinfoDbfVM { compnam = string.Empty, addr = string.Empty, telnum = string.Empty, taxid = string.Empty };
+                this.shift = db.shift.Find(this.shiftsales.shift_id);
+
+                /*** Get neccessary data from express ***/
+                var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
+                        .Where(a => a.docdat.HasValue)
+                        .Where(a => a.docdat.Value == this.reportDate)
+                        .Where(a => (a.docnum.Substring(0, 2) == this.shift.phpprefix || a.docnum.Substring(0, 2) == this.shift.prrprefix)).ToList();
+                var artrn = DbfTable.Artrn(this.working_express_db).ToArtrnList()
+                    .Where(a => a.docdat.HasValue)
+                    .Where(a => a.docdat.Value == this.reportDate)
+                    .Where(a => (a.docnum.Substring(0, 2) == this.shift.shsprefix || a.docnum.Substring(0, 2) == this.shift.sivprefix)).ToList();
+                var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
+                    .Where(s => s.docdat.HasValue)
+                    .Where(s => s.docdat.Value == this.reportDate)
+                    .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum) || artrn.Select(a => a.docnum).Contains(s.docnum))
+                    .OrderBy(s => s.docnum).ToList();
+
+                this.phpvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == this.shift.phpprefix)
+                    .Select(s => new VatTransDbfVM
+                    {
+                        docnum = s.docnum.Trim(),
+                        docdat = s.docdat.Value,
+                        people = s.people.Trim(), //apmas.Where(a => a.supcod.Trim() == s.people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().supnam.Trim() : string.Empty,
+                            stkcod = s.stkcod.Trim(),
+                        netval = s.netval,
+                        vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+                    }).OrderBy(s => s.docnum).ToList();
+
+                this.prrvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == this.shift.prrprefix)
+                    .Select(s => new VatTransDbfVM
+                    {
+                        docnum = s.docnum.Trim(),
+                        docdat = s.docdat.Value,
+                        people = s.people.Trim(),
+                        stkcod = s.stkcod.Trim(),
+                        netval = s.netval,
+                        vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+                    }).OrderBy(s => s.docnum).ToList();
+
+                this.shsvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == this.shift.shsprefix)
+                    .Select(s => new VatTransDbfVM
+                    {
+                        docnum = s.docnum.Trim(),
+                        docdat = s.docdat.Value,
+                        people = s.people.Trim(),
+                        stkcod = s.stkcod.Trim(),
+                        netval = s.netval,
+                        vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+                    }).OrderBy(s => s.docnum).ToList();
+
+                this.sivvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == this.shift.sivprefix)
+                    .Select(s => new VatTransDbfVM
+                    {
+                        docnum = s.docnum.Trim(),
+                        docdat = s.docdat.Value,
+                        people = s.people.Trim(),
+                        stkcod = s.stkcod.Trim(),
+                        netval = s.netval,
+                        vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+                    }).OrderBy(s => s.docnum).ToList();
+
+                /*****************************************/
+                this.salessummaryVM_list = db.salessummary.Include("dother").Where(s => s.shiftsales_id == this.shiftsales.id).ToViewModel(this.working_express_db).OrderBy(s => s.stkcod).ToList();
+                int[] salessummary_ids = db.salessummary.Where(s => s.shiftsales_id == this.shiftsales.id).Select(s => s.id).ToArray<int>();
+                this.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel(this.working_express_db).ToList();
+            }
+        }
     }
 
     //public class ReportBModel

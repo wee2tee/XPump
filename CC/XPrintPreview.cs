@@ -141,15 +141,15 @@ namespace CC
         {
             if ((Control.ModifierKeys & Keys.Control) != 0)
             {
-                if (e.Delta > 0)
-                {
-                    this.btnZoomIn.PerformClick();
-                }
-                else
-                {
-                    this.btnZoomOut.PerformClick();
-                }
-                return;
+                //if (e.Delta > 0)
+                //{
+                //    this.btnZoomIn.PerformClick();
+                //}
+                //else
+                //{
+                //    this.btnZoomOut.PerformClick();
+                //}
+                //return;
             }
             else if (Control.ModifierKeys == 0)
             {
@@ -164,7 +164,6 @@ namespace CC
                     return;
                 }
             }
-
 
             base.OnMouseWheel(e);
         }

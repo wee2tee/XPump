@@ -35,6 +35,9 @@ namespace XPump.Model
         public Nullable<System.DateTime> chgtime { get; set; }
         public string apprby { get; set; }
         public Nullable<System.DateTime> apprtime { get; set; }
+        public string prnby { get; set; }
+        public Nullable<System.DateTime> prntime { get; set; }
+        public int prncnt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<daysttak> daysttak { get; set; }

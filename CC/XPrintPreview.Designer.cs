@@ -281,7 +281,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton btnPrint;
         private System.Windows.Forms.ToolStripButton btnZoomIn;
         private System.Windows.Forms.ToolStripButton btnZoomOut;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -301,5 +300,6 @@
         private System.Windows.Forms.ToolStripButton btnSplit4;
         private System.Windows.Forms.ToolStripButton btnZoomFit;
         private System.Windows.Forms.ToolStripButton btnSplitNone;
+        public System.Windows.Forms.ToolStripButton btnPrint;
     }
 }
