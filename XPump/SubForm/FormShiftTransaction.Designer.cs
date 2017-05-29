@@ -294,7 +294,7 @@
             // 
             this.btnPrintALandscape.Name = "btnPrintALandscape";
             this.btnPrintALandscape.Size = new System.Drawing.Size(296, 22);
-            this.btnPrintALandscape.Text = "พิมพ์รายงานส่วน ก. กระดาษแนวนอน (12 หัวจ่าย)";
+            this.btnPrintALandscape.Text = "พิมพ์รายงานส่วน ก. กระดาษแนวนอน (20 หัวจ่าย)";
             this.btnPrintALandscape.ToolTipText = "พิมพ์รายงานส่วน ก.";
             this.btnPrintALandscape.Click += new System.EventHandler(this.btnPrintALandscape_Click);
             // 

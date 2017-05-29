@@ -1043,7 +1043,11 @@ namespace XPump.SubForm
             int page = 0;
             int item_count = 0;
             int item_per_page = landscape ? 4 : 3;
-            int print_vat_doc = 0;
+            int max_dother_item = 5;
+            int printed_vatdoc = -1;
+            int vatdoc_item_per_column = 33;
+            int vatdoc_item_page = vatdoc_item_per_column * 3;
+
 
             PrintDocument docs = new PrintDocument();
             //PaperSize ps = new PaperSize();
@@ -1055,7 +1059,7 @@ namespace XPump.SubForm
             {
                 page = 0;
                 item_count = 0;
-                print_vat_doc = 0;
+                printed_vatdoc = -1;
             };
             docs.PrintPage += delegate (object sender, PrintPageEventArgs e)
             {
@@ -1141,8 +1145,13 @@ namespace XPump.SubForm
                 y += line_height; // new line
                 int start_body_y = y;
                 int page_item = 0;
-                List<VatTransDbfVM> sal_vattrans = new List<VatTransDbfVM>();
-                List<VatTransDbfVM> pur_vattrans = new List<VatTransDbfVM>();
+                List<VatTransDbfVM> sal_vattrans = report_data.shsvattransVM
+                                                    .Concat(report_data.sivvattransVM)
+                                                    .OrderBy(v => v.docdat).ThenBy(v => v.docnum).ToList();
+                List<VatTransDbfVM> pur_vattrans = report_data.phpvattransVM
+                                                    .Concat(report_data.prrvattransVM)
+                                                    .OrderBy(v => v.docdat).ThenBy(v => v.docnum).ToList();
+                
                 decimal tot_salvat = 0m;
                 decimal tot_purvat = 0m;
 
@@ -1204,7 +1213,7 @@ namespace XPump.SubForm
                     rect_salval.Y += line_height * 2;
 
                     var sales_history = report_data.saleshistoryVM_list.Where(s => s.salessummary_id == report_data.salessummaryVM_list[i].id).OrderBy(s => s.nozzle_name).ToList();
-                    int nozz_count = landscape ? 12 : 30;
+                    int nozz_count = landscape ? 20/*12*/ : 30;
                     for (int j = 0; j < nozz_count; j++)
                     {
                         e.Graphics.FillRectangle(bg_gray, rect_noz);
@@ -1239,10 +1248,10 @@ namespace XPump.SubForm
                     Rectangle rect_total_txt = new Rectangle(x, rect_noz.Y, rect_noz.Width + rect_mitbeg.Width + rect_mitend.Width, line_height);
                     e.Graphics.DrawString("  1.รวม", fnt_bold, brush, rect_total_txt);
 
-                    Rectangle rect_qty = new Rectangle(x + rect_total_txt.Width, rect_salqty.Y, rect_salqty.Width, line_height * 11);
+                    Rectangle rect_qty = new Rectangle(x + rect_total_txt.Width, rect_salqty.Y, rect_salqty.Width, line_height * (7 + max_dother_item));
                     e.Graphics.DrawRectangle(p, rect_qty);
 
-                    Rectangle rect_val = new Rectangle(rect_qty.X + rect_qty.Width, rect_salval.Y, rect_salval.Width, line_height * 11);
+                    Rectangle rect_val = new Rectangle(rect_qty.X + rect_qty.Width, rect_salval.Y, rect_salval.Width, line_height * (7 + max_dother_item));
                     e.Graphics.DrawRectangle(p, rect_val);
 
                     Rectangle rect_total = new Rectangle(rect_salqty.X, rect_total_txt.Y, rect_salqty.Width, line_height);
@@ -1267,7 +1276,7 @@ namespace XPump.SubForm
                     //    rect_dother_txt.Y += line_height;
                     //}
 
-                    for (int r = 0; r < 4; r++)
+                    for (int r = 0; r < max_dother_item/*4*/; r++)
                     {
                         Rectangle rect_dother = new Rectangle(rect_salqty.X, rect_dother_txt.Y, rect_total.Width, line_height);
                         if (report_data.salessummaryVM_list[i].dother_list.Count > r)
@@ -1283,7 +1292,7 @@ namespace XPump.SubForm
 
                         e.Graphics.DrawLine(p, new Point(rect_dother_txt.X, rect_dother_txt.Y + rect_dother_txt.Height - 2), new Point(rect_dother_txt.X + rect_dother_txt.Width, rect_dother_txt.Y + rect_dother_txt.Height - 2));
 
-                        if(r < 3)
+                        if(r < max_dother_item - 1/*3*/)
                         {
                             rect_dother_txt.Y += line_height;
                             rect_dother.Y += line_height;
@@ -1330,14 +1339,14 @@ namespace XPump.SubForm
                     Rectangle rect_purvat = new Rectangle(rect_salval.X, rect_purvat_txt.Y, rect_salval.Width, line_height);
                     e.Graphics.DrawString(report_data.salessummaryVM_list[i].purvat.FormatCurrency(), fnt, brush, rect_purvat, new StringFormat { Alignment = StringAlignment.Far });
 
-                    foreach (var item in report_data.shsvattransVM.Where(s => s.stkcod == report_data.salessummaryVM_list[i].stkcod))
-                    {
-                        sal_vattrans.Add(item);
-                    }
-                    foreach (var item in report_data.sivvattransVM.Where(s => s.stkcod == report_data.salessummaryVM_list[i].stkcod))
-                    {
-                        sal_vattrans.Add(item);
-                    }
+                    //foreach (var item in report_data.shsvattransVM.Where(s => s.stkcod == report_data.salessummaryVM_list[i].stkcod))
+                    //{
+                    //    sal_vattrans.Add(item);
+                    //}
+                    //foreach (var item in report_data.sivvattransVM.Where(s => s.stkcod == report_data.salessummaryVM_list[i].stkcod))
+                    //{
+                    //    sal_vattrans.Add(item);
+                    //}
 
                     tot_salvat += report_data.salessummaryVM_list[i].salvat;
                     tot_purvat += report_data.salessummaryVM_list[i].purvat;
@@ -1345,7 +1354,7 @@ namespace XPump.SubForm
                     if(page_item == item_per_page || item_count == report_data.salessummaryVM_list.Count)
                     {
                         Rectangle rect_tot_salvat_txt = new Rectangle(e.MarginBounds.Left, rect_purvat_txt.Y + line_height, rect_purvat_txt.Width, line_height);
-                        e.Graphics.DrawString("  รวมภาษีขายน้ำมันเชื้อเพลิงทั้งสิ้น", fnt_bold, brush, rect_tot_salvat_txt);
+                        e.Graphics.DrawString("  รวมภาษีขายน้ำมันเชื้อเพลิงในหน้านี้", fnt_bold, brush, rect_tot_salvat_txt);
 
                         Rectangle rect_tot_salvat = new Rectangle(rect_tot_salvat_txt.X + rect_tot_salvat_txt.Width, rect_tot_salvat_txt.Y, rect_salqty.Width, line_height);
                         e.Graphics.DrawString(tot_salvat.FormatCurrency(), fnt_bold, brush, rect_tot_salvat, new StringFormat { Alignment = StringAlignment.Far });
@@ -1353,7 +1362,7 @@ namespace XPump.SubForm
                         e.Graphics.DrawLine(p, new Point(rect_tot_salvat.X, rect_tot_salvat.Y + line_height + 2), new Point(rect_tot_salvat.X + rect_tot_salvat.Width, rect_tot_salvat.Y + line_height + 2));
 
                         Rectangle rect_tot_purvat_txt = new Rectangle(e.MarginBounds.Left + rect_tot_salvat_txt.Width + rect_tot_salvat.Width + rect_salval.Width, rect_tot_salvat_txt.Y, rect_tot_salvat_txt.Width, line_height);
-                        e.Graphics.DrawString("  รวมภาษีซื้อน้ำมันเชื้อเพลิงทั้งสิ้น", fnt_bold, brush, rect_tot_purvat_txt);
+                        e.Graphics.DrawString("  รวมภาษีซื้อน้ำมันเชื้อเพลิงในหน้านี้", fnt_bold, brush, rect_tot_purvat_txt);
 
                         Rectangle rect_tot_purvat = new Rectangle(rect_tot_purvat_txt.X + rect_tot_purvat_txt.Width, rect_tot_purvat_txt.Y, rect_salqty.Width, line_height);
                         e.Graphics.DrawString(tot_purvat.FormatCurrency(), fnt_bold, brush, rect_tot_purvat, new StringFormat { Alignment = StringAlignment.Far });
@@ -1378,84 +1387,126 @@ namespace XPump.SubForm
                 }
 
                 /* VAT. document */
-                if(print_vat_doc == 0)
+                if(printed_vatdoc == -1)
                 {
                     e.HasMorePages = true;
-                    print_vat_doc = 1;
+                    printed_vatdoc++;
                     return;
                 }
-                for (int i = 0; i < 15; i++)
+
+                rect = new Rectangle(e.MarginBounds.X, rect.Y + (line_height * 2), 500, line_height);
+                e.Graphics.DrawString("ใบกำกับภาษีเต็มรูปแบบตามมาตรา 86/4 แห่งประมวลรัษฎากร (จากการขายน้ำมันเชื้อเพลิงผ่านมิเตอร์หัวจ่าย)", fnt_bold, brush, rect);
+
+                int begining_x = rect.X;
+                int begining_y = rect.Y;
+
+                Rectangle rect_seq = new Rectangle(begining_x, begining_y + line_height, 28, line_height);
+                Rectangle rect_docnum = new Rectangle(rect_seq.X + rect_seq.Width, begining_y + line_height, 85, line_height);
+                RectangleF rect_net = new RectangleF(rect_docnum.X + rect_docnum.Width, begining_y + line_height, 75, line_height);
+                RectangleF rect_vat = new RectangleF(rect_net.X + rect_net.Width, begining_y + line_height, 85, line_height);
+                for (int b = 0; b < 3; b++)
                 {
-                    rect = new Rectangle(rect.X, rect.Y + line_height, 400, line_height);
-                    e.Graphics.DrawString(i.ToString(), fnt, brush, rect);
+                    e.Graphics.FillRectangle(bg_gray, rect_seq);
+                    e.Graphics.FillRectangle(bg_gray, rect_docnum);
+                    e.Graphics.FillRectangle(bg_gray, rect_net);
+                    e.Graphics.FillRectangle(bg_gray, rect_vat);
+                    rect_seq.Y = begining_y + line_height;
+                    e.Graphics.DrawString("ลำดับ", fnt_bold, brush, rect_seq);
+                    rect_docnum.Y = begining_y + line_height;
+                    e.Graphics.DrawString("เล่มที่/เลขที่", fnt_bold, brush, rect_docnum);
+                    rect_net.Y = begining_y + line_height;
+                    e.Graphics.DrawString("จำนวนเงิน(บาท)", fnt_bold, brush, rect_net, new StringFormat { Alignment = StringAlignment.Far });
+                    rect_vat.Y = begining_y + line_height;
+                    e.Graphics.DrawString("ภาษีมูลค่าเพิ่ม(บาท)", fnt_bold, brush, rect_vat, new StringFormat { Alignment = StringAlignment.Far });
+
+                    e.Graphics.DrawRectangle(p, new Rectangle(rect_seq.X, rect.Y + line_height, rect_seq.Width + rect_docnum.Width + (int)rect_net.Width + (int)rect_vat.Width, line_height));
+                    e.Graphics.DrawRectangle(p, new Rectangle(rect_seq.X, rect.Y + (line_height * 2), rect_seq.Width + rect_docnum.Width + (int)rect_net.Width + (int)rect_vat.Width, line_height * vatdoc_item_per_column));
+                    e.Graphics.DrawRectangle(p, new Rectangle(rect_seq.X, rect.Y + line_height, rect_seq.Width, line_height + (line_height * vatdoc_item_per_column)));
+
+                    var col_width = rect_seq.Width + rect_docnum.Width + (int)rect_net.Width + (int)rect_vat.Width + 10;
+                    rect_seq.X += col_width;
+                    rect_docnum.X += col_width;
+                    rect_net.X += col_width;
+                    rect_vat.X += col_width;
+                }
+                rect_seq.X = begining_x;
+                rect_docnum.X = rect_seq.X + rect_seq.Width;
+                rect_net.X = rect_docnum.X + rect_docnum.Width;
+                rect_vat.X = rect_net.X + rect_net.Width;
+
+                /*** Total VAT. block ***/
+                Rectangle rect_tot_vat = new Rectangle(900, begining_y + (line_height * 2), 140, line_height);
+                Rectangle rect_tot_vat_amt = new Rectangle(rect_tot_vat.X + rect_tot_vat.Width, begining_y + (line_height * 2), 60, line_height);
+                Rectangle rect_tot_vat_baht = new Rectangle(rect_tot_vat_amt.X + rect_tot_vat_amt.Width, begining_y + (line_height * 2), 30, line_height);
+
+                Rectangle rect_totvat_block = new Rectangle(rect_tot_vat.X - 10, begining_y + line_height, rect_tot_vat.Width + rect_tot_vat_amt.Width + rect_tot_vat_baht.Width + 10, line_height * 4);
+                e.Graphics.DrawRectangle(p, rect_totvat_block);
+                e.Graphics.DrawString("รวมภาษีขายน้ำมันเชื้อเพลิงทั้งสิ้น", fnt_bold, brush, rect_tot_vat);
+                e.Graphics.DrawString(string.Format("{0:#,#0.00}", sal_vattrans.Sum(sal => sal.vatamt)), fnt_bold, brush, rect_tot_vat_amt, new StringFormat { Alignment = StringAlignment.Far });
+                e.Graphics.DrawString("บาท", fnt_bold, brush, rect_tot_vat_baht);
+                rect_tot_vat.Y += line_height;
+                rect_tot_vat_amt.Y += line_height;
+                rect_tot_vat_baht.Y += line_height;
+                e.Graphics.DrawString("รวมภาษีซื้อน้ำมันเชื้อเพลิงทั้งสิ้น", fnt_bold, brush, rect_tot_vat);
+                e.Graphics.DrawString(string.Format("{0:#,#0.00}", pur_vattrans.Sum(pur => pur.vatamt)), fnt_bold, brush, rect_tot_vat_amt, new StringFormat { Alignment = StringAlignment.Far });
+                e.Graphics.DrawString("บาท", fnt_bold, brush, rect_tot_vat_baht);
+
+                /*** Price block ***/
+                Rectangle rect_stk = new Rectangle(900, rect_totvat_block.Y + rect_totvat_block.Height + line_height, 140, line_height);
+                Rectangle rect_unitpr = new Rectangle(rect_stk.X + rect_stk.Width, rect_totvat_block.Y + rect_totvat_block.Height + line_height, 60, line_height);
+                Rectangle rect_baht = new Rectangle(rect_unitpr.X + rect_unitpr.Width, rect_totvat_block.Y + rect_totvat_block.Height + line_height, 30, line_height);
+
+                Rectangle rect_price_block = new Rectangle(rect_stk.X - 10, rect_totvat_block.Y + rect_totvat_block.Height + line_height, rect_stk.Width + rect_unitpr.Width + rect_baht.Width + 10, line_height * 15);
+                e.Graphics.FillRectangle(bg_gray, rect_price_block);
+                e.Graphics.DrawRectangle(p, rect_price_block);
+
+                e.Graphics.DrawString("ราคาน้ำมันวันนี้", fnt_bold, brush, new Rectangle(rect_stk.X, rect_stk.Y, rect_stk.Width + rect_unitpr.Width + rect_baht.Width, line_height), new StringFormat { Alignment = StringAlignment.Center });
+
+                foreach (var price in report_data.salessummaryVM_list)
+                {
+                    rect_stk.Y += line_height;
+                    rect_unitpr.Y += line_height;
+                    rect_baht.Y += line_height;
+                    e.Graphics.DrawString(price.stkcod, fnt_bold, brush, rect_stk);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", price.unitpr), fnt_bold, brush, rect_unitpr, new StringFormat { Alignment = StringAlignment.Far });
+                    e.Graphics.DrawString("บาท", fnt_bold, brush, rect_baht);
                 }
 
-                //str = "ใบกำกับภาษีเต็มรูปแบบตามมาตรา 86/4 แห่งประมวลรัษฎากร (จากการขายน้ำมันเชื้อเพลิงผ่านมิเตอร์หัวจ่าย)";
-                //Rectangle rect_vatdoc_title = new Rectangle(e.MarginBounds.Left, rect_tot_purvat_txt.Y + (line_height * 2), str.Width(fnt), line_height);
-                //e.Graphics.DrawString(str, fnt, brush, rect_vatdoc_title);
+                int cnt_page_vatdoc = 0;
+                for (int vat_item = printed_vatdoc; vat_item < sal_vattrans.Count; vat_item++)
+                {
+                    if (cnt_page_vatdoc > 0 && cnt_page_vatdoc % vatdoc_item_per_column == 0)
+                    {
+                        var col_width = rect_seq.Width + rect_docnum.Width + (int)rect_net.Width + (int)rect_vat.Width + 10;
+                        rect_seq.X += col_width;
+                        rect_seq.Y = begining_y + line_height;
+                        rect_docnum.X += col_width;
+                        rect_docnum.Y = begining_y + line_height;
+                        rect_net.X += col_width;
+                        rect_net.Y = begining_y + line_height;
+                        rect_vat.X += col_width;
+                        rect_vat.Y = begining_y + line_height;
+                    }
 
-                //y = rect_vatdoc_title.Y;
-                //var sal_hs = sal_vattrans.Where(s => s.docnum.Substring(0, 2) == report_data.shift.shsprefix).ToList();
-                //if (sal_hs.Count > 0)
-                //{
-                //    y += line_height;
-                //    if (sal_hs.Count == 1)
-                //    {
-                //        str = "เลขที่ " + sal_hs.First().docnum.PadLeft(12);
-                //    }
-                //    else
-                //    {
-                //        str = "เลขที่ " + sal_hs.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_hs.Last().docnum.PadLeft(12);
-                //    }
+                    rect_seq.Y += line_height;
+                    rect_docnum.Y += line_height;
+                    rect_net.Y += line_height;
+                    rect_vat.Y += line_height;
 
-                //    str += " จำนวน " + sal_hs.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.netval) + sal_hs.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_hs.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
-                //    Rectangle rect_hs_vat = str.GetDisplayRect(fnt, e.MarginBounds.Left, y);
-                //    rect_hs_vat.Width += 15;
-                //    e.Graphics.DrawString(str, fnt, brush, rect_hs_vat);
-                //}
-                //var sal_iv = sal_vattrans.Where(s => s.docnum.Substring(0, 2) == report_data.shift.sivprefix).ToList();
-                //if (sal_iv.Count > 0)
-                //{
-                //    y += line_height;
-                //    if (sal_iv.Count == 1)
-                //    {
-                //        str = "เลขที่ " + sal_iv.First().docnum.PadLeft(12);
-                //    }
-                //    else
-                //    {
-                //        str = "เลขที่ " + sal_iv.First().docnum.PadLeft(12) + " ถึงเลขที่ " + sal_iv.Last().docnum.PadLeft(12);
-                //    }
+                    e.Graphics.DrawString((vat_item + 1).ToString(), fnt, brush, rect_seq, new StringFormat { Alignment = StringAlignment.Far });
+                    e.Graphics.DrawString(sal_vattrans[vat_item].docnum, fnt, brush, rect_docnum);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", sal_vattrans[vat_item].netval), fnt, brush, rect_net, new StringFormat { Alignment = StringAlignment.Far });
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", sal_vattrans[vat_item].vatamt), fnt, brush, rect_vat, new StringFormat { Alignment = StringAlignment.Far });
+                   
 
-                //    str += " จำนวน " + sal_iv.GroupBy(s => s.docnum).Count().ToString().PadLeft(4) + " ฉบับ จำนวนเงิน " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.netval) + sal_iv.Sum(s => s.vatamt)).PadLeft(15) + " บาท ภาษีมูลค่าเพิ่ม " + string.Format("{0:#,#0.00}", sal_iv.Sum(s => s.vatamt)).PadLeft(13) + " บาท";
-                //    Rectangle rect_iv_vat = str.GetDisplayRect(fnt, e.MarginBounds.Left, y);
-                //    rect_iv_vat.Width += 15;
-                //    e.Graphics.DrawString(str, fnt, brush, rect_iv_vat);
-                //}
-
-                //using (Font fnt_price = new Font("angsana new", 9f))
-                //{
-                //    Rectangle rect_price = new Rectangle(e.MarginBounds.Right - 200, rect_tot_purvat_txt.Y + line_height, 200, fnt_price.Height * 11);
-                //    e.Graphics.FillRectangle(bg_gray, rect_price);
-                //    e.Graphics.DrawRectangle(p, rect_price);
-
-                //    rect = new Rectangle(rect_price.X, rect_price.Y, rect_price.Width, fnt_price.Height);
-                //    e.Graphics.DrawString("ราคาน้ำมันวันนี้", fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Center });
-
-                //    for (int k = 0; k < 10; k++)
-                //    {
-                //        if (k < report_data.salessummaryVM_list.Count)
-                //        {
-                //            rect = new Rectangle(rect_price.X, rect_price.Y + (fnt_price.Height * (k + 1)), rect_price.Width * 2 / 4, fnt_price.Height);
-                //            e.Graphics.DrawString(report_data.salessummaryVM_list[k].stkcod, fnt_price, brush, rect);
-
-                //            rect = new Rectangle(rect.X + rect.Width, rect.Y, rect.Width / 2, fnt_price.Height);
-                //            e.Graphics.DrawString(report_data.salessummaryVM_list[k].unitpr.FormatCurrency(), fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Far });
-
-                //            rect = new Rectangle(rect.X + rect.Width, rect.Y, rect.Width, fnt_price.Height);
-                //            e.Graphics.DrawString("บาท", fnt_price, brush, rect, new StringFormat { Alignment = StringAlignment.Center });
-                //        }
-                //    }
-                //}
+                    printed_vatdoc++;
+                    cnt_page_vatdoc++;
+                    if(cnt_page_vatdoc >= vatdoc_item_page)
+                    {
+                        e.HasMorePages = true;
+                        return;
+                    }
+                }
             };
 
             return docs;
