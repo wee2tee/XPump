@@ -817,9 +817,13 @@ namespace XPump.SubForm
                 int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data, true));
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
-                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, true, total_page), total_page);
+                    var print_auth_state = this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).GetPrintAuthorizeState();
+                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, true, total_page), total_page, print_auth_state);
                     xp.MdiParent = this.main_form;
-                    xp.btnPrint.Enabled = settings.shiftprintmet == ((int)PRINT_METHOD.NOT_ASSIGN).ToString() ? true : false;
+                    xp._OnOutputToPrinter += delegate
+                    {
+                        this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
+                    };
                     xp.Show();
                 }
 
@@ -861,11 +865,13 @@ namespace XPump.SubForm
                 int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data, false));
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
-                    settings settings = DialogSettings.GetSettings(this.main_form.working_express_db);
-
-                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, false, total_page), total_page);
+                    var print_auth_state = this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).GetPrintAuthorizeState();
+                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, false, total_page), total_page, print_auth_state);
                     xp.MdiParent = this.main_form;
-                    xp.btnPrint.Enabled = settings.shiftprintmet == ((int)PRINT_METHOD.NOT_ASSIGN).ToString() ? true : false;
+                    xp._OnOutputToPrinter += delegate
+                    {
+                        this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
+                    };
                     xp.Show();
                 }
 
@@ -1442,7 +1448,7 @@ namespace XPump.SubForm
                 Rectangle rect_totvat_block = new Rectangle(rect_tot_vat.X - 10, begining_y + line_height, rect_tot_vat.Width + rect_tot_vat_amt.Width + rect_tot_vat_baht.Width + 10, line_height * 4);
                 e.Graphics.DrawRectangle(p, rect_totvat_block);
                 e.Graphics.DrawString("รวมภาษีขายน้ำมันเชื้อเพลิงทั้งสิ้น", fnt_bold, brush, rect_tot_vat);
-                e.Graphics.DrawString(string.Format("{0:#,#0.00}", sal_vattrans.Sum(sal => sal.vatamt)), fnt_bold, brush, rect_tot_vat_amt, new StringFormat { Alignment = StringAlignment.Far });
+                e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.salessummaryVM_list.Sum(s => s.salvat) /*sal_vattrans.Sum(sal => sal.vatamt)*/), fnt_bold, brush, rect_tot_vat_amt, new StringFormat { Alignment = StringAlignment.Far });
                 e.Graphics.DrawString("บาท", fnt_bold, brush, rect_tot_vat_baht);
                 rect_tot_vat.Y += line_height;
                 rect_tot_vat_amt.Y += line_height;

@@ -10,17 +10,28 @@ using System.Windows.Forms;
 
 namespace CC
 {
+    public enum PRINT_AUTHORIZE_STATE
+    {
+        DATA_NOT_FOUND,
+        READY_TO_PRINT,
+        MUST_APPROVE_BEFORE_PRINT,
+        MUST_UNAPPROVE_BEFORE_PRINT
+    }
+
     public partial class XPrintPreview : Form
     {
         private int total_page;
-        //public event EventHandler _OutputToPrinter;
-
-        public XPrintPreview(PrintDocument document, int total_page)
+        private PRINT_AUTHORIZE_STATE print_authorize_state;
+        public event EventHandler _OnOutputToPrinter;
+        
+        
+        public XPrintPreview(PrintDocument document, int total_page, PRINT_AUTHORIZE_STATE print_authorize_state = PRINT_AUTHORIZE_STATE.READY_TO_PRINT)
         {
             InitializeComponent();
             this.printDialog1.Document = document;
             this.printPreviewControl1.Document = document;
             this.total_page = total_page;
+            this.print_authorize_state = print_authorize_state;
             //this.total_page = GetTotalPageCount(document);
         }
 
@@ -35,11 +46,22 @@ namespace CC
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            //if(this._OutputToPrinter != null)
-            //{
-            //    this._OutputToPrinter(this, e);
-            //}
-            //this.printPreviewControl1.Document.Print();
+            if(this.print_authorize_state == PRINT_AUTHORIZE_STATE.DATA_NOT_FOUND)
+            {
+                MessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            if(this.print_authorize_state == PRINT_AUTHORIZE_STATE.MUST_APPROVE_BEFORE_PRINT)
+            {
+                MessageBox.Show("ต้องรับรองรายการก่อนพิมพ์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            if(this.print_authorize_state == PRINT_AUTHORIZE_STATE.MUST_UNAPPROVE_BEFORE_PRINT)
+            {
+                MessageBox.Show("รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             PrintDialog pd = new PrintDialog();
             //pd.AllowSomePages = true;
             pd.Document = this.printPreviewControl1.Document;
@@ -48,6 +70,11 @@ namespace CC
                 //pd.Document.PrinterSettings.FromPage = 2;
                 //pd.Document.PrinterSettings.ToPage = 2;
                 //pd.Document.PrinterSettings.PrintRange = PrintRange.SomePages;
+                if(_OnOutputToPrinter != null)
+                {
+                    this._OnOutputToPrinter(sender, e);
+                }
+
                 pd.Document.Print();
             }
         }
