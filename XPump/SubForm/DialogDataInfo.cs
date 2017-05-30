@@ -67,7 +67,7 @@ namespace XPump.SubForm
 
             this.txtPrnBy._Text = this.prnby != null ? this.prnby : string.Empty;
             this.txtPrnTime._Text = this.prntime.HasValue ? this.prntime.Value.ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("th-TH")) : string.Empty;
-            this.txtPrnCnt._Text = this.prncnt.HasValue ? this.prntime.Value.ToString() : "0";
+            this.txtPrnCnt._Text = this.prncnt.HasValue ? this.prncnt.Value.ToString() : "0";
 
             this.txtId._Text = this.current_id.ToString();
             this.txtTotal._Text = this.total_record.ToString();

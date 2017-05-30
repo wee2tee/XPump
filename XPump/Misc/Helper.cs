@@ -1864,6 +1864,31 @@ namespace XPump.Misc
             }
         }
 
+        public static PRINT_AUTHORIZE_STATE GetPrintAuthorizeState(this dayendVM dayend)
+        {
+            using (xpumpEntities db = DBX.DataSet(dayend.working_express_db))
+            {
+                var de = db.dayend.Find(dayend.id);
+                if (de == null)
+                {
+                    return PRINT_AUTHORIZE_STATE.DATA_NOT_FOUND;
+                }
+
+                var settings = DialogSettings.GetSettings(dayend.working_express_db);
+                if (settings.dayprintmet == ((int)PRINT_METHOD.APPROVED_BEFORE_PRINT).ToString() && dayend.IsApproved().Value == false)
+                {
+                    return PRINT_AUTHORIZE_STATE.MUST_APPROVE_BEFORE_PRINT;
+                }
+
+                if (settings.dayprintmet == ((int)PRINT_METHOD.PRINT_BEFORE_APPROVED).ToString() && dayend.IsApproved().Value == true)
+                {
+                    return PRINT_AUTHORIZE_STATE.MUST_UNAPPROVE_BEFORE_PRINT;
+                }
+
+                return PRINT_AUTHORIZE_STATE.READY_TO_PRINT;
+            }
+        }
+
         public static bool? IsClosedShiftSales(this shiftsalesVM shiftsales)
         {
             if (shiftsales == null)

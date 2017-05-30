@@ -625,17 +625,83 @@ namespace XPump.SubForm
                 int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_B(report_data));
                 if(print.output == PRINT_OUTPUT.SCREEN)
                 {
-                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_B(report_data, total_page), total_page);
+                    List<dayendVM> dayends;
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        dayends = db.dayend.Where(d => d.saldat == print.selected_date.Value).ToViewModel(this.main_form.working_express_db);
+                        if(dayends.Count == 0)
+                        {
+                            MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+                    }
+
+                    var print_auth_state = dayends.First().GetPrintAuthorizeState();
+                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_B(report_data, total_page), total_page, print_auth_state);
                     xp.MdiParent = this.main_form;
+                    xp._OnOutputToPrinter += delegate
+                    {
+                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                        {
+                            var ids = db.dayend.Where(d => d.saldat == print.selected_date.Value).Select(d => d.id).ToArray();
+                            var prntim = DateTime.Now;
+                            foreach (var id in ids)
+                            {
+                                var dayend_to_update = db.dayend.Find(id);
+                                if (dayend_to_update == null)
+                                    continue;
+
+                                dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                dayend_to_update.prntime = prntim;
+                                dayend_to_update.prncnt = ++dayend_to_update.prncnt;
+                            }
+                            db.SaveChanges();
+
+                            this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ข. ของวันที่ " + print.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", print.selected_date.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                        }
+                    };
                     xp.Show();
                 }
 
                 if(print.output == PRINT_OUTPUT.PRINTER)
                 {
+                    List<dayendVM> dayends;
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        dayends = db.dayend.Where(d => d.saldat == print.selected_date.Value).ToViewModel(this.main_form.working_express_db);
+                        if (dayends.Count == 0)
+                        {
+                            MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+                    }
+
+                    if (dayends.First().IsPrintableDayend() == false)
+                        return;
+
                     PrintDialog pd = new PrintDialog();
                     pd.Document = this.PreparePrintDoc_B(report_data, total_page);
                     if (pd.ShowDialog() == DialogResult.OK)
                     {
+                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                        {
+                            var ids = db.dayend.Where(d => d.saldat == print.selected_date.Value).Select(d => d.id).ToArray();
+                            var prntim = DateTime.Now;
+                            foreach (var id in ids)
+                            {
+                                var dayend_to_update = db.dayend.Find(id);
+                                if (dayend_to_update == null)
+                                    continue;
+
+                                dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                dayend_to_update.prntime = prntim;
+                                dayend_to_update.prncnt = ++dayend_to_update.prncnt;
+                            }
+                            db.SaveChanges();
+
+                            this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ข. ของวันที่ " + print.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", print.selected_date.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                        }
+
                         pd.Document.Print();
                     }
                 }
@@ -653,6 +719,27 @@ namespace XPump.SubForm
                 {
                     XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_C(report_data, total_page), total_page);
                     xp.MdiParent = this.main_form;
+                    xp._OnOutputToPrinter += delegate
+                    {
+                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                        {
+                            var ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
+                            var prntim = DateTime.Now;
+                            foreach (var id in ids)
+                            {
+                                var dayend_to_update = db.dayend.Find(id);
+                                if (dayend_to_update == null)
+                                    continue;
+
+                                dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                dayend_to_update.prntime = prntim;
+                                dayend_to_update.prncnt = ++dayend_to_update.prncnt;
+                            }
+                            db.SaveChanges();
+
+                            this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                        }
+                    };
                     xp.Show();
                 }
 
@@ -662,6 +749,24 @@ namespace XPump.SubForm
                     pd.Document = this.PreparePrintDoc_C(report_data, total_page);
                     if (pd.ShowDialog() == DialogResult.OK)
                     {
+                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                        {
+                            var ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
+                            var prntim = DateTime.Now;
+                            foreach (var id in ids)
+                            {
+                                var dayend_to_update = db.dayend.Find(id);
+                                if (dayend_to_update == null)
+                                    continue;
+
+                                dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                dayend_to_update.prntime = prntim;
+                                dayend_to_update.prncnt = ++dayend_to_update.prncnt;
+                            }
+                            db.SaveChanges();
+
+                            this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                        }
                         pd.Document.Print();
                     }
                 }
@@ -836,7 +941,8 @@ namespace XPump.SubForm
             Font fnt = new Font("angsana new", 10f, FontStyle.Regular); // tahoma 7f
             Pen p = new Pen(Color.Black);
             SolidBrush brush = new SolidBrush(Color.Black);
-            SolidBrush bg_gray = new SolidBrush(Color.Gainsboro);
+            SolidBrush bg_gray = new SolidBrush(Color.Silver);
+            SolidBrush bg_lightgray = new SolidBrush(Color.Gainsboro);
             StringFormat format_left = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
             StringFormat format_right = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
             StringFormat format_center = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
@@ -844,7 +950,8 @@ namespace XPump.SubForm
             int page = 0;
             int item_count = 0;
             int item_per_page = 4;
-            int section_per_product = 5;
+            int section_per_product = 8;
+            int max_dother_item = 5;
 
             PrintDocument docs = new PrintDocument();
             //PaperSize ps = new PaperSize();
@@ -871,7 +978,7 @@ namespace XPump.SubForm
                 /* report header */
                 Rectangle rect = new Rectangle(x, y, e.MarginBounds.Right - x, line_height);
                 string str = "รายงานแสดงรายละเอียดการขายน้ำมันเชื้อเพลิง";
-                e.Graphics.DrawString(str, fnt_header_bold, brush, rect, format_center);
+                e.Graphics.DrawString(str, fnt_title_bold, brush, rect, format_center);
 
                 y += line_height; // new line
                 str = "วันที่ " + report_data.reportDate.ToString("d MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + report_data.reportDate.ToString("yyyy", CultureInfo.CurrentCulture);
@@ -956,7 +1063,7 @@ namespace XPump.SubForm
                 e.Graphics.DrawString("2. รวมยอดน้ำมันวัดได้จริงสิ้นงวด", fnt, brush, rect_str_container, format_left);
 
                 rect_str_container.Y += rect_str_container.Height;
-                rect_str_container.Height = line_height * 8;
+                rect_str_container.Height = line_height * (7 + max_dother_item);
                 e.Graphics.DrawRectangle(p, rect_str_container);
 
                 rect_str_container.Height = line_height;
@@ -969,9 +1076,9 @@ namespace XPump.SubForm
                 e.Graphics.DrawString("5. หัก น้ำมันที่ขายผ่านมิเตอร์ระหว่างวัน", fnt, brush, rect_str_container, format_left);
 
                 rect_str_container.Y += rect_str_container.Height;
-                e.Graphics.DrawString("   หัก อื่น ๆ ระบุ______________________", fnt, brush, rect_str_container, format_left);
+                e.Graphics.DrawString("   หัก อื่น ๆ ระบุ =======================>", fnt, brush, rect_str_container, format_left);
 
-                rect_str_container.Y += rect_str_container.Height;
+                rect_str_container.Y += rect_str_container.Height * max_dother_item;
                 e.Graphics.DrawString("6. น้ำมันคงเหลือในบัญชี (3+4-5)", fnt, brush, rect_str_container, format_left);
 
                 rect_str_container.Y += rect_str_container.Height;
@@ -983,7 +1090,7 @@ namespace XPump.SubForm
                 rect_str_container.Y += rect_str_container.Height;
                 e.Graphics.DrawString("9. ผลต่างสะสมปัจจุบันยกไป (7+8)", fnt, brush, rect_str_container, format_left);
 
-                Rectangle rect_section = new Rectangle(x, y, 60, line_height);
+                Rectangle rect_section = new Rectangle(x, y, 80/*60*/, line_height);
                 int sub_col_width = Convert.ToInt32(Math.Floor((double)((e.MarginBounds.Right - e.MarginBounds.Left) - rect_str_container.Width) / item_per_page));
                 Rectangle rect_stk = new Rectangle(x, y, sub_col_width - rect_section.Width, line_height);
 
@@ -1003,7 +1110,7 @@ namespace XPump.SubForm
                     e.Graphics.DrawString("เลขที่" + Environment.NewLine + "ถัง", fnt_bold, brush, rect_section, format_center);
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height, rect_section.Width, line_height * section_per_product));
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height + (line_height * section_per_product), rect_section.Width, line_height));
-                    e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height + (line_height * section_per_product) + line_height, rect_section.Width, line_height * 8));
+                    e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height + (line_height * section_per_product) + line_height, rect_section.Width, line_height * (7 + max_dother_item)));
 
                     rect_stk.X = rect_section.X + rect_section.Width;
                     rect_stk.Y = start_body_y;
@@ -1013,7 +1120,7 @@ namespace XPump.SubForm
                     e.Graphics.DrawString(report_data.dayend[i].ToViewModel(this.main_form.working_express_db).stkcod, fnt_bold, brush, rect_stk, format_center);
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height, rect_stk.Width, line_height * section_per_product));
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product), rect_stk.Width, line_height));
-                    e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product) + line_height, rect_stk.Width, line_height * 8));
+                    e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product) + line_height, rect_stk.Width, line_height * (7 + max_dother_item)));
 
                     for(int j = 0; j < section_per_product; j++)
                     {
@@ -1040,8 +1147,26 @@ namespace XPump.SubForm
                     rect_stk.Y += rect_stk.Height;
                     e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).salqty), fnt, brush, rect_stk, format_right);
 
-                    rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).dother), fnt, brush, rect_stk, format_right);
+                    /****************************************/
+                    rect_section.Y = rect_stk.Y;
+                    e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_section.X + 1, rect_section.Y + rect_section.Height + 1, rect_section.Width - 2, (line_height * max_dother_item) - 2));
+                    e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_stk.X + 1, rect_stk.Y + rect_stk.Height + 1, rect_stk.Width - 2, (line_height * max_dother_item) - 2));
+                    for (int d = 0; d < max_dother_item; d++)
+                    {
+                        rect_section.Y += rect_section.Height;
+                        rect_stk.Y += rect_stk.Height;
+
+                        if (report_data.dayend[i].dother.Count > d)
+                        {
+                            e.Graphics.DrawString(report_data.dayend[i].dother.ElementAt(d).ToViewModel(this.main_form.working_express_db).typdes, fnt, brush, rect_section);
+                            e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].dother.ElementAt(d).qty), fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                        }
+                        else
+                        {
+                            e.Graphics.DrawString("-", fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                        }
+                    }
+                    /****************************************/
 
                     rect_stk.Y += rect_stk.Height;
                     e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).accbal), fnt, brush, rect_stk, format_right);

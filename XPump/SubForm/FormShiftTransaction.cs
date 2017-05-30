@@ -822,6 +822,18 @@ namespace XPump.SubForm
                     xp.MdiParent = this.main_form;
                     xp._OnOutputToPrinter += delegate
                     {
+                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                        {
+                            var shiftsales_to_update = db.shiftsales.Find(this.curr_shiftsales.id);
+                            if (shiftsales_to_update != null)
+                            {
+                                shiftsales_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                shiftsales_to_update.prntime = DateTime.Now;
+                                shiftsales_to_update.prncnt += 1;
+
+                                db.SaveChanges();
+                            }
+                        }
                         this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
                     };
                     xp.Show();
@@ -1041,7 +1053,7 @@ namespace XPump.SubForm
             Font fnt = new Font("angsana new", 10f, FontStyle.Regular); // tahoma 7f
             Pen p = new Pen(Color.Black);
             SolidBrush brush = new SolidBrush(Color.Black);
-            SolidBrush bg_gray = new SolidBrush(Color.Gainsboro);
+            SolidBrush bg_gray = new SolidBrush(Color.Silver);
             StringFormat format_left = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
             StringFormat format_right = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
             StringFormat format_center = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
@@ -2070,12 +2082,12 @@ namespace XPump.SubForm
                     using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                     {
                         var total_recs = db.salessummary.AsEnumerable().Count();
-                        var data_info = db.salessummary.Find(sales.id);
+                        var data_info = db.salessummary.Include("shiftsales").Where(s => s.id == sales.id).FirstOrDefault();
 
                         if (data_info == null)
                             return false;
 
-                        DialogDataInfo info = new DialogDataInfo("Salessummary", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime);
+                        DialogDataInfo info = new DialogDataInfo("Salessummary", data_info.id, total_recs, data_info.creby, data_info.cretime, data_info.chgby, data_info.chgtime, data_info.shiftsales.apprby, data_info.shiftsales.apprtime, data_info.shiftsales.prnby, data_info.shiftsales.prntime, data_info.shiftsales.prncnt);
                         info.ShowDialog();
                         return true;
                     }
