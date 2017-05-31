@@ -540,23 +540,6 @@ namespace XPump.Misc
             return s;
         }
 
-        //public static monthendVM GetMonthEndVM(this stmas stmas, DateTime first_date_of_month, DateTime last_date_of_month, SccompDbf working_express_db)
-        //{
-        //    if (stmas == null)
-        //        return null;
-
-        //    monthendVM m = new monthendVM
-        //    {
-        //        working_express_db = working_express_db,
-        //        //stmas_id = stmas.id,
-        //        first_date = first_date_of_month,
-        //        last_date = last_date_of_month,
-        //        //dothertxt = string.Empty
-        //    };
-
-        //    return m;
-        //}
-
         public static List<daysttakVM> ToViewModel(this IEnumerable<daysttak> sttak_list, SccompDbf working_express_db)
         {
             List<daysttakVM> s = new List<daysttakVM>();

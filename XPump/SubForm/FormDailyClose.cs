@@ -1152,7 +1152,7 @@ namespace XPump.SubForm
                         rect_stk.Y += rect_stk.Height;
                         e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).salqty), fnt, brush, rect_stk, format_right);
 
-                        /****************************************/
+                        /** dother **/
                         rect_section.Y = rect_stk.Y;
                         e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_section.X + 1, rect_section.Y + rect_section.Height + 1, rect_section.Width - 2, (line_height * max_dother_item) - 2));
                         e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_stk.X + 1, rect_stk.Y + rect_stk.Height + 1, rect_stk.Width - 2, (line_height * max_dother_item) - 2));
@@ -1312,7 +1312,8 @@ namespace XPump.SubForm
             Font fnt = new Font("angsana new", 10f, FontStyle.Regular); // tahoma 7f
             Pen p = new Pen(Color.Black);
             SolidBrush brush = new SolidBrush(Color.Black);
-            SolidBrush bg_gray = new SolidBrush(Color.Gainsboro);
+            SolidBrush bg_gray = new SolidBrush(Color.Silver);
+            SolidBrush bg_lightgray = new SolidBrush(Color.Gainsboro);
             StringFormat format_left = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
             StringFormat format_right = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
             StringFormat format_center = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
