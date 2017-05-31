@@ -952,6 +952,8 @@ namespace XPump.SubForm
             int item_per_page = 4;
             int section_per_product = 8;
             int max_dother_item = 5;
+            int printed_vatdoc = -1;
+            int vatdoc_item_per_column = 30;
 
             PrintDocument docs = new PrintDocument();
             //PaperSize ps = new PaperSize();
@@ -963,6 +965,7 @@ namespace XPump.SubForm
             {
                 page = 0;
                 item_count = 0;
+                printed_vatdoc = -1;
             };
             docs.PrintPage += delegate (object sender, PrintPageEventArgs e)
             {
@@ -1047,159 +1050,253 @@ namespace XPump.SubForm
                 //decimal tot_salvat = 0m;
                 //decimal tot_purvat = 0m;
 
-                Rectangle rect_str_container = new Rectangle(x, y, 200, line_height * 2);
-                e.Graphics.FillRectangle(bg_gray, rect_str_container);
-                e.Graphics.DrawRectangle(p, rect_str_container);
-                e.Graphics.DrawString("รายการ", fnt_bold, brush, rect_str_container, new StringFormat { Alignment = StringAlignment.Center });
-
-                rect_str_container.Y += rect_str_container.Height;
-                rect_str_container.Height = line_height * section_per_product;
-                e.Graphics.DrawRectangle(p, rect_str_container);
-                e.Graphics.DrawString("1. น้ำมันสะสมในถังวัดได้จริงสิ้นงวด", fnt, brush, rect_str_container, new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near });
-
-                rect_str_container.Y += rect_str_container.Height;
-                rect_str_container.Height = line_height;
-                e.Graphics.DrawRectangle(p, rect_str_container);
-                e.Graphics.DrawString("2. รวมยอดน้ำมันวัดได้จริงสิ้นงวด", fnt, brush, rect_str_container, format_left);
-
-                rect_str_container.Y += rect_str_container.Height;
-                rect_str_container.Height = line_height * (7 + max_dother_item);
-                e.Graphics.DrawRectangle(p, rect_str_container);
-
-                rect_str_container.Height = line_height;
-                e.Graphics.DrawString("3. น้ำมันที่วัดได้จริงต้นงวด", fnt, brush, rect_str_container, format_left);
-
-                rect_str_container.Y += rect_str_container.Height;
-                e.Graphics.DrawString("4. บวก ยอดรับน้ำมัน", fnt, brush, rect_str_container, format_left);
-
-                rect_str_container.Y += rect_str_container.Height;
-                e.Graphics.DrawString("5. หัก น้ำมันที่ขายผ่านมิเตอร์ระหว่างวัน", fnt, brush, rect_str_container, format_left);
-
-                rect_str_container.Y += rect_str_container.Height;
-                e.Graphics.DrawString("   หัก อื่น ๆ ระบุ =======================>", fnt, brush, rect_str_container, format_left);
-
-                rect_str_container.Y += rect_str_container.Height * max_dother_item;
-                e.Graphics.DrawString("6. น้ำมันคงเหลือในบัญชี (3+4-5)", fnt, brush, rect_str_container, format_left);
-
-                rect_str_container.Y += rect_str_container.Height;
-                e.Graphics.DrawString("7. ผลต่างน้ำมันปัจจุบัน (2-6)", fnt, brush, rect_str_container, format_left);
-
-                rect_str_container.Y += rect_str_container.Height;
-                e.Graphics.DrawString("8. บวก ผลต่างสะสมยกมา", fnt, brush, rect_str_container, format_left);
-
-                rect_str_container.Y += rect_str_container.Height;
-                e.Graphics.DrawString("9. ผลต่างสะสมปัจจุบันยกไป (7+8)", fnt, brush, rect_str_container, format_left);
-
-                Rectangle rect_section = new Rectangle(x, y, 80/*60*/, line_height);
-                int sub_col_width = Convert.ToInt32(Math.Floor((double)((e.MarginBounds.Right - e.MarginBounds.Left) - rect_str_container.Width) / item_per_page));
-                Rectangle rect_stk = new Rectangle(x, y, sub_col_width - rect_section.Width, line_height);
-
-                x += rect_str_container.Width;
-                for (int i = item_count; i < report_data.dayend.Count; i++)
+                if (item_count < report_data.dayend.Count)
                 {
-                    page_item++;
-                    item_count++;
+                    Rectangle rect_str_container = new Rectangle(x, y, 200, line_height * 2);
+                    e.Graphics.FillRectangle(bg_gray, rect_str_container);
+                    e.Graphics.DrawRectangle(p, rect_str_container);
+                    e.Graphics.DrawString("รายการ", fnt_bold, brush, rect_str_container, new StringFormat { Alignment = StringAlignment.Center });
 
-                    x = e.MarginBounds.Left + rect_str_container.Width + (sub_col_width * (page_item - 1));
+                    rect_str_container.Y += rect_str_container.Height;
+                    rect_str_container.Height = line_height * section_per_product;
+                    e.Graphics.DrawRectangle(p, rect_str_container);
+                    e.Graphics.DrawString("1. น้ำมันสะสมในถังวัดได้จริงสิ้นงวด", fnt, brush, rect_str_container, new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near });
 
-                    rect_section.X = x;
-                    rect_section.Y = start_body_y;
-                    rect_section.Height = line_height * 2;
-                    e.Graphics.FillRectangle(bg_gray, rect_section);
-                    e.Graphics.DrawRectangle(p, rect_section);
-                    e.Graphics.DrawString("เลขที่" + Environment.NewLine + "ถัง", fnt_bold, brush, rect_section, format_center);
-                    e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height, rect_section.Width, line_height * section_per_product));
-                    e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height + (line_height * section_per_product), rect_section.Width, line_height));
-                    e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height + (line_height * section_per_product) + line_height, rect_section.Width, line_height * (7 + max_dother_item)));
+                    rect_str_container.Y += rect_str_container.Height;
+                    rect_str_container.Height = line_height;
+                    e.Graphics.DrawRectangle(p, rect_str_container);
+                    e.Graphics.DrawString("2. รวมยอดน้ำมันวัดได้จริงสิ้นงวด", fnt, brush, rect_str_container, format_left);
 
-                    rect_stk.X = rect_section.X + rect_section.Width;
-                    rect_stk.Y = start_body_y;
-                    rect_stk.Height = line_height * 2;
-                    e.Graphics.FillRectangle(bg_gray, rect_stk);
-                    e.Graphics.DrawRectangle(p, rect_stk);
-                    e.Graphics.DrawString(report_data.dayend[i].ToViewModel(this.main_form.working_express_db).stkcod, fnt_bold, brush, rect_stk, format_center);
-                    e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height, rect_stk.Width, line_height * section_per_product));
-                    e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product), rect_stk.Width, line_height));
-                    e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product) + line_height, rect_stk.Width, line_height * (7 + max_dother_item)));
+                    rect_str_container.Y += rect_str_container.Height;
+                    rect_str_container.Height = line_height * (7 + max_dother_item);
+                    e.Graphics.DrawRectangle(p, rect_str_container);
 
-                    for(int j = 0; j < section_per_product; j++)
+                    rect_str_container.Height = line_height;
+                    e.Graphics.DrawString("3. น้ำมันที่วัดได้จริงต้นงวด", fnt, brush, rect_str_container, format_left);
+
+                    rect_str_container.Y += rect_str_container.Height;
+                    e.Graphics.DrawString("4. บวก ยอดรับน้ำมัน", fnt, brush, rect_str_container, format_left);
+
+                    rect_str_container.Y += rect_str_container.Height;
+                    e.Graphics.DrawString("5. หัก น้ำมันที่ขายผ่านมิเตอร์ระหว่างวัน", fnt, brush, rect_str_container, format_left);
+
+                    rect_str_container.Y += rect_str_container.Height;
+                    e.Graphics.DrawString("   หัก อื่น ๆ ระบุ =======================>", fnt, brush, rect_str_container, format_left);
+
+                    rect_str_container.Y += rect_str_container.Height * max_dother_item;
+                    e.Graphics.DrawString("6. น้ำมันคงเหลือในบัญชี (3+4-5)", fnt, brush, rect_str_container, format_left);
+
+                    rect_str_container.Y += rect_str_container.Height;
+                    e.Graphics.DrawString("7. ผลต่างน้ำมันปัจจุบัน (2-6)", fnt, brush, rect_str_container, format_left);
+
+                    rect_str_container.Y += rect_str_container.Height;
+                    e.Graphics.DrawString("8. บวก ผลต่างสะสมยกมา", fnt, brush, rect_str_container, format_left);
+
+                    rect_str_container.Y += rect_str_container.Height;
+                    e.Graphics.DrawString("9. ผลต่างสะสมปัจจุบันยกไป (7+8)", fnt, brush, rect_str_container, format_left);
+
+                    Rectangle rect_section = new Rectangle(x, y, 80/*60*/, line_height);
+                    int sub_col_width = Convert.ToInt32(Math.Floor((double)((e.MarginBounds.Right - e.MarginBounds.Left) - rect_str_container.Width) / item_per_page));
+                    Rectangle rect_stk = new Rectangle(x, y, sub_col_width - rect_section.Width, line_height);
+
+                    x += rect_str_container.Width;
+                    for (int i = item_count; i < report_data.dayend.Count; i++)
                     {
-                        rect_section.Y += rect_section.Height;
-                        rect_section.Height = line_height;
-                        string sect = report_data.dayend[i].daysttak.Count > j ? report_data.dayend[i].daysttak.ToList()[j].ToViewModel(this.main_form.working_express_db).section_name : "-";
-                        e.Graphics.DrawString(sect, fnt, brush, rect_section, format_center);
+                        page_item++;
+                        item_count++;
 
-                        rect_stk.Y += rect_stk.Height;
-                        rect_stk.Height = line_height;
-                        string qty = report_data.dayend[i].daysttak.Count > j ? string.Format("{0:#,#0.00}", report_data.dayend[i].daysttak.ToList()[j].ToViewModel(this.main_form.working_express_db).qty) : string.Empty;
-                        e.Graphics.DrawString(qty, fnt, brush, rect_stk, format_right);
-                    }
+                        x = e.MarginBounds.Left + rect_str_container.Width + (sub_col_width * (page_item - 1));
 
-                    rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).endbal), fnt, brush, rect_stk, format_right);
+                        rect_section.X = x;
+                        rect_section.Y = start_body_y;
+                        rect_section.Height = line_height * 2;
+                        e.Graphics.FillRectangle(bg_gray, rect_section);
+                        e.Graphics.DrawRectangle(p, rect_section);
+                        e.Graphics.DrawString("เลขที่" + Environment.NewLine + "ถัง", fnt_bold, brush, rect_section, format_center);
+                        e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height, rect_section.Width, line_height * section_per_product));
+                        e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height + (line_height * section_per_product), rect_section.Width, line_height));
+                        e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height + (line_height * section_per_product) + line_height, rect_section.Width, line_height * (7 + max_dother_item)));
 
-                    rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).begbal), fnt, brush, rect_stk, format_right);
+                        rect_stk.X = rect_section.X + rect_section.Width;
+                        rect_stk.Y = start_body_y;
+                        rect_stk.Height = line_height * 2;
+                        e.Graphics.FillRectangle(bg_gray, rect_stk);
+                        e.Graphics.DrawRectangle(p, rect_stk);
+                        e.Graphics.DrawString(report_data.dayend[i].ToViewModel(this.main_form.working_express_db).stkcod, fnt_bold, brush, rect_stk, format_center);
+                        e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height, rect_stk.Width, line_height * section_per_product));
+                        e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product), rect_stk.Width, line_height));
+                        e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product) + line_height, rect_stk.Width, line_height * (7 + max_dother_item)));
 
-                    rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).rcvqty), fnt, brush, rect_stk, format_right);
-
-                    rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).salqty), fnt, brush, rect_stk, format_right);
-
-                    /****************************************/
-                    rect_section.Y = rect_stk.Y;
-                    e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_section.X + 1, rect_section.Y + rect_section.Height + 1, rect_section.Width - 2, (line_height * max_dother_item) - 2));
-                    e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_stk.X + 1, rect_stk.Y + rect_stk.Height + 1, rect_stk.Width - 2, (line_height * max_dother_item) - 2));
-                    for (int d = 0; d < max_dother_item; d++)
-                    {
-                        rect_section.Y += rect_section.Height;
-                        rect_stk.Y += rect_stk.Height;
-
-                        if (report_data.dayend[i].dother.Count > d)
+                        for (int j = 0; j < section_per_product; j++)
                         {
-                            e.Graphics.DrawString(report_data.dayend[i].dother.ElementAt(d).ToViewModel(this.main_form.working_express_db).typdes, fnt, brush, rect_section);
-                            e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].dother.ElementAt(d).qty), fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                            rect_section.Y += rect_section.Height;
+                            rect_section.Height = line_height;
+                            string sect = report_data.dayend[i].daysttak.Count > j ? report_data.dayend[i].daysttak.ToList()[j].ToViewModel(this.main_form.working_express_db).section_name : "-";
+                            e.Graphics.DrawString(sect, fnt, brush, rect_section, format_center);
+
+                            rect_stk.Y += rect_stk.Height;
+                            rect_stk.Height = line_height;
+                            string qty = report_data.dayend[i].daysttak.Count > j ? string.Format("{0:#,#0.00}", report_data.dayend[i].daysttak.ToList()[j].ToViewModel(this.main_form.working_express_db).qty) : string.Empty;
+                            e.Graphics.DrawString(qty, fnt, brush, rect_stk, format_right);
+                        }
+
+                        rect_stk.Y += rect_stk.Height;
+                        e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).endbal), fnt, brush, rect_stk, format_right);
+
+                        rect_stk.Y += rect_stk.Height;
+                        e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).begbal), fnt, brush, rect_stk, format_right);
+
+                        rect_stk.Y += rect_stk.Height;
+                        e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).rcvqty), fnt, brush, rect_stk, format_right);
+
+                        rect_stk.Y += rect_stk.Height;
+                        e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).salqty), fnt, brush, rect_stk, format_right);
+
+                        /****************************************/
+                        rect_section.Y = rect_stk.Y;
+                        e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_section.X + 1, rect_section.Y + rect_section.Height + 1, rect_section.Width - 2, (line_height * max_dother_item) - 2));
+                        e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_stk.X + 1, rect_stk.Y + rect_stk.Height + 1, rect_stk.Width - 2, (line_height * max_dother_item) - 2));
+                        for (int d = 0; d < max_dother_item; d++)
+                        {
+                            rect_section.Y += rect_section.Height;
+                            rect_stk.Y += rect_stk.Height;
+
+                            if (report_data.dayend[i].dother.Count > d)
+                            {
+                                e.Graphics.DrawString(report_data.dayend[i].dother.ElementAt(d).ToViewModel(this.main_form.working_express_db).typdes, fnt, brush, rect_section);
+                                e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].dother.ElementAt(d).qty), fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                            }
+                            else
+                            {
+                                e.Graphics.DrawString("-", fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                            }
+                        }
+                        /****************************************/
+
+                        rect_stk.Y += rect_stk.Height;
+                        e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).accbal), fnt, brush, rect_stk, format_right);
+
+                        rect_stk.Y += rect_stk.Height;
+                        e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).difqty), fnt, brush, rect_stk, format_right);
+
+                        rect_stk.Y += rect_stk.Height;
+                        e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).begdif), fnt, brush, rect_stk, format_right);
+
+                        rect_stk.Y += rect_stk.Height;
+                        e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).begdif + report_data.dayend[i].ToViewModel(this.main_form.working_express_db).difqty), fnt, brush, rect_stk, format_right);
+
+                        Rectangle rect_vat = new Rectangle(e.MarginBounds.Left, rect_stk.Y + line_height, e.MarginBounds.Right - e.MarginBounds.Left, line_height);
+
+                        if (item_count == item_per_page && item_count < report_data.dayend.Count)
+                        {
+                            e.HasMorePages = true;
+                            return;
                         }
                         else
                         {
-                            e.Graphics.DrawString("-", fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                            e.HasMorePages = false;
                         }
                     }
-                    /****************************************/
+                }
 
-                    rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).accbal), fnt, brush, rect_stk, format_right);
+                if(printed_vatdoc == -1 && report_data.purvattransVM.Count > 0)
+                {
+                    e.HasMorePages = true;
+                    printed_vatdoc = 0;
+                    return;
+                }
 
-                    rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).difqty), fnt, brush, rect_stk, format_right);
+                //rect.Y += line_height;
+                Rectangle rect_vatdoc_title = new Rectangle(e.MarginBounds.Left, rect.Y + line_height, 400, line_height);
+                e.Graphics.DrawString("ใบจ่ายน้ำมันหรือใบกำกับภาษีขนส่งน้ำมัน", fnt_bold, brush, rect_vatdoc_title);
+                Rectangle rect_seq = new Rectangle(rect_vatdoc_title.X, rect_vatdoc_title.Y + line_height, 30, line_height);
+                Rectangle rect_vatdoc = new Rectangle(rect_seq.X + rect_seq.Width, rect_seq.Y, 85, line_height);
+                Rectangle rect_vatdat = new Rectangle(rect_vatdoc.X + rect_vatdoc.Width, rect_vatdoc.Y, 85, line_height);
+                Rectangle rect_supplier = new Rectangle(rect_vatdat.X + rect_vatdat.Width, rect_vatdat.Y, 190, line_height);
+                Rectangle rect_amt = new Rectangle(rect_supplier.X + rect_supplier.Width, rect_supplier.Y, 80, line_height);
+                Rectangle rect_vatamt = new Rectangle(rect_amt.X + rect_amt.Width, rect_amt.Y, 85, line_height);
+                e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_seq.X, rect_seq.Y, rect_seq.Width, rect_seq.Height));
+                e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_vatdoc.X, rect_vatdoc.Y, rect_vatdoc.Width, rect_vatdoc.Height));
+                e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_vatdat.X, rect_vatdat.Y, rect_vatdat.Width, rect_vatdat.Height));
+                e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_supplier.X, rect_supplier.Y, rect_supplier.Width, rect_supplier.Height));
+                e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_amt.X, rect_amt.Y, rect_amt.Width, rect_amt.Height));
+                e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_vatamt.X, rect_vatamt.Y, rect_vatamt.Width, rect_vatamt.Height));
 
-                    rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).begdif), fnt, brush, rect_stk, format_right);
+                e.Graphics.DrawString("ลำดับ", fnt_bold, brush, rect_seq, new StringFormat { Alignment = StringAlignment.Center });
+                e.Graphics.DrawString("เลขที่", fnt_bold, brush, rect_vatdoc, new StringFormat { Alignment = StringAlignment.Center });
+                e.Graphics.DrawString("วัน เดือน ปี", fnt_bold, brush, rect_vatdat, new StringFormat { Alignment = StringAlignment.Center });
+                e.Graphics.DrawString("บริษัทผู้ค้าน้ำมัน", fnt_bold, brush, rect_supplier, new StringFormat { Alignment = StringAlignment.Center });
+                e.Graphics.DrawString("จำนวนเงิน(บาท)", fnt_bold, brush, rect_amt, new StringFormat { Alignment = StringAlignment.Far });
+                e.Graphics.DrawString("ภาษีมูลค่าเพิ่ม(บาท)", fnt_bold, brush, rect_vatamt, new StringFormat { Alignment = StringAlignment.Far });
 
-                    rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].ToViewModel(this.main_form.working_express_db).begdif + report_data.dayend[i].ToViewModel(this.main_form.working_express_db).difqty), fnt, brush, rect_stk, format_right);
+                e.Graphics.DrawRectangle(p, new Rectangle(rect_seq.X, rect_seq.Y, rect_seq.Width + rect_vatdoc.Width + rect_vatdat.Width + rect_supplier.Width + rect_amt.Width + rect_vatamt.Width, line_height + (line_height * vatdoc_item_per_column)));
+                e.Graphics.DrawLine(p, new Point(rect_vatdoc.X, rect_vatdoc.Y), new Point(rect_vatdoc.X, rect_vatdoc.Y + line_height + (line_height * vatdoc_item_per_column)));
+                e.Graphics.DrawLine(p, new Point(rect_vatdat.X, rect_vatdat.Y), new Point(rect_vatdat.X, rect_vatdat.Y + line_height + (line_height * vatdoc_item_per_column)));
+                e.Graphics.DrawLine(p, new Point(rect_supplier.X, rect_supplier.Y), new Point(rect_supplier.X, rect_supplier.Y + line_height + (line_height * vatdoc_item_per_column)));
+                e.Graphics.DrawLine(p, new Point(rect_amt.X, rect_amt.Y), new Point(rect_amt.X, rect_amt.Y + line_height + (line_height * vatdoc_item_per_column)));
+                e.Graphics.DrawLine(p, new Point(rect_vatamt.X, rect_vatamt.Y), new Point(rect_vatamt.X, rect_vatamt.Y + line_height + (line_height * vatdoc_item_per_column)));
 
-                    Rectangle rect_vat = new Rectangle(e.MarginBounds.Left, rect_stk.Y + line_height, e.MarginBounds.Right - e.MarginBounds.Left, line_height);
-                    if (page_item == 1)
-                    {
-                        foreach (VatTransDbfVM doc in report_data.purvattransVM)
-                        {
-                            rect_vat.Y += line_height;
-                            string vat = "ใบจ่ายน้ำมันหรือใบกำกับภาษีขนส่งน้ำมันเลขที่ " + doc.docnum.Trim() + " ลงวันที่ " + doc.docdat.ToString("dd", CultureInfo.CurrentCulture) + " เดือน " + doc.docdat.ToString("MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + doc.docdat.ToString("yyyy", CultureInfo.CurrentCulture) + " ของผู้ค้าน้ำมันราย " + doc.people;
-                            e.Graphics.DrawString(vat, fnt, brush, rect_vat, format_left);
-                        }
-                    }
+                for (int i = printed_vatdoc; i < report_data.purvattransVM.Count; i++)
+                {
+                    rect_seq.Y += line_height;
+                    rect_vatdoc.Y += line_height;
+                    rect_vatdat.Y += line_height;
+                    rect_supplier.Y += line_height;
+                    rect_amt.Y += line_height;
+                    rect_vatamt.Y += line_height;
 
-                    if (item_count == item_per_page && item_count < report_data.dayend.Count)
+                    e.Graphics.DrawString((i + 1).ToString(), fnt, brush, rect_seq, new StringFormat { Alignment = StringAlignment.Far });
+                    e.Graphics.DrawString(report_data.purvattransVM[i].docnum, fnt, brush, rect_vatdoc);
+                    e.Graphics.DrawString(report_data.purvattransVM[i].docdat.ToString("d MMMM yyyy", CultureInfo.GetCultureInfo("th-TH")), fnt, brush, rect_vatdat);
+                    e.Graphics.DrawString(report_data.purvattransVM[i].people, fnt, brush, rect_supplier);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.purvattransVM[i].netval), fnt, brush, rect_amt, new StringFormat { Alignment = StringAlignment.Far });
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.purvattransVM[i].vatamt), fnt, brush, rect_vatamt, new StringFormat { Alignment = StringAlignment.Far });
+
+                    if ((i + 1) % (vatdoc_item_per_column * 2) == 0)
                     {
                         e.HasMorePages = true;
+                        printed_vatdoc++;
                         return;
                     }
-                    else
+
+                    if ((i + 1) % vatdoc_item_per_column == 0)
                     {
-                        e.HasMorePages = false;
+                        rect_seq.X += rect_seq.Width + rect_vatdoc.Width + rect_vatdat.Width + rect_supplier.Width + rect_amt.Width + rect_vatamt.Width + 20;
+                        rect_vatdoc.X += rect_seq.Width + rect_vatdoc.Width + rect_vatdat.Width + rect_supplier.Width + rect_amt.Width + rect_vatamt.Width + 20;
+                        rect_vatdat.X += rect_seq.Width + rect_vatdoc.Width + rect_vatdat.Width + rect_supplier.Width + rect_amt.Width + rect_vatamt.Width + 20;
+                        rect_supplier.X += rect_seq.Width + rect_vatdoc.Width + rect_vatdat.Width + rect_supplier.Width + rect_amt.Width + rect_vatamt.Width + 20;
+                        rect_amt.X += rect_seq.Width + rect_vatdoc.Width + rect_vatdat.Width + rect_supplier.Width + rect_amt.Width + rect_vatamt.Width + 20;
+                        rect_vatamt.X += rect_seq.Width + rect_vatdoc.Width + rect_vatdat.Width + rect_supplier.Width + rect_amt.Width + rect_vatamt.Width + 20;
+                        rect_seq.Y = rect.Y + (line_height * 2);
+                        rect_vatdoc.Y = rect.Y + (line_height * 2);
+                        rect_vatdat.Y = rect.Y + (line_height * 2);
+                        rect_supplier.Y = rect.Y + (line_height * 2);
+                        rect_amt.Y = rect.Y + (line_height * 2);
+                        rect_vatamt.Y = rect.Y + (line_height * 2);
+
+                        e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_seq.X, rect_seq.Y, rect_seq.Width, rect_seq.Height));
+                        e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_vatdoc.X, rect_vatdoc.Y, rect_vatdoc.Width, rect_vatdoc.Height));
+                        e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_vatdat.X, rect_vatdat.Y, rect_vatdat.Width, rect_vatdat.Height));
+                        e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_supplier.X, rect_supplier.Y, rect_supplier.Width, rect_supplier.Height));
+                        e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_amt.X, rect_amt.Y, rect_amt.Width, rect_amt.Height));
+                        e.Graphics.FillRectangle(bg_gray, new Rectangle(rect_vatamt.X, rect_vatamt.Y, rect_vatamt.Width, rect_vatamt.Height));
+
+                        e.Graphics.DrawString("ลำดับ", fnt_bold, brush, rect_seq, new StringFormat { Alignment = StringAlignment.Center });
+                        e.Graphics.DrawString("เลขที่", fnt_bold, brush, rect_vatdoc, new StringFormat { Alignment = StringAlignment.Center });
+                        e.Graphics.DrawString("วัน เดือน ปี", fnt_bold, brush, rect_vatdat, new StringFormat { Alignment = StringAlignment.Center });
+                        e.Graphics.DrawString("บริษัทผู้ค้าน้ำมัน", fnt_bold, brush, rect_supplier, new StringFormat { Alignment = StringAlignment.Center });
+                        e.Graphics.DrawString("จำนวนเงิน(บาท)", fnt_bold, brush, rect_amt, new StringFormat { Alignment = StringAlignment.Far });
+                        e.Graphics.DrawString("ภาษีมูลค่าเพิ่ม(บาท)", fnt_bold, brush, rect_vatamt, new StringFormat { Alignment = StringAlignment.Far });
+
+                        e.Graphics.DrawRectangle(p, new Rectangle(rect_seq.X, rect_seq.Y, rect_seq.Width + rect_vatdoc.Width + rect_vatdat.Width + rect_supplier.Width + rect_amt.Width + rect_vatamt.Width, line_height + (line_height * vatdoc_item_per_column)));
+                        e.Graphics.DrawLine(p, new Point(rect_vatdoc.X, rect_vatdoc.Y), new Point(rect_vatdoc.X, rect_vatdoc.Y + line_height + (line_height * vatdoc_item_per_column)));
+                        e.Graphics.DrawLine(p, new Point(rect_vatdat.X, rect_vatdat.Y), new Point(rect_vatdat.X, rect_vatdat.Y + line_height + (line_height * vatdoc_item_per_column)));
+                        e.Graphics.DrawLine(p, new Point(rect_supplier.X, rect_supplier.Y), new Point(rect_supplier.X, rect_supplier.Y + line_height + (line_height * vatdoc_item_per_column)));
+                        e.Graphics.DrawLine(p, new Point(rect_amt.X, rect_amt.Y), new Point(rect_amt.X, rect_amt.Y + line_height + (line_height * vatdoc_item_per_column)));
+                        e.Graphics.DrawLine(p, new Point(rect_vatamt.X, rect_vatamt.Y), new Point(rect_vatamt.X, rect_vatamt.Y + line_height + (line_height * vatdoc_item_per_column)));
                     }
+
+                    printed_vatdoc++;
                 }
             };
 

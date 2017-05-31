@@ -1548,11 +1548,11 @@ namespace XPump.Model
                                     docdat = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docdat.Value,
                                     people = apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().supnam.Trim() : string.Empty,
                                     stkcod = stcrd.Where(st => st.docnum.Trim() == s.Key).First().stkcod.Trim(),
-                                    netval = stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval,
-                                    vatamt = Convert.ToDouble(string.Format("{0:0.00}", (stcrd.Where(st => st.docnum.Trim() == s.Key).First().netval * 7) / 100))
+                                    netval = stcrd.Where(st => st.docnum.Trim() == s.Key).Sum(st => st.netval),
+                                    vatamt = Convert.ToDouble(string.Format("{0:0.00}", (stcrd.Where(st => st.docnum.Trim() == s.Key).Sum(st => (st.netval * 7) / 100))))
                                 }).OrderBy(s => s.docdat).ThenBy(s => s.docnum).ToList();
 
-                    this.purvattransVM = purvattrans;
+                    this.purvattransVM = purvattrans.ToList();
                 }
             }
             else
