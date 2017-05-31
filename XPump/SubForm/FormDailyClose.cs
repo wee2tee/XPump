@@ -717,25 +717,43 @@ namespace XPump.SubForm
                 int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_C(report_data));
                 if (print.output == PRINT_OUTPUT.SCREEN)
                 {
-                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_C(report_data, total_page), total_page);
+                    List<dayendVM> dayends;
+                    var print_auth_state = PRINT_AUTHORIZE_STATE.READY_TO_PRINT;
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        dayends = db.dayend.Where(d => d.saldat.CompareTo(print.first_date_of_month.Value) >= 0 && d.saldat.CompareTo(print.last_date_of_month.Value) <= 0).ToViewModel(this.main_form.working_express_db);
+                        if (dayends.Count == 0)
+                        {
+                            MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+                        foreach (var item in dayends)
+                        {
+                            var auth_state = item.GetPrintAuthorizeState();
+                            if (auth_state == PRINT_AUTHORIZE_STATE.MUST_APPROVE_BEFORE_PRINT || auth_state == PRINT_AUTHORIZE_STATE.MUST_UNAPPROVE_BEFORE_PRINT)
+                                print_auth_state = auth_state;
+                        }
+                    }
+
+                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_C(report_data, total_page), total_page, print_auth_state);
                     xp.MdiParent = this.main_form;
                     xp._OnOutputToPrinter += delegate
                     {
                         using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                         {
                             var ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
-                            var prntim = DateTime.Now;
-                            foreach (var id in ids)
-                            {
-                                var dayend_to_update = db.dayend.Find(id);
-                                if (dayend_to_update == null)
-                                    continue;
+                            //var prntim = DateTime.Now;
+                            //foreach (var id in ids)
+                            //{
+                            //    var dayend_to_update = db.dayend.Find(id);
+                            //    if (dayend_to_update == null)
+                            //        continue;
 
-                                dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
-                                dayend_to_update.prntime = prntim;
-                                dayend_to_update.prncnt = ++dayend_to_update.prncnt;
-                            }
-                            db.SaveChanges();
+                            //    dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                            //    dayend_to_update.prntime = prntim;
+                            //    dayend_to_update.prncnt = ++dayend_to_update.prncnt;
+                            //}
+                            //db.SaveChanges();
 
                             this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
                         }
@@ -745,6 +763,30 @@ namespace XPump.SubForm
 
                 if (print.output == PRINT_OUTPUT.PRINTER)
                 {
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        List<dayendVM> dayends = db.dayend.Where(d => d.saldat.CompareTo(print.first_date_of_month.Value) >= 0 && d.saldat.CompareTo(print.last_date_of_month.Value) <= 0).ToViewModel(this.main_form.working_express_db);
+                        if (dayends.Count == 0)
+                        {
+                            MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+                        foreach (var item in dayends)
+                        {
+                            var auth_state = item.GetPrintAuthorizeState();
+                            if (auth_state == PRINT_AUTHORIZE_STATE.MUST_APPROVE_BEFORE_PRINT)
+                            {
+                                MessageBox.Show("ต้องรับรองรายการก่อนพิมพ์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
+                            if (auth_state == PRINT_AUTHORIZE_STATE.MUST_UNAPPROVE_BEFORE_PRINT)
+                            {
+                                MessageBox.Show("รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
+                        }
+                    }
+
                     PrintDialog pd = new PrintDialog();
                     pd.Document = this.PreparePrintDoc_C(report_data, total_page);
                     if (pd.ShowDialog() == DialogResult.OK)
@@ -752,18 +794,18 @@ namespace XPump.SubForm
                         using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                         {
                             var ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
-                            var prntim = DateTime.Now;
-                            foreach (var id in ids)
-                            {
-                                var dayend_to_update = db.dayend.Find(id);
-                                if (dayend_to_update == null)
-                                    continue;
+                            //var prntim = DateTime.Now;
+                            //foreach (var id in ids)
+                            //{
+                            //    var dayend_to_update = db.dayend.Find(id);
+                            //    if (dayend_to_update == null)
+                            //        continue;
 
-                                dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
-                                dayend_to_update.prntime = prntim;
-                                dayend_to_update.prncnt = ++dayend_to_update.prncnt;
-                            }
-                            db.SaveChanges();
+                            //    dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                            //    dayend_to_update.prntime = prntim;
+                            //    dayend_to_update.prncnt = ++dayend_to_update.prncnt;
+                            //}
+                            //db.SaveChanges();
 
                             this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
                         }
@@ -1321,7 +1363,11 @@ namespace XPump.SubForm
             int page = 0;
             int item_count = 0;
             int item_per_page = 4;
-            int section_per_product = 5;
+            int section_per_product = 8;
+            int max_dother_item = 5;
+            int printed_vatdoc = -1;
+            int vatdoc_item_per_column = 30;
+
 
             PrintDocument docs = new PrintDocument();
             //PaperSize ps = new PaperSize();
@@ -1333,6 +1379,7 @@ namespace XPump.SubForm
             {
                 page = 0;
                 item_count = 0;
+                printed_vatdoc = -1;
             };
             docs.PrintPage += delegate (object sender, PrintPageEventArgs e)
             {
@@ -1433,7 +1480,7 @@ namespace XPump.SubForm
                 e.Graphics.DrawString("2. รวมยอดน้ำมันวัดได้จริงสิ้นงวด", fnt, brush, rect_str_container, format_left);
 
                 rect_str_container.Y += rect_str_container.Height;
-                rect_str_container.Height = line_height * 8;
+                rect_str_container.Height = line_height * (7 + max_dother_item);
                 e.Graphics.DrawRectangle(p, rect_str_container);
 
                 rect_str_container.Height = line_height;
@@ -1446,9 +1493,9 @@ namespace XPump.SubForm
                 e.Graphics.DrawString("5. หัก น้ำมันที่ขายผ่านมิเตอร์ระหว่างเดือน", fnt, brush, rect_str_container, format_left);
 
                 rect_str_container.Y += rect_str_container.Height;
-                e.Graphics.DrawString("   หัก อื่น ๆ ระบุ______________________", fnt, brush, rect_str_container, format_left);
+                e.Graphics.DrawString("   หัก อื่น ๆ ระบุ =======================>", fnt, brush, rect_str_container, format_left);
 
-                rect_str_container.Y += rect_str_container.Height;
+                rect_str_container.Y += rect_str_container.Height * max_dother_item;
                 e.Graphics.DrawString("6. น้ำมันคงเหลือในบัญชี (3+4-5)", fnt, brush, rect_str_container, format_left);
 
                 rect_str_container.Y += rect_str_container.Height;
@@ -1460,7 +1507,7 @@ namespace XPump.SubForm
                 rect_str_container.Y += rect_str_container.Height;
                 e.Graphics.DrawString("9. ผลต่างสะสมปัจจุบันยกไป (7+8)", fnt, brush, rect_str_container, format_left);
 
-                Rectangle rect_section = new Rectangle(x, y, 60, line_height);
+                Rectangle rect_section = new Rectangle(x, y, 80, line_height);
                 int sub_col_width = Convert.ToInt32(Math.Floor((double)((e.MarginBounds.Right - e.MarginBounds.Left) - rect_str_container.Width) / item_per_page));
                 Rectangle rect_stk = new Rectangle(x, y, sub_col_width - rect_section.Width, line_height);
 
@@ -1480,7 +1527,7 @@ namespace XPump.SubForm
                     e.Graphics.DrawString("เลขที่" + Environment.NewLine + "ถัง", fnt_bold, brush, rect_section, format_center);
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height, rect_section.Width, line_height * section_per_product));
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height + (line_height * section_per_product), rect_section.Width, line_height));
-                    e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height + (line_height * section_per_product) + line_height, rect_section.Width, line_height * 8));
+                    e.Graphics.DrawRectangle(p, new Rectangle(rect_section.X, rect_section.Y + rect_section.Height + (line_height * section_per_product) + line_height, rect_section.Width, line_height * (7 + max_dother_item)));
 
                     rect_stk.X = rect_section.X + rect_section.Width;
                     rect_stk.Y = start_body_y;
@@ -1490,7 +1537,7 @@ namespace XPump.SubForm
                     e.Graphics.DrawString(report_data.monthend[i].stkcod, fnt_bold, brush, rect_stk, format_center);
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height, rect_stk.Width, line_height * section_per_product));
                     e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product), rect_stk.Width, line_height));
-                    e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product) + line_height, rect_stk.Width, line_height * 8));
+                    e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product) + line_height, rect_stk.Width, line_height * (7 + max_dother_item)));
 
                     for (int j = 0; j < section_per_product; j++)
                     {
@@ -1517,8 +1564,29 @@ namespace XPump.SubForm
                     rect_stk.Y += rect_stk.Height;
                     e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].salqty), fnt, brush, rect_stk, format_right);
 
-                    rect_stk.Y += rect_stk.Height;
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].dother), fnt, brush, rect_stk, format_right);
+                    /** dother ********************************/
+                    for (int d = 0; d < max_dother_item; d++)
+                    {
+                        rect_stk.Y += line_height;
+                        rect_section.Y = rect_stk.Y;
+
+                        e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_section.X + 1, rect_section.Y, rect_section.Width - 2, rect_section.Height));
+                        e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_stk.X + 1, rect_stk.Y, rect_stk.Width - 2, rect_stk.Height));
+
+                        if(report_data.monthend[i].dother.Count > d)
+                        {
+                            e.Graphics.DrawString(report_data.monthend[i].dother[d].ToViewModel(this.main_form.working_express_db).typdes, fnt, brush, rect_section);
+                            e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].dother[d].qty), fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                        }
+                        else
+                        {
+                            e.Graphics.DrawString("-", fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                        }
+                    }
+                    /******************************************/
+
+                    //rect_stk.Y += rect_stk.Height;
+                    //e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].dother), fnt, brush, rect_stk, format_right);
 
                     rect_stk.Y += rect_stk.Height;
                     e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.monthend[i].accbal), fnt, brush, rect_stk, format_right);

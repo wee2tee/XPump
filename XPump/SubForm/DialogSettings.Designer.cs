@@ -44,6 +44,7 @@
             this.numShiftAuthLevel = new CC.XNumTextEdit();
             this.drDayPrintMethod = new CC.XDropdownList();
             this.drShiftPrintMethod = new CC.XDropdownList();
+            this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.txtOrgname = new CC.XTextEdit();
-            this.label1 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +72,7 @@
             this.btnStop});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(542, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(554, 43);
             this.toolStrip1.TabIndex = 6;
             // 
             // btnEdit
@@ -210,7 +210,7 @@
             this.panel1.Controls.Add(this.label6);
             this.panel1.Location = new System.Drawing.Point(17, 109);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(506, 237);
+            this.panel1.Size = new System.Drawing.Size(518, 253);
             this.panel1.TabIndex = 9;
             // 
             // numDayAuthLevel
@@ -223,7 +223,7 @@
             this.numDayAuthLevel.BackColor = System.Drawing.Color.White;
             this.numDayAuthLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numDayAuthLevel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numDayAuthLevel.Location = new System.Drawing.Point(252, 155);
+            this.numDayAuthLevel.Location = new System.Drawing.Point(316, 157);
             this.numDayAuthLevel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numDayAuthLevel.Name = "numDayAuthLevel";
             this.numDayAuthLevel.Size = new System.Drawing.Size(20, 23);
@@ -241,7 +241,7 @@
             this.numShiftAuthLevel.BackColor = System.Drawing.Color.White;
             this.numShiftAuthLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numShiftAuthLevel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numShiftAuthLevel.Location = new System.Drawing.Point(252, 61);
+            this.numShiftAuthLevel.Location = new System.Drawing.Point(316, 61);
             this.numShiftAuthLevel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numShiftAuthLevel.Name = "numShiftAuthLevel";
             this.numShiftAuthLevel.Size = new System.Drawing.Size(20, 23);
@@ -256,7 +256,7 @@
             this.drDayPrintMethod._Text = "";
             this.drDayPrintMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.drDayPrintMethod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.drDayPrintMethod.Location = new System.Drawing.Point(252, 197);
+            this.drDayPrintMethod.Location = new System.Drawing.Point(316, 199);
             this.drDayPrintMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.drDayPrintMethod.Name = "drDayPrintMethod";
             this.drDayPrintMethod.Size = new System.Drawing.Size(167, 23);
@@ -271,7 +271,7 @@
             this.drShiftPrintMethod._Text = "";
             this.drShiftPrintMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.drShiftPrintMethod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.drShiftPrintMethod.Location = new System.Drawing.Point(252, 102);
+            this.drShiftPrintMethod.Location = new System.Drawing.Point(316, 102);
             this.drShiftPrintMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.drShiftPrintMethod.Name = "drShiftPrintMethod";
             this.drShiftPrintMethod.Size = new System.Drawing.Size(167, 23);
@@ -279,10 +279,19 @@
             this.drShiftPrintMethod._SelectedItemChanged += new System.EventHandler(this.drShiftPrintMethod__SelectedItemChanged);
             this.drShiftPrintMethod._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(341, 161);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(169, 32);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "0 = ไม่ต้องรับรอง,\r\n1 - 9 = ระดับอนุมัติที่ให้รับรอง";
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(277, 65);
+            this.label7.Location = new System.Drawing.Point(341, 65);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(169, 32);
             this.label7.TabIndex = 7;
@@ -291,7 +300,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(49, 159);
+            this.label17.Location = new System.Drawing.Point(35, 161);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(184, 16);
             this.label17.TabIndex = 7;
@@ -300,7 +309,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(49, 65);
+            this.label10.Location = new System.Drawing.Point(35, 65);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(184, 16);
             this.label10.TabIndex = 7;
@@ -309,29 +318,29 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(49, 200);
+            this.label16.Location = new System.Drawing.Point(35, 202);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(167, 16);
+            this.label16.Size = new System.Drawing.Size(278, 16);
             this.label16.TabIndex = 7;
-            this.label16.Text = "วิธีการพิมพ์ หรือรับรองรายการ";
+            this.label16.Text = "การรับรองรายการเพื่อพิมพ์รายงานส่วน ข. และ ค. :";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(49, 105);
+            this.label8.Location = new System.Drawing.Point(35, 105);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(167, 16);
+            this.label8.Size = new System.Drawing.Size(236, 16);
             this.label8.TabIndex = 7;
-            this.label8.Text = "วิธีการพิมพ์ หรือรับรองรายการ";
+            this.label8.Text = "การรับรองรายการเพื่อพิมพ์รายงานส่วน ก. :";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 135);
+            this.label15.Location = new System.Drawing.Point(7, 137);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(199, 16);
+            this.label15.Size = new System.Drawing.Size(261, 16);
             this.label15.TabIndex = 7;
-            this.label15.Text = "3. การรับรอง/พิมพ์ รายการประจำวัน";
+            this.label15.Text = "3. การรับรอง/พิมพ์ รายการปิดยอดขายประจำวัน";
             // 
             // label9
             // 
@@ -345,7 +354,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(233, 159);
+            this.label14.Location = new System.Drawing.Point(233, 161);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(13, 16);
             this.label14.TabIndex = 7;
@@ -354,7 +363,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(233, 200);
+            this.label13.Location = new System.Drawing.Point(233, 202);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(13, 16);
             this.label13.TabIndex = 7;
@@ -396,20 +405,11 @@
             this.txtOrgname._TextChanged += new System.EventHandler(this.txtOrgname__TextChanged);
             this.txtOrgname._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(277, 159);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(169, 32);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "0 = ไม่ต้องรับรอง,\r\n1 - 9 = ระดับอนุมัติที่ให้รับรอง";
-            // 
             // DialogSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 362);
+            this.ClientSize = new System.Drawing.Size(554, 378);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnEditMysqlConnection);
             this.Controls.Add(this.lblNotConnect);
