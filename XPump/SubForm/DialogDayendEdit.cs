@@ -320,6 +320,9 @@ namespace XPump.SubForm
                 if (this.form_mode != FORM_MODE.READ)
                     return true;
 
+                if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
+                    return true;
+
                 if (this.dgv.CurrentCell == null)
                 {
                     this.form_mode = FORM_MODE.EDIT;

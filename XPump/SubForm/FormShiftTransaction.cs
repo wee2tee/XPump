@@ -47,9 +47,9 @@ namespace XPump.SubForm
             this.bs_sttak = new BindingSource();
 
             this.btnLast.PerformClick();
-            this.ActiveControl = this.dgvSalesSummary;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
+            this.ActiveControl = this.dgvSalesSummary;
         }
 
         private void ResetControlState()
@@ -80,16 +80,42 @@ namespace XPump.SubForm
             this.brShift.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.dtSaldat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.dgvSalesSummary.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnSttak.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             this.ResetApproveBtn();
+
+            /*Form control state depend on data*/
+            if (this.form_mode == FORM_MODE.READ)
+            {
+                this.btnEdit.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnDelete.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnFirst.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnPrevious.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnNext.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnLast.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnSearch.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnInquiryAll.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnInquiryRest.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnPrint.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnPrintALandscape.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnItem.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnApprove.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnUnApprove.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                //this.btnRefresh.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnSttak.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+
+                this.dtSaldat._SelectedDate = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? null : (DateTime?)this.curr_shiftsales.saldat;
+
+                this.ResetApproveBtn();
+            }
         }
 
         private void ResetApproveBtn()
         {
             if (this.form_mode == FORM_MODE.READ)
             {
-                this.btnApprove.Enabled = this.curr_shiftsales != null && !this.curr_shiftsales.apprtime.HasValue ? true : false;
-                this.btnUnApprove.Enabled = this.curr_shiftsales != null && this.curr_shiftsales.apprtime.HasValue ? true : false;
+                this.btnApprove.Enabled = this.curr_shiftsales != null && this.curr_shiftsales.id != -1 && !this.curr_shiftsales.apprtime.HasValue ? true : false;
+                this.btnUnApprove.Enabled = this.curr_shiftsales != null && this.curr_shiftsales.id != -1 && this.curr_shiftsales.apprtime.HasValue ? true : false;
             }
         }
 
@@ -236,28 +262,6 @@ namespace XPump.SubForm
             this.bs_sttak.DataSource = sales.shiftsttak.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ToList();
 
             this.ValidateSttak();
-
-            /*Form control state depend on data*/
-            if (this.form_mode == FORM_MODE.READ)
-            {
-                this.btnEdit.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnDelete.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnFirst.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnPrevious.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnNext.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnLast.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnSearch.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnInquiryAll.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnInquiryRest.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnPrint.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnPrintALandscape.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnItem.Enabled = sales == null || sales.id == -1 ? false : true;
-                this.btnRefresh.Enabled = sales == null || sales.id == -1 ? false : true;
-
-                this.dtSaldat._SelectedDate = sales == null || sales.id == -1 ? null : (DateTime?)sales.saldat;
-
-                this.ResetApproveBtn();
-            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -341,6 +345,7 @@ namespace XPump.SubForm
                         this.main_form.islog.AddData(this.menu_id, "ลบบันทึกรายการประจำผลัด \"" + shift_name + "\" วันที่ " + shiftsales_to_delete.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_delete.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shift_name, "shiftsales", shiftsales_to_delete.id).Save();
 
                         this.btnRefresh.PerformClick();
+                        this.ResetControlState();
                     }
                     catch (Exception ex)
                     {
@@ -1163,9 +1168,25 @@ namespace XPump.SubForm
                 y += line_height; // new line
                 int start_body_y = y;
                 int page_item = 0;
-                List<VatTransDbfVM> sal_vattrans = report_data.shsvattransVM
-                                                    .Concat(report_data.sivvattransVM)
-                                                    .OrderBy(v => v.docdat).ThenBy(v => v.docnum).ToList();
+                //var svat_trans = report_data.shsvattransVM.Concat(report_data.sivvattransVM).GroupBy(s => s.docnum);
+                //List<VatTransDbfVM> sal_vattrans = new List<VatTransDbfVM>();
+                //foreach (var item in svat_trans)
+                //{
+                //    var svat = new VatTransDbfVM
+                //    {
+                //        docnum = item.First().docnum,
+                //        docdat = item.First().docdat,
+                //        people = item.First().people,
+                //        stkcod = item.First().stkcod,
+                //        netval = item.Sum(s => s.netval),
+                //        vatamt = item.Sum(s => s.vatamt)
+                //    };
+                //    sal_vattrans.Add(svat);
+                //}
+
+                //List<VatTransDbfVM> sal_vattrans = report_data.shsvattransVM
+                //                                    .Concat(report_data.sivvattransVM)
+                //                                    .OrderBy(v => v.docdat).ThenBy(v => v.docnum).ToList();
                 List<VatTransDbfVM> pur_vattrans = report_data.phpvattransVM
                                                     .Concat(report_data.prrvattransVM)
                                                     .OrderBy(v => v.docdat).ThenBy(v => v.docnum).ToList();
@@ -1491,7 +1512,7 @@ namespace XPump.SubForm
                 }
 
                 int cnt_page_vatdoc = 0;
-                for (int vat_item = printed_vatdoc; vat_item < sal_vattrans.Count; vat_item++)
+                for (int vat_item = printed_vatdoc; vat_item < /*sal_vattrans*/report_data.sales_vatdoc.Count; vat_item++)
                 {
                     if (cnt_page_vatdoc > 0 && cnt_page_vatdoc % vatdoc_item_per_column == 0)
                     {
@@ -1512,9 +1533,9 @@ namespace XPump.SubForm
                     rect_vat.Y += line_height;
 
                     e.Graphics.DrawString((vat_item + 1).ToString(), fnt, brush, rect_seq, new StringFormat { Alignment = StringAlignment.Far });
-                    e.Graphics.DrawString(sal_vattrans[vat_item].docnum, fnt, brush, rect_docnum);
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", sal_vattrans[vat_item].netval), fnt, brush, rect_net, new StringFormat { Alignment = StringAlignment.Far });
-                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", sal_vattrans[vat_item].vatamt), fnt, brush, rect_vat, new StringFormat { Alignment = StringAlignment.Far });
+                    e.Graphics.DrawString(report_data.sales_vatdoc[vat_item].docnum, fnt, brush, rect_docnum);
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.sales_vatdoc[vat_item].netval), fnt, brush, rect_net, new StringFormat { Alignment = StringAlignment.Far });
+                    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.sales_vatdoc[vat_item].vatamt), fnt, brush, rect_vat, new StringFormat { Alignment = StringAlignment.Far });
                    
 
                     printed_vatdoc++;

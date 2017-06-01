@@ -1729,7 +1729,7 @@ namespace XPump.Misc
                 if(shiftsales.IsApproved().Value == true)
                 {
                     if(show_alert)
-                        MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขหรือลบ, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return false;
                 }
 
@@ -1752,7 +1752,7 @@ namespace XPump.Misc
                 if (dayend.IsApprovedAll().Value == true)
                 {
                     if (show_alert)
-                        MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขหรือลบ, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return false;
                 }
 

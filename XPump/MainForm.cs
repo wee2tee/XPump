@@ -262,6 +262,17 @@ namespace XPump
 
         private void mnuChangeCompany_Click(object sender, EventArgs e)
         {
+            if(this.opened_child_form.Count > 0)
+            {
+                if (MessageBox.Show("โปรแกรมจะปิดหน้าต่างงานที่เปิดอยู่ทั้งหมดให้ก่อน, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                    return;
+
+                for (int i = this.opened_child_form.Count - 1; i > -1; i--)
+                {
+                    this.opened_child_form[i].form.Close();
+                }
+            }
+
             List<SccompDbf> sccomp = DbfTable.Sccomp().ToSccompList().OrderBy(s => s.compnam).ToList();
 
             if (this.loged_in_status.is_secure)

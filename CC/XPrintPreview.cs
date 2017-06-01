@@ -40,7 +40,14 @@ namespace CC
             this.printPreviewControl1.Zoom = 1;
             this.printPreviewControl1.Document.EndPrint += delegate
             {
-                this.txtPageNum.Text = (this.printPreviewControl1.StartPage + 1).ToString();
+                try
+                {
+                    this.txtPageNum.Text = (this.printPreviewControl1.StartPage + 1).ToString();
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }
             };
         }
 

@@ -52,6 +52,7 @@ namespace XPump.SubForm
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.shift_list;
             this.ActiveControl = this.dgv;
+            this.ResetControlState();
         }
 
         public List<shift> GetShiftList()
@@ -73,6 +74,15 @@ namespace XPump.SubForm
             this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnUp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnDown.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+
+            if(this.form_mode == FORM_MODE.READ)
+            {
+                if (this.shift_list == null || this.shift_list.Count == 0)
+                {
+                    this.btnEdit.Enabled = false;
+                    this.btnDelete.Enabled = false;
+                }
+            }
 
             if (this.dgv.Enabled)
             {
@@ -399,6 +409,7 @@ namespace XPump.SubForm
             this.shift_list = this.GetShiftList().ToViewModel(this.main_form.working_express_db);
             this.bs.ResetBindings(true);
             this.bs.DataSource = this.shift_list;
+            this.ResetControlState();
         }
 
         private void dgv_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)

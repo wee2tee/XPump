@@ -127,7 +127,7 @@ namespace XPump.SubForm
                 this.btnItem.Enabled = false;
                 this.btnTank.Enabled = false;
                 this.btnSection.Enabled = false;
-                this.btnRefresh.Enabled = false;
+                //this.btnRefresh.Enabled = false;
 
                 this.dtStartDate.SetDate(null);
 
@@ -835,6 +835,15 @@ namespace XPump.SubForm
             if(this.tanksetup != null)
             {
                 this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
+            }
+            else
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var tanksetup = db.tanksetup.Include("tank").OrderByDescending(t => t.startdate).FirstOrDefault();
+
+                    this.tanksetup = tanksetup;
+                }
             }
 
             this.FillForm();
