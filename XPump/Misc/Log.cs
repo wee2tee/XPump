@@ -127,7 +127,7 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? affected_id.ToString() : string.Empty
+                affid = affected_id != null ? new int[] { affected_id.Value } : null /*? affected_id.ToString() : string.Empty*/
             };
             return l;
         }
@@ -141,7 +141,7 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? affected_id.ToString() : string.Empty
+                affid = affected_id != null ? new int[] { affected_id.Value } : null
             };
             return l;
         }
@@ -155,7 +155,7 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? string.Join("|", affected_id.Select(i => i.ToString()).ToArray()) : string.Empty
+                affid = affected_id
             };
             return l;
         }
@@ -169,7 +169,7 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? affected_id.ToString() : string.Empty
+                affid = affected_id != null ? new int[] { affected_id.Value } : null
             };
             return l;
         }
@@ -183,7 +183,7 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? affected_id.ToString() : string.Empty
+                affid = affected_id != null ? new int[] { affected_id.Value } : null
             };
             return l;
         }
@@ -197,7 +197,7 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? string.Join("|", affected_id.Select(i => i.ToString()).ToArray()) : string.Empty
+                affid = affected_id
             };
             return l;
         }
@@ -211,7 +211,7 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? affected_id.ToString() : string.Empty
+                affid = affected_id != null ? new int[] { affected_id.Value } : null
             };
             return l;
         }
@@ -225,7 +225,7 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? affected_id.ToString() : string.Empty
+                affid = affected_id != null ? new int[] { affected_id.Value } : null
             };
             return l;
         }
@@ -239,7 +239,7 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? string.Join("|", affected_id.Select(i => i.ToString()).ToArray()) : string.Empty
+                affid = affected_id
             };
             return l;
         }
@@ -253,7 +253,7 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? affected_id.ToString() : string.Empty
+                affid = affected_id != null ? new int[] { affected_id.Value } : null
             };
             return l;
         }
@@ -267,7 +267,21 @@ namespace XPump.Misc
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? string.Join("|", affected_id.Select(i => i.ToString()).ToArray()) : string.Empty
+                affid = affected_id
+            };
+            return l;
+        }
+
+        public LogObject ApproveMultiple(string menu_id, string description, string docnum, string affected_table = null, int[] affected_id = null)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "014",
+                Description = description,
+                Module = menu_id,
+                Docnum = docnum,
+                afftable = affected_table,
+                affid = affected_id
             };
             return l;
         }
@@ -276,12 +290,12 @@ namespace XPump.Misc
         {
             LogObject l = new LogObject(this.main_form)
             {
-                Code = "014",
+                Code = "015",
                 Description = description,
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? affected_id.ToString() : string.Empty
+                affid = affected_id != null ? new int[] { affected_id.Value } : null
             };
             return l;
         }
@@ -290,12 +304,12 @@ namespace XPump.Misc
         {
             LogObject l = new LogObject(this.main_form)
             {
-                Code = "014",
+                Code = "015",
                 Description = description,
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? string.Join("|", affected_id.Select(i => i.ToString()).ToArray()) : string.Empty
+                affid = affected_id //affected_id != null ? string.Join("|", affected_id.Select(i => i.ToString()).ToArray()) : string.Empty
             };
             return l;
         }
@@ -339,12 +353,12 @@ namespace XPump.Misc
         {
             LogObject l = new LogObject(this.main_form)
             {
-                Code = "015",
+                Code = "016",
                 Description = description,
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? affected_id.ToString() : string.Empty
+                affid = affected_id != null ? new int[] { affected_id.Value } : null
             };
             return l;
         }
@@ -353,12 +367,12 @@ namespace XPump.Misc
         {
             LogObject l = new LogObject(this.main_form)
             {
-                Code = "015",
+                Code = "016",
                 Description = description,
                 Module = menu_id,
                 Docnum = docnum,
                 afftable = affected_table,
-                affid = affected_id != null ? string.Join("|", affected_id.Select(i => i.ToString()).ToArray()) : string.Empty
+                affid = affected_id
             };
             return l;
         }
@@ -367,7 +381,7 @@ namespace XPump.Misc
         {
             LogObject l = new LogObject(this.main_form)
             {
-                Code = "016",
+                Code = "017",
                 Description = string.Format("เปลี่ยนแปลงการตั้งค่าระบบสำเร็จ")
             };
             return l;
@@ -377,7 +391,7 @@ namespace XPump.Misc
         {
             LogObject l = new LogObject(this.main_form)
             {
-                Code = "017",
+                Code = "018",
                 Description = string.Format("เปลี่ยนไปใช้ข้อมูล \"{0}\" [{1}]", absolute_data_path.Replace("\\", "\\\\"), company_name)
             };
             return l;
@@ -427,7 +441,7 @@ namespace XPump.Misc
         public string Description { get; set; }
         public string Module { get; set; }
         public string afftable { get; set; }
-        public string affid { get; set; }
+        public int[] affid { get; set; }
         public string UserName
         {
             get
@@ -457,14 +471,25 @@ namespace XPump.Misc
             {
                 string module = this.Module != null ? this.Module : string.Empty;
                 string docnum = this.Docnum != null ? this.Docnum : string.Empty;
-                
-                //string data = this.main_form.working_express_db != null ? this.ExpressData : string.Empty;
-                //string xpump_data = this.XPumpData != null ? this.XPumpData : string.Empty;
 
-                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `afftable`, `affid`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', " + (this.afftable != null ? "'" + this.afftable + "'" : "NULL") + ", " + (this.affid != null ? "'" + this.affid + "'" : "NULL") + ", '" + docnum + "', '" + this.Description + "', '" + this.UserName + "')";
                 conn.Open();
+
+                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + this.UserName + "'); select last_insert_id();";
+
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
-                cmd.ExecuteNonQuery();
+                int islog_id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                if (this.afftable != null && this.afftable.Trim().Length > 0 && this.affid != null && this.affid.Length > 0)
+                {
+                    foreach (var id in this.affid)
+                    {
+                        sql = "INSERT INTO `xpumpsecure`.`affdata` (`islog_id`, `afftable`, `affid`) VALUES (" + islog_id + ", '" + this.afftable + "', " + id + ")";
+
+                        cmd = new MySqlCommand(sql, conn);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
                 conn.Close();
                 return new LogSaveResult { isSuccess = true, errMessage = string.Empty };
             }
@@ -488,13 +513,25 @@ namespace XPump.Misc
                 string module = this.Module != null ? this.Module : string.Empty;
                 string docnum = this.Docnum != null ? this.Docnum : string.Empty;
 
-                //string data = this.main_form.working_express_db != null ? this.ExpressData : string.Empty;
-                //string xpump_data = this.XPumpData != null ? this.XPumpData : string.Empty;
-
-                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `afftable`, `affid`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', " + (this.afftable != null ? "'" + this.afftable + "'" : "NULL") + ", " + (this.affid != null ? this.affid.ToString() : "NULL") + ", '" + docnum + "', '" + this.Description + "', '" + user_name + "')";
+                //string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `afftable`, `affid`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', " + (this.afftable != null ? "'" + this.afftable + "'" : "NULL") + ", " + (this.affid != null ? "'" + this.affid + "'" : "NULL") + ", '" + docnum + "', '" + this.Description + "', '" + user_name + "')";
                 conn.Open();
+
+                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + user_name + "'); select last_insert_id();";
+
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
-                cmd.ExecuteNonQuery();
+                int islog_id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                if (this.afftable != null && this.afftable.Trim().Length > 0 && this.affid != null && this.affid.Length > 0)
+                {
+                    foreach (var id in this.affid)
+                    {
+                        sql = "INSERT INTO `xpumpsecure`.`affdata` (`islog_id`, `afftable`, `affid`) VALUES (" + islog_id + ", '" + this.afftable + "', " + id + ")";
+
+                        cmd = new MySqlCommand(sql, conn);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
                 conn.Close();
                 return new LogSaveResult { isSuccess = true, errMessage = string.Empty };
             }

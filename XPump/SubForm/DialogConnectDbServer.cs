@@ -199,7 +199,7 @@ namespace XPump.SubForm
                 //cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 //cmd.ExecuteNonQuery();
 
-                // Daysttak Table
+                // Islog Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `xpumpsecure`.`islog` ";
                 cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`logcode` VARCHAR(10) NOT NULL,";
@@ -207,17 +207,28 @@ namespace XPump.SubForm
                 cmd.CommandText += "`xpumpdata` VARCHAR(50) NULL,";
                 cmd.CommandText += "`xpumpuser` VARCHAR(50) NULL,";
                 cmd.CommandText += "`module` VARCHAR(30) NULL,";
-                cmd.CommandText += "`afftable` VARCHAR(30) NULL,";
-                cmd.CommandText += "`affid` VARCHAR(255) NULL,";
+                //cmd.CommandText += "`afftable` VARCHAR(30) NULL,";
+                //cmd.CommandText += "`affid` VARCHAR(255) NULL,";
                 cmd.CommandText += "`docnum` VARCHAR(50) NULL,";
                 cmd.CommandText += "`description` VARCHAR(200) NULL,";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
                 cmd.CommandText += "PRIMARY KEY(`id`),";
-                cmd.CommandText += "INDEX `ndx-xlog-logcode` (`logcode` ASC),";
-                cmd.CommandText += "INDEX `ndx-xlog-module` (`module` ASC),";
-                cmd.CommandText += "INDEX `ndx-xlog-afftable` (`afftable` ASC),";
-                cmd.CommandText += "INDEX `ndx-xlog-username` (`username` ASC)) ";
+                cmd.CommandText += "INDEX `ndx-islog-logcode` (`logcode` ASC),";
+                cmd.CommandText += "INDEX `ndx-islog-module` (`module` ASC),";
+                //cmd.CommandText += "INDEX `ndx-islog-afftable` (`afftable` ASC),";
+                cmd.CommandText += "INDEX `ndx-islog-username` (`username` ASC)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
+
+                // Affdata
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `xpumpsecure`.`affdata` ";
+                cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`islog_id` INT(15) NOT NULL,";
+                cmd.CommandText += "`afftable` VARCHAR(30) NOT NULL,";
+                cmd.CommandText += "`affid` INT(7) NOT NULL,";
+                cmd.CommandText += "PRIMARY KEY(`id`),";
+                cmd.CommandText += "CONSTRAINT `fk-affdata-islog_id` FOREIGN KEY (`islog_id`) REFERENCES `xpumpsecure`.`islog` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 

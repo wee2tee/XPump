@@ -252,7 +252,15 @@ namespace XPump.SubForm
                 var x = db.dayend.Where(d => d.saldat == sales.saldat).FirstOrDefault();
                 this.lblDayEnded.Visible = db.dayend.Where(d => d.saldat == sales.saldat).FirstOrDefault() == null ? false : true;
             }
-            this.dtSaldat._SelectedDate = sales.saldat;
+
+            if(this.form_mode == FORM_MODE.READ)
+            {
+                this.dtSaldat._SelectedDate = sales.id == -1 ? null : (DateTime?)sales.saldat;
+            }
+            if(this.form_mode == FORM_MODE.ADD)
+            {
+                this.dtSaldat._SelectedDate = sales.saldat;
+            }
 
             this.sales_list = sales.salessummary.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.stkcod).ToList();
             this.bs_sales.ResetBindings(true);
@@ -360,8 +368,8 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 
-            this.FillForm();
             this.tmp_shiftsales = null;
+            this.FillForm();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -2062,13 +2070,13 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if (keyData == (Keys.Alt | Keys.C))
+            if (keyData == (Keys.Alt | Keys.O))
             {
                 this.btnApprove.PerformClick();
                 return true;
             }
 
-            if(keyData == (Keys.Control | Keys.C))
+            if(keyData == (Keys.Control | Keys.O))
             {
                 this.btnUnApprove.PerformClick();
                 return true;

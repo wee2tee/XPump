@@ -86,6 +86,7 @@ namespace XPump.SubForm
             this.btnPrintB.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnPrintC.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnApproveMulti.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnUnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
@@ -105,6 +106,7 @@ namespace XPump.SubForm
                 this.btnItem.Enabled = this.dayend_list.Count == 0 ? false : true;
                 //this.btnRefresh.Enabled = this.dayend_list.Count == 0 ? false : true;
                 this.btnApprove.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnApproveMulti.Enabled = this.dayend_list.Count == 0 ? false : true;
                 this.btnUnApprove.Enabled = this.dayend_list.Count == 0 ? false : true;
             }
 
@@ -116,6 +118,9 @@ namespace XPump.SubForm
             if(this.form_mode == FORM_MODE.READ)
             {
                 this.btnApprove.Enabled = this.curr_dayend == null ? false : (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().HasValue && this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().Value == true ? false : true);
+
+                this.btnApproveMulti.Enabled = this.curr_dayend == null ? false : (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().HasValue && this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().Value == true ? false : true);
+
                 this.btnUnApprove.Enabled = this.curr_dayend == null ? false : (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().HasValue && this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().Value == true ? true : false);
             }
         }
@@ -889,6 +894,64 @@ namespace XPump.SubForm
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+
+        private void btnApproveMulti_Click(object sender, EventArgs e)
+        {
+            DialogDateRangeSelector date_selector = new DialogDateRangeSelector(this.main_form, false, false);
+            if(date_selector.ShowDialog() == DialogResult.OK)
+            {
+                string approved_user = this.main_form.loged_in_status.loged_in_user_name;
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var sttak = db.daysttak.Include("dayend")
+                                .Where(st => st.dayend.saldat.CompareTo(date_selector.FromDate.Value) >= 0 && st.dayend.saldat.CompareTo(date_selector.ToDate.Value) <= 0)
+                                .Where(st => st.qty < 0).ToList();
+
+                    if(sttak.Count > 0)
+                    {
+                        if (MessageBox.Show("ปริมาณน้ำมันที่ตรวจวัดได้ในวันที่ " + sttak.First().dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                            return;
+                    }
+
+                    settings settings = DialogSettings.GetSettings(this.main_form.working_express_db);
+                    if (this.main_form.loged_in_status.loged_in_user_level < settings.dayauthlev)
+                    {
+                        DialogValidateUser validate = new DialogValidateUser(this.main_form, settings.dayauthlev);
+                        if (validate.ShowDialog() != DialogResult.OK)
+                            return;
+
+                        approved_user = validate.validated_status.loged_in_user_name;
+                    }
+
+                    if (MessageBox.Show("กรุณายืนยันเพื่อทำการรับรองรายการ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                        return;
+
+                    try
+                    {
+                        var dayends = db.dayend
+                                    .Where(d => d.saldat.CompareTo(date_selector.FromDate.Value) >= 0 && d.saldat.CompareTo(date_selector.ToDate.Value) <= 0).ToList();
+                        foreach (var dayend in dayends)
+                        {
+                            var dayend_to_appr = db.dayend.Find(dayend.id);
+                            dayend_to_appr.apprby = approved_user;
+                            dayend_to_appr.apprtime = DateTime.Now;
+                        }
+                        db.SaveChanges();
+
+                        this.main_form.islog.ApproveMultiple(this.menu_id, "รับรองรายการ ปิดยอดขายประจำวันช่วงวันที่ " + date_selector.FromDate.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ถึงวันที่ " + date_selector.ToDate.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), date_selector.FromDate.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + date_selector.ToDate.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", dayends.Select(d => d.id).ToArray()).Save(approved_user);
+
+                        this.btnRefresh.PerformClick();
+                        this.ResetApproveBtn();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
             }
         }
 
@@ -1913,13 +1976,19 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if (keyData == (Keys.Alt | Keys.C))
+            if (keyData == (Keys.Alt | Keys.O))
             {
                 this.btnApprove.PerformClick();
                 return true;
             }
 
-            if (keyData == (Keys.Control | Keys.C))
+            if(keyData == (Keys.Alt | Keys.Shift | Keys.O))
+            {
+                this.btnApproveMulti.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.O))
             {
                 this.btnUnApprove.PerformClick();
                 return true;
