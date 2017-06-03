@@ -41,8 +41,9 @@
             this.mnuDotherMessage = new System.Windows.Forms.ToolStripMenuItem();
             this.อนๆToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.จดการขอมลToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.สำรองขอมลToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.นำขอมลสำรองมาใชToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuBackup = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRestore = new System.Windows.Forms.ToolStripMenuItem();
+            this.ประมวลผลสนปToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuChangeCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -52,7 +53,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ประมวลผลสนปToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -163,23 +163,30 @@
             // จดการขอมลToolStripMenuItem
             // 
             this.จดการขอมลToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.สำรองขอมลToolStripMenuItem,
-            this.นำขอมลสำรองมาใชToolStripMenuItem});
+            this.mnuBackup,
+            this.mnuRestore});
             this.จดการขอมลToolStripMenuItem.Name = "จดการขอมลToolStripMenuItem";
             this.จดการขอมลToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.จดการขอมลToolStripMenuItem.Text = "จัดการฐานข้อมูล";
             // 
-            // สำรองขอมลToolStripMenuItem
+            // mnuBackup
             // 
-            this.สำรองขอมลToolStripMenuItem.Name = "สำรองขอมลToolStripMenuItem";
-            this.สำรองขอมลToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.สำรองขอมลToolStripMenuItem.Text = "สำรองข้อมูล";
+            this.mnuBackup.Name = "mnuBackup";
+            this.mnuBackup.Size = new System.Drawing.Size(184, 22);
+            this.mnuBackup.Text = "สำรองข้อมูล";
+            this.mnuBackup.Click += new System.EventHandler(this.mnuBackup_Click);
             // 
-            // นำขอมลสำรองมาใชToolStripMenuItem
+            // mnuRestore
             // 
-            this.นำขอมลสำรองมาใชToolStripMenuItem.Name = "นำขอมลสำรองมาใชToolStripMenuItem";
-            this.นำขอมลสำรองมาใชToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.นำขอมลสำรองมาใชToolStripMenuItem.Text = "นำข้อมูลสำรองมาใช้";
+            this.mnuRestore.Name = "mnuRestore";
+            this.mnuRestore.Size = new System.Drawing.Size(184, 22);
+            this.mnuRestore.Text = "นำข้อมูลสำรองมาใช้";
+            // 
+            // ประมวลผลสนปToolStripMenuItem
+            // 
+            this.ประมวลผลสนปToolStripMenuItem.Name = "ประมวลผลสนปToolStripMenuItem";
+            this.ประมวลผลสนปToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.ประมวลผลสนปToolStripMenuItem.Text = "ประมวลผลสิ้นปี";
             // 
             // mnuChangeCompany
             // 
@@ -259,12 +266,6 @@
             this.lblVersion.Text = "version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // ประมวลผลสนปToolStripMenuItem
-            // 
-            this.ประมวลผลสนปToolStripMenuItem.Name = "ประมวลผลสนปToolStripMenuItem";
-            this.ประมวลผลสนปToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.ประมวลผลสนปToolStripMenuItem.Text = "ประมวลผลสิ้นปี";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -315,8 +316,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnuDotherMessage;
         private System.Windows.Forms.ToolStripMenuItem mnuSettings;
         private System.Windows.Forms.ToolStripMenuItem จดการขอมลToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem สำรองขอมลToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem นำขอมลสำรองมาใชToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuBackup;
+        private System.Windows.Forms.ToolStripMenuItem mnuRestore;
         private System.Windows.Forms.ToolStripMenuItem ประมวลผลสนปToolStripMenuItem;
     }
 }

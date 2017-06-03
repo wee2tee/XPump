@@ -362,6 +362,15 @@ namespace XPump
             this.opened_child_form.Add(new ChildFormDetail() { form = daily, docPrefix = string.Empty });
         }
 
+        private void mnuBackup_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("ในขั้นตอนการสำรองข้อมูลนี้ ต้องให้ผู้ใช้งานรายอื่นออกจากระบบก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            DialogBackupData bck = new DialogBackupData();
+            bck.ShowDialog();
+
+        }
+
         public void SetStatusLabelText(string express_db_path, string mysql_db_name, string user_name)
         {
             this.lblExpressDataPath.Text = express_db_path != null ? express_db_path : this.lblExpressDataPath.Text;
