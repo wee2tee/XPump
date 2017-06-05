@@ -824,60 +824,102 @@ namespace XPump.SubForm
             DialogPrintSetupA print = new DialogPrintSetupA();
             if (print.ShowDialog() == DialogResult.OK)
             {
+                LoadingForm loading = new LoadingForm();
+                loading.ShowCenterParent(this);
+
                 settings settings = DialogSettings.GetSettings(this.main_form.working_express_db);
 
-                var report_data = new ReportAModel(this.curr_shiftsales, this.main_form.working_express_db);
-                int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data, true));
-                if (print.output == PRINT_OUTPUT.SCREEN)
-                {
-                    var print_auth_state = this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).GetPrintAuthorizeState();
-                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, true, total_page), total_page, print_auth_state);
-                    xp.MdiParent = this.main_form;
-                    xp._OnOutputToPrinter += delegate
-                    {
-                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-                        {
-                            var shiftsales_to_update = db.shiftsales.Find(this.curr_shiftsales.id);
-                            if (shiftsales_to_update != null)
-                            {
-                                shiftsales_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
-                                shiftsales_to_update.prntime = DateTime.Now;
-                                shiftsales_to_update.prncnt += 1;
+                ReportAModel report_data = null;
+                int total_page = 0;
 
-                                db.SaveChanges();
-                            }
-                        }
-                        this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
-                    };
-                    xp.Show();
-                }
-
-                if (print.output == PRINT_OUTPUT.PRINTER)
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += delegate
                 {
-                    if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsPrintableShiftSales() != true)
+                    report_data = new ReportAModel(this.curr_shiftsales, this.main_form.working_express_db);
+                    total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_A(report_data, true));
+                };
+                worker.RunWorkerCompleted += delegate
+                {
+                    if (report_data == null)
                         return;
 
-                    PrintDialog pd = new PrintDialog();
-                    pd.Document = this.PreparePrintDoc_A(report_data, true, total_page);
-                    if (pd.ShowDialog() == DialogResult.OK)
+                    if (print.output == PRINT_OUTPUT.SCREEN)
                     {
-                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                        XPrintPreview xp = null;
+
+                        BackgroundWorker wrk_screen = new BackgroundWorker();
+                        wrk_screen.DoWork += delegate
                         {
-                            var shiftsales_to_update = db.shiftsales.Find(this.curr_shiftsales.id);
-                            if(shiftsales_to_update != null)
+                            var print_auth_state = this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).GetPrintAuthorizeState();
+                            xp = new XPrintPreview(this.PreparePrintDoc_A(report_data, true, total_page), total_page, print_auth_state);
+                        };
+                        wrk_screen.RunWorkerCompleted += delegate
+                        {
+                            loading.Close();
+
+                            xp.MdiParent = this.main_form;
+                            xp._OnOutputToPrinter += delegate
                             {
-                                shiftsales_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
-                                shiftsales_to_update.prntime = DateTime.Now;
-                                shiftsales_to_update.prncnt += 1;
+                                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                                {
+                                    var shiftsales_to_update = db.shiftsales.Find(this.curr_shiftsales.id);
+                                    if (shiftsales_to_update != null)
+                                    {
+                                        shiftsales_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                        shiftsales_to_update.prntime = DateTime.Now;
+                                        shiftsales_to_update.prncnt += 1;
 
-                                db.SaveChanges();
-                            }
-                        }
-                        this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
-
-                        pd.Document.Print();
+                                        db.SaveChanges();
+                                    }
+                                }
+                                this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
+                            };
+                            xp.Show();
+                        };
+                        wrk_screen.RunWorkerAsync();
                     }
-                }
+
+                    if (print.output == PRINT_OUTPUT.PRINTER)
+                    {
+                        if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsPrintableShiftSales() != true)
+                        {
+                            loading.Close();
+                            return;
+                        }
+
+                        PrintDialog pd = null;
+
+                        BackgroundWorker wrk_printer = new BackgroundWorker();
+                        wrk_printer.DoWork += delegate
+                        {
+                            pd = new PrintDialog();
+                            pd.Document = this.PreparePrintDoc_A(report_data, true, total_page);
+                            if (pd.ShowDialog() == DialogResult.OK)
+                            {
+                                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                                {
+                                    var shiftsales_to_update = db.shiftsales.Find(this.curr_shiftsales.id);
+                                    if (shiftsales_to_update != null)
+                                    {
+                                        shiftsales_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                        shiftsales_to_update.prntime = DateTime.Now;
+                                        shiftsales_to_update.prncnt += 1;
+
+                                        db.SaveChanges();
+                                    }
+                                }
+                                this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
+                            }
+                        };
+                        wrk_printer.RunWorkerCompleted += delegate
+                        {
+                            loading.Close();
+                            pd.Document.Print();
+                        };
+                        wrk_printer.RunWorkerAsync();
+                    }
+                };
+                worker.RunWorkerAsync();
             }
         }
 
