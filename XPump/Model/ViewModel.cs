@@ -1153,6 +1153,9 @@ namespace XPump.Model
                     {
                         var tanksetup = db.tanksetup.Where(t => t.startdate.CompareTo(this.first_date) <= 0).OrderByDescending(t => t.startdate).FirstOrDefault();
 
+                        if (tanksetup == null)
+                            return 0m;
+
                         return db.section.Include("tank").Where(s => s.tank.tanksetup_id == tanksetup.id && s.stkcod == this.stkcod).ToList().Sum(s => s.begtak);
                     }
                 }

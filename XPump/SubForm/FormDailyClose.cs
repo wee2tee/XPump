@@ -652,90 +652,161 @@ namespace XPump.SubForm
             DialogPrintSetupB print = new DialogPrintSetupB(this.curr_date);
             if (print.ShowDialog() == DialogResult.OK)
             {
-                var report_data = new ReportBModel(print.selected_date.Value, this.main_form.working_express_db);
-                int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_B(report_data));
-                if(print.output == PRINT_OUTPUT.SCREEN)
+                LoadingForm loading = new LoadingForm();
+                loading.ShowCenterParent(this);
+
+                ReportBModel report_data = null;
+                int total_page = 0;
+
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += delegate
                 {
-                    List<dayendVM> dayends;
-                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-                    {
-                        dayends = db.dayend.Where(d => d.saldat == print.selected_date.Value).ToViewModel(this.main_form.working_express_db);
-                        if(dayends.Count == 0)
-                        {
-                            MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
-                    }
-
-                    var print_auth_state = dayends.First().GetPrintAuthorizeState();
-                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_B(report_data, total_page), total_page, print_auth_state);
-                    xp.MdiParent = this.main_form;
-                    xp._OnOutputToPrinter += delegate
-                    {
-                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-                        {
-                            var ids = db.dayend.Where(d => d.saldat == print.selected_date.Value).Select(d => d.id).ToArray();
-                            var prntim = DateTime.Now;
-                            foreach (var id in ids)
-                            {
-                                var dayend_to_update = db.dayend.Find(id);
-                                if (dayend_to_update == null)
-                                    continue;
-
-                                dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
-                                dayend_to_update.prntime = prntim;
-                                dayend_to_update.prncnt = ++dayend_to_update.prncnt;
-                            }
-                            db.SaveChanges();
-
-                            this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ข. ของวันที่ " + print.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", print.selected_date.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
-                        }
-                    };
-                    xp.Show();
-                }
-
-                if(print.output == PRINT_OUTPUT.PRINTER)
+                    report_data = new ReportBModel(print.selected_date.Value, this.main_form.working_express_db);
+                    total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_B(report_data));
+                };
+                worker.RunWorkerCompleted += delegate
                 {
-                    List<dayendVM> dayends;
-                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    if(report_data == null)
                     {
-                        dayends = db.dayend.Where(d => d.saldat == print.selected_date.Value).ToViewModel(this.main_form.working_express_db);
-                        if (dayends.Count == 0)
-                        {
-                            MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
-                    }
-
-                    if (dayends.First().IsPrintableDayend() == false)
+                        loading.Close();
                         return;
-
-                    PrintDialog pd = new PrintDialog();
-                    pd.Document = this.PreparePrintDoc_B(report_data, total_page);
-                    if (pd.ShowDialog() == DialogResult.OK)
-                    {
-                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-                        {
-                            var ids = db.dayend.Where(d => d.saldat == print.selected_date.Value).Select(d => d.id).ToArray();
-                            var prntim = DateTime.Now;
-                            foreach (var id in ids)
-                            {
-                                var dayend_to_update = db.dayend.Find(id);
-                                if (dayend_to_update == null)
-                                    continue;
-
-                                dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
-                                dayend_to_update.prntime = prntim;
-                                dayend_to_update.prncnt = ++dayend_to_update.prncnt;
-                            }
-                            db.SaveChanges();
-
-                            this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ข. ของวันที่ " + print.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", print.selected_date.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
-                        }
-
-                        pd.Document.Print();
                     }
-                }
+
+                    if (print.output == PRINT_OUTPUT.SCREEN)
+                    {
+                        XPrintPreview xp = null;
+                        string err_msg = "Unknow Error";
+
+                        BackgroundWorker wrk_screen = new BackgroundWorker();
+                        wrk_screen.DoWork += delegate
+                        {
+                            try
+                            {
+                                List<dayendVM> dayends;
+                                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                                {
+                                    dayends = db.dayend.Where(d => d.saldat == print.selected_date.Value).ToViewModel(this.main_form.working_express_db);
+                                    if (dayends.Count == 0)
+                                    {
+                                        //MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                        err_msg = "ไม่มีข้อมูลตามขอบเขตที่กำหนด";
+                                        return;
+                                    }
+                                }
+
+                                var print_auth_state = dayends.First().GetPrintAuthorizeState();
+                                xp = new XPrintPreview(this.PreparePrintDoc_B(report_data, total_page), total_page, print_auth_state);
+                                err_msg = string.Empty;
+                            }
+                            catch (Exception ex)
+                            {
+                                err_msg = ex.Message;
+                            }
+                        };
+                        wrk_screen.RunWorkerCompleted += delegate
+                        {
+                            loading.Close();
+
+                            if(err_msg.Trim().Length > 0)
+                            {
+                                MessageBox.Show(err_msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
+
+                            xp.MdiParent = this.main_form;
+                            xp._OnOutputToPrinter += delegate
+                            {
+                                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                                {
+                                    var ids = db.dayend.Where(d => d.saldat == print.selected_date.Value).Select(d => d.id).ToArray();
+                                    var prntim = DateTime.Now;
+                                    foreach (var id in ids)
+                                    {
+                                        var dayend_to_update = db.dayend.Find(id);
+                                        if (dayend_to_update == null)
+                                            continue;
+
+                                        dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                        dayend_to_update.prntime = prntim;
+                                        dayend_to_update.prncnt = ++dayend_to_update.prncnt;
+                                    }
+                                    db.SaveChanges();
+
+                                    this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ข. ของวันที่ " + print.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", print.selected_date.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                                }
+                            };
+                            xp.Show();
+                        };
+                        wrk_screen.RunWorkerAsync();
+                    }
+
+                    if (print.output == PRINT_OUTPUT.PRINTER)
+                    {
+                        PrintDialog pd = null;
+                        string err_msg = "Unknow Error";
+
+                        BackgroundWorker wrk_printer = new BackgroundWorker();
+                        wrk_printer.DoWork += delegate
+                        {
+                            List<dayendVM> dayends;
+                            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                            {
+                                dayends = db.dayend.Where(d => d.saldat == print.selected_date.Value).ToViewModel(this.main_form.working_express_db);
+                                if (dayends.Count == 0)
+                                {
+                                    //MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                    err_msg = "ไม่มีข้อมูลตามขอบเขตที่กำหนด";
+                                    return;
+                                }
+                            }
+
+                            if (dayends.First().IsPrintableDayend() == false)
+                                return;
+
+                            pd = new PrintDialog();
+                            pd.Document = this.PreparePrintDoc_B(report_data, total_page);
+                            err_msg = string.Empty;
+                        };
+                        wrk_printer.RunWorkerCompleted += delegate
+                        {
+                            loading.Close();
+
+                            if(err_msg.Trim().Length > 0)
+                            {
+                                MessageBox.Show(err_msg, "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
+
+                            if (pd.ShowDialog() == DialogResult.OK)
+                            {
+                                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                                {
+                                    var ids = db.dayend.Where(d => d.saldat == print.selected_date.Value).Select(d => d.id).ToArray();
+                                    var prntim = DateTime.Now;
+                                    foreach (var id in ids)
+                                    {
+                                        var dayend_to_update = db.dayend.Find(id);
+                                        if (dayend_to_update == null)
+                                            continue;
+
+                                        dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
+                                        dayend_to_update.prntime = prntim;
+                                        dayend_to_update.prncnt = ++dayend_to_update.prncnt;
+                                    }
+                                    db.SaveChanges();
+
+                                    this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ข. ของวันที่ " + print.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", print.selected_date.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                                }
+
+                                pd.Document.Print();
+                            }
+                        };
+                        wrk_printer.RunWorkerAsync();
+
+                        
+                    }
+                };
+                worker.RunWorkerAsync();
             }
         }
 
@@ -744,105 +815,141 @@ namespace XPump.SubForm
             DialogPrintSetupC print = new DialogPrintSetupC(this.curr_date);
             if (print.ShowDialog() == DialogResult.OK)
             {
-                var report_data = new ReportCModel(print.first_date_of_month.Value, print.last_date_of_month.Value, this.main_form.working_express_db);
-                int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_C(report_data));
-                if (print.output == PRINT_OUTPUT.SCREEN)
+                LoadingForm loading = new LoadingForm();
+                loading.ShowCenterParent(this);
+
+                ReportCModel report_data = null;
+                int total_page = 0;
+
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += delegate
                 {
-                    List<dayendVM> dayends;
-                    var print_auth_state = PRINT_AUTHORIZE_STATE.READY_TO_PRINT;
-                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    report_data = new ReportCModel(print.first_date_of_month.Value, print.last_date_of_month.Value, this.main_form.working_express_db);
+                    total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc_C(report_data));
+                };
+                worker.RunWorkerCompleted += delegate
+                {
+                    if(report_data == null)
                     {
-                        dayends = db.dayend.Where(d => d.saldat.CompareTo(print.first_date_of_month.Value) >= 0 && d.saldat.CompareTo(print.last_date_of_month.Value) <= 0).ToViewModel(this.main_form.working_express_db);
-                        if (dayends.Count == 0)
-                        {
-                            MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
-                        foreach (var item in dayends)
-                        {
-                            var auth_state = item.GetPrintAuthorizeState();
-                            if (auth_state == PRINT_AUTHORIZE_STATE.MUST_APPROVE_BEFORE_PRINT || auth_state == PRINT_AUTHORIZE_STATE.MUST_UNAPPROVE_BEFORE_PRINT)
-                                print_auth_state = auth_state;
-                        }
+                        loading.Close();
+                        MessageBox.Show("Unknow Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
 
-                    XPrintPreview xp = new XPrintPreview(this.PreparePrintDoc_C(report_data, total_page), total_page, print_auth_state);
-                    xp.MdiParent = this.main_form;
-                    xp._OnOutputToPrinter += delegate
+                    if (print.output == PRINT_OUTPUT.SCREEN)
                     {
-                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-                        {
-                            var ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
-                            //var prntim = DateTime.Now;
-                            //foreach (var id in ids)
-                            //{
-                            //    var dayend_to_update = db.dayend.Find(id);
-                            //    if (dayend_to_update == null)
-                            //        continue;
+                        XPrintPreview xp = null;
 
-                            //    dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
-                            //    dayend_to_update.prntime = prntim;
-                            //    dayend_to_update.prncnt = ++dayend_to_update.prncnt;
-                            //}
-                            //db.SaveChanges();
-
-                            this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
-                        }
-                    };
-                    xp.Show();
-                }
-
-                if (print.output == PRINT_OUTPUT.PRINTER)
-                {
-                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-                    {
-                        List<dayendVM> dayends = db.dayend.Where(d => d.saldat.CompareTo(print.first_date_of_month.Value) >= 0 && d.saldat.CompareTo(print.last_date_of_month.Value) <= 0).ToViewModel(this.main_form.working_express_db);
-                        if (dayends.Count == 0)
+                        BackgroundWorker wrk_screen = new BackgroundWorker();
+                        wrk_screen.DoWork += delegate
                         {
-                            MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
-                        foreach (var item in dayends)
-                        {
-                            var auth_state = item.GetPrintAuthorizeState();
-                            if (auth_state == PRINT_AUTHORIZE_STATE.MUST_APPROVE_BEFORE_PRINT)
+                            List<dayendVM> dayends;
+                            var print_auth_state = PRINT_AUTHORIZE_STATE.READY_TO_PRINT;
+                            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                             {
-                                MessageBox.Show("ต้องรับรองรายการก่อนพิมพ์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                dayends = db.dayend.Where(d => d.saldat.CompareTo(print.first_date_of_month.Value) >= 0 && d.saldat.CompareTo(print.last_date_of_month.Value) <= 0).ToViewModel(this.main_form.working_express_db);
+                                if (dayends.Count == 0)
+                                {
+                                    MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                    return;
+                                }
+                                foreach (var item in dayends)
+                                {
+                                    var auth_state = item.GetPrintAuthorizeState();
+                                    if (auth_state == PRINT_AUTHORIZE_STATE.MUST_APPROVE_BEFORE_PRINT || auth_state == PRINT_AUTHORIZE_STATE.MUST_UNAPPROVE_BEFORE_PRINT)
+                                        print_auth_state = auth_state;
+                                }
+                            }
+
+                            xp = new XPrintPreview(this.PreparePrintDoc_C(report_data, total_page), total_page, print_auth_state);
+                           
+                        };
+                        wrk_screen.RunWorkerCompleted += delegate
+                        {
+                            loading.Close();
+                            if (xp == null)
+                            {
+                                MessageBox.Show("Unknow Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
-                            if (auth_state == PRINT_AUTHORIZE_STATE.MUST_UNAPPROVE_BEFORE_PRINT)
+
+                            xp.MdiParent = this.main_form;
+                            xp._OnOutputToPrinter += delegate
                             {
-                                MessageBox.Show("รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                                {
+                                    var ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
+                                    this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                                }
+                            };
+                            xp.Show();
+                        };
+                        wrk_screen.RunWorkerAsync();
+                    }
+
+                    if (print.output == PRINT_OUTPUT.PRINTER)
+                    {
+                        PrintDialog pd = null;
+                        string err_msg = "Unknow Error";
+
+                        BackgroundWorker wrk_printer = new BackgroundWorker();
+                        wrk_printer.DoWork += delegate
+                        {
+                            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                            {
+                                List<dayendVM> dayends = db.dayend.Where(d => d.saldat.CompareTo(print.first_date_of_month.Value) >= 0 && d.saldat.CompareTo(print.last_date_of_month.Value) <= 0).ToViewModel(this.main_form.working_express_db);
+                                if (dayends.Count == 0)
+                                {
+                                    //MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                    err_msg = "ไม่มีข้อมูลตามขอบเขตที่กำหนด";
+                                    return;
+                                }
+                                foreach (var item in dayends)
+                                {
+                                    var auth_state = item.GetPrintAuthorizeState();
+                                    if (auth_state == PRINT_AUTHORIZE_STATE.MUST_APPROVE_BEFORE_PRINT)
+                                    {
+                                        //MessageBox.Show("ต้องรับรองรายการก่อนพิมพ์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                        err_msg = "ต้องรับรองรายการก่อนพิมพ์";
+                                        return;
+                                    }
+                                    if (auth_state == PRINT_AUTHORIZE_STATE.MUST_UNAPPROVE_BEFORE_PRINT)
+                                    {
+                                        //MessageBox.Show("รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                        err_msg = "รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน";
+                                        return;
+                                    }
+                                }
+                            }
+
+                            pd = new PrintDialog();
+                            pd.Document = this.PreparePrintDoc_C(report_data, total_page);
+                        };
+                        wrk_printer.RunWorkerCompleted += delegate
+                        {
+                            loading.Close();
+
+                            if (pd == null)
+                            {
+                                MessageBox.Show(err_msg, "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                 return;
                             }
-                        }
+
+                            if (pd.ShowDialog() == DialogResult.OK)
+                            {
+                                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                                {
+                                    var ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
+
+                                    this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                                }
+                                pd.Document.Print();
+                            }
+                        };
+                        wrk_printer.RunWorkerAsync();
                     }
-
-                    PrintDialog pd = new PrintDialog();
-                    pd.Document = this.PreparePrintDoc_C(report_data, total_page);
-                    if (pd.ShowDialog() == DialogResult.OK)
-                    {
-                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-                        {
-                            var ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
-                            //var prntim = DateTime.Now;
-                            //foreach (var id in ids)
-                            //{
-                            //    var dayend_to_update = db.dayend.Find(id);
-                            //    if (dayend_to_update == null)
-                            //        continue;
-
-                            //    dayend_to_update.prnby = this.main_form.loged_in_status.loged_in_user_name;
-                            //    dayend_to_update.prntime = prntim;
-                            //    dayend_to_update.prncnt = ++dayend_to_update.prncnt;
-                            //}
-                            //db.SaveChanges();
-
-                            this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
-                        }
-                        pd.Document.Print();
-                    }
-                }
+                };
+                worker.RunWorkerAsync();
             }
         }
 

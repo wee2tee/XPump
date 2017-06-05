@@ -181,6 +181,7 @@
             this.mnuRestore.Name = "mnuRestore";
             this.mnuRestore.Size = new System.Drawing.Size(184, 22);
             this.mnuRestore.Text = "นำข้อมูลสำรองมาใช้";
+            this.mnuRestore.Click += new System.EventHandler(this.mnuRestore_Click);
             // 
             // ประมวลผลสนปToolStripMenuItem
             // 

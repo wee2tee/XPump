@@ -366,9 +366,15 @@ namespace XPump
         {
             MessageBox.Show("ในขั้นตอนการสำรองข้อมูลนี้ ต้องให้ผู้ใช้งานรายอื่นออกจากระบบก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            DialogBackupData bck = new DialogBackupData();
+            DialogBackupData bck = new DialogBackupData(this);
             bck.ShowDialog();
 
+        }
+
+        private void mnuRestore_Click(object sender, EventArgs e)
+        {
+            DialogRestoreData restore = new DialogRestoreData(this);
+            restore.ShowDialog();
         }
 
         public void SetStatusLabelText(string express_db_path, string mysql_db_name, string user_name)

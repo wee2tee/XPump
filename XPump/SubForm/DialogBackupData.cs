@@ -9,17 +9,21 @@ using System.Text;
 using System.Windows.Forms;
 using CC;
 using MySql.Data.MySqlClient;
+using XPump.Model;
+using XPump.Misc;
 
 namespace XPump.SubForm
 {
     public partial class DialogBackupData : Form
     {
-        private string selected_path;
-        private string file_name;
+        private string backup_path = string.Empty;
+        private string backup_file_name = string.Empty;
+        private MainForm main_form;
 
-        public DialogBackupData()
+        public DialogBackupData(MainForm main_form)
         {
             InitializeComponent();
+            this.main_form = main_form;
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -40,25 +44,107 @@ namespace XPump.SubForm
 
         private void txtTargetFolder__TextChanged(object sender, EventArgs e)
         {
-            this.selected_path = ((XTextEdit)sender)._Text;
+            this.backup_path = ((XTextEdit)sender)._Text;
+            this.ResetBtnOKState();
         }
 
         private void txtTargetFile__TextChanged(object sender, EventArgs e)
         {
-            this.file_name = ((XTextEdit)sender)._Text;
+            this.backup_file_name = ((XTextEdit)sender)._Text;
+            this.ResetBtnOKState();
+        }
+
+        private void ResetBtnOKState()
+        {
+            if(this.backup_path.Trim().Length == 0 || this.backup_file_name.Trim().Length == 0)
+            {
+                this.btnOK.Enabled = false;
+            }
+            else
+            {
+                this.btnOK.Enabled = true;
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            this.file_name = this.file_name.EndsWith(".rp") ? this.file_name : this.file_name + ".rp";
+            this.backup_file_name = this.backup_file_name.EndsWith(".rp") ? this.backup_file_name : this.backup_file_name + ".rp";
 
-            if(MessageBox.Show("สำรองข้อมูลไปไว้ที่ \"" + this.selected_path + "\\" + this.file_name + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if(MessageBox.Show("สำรองข้อมูลไปไว้ที่ \"" + this.backup_path + "\\" + this.backup_file_name + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                using (MySqlConnection conn = new MySqlConnection())
+                if(File.Exists(this.backup_path + "\\" + this.backup_file_name))
                 {
+                    if (MessageBox.Show("แฟ้ม \"" + this.backup_path + "\\" + this.backup_file_name + "\" มีอยู่แล้ว, ต้องการแทนที่ด้วยแฟ้มใหม่นี้ใช่หรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                        return;
+                }
 
+                DbConnectionConfig config = new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
+
+                string conn_string = "server=" + config.servername + ";user=" + config.uid + ";pwd=" + config.passwordhash.Decrypted() + ";database=" + config.dbname + ";charset=utf8;";
+                using (MySqlConnection conn = new MySqlConnection(conn_string))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        BackgroundWorker worker = new BackgroundWorker();
+                        LoadingForm loading = new LoadingForm();
+                        loading.ShowCenterParent(this);
+
+                        bool is_success = false;
+                        string err_msg = string.Empty;
+
+                        worker.DoWork += delegate
+                        {
+                            try
+                            {
+                                cmd.Connection = conn;
+                                conn.Open();
+                                MySqlBackup bck = new MySqlBackup(cmd);
+                                bck.ExportToFile(this.backup_path + "\\" + this.backup_file_name);
+                                conn.Close();
+                                bck.Dispose();
+                                bck = null;
+                                is_success = true;
+                            }
+                            catch (Exception ex)
+                            {
+                                err_msg = ex.Message;
+                            }
+                        };
+                        worker.RunWorkerCompleted += delegate
+                        {
+                            loading.Close();
+                            if (is_success)
+                            {
+                                this.DialogResult = DialogResult.OK;
+                                MessageBox.Show("สำรองข้อมูลเสร็จเรียบร้อย", "", MessageBoxButtons.OK);
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show(err_msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        };
+                        worker.RunWorkerAsync();
+                    }
                 }
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.F9)
+            {
+                this.btnOK.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnCancel.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

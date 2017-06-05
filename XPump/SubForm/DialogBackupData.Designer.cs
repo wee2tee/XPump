@@ -32,8 +32,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTargetFile = new CC.XTextEdit();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtTargetFolder = new CC.XTextEdit();
             this.btnBrowse = new System.Windows.Forms.Button();
+            this.txtTargetFolder = new CC.XTextEdit();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -89,6 +89,16 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Location = new System.Drawing.Point(396, 25);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(28, 25);
+            this.btnBrowse.TabIndex = 1;
+            this.btnBrowse.Text = "...";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
             // txtTargetFolder
             // 
             this.txtTargetFolder._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -104,22 +114,12 @@
             this.txtTargetFolder.Name = "txtTargetFolder";
             this.txtTargetFolder.Size = new System.Drawing.Size(265, 23);
             this.txtTargetFolder.TabIndex = 0;
-            this.txtTargetFolder.TabStop = false;
             this.txtTargetFolder._TextChanged += new System.EventHandler(this.txtTargetFolder__TextChanged);
-            // 
-            // btnBrowse
-            // 
-            this.btnBrowse.Location = new System.Drawing.Point(396, 25);
-            this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(28, 25);
-            this.btnBrowse.TabIndex = 1;
-            this.btnBrowse.Text = "...";
-            this.btnBrowse.UseVisualStyleBackColor = true;
-            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // btnOK
             // 
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnOK.Enabled = false;
             this.btnOK.Location = new System.Drawing.Point(117, 122);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(112, 33);
