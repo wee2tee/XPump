@@ -57,13 +57,45 @@ namespace XPump.Model
             }
         }
 
+        public static DataTable Isprd(SccompDbf working_express_db)
+        {
+            string data_path = working_express_db.abs_path;
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "isprd.dbf")))
+            {
+                MessageBox.Show("ค้นหาแฟ้ม Isprd.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return new DataTable();
+            }
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = new OleDbConnection(
+                @"Provider=VFPOLEDB.1;Data Source=" + data_path);
+
+            conn.Open();
+
+            if (conn.State == ConnectionState.Open)
+            {
+                string mySQL = "select * from Isprd";
+
+                OleDbCommand cmd = new OleDbCommand(mySQL, conn);
+                OleDbDataAdapter DA = new OleDbDataAdapter(cmd);
+
+                DA.Fill(dt);
+
+                conn.Close();
+            }
+
+            return dt;
+        }
+
         public static DataTable Stmas(SccompDbf working_express_db)
         {
             string data_path = working_express_db.abs_path; //GetExpressDataPath();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stmas.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -194,7 +226,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isrun.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Isrun.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Isrun.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -226,7 +258,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "istab.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Istab.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Istab.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -258,7 +290,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isinfo.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Isinfo.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Isinfo.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -290,7 +322,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stloc.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stloc.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Stloc.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -322,7 +354,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stcrd.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stcrd.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Stcrd.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 
                 return new DataTable();
             }
@@ -355,7 +387,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "apmas.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Apmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Apmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -387,7 +419,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "aptrn.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Aptrn.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Aptrn.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -419,7 +451,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "artrn.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Artrn.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ, กรุณาตรวจสอบที่เก็บข้อมูลของโปรแกรม Express ในเมนูอื่น ๆ / ตั้งค่าระบบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("ค้นหาแฟ้ม Artrn.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -444,6 +476,83 @@ namespace XPump.Model
 
             return dt;
         }
+    }
+
+    public class IsprdDbf
+    {
+        public DateTime? beg1 { get; set; }
+        public DateTime? end1 { get; set; }
+        public string lock1 { get; set; }
+        public DateTime? beg2 { get; set; }
+        public DateTime? end2 { get; set; }
+        public string lock2 { get; set; }
+        public DateTime? beg3 { get; set; }
+        public DateTime? end3 { get; set; }
+        public string lock3 { get; set; }
+        public DateTime? beg4 { get; set; }
+        public DateTime? end4 { get; set; }
+        public string lock4 { get; set; }
+        public DateTime? beg5 { get; set; }
+        public DateTime? end5 { get; set; }
+        public string lock5 { get; set; }
+        public DateTime? beg6 { get; set; }
+        public DateTime? end6 { get; set; }
+        public string lock6 { get; set; }
+        public DateTime? beg7 { get; set; }
+        public DateTime? end7 { get; set; }
+        public string lock7 { get; set; }
+        public DateTime? beg8 { get; set; }
+        public DateTime? end8 { get; set; }
+        public string lock8 { get; set; }
+        public DateTime? beg9 { get; set; }
+        public DateTime? end9 { get; set; }
+        public string lock9 { get; set; }
+        public DateTime? beg10 { get; set; }
+        public DateTime? end10 { get; set; }
+        public string lock10 { get; set; }
+        public DateTime? beg11 { get; set; }
+        public DateTime? end11 { get; set; }
+        public string lock11 { get; set; }
+        public DateTime? beg12 { get; set; }
+        public DateTime? end12 { get; set; }
+        public string lock12 { get; set; }
+
+        public DateTime? beg1ny { get; set; }
+        public DateTime? end1ny { get; set; }
+        public string lock1ny { get; set; }
+        public DateTime? beg2ny { get; set; }
+        public DateTime? end2ny { get; set; }
+        public string lock2ny { get; set; }
+        public DateTime? beg3ny { get; set; }
+        public DateTime? end3ny { get; set; }
+        public string lock3ny { get; set; }
+        public DateTime? beg4ny { get; set; }
+        public DateTime? end4ny { get; set; }
+        public string lock4ny { get; set; }
+        public DateTime? beg5ny { get; set; }
+        public DateTime? end5ny { get; set; }
+        public string lock5ny { get; set; }
+        public DateTime? beg6ny { get; set; }
+        public DateTime? end6ny { get; set; }
+        public string lock6ny { get; set; }
+        public DateTime? beg7ny { get; set; }
+        public DateTime? end7ny { get; set; }
+        public string lock7ny { get; set; }
+        public DateTime? beg8ny { get; set; }
+        public DateTime? end8ny { get; set; }
+        public string lock8ny { get; set; }
+        public DateTime? beg9ny { get; set; }
+        public DateTime? end9ny { get; set; }
+        public string lock9ny { get; set; }
+        public DateTime? beg10ny { get; set; }
+        public DateTime? end10ny { get; set; }
+        public string lock10ny { get; set; }
+        public DateTime? beg11ny { get; set; }
+        public DateTime? end11ny { get; set; }
+        public string lock11ny { get; set; }
+        public DateTime? beg12ny { get; set; }
+        public DateTime? end12ny { get; set; }
+        public string lock12ny { get; set; }
     }
 
     public class StmasDbf

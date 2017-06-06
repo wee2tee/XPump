@@ -552,6 +552,90 @@ namespace XPump.Misc
             return s;
         }
 
+        public static IsprdDbf ToIsprd(this DataTable dt_isprd)
+        {
+            IsprdDbf isprd = new IsprdDbf
+            {
+                beg1 = dt_isprd.Rows[0].Field<DateTime?>("beg1"),
+                end1 = dt_isprd.Rows[0].Field<DateTime?>("end1"),
+                lock1 = dt_isprd.Rows[0].Field<string>("lock1"),
+                beg2 = dt_isprd.Rows[0].Field<DateTime?>("beg2"),
+                end2 = dt_isprd.Rows[0].Field<DateTime?>("end2"),
+                lock2 = dt_isprd.Rows[0].Field<string>("lock2"),
+                beg3 = dt_isprd.Rows[0].Field<DateTime?>("beg3"),
+                end3 = dt_isprd.Rows[0].Field<DateTime?>("end3"),
+                lock3 = dt_isprd.Rows[0].Field<string>("lock3"),
+                beg4 = dt_isprd.Rows[0].Field<DateTime?>("beg4"),
+                end4 = dt_isprd.Rows[0].Field<DateTime?>("end4"),
+                lock4 = dt_isprd.Rows[0].Field<string>("lock4"),
+                beg5 = dt_isprd.Rows[0].Field<DateTime?>("beg5"),
+                end5 = dt_isprd.Rows[0].Field<DateTime?>("end5"),
+                lock5 = dt_isprd.Rows[0].Field<string>("lock5"),
+                beg6 = dt_isprd.Rows[0].Field<DateTime?>("beg6"),
+                end6 = dt_isprd.Rows[0].Field<DateTime?>("end6"),
+                lock6 = dt_isprd.Rows[0].Field<string>("lock6"),
+                beg7 = dt_isprd.Rows[0].Field<DateTime?>("beg7"),
+                end7 = dt_isprd.Rows[0].Field<DateTime?>("end7"),
+                lock7 = dt_isprd.Rows[0].Field<string>("lock7"),
+                beg8 = dt_isprd.Rows[0].Field<DateTime?>("beg8"),
+                end8 = dt_isprd.Rows[0].Field<DateTime?>("end8"),
+                lock8 = dt_isprd.Rows[0].Field<string>("lock8"),
+                beg9 = dt_isprd.Rows[0].Field<DateTime?>("beg9"),
+                end9 = dt_isprd.Rows[0].Field<DateTime?>("end9"),
+                lock9 = dt_isprd.Rows[0].Field<string>("lock9"),
+                beg10 = dt_isprd.Rows[0].Field<DateTime?>("beg10"),
+                end10 = dt_isprd.Rows[0].Field<DateTime?>("end10"),
+                lock10 = dt_isprd.Rows[0].Field<string>("lock10"),
+                beg11 = dt_isprd.Rows[0].Field<DateTime?>("beg11"),
+                end11 = dt_isprd.Rows[0].Field<DateTime?>("end11"),
+                lock11 = dt_isprd.Rows[0].Field<string>("lock11"),
+                beg12 = dt_isprd.Rows[0].Field<DateTime?>("beg12"),
+                end12 = dt_isprd.Rows[0].Field<DateTime?>("end12"),
+                lock12 = dt_isprd.Rows[0].Field<string>("lock12"),
+
+                beg1ny = dt_isprd.Rows[0].Field<DateTime?>("beg1ny"),
+                end1ny = dt_isprd.Rows[0].Field<DateTime?>("end1ny"),
+                lock1ny = dt_isprd.Rows[0].Field<string>("lock1ny"),
+                beg2ny = dt_isprd.Rows[0].Field<DateTime?>("beg2ny"),
+                end2ny = dt_isprd.Rows[0].Field<DateTime?>("end2ny"),
+                lock2ny = dt_isprd.Rows[0].Field<string>("lock2ny"),
+                beg3ny = dt_isprd.Rows[0].Field<DateTime?>("beg3ny"),
+                end3ny = dt_isprd.Rows[0].Field<DateTime?>("end3ny"),
+                lock3ny = dt_isprd.Rows[0].Field<string>("lock3ny"),
+                beg4ny = dt_isprd.Rows[0].Field<DateTime?>("beg4ny"),
+                end4ny = dt_isprd.Rows[0].Field<DateTime?>("end4ny"),
+                lock4ny = dt_isprd.Rows[0].Field<string>("lock4ny"),
+                beg5ny = dt_isprd.Rows[0].Field<DateTime?>("beg5ny"),
+                end5ny = dt_isprd.Rows[0].Field<DateTime?>("end5ny"),
+                lock5ny = dt_isprd.Rows[0].Field<string>("lock5ny"),
+                beg6ny = dt_isprd.Rows[0].Field<DateTime?>("beg6ny"),
+                end6ny = dt_isprd.Rows[0].Field<DateTime?>("end6ny"),
+                lock6ny = dt_isprd.Rows[0].Field<string>("lock6ny"),
+                beg7ny = dt_isprd.Rows[0].Field<DateTime?>("beg7ny"),
+                end7ny = dt_isprd.Rows[0].Field<DateTime?>("end7ny"),
+                lock7ny = dt_isprd.Rows[0].Field<string>("lock7ny"),
+                beg8ny = dt_isprd.Rows[0].Field<DateTime?>("beg8ny"),
+                end8ny = dt_isprd.Rows[0].Field<DateTime?>("end8ny"),
+                lock8ny = dt_isprd.Rows[0].Field<string>("lock8ny"),
+                beg9ny = dt_isprd.Rows[0].Field<DateTime?>("beg9ny"),
+                end9ny = dt_isprd.Rows[0].Field<DateTime?>("end9ny"),
+                lock9ny = dt_isprd.Rows[0].Field<string>("lock9ny"),
+                beg10ny = dt_isprd.Rows[0].Field<DateTime?>("beg10ny"),
+                end10ny = dt_isprd.Rows[0].Field<DateTime?>("end10ny"),
+                lock10ny = dt_isprd.Rows[0].Field<string>("lock10ny"),
+                beg11ny = dt_isprd.Rows[0].Field<DateTime?>("beg11ny"),
+                end11ny = dt_isprd.Rows[0].Field<DateTime?>("end11ny"),
+                lock11ny = dt_isprd.Rows[0].Field<string>("lock11ny"),
+                beg12ny = dt_isprd.Rows[0].Field<DateTime?>("beg12ny"),
+                end12ny = dt_isprd.Rows[0].Field<DateTime?>("end12ny"),
+                lock12ny = dt_isprd.Rows[0].Field<string>("lock12ny"),
+
+            };
+
+            return isprd;
+
+        }
+
         public static List<StmasDbf> ToStmasList(this DataTable stmas_dbf)
         {
             List<StmasDbf> stmas = new List<StmasDbf>();

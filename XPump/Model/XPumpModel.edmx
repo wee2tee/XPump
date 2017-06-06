@@ -167,6 +167,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="orgname" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="prdstart" Type="date" />
+          <Property Name="prdend" Type="date" />
           <Property Name="shiftprintmet" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="shiftauthlev" Type="int" Nullable="false" />
           <Property Name="dayprintmet" Type="varchar" MaxLength="1" Nullable="false" />
@@ -699,6 +701,8 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="orgname" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prdstart" Type="DateTime" />
+          <Property Name="prdend" Type="DateTime" />
           <Property Name="shiftprintmet" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="shiftauthlev" Type="Int32" Nullable="false" />
           <Property Name="dayprintmet" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1229,6 +1233,8 @@
               <MappingFragment StoreEntitySet="settings">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="orgname" ColumnName="orgname" />
+                <ScalarProperty Name="prdstart" ColumnName="prdstart" />
+                <ScalarProperty Name="prdend" ColumnName="prdend" />
                 <ScalarProperty Name="shiftprintmet" ColumnName="shiftprintmet" />
                 <ScalarProperty Name="shiftauthlev" ColumnName="shiftauthlev" />
                 <ScalarProperty Name="dayprintmet" ColumnName="dayprintmet" />

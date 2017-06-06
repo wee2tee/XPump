@@ -16,6 +16,8 @@ namespace XPump.Model
     {
         public int id { get; set; }
         public string orgname { get; set; }
+        public Nullable<System.DateTime> prdstart { get; set; }
+        public Nullable<System.DateTime> prdend { get; set; }
         public string shiftprintmet { get; set; }
         public int shiftauthlev { get; set; }
         public string dayprintmet { get; set; }

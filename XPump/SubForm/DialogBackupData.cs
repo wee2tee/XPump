@@ -104,6 +104,7 @@ namespace XPump.SubForm
                                 bck.Dispose();
                                 bck = null;
                                 is_success = true;
+                                this.main_form.islog.BackupData(config.dbname, this.backup_path + "\\" + this.backup_file_name).Save();
                             }
                             catch (Exception ex)
                             {

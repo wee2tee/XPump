@@ -377,6 +377,11 @@ namespace XPump
             restore.ShowDialog();
         }
 
+        private void mnuYearEnd_Click(object sender, EventArgs e)
+        {
+
+        }
+
         public void SetStatusLabelText(string express_db_path, string mysql_db_name, string user_name)
         {
             this.lblExpressDataPath.Text = express_db_path != null ? express_db_path : this.lblExpressDataPath.Text;

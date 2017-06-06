@@ -10,13 +10,14 @@ using CC;
 using XPump.Misc;
 using XPump.Model;
 using MySql.Data.MySqlClient;
+using System.IO;
 
 namespace XPump.SubForm
 {
     public partial class DialogRestoreData : Form
     {
         private MainForm main_form;
-        private string backup_file_path;
+        private string backup_file_path = string.Empty;
         private DbConnectionConfig config;
 
         public DialogRestoreData(MainForm main_form)
@@ -34,7 +35,17 @@ namespace XPump.SubForm
         {
             OpenFileDialog of = new OpenFileDialog();
             of.Filter = "XPump backup file(*.rp)|*.rp";
-            of.InitialDirectory = this.main_form.working_express_db.abs_path;
+            string init_dir = string.Empty;
+
+            if(this.backup_file_path.Trim().Length > 0 && Directory.Exists(Directory.GetParent(this.backup_file_path).FullName))
+            {
+                of.InitialDirectory = Directory.GetParent(this.backup_file_path).Name; //this.main_form.working_express_db.abs_path;
+            }
+            else
+            {
+                of.InitialDirectory = this.main_form.working_express_db.abs_path;
+            }
+            
             if(of.ShowDialog() == DialogResult.OK)
             {
                 this.txtFilePath._Text = of.FileName;
@@ -78,6 +89,7 @@ namespace XPump.SubForm
                                 bck.ImportFromFile(this.backup_file_path);
                                 conn.Close();
                                 is_success = true;
+                                this.main_form.islog.RestoreData(this.backup_file_path, config.dbname).Save();
                             }
                             catch (Exception ex)
                             {

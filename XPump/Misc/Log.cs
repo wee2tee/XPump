@@ -397,6 +397,26 @@ namespace XPump.Misc
             return l;
         }
 
+        public LogObject BackupData(string xpump_db_name, string backup_file_path)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "019",
+                Description = "สำรองฐานข้อมูล \"" + xpump_db_name + "\" ไปเก็บไว้ที่ \"" + backup_file_path.Replace("\\", "\\\\") + "\""
+            };
+            return l;
+        }
+
+        public LogObject RestoreData(string backup_file_path, string xpump_db_name)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "020",
+                Description = "นำข้อมูลสำรองจาก \"" + backup_file_path.Replace("\\", "\\\\") + "\" มาลงในฐานข้อมูล \"" + xpump_db_name + "\""
+            };
+            return l;
+        }
+
         public LogObject Logout(string user_name)
         {
             LogObject l = new LogObject(this.main_form)

@@ -10,6 +10,7 @@ using XPump.Model;
 using XPump.Misc;
 using CC;
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace XPump.SubForm
 {
@@ -209,6 +210,8 @@ namespace XPump.SubForm
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`settings` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`orgname` VARCHAR(60) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`prdstart` DATE NULL,";
+                cmd.CommandText += "`prdend` DATE NULL,";
                 cmd.CommandText += "`shiftprintmet` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '0 = not stricted, 1 = printed before authorize, 2 = authorized before print',";
                 cmd.CommandText += "`shiftauthlev` INT(1) NOT NULL DEFAULT 0,";
                 cmd.CommandText += "`dayprintmet` VARCHAR(1) NOT NULL DEFAULT '0' COMMENT '0 = not stricted, 1 = printed before authorize, 2 = authorized before print',";
@@ -520,7 +523,11 @@ namespace XPump.SubForm
                 cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`dbver` (`version`) VALUES ('1.0.0.0')";
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`settings` (`orgname`,`shiftprintmet`,`shiftauthlev`,`dayprintmet`,`dayauthlev`,`chgby`,`chgtime`) VALUES ('','0','','0','',NULL,NULL)";
+                IsprdDbf isprd = DbfTable.Isprd(this.main_form.working_express_db).ToIsprd();
+                DateTime start_date = isprd.beg1.HasValue ? isprd.beg1.Value : DateTime.Parse(DateTime.Now.ToString("yyyy", CultureInfo.GetCultureInfo("en-US")) + "-01-01", CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None);
+                DateTime end_date = isprd.end12.HasValue ? isprd.end12.Value : DateTime.Parse(DateTime.Now.ToString("yyyy", CultureInfo.GetCultureInfo("en-US")) + "-01-01", CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None).AddMonths(11).AddDays(30);
+
+                cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`settings` (`orgname`,`prdstart`,`prdend`,`shiftprintmet`,`shiftauthlev`,`dayprintmet`,`dayauthlev`,`chgby`,`chgtime`) VALUES ('','" + start_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("en-US")) + "','" + end_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("en-US")) + "','0','','0','',NULL,NULL)";
                 cmd.ExecuteNonQuery();
 
                 create_result.is_success = true;

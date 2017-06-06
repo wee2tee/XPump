@@ -43,7 +43,7 @@
             this.จดการขอมลToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBackup = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRestore = new System.Windows.Forms.ToolStripMenuItem();
-            this.ประมวลผลสนปToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuYearEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuChangeCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -154,7 +154,7 @@
             // 
             this.อนๆToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.จดการขอมลToolStripMenuItem,
-            this.ประมวลผลสนปToolStripMenuItem,
+            this.mnuYearEnd,
             this.mnuChangeCompany});
             this.อนๆToolStripMenuItem.Name = "อนๆToolStripMenuItem";
             this.อนๆToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
@@ -183,11 +183,12 @@
             this.mnuRestore.Text = "นำข้อมูลสำรองมาใช้";
             this.mnuRestore.Click += new System.EventHandler(this.mnuRestore_Click);
             // 
-            // ประมวลผลสนปToolStripMenuItem
+            // mnuYearEnd
             // 
-            this.ประมวลผลสนปToolStripMenuItem.Name = "ประมวลผลสนปToolStripMenuItem";
-            this.ประมวลผลสนปToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.ประมวลผลสนปToolStripMenuItem.Text = "ประมวลผลสิ้นปี";
+            this.mnuYearEnd.Name = "mnuYearEnd";
+            this.mnuYearEnd.Size = new System.Drawing.Size(164, 22);
+            this.mnuYearEnd.Text = "ประมวลผลสิ้นปี";
+            this.mnuYearEnd.Click += new System.EventHandler(this.mnuYearEnd_Click);
             // 
             // mnuChangeCompany
             // 
@@ -319,7 +320,7 @@
         private System.Windows.Forms.ToolStripMenuItem จดการขอมลToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuBackup;
         private System.Windows.Forms.ToolStripMenuItem mnuRestore;
-        private System.Windows.Forms.ToolStripMenuItem ประมวลผลสนปToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuYearEnd;
     }
 }
 

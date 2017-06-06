@@ -11,6 +11,7 @@ using XPump.Misc;
 using CC;
 using System.Data.OleDb;
 using System.IO;
+using System.Globalization;
 
 namespace XPump.SubForm
 {
@@ -134,6 +135,8 @@ namespace XPump.SubForm
             this.btnEditMysqlConnection.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             //this.btnBrowseExpressData.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.txtOrgname.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.dtPeriodFrom.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.dtPeriodTo.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.drShiftPrintMethod.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.drDayPrintMethod.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.numShiftAuthLevel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
@@ -146,12 +149,16 @@ namespace XPump.SubForm
 
             if(settings == null)
             {
+                IsprdDbf isprd = DbfTable.Isprd(this.main_form.working_express_db).ToIsprd();
+
                 settings = new settings
                 {
                     id = -1,
                     //express_data_path = string.Empty,
                     orgname = string.Empty,
-                    shiftauthlev = 0,
+                    prdstart = isprd.beg1.HasValue ? isprd.beg1.Value : DateTime.Parse(DateTime.Now.ToString("yyyy", CultureInfo.GetCultureInfo("en-US")) + "-01-01", CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None),
+                    prdend = isprd.end12.HasValue ? isprd.end12.Value : DateTime.Parse(DateTime.Now.ToString("yyyy", CultureInfo.GetCultureInfo("en-US")) + "-01-01", CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None).AddMonths(11).AddDays(30),
+                shiftauthlev = 0,
                     shiftprintmet = "0",
                     dayauthlev = 0,
                     dayprintmet = "0"
@@ -161,6 +168,8 @@ namespace XPump.SubForm
             this.lblConnected.Visible = this.is_mysql_connected ? true : false;
             this.lblNotConnect.Visible = this.is_mysql_connected ? false : true;
             this.txtOrgname._Text = settings.orgname;
+            this.dtPeriodFrom._SelectedDate = settings.prdstart;
+            this.dtPeriodTo._SelectedDate = settings.prdend;
             this.numShiftAuthLevel._Text = settings.shiftauthlev.ToString();
             this.drShiftPrintMethod._SelectedItem = this.drShiftPrintMethod._Items.Cast<XDropdownListItem>().Where(i => (string)i.Value == settings.shiftprintmet).First();
             this.numDayAuthLevel._Text = settings.dayauthlev.ToString();
@@ -195,13 +204,33 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!this.tmp_settings.prdstart.HasValue)
+            {
+                MessageBox.Show("กรุณาระบุวันที่เริ่มรอบบัญชี", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            if (!this.tmp_settings.prdend.HasValue)
+            {
+                MessageBox.Show("กรุณาระบุวันที่สิ้นสุดรอบบัญชี", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 try
                 {
                     settings setting_to_update = db.settings.First();
-                    //setting_to_update.express_data_path = this.tmp_settings.express_data_path;
+
+                    // Warning if accounting period is changed
+                    if(setting_to_update.prdstart.HasValue && setting_to_update.prdend.HasValue && (setting_to_update.prdstart != this.tmp_settings.prdstart || setting_to_update.prdend != this.tmp_settings.prdend))
+                    {
+                        if (XMessageBox.Show("การเปลี่ยนรอบบัญชีอาจส่งผลให้การแสดงตัวเลขในรายงานไม่ถูกต้อง, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.QUESTION) != DialogResult.OK)
+                        return;
+                    }
+                    
                     setting_to_update.orgname = this.tmp_settings.orgname;
+                    setting_to_update.prdstart = this.tmp_settings.prdstart;
+                    setting_to_update.prdend = this.tmp_settings.prdend;
                     setting_to_update.shiftprintmet = this.tmp_settings.shiftprintmet;
                     setting_to_update.shiftauthlev = this.tmp_settings.shiftauthlev;
                     setting_to_update.dayprintmet = this.tmp_settings.dayprintmet;
@@ -318,6 +347,18 @@ namespace XPump.SubForm
         {
             if (this.tmp_settings != null)
                 this.tmp_settings.dayprintmet = (string)((XDropdownListItem)((XDropdownList)sender)._SelectedItem).Value;
+        }
+
+        private void dtPeriodFrom__SelectedDateChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_settings != null)
+                this.tmp_settings.prdstart = ((XDatePicker)sender)._SelectedDate;
+        }
+
+        private void dtPeriodTo__SelectedDateChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_settings != null)
+                this.tmp_settings.prdend = ((XDatePicker)sender)._SelectedDate;
         }
 
         private void PerformEdit(object sender, EventArgs e)
