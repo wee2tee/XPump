@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using CC;
 
 namespace XPump.SubForm
 {
@@ -40,14 +41,14 @@ namespace XPump.SubForm
                 }
                 else
                 {
-                    MessageBox.Show("ระดับอนุมัติของท่านไม่สามารถรับรองรายการได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    XMessageBox.Show("ระดับอนุมัติของท่านไม่สามารถรับรองรายการได้", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     this.txtPwd.Text = string.Empty;
                     this.txtUser.Focus();
                 }
             }
             else
             {
-                MessageBox.Show(this.validated_status.err_message, "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show(this.validated_status.err_message, "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.txtPwd.Text = string.Empty;
                 this.txtUser.Focus();
             }

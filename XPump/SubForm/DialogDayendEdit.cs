@@ -51,7 +51,7 @@ namespace XPump.SubForm
         {
             if (this.form_mode != FORM_MODE.READ && this.form_mode != FORM_MODE.READ_ITEM)
             {
-                if (MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                if (XMessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
                 {
                     e.Cancel = true;
                     return;
@@ -70,7 +70,7 @@ namespace XPump.SubForm
 
                 if (de == null)
                 {
-                    MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    XMessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     this.DialogResult = DialogResult.Cancel;
                     this.Close();
                     return null;
@@ -132,17 +132,24 @@ namespace XPump.SubForm
 
             this.tmp_sttak = (daysttak)this.dgv.Rows[row_index].Cells[this.col_daysttak.Name].Value;
 
-            int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_qty.DataPropertyName).First().Index;
+            int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_rcvqty.DataPropertyName).First().Index;
+            this.inline_rcvqty.SetInlineControlPosition(this.dgv, row_index, col_index);
+            this.inline_rcvqty._Value = this.tmp_sttak.rcvqty;
+
+            col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_qty.DataPropertyName).First().Index;
             this.inline_qty.SetInlineControlPosition(this.dgv, row_index, col_index);
             this.inline_qty._Value = this.tmp_sttak.qty;
-            //this.inline_qty.Visible = true;
+
+            this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().DefaultCellStyle.Padding = new Padding(0, 0, 0, 0);
+
             this.inline_qty.Focus();
         }
 
         private void RemoveInlineForm()
         {
-            //this.inline_qty.Visible = false;
+            this.inline_rcvqty.SetBounds(-9999, 0, 0, 0);
             this.inline_qty.SetBounds(-9999, 0, 0, 0);
+            this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().DefaultCellStyle.Padding = new Padding(0, 0, 0, 50);
             this.tmp_sttak = null;
         }
 
@@ -206,7 +213,7 @@ namespace XPump.SubForm
 
                     if (sttak_to_update == null)
                     {
-                        MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return false;
                     }
 
@@ -228,7 +235,7 @@ namespace XPump.SubForm
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     return false;
                 }
                 
@@ -262,7 +269,7 @@ namespace XPump.SubForm
                         dayend dayend_to_update = db.dayend.Find(this.curr_dayend.id);
                         if (dayend_to_update == null)
                         {
-                            MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -283,7 +290,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
 
@@ -429,7 +436,7 @@ namespace XPump.SubForm
             var rcv = this.curr_dayend.ToViewModel(this.main_form.working_express_db).GetRcvQty();
             if(this.curr_dayend.rcvqty != rcv)
             {
-                if(MessageBox.Show("เปลี่ยนยอดรับน้ำมันจาก " + string.Format("{0:#,#0.00}", this.curr_dayend.rcvqty) + " ลิตร  ไปเป็น  " + string.Format("{0:#,#0.00}", rcv) + " ลิตร, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                if(XMessageBox.Show("เปลี่ยนยอดรับน้ำมันจาก " + string.Format("{0:#,#0.00}", this.curr_dayend.rcvqty) + " ลิตร  ไปเป็น  " + string.Format("{0:#,#0.00}", rcv) + " ลิตร, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
                 {
                     this.curr_dayend.rcvqty = rcv;
                     this.numRcvqty._Value = this.curr_dayend.rcvqty;
@@ -475,6 +482,26 @@ namespace XPump.SubForm
                     e.Handled = true;
                 }
             }
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                int img_width = XPump.Properties.Resources.sync_16.Width;
+                int img_height = XPump.Properties.Resources.sync_16.Height;
+
+                Rectangle rect = new Rectangle(e.CellBounds.X + (int)Math.Floor((decimal)((e.CellBounds.Width - img_width) / 2)), e.CellBounds.Y + (int)Math.Floor((decimal)((e.CellBounds.Height - img_height) / 2)), img_width, img_height);
+
+                if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    e.Graphics.DrawImage(XPump.Properties.Resources.sync_16, rect);
+                }
+                else
+                {
+                    e.Graphics.DrawImage(XPump.Properties.Resources.sync_gray_16, rect);
+                }
+
+                e.Handled = true;
+            }
         }
 
         private void dgv_MouseClick(object sender, MouseEventArgs e)
@@ -500,6 +527,34 @@ namespace XPump.SubForm
                 };
                 cm.MenuItems.Add(mnu_edit);
                 cm.Show((XDatagrid)sender, new Point(e.X, e.Y));
+            }
+        }
+
+        private void dgv_CellToolTipTextNeeded(object sender, DataGridViewCellToolTipTextNeededEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if(this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
+                {
+                    e.ToolTipText = "ดึงยอดรับสินค้าจากเอ็กซ์เพรส";
+                }
+            }
+        }
+
+        private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
+            {
+                if (this.form_mode != FORM_MODE.EDIT_ITEM)
+                    return;
+
+                XMessageBox.Show("retrieve rcvqty from express");
             }
         }
     }

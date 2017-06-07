@@ -184,7 +184,7 @@ namespace XPump.SubForm
                 {
                     if(db.dayend.Where(d => d.saldat == dlg.selected_date).Count() > 0)
                     {
-                        MessageBox.Show("วันที่ \"" + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" ปิดยอดขายไปแล้ว, ไม่สามารถปิดซ้ำได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("วันที่ \"" + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" ปิดยอดขายไปแล้ว, ไม่สามารถปิดซ้ำได้", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return;
                     }
 
@@ -193,7 +193,7 @@ namespace XPump.SubForm
                         var imcomplete_trans = db.saleshistory.Include("salessummary.shiftsales").Where(s => s.salessummary.shiftsales.saldat == dlg.selected_date && s.mitbeg < 0).ToList();
                         if(imcomplete_trans.Count > 0)
                         {
-                            MessageBox.Show("มีบางรายการยังไม่ได้ป้อนเลขมิเตอร์เริ่มต้น/สิ้นสุด, กรุณาย้อนกลับไปตรวจสอบที่เมนู \"บันทึกรายการประจำผลัด\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("มีบางรายการยังไม่ได้ป้อนเลขมิเตอร์เริ่มต้น/สิ้นสุด, กรุณาย้อนกลับไปตรวจสอบที่เมนู \"บันทึกรายการประจำผลัด\"", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -203,7 +203,7 @@ namespace XPump.SubForm
 
                         if(stkcods.Count() == 0)
                         {
-                            MessageBox.Show("ไม่พบการบันทึกรายการประจำผลัดของวันที่ \"" + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\", กรุณาบันทึกรายการประจำผลัดก่อนทำการปิดยอดขายประจำวัน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("ไม่พบการบันทึกรายการประจำผลัดของวันที่ \"" + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\", กรุณาบันทึกรายการประจำผลัดก่อนทำการปิดยอดขายประจำวัน", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -273,7 +273,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
 
@@ -292,7 +292,7 @@ namespace XPump.SubForm
             if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
                 return;
 
-            if(MessageBox.Show("ลบข้อมูลการปิดยอดขายของวันที่ \"" + this.curr_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" , ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if(XMessageBox.Show("ลบข้อมูลการปิดยอดขายของวันที่ \"" + this.curr_date.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" , ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
@@ -302,7 +302,7 @@ namespace XPump.SubForm
 
                         if(dayends.Count == 0)
                         {
-                            MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -337,7 +337,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
             }
@@ -458,7 +458,7 @@ namespace XPump.SubForm
                     }
                     else
                     {
-                        MessageBox.Show("ไม่พบรายการปิดยอดขายของวันที่ " + sel.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture), "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ไม่พบรายการปิดยอดขายของวันที่ " + sel.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     }
                 }
             }
@@ -709,7 +709,7 @@ namespace XPump.SubForm
 
                             if(err_msg.Trim().Length > 0)
                             {
-                                MessageBox.Show(err_msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                XMessageBox.Show(err_msg, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                                 return;
                             }
 
@@ -773,7 +773,7 @@ namespace XPump.SubForm
 
                             if(err_msg.Trim().Length > 0)
                             {
-                                MessageBox.Show(err_msg, "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                XMessageBox.Show(err_msg, "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                                 return;
                             }
 
@@ -832,7 +832,7 @@ namespace XPump.SubForm
                     if(report_data == null)
                     {
                         loading.Close();
-                        MessageBox.Show("Unknow Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show("Unknow Error", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                         return;
                     }
 
@@ -850,7 +850,7 @@ namespace XPump.SubForm
                                 dayends = db.dayend.Where(d => d.saldat.CompareTo(print.first_date_of_month.Value) >= 0 && d.saldat.CompareTo(print.last_date_of_month.Value) <= 0).ToViewModel(this.main_form.working_express_db);
                                 if (dayends.Count == 0)
                                 {
-                                    MessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                    XMessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                                     return;
                                 }
                                 foreach (var item in dayends)
@@ -869,7 +869,7 @@ namespace XPump.SubForm
                             loading.Close();
                             if (xp == null)
                             {
-                                MessageBox.Show("Unknow Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                XMessageBox.Show("Unknow Error", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                                 return;
                             }
 
@@ -931,7 +931,7 @@ namespace XPump.SubForm
 
                             if (pd == null)
                             {
-                                MessageBox.Show(err_msg, "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                XMessageBox.Show(err_msg, "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                                 return;
                             }
 
@@ -964,7 +964,7 @@ namespace XPump.SubForm
                 var dayend_ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
                 if (db.daysttak.Where(s => dayend_ids.Contains(s.dayend_id) && s.qty < 0).Count() > 0)
                 {
-                    if (MessageBox.Show("ปริมาณน้ำมันที่ตรวจวัดได้ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                    if (XMessageBox.Show("ปริมาณน้ำมันที่ตรวจวัดได้ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                         return;
                 }
 
@@ -978,7 +978,7 @@ namespace XPump.SubForm
                     approved_user = validate.validated_status.loged_in_user_name;
                 }
 
-                if (MessageBox.Show("กรุณายืนยันเพื่อทำการรับรองรายการ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                if (XMessageBox.Show("กรุณายืนยันเพื่อทำการรับรองรายการ", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                     return;
 
                 try
@@ -999,7 +999,7 @@ namespace XPump.SubForm
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 }
             }
         }
@@ -1019,7 +1019,7 @@ namespace XPump.SubForm
 
                     if(sttak.Count > 0)
                     {
-                        if (MessageBox.Show("ปริมาณน้ำมันที่ตรวจวัดได้ในวันที่ " + sttak.First().dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                        if (XMessageBox.Show("ปริมาณน้ำมันที่ตรวจวัดได้ในวันที่ " + sttak.First().dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                             return;
                     }
 
@@ -1033,7 +1033,7 @@ namespace XPump.SubForm
                         approved_user = validate.validated_status.loged_in_user_name;
                     }
 
-                    if (MessageBox.Show("กรุณายืนยันเพื่อทำการรับรองรายการ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                    if (XMessageBox.Show("กรุณายืนยันเพื่อทำการรับรองรายการ", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                         return;
 
                     try
@@ -1055,7 +1055,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
 
@@ -1079,7 +1079,7 @@ namespace XPump.SubForm
                 unapproved_user = validate.validated_status.loged_in_user_name;
             }
 
-            if (MessageBox.Show("กรุณายืนยันเพื่อยกเลิกการรับรองรายการ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            if (XMessageBox.Show("กรุณายืนยันเพื่อยกเลิกการรับรองรายการ", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                 return;
 
             try
@@ -1106,7 +1106,7 @@ namespace XPump.SubForm
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
             }
         }
 

@@ -193,7 +193,7 @@ namespace XPump.SubForm
 
             if(this.sttak.Where(s => s.qty < 0).Count() > 0)
             {
-                MessageBox.Show("กรุณาป้อนปริมาณน้ำมันที่วัดได้ให้ครบทุกรายการ(ห้ามติดลบ)", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("กรุณาป้อนปริมาณน้ำมันที่วัดได้ให้ครบทุกรายการ(ห้ามติดลบ)", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.dgv.Rows[this.sttak.IndexOf(this.sttak.Where(s => s.qty < 0).First())].Cells[this.col_sttak_qty.Name].Selected = true;
                 this.ShowInlineForm();
                 this.inline_qty.Focus();
@@ -226,7 +226,7 @@ namespace XPump.SubForm
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
             }
         }
 

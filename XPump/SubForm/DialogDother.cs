@@ -46,7 +46,7 @@ namespace XPump.SubForm
                 this.salessummary = db.salessummary.Include("shiftsales").Where(s => s.id == salessummary.id).FirstOrDefault();
                 if(this.salessummary == null)
                 {
-                    MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    XMessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     this.DialogResult = DialogResult.Abort;
                     this.Close();
                 }
@@ -63,7 +63,7 @@ namespace XPump.SubForm
                 this.dayend = db.dayend.Where(d => d.id == dayend.id).FirstOrDefault();
                 if (this.dayend == null)
                 {
-                    MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    XMessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     this.DialogResult = DialogResult.Abort;
                     this.Close();
                 }
@@ -285,14 +285,14 @@ namespace XPump.SubForm
 
             if (this.tmp_dother.istab_id == -1)
             {
-                MessageBox.Show("กรุณาระบุรายละเอียดการหักฯ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("กรุณาระบุรายละเอียดการหักฯ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.inline_dother.Focus();
                 SendKeys.Send("{F6}");
                 return;
             }
             if(this.tmp_dother.qty <= 0)
             {
-                MessageBox.Show("ปริมาณต้องมากกว่า 0", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ปริมาณต้องมากกว่า 0", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.inline_qty.Focus();
                 return;
             }
@@ -337,7 +337,7 @@ namespace XPump.SubForm
 
                         if (dother_to_update == null)
                         {
-                            MessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -373,7 +373,7 @@ namespace XPump.SubForm
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 }
             }
         }
@@ -433,7 +433,7 @@ namespace XPump.SubForm
 
             var dother = (dother)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_dother.Name].Value;
 
-            if(MessageBox.Show("ลบ \"" + dother.ToViewModel(this.main_form.working_express_db).typdes + "\" : " + dother.qty + " ลิตร, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if(XMessageBox.Show("ลบ \"" + dother.ToViewModel(this.main_form.working_express_db).typdes + "\" : " + dother.qty + " ลิตร, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
@@ -442,7 +442,7 @@ namespace XPump.SubForm
                         var dother_to_delete = db.dother.Find(dother.id);
                         if(dother_to_delete == null)
                         {
-                            MessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
                         else
@@ -476,7 +476,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
             }

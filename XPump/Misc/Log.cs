@@ -9,6 +9,7 @@ using System.IO;
 using System.Data.SQLite;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using CC;
 
 namespace XPump.Misc
 {
@@ -519,7 +520,7 @@ namespace XPump.Misc
                 {
                     conn.Close();
                 }
-                MessageBox.Show(ex.Message);
+                XMessageBox.Show(ex.Message, "");
                 return new LogSaveResult { isSuccess = false, errMessage = ex.Message };
             }
         }
@@ -561,7 +562,7 @@ namespace XPump.Misc
                 {
                     conn.Close();
                 }
-                MessageBox.Show(ex.Message);
+                XMessageBox.Show(ex.Message);
                 return new LogSaveResult { isSuccess = false, errMessage = ex.Message };
             }
         }

@@ -1085,6 +1085,8 @@ namespace XPump.Model
                 }
             }
         }
+        public decimal rcvqty { get; set; }
+        public decimal accbal { get; set; }
         public decimal qty { get; set; }
         public int dayend_id { get; set; }
         public int section_id { get; set; }

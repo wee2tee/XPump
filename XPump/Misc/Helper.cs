@@ -1712,7 +1712,7 @@ namespace XPump.Misc
                     message = string.Format("{0} \"{1}\" ยังไม่สามารถลบได้ เนื่องจากมีการนำไปใช้งานแล้ว", exception_key, exception_value);
                 }
 
-                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XMessageBox.Show(message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
 
                 return;
             }
@@ -1720,12 +1720,12 @@ namespace XPump.Misc
             {
                 if(ex.Message.ToLower().Contains("value cannot be null") && ex.StackTrace.ToLower().Contains(".remove("))
                 {
-                    MessageBox.Show(string.Format("{0} \"{1}\" ไม่มีอยู่ในระบบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", exception_key, exception_value));
+                    XMessageBox.Show(string.Format("{0} \"{1}\" ไม่มีอยู่ในระบบ, อาจมีผู้ใช้รายอื่นลบออกไปแล้ว", exception_key, exception_value), "");
                     return;
                 }
             }
 
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
         }
 
         public static string FormatCurrency(this decimal val)
@@ -1799,21 +1799,21 @@ namespace XPump.Misc
                 if(sales == null)
                 {
                     if(show_alert)
-                        MessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 
                 if(shiftsales.IsClosedShiftSales().Value == true)
                 {
                     if(show_alert)
-                        MessageBox.Show("ปิดยอดขายของวันที่ " + shiftsales.saldat.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ไปแล้ว ไม่สามารถแก้ไข/ลบ ได้, ต้องไปลบรายการปิดยอดขายออกก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ปิดยอดขายของวันที่ " + shiftsales.saldat.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ไปแล้ว ไม่สามารถแก้ไข/ลบ ได้, ต้องไปลบรายการปิดยอดขายออกก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 
                 if(shiftsales.IsApproved().Value == true)
                 {
                     if(show_alert)
-                        MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขหรือลบ, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขหรือลบ, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 
@@ -1829,14 +1829,14 @@ namespace XPump.Misc
                 if (de == null)
                 {
                     if (show_alert)
-                        MessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 
                 if (dayend.IsApprovedAll().Value == true)
                 {
                     if (show_alert)
-                        MessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขหรือลบ, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("รายการถูกรับรองไปแล้ว ไม่สามารถแก้ไขหรือลบ, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 
@@ -1852,7 +1852,7 @@ namespace XPump.Misc
                 if (sales == null)
                 {
                     if (show_alert)
-                        MessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 
@@ -1860,14 +1860,14 @@ namespace XPump.Misc
                 if(settings.shiftprintmet == ((int)PRINT_METHOD.APPROVED_BEFORE_PRINT).ToString() && shiftsales.IsApproved().Value == false)
                 {
                     if (show_alert)
-                        MessageBox.Show("ต้องรับรองรายการก่อนพิมพ์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ต้องรับรองรายการก่อนพิมพ์", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 
                 if(settings.shiftprintmet == ((int)PRINT_METHOD.PRINT_BEFORE_APPROVED).ToString() && shiftsales.IsApproved().Value == true)
                 {
                     if (show_alert)
-                        MessageBox.Show("รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 
@@ -1883,7 +1883,7 @@ namespace XPump.Misc
                 if (de == null)
                 {
                     if (show_alert)
-                        MessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 
@@ -1891,14 +1891,14 @@ namespace XPump.Misc
                 if (settings.dayprintmet == ((int)PRINT_METHOD.APPROVED_BEFORE_PRINT).ToString() && dayend.IsApproved().Value == false)
                 {
                     if (show_alert)
-                        MessageBox.Show("ต้องรับรองรายการก่อนพิมพ์", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ต้องรับรองรายการก่อนพิมพ์", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 
                 if (settings.dayprintmet == ((int)PRINT_METHOD.PRINT_BEFORE_APPROVED).ToString() && dayend.IsApproved().Value == true)
                 {
                     if (show_alert)
-                        MessageBox.Show("รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("รับรองรายการแล้ว ไม่สามารถพิมพ์ได้, ต้องไปยกเลิกการรับรองรายการก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return false;
                 }
 

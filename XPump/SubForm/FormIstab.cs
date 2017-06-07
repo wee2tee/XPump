@@ -176,7 +176,7 @@ namespace XPump.SubForm
 
                 if (this.tmp_istab == null)
                 {
-                    MessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    XMessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     return;
                 }
 
@@ -195,7 +195,7 @@ namespace XPump.SubForm
                 {
                     if(this.tmp_istab.typcod.Trim().Length == 0)
                     {
-                        MessageBox.Show("กรุณาป้อนรหัส", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("กรุณาป้อนรหัส", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         this.inline_typcod.Focus();
                         return;
                     }
@@ -216,11 +216,11 @@ namespace XPump.SubForm
                     {
                         if(ex.InnerException.InnerException.Message.ToLower().Contains("duplicate entry"))
                         {
-                            MessageBox.Show("รหัสซ้ำ \"" + this.tmp_istab.typcod + "\" กรุณาเปลี่ยนใหม่", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("รหัสซ้ำ \"" + this.tmp_istab.typcod + "\" กรุณาเปลี่ยนใหม่", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         }
                         else
                         {
-                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                         }
                     }
                     return;
@@ -234,7 +234,7 @@ namespace XPump.SubForm
 
                         if(istab_to_update == null)
                         {
-                            MessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -242,7 +242,7 @@ namespace XPump.SubForm
                         {
                             if (this.tmp_istab.is_shiftsales == false && db.dother.Where(d => d.salessummary_id != null && d.istab_id == this.tmp_istab.id).Count() > 0)
                             {
-                                MessageBox.Show("มีการนำไปใช้บันทึกยอดขายประจำผลัดแล้วไม่สามารถแก้ไขช่อง \"แสดงในสรุปผลัด\" เป็น \"N\" ได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                XMessageBox.Show("มีการนำไปใช้บันทึกยอดขายประจำผลัดแล้วไม่สามารถแก้ไขช่อง \"แสดงในสรุปผลัด\" เป็น \"N\" ได้", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                                 this.inline_isshiftsales.Focus();
                                 SendKeys.Send("{F6}");
                                 return;
@@ -250,7 +250,7 @@ namespace XPump.SubForm
 
                             if (this.tmp_istab.is_dayend == false && db.dother.Where(d => d.dayend_id != null && d.istab_id == this.tmp_istab.id).Count() > 0)
                             {
-                                MessageBox.Show("มีการนำไปใช้บันทึกปิดขายประจำวันแล้วไม่สามารถแก้ไขช่อง \"แสดงในสรุปวัน\" เป็น \"N\" ได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                XMessageBox.Show("มีการนำไปใช้บันทึกปิดขายประจำวันแล้วไม่สามารถแก้ไขช่อง \"แสดงในสรุปวัน\" เป็น \"N\" ได้", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                                 this.inline_isdayend.Focus();
                                 SendKeys.Send("{F6}");
                                 return;
@@ -275,7 +275,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                     return;
                 }
@@ -286,7 +286,7 @@ namespace XPump.SubForm
         {
             var istab = (istab)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_istab.Name].Value;
 
-            if(MessageBox.Show("ลบรหัส \"" + istab.typcod + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if(XMessageBox.Show("ลบรหัส \"" + istab.typcod + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
@@ -296,13 +296,13 @@ namespace XPump.SubForm
 
                         if(istab_to_delete == null)
                         {
-                            MessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
                         if(db.dother.Where(d => d.istab_id == istab_to_delete.id).Count() > 0)
                         {
-                            MessageBox.Show("มีการนำไปใช้งานแล้ว, ไม่สามารถลบได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("มีการนำไปใช้งานแล้ว, ไม่สามารถลบได้", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -316,7 +316,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
             }

@@ -62,7 +62,7 @@ namespace XPump.SubForm
                 return;
             }
 
-            if(MessageBox.Show("ข้อมูลที่ท่านกำลังแก้ไขจะไม่ถูกบันทึก, ยืนยันทำต่อ?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            if(XMessageBox.Show("ข้อมูลที่ท่านกำลังแก้ไขจะไม่ถูกบันทึก, ยืนยันทำต่อ?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
             {
                 e.Cancel = true;
                 return;
@@ -98,7 +98,7 @@ namespace XPump.SubForm
             if (this.txtPwd.Text != this.txtConfPwd.Text)
             {
                 loading.Close();
-                MessageBox.Show("กรุณายืนยันรหัสผ่าน(Confirm Password)ให้ถูกต้อง", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("กรุณายืนยันรหัสผ่าน(Confirm Password)ให้ถูกต้อง", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.FormFreeze = false;
                 this.txtConfPwd.Focus();
                 return;
@@ -130,7 +130,7 @@ namespace XPump.SubForm
                     if(conn_result.connection_code == MYSQL_CONNECTION.UNKNOW_DATABASE)
                     {
                         loading.ShowCenterParent(context);
-                        if(MessageBox.Show(conn_result.err_message + " ต้องการสร้างฐานข้อมูลดังกล่าวขึ้นมาใหม่หรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                        if(XMessageBox.Show(conn_result.err_message + " ต้องการสร้างฐานข้อมูลดังกล่าวขึ้นมาใหม่หรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
                         {
                             MySqlCreateResult create_result = new MySqlCreateResult { is_success = false, err_message = string.Empty };
                             BackgroundWorker wk = new BackgroundWorker();
@@ -156,7 +156,7 @@ namespace XPump.SubForm
                                 else
                                 {
                                     loading.Close();
-                                    MessageBox.Show(create_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    XMessageBox.Show(create_result.err_message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                                 }
                             };
                             wk.RunWorkerAsync();
@@ -172,7 +172,7 @@ namespace XPump.SubForm
                         {
                             loading.Close();
                         }
-                        MessageBox.Show(conn_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(conn_result.err_message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                     
                     this.FormFreeze = false;
@@ -282,11 +282,8 @@ namespace XPump.SubForm
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`tank` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
-                //cmd.CommandText += "`startdate` DATE NOT NULL,";
-                //cmd.CommandText += "`enddate` DATE NULL,";
                 cmd.CommandText += "`description` VARCHAR(50) NULL,";
                 cmd.CommandText += "`remark` VARCHAR(50) NULL,";
-                //cmd.CommandText += "`isactive` TINYINT(1) NOT NULL DEFAULT 1,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
@@ -485,6 +482,11 @@ namespace XPump.SubForm
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`daysttak` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`qty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
+                cmd.CommandText += "`rcvqty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
+                /** ยอดคงเหลือทางบัญชีสะสม **/
+                /**  รายการแรกของปี (section.begacc + rcvqty - saleshistory.salqty)  **/
+                /**  ไม่ใช่รายการแรกของปี (section.daysttak.Last().accbal + rcvqty - saleshistory.salqty)  **/
+                cmd.CommandText += "`accbal` DECIMAL(15, 2) NOT NULL DEFAULT 0,"; 
                 cmd.CommandText += "`dayend_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`section_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
@@ -498,6 +500,26 @@ namespace XPump.SubForm
                 cmd.CommandText += "CONSTRAINT `fk - daysttak - dayend_id` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
+
+                // Dayaccbal Table
+                //cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dayaccbal` ";
+                //cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                //cmd.CommandText += "`rcvqty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
+                //cmd.CommandText += "`accqty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
+                //cmd.CommandText += "`difqty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
+                //cmd.CommandText += "`dayend_id` INT(11) NOT NULL,";
+                //cmd.CommandText += "`section_id` INT(11) NOT NULL,";
+                //cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                //cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                //cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                //cmd.CommandText += "`chgtime` DATETIME NULL,";
+                //cmd.CommandText += "PRIMARY KEY (`id`),";
+                //cmd.CommandText += "INDEX `ndx - daysttak - section_id` (`section_id` ASC),";
+                //cmd.CommandText += "INDEX `ndx - daysttak - dayend_id` (`dayend_id` ASC),";
+                //cmd.CommandText += "CONSTRAINT `fk - daysttak - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                //cmd.CommandText += "CONSTRAINT `fk - daysttak - dayend_id` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                //cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                //cmd.ExecuteNonQuery();
 
                 // Dother Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dother` ";

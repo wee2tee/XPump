@@ -317,7 +317,7 @@ namespace XPump.SubForm
             if (this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
-            if(MessageBox.Show("ลบบันทึกรายการขายประจำผลัด \"" + this.curr_shiftsales.shift.name + "\" วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + ", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if(XMessageBox.Show("ลบบันทึกรายการขายประจำผลัด \"" + this.curr_shiftsales.shift.name + "\" วันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + ", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
@@ -387,7 +387,7 @@ namespace XPump.SubForm
                 {
                     if(db.shiftsales.Where(s => s.saldat == this.tmp_shiftsales.saldat && s.shift_id == this.tmp_shiftsales.shift_id).Count() > 0)
                     {
-                        MessageBox.Show("รายการวันที่ \"" + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" ของผลัด \"" + db.shift.Find(this.tmp_shiftsales.shift_id).name + "\" มีอยู่แล้ว, ไม่สามารถบันทึกซ้ำได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("รายการวันที่ \"" + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + "\" ของผลัด \"" + db.shift.Find(this.tmp_shiftsales.shift_id).name + "\" มีอยู่แล้ว, ไม่สามารถบันทึกซ้ำได้", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return;
                     }
 
@@ -395,7 +395,7 @@ namespace XPump.SubForm
 
                     if (tanksetup == null)
                     {
-                        MessageBox.Show("ไม่พบการตั้งค่าแท๊งค์เก็บน้ำมันที่เริ่มใช้วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ไม่พบการตั้งค่าแท๊งค์เก็บน้ำมันที่เริ่มใช้วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return;
                     }
 
@@ -413,7 +413,7 @@ namespace XPump.SubForm
                     {
                         if (db.dayend.Where(d => d.saldat == this.tmp_shiftsales.saldat).FirstOrDefault() != null)
                         {
-                            MessageBox.Show("วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถเพิ่มรายการของวันที่นี้ได้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ปิดยอดขายประจำวันไปแล้ว ไม่สามารถเพิ่มรายการของวันที่นี้ได้", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -460,7 +460,7 @@ namespace XPump.SubForm
                             /*************/
                             if (tanksetup == null)
                             {
-                                MessageBox.Show("ไม่พบการกำหนดค่าแท๊งค์เก็บน้ำมัน สำหรับการขายในวันที่ \"" + this.curr_salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + "\"", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                XMessageBox.Show("ไม่พบการกำหนดค่าแท๊งค์เก็บน้ำมัน สำหรับการขายในวันที่ \"" + this.curr_salessummary.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + "\"", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                                 return;
                             }
 
@@ -490,7 +490,7 @@ namespace XPump.SubForm
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                             }
 
                         }
@@ -508,7 +508,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        XMessageBox.Show(ex.Message);
                     }
                 }
 
@@ -524,7 +524,7 @@ namespace XPump.SubForm
                         shiftsales shiftsales_to_update = db.shiftsales.Find(this.tmp_shiftsales.id);
                         if (shiftsales_to_update == null)
                         {
-                            MessageBox.Show("ค้นหารายการเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("ค้นหารายการเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -556,7 +556,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        XMessageBox.Show(ex.Message);
                     }
                 }
                 return;
@@ -652,7 +652,7 @@ namespace XPump.SubForm
                     }
                     else
                     {
-                        MessageBox.Show("ค้นหาข้อมูลตามที่ระบุไม่พบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ค้นหาข้อมูลตามที่ระบุไม่พบ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     }
                 }
             }
@@ -1614,7 +1614,7 @@ namespace XPump.SubForm
 
                     if (sttak_to_update == null)
                     {
-                        MessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return false;
                     }
 
@@ -1624,7 +1624,7 @@ namespace XPump.SubForm
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -1903,7 +1903,7 @@ namespace XPump.SubForm
             {
                 if(db.shiftsttak.Where(s => s.shiftsales_id == this.curr_shiftsales.id && s.qty < 0).Count() > 0)
                 {
-                    if (MessageBox.Show("ปริมาณน้ำมันที่ตรวจวัดได้ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                    if (XMessageBox.Show("ปริมาณน้ำมันที่ตรวจวัดได้ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                         return;
                 }
             }
@@ -1918,7 +1918,7 @@ namespace XPump.SubForm
                 approved_user = validate.validated_status.loged_in_user_name;
             }
 
-            if (MessageBox.Show("กรุณายืนยันเพื่อทำการรับรองรายการ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            if (XMessageBox.Show("กรุณายืนยันเพื่อทำการรับรองรายการ", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                 return;
 
             try
@@ -1939,7 +1939,7 @@ namespace XPump.SubForm
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
             }
         }
 
@@ -1960,7 +1960,7 @@ namespace XPump.SubForm
                 unapproved_user = validate.validated_status.loged_in_user_name;
             }
 
-            if (MessageBox.Show("กรุณายืนยันเพื่อยกเลิกการรับรองรายการ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            if (XMessageBox.Show("กรุณายืนยันเพื่อยกเลิกการรับรองรายการ", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                 return;
 
             try
@@ -1981,7 +1981,7 @@ namespace XPump.SubForm
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
             }
         }
 

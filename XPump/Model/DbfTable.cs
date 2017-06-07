@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using XPump.SubForm;
 using XPump.Misc;
+using CC;
 
 namespace XPump.Model
 {
@@ -63,7 +64,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isprd.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Isprd.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Isprd.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -95,7 +96,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stmas.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -127,7 +128,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(secure_path) && File.Exists(secure_path + "scuser.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Scuser.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Scuser.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -160,7 +161,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(secure_path) && File.Exists(secure_path + "scacclv.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Scacclv.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Scacclv.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -193,7 +194,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(secure_path) && File.Exists(secure_path + "sccomp.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Sccomp.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Sccomp.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -226,7 +227,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isrun.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Isrun.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Isrun.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -258,7 +259,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "istab.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Istab.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Istab.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -290,7 +291,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "isinfo.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Isinfo.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Isinfo.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -322,7 +323,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stloc.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stloc.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Stloc.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -354,7 +355,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "stcrd.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Stcrd.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Stcrd.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 
                 return new DataTable();
             }
@@ -387,7 +388,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "apmas.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Apmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Apmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -419,7 +420,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "aptrn.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Aptrn.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Aptrn.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 
@@ -451,7 +452,7 @@ namespace XPump.Model
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "artrn.dbf")))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Artrn.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("ค้นหาแฟ้ม Artrn.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return new DataTable();
             }
 

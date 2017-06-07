@@ -33,6 +33,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="qty" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="rcvqty" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="accbal" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="dayend_id" Type="int" Nullable="false" />
           <Property Name="section_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
@@ -548,6 +550,8 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="qty" Type="Decimal" Nullable="false" />
+          <Property Name="rcvqty" Type="Decimal" Nullable="false" />
+          <Property Name="accbal" Type="Decimal" Nullable="false" />
           <Property Name="dayend_id" Type="Int32" Nullable="false" />
           <Property Name="section_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1090,6 +1094,8 @@
               <MappingFragment StoreEntitySet="daysttak">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="rcvqty" ColumnName="rcvqty" />
+                <ScalarProperty Name="accbal" ColumnName="accbal" />
                 <ScalarProperty Name="dayend_id" ColumnName="dayend_id" />
                 <ScalarProperty Name="section_id" ColumnName="section_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />

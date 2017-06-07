@@ -356,6 +356,12 @@
     <Compile Include="SubForm\DialogValidateUser.Designer.cs">
       <DependentUpon>DialogValidateUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogYearEnd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogYearEnd.Designer.cs">
+      <DependentUpon>DialogYearEnd.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\FormDailyClose.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -521,6 +527,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogValidateUser.resx">
       <DependentUpon>DialogValidateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogYearEnd.resx">
+      <DependentUpon>DialogYearEnd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormDailyClose.resx">
       <DependentUpon>FormDailyClose.cs</DependentUpon>
@@ -704,6 +713,7 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\sync_gray_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets')" />

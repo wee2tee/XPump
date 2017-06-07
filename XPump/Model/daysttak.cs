@@ -16,6 +16,8 @@ namespace XPump.Model
     {
         public int id { get; set; }
         public decimal qty { get; set; }
+        public decimal rcvqty { get; set; }
+        public decimal accbal { get; set; }
         public int dayend_id { get; set; }
         public int section_id { get; set; }
         public string creby { get; set; }

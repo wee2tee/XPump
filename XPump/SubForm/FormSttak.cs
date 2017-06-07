@@ -159,7 +159,7 @@ namespace XPump.SubForm
                     shiftsttak sttak_to_update = db.shiftsttak.Find(this.tmp_sttak.id);
                     if (sttak_to_update == null)
                     {
-                        MessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return;
                     }
                     else
@@ -170,7 +170,7 @@ namespace XPump.SubForm
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 }
             }
         }
@@ -184,7 +184,7 @@ namespace XPump.SubForm
                 {
                     if(db.shiftsttak.Where(s => s.takdat == ds.selected_date).Count() > 0) // is exist
                     {
-                        if(MessageBox.Show("ข้อมูลตรวจนับของวันที่ " + ds.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " มีอยู่แล้ว, ต้องการเรียกดูข้อมูลดังกล่าวหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                        if(XMessageBox.Show("ข้อมูลตรวจนับของวันที่ " + ds.selected_date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " มีอยู่แล้ว, ต้องการเรียกดูข้อมูลดังกล่าวหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
                         {
                             this.sttak = this.GetSttak(ds.selected_date);
                             this.FillForm();
@@ -215,7 +215,7 @@ namespace XPump.SubForm
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                         }
                         
                     }
@@ -238,7 +238,7 @@ namespace XPump.SubForm
             if (this.dgv.CurrentCell == null)
                 return;
 
-            if(MessageBox.Show("ลบข้อมูลตรวจนับของวันที่ " + this.sttak.First().takdat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if(XMessageBox.Show("ลบข้อมูลตรวจนับของวันที่ " + this.sttak.First().takdat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {

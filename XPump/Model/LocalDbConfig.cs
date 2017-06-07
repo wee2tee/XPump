@@ -9,6 +9,7 @@ using XPump.Misc;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.ComponentModel;
+using CC;
 
 namespace XPump.Model
 {
@@ -127,7 +128,7 @@ namespace XPump.Model
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 return false;
             }
         }

@@ -31,7 +31,7 @@ namespace XPump.SubForm
         {
             if (!DbfTable.IsSecureFileExist("scuser.dbf"))
             {
-                MessageBox.Show("ค้นหาแฟ้ม Scuser.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XMessageBox.Show("ค้นหาแฟ้ม Scuser.dbf ไม่พบ, อาจเป็นเพราะท่านติดตั้งโปรแกรมไว้ไม่ถูกที่ โปรแกรมนี้จะต้องถูกติดตั้งภายใต้โฟลเดอร์ของโปรแกรมเอ็กซ์เพรสเท่านั้น", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 return;
             }
 
@@ -47,7 +47,7 @@ namespace XPump.SubForm
             else
             {
                 this.main_form.islog.LoginFail(this.txtUserID.Text.Trim(), login_result.err_message).Save();
-                MessageBox.Show(login_result.err_message, "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show(login_result.err_message, "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.txtUserID.Focus();
             }
         }

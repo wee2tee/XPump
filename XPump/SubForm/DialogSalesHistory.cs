@@ -68,7 +68,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode ==  FORM_MODE.EDIT || this.form_mode == FORM_MODE.EDIT_ITEM)
             {
-                if(MessageBox.Show("ข้อมูลที่ท่านกำลังแก้ไขจะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                if(XMessageBox.Show("ข้อมูลที่ท่านกำลังแก้ไขจะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
                 {
                     e.Cancel = true;
                     return;
@@ -162,7 +162,7 @@ namespace XPump.SubForm
 
                     if (sh == null)
                     {
-                        MessageBox.Show("ค้นหาข้อมูลเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ค้นหาข้อมูลเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     }
                     else
                     {
@@ -360,7 +360,7 @@ namespace XPump.SubForm
                     salessummary sales_to_update = db.salessummary.Find(this.salessummary.id);
                     if (sales_to_update == null)
                     {
-                        MessageBox.Show("ค้นหาข้อมูลที่ต้องการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ค้นหาข้อมูลที่ต้องการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return;
                     }
 
@@ -607,7 +607,7 @@ namespace XPump.SubForm
 
             if(this.salessummary.purvat != exp_purvat)
             {
-                if(MessageBox.Show("ภาษีซื้อของน้ำมันเชื้อเพลิง เปลี่ยนจาก " + string.Format("{0:#,#0.00}", this.salessummary.purvat) + " เป็น " + string.Format("{0:#,#0.00}", exp_purvat) + " ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                if(XMessageBox.Show("ภาษีซื้อของน้ำมันเชื้อเพลิง เปลี่ยนจาก " + string.Format("{0:#,#0.00}", this.salessummary.purvat) + " เป็น " + string.Format("{0:#,#0.00}", exp_purvat) + " ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
                 {
                     this.numPurvat._Value = exp_purvat;
                 }

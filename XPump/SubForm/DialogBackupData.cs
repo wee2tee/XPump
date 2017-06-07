@@ -70,11 +70,11 @@ namespace XPump.SubForm
         {
             this.backup_file_name = this.backup_file_name.EndsWith(".rp") ? this.backup_file_name : this.backup_file_name + ".rp";
 
-            if(MessageBox.Show("สำรองข้อมูลไปไว้ที่ \"" + this.backup_path + "\\" + this.backup_file_name + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if(XMessageBox.Show("สำรองข้อมูลไปไว้ที่ \"" + this.backup_path + "\\" + this.backup_file_name + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
                 if(File.Exists(this.backup_path + "\\" + this.backup_file_name))
                 {
-                    if (MessageBox.Show("แฟ้ม \"" + this.backup_path + "\\" + this.backup_file_name + "\" มีอยู่แล้ว, ต้องการแทนที่ด้วยแฟ้มใหม่นี้ใช่หรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                    if (XMessageBox.Show("แฟ้ม \"" + this.backup_path + "\\" + this.backup_file_name + "\" มีอยู่แล้ว, ต้องการแทนที่ด้วยแฟ้มใหม่นี้ใช่หรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                         return;
                 }
 
@@ -117,12 +117,12 @@ namespace XPump.SubForm
                             if (is_success)
                             {
                                 this.DialogResult = DialogResult.OK;
-                                MessageBox.Show("สำรองข้อมูลเสร็จเรียบร้อย", "", MessageBoxButtons.OK);
+                                XMessageBox.Show("สำรองข้อมูลเสร็จเรียบร้อย", "", MessageBoxButtons.OK);
                                 this.Close();
                             }
                             else
                             {
-                                MessageBox.Show(err_msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                XMessageBox.Show(err_msg, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                             }
                         };
                         worker.RunWorkerAsync();

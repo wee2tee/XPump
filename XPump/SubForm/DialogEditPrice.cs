@@ -67,7 +67,7 @@ namespace XPump.SubForm
 
                     if (pricelist_to_update == null)
                     {
-                        MessageBox.Show("ค้นหาข้อมูลเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ค้นหาข้อมูลเพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return;
                     }
 

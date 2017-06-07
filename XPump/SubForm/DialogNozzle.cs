@@ -49,7 +49,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode != FORM_MODE.READ_ITEM)
             {
-                if(MessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                if(XMessageBox.Show("ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
                 {
                     e.Cancel = true;
                     return;
@@ -71,7 +71,7 @@ namespace XPump.SubForm
                 this.section = db.section.Find(this.section.id);
                 if (this.section == null)
                 {
-                    MessageBox.Show("ไม่สามารถค้นหาช่องเก็บน้ำมันที่ต้องการแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    XMessageBox.Show("ไม่สามารถค้นหาช่องเก็บน้ำมันที่ต้องการแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     this.DialogResult = DialogResult.Cancel;
                     this.Close();
                     return;
@@ -276,7 +276,7 @@ namespace XPump.SubForm
 
             nozzle tmp = (nozzle)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells["col_nozzle"].Value;
 
-            if (MessageBox.Show("ลบรหัสหัวจ่าย \"" + tmp.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+            if (XMessageBox.Show("ลบรหัสหัวจ่าย \"" + tmp.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 return;
 
             try
@@ -369,7 +369,7 @@ namespace XPump.SubForm
 
                         if (nozzle_to_update == null)
                         {
-                            MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 

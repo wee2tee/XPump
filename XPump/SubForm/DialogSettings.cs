@@ -198,7 +198,7 @@ namespace XPump.SubForm
             }
             else
             {
-                MessageBox.Show("กรุณากำหนดค่าการเชื่อมต่อฐานข้อมูล MySql ให้เรียบร้อยก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                XMessageBox.Show("กรุณากำหนดค่าการเชื่อมต่อฐานข้อมูล MySql ให้เรียบร้อยก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Warning);
             }
         }
 
@@ -206,12 +206,12 @@ namespace XPump.SubForm
         {
             if (!this.tmp_settings.prdstart.HasValue)
             {
-                MessageBox.Show("กรุณาระบุวันที่เริ่มรอบบัญชี", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("กรุณาระบุวันที่เริ่มรอบบัญชี", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return;
             }
             if (!this.tmp_settings.prdend.HasValue)
             {
-                MessageBox.Show("กรุณาระบุวันที่สิ้นสุดรอบบัญชี", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("กรุณาระบุวันที่สิ้นสุดรอบบัญชี", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return;
             }
 
@@ -224,7 +224,7 @@ namespace XPump.SubForm
                     // Warning if accounting period is changed
                     if(setting_to_update.prdstart.HasValue && setting_to_update.prdend.HasValue && (setting_to_update.prdstart != this.tmp_settings.prdstart || setting_to_update.prdend != this.tmp_settings.prdend))
                     {
-                        if (XMessageBox.Show("การเปลี่ยนรอบบัญชีอาจส่งผลให้การแสดงตัวเลขในรายงานไม่ถูกต้อง, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.QUESTION) != DialogResult.OK)
+                        if (XMessageBox.Show("คำเตือน !" + Environment.NewLine + "    การเปลี่ยนรอบบัญชีอาจส่งผลให้การแสดงตัวเลขในรายงานเปลี่ยนแปลงไปจากเดิม(ที่เคยพิมพ์เก็บไว้), ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                         return;
                     }
                     
@@ -248,7 +248,7 @@ namespace XPump.SubForm
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 }
             }
         }

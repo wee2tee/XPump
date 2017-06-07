@@ -60,7 +60,7 @@ namespace XPump.SubForm
                 return;
             }
 
-            if (MessageBox.Show("ข้อมูลที่ท่านกำลังแก้ไขจะไม่ถูกบันทึก, ยืนยันทำต่อ?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            if (XMessageBox.Show("ข้อมูลที่ท่านกำลังแก้ไขจะไม่ถูกบันทึก, ยืนยันทำต่อ?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
             {
                 e.Cancel = true;
                 return;
@@ -109,19 +109,19 @@ namespace XPump.SubForm
         {
             if(this.curr_config.servername.Trim().Length == 0)
             {
-                MessageBox.Show("กรุณาป้อนชื่อเซิร์ฟเวอร์ MySQL", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("กรุณาป้อนชื่อเซิร์ฟเวอร์ MySQL", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.txtServerName.Focus();
                 return;
             }
             if(this.curr_config.uid.Trim().Length == 0)
             {
-                MessageBox.Show("กรุณาป้อนรหัสผู้ใช้", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("กรุณาป้อนรหัสผู้ใช้", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.txtUserId.Focus();
                 return;
             }
             if(this.txtPwd.Text != this.txtConfPwd.Text)
             {
-                MessageBox.Show("กรุณายืนยันรหัสผ่านให้ถูกต้อง", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                XMessageBox.Show("กรุณายืนยันรหัสผ่านให้ถูกต้อง", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.txtConfPwd.Focus();
                 this.txtConfPwd.SelectionStart = 0;
                 this.txtConfPwd.SelectionLength = this.txtConfPwd.Text.Length;
@@ -162,14 +162,14 @@ namespace XPump.SubForm
                     {
                         loading.Close();
                         this.FormFreeze = false;
-                        MessageBox.Show(create_secure_db_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(create_secure_db_result.err_message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
                 else
                 {
                     loading.Close();
                     this.FormFreeze = false;
-                    MessageBox.Show(conn_result.err_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XMessageBox.Show(conn_result.err_message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 }
             };
             worker.RunWorkerAsync();

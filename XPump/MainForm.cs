@@ -12,6 +12,7 @@ using XPump.Misc;
 using XPump.SubForm;
 using System.Data.SQLite;
 using System.IO;
+using CC;
 
 namespace XPump
 {
@@ -264,7 +265,7 @@ namespace XPump
         {
             if(this.opened_child_form.Count > 0)
             {
-                if (MessageBox.Show("โปรแกรมจะปิดหน้าต่างงานที่เปิดอยู่ทั้งหมดให้ก่อน, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                if (XMessageBox.Show("โปรแกรมจะปิดหน้าต่างงานที่เปิดอยู่ทั้งหมดให้ก่อน, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                     return;
 
                 for (int i = this.opened_child_form.Count - 1; i > -1; i--)
@@ -333,7 +334,7 @@ namespace XPump
                 else
                 {
                     this.islog.ConnectMysqlFail(local_db.ConfigValue.servername, local_db.ConfigValue.dbname, test_connect.err_message).Save();
-                    MessageBox.Show(test_connect.err_message + ", กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XMessageBox.Show(test_connect.err_message + ", กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
 
                     DialogDbConfig config = new DialogDbConfig(this);
                     if (config.ShowDialog() != DialogResult.OK)
@@ -364,7 +365,7 @@ namespace XPump
 
         private void mnuBackup_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("ในขั้นตอนการสำรองข้อมูลนี้ ต้องให้ผู้ใช้งานรายอื่นออกจากระบบก่อน", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            XMessageBox.Show("ในขั้นตอนการสำรองข้อมูลนี้ ต้องให้ผู้ใช้งานรายอื่นออกจากระบบก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
 
             DialogBackupData bck = new DialogBackupData(this);
             bck.ShowDialog();
@@ -379,7 +380,8 @@ namespace XPump
 
         private void mnuYearEnd_Click(object sender, EventArgs e)
         {
-
+            DialogYearEnd yearend = new DialogYearEnd(this);
+            yearend.ShowDialog();
         }
 
         public void SetStatusLabelText(string express_db_path, string mysql_db_name, string user_name)
@@ -402,7 +404,7 @@ namespace XPump
         {
             if(this.opened_child_form.Count > 0)
             {
-                if(MessageBox.Show("โปรแกรมจะปิดงานที่เปิดค้างอยู่ทั้งหมดให้ก่อน", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                if(XMessageBox.Show("โปรแกรมจะปิดงานที่เปิดค้างอยู่ทั้งหมดให้ก่อน", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 {
                     e.Cancel = true;
                     return;

@@ -91,6 +91,18 @@ namespace CC
             }
         }
 
+        public CharacterCasing _CharacterCasing
+        {
+            get
+            {
+                return this.textBox1.CharacterCasing;
+            }
+            set
+            {
+                this.textBox1.CharacterCasing = value;
+            }
+        }
+
         private bool focused;
         public bool _Focused
         {
@@ -308,6 +320,11 @@ namespace CC
         {
             if (this._DoubleClicked != null)
                 this._DoubleClicked(this, e);
+        }
+
+        private void XTextEdit_TabStopChanged(object sender, EventArgs e)
+        {
+            this.textBox1.TabStop = this.TabStop;
         }
     }
 }

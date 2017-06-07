@@ -166,7 +166,7 @@
             this.mnuBackup,
             this.mnuRestore});
             this.จดการขอมลToolStripMenuItem.Name = "จดการขอมลToolStripMenuItem";
-            this.จดการขอมลToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.จดการขอมลToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.จดการขอมลToolStripMenuItem.Text = "จัดการฐานข้อมูล";
             // 
             // mnuBackup
@@ -186,14 +186,14 @@
             // mnuYearEnd
             // 
             this.mnuYearEnd.Name = "mnuYearEnd";
-            this.mnuYearEnd.Size = new System.Drawing.Size(164, 22);
-            this.mnuYearEnd.Text = "ประมวลผลสิ้นปี";
+            this.mnuYearEnd.Size = new System.Drawing.Size(178, 22);
+            this.mnuYearEnd.Text = "การประมวลผลสิ้นปี";
             this.mnuYearEnd.Click += new System.EventHandler(this.mnuYearEnd_Click);
             // 
             // mnuChangeCompany
             // 
             this.mnuChangeCompany.Name = "mnuChangeCompany";
-            this.mnuChangeCompany.Size = new System.Drawing.Size(164, 22);
+            this.mnuChangeCompany.Size = new System.Drawing.Size(178, 22);
             this.mnuChangeCompany.Text = "เปลี่ยนบริษัท";
             this.mnuChangeCompany.Click += new System.EventHandler(this.mnuChangeCompany_Click);
             // 

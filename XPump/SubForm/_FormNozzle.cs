@@ -138,7 +138,7 @@ namespace XPump.SubForm
         {
             if(this.form_mode != FORM_MODE.READ)
             {
-                if(MessageBox.Show(StringResource.Msg("0001"), "Message # 0001", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                if(XMessageBox.Show(StringResource.Msg("0001"), "Message # 0001", MessageBoxButtons.OKCancel) != DialogResult.OK)
                 {
                     e.Cancel = true;
                     return;
@@ -184,7 +184,7 @@ namespace XPump.SubForm
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show(StringResource.Msg("0003"), "Message # 0003", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if(XMessageBox.Show(StringResource.Msg("0003"), "Message # 0003", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
@@ -194,7 +194,7 @@ namespace XPump.SubForm
 
                         if(nozzle_to_delete == null)
                         {
-                            MessageBox.Show(StringResource.Msg("0004"), "Message # 0004", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show(StringResource.Msg("0004"), "Message # 0004", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -204,7 +204,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
             }
@@ -224,7 +224,7 @@ namespace XPump.SubForm
             {
                 if(this.temp_nozzle.nozzle.name.Trim().Length == 0)
                 {
-                    MessageBox.Show("กรุณาป้อนรหัส");
+                    XMessageBox.Show("กรุณาป้อนรหัส");
                     this.inline_name.Focus();
                     return;
                 }
@@ -245,7 +245,7 @@ namespace XPump.SubForm
                     {
                         if (ex.InnerException.Message.ToLower().Contains("duplicate entry") || ex.InnerException.InnerException.Message.ToLower().Contains("duplicate entry"))
                         {
-                            MessageBox.Show("รหัส \"" + this.temp_nozzle.nozzle.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("รหัส \"" + this.temp_nozzle.nozzle.name + "\" มีอยู่แล้วในระบบ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             this.inline_name.Focus();
                         }
                     }
@@ -262,7 +262,7 @@ namespace XPump.SubForm
                         nozzle nozzle = db.nozzle.Find(this.temp_nozzle.id);
                         if(nozzle == null)
                         {
-                            MessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show(StringResource.Msg("0002"), "Message # 0002", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
 
@@ -278,7 +278,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
                 return;

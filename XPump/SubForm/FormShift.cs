@@ -277,7 +277,7 @@ namespace XPump.SubForm
             if (this.curr_shift == null)
                 return;
 
-            if(MessageBox.Show("ลบ \"" + this.curr_shift.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if(XMessageBox.Show("ลบ \"" + this.curr_shift.name + "\" ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
@@ -321,7 +321,7 @@ namespace XPump.SubForm
             {
                 if (this.temp_shift.shift.name.Trim().Length == 0)
                 {
-                    MessageBox.Show("กรุณาระบุชื่อผลัด");
+                    XMessageBox.Show("กรุณาระบุชื่อผลัด");
 
                     this.inline_name.Focus();
                     return;
@@ -370,7 +370,7 @@ namespace XPump.SubForm
                         shift shift = db.shift.Find(this.temp_shift.id);
                         if (shift == null)
                         {
-                            MessageBox.Show("ค้นหา \"" + this.temp_shift.name + "\" เพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            XMessageBox.Show("ค้นหา \"" + this.temp_shift.name + "\" เพื่อทำการแก้ไขไม่พบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                             return;
                         }
                         shift.chgby = this.main_form.loged_in_status.loged_in_user_name;
@@ -397,7 +397,7 @@ namespace XPump.SubForm
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
                 return;
@@ -842,7 +842,7 @@ namespace XPump.SubForm
                     shift curr_shift = db.shift.Find(curr_id);
                     if (curr_shift == null)
                     {
-                        MessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return;
                     }
                     int curr_seq = curr_shift.seq;
@@ -865,7 +865,7 @@ namespace XPump.SubForm
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 }
             }
         }
@@ -880,7 +880,7 @@ namespace XPump.SubForm
                     shift curr_shift = db.shift.Find(curr_id);
                     if (curr_shift == null)
                     {
-                        MessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        XMessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return;
                     }
                     int curr_seq = curr_shift.seq;
@@ -903,7 +903,7 @@ namespace XPump.SubForm
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 }
             }
         }

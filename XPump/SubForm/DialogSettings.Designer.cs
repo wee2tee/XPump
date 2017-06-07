@@ -40,6 +40,8 @@
             this.lblNotConnect = new System.Windows.Forms.Label();
             this.lblConnected = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dtPeriodTo = new CC.XDatePicker();
+            this.dtPeriodFrom = new CC.XDatePicker();
             this.numDayAuthLevel = new CC.XNumTextEdit();
             this.numShiftAuthLevel = new CC.XNumTextEdit();
             this.drDayPrintMethod = new CC.XDropdownList();
@@ -53,16 +55,15 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.txtOrgname = new CC.XTextEdit();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.dtPeriodFrom = new CC.XDatePicker();
-            this.dtPeriodTo = new CC.XDatePicker();
-            this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -128,7 +129,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 71);
+            this.label3.Location = new System.Drawing.Point(19, 71);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(201, 16);
             this.label3.TabIndex = 7;
@@ -137,7 +138,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(213, 71);
+            this.label4.Location = new System.Drawing.Point(219, 71);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(13, 16);
             this.label4.TabIndex = 7;
@@ -156,7 +157,7 @@
             // 
             this.btnEditMysqlConnection.Image = global::XPump.Properties.Resources.edit_16;
             this.btnEditMysqlConnection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditMysqlConnection.Location = new System.Drawing.Point(341, 64);
+            this.btnEditMysqlConnection.Location = new System.Drawing.Point(347, 64);
             this.btnEditMysqlConnection.Name = "btnEditMysqlConnection";
             this.btnEditMysqlConnection.Padding = new System.Windows.Forms.Padding(3);
             this.btnEditMysqlConnection.Size = new System.Drawing.Size(178, 30);
@@ -170,7 +171,7 @@
             // 
             this.lblNotConnect.Image = global::XPump.Properties.Resources.exclaimation_16;
             this.lblNotConnect.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblNotConnect.Location = new System.Drawing.Point(230, 71);
+            this.lblNotConnect.Location = new System.Drawing.Point(236, 71);
             this.lblNotConnect.Name = "lblNotConnect";
             this.lblNotConnect.Size = new System.Drawing.Size(110, 16);
             this.lblNotConnect.TabIndex = 7;
@@ -181,7 +182,7 @@
             // 
             this.lblConnected.Image = global::XPump.Properties.Resources.ok_16;
             this.lblConnected.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblConnected.Location = new System.Drawing.Point(230, 71);
+            this.lblConnected.Location = new System.Drawing.Point(236, 71);
             this.lblConnected.Name = "lblConnected";
             this.lblConnected.Size = new System.Drawing.Size(94, 16);
             this.lblConnected.TabIndex = 7;
@@ -213,17 +214,48 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.txtOrgname);
             this.panel1.Controls.Add(this.label20);
             this.panel1.Controls.Add(this.label19);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.label21);
             this.panel1.Controls.Add(this.label18);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Location = new System.Drawing.Point(17, 109);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(518, 285);
+            this.panel1.Size = new System.Drawing.Size(518, 275);
             this.panel1.TabIndex = 9;
+            // 
+            // dtPeriodTo
+            // 
+            this.dtPeriodTo._ReadOnly = false;
+            this.dtPeriodTo._SelectedDate = null;
+            this.dtPeriodTo.BackColor = System.Drawing.Color.White;
+            this.dtPeriodTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtPeriodTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtPeriodTo.Location = new System.Drawing.Point(388, 39);
+            this.dtPeriodTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtPeriodTo.Name = "dtPeriodTo";
+            this.dtPeriodTo.Size = new System.Drawing.Size(103, 23);
+            this.dtPeriodTo.TabIndex = 3;
+            this.dtPeriodTo._SelectedDateChanged += new System.EventHandler(this.dtPeriodTo__SelectedDateChanged);
+            this.dtPeriodTo._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
+            // dtPeriodFrom
+            // 
+            this.dtPeriodFrom._ReadOnly = false;
+            this.dtPeriodFrom._SelectedDate = null;
+            this.dtPeriodFrom.BackColor = System.Drawing.Color.White;
+            this.dtPeriodFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtPeriodFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtPeriodFrom.Location = new System.Drawing.Point(240, 39);
+            this.dtPeriodFrom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtPeriodFrom.Name = "dtPeriodFrom";
+            this.dtPeriodFrom.Size = new System.Drawing.Size(103, 23);
+            this.dtPeriodFrom.TabIndex = 2;
+            this.dtPeriodFrom._SelectedDateChanged += new System.EventHandler(this.dtPeriodFrom__SelectedDateChanged);
+            this.dtPeriodFrom._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // numDayAuthLevel
             // 
@@ -235,7 +267,7 @@
             this.numDayAuthLevel.BackColor = System.Drawing.Color.White;
             this.numDayAuthLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numDayAuthLevel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numDayAuthLevel.Location = new System.Drawing.Point(316, 194);
+            this.numDayAuthLevel.Location = new System.Drawing.Point(316, 190);
             this.numDayAuthLevel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numDayAuthLevel.Name = "numDayAuthLevel";
             this.numDayAuthLevel.Size = new System.Drawing.Size(20, 23);
@@ -253,7 +285,7 @@
             this.numShiftAuthLevel.BackColor = System.Drawing.Color.White;
             this.numShiftAuthLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numShiftAuthLevel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numShiftAuthLevel.Location = new System.Drawing.Point(316, 98);
+            this.numShiftAuthLevel.Location = new System.Drawing.Point(316, 94);
             this.numShiftAuthLevel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numShiftAuthLevel.Name = "numShiftAuthLevel";
             this.numShiftAuthLevel.Size = new System.Drawing.Size(20, 23);
@@ -268,7 +300,7 @@
             this.drDayPrintMethod._Text = "";
             this.drDayPrintMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.drDayPrintMethod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.drDayPrintMethod.Location = new System.Drawing.Point(316, 236);
+            this.drDayPrintMethod.Location = new System.Drawing.Point(316, 232);
             this.drDayPrintMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.drDayPrintMethod.Name = "drDayPrintMethod";
             this.drDayPrintMethod.Size = new System.Drawing.Size(167, 23);
@@ -283,7 +315,7 @@
             this.drShiftPrintMethod._Text = "";
             this.drShiftPrintMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.drShiftPrintMethod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.drShiftPrintMethod.Location = new System.Drawing.Point(316, 139);
+            this.drShiftPrintMethod.Location = new System.Drawing.Point(316, 135);
             this.drShiftPrintMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.drShiftPrintMethod.Name = "drShiftPrintMethod";
             this.drShiftPrintMethod.Size = new System.Drawing.Size(167, 23);
@@ -294,7 +326,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(341, 198);
+            this.label1.Location = new System.Drawing.Point(341, 194);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(169, 32);
             this.label1.TabIndex = 7;
@@ -303,7 +335,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(341, 102);
+            this.label7.Location = new System.Drawing.Point(341, 98);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(169, 32);
             this.label7.TabIndex = 7;
@@ -312,7 +344,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(35, 198);
+            this.label17.Location = new System.Drawing.Point(35, 194);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(184, 16);
             this.label17.TabIndex = 7;
@@ -321,7 +353,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(35, 102);
+            this.label10.Location = new System.Drawing.Point(35, 98);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(184, 16);
             this.label10.TabIndex = 7;
@@ -330,7 +362,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(35, 239);
+            this.label16.Location = new System.Drawing.Point(35, 235);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(278, 16);
             this.label16.TabIndex = 7;
@@ -339,16 +371,16 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(35, 142);
+            this.label8.Location = new System.Drawing.Point(35, 138);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(236, 16);
+            this.label8.Size = new System.Drawing.Size(227, 16);
             this.label8.TabIndex = 7;
-            this.label8.Text = "การรับรองรายการเพื่อพิมพ์รายงานส่วน ก. :";
+            this.label8.Text = "การรับรองรายการเพื่อพิมพ์รายงานส่วน ก.";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 174);
+            this.label15.Location = new System.Drawing.Point(7, 170);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(261, 16);
             this.label15.TabIndex = 7;
@@ -357,7 +389,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 78);
+            this.label9.Location = new System.Drawing.Point(7, 74);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(209, 16);
             this.label9.TabIndex = 7;
@@ -366,34 +398,34 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(233, 198);
+            this.label14.Location = new System.Drawing.Point(300, 194);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(13, 16);
             this.label14.TabIndex = 7;
             this.label14.Text = ":";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 42);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 16);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "2. รอบบัญชี";
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(233, 239);
+            this.label13.Location = new System.Drawing.Point(233, 235);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(13, 16);
             this.label13.TabIndex = 7;
             this.label13.Text = ":";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(233, 102);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(13, 16);
-            this.label11.TabIndex = 7;
-            this.label11.Text = ":";
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(233, 142);
+            this.label12.Location = new System.Drawing.Point(233, 138);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(13, 16);
             this.label12.TabIndex = 7;
@@ -417,77 +449,56 @@
             this.txtOrgname._TextChanged += new System.EventHandler(this.txtOrgname__TextChanged);
             this.txtOrgname._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 45);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 16);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "2. รอบบัญชี";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(187, 45);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(13, 16);
-            this.label18.TabIndex = 7;
-            this.label18.Text = ":";
-            // 
-            // dtPeriodFrom
-            // 
-            this.dtPeriodFrom._ReadOnly = false;
-            this.dtPeriodFrom._SelectedDate = null;
-            this.dtPeriodFrom.BackColor = System.Drawing.Color.White;
-            this.dtPeriodFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtPeriodFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtPeriodFrom.Location = new System.Drawing.Point(244, 42);
-            this.dtPeriodFrom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtPeriodFrom.Name = "dtPeriodFrom";
-            this.dtPeriodFrom.Size = new System.Drawing.Size(103, 23);
-            this.dtPeriodFrom.TabIndex = 2;
-            this.dtPeriodFrom._SelectedDateChanged += new System.EventHandler(this.dtPeriodFrom__SelectedDateChanged);
-            this.dtPeriodFrom._DoubleClicked += new System.EventHandler(this.PerformEdit);
-            // 
-            // dtPeriodTo
-            // 
-            this.dtPeriodTo._ReadOnly = false;
-            this.dtPeriodTo._SelectedDate = null;
-            this.dtPeriodTo.BackColor = System.Drawing.Color.White;
-            this.dtPeriodTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtPeriodTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtPeriodTo.Location = new System.Drawing.Point(388, 42);
-            this.dtPeriodTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtPeriodTo.Name = "dtPeriodTo";
-            this.dtPeriodTo.Size = new System.Drawing.Size(103, 23);
-            this.dtPeriodTo.TabIndex = 3;
-            this.dtPeriodTo._SelectedDateChanged += new System.EventHandler(this.dtPeriodTo__SelectedDateChanged);
-            this.dtPeriodTo._DoubleClicked += new System.EventHandler(this.PerformEdit);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(212, 45);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(29, 16);
-            this.label19.TabIndex = 7;
-            this.label19.Text = "จาก";
-            // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(356, 45);
+            this.label20.Location = new System.Drawing.Point(356, 42);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(22, 16);
             this.label20.TabIndex = 7;
             this.label20.Text = "ถึง";
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(208, 42);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(29, 16);
+            this.label19.TabIndex = 7;
+            this.label19.Text = "จาก";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(187, 42);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(13, 16);
+            this.label18.TabIndex = 7;
+            this.label18.Text = ":";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(300, 98);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(13, 16);
+            this.label21.TabIndex = 7;
+            this.label21.Text = ":";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(300, 138);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(13, 16);
+            this.label11.TabIndex = 7;
+            this.label11.Text = ":";
+            // 
             // DialogSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 410);
+            this.ClientSize = new System.Drawing.Size(554, 400);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnEditMysqlConnection);
             this.Controls.Add(this.lblNotConnect);
@@ -535,7 +546,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private CC.XNumTextEdit numShiftAuthLevel;
         private System.Windows.Forms.Label label7;
@@ -553,5 +563,7 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label21;
     }
 }
