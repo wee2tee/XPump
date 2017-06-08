@@ -95,20 +95,20 @@ namespace XPump.SubForm
         private void RefreshSummary()
         {
             dayendVM vm = this.curr_dayend.ToViewModel(this.main_form.working_express_db);
-            this.curr_dayend.difqty = vm.GetDifQty();
+            //this.curr_dayend.difqty = vm.GetDifQty();
 
             this.lblSaldat.Text = this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
             this.lblStkcod.Text = this.curr_dayend.stkcod;
             this.lblStkdes.Text = vm.stkdes;
             this.lblEndbal.Text = string.Format("{0:#,#0.00}", vm.endbal);
-            this.numBegbal._Value = this.curr_dayend.begbal;
-            this.numRcvqty._Value = this.curr_dayend.rcvqty;
-            this.numSalqty._Value = this.curr_dayend.salqty;
+            this.numBegbal._Value = vm.begbal;
+            this.numRcvqty._Value = vm.rcvqty;
+            this.numSalqty._Value = vm.salqty;
             this.lblDother.Text = string.Format("{0:#,#0.00}", vm.dother);
             this.lblAccbal.Text = string.Format("{0:#,#0.00}", vm.accbal);
-            this.lblDifqty.Text = string.Format("{0:#,#0.00}", this.curr_dayend.difqty);
-            this.numBegdif._Value = this.curr_dayend.begdif;
-            this.lblTotalDif.Text = string.Format("{0:#,#0.00}", this.curr_dayend.begdif + this.curr_dayend.difqty);
+            this.lblDifqty.Text = string.Format("{0:#,#0.00}", vm.difqty);
+            this.numBegdif._Value = vm.begdif;
+            this.lblTotalDif.Text = string.Format("{0:#,#0.00}", vm.begdif + vm.difqty);
         }
 
         private void ResetControlState()
@@ -138,7 +138,7 @@ namespace XPump.SubForm
 
             col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_qty.DataPropertyName).First().Index;
             this.inline_qty.SetInlineControlPosition(this.dgv, row_index, col_index);
-            this.inline_qty._Value = this.tmp_sttak.qty;
+            this.inline_qty._Value = this.tmp_sttak.takqty;
 
             this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().DefaultCellStyle.Padding = new Padding(0, 0, 0, 0);
 
@@ -180,7 +180,15 @@ namespace XPump.SubForm
         {
             if(this.tmp_sttak != null)
             {
-                this.tmp_sttak.qty = ((XNumEdit)sender)._Value;
+                this.tmp_sttak.takqty = ((XNumEdit)sender)._Value;
+            }
+        }
+
+        private void inline_rcvqty__ValueChanged(object sender, EventArgs e)
+        {
+            if(this.tmp_sttak != null)
+            {
+                this.tmp_sttak.rcvqty = ((XNumEdit)sender)._Value;
             }
         }
 
@@ -217,19 +225,23 @@ namespace XPump.SubForm
                         return false;
                     }
 
-                    sttak_to_update.qty = sttak.qty;
+                    sttak_to_update.takqty = sttak.takqty;
+                    sttak_to_update.rcvqty = sttak.rcvqty;
                     sttak_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                     sttak_to_update.chgtime = DateTime.Now;
+                    db.SaveChanges();
 
                     dayend dayend_to_update = db.dayend.Find(sttak_to_update.dayend_id);
+                    //dayend_to_update.rcvqty = dayend_to_update.ToViewModel(this.main_form.working_express_db).GetRcvQty();
+                    //dayend_to_update.difqty = dayend_to_update.ToViewModel(this.main_form.working_express_db).GetDifQty();
                     dayend_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                     dayend_to_update.chgtime = DateTime.Now;
-
                     db.SaveChanges();
+
                     this.main_form.islog.EditData(this.form_dailyclose.menu_id, "แก้ไขปริมาณน้ำมันที่ตรวจวัดได้ ในรายการปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " , รหัสสินค้า \"" + this.curr_dayend.stkcod + "\", เลขที่ถัง \"" + sttak_to_update.ToViewModel(this.main_form.working_express_db).section_name + "\"", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_dayend.stkcod + "|" + sttak_to_update.ToViewModel(this.main_form.working_express_db).section_name, "daysttak", sttak_to_update.id).Save();
 
-                    this.curr_dayend.daysttak.Where(d => d.id == this.tmp_sttak.id).First().qty = this.tmp_sttak.qty;
-                    this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_qty.Name].Value = this.tmp_sttak.qty;
+                    this.curr_dayend.daysttak.Where(d => d.id == this.tmp_sttak.id).First().takqty = this.tmp_sttak.takqty;
+                    this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_qty.Name].Value = this.tmp_sttak.takqty;
                     this.RefreshSummary();
                     return true;
                 }
@@ -273,11 +285,11 @@ namespace XPump.SubForm
                             return;
                         }
 
-                        dayend_to_update.rcvqty = this.curr_dayend.rcvqty;
-                        dayend_to_update.salqty = this.curr_dayend.salqty;
-                        dayend_to_update.begbal = this.curr_dayend.begbal;
-                        dayend_to_update.begdif = this.curr_dayend.begdif;
-                        dayend_to_update.difqty = this.curr_dayend.difqty;
+                        //dayend_to_update.rcvqty = this.curr_dayend.rcvqty;
+                        //dayend_to_update.salqty = this.curr_dayend.salqty;
+                        //dayend_to_update.begbal = this.curr_dayend.begbal;
+                        //dayend_to_update.begdif = this.curr_dayend.begdif;
+                        //dayend_to_update.difqty = this.curr_dayend.difqty;
                         dayend_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                         dayend_to_update.chgtime = DateTime.Now;
 
@@ -433,38 +445,38 @@ namespace XPump.SubForm
 
         private void btnSyncRcvqty_Click(object sender, EventArgs e)
         {
-            var rcv = this.curr_dayend.ToViewModel(this.main_form.working_express_db).GetRcvQty();
-            if(this.curr_dayend.rcvqty != rcv)
-            {
-                if(XMessageBox.Show("เปลี่ยนยอดรับน้ำมันจาก " + string.Format("{0:#,#0.00}", this.curr_dayend.rcvqty) + " ลิตร  ไปเป็น  " + string.Format("{0:#,#0.00}", rcv) + " ลิตร, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
-                {
-                    this.curr_dayend.rcvqty = rcv;
-                    this.numRcvqty._Value = this.curr_dayend.rcvqty;
-                    //this.RefreshSummary();
-                }
-            }
-            this.numRcvqty.Focus();
+            //var rcv = this.curr_dayend.ToViewModel(this.main_form.working_express_db).GetRcvQty();
+            //if(this.curr_dayend.rcvqty != rcv)
+            //{
+            //    if(XMessageBox.Show("เปลี่ยนยอดรับน้ำมันจาก " + string.Format("{0:#,#0.00}", this.curr_dayend.rcvqty) + " ลิตร  ไปเป็น  " + string.Format("{0:#,#0.00}", rcv) + " ลิตร, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
+            //    {
+            //        this.curr_dayend.rcvqty = rcv;
+            //        this.numRcvqty._Value = this.curr_dayend.rcvqty;
+            //        //this.RefreshSummary();
+            //    }
+            //}
+            //this.numRcvqty.Focus();
         }
 
         private void numRcvqty__ValueChanged(object sender, EventArgs e)
         {
-            this.curr_dayend.rcvqty = ((XNumEdit)sender)._Value;
+            //this.curr_dayend.rcvqty = ((XNumEdit)sender)._Value;
             //this.RefreshSummary();
         }
 
         private void numBegbal__ValueChanged(object sender, EventArgs e)
         {
-            this.curr_dayend.begbal = ((XNumEdit)sender)._Value;
+            //this.curr_dayend.begbal = ((XNumEdit)sender)._Value;
         }
 
         private void numSalqty__ValueChanged(object sender, EventArgs e)
         {
-            this.curr_dayend.salqty = ((XNumEdit)sender)._Value;
+            //this.curr_dayend.salqty = ((XNumEdit)sender)._Value;
         }
 
         private void numBegdif__ValueChanged(object sender, EventArgs e)
         {
-            this.curr_dayend.begdif = ((XNumEdit)sender)._Value;
+            //this.curr_dayend.begdif = ((XNumEdit)sender)._Value;
         }
 
         private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)

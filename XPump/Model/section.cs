@@ -18,6 +18,7 @@ namespace XPump.Model
         public section()
         {
             this.daysttak = new HashSet<daysttak>();
+            this.dother = new HashSet<dother>();
             this.nozzle = new HashSet<nozzle>();
             this.shiftsttak = new HashSet<shiftsttak>();
         }
@@ -39,6 +40,8 @@ namespace XPump.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<daysttak> daysttak { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<dother> dother { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<nozzle> nozzle { get; set; }
         public virtual tank tank { get; set; }

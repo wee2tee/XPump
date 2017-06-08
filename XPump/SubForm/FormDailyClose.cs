@@ -219,11 +219,11 @@ namespace XPump.SubForm
                                 cretime = DateTime.Now
                             };
                             dayendVM dvm = dayend.ToViewModel(this.main_form.working_express_db);
-                            dayend.rcvqty = dvm.GetRcvQty();
-                            dayend.salqty = dvm.GetSalQty();
-                            dayend.begbal = dvm.GetBegBal();
-                            dayend.begdif = dvm.GetBegDif();
-                            dayend.difqty = dvm.GetDifQty();
+                            //dayend.rcvqty = dvm.GetRcvQty();
+                            //dayend.salqty = dvm.GetSalQty();
+                            //dayend.begbal = dvm.GetBegBal();
+                            //dayend.begdif = dvm.GetBegDif();
+                            //dayend.difqty = dvm.GetDifQty();
 
                             //dayendVM d = dayend.ToViewModel(this.main_form.working_express_db);
                             db.dayend.Add(dayend);
@@ -249,7 +249,8 @@ namespace XPump.SubForm
                                 db.daysttak.Add(new daysttak
                                 {
                                     dayend_id = dayend.id,
-                                    qty = sttak != null ? sttak.qty : -1,
+                                    takqty = sttak != null ? sttak.qty : -1,
+                                    rcvqty = -1,
                                     section_id = sect.id,
                                     creby = this.main_form.loged_in_status.loged_in_user_name,
                                     cretime = DateTime.Now
@@ -263,8 +264,9 @@ namespace XPump.SubForm
                                 }
                             }
 
-                            /* update difqty causing from daysttak that changed */
-                            dayend.difqty = dvm.GetDifQty();
+                            /* update rcvqty,difqty causing from daysttak that changed */
+                            //dayend.rcvqty = dvm.GetRcvQty();
+                            //dayend.difqty = dvm.GetDifQty();
                             db.SaveChanges();
                             //this.main_form.islog.AddData(this.menu_id, "เพิ่มรายการปิดยอดขายประจำวันที่ " + dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + ", รหัสสินค้า \"" + dayend.stkcod + "\"", dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + dayend.stkcod, "dayend", dayend.id).Save();
                         }
@@ -962,7 +964,7 @@ namespace XPump.SubForm
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 var dayend_ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
-                if (db.daysttak.Where(s => dayend_ids.Contains(s.dayend_id) && s.qty < 0).Count() > 0)
+                if (db.daysttak.Where(s => dayend_ids.Contains(s.dayend_id) && s.takqty < 0).Count() > 0)
                 {
                     if (XMessageBox.Show("ปริมาณน้ำมันที่ตรวจวัดได้ยังป้อนไม่ครบ, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                         return;
@@ -1015,7 +1017,7 @@ namespace XPump.SubForm
                 {
                     var sttak = db.daysttak.Include("dayend")
                                 .Where(st => st.dayend.saldat.CompareTo(date_selector.FromDate.Value) >= 0 && st.dayend.saldat.CompareTo(date_selector.ToDate.Value) <= 0)
-                                .Where(st => st.qty < 0).ToList();
+                                .Where(st => st.takqty < 0).ToList();
 
                     if(sttak.Count > 0)
                     {
@@ -1988,6 +1990,20 @@ namespace XPump.SubForm
                     Rectangle rect = new Rectangle(e.CellBounds.X + (int)Math.Floor((decimal)(e.CellBounds.Width - w) / 2), e.CellBounds.Y + (int)Math.Floor((decimal)(e.CellBounds.Height - h) / 2), w, h);
                     e.Graphics.DrawImage(XPump.Properties.Resources.edit_list_16, rect);
                     e.Handled = true;
+                }
+
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_rcvqty.Name).First().Index)
+                {
+                    if(this.dayend_list[e.RowIndex].daysttak.Where(d => d.rcvqty < 0).Count() > 0)
+                    {
+                        e.CellStyle.ForeColor = Color.Red;
+                        e.CellStyle.SelectionForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        e.CellStyle.ForeColor = ((XDatagrid)sender).DefaultCellStyle.ForeColor;
+                        e.CellStyle.SelectionForeColor = ((XDatagrid)sender).DefaultCellStyle.SelectionForeColor;
+                    }
                 }
             }
         }

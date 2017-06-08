@@ -530,10 +530,6 @@ namespace XPump.Misc
             daysttakVM s = new daysttakVM
             {
                 working_express_db = working_express_db,
-                id = sttak.id,
-                dayend_id = sttak.dayend_id,
-                section_id = sttak.section_id,
-                qty = sttak.qty,
                 daysttak = sttak
             };
 
@@ -2023,7 +2019,7 @@ namespace XPump.Misc
         {
             using (xpumpEntities db = DBX.DataSet(dayend.working_express_db))
             {
-                return db.daysttak.Where(d => d.dayend_id == dayend.id && d.qty < 0).ToList();
+                return db.daysttak.Where(d => d.dayend_id == dayend.id && d.takqty < 0).ToList();
             }
         }
     }

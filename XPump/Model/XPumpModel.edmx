@@ -12,11 +12,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="saldat" Type="date" Nullable="false" />
           <Property Name="stkcod" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="begbal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="begdif" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="rcvqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="salqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
-          <Property Name="difqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
@@ -32,9 +27,11 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="qty" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="takqty" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="begbal" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="begdif" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="rcvqty" Type="decimal" Precision="15" Scale="2" Nullable="false" />
-          <Property Name="accbal" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="salqty" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="dayend_id" Type="int" Nullable="false" />
           <Property Name="section_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
@@ -60,6 +57,7 @@
           <Property Name="istab_id" Type="int" Nullable="false" />
           <Property Name="salessummary_id" Type="int" />
           <Property Name="dayend_id" Type="int" />
+          <Property Name="section_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="chgby" Type="varchar" MaxLength="20" />
@@ -341,6 +339,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_dother_section">
+          <End Role="section" Type="Self.section" Multiplicity="1" />
+          <End Role="dother" Type="Self.dother" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="section">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dother">
+              <PropertyRef Name="section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk-nozzle-section_id">
           <End Role="section" Type="Self.section" Multiplicity="1" />
           <End Role="nozzle" Type="Self.nozzle" Multiplicity="*" />
@@ -482,6 +492,10 @@
             <End Role="salessummary" EntitySet="salessummary" />
             <End Role="dother" EntitySet="dother" />
           </AssociationSet>
+          <AssociationSet Name="fk_dother_section" Association="Self.fk_dother_section">
+            <End Role="section" EntitySet="section" />
+            <End Role="dother" EntitySet="dother" />
+          </AssociationSet>
           <AssociationSet Name="fk-nozzle-section_id" Association="Self.fk-nozzle-section_id">
             <End Role="section" EntitySet="section" />
             <End Role="nozzle" EntitySet="nozzle" />
@@ -527,11 +541,6 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="saldat" Type="DateTime" Nullable="false" />
           <Property Name="stkcod" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="begbal" Type="Decimal" Nullable="false" />
-          <Property Name="begdif" Type="Decimal" Nullable="false" />
-          <Property Name="rcvqty" Type="Decimal" Nullable="false" />
-          <Property Name="salqty" Type="Decimal" Nullable="false" />
-          <Property Name="difqty" Type="Decimal" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -549,9 +558,11 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="qty" Type="Decimal" Nullable="false" />
+          <Property Name="takqty" Type="Decimal" Nullable="false" />
+          <Property Name="begbal" Type="Decimal" Nullable="false" />
+          <Property Name="begdif" Type="Decimal" Nullable="false" />
           <Property Name="rcvqty" Type="Decimal" Nullable="false" />
-          <Property Name="accbal" Type="Decimal" Nullable="false" />
+          <Property Name="salqty" Type="Decimal" Nullable="false" />
           <Property Name="dayend_id" Type="Int32" Nullable="false" />
           <Property Name="section_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
@@ -579,6 +590,7 @@
           <Property Name="istab_id" Type="Int32" Nullable="false" />
           <Property Name="salessummary_id" Type="Int32" />
           <Property Name="dayend_id" Type="Int32" />
+          <Property Name="section_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -586,6 +598,7 @@
           <NavigationProperty Name="dayend" Relationship="Self.fk_dother_dayend1" FromRole="dother" ToRole="dayend" />
           <NavigationProperty Name="istab" Relationship="Self.fk_dother_istab1" FromRole="dother" ToRole="istab" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_dother_salessummary1" FromRole="dother" ToRole="salessummary" />
+          <NavigationProperty Name="section" Relationship="Self.fk_dother_section" FromRole="dother" ToRole="section" />
         </EntityType>
         <EntityType Name="istab">
           <Key>
@@ -695,6 +708,7 @@
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="daysttak" Relationship="Self.fk___daysttak___section_id" FromRole="section" ToRole="daysttak" />
+          <NavigationProperty Name="dother" Relationship="Self.fk_dother_section" FromRole="section" ToRole="dother" />
           <NavigationProperty Name="nozzle" Relationship="Self.fk_nozzle_section_id" FromRole="section" ToRole="nozzle" />
           <NavigationProperty Name="tank" Relationship="Self.fk_section_tank_id" FromRole="section" ToRole="tank" />
           <NavigationProperty Name="shiftsttak" Relationship="Self.fk_sttak_section_id" FromRole="section" ToRole="shiftsttak" />
@@ -862,6 +876,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_dother_section">
+          <End Role="section" Type="Self.section" Multiplicity="1" />
+          <End Role="dother" Type="Self.dother" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="section">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dother">
+              <PropertyRef Name="section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk___saleshistory___nozzle_id">
           <End Role="nozzle" Type="Self.nozzle" Multiplicity="1" />
           <End Role="saleshistory" Type="Self.saleshistory" Multiplicity="*" />
@@ -1019,6 +1045,10 @@
             <End Role="salessummary" EntitySet="salessummary" />
             <End Role="dother" EntitySet="dother" />
           </AssociationSet>
+          <AssociationSet Name="fk_dother_section" Association="Self.fk_dother_section">
+            <End Role="section" EntitySet="section" />
+            <End Role="dother" EntitySet="dother" />
+          </AssociationSet>
           <AssociationSet Name="fk___saleshistory___nozzle_id" Association="Self.fk___saleshistory___nozzle_id">
             <End Role="nozzle" EntitySet="nozzle" />
             <End Role="saleshistory" EntitySet="saleshistory" />
@@ -1072,11 +1102,6 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
                 <ScalarProperty Name="stkcod" ColumnName="stkcod" />
-                <ScalarProperty Name="begbal" ColumnName="begbal" />
-                <ScalarProperty Name="begdif" ColumnName="begdif" />
-                <ScalarProperty Name="rcvqty" ColumnName="rcvqty" />
-                <ScalarProperty Name="salqty" ColumnName="salqty" />
-                <ScalarProperty Name="difqty" ColumnName="difqty" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />
@@ -1093,9 +1118,11 @@
             <EntityTypeMapping TypeName="xpumpModel.daysttak">
               <MappingFragment StoreEntitySet="daysttak">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="takqty" ColumnName="takqty" />
+                <ScalarProperty Name="begbal" ColumnName="begbal" />
+                <ScalarProperty Name="begdif" ColumnName="begdif" />
                 <ScalarProperty Name="rcvqty" ColumnName="rcvqty" />
-                <ScalarProperty Name="accbal" ColumnName="accbal" />
+                <ScalarProperty Name="salqty" ColumnName="salqty" />
                 <ScalarProperty Name="dayend_id" ColumnName="dayend_id" />
                 <ScalarProperty Name="section_id" ColumnName="section_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
@@ -1123,6 +1150,7 @@
                 <ScalarProperty Name="istab_id" ColumnName="istab_id" />
                 <ScalarProperty Name="salessummary_id" ColumnName="salessummary_id" />
                 <ScalarProperty Name="dayend_id" ColumnName="dayend_id" />
+                <ScalarProperty Name="section_id" ColumnName="section_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />
                 <ScalarProperty Name="chgby" ColumnName="chgby" />

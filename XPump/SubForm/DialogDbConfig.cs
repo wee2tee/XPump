@@ -459,11 +459,11 @@ namespace XPump.SubForm
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`saldat` DATE NOT NULL,";
                 cmd.CommandText += "`stkcod` VARCHAR(40) NOT NULL DEFAULT '',";
-                cmd.CommandText += "`begbal` DECIMAL(14, 2) NOT NULL,";
-                cmd.CommandText += "`begdif` DECIMAL(14, 2) NOT NULL,";
-                cmd.CommandText += "`rcvqty` DECIMAL(14, 2) NOT NULL,";
-                cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
-                cmd.CommandText += "`difqty` DECIMAL(14, 2) NOT NULL,";
+                //cmd.CommandText += "`begbal` DECIMAL(14, 2) NOT NULL,";
+                //cmd.CommandText += "`begdif` DECIMAL(14, 2) NOT NULL,";
+                //cmd.CommandText += "`rcvqty` DECIMAL(14, 2) NOT NULL,";
+                //cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
+                //cmd.CommandText += "`difqty` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
@@ -481,12 +481,13 @@ namespace XPump.SubForm
                 // Daysttak Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`daysttak` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
-                cmd.CommandText += "`qty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
-                cmd.CommandText += "`rcvqty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
-                /** ยอดคงเหลือทางบัญชีสะสม **/
-                /**  รายการแรกของปี (section.begacc + rcvqty - saleshistory.salqty)  **/
-                /**  ไม่ใช่รายการแรกของปี (section.daysttak.Last().accbal + rcvqty - saleshistory.salqty)  **/
-                cmd.CommandText += "`accbal` DECIMAL(15, 2) NOT NULL DEFAULT 0,"; 
+                cmd.CommandText += "`takqty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
+                cmd.CommandText += "`begbal` DECIMAL(15, 2) NOT NULL DEFAULT 0,"; // From previous daysttak.takqty
+                cmd.CommandText += "`begdif` DECIMAL(15, 2) NOT NULL DEFAULT 0,"; // From previous daysttak [ begdif + (begbal + rcvqty - salqty)]
+                cmd.CommandText += "`rcvqty` DECIMAL(15, 2) NOT NULL DEFAULT 0,"; // Retrieve sum of stcrd.xtrnqty from express in current date
+                cmd.CommandText += "`salqty` DECIMAL(15, 2) NOT NULL DEFAULT 0,"; // Sum of saleshistory.salqty in current date
+                // difqty in current date calculate from  [ takqty - (begbal + rcvqty - salqty) ]
+                // accbal in current date calculate from  [ section.begacc + ((all previous daysttak.rcvqty) + rcvqty) - ((all previous daysttak.salqty) + salqty) ]
                 cmd.CommandText += "`dayend_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`section_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
@@ -528,6 +529,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`istab_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`salessummary_id` INT(11) NULL,";
                 cmd.CommandText += "`dayend_id` INT(11) NULL,";
+                cmd.CommandText += "`section_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
                 cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
@@ -538,7 +540,8 @@ namespace XPump.SubForm
                 cmd.CommandText += "INDEX `fk_dother_dayend1_idx` (`dayend_id` ASC),";
                 cmd.CommandText += "CONSTRAINT `fk_dother_istab1` FOREIGN KEY (`istab_id`) REFERENCES `" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
                 cmd.CommandText += "CONSTRAINT `fk_dother_salessummary1` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk_dother_dayend1` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk_dother_dayend1` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk_dother_section` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;";
                 cmd.ExecuteNonQuery();
 

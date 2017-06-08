@@ -39,6 +39,7 @@
             this.dgv = new CC.XDatagrid();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.inline_rcvqty = new CC.XNumEdit();
             this.inline_qty = new CC.XNumEdit();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -63,13 +64,13 @@
             this.lblSaldat = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnSyncRcvqty = new System.Windows.Forms.Button();
             this.numSalqty = new CC.XNumEdit();
             this.numRcvqty = new CC.XNumEdit();
             this.numBegbal = new CC.XNumEdit();
             this.numBegdif = new CC.XNumEdit();
             this.lblDother = new System.Windows.Forms.Label();
             this.btnDother = new System.Windows.Forms.Button();
-            this.btnSyncRcvqty = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -87,7 +88,6 @@
             this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_chgby = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.inline_rcvqty = new CC.XNumEdit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -188,7 +188,7 @@
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(435, 134);
+            this.dgv.Size = new System.Drawing.Size(444, 134);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
             this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
@@ -207,7 +207,7 @@
             this.tabControl1.Location = new System.Drawing.Point(4, 104);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(443, 163);
+            this.tabControl1.Size = new System.Drawing.Size(452, 163);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -217,10 +217,43 @@
             this.tabPage1.Controls.Add(this.dgv);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(435, 134);
+            this.tabPage1.Size = new System.Drawing.Size(444, 134);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "1. ปริมาณน้ำมันสะสมในถังวัดได้จริงสิ้นงวด";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // inline_rcvqty
+            // 
+            this.inline_rcvqty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_rcvqty._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.inline_rcvqty._DecimalDigit = 2;
+            this.inline_rcvqty._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.inline_rcvqty._MaxLength = 30;
+            this.inline_rcvqty._ReadOnly = false;
+            this.inline_rcvqty._SelectionLength = 0;
+            this.inline_rcvqty._SelectionStart = 4;
+            this.inline_rcvqty._Text = "0.00";
+            this.inline_rcvqty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.inline_rcvqty._UseThoundsandSeparate = true;
+            this.inline_rcvqty._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.inline_rcvqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.inline_rcvqty.BackColor = System.Drawing.Color.White;
+            this.inline_rcvqty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_rcvqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_rcvqty.Location = new System.Drawing.Point(142, 34);
+            this.inline_rcvqty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_rcvqty.Name = "inline_rcvqty";
+            this.inline_rcvqty.Size = new System.Drawing.Size(118, 23);
+            this.inline_rcvqty.TabIndex = 1;
+            this.inline_rcvqty._ValueChanged += new System.EventHandler(this.inline_rcvqty__ValueChanged);
             // 
             // inline_qty
             // 
@@ -248,7 +281,7 @@
             this.inline_qty.BackColor = System.Drawing.Color.White;
             this.inline_qty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_qty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_qty.Location = new System.Drawing.Point(276, 34);
+            this.inline_qty.Location = new System.Drawing.Point(285, 34);
             this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_qty.Name = "inline_qty";
             this.inline_qty.Size = new System.Drawing.Size(156, 23);
@@ -492,7 +525,7 @@
             this.panel1.Controls.Add(this.lblAccbal);
             this.panel1.Controls.Add(this.lblDifqty);
             this.panel1.Controls.Add(this.lblTotalDif);
-            this.panel1.Location = new System.Drawing.Point(282, 271);
+            this.panel1.Location = new System.Drawing.Point(291, 271);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(160, 264);
             this.panel1.TabIndex = 99;
@@ -507,6 +540,18 @@
             this.label4.Size = new System.Drawing.Size(44, 16);
             this.label4.TabIndex = 89;
             this.label4.Text = "(ลิตร)";
+            // 
+            // btnSyncRcvqty
+            // 
+            this.btnSyncRcvqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSyncRcvqty.Image = global::XPump.Properties.Resources.sync_16;
+            this.btnSyncRcvqty.Location = new System.Drawing.Point(2, 73);
+            this.btnSyncRcvqty.Name = "btnSyncRcvqty";
+            this.btnSyncRcvqty.Size = new System.Drawing.Size(25, 25);
+            this.btnSyncRcvqty.TabIndex = 98;
+            this.btnSyncRcvqty.TabStop = false;
+            this.btnSyncRcvqty.UseVisualStyleBackColor = true;
+            this.btnSyncRcvqty.Click += new System.EventHandler(this.btnSyncRcvqty_Click);
             // 
             // numSalqty
             // 
@@ -667,24 +712,12 @@
             this.btnDother.UseVisualStyleBackColor = true;
             this.btnDother.Click += new System.EventHandler(this.btnDother_Click);
             // 
-            // btnSyncRcvqty
-            // 
-            this.btnSyncRcvqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSyncRcvqty.Image = global::XPump.Properties.Resources.sync_16;
-            this.btnSyncRcvqty.Location = new System.Drawing.Point(2, 73);
-            this.btnSyncRcvqty.Name = "btnSyncRcvqty";
-            this.btnSyncRcvqty.Size = new System.Drawing.Size(25, 25);
-            this.btnSyncRcvqty.TabIndex = 98;
-            this.btnSyncRcvqty.TabStop = false;
-            this.btnSyncRcvqty.UseVisualStyleBackColor = true;
-            this.btnSyncRcvqty.Click += new System.EventHandler(this.btnSyncRcvqty_Click);
-            // 
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(228, 545);
+            this.btnCancel.Location = new System.Drawing.Point(233, 545);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(5, 3, 0, 3);
             this.btnCancel.Size = new System.Drawing.Size(168, 34);
@@ -700,7 +733,7 @@
             this.btnOK.Enabled = false;
             this.btnOK.Image = global::XPump.Properties.Resources.save_16;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(54, 545);
+            this.btnOK.Location = new System.Drawing.Point(59, 545);
             this.btnOK.Name = "btnOK";
             this.btnOK.Padding = new System.Windows.Forms.Padding(5, 3, 12, 3);
             this.btnOK.Size = new System.Drawing.Size(168, 34);
@@ -744,11 +777,11 @@
             dataGridViewCellStyle2.Format = "N2";
             dataGridViewCellStyle2.NullValue = null;
             this.col_rcvqty.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_rcvqty.HeaderText = "ยอดรับน้ำมัน";
-            this.col_rcvqty.MinimumWidth = 110;
+            this.col_rcvqty.HeaderText = "ยอดรับน้ำมัน (ลิตร)";
+            this.col_rcvqty.MinimumWidth = 120;
             this.col_rcvqty.Name = "col_rcvqty";
             this.col_rcvqty.ReadOnly = true;
-            this.col_rcvqty.Width = 110;
+            this.col_rcvqty.Width = 120;
             // 
             // col_btn_rcvqty
             // 
@@ -845,44 +878,11 @@
             this.col_chgtime.ReadOnly = true;
             this.col_chgtime.Visible = false;
             // 
-            // inline_rcvqty
-            // 
-            this.inline_rcvqty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_rcvqty._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.inline_rcvqty._DecimalDigit = 2;
-            this.inline_rcvqty._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.inline_rcvqty._MaxLength = 30;
-            this.inline_rcvqty._ReadOnly = false;
-            this.inline_rcvqty._SelectionLength = 0;
-            this.inline_rcvqty._SelectionStart = 4;
-            this.inline_rcvqty._Text = "0.00";
-            this.inline_rcvqty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.inline_rcvqty._UseThoundsandSeparate = true;
-            this.inline_rcvqty._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.inline_rcvqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inline_rcvqty.BackColor = System.Drawing.Color.White;
-            this.inline_rcvqty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_rcvqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_rcvqty.Location = new System.Drawing.Point(141, 34);
-            this.inline_rcvqty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_rcvqty.Name = "inline_rcvqty";
-            this.inline_rcvqty.Size = new System.Drawing.Size(110, 23);
-            this.inline_rcvqty.TabIndex = 1;
-            this.inline_rcvqty._ValueChanged += new System.EventHandler(this.inline_qty__ValueChanged);
-            // 
             // DialogDayendEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 595);
+            this.ClientSize = new System.Drawing.Size(458, 595);
             this.Controls.Add(this.btnDother);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCancel);
@@ -972,6 +972,7 @@
         private CC.XNumEdit numBegdif;
         private System.Windows.Forms.Label lblDother;
         private System.Windows.Forms.Button btnDother;
+        private CC.XNumEdit inline_rcvqty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_tank_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_name;
@@ -987,6 +988,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_cretime;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_chgby;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_chgtime;
-        private CC.XNumEdit inline_rcvqty;
     }
 }

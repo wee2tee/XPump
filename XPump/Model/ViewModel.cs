@@ -34,6 +34,7 @@ namespace XPump.Model
         public int istab_id { get { return this.dother.istab_id; } }
         public int? salessummary_id { get { return this.dother.salessummary_id; } }
         public int? dayend_id { get { return this.dother.dayend_id; } }
+        public int section_id { get { return this.dother.section_id; } }
         public string creby { get { return this.dother.creby; } }
         public DateTime cretime { get { return this.dother.cretime; } }
         public string chgby { get { return this.dother.chgby; } }
@@ -912,13 +913,40 @@ namespace XPump.Model
                     //    return -1;
                     //}
 
-                    return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.qty);
+                    return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.takqty);
                 }
             }
         }
-        public decimal begbal { get { return this.dayend.begbal; } }
-        public decimal rcvqty { get { return this.dayend.rcvqty; } }
-        public decimal salqty { get { return this.dayend.salqty; } }
+        public decimal begbal
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.begbal);
+                }
+            }
+        }
+        public decimal rcvqty
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.rcvqty);
+                }
+            }
+        }
+        public decimal salqty
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.salqty);
+                }
+            }
+        }
         public decimal dother {
             get
             {
@@ -935,8 +963,26 @@ namespace XPump.Model
                 return this.begbal + this.rcvqty - (this.salqty + this.dother);
             }
         }
-        public decimal difqty { get { return this.dayend.difqty; } }
-        public decimal begdif { get { return this.dayend.begdif; } }
+        public decimal difqty
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.takqty - (d.begbal + d.rcvqty - d.salqty));
+                }
+            }
+        }
+        public decimal begdif
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.begdif);
+                }
+            }
+        }
         public string creby { get { return this.dayend.creby; } }
         public DateTime cretime { get { return this.dayend.cretime; } }
         public string chgby { get { return this.dayend.chgby; } }
@@ -952,24 +998,28 @@ namespace XPump.Model
             }
         }
 
-        public decimal GetRcvQty()
-        {
-            if (DbfTable.IsDataFileExist("Stcrd.dbf", working_express_db))
-            {
-                var xtrnqty = DbfTable.Stcrd(working_express_db).ToStcrdList()
-                        .Where(s => s.docdat.HasValue)
-                        .Where(s => s.docdat.Value == this.dayend.saldat)
-                        .Where(s => s.posopr == "0")
-                        .Where(s => s.stkcod.Trim() == this.dayend.stkcod.Trim())
-                        .Sum(s => s.xtrnqty);
+        //public decimal GetRcvQty()
+        //{
+        //    //if (DbfTable.IsDataFileExist("Stcrd.dbf", working_express_db))
+        //    //{
+        //    //    var xtrnqty = DbfTable.Stcrd(working_express_db).ToStcrdList()
+        //    //            .Where(s => s.docdat.HasValue)
+        //    //            .Where(s => s.docdat.Value == this.dayend.saldat)
+        //    //            .Where(s => s.posopr == "0")
+        //    //            .Where(s => s.stkcod.Trim() == this.dayend.stkcod.Trim())
+        //    //            .Sum(s => s.xtrnqty);
 
-                return Convert.ToDecimal(xtrnqty);
-            }
-            else
-            {
-                return 0m;
-            }
-        }
+        //    //    return Convert.ToDecimal(xtrnqty);
+        //    //}
+        //    //else
+        //    //{
+        //    //    return 0m;
+        //    //}
+        //    using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+        //    {
+        //        return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.rcvqty);
+        //    }
+        //}
 
         public decimal GetSalQty()
         {
@@ -995,13 +1045,13 @@ namespace XPump.Model
                                 .OrderByDescending(d => d.saldat).FirstOrDefault();
                 if (prev_dayend != null)
                 {
-                    if (db.daysttak.Where(d => d.dayend_id == prev_dayend.id).Select(d => d.qty).ToList().Contains<decimal>(-1m))
+                    if (db.daysttak.Where(d => d.dayend_id == prev_dayend.id).Select(d => d.takqty).ToList().Contains<decimal>(-1m))
                     {
                         beg = -1;
                     }
                     else
                     {
-                        beg = db.daysttak.Where(d => d.dayend_id == prev_dayend.id).ToList().Sum(d => d.qty);
+                        beg = db.daysttak.Where(d => d.dayend_id == prev_dayend.id).ToList().Sum(d => d.takqty);
                     }
                 }
                 else
@@ -1057,7 +1107,7 @@ namespace XPump.Model
     public class daysttakVM
     {
         public SccompDbf working_express_db { get; set; }
-        public int id { get; set; }
+        public int id { get { return this.daysttak.id; } }
         public string tank_name
         {
             get
@@ -1085,11 +1135,48 @@ namespace XPump.Model
                 }
             }
         }
-        public decimal rcvqty { get; set; }
-        public decimal accbal { get; set; }
-        public decimal qty { get; set; }
-        public int dayend_id { get; set; }
-        public int section_id { get; set; }
+        public decimal rcvqty { get { return this.daysttak.rcvqty; } }
+        // Accounting balance before deduct dother in FormDailyclose
+        public decimal accbal
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    //return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.rcvqty);
+                    decimal begbal = 0m;
+                    var section = db.section.Find(this.daysttak.section_id);
+                    if (section != null)
+                        begbal = section.begacc;
+
+                    var dayend = db.dayend.Find(this.daysttak.dayend_id);
+
+                    if (dayend != null)
+                    {
+                        var rcv_qty = db.daysttak.Include("dayend")
+                                    .Where(d => d.dayend.saldat.CompareTo(dayend.saldat) <= 0)
+                                    .Where(d => d.section_id == this.section_id)
+                                    .ToList()
+                                    .Sum(d => d.rcvqty);
+
+                        var sal_qty = db.daysttak.Include("dayend")
+                                    .Where(d => d.dayend.saldat.CompareTo(dayend.saldat) <= 0)
+                                    .Where(d => d.section_id == this.section_id)
+                                    .ToList()
+                                    .Sum(d => d.salqty);
+
+                        return begbal + rcv_qty - sal_qty;
+                    }
+                    else
+                    {
+                        return begbal;
+                    }
+                }
+            }
+        }
+        public decimal qty { get { return this.daysttak.takqty; } }
+        public int dayend_id { get { return this.daysttak.dayend_id; } }
+        public int section_id { get { return this.daysttak.section_id; } }
 
         public daysttak daysttak { get; set; }
     }
@@ -1149,7 +1236,7 @@ namespace XPump.Model
                     {
                         var prev_month_sttak = db.daysttak.Include("dayend").Where(d => d.dayend.stkcod == this.stkcod && d.dayend.saldat == last_month_sttak.dayend.saldat).ToList();
 
-                        return prev_month_sttak.Sum(s => s.qty);
+                        return prev_month_sttak.Sum(s => s.takqty);
                     }
                     else
                     {
@@ -1283,6 +1370,7 @@ namespace XPump.Model
                         var beg_dif = db.dayend
                                         .Where(d => d.stkcod == this.stkcod)
                                         .Where(d => d.saldat == first_dayend_of_month.saldat)
+                                        .ToViewModel(this.working_express_db)
                                         .ToList()
                                         .Sum(d => d.begdif);
 
@@ -1322,7 +1410,7 @@ namespace XPump.Model
                     {
                         working_express_db = this.working_express_db,
                         section_id = item.section_id,
-                        qty = item.qty
+                        qty = item.takqty
                     });
                 }
 

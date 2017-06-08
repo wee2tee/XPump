@@ -24,11 +24,6 @@ namespace XPump.Model
         public int id { get; set; }
         public System.DateTime saldat { get; set; }
         public string stkcod { get; set; }
-        public decimal begbal { get; set; }
-        public decimal begdif { get; set; }
-        public decimal rcvqty { get; set; }
-        public decimal salqty { get; set; }
-        public decimal difqty { get; set; }
         public string creby { get; set; }
         public System.DateTime cretime { get; set; }
         public string chgby { get; set; }
