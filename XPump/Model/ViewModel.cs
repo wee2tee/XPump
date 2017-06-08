@@ -39,6 +39,17 @@ namespace XPump.Model
         public DateTime cretime { get { return this.dother.cretime; } }
         public string chgby { get { return this.dother.chgby; } }
         public DateTime? chgtime { get { return this.dother.chgtime; } }
+        public string section_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    var section = db.section.Find(this.section_id);
+                    return section != null ? section.name : string.Empty;
+                }
+            }
+        }
         public string typcod
         {
             get

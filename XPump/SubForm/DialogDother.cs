@@ -142,7 +142,7 @@ namespace XPump.SubForm
         private void FillForm()
         {
             this.bl_dother = null;
-            this.bl_dother = new BindingList<dotherVM>(this.GetDother(this.dother_type).ToViewModel(this.main_form.working_express_db).OrderBy(d => d.typdes).ToList());
+            this.bl_dother = new BindingList<dotherVM>(this.GetDother(this.dother_type).ToViewModel(this.main_form.working_express_db).OrderBy(d => d.section_name).ToList());
             this.dgv.DataSource = this.bl_dother;
         }
 
