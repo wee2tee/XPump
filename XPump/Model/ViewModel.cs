@@ -1147,6 +1147,20 @@ namespace XPump.Model
             }
         }
         public decimal rcvqty { get { return this.daysttak.rcvqty; } }
+        public decimal salqty { get { return this.daysttak.salqty; } }
+        public decimal dother
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    return db.dother.Where(d => d.dayend_id == this.dayend_id)
+                                    .Where(d => d.section_id == this.section_id)
+                                    .ToList()
+                                    .Sum(d => d.qty);
+                }
+            }
+        }
         // Accounting balance before deduct dother in FormDailyclose
         public decimal accbal
         {
@@ -1190,6 +1204,72 @@ namespace XPump.Model
         public int section_id { get { return this.daysttak.section_id; } }
 
         public daysttak daysttak { get; set; }
+
+        public decimal GetSalqty()
+        {
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                dayend dayend = db.dayend.Find(this.dayend_id);
+                if (dayend == null)
+                    return 0m;
+
+                return db.saleshistory.Include("nozzle")
+                            .Where(s => s.saldat.CompareTo(dayend.saldat) == 0)
+                            .Where(s => s.nozzle.section_id == this.section_id)
+                            .ToList()
+                            .Sum(s => s.salqty);
+            }
+        }
+
+        public decimal GetBegbal()
+        {
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                dayend dayend = db.dayend.Find(this.dayend_id);
+                if (dayend == null)
+                    return 0m;
+
+                var sttak = db.daysttak
+                            .Where(d => d.section_id == this.section_id)
+                            .Where(d => d.dayend.saldat.CompareTo(dayend.saldat) < 0)
+                            .OrderByDescending(d => d.dayend.saldat)
+                            .FirstOrDefault();
+
+                if(sttak != null)
+                {
+                    return sttak.takqty;
+                }
+                else
+                {
+                    return 0m;
+                }
+            }
+        }
+
+        public decimal GetBegdif()
+        {
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                dayend dayend = db.dayend.Find(this.dayend_id);
+                if (dayend == null)
+                    return 0m;
+
+                var sttak = db.daysttak
+                            .Where(d => d.section_id == this.section_id)
+                            .Where(d => d.dayend.saldat.CompareTo(dayend.saldat) < 0)
+                            .OrderByDescending(d => d.dayend.saldat)
+                            .FirstOrDefault();
+
+                if (sttak != null)
+                {
+                    return sttak.begdif + (sttak.begbal + sttak.rcvqty - sttak.salqty);
+                }
+                else
+                {
+                    return 0m;
+                }
+            }
+        }
     }
 
     public class monthendVM

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.inline_qty = new CC.XNumEdit();
             this.inline_dother = new CC.XDropdownList();
@@ -42,6 +42,7 @@
             this.btnStop = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.inline_section = new CC.XDropdownList();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dother = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,13 +51,13 @@
             this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_chgby = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_typdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_istab_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_salessummary_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dayend_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_typdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -67,6 +68,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.inline_qty);
+            this.panel1.Controls.Add(this.inline_section);
             this.panel1.Controls.Add(this.inline_dother);
             this.panel1.Controls.Add(this.dgv);
             this.panel1.Location = new System.Drawing.Point(0, 1);
@@ -104,7 +106,7 @@
             this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_qty.Name = "inline_qty";
             this.inline_qty.Size = new System.Drawing.Size(98, 23);
-            this.inline_qty.TabIndex = 2;
+            this.inline_qty.TabIndex = 3;
             this.inline_qty._ValueChanged += new System.EventHandler(this.inline_qty__ValueChanged);
             // 
             // inline_dother
@@ -112,13 +114,14 @@
             this.inline_dother._ReadOnly = false;
             this.inline_dother._SelectedItem = null;
             this.inline_dother._Text = "";
+            this.inline_dother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.inline_dother.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_dother.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.inline_dother.Location = new System.Drawing.Point(103, 31);
             this.inline_dother.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_dother.Name = "inline_dother";
             this.inline_dother.Size = new System.Drawing.Size(156, 23);
-            this.inline_dother.TabIndex = 1;
+            this.inline_dother.TabIndex = 2;
             this.inline_dother._SelectedItemChanged += new System.EventHandler(this.inline_dother__SelectedItemChanged);
             // 
             // dgv
@@ -128,14 +131,14 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -147,21 +150,21 @@
             this.col_cretime,
             this.col_chgby,
             this.col_chgtime,
-            this.col_section_name,
-            this.col_typdes,
-            this.col_qty,
             this.col_istab_id,
             this.col_salessummary_id,
             this.col_dayend_id,
-            this.col_section_id});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle3;
+            this.col_section_id,
+            this.col_section_name,
+            this.col_typdes,
+            this.col_qty});
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -265,6 +268,21 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // inline_section
+            // 
+            this.inline_section._ReadOnly = false;
+            this.inline_section._SelectedItem = null;
+            this.inline_section._Text = "";
+            this.inline_section.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.inline_section.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_section.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_section.Location = new System.Drawing.Point(4, 31);
+            this.inline_section.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_section.Name = "inline_section";
+            this.inline_section.Size = new System.Drawing.Size(98, 23);
+            this.inline_section.TabIndex = 1;
+            this.inline_section._SelectedItemChanged += new System.EventHandler(this.inline_section__SelectedItemChanged);
+            // 
             // col_id
             // 
             this.col_id.DataPropertyName = "id";
@@ -329,34 +347,6 @@
             this.col_chgtime.ReadOnly = true;
             this.col_chgtime.Visible = false;
             // 
-            // col_section_name
-            // 
-            this.col_section_name.DataPropertyName = "section_name";
-            this.col_section_name.HeaderText = "เลขที่ถัง";
-            this.col_section_name.MinimumWidth = 100;
-            this.col_section_name.Name = "col_section_name";
-            this.col_section_name.ReadOnly = true;
-            // 
-            // col_typdes
-            // 
-            this.col_typdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_typdes.DataPropertyName = "typdes";
-            this.col_typdes.HeaderText = "รายละเอียด";
-            this.col_typdes.Name = "col_typdes";
-            this.col_typdes.ReadOnly = true;
-            // 
-            // col_qty
-            // 
-            this.col_qty.DataPropertyName = "qty";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.col_qty.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_qty.HeaderText = "ปริมาณ(ลิตร)";
-            this.col_qty.MinimumWidth = 100;
-            this.col_qty.Name = "col_qty";
-            this.col_qty.ReadOnly = true;
-            // 
             // col_istab_id
             // 
             this.col_istab_id.DataPropertyName = "istab_id";
@@ -388,6 +378,34 @@
             this.col_section_id.Name = "col_section_id";
             this.col_section_id.ReadOnly = true;
             this.col_section_id.Visible = false;
+            // 
+            // col_section_name
+            // 
+            this.col_section_name.DataPropertyName = "section_name";
+            this.col_section_name.HeaderText = "เลขที่ถัง";
+            this.col_section_name.MinimumWidth = 100;
+            this.col_section_name.Name = "col_section_name";
+            this.col_section_name.ReadOnly = true;
+            // 
+            // col_typdes
+            // 
+            this.col_typdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_typdes.DataPropertyName = "typdes";
+            this.col_typdes.HeaderText = "รายละเอียด";
+            this.col_typdes.Name = "col_typdes";
+            this.col_typdes.ReadOnly = true;
+            // 
+            // col_qty
+            // 
+            this.col_qty.DataPropertyName = "qty";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.col_qty.DefaultCellStyle = dataGridViewCellStyle5;
+            this.col_qty.HeaderText = "ปริมาณ(ลิตร)";
+            this.col_qty.MinimumWidth = 100;
+            this.col_qty.Name = "col_qty";
+            this.col_qty.ReadOnly = true;
             // 
             // DialogDother
             // 
@@ -430,6 +448,7 @@
         private CC.XNumEdit inline_qty;
         private CC.XDropdownList inline_dother;
         private System.Windows.Forms.ToolTip toolTip1;
+        private CC.XDropdownList inline_section;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dother;
@@ -438,12 +457,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_cretime;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_chgby;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_chgtime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_section_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_typdes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_qty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_istab_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salessummary_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dayend_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_section_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_typdes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_qty;
     }
 }

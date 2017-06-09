@@ -153,7 +153,7 @@
             this.btnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1023, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(965, 43);
             this.toolStrip1.TabIndex = 4;
             // 
             // btnAdd
@@ -369,7 +369,7 @@
             this.tabControl1.Location = new System.Drawing.Point(5, 103);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1015, 439);
+            this.tabControl1.Size = new System.Drawing.Size(957, 438);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -380,7 +380,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1007, 410);
+            this.tabPage1.Size = new System.Drawing.Size(949, 409);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "แท๊งค์ / ถัง / หัวจ่ายน้ำมัน";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -403,8 +403,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Panel2.Controls.Add(this.lblSection);
-            this.splitContainer1.Size = new System.Drawing.Size(1001, 404);
-            this.splitContainer1.SplitterDistance = 218;
+            this.splitContainer1.Size = new System.Drawing.Size(943, 403);
+            this.splitContainer1.SplitterDistance = 189;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -420,12 +420,13 @@
             this.panel1.Controls.Add(this.btnAddTank);
             this.panel1.Location = new System.Drawing.Point(3, 29);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(212, 372);
+            this.panel1.Size = new System.Drawing.Size(183, 371);
             this.panel1.TabIndex = 10;
             // 
             // inline_tankname
             // 
             this.inline_tankname._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_tankname._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_tankname._MaxLength = 32767;
             this.inline_tankname._ReadOnly = false;
             this.inline_tankname._Text = "";
@@ -495,7 +496,7 @@
             this.dgvTank.RowHeadersVisible = false;
             this.dgvTank.RowTemplate.Height = 26;
             this.dgvTank.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTank.Size = new System.Drawing.Size(212, 372);
+            this.dgvTank.Size = new System.Drawing.Size(183, 371);
             this.dgvTank.StandardTab = true;
             this.dgvTank.TabIndex = 0;
             this.dgvTank.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTank_CellDoubleClick);
@@ -673,7 +674,7 @@
             this.lblTank.Location = new System.Drawing.Point(3, 4);
             this.lblTank.Name = "lblTank";
             this.lblTank.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.lblTank.Size = new System.Drawing.Size(211, 20);
+            this.lblTank.Size = new System.Drawing.Size(182, 20);
             this.lblTank.TabIndex = 9;
             this.lblTank.Text = "แท๊งค์ <F8>";
             // 
@@ -693,7 +694,7 @@
             this.panel2.Controls.Add(this.btnAddSection);
             this.panel2.Location = new System.Drawing.Point(3, 29);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(779, 372);
+            this.panel2.Size = new System.Drawing.Size(749, 371);
             this.panel2.TabIndex = 10;
             // 
             // inlineStkcod
@@ -707,10 +708,10 @@
             this.inlineStkcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inlineStkcod.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.inlineStkcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inlineStkcod.Location = new System.Drawing.Point(140, 58);
+            this.inlineStkcod.Location = new System.Drawing.Point(114, 58);
             this.inlineStkcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineStkcod.Name = "inlineStkcod";
-            this.inlineStkcod.Size = new System.Drawing.Size(132, 23);
+            this.inlineStkcod.Size = new System.Drawing.Size(107, 23);
             this.inlineStkcod.TabIndex = 10;
             this.inlineStkcod.Visible = false;
             this.inlineStkcod._ButtonClick += new System.EventHandler(this.inlineStkcod__ButtonClick);
@@ -727,10 +728,10 @@
             this.inlineSectionName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inlineSectionName.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.inlineSectionName.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inlineSectionName.Location = new System.Drawing.Point(3, 58);
+            this.inlineSectionName.Location = new System.Drawing.Point(2, 58);
             this.inlineSectionName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineSectionName.Name = "inlineSectionName";
-            this.inlineSectionName.Size = new System.Drawing.Size(135, 23);
+            this.inlineSectionName.Size = new System.Drawing.Size(109, 23);
             this.inlineSectionName.TabIndex = 10;
             this.inlineSectionName.Visible = false;
             this.inlineSectionName._ButtonClick += new System.EventHandler(this.inlineSectionName__ButtonClick);
@@ -739,6 +740,7 @@
             // inlineBegacc
             // 
             this.inlineBegacc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inlineBegacc._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inlineBegacc._DecimalDigit = 2;
             this.inlineBegacc._MaximumValue = new decimal(new int[] {
             1874919423,
@@ -760,10 +762,10 @@
             this.inlineBegacc.BackColor = System.Drawing.Color.White;
             this.inlineBegacc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inlineBegacc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inlineBegacc.Location = new System.Drawing.Point(570, 58);
+            this.inlineBegacc.Location = new System.Drawing.Point(519, 58);
             this.inlineBegacc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineBegacc.Name = "inlineBegacc";
-            this.inlineBegacc.Size = new System.Drawing.Size(113, 23);
+            this.inlineBegacc.Size = new System.Drawing.Size(110, 23);
             this.inlineBegacc.TabIndex = 10;
             this.inlineBegacc.Visible = false;
             this.inlineBegacc._ValueChanged += new System.EventHandler(this.inlineBegacc__ValueChanged);
@@ -771,6 +773,7 @@
             // inlineBegtak
             // 
             this.inlineBegtak._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inlineBegtak._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inlineBegtak._DecimalDigit = 2;
             this.inlineBegtak._MaximumValue = new decimal(new int[] {
             1874919423,
@@ -792,10 +795,10 @@
             this.inlineBegtak.BackColor = System.Drawing.Color.White;
             this.inlineBegtak.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inlineBegtak.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inlineBegtak.Location = new System.Drawing.Point(462, 58);
+            this.inlineBegtak.Location = new System.Drawing.Point(399, 58);
             this.inlineBegtak.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineBegtak.Name = "inlineBegtak";
-            this.inlineBegtak.Size = new System.Drawing.Size(107, 23);
+            this.inlineBegtak.Size = new System.Drawing.Size(119, 23);
             this.inlineBegtak.TabIndex = 10;
             this.inlineBegtak.Visible = false;
             this.inlineBegtak._ValueChanged += new System.EventHandler(this.inlineBegtak__ValueChanged);
@@ -803,6 +806,7 @@
             // inlineCapacity
             // 
             this.inlineCapacity._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inlineCapacity._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inlineCapacity._DecimalDigit = 2;
             this.inlineCapacity._MaximumValue = new decimal(new int[] {
             1874919423,
@@ -824,7 +828,7 @@
             this.inlineCapacity.BackColor = System.Drawing.Color.White;
             this.inlineCapacity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inlineCapacity.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inlineCapacity.Location = new System.Drawing.Point(362, 58);
+            this.inlineCapacity.Location = new System.Drawing.Point(299, 58);
             this.inlineCapacity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineCapacity.Name = "inlineCapacity";
             this.inlineCapacity.Size = new System.Drawing.Size(99, 23);
@@ -890,7 +894,7 @@
             this.dgvSection.RowHeadersVisible = false;
             this.dgvSection.RowTemplate.Height = 26;
             this.dgvSection.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSection.Size = new System.Drawing.Size(779, 372);
+            this.dgvSection.Size = new System.Drawing.Size(749, 371);
             this.dgvSection.StandardTab = true;
             this.dgvSection.TabIndex = 0;
             this.dgvSection.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSection_CellClick);
@@ -943,7 +947,7 @@
             this.lblSection.Location = new System.Drawing.Point(3, 4);
             this.lblSection.Name = "lblSection";
             this.lblSection.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.lblSection.Size = new System.Drawing.Size(779, 20);
+            this.lblSection.Size = new System.Drawing.Size(754, 20);
             this.lblSection.TabIndex = 9;
             this.lblSection.Text = "ถังน้ำมัน <F7>";
             // 
@@ -1044,11 +1048,11 @@
             dataGridViewCellStyle6.Format = "N2";
             dataGridViewCellStyle6.NullValue = null;
             this.col_sect_begtak.DefaultCellStyle = dataGridViewCellStyle6;
-            this.col_sect_begtak.HeaderText = "ยกมา(ตรวจนับ)";
-            this.col_sect_begtak.MinimumWidth = 110;
+            this.col_sect_begtak.HeaderText = "ยกมา(ตรวจวัดจริง)";
+            this.col_sect_begtak.MinimumWidth = 120;
             this.col_sect_begtak.Name = "col_sect_begtak";
             this.col_sect_begtak.ReadOnly = true;
-            this.col_sect_begtak.Width = 110;
+            this.col_sect_begtak.Width = 120;
             // 
             // col_sect_begacc
             // 
@@ -1070,11 +1074,11 @@
             dataGridViewCellStyle8.Format = "N2";
             dataGridViewCellStyle8.NullValue = null;
             this.col_sect_begdif.DefaultCellStyle = dataGridViewCellStyle8;
-            this.col_sect_begdif.HeaderText = "ผลต่างยกมา";
-            this.col_sect_begdif.MinimumWidth = 90;
+            this.col_sect_begdif.HeaderText = "ผลต่างสะสมยกมา";
+            this.col_sect_begdif.MinimumWidth = 120;
             this.col_sect_begdif.Name = "col_sect_begdif";
             this.col_sect_begdif.ReadOnly = true;
-            this.col_sect_begdif.Width = 90;
+            this.col_sect_begdif.Width = 120;
             // 
             // col_sect_totbal
             // 
@@ -1153,7 +1157,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1023, 546);
+            this.ClientSize = new System.Drawing.Size(965, 545);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.dtStartDate);
             this.Controls.Add(this.label5);

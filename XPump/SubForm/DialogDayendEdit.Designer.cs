@@ -39,7 +39,6 @@
             this.dgv = new CC.XDatagrid();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.inline_rcvqty = new CC.XNumEdit();
             this.inline_qty = new CC.XNumEdit();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -64,21 +63,21 @@
             this.lblSaldat = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnSyncRcvqty = new System.Windows.Forms.Button();
             this.numSalqty = new CC.XNumEdit();
             this.numRcvqty = new CC.XNumEdit();
             this.numBegbal = new CC.XNumEdit();
             this.numBegdif = new CC.XNumEdit();
             this.lblDother = new System.Windows.Forms.Label();
             this.btnDother = new System.Windows.Forms.Button();
+            this.btnSyncRcvqty = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tank_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcvqty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_btn_rcvqty = new System.Windows.Forms.DataGridViewButtonColumn();
             this.col_accbal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_btn_rcvqty = new System.Windows.Forms.DataGridViewButtonColumn();
             this.col_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dayend_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -88,6 +87,8 @@
             this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_chgby = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_salqty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_dother = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -157,8 +158,8 @@
             this.col_tank_name,
             this.col_section_name,
             this.col_rcvqty,
-            this.col_btn_rcvqty,
             this.col_accbal,
+            this.col_btn_rcvqty,
             this.col_qty,
             this.col_dayend_id,
             this.col_section_id,
@@ -167,7 +168,9 @@
             this.col_creby,
             this.col_cretime,
             this.col_chgby,
-            this.col_chgtime});
+            this.col_chgtime,
+            this.col_salqty,
+            this.col_dother});
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -191,7 +194,6 @@
             this.dgv.Size = new System.Drawing.Size(444, 134);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
-            this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_CellPainting);
             this.dgv.CellToolTipTextNeeded += new System.Windows.Forms.DataGridViewCellToolTipTextNeededEventHandler(this.dgv_CellToolTipTextNeeded);
@@ -212,7 +214,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.inline_rcvqty);
             this.tabPage1.Controls.Add(this.inline_qty);
             this.tabPage1.Controls.Add(this.dgv);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
@@ -221,39 +222,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "1. ปริมาณน้ำมันสะสมในถังวัดได้จริงสิ้นงวด";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // inline_rcvqty
-            // 
-            this.inline_rcvqty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_rcvqty._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.inline_rcvqty._DecimalDigit = 2;
-            this.inline_rcvqty._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.inline_rcvqty._MaxLength = 30;
-            this.inline_rcvqty._ReadOnly = false;
-            this.inline_rcvqty._SelectionLength = 0;
-            this.inline_rcvqty._SelectionStart = 4;
-            this.inline_rcvqty._Text = "0.00";
-            this.inline_rcvqty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.inline_rcvqty._UseThoundsandSeparate = true;
-            this.inline_rcvqty._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.inline_rcvqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.inline_rcvqty.BackColor = System.Drawing.Color.White;
-            this.inline_rcvqty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_rcvqty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_rcvqty.Location = new System.Drawing.Point(142, 34);
-            this.inline_rcvqty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_rcvqty.Name = "inline_rcvqty";
-            this.inline_rcvqty.Size = new System.Drawing.Size(118, 23);
-            this.inline_rcvqty.TabIndex = 1;
-            this.inline_rcvqty._ValueChanged += new System.EventHandler(this.inline_rcvqty__ValueChanged);
             // 
             // inline_qty
             // 
@@ -541,18 +509,6 @@
             this.label4.TabIndex = 89;
             this.label4.Text = "(ลิตร)";
             // 
-            // btnSyncRcvqty
-            // 
-            this.btnSyncRcvqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSyncRcvqty.Image = global::XPump.Properties.Resources.sync_16;
-            this.btnSyncRcvqty.Location = new System.Drawing.Point(2, 73);
-            this.btnSyncRcvqty.Name = "btnSyncRcvqty";
-            this.btnSyncRcvqty.Size = new System.Drawing.Size(25, 25);
-            this.btnSyncRcvqty.TabIndex = 98;
-            this.btnSyncRcvqty.TabStop = false;
-            this.btnSyncRcvqty.UseVisualStyleBackColor = true;
-            this.btnSyncRcvqty.Click += new System.EventHandler(this.btnSyncRcvqty_Click);
-            // 
             // numSalqty
             // 
             this.numSalqty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -712,6 +668,18 @@
             this.btnDother.UseVisualStyleBackColor = true;
             this.btnDother.Click += new System.EventHandler(this.btnDother_Click);
             // 
+            // btnSyncRcvqty
+            // 
+            this.btnSyncRcvqty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSyncRcvqty.Image = global::XPump.Properties.Resources.sync_16;
+            this.btnSyncRcvqty.Location = new System.Drawing.Point(2, 73);
+            this.btnSyncRcvqty.Name = "btnSyncRcvqty";
+            this.btnSyncRcvqty.Size = new System.Drawing.Size(25, 25);
+            this.btnSyncRcvqty.TabIndex = 98;
+            this.btnSyncRcvqty.TabStop = false;
+            this.btnSyncRcvqty.UseVisualStyleBackColor = true;
+            this.btnSyncRcvqty.Click += new System.EventHandler(this.btnSyncRcvqty_Click);
+            // 
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -777,11 +745,19 @@
             dataGridViewCellStyle2.Format = "N2";
             dataGridViewCellStyle2.NullValue = null;
             this.col_rcvqty.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_rcvqty.HeaderText = "ยอดรับน้ำมัน (ลิตร)";
+            this.col_rcvqty.HeaderText = "Rcv Qty.";
             this.col_rcvqty.MinimumWidth = 120;
             this.col_rcvqty.Name = "col_rcvqty";
             this.col_rcvqty.ReadOnly = true;
+            this.col_rcvqty.Visible = false;
             this.col_rcvqty.Width = 120;
+            // 
+            // col_accbal
+            // 
+            this.col_accbal.DataPropertyName = "accbal";
+            this.col_accbal.HeaderText = "คงเหลือในบัญชี (ลิตร)";
+            this.col_accbal.Name = "col_accbal";
+            this.col_accbal.ReadOnly = true;
             // 
             // col_btn_rcvqty
             // 
@@ -792,14 +768,6 @@
             this.col_btn_rcvqty.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.col_btn_rcvqty.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.col_btn_rcvqty.Width = 23;
-            // 
-            // col_accbal
-            // 
-            this.col_accbal.DataPropertyName = "accbal";
-            this.col_accbal.HeaderText = "Accbal";
-            this.col_accbal.Name = "col_accbal";
-            this.col_accbal.ReadOnly = true;
-            this.col_accbal.Visible = false;
             // 
             // col_qty
             // 
@@ -877,6 +845,22 @@
             this.col_chgtime.Name = "col_chgtime";
             this.col_chgtime.ReadOnly = true;
             this.col_chgtime.Visible = false;
+            // 
+            // col_salqty
+            // 
+            this.col_salqty.DataPropertyName = "salqty";
+            this.col_salqty.HeaderText = "Sal Qty.";
+            this.col_salqty.Name = "col_salqty";
+            this.col_salqty.ReadOnly = true;
+            this.col_salqty.Visible = false;
+            // 
+            // col_dother
+            // 
+            this.col_dother.DataPropertyName = "dother";
+            this.col_dother.HeaderText = "Dother";
+            this.col_dother.Name = "col_dother";
+            this.col_dother.ReadOnly = true;
+            this.col_dother.Visible = false;
             // 
             // DialogDayendEdit
             // 
@@ -972,13 +956,12 @@
         private CC.XNumEdit numBegdif;
         private System.Windows.Forms.Label lblDother;
         private System.Windows.Forms.Button btnDother;
-        private CC.XNumEdit inline_rcvqty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_tank_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcvqty;
-        private System.Windows.Forms.DataGridViewButtonColumn col_btn_rcvqty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_accbal;
+        private System.Windows.Forms.DataGridViewButtonColumn col_btn_rcvqty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_qty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dayend_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_id;
@@ -988,5 +971,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_cretime;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_chgby;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_chgtime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_salqty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dother;
     }
 }

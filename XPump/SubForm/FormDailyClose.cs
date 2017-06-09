@@ -246,7 +246,9 @@ namespace XPump.SubForm
                                             .OrderByDescending(s => s.id)
                                             .FirstOrDefault();
 
-                                db.daysttak.Add(new daysttak
+
+
+                                daysttak daysttak = new daysttak
                                 {
                                     dayend_id = dayend.id,
                                     takqty = sttak != null ? sttak.qty : -1,
@@ -254,7 +256,13 @@ namespace XPump.SubForm
                                     section_id = sect.id,
                                     creby = this.main_form.loged_in_status.loged_in_user_name,
                                     cretime = DateTime.Now
-                                });
+                                };
+                                db.daysttak.Add(daysttak);
+                                db.SaveChanges();
+
+                                daysttak.salqty = daysttak.ToViewModel(this.main_form.working_express_db).GetSalqty();
+                                daysttak.begbal = daysttak.ToViewModel(this.main_form.working_express_db).GetBegbal();
+                                daysttak.begdif = daysttak.ToViewModel(this.main_form.working_express_db).GetBegdif();
                                 db.SaveChanges();
 
                                 foreach (shiftsales sales in db.shiftsales.Where(s => s.saldat == dlg.selected_date).ToList())

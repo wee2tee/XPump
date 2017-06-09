@@ -87,7 +87,7 @@ namespace XPump.SubForm
             this.curr_dayend = this.GetDayEndData(this.curr_dayend);
 
             this.bs.ResetBindings(true);
-            this.bs.DataSource = this.curr_dayend.daysttak.ToViewModel(this.main_form.working_express_db);
+            this.bs.DataSource = this.curr_dayend.daysttak.ToViewModel(this.main_form.working_express_db).OrderBy(d => d.section_name);
 
             this.RefreshSummary();
         }
@@ -132,24 +132,19 @@ namespace XPump.SubForm
 
             this.tmp_sttak = (daysttak)this.dgv.Rows[row_index].Cells[this.col_daysttak.Name].Value;
 
-            int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_rcvqty.DataPropertyName).First().Index;
-            this.inline_rcvqty.SetInlineControlPosition(this.dgv, row_index, col_index);
-            this.inline_rcvqty._Value = this.tmp_sttak.rcvqty;
-
-            col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_qty.DataPropertyName).First().Index;
+            int col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_qty.DataPropertyName).First().Index;
             this.inline_qty.SetInlineControlPosition(this.dgv, row_index, col_index);
             this.inline_qty._Value = this.tmp_sttak.takqty;
 
-            this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().DefaultCellStyle.Padding = new Padding(0, 0, 0, 0);
+            this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().DefaultCellStyle.Padding = new Padding(0, 0, 0, 50);
 
             this.inline_qty.Focus();
         }
 
         private void RemoveInlineForm()
         {
-            this.inline_rcvqty.SetBounds(-9999, 0, 0, 0);
             this.inline_qty.SetBounds(-9999, 0, 0, 0);
-            this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().DefaultCellStyle.Padding = new Padding(0, 0, 0, 50);
+            this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().DefaultCellStyle.Padding = new Padding(0, 0, 0, 0);
             this.tmp_sttak = null;
         }
 
@@ -181,14 +176,6 @@ namespace XPump.SubForm
             if(this.tmp_sttak != null)
             {
                 this.tmp_sttak.takqty = ((XNumEdit)sender)._Value;
-            }
-        }
-
-        private void inline_rcvqty__ValueChanged(object sender, EventArgs e)
-        {
-            if(this.tmp_sttak != null)
-            {
-                this.tmp_sttak.rcvqty = ((XNumEdit)sender)._Value;
             }
         }
 
@@ -226,7 +213,7 @@ namespace XPump.SubForm
                     }
 
                     sttak_to_update.takqty = sttak.takqty;
-                    sttak_to_update.rcvqty = sttak.rcvqty;
+                    //sttak_to_update.rcvqty = sttak.rcvqty;
                     sttak_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
                     sttak_to_update.chgtime = DateTime.Now;
                     db.SaveChanges();
@@ -482,37 +469,69 @@ namespace XPump.SubForm
         private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex == -1)
-                return;
-
-            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_qty.Name).First().Index)
             {
-                if((decimal)((XDatagrid)sender).Rows[e.RowIndex].Cells[e.ColumnIndex].Value < 0)
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_rcvqty.Name).First().Index)
                 {
-                    e.CellStyle.ForeColor = Color.Red;
-                    e.CellStyle.SelectionForeColor = Color.Red;
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground);
+                    e.Handled = true;
+                }
+
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    using (SolidBrush brush_bg = new SolidBrush(((XDatagrid)sender).ColumnHeadersDefaultCellStyle.BackColor))
+                    {
+                        using (SolidBrush brush_fg = new SolidBrush(((XDatagrid)sender).ColumnHeadersDefaultCellStyle.ForeColor))
+                        {
+                            Rectangle rect = new Rectangle(e.CellBounds.X - 3, e.CellBounds.Y + 2, 6, e.CellBounds.Height - 3);
+                            e.Graphics.FillRectangle(brush_bg, rect);
+                            e.Graphics.DrawString(this.col_rcvqty.HeaderText, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, brush_fg, new RectangleF(e.CellBounds.X - this.col_rcvqty.Width, e.CellBounds.Y , e.CellBounds.Width + this.col_rcvqty.Width - 5, e.CellBounds.Height), new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center });
+                        }
+                    }
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.None);
+                    e.Handled = true;
+                }
+
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_qty.Name).First().Index)
+                {
+                    e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                     e.Handled = true;
                 }
             }
 
-            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
+            if(e.RowIndex > -1)
             {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                int img_width = XPump.Properties.Resources.sync_16.Width;
-                int img_height = XPump.Properties.Resources.sync_16.Height;
-
-                Rectangle rect = new Rectangle(e.CellBounds.X + (int)Math.Floor((decimal)((e.CellBounds.Width - img_width) / 2)), e.CellBounds.Y + (int)Math.Floor((decimal)((e.CellBounds.Height - img_height) / 2)), img_width, img_height);
-
-                if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_qty.Name).First().Index)
                 {
-                    e.Graphics.DrawImage(XPump.Properties.Resources.sync_16, rect);
-                }
-                else
-                {
-                    e.Graphics.DrawImage(XPump.Properties.Resources.sync_gray_16, rect);
+                    if ((decimal)((XDatagrid)sender).Rows[e.RowIndex].Cells[e.ColumnIndex].Value < 0)
+                    {
+                        e.CellStyle.ForeColor = Color.Red;
+                        e.CellStyle.SelectionForeColor = Color.Red;
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                        e.Handled = true;
+                    }
                 }
 
-                e.Handled = true;
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    int img_width = XPump.Properties.Resources.edit_list_gray_16.Width;
+                    int img_height = XPump.Properties.Resources.edit_list_gray_16.Height;
+
+                    Rectangle rect = new Rectangle(e.CellBounds.X + (int)Math.Floor((decimal)((e.CellBounds.Width - img_width) / 2)), e.CellBounds.Y + (int)Math.Floor((decimal)((e.CellBounds.Height - img_height) / 2)), img_width, img_height);
+
+                    if (this.form_mode == FORM_MODE.EDIT_ITEM)
+                    {
+                        e.Graphics.DrawImage(XPump.Properties.Resources.edit_list_gray_16, rect);
+                    }
+                    else
+                    {
+                        e.Graphics.DrawImage(XPump.Properties.Resources.edit_list_16, rect);
+                    }
+
+                    e.Handled = true;
+                }
             }
         }
 
@@ -540,6 +559,30 @@ namespace XPump.SubForm
                 cm.MenuItems.Add(mnu_edit);
                 cm.Show((XDatagrid)sender, new Point(e.X, e.Y));
             }
+
+            if(e.Button == MouseButtons.Left)
+            {
+                if (this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.EDIT_ITEM)
+                    return;
+
+                int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+                int col_index = ((XDatagrid)sender).HitTest(e.X, e.Y).ColumnIndex;
+
+                if (row_index == -1)
+                    return;
+
+                if(col_index == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
+                {
+                    ((XDatagrid)sender).Rows[row_index].Cells[this.col_btn_rcvqty.Name].Selected = true;
+                    Point p = ((XDatagrid)sender).PointToScreen(((XDatagrid)sender).CurrentCell.ContentBounds.Location);
+                    Rectangle rect = ((XDatagrid)sender).GetCellDisplayRectangle(col_index, row_index, true);
+                    DialogDayendItemEdit d = new DialogDayendItemEdit(this.main_form, (daysttak)((XDatagrid)sender).Rows[row_index].Cells[this.col_daysttak.Name].Value);
+                    d.Width = this.col_section_name.Width + this.col_accbal.Width + rect.Width;
+                    Rectangle rect_dialog = new Rectangle(p.X + rect.X + rect.Width - d.Width, p.Y + rect.Y + rect.Height, d.Width, d.Height);
+                    d.SetBounds(rect_dialog.X, rect_dialog.Y, rect_dialog.Width, rect_dialog.Height);
+                    d.ShowDialog();
+                }
+            }
         }
 
         private void dgv_CellToolTipTextNeeded(object sender, DataGridViewCellToolTipTextNeededEventArgs e)
@@ -555,19 +598,6 @@ namespace XPump.SubForm
                 }
             }
         }
-
-        private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex == -1)
-                return;
-
-            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
-            {
-                if (this.form_mode != FORM_MODE.EDIT_ITEM)
-                    return;
-
-                XMessageBox.Show("retrieve rcvqty from express");
-            }
-        }
+        
     }
 }

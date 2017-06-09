@@ -43,7 +43,7 @@ namespace XPump.SubForm
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.dother_type = DOTHER.SHIFTSALES;
-                this.salessummary = db.salessummary.Include("shiftsales").Where(s => s.id == salessummary.id).FirstOrDefault();
+                this.salessummary = db.salessummary.Include("shiftsales").Include("shiftsales.shiftsttak").Where(s => s.id == salessummary.id).FirstOrDefault();
                 if(this.salessummary == null)
                 {
                     XMessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
@@ -60,7 +60,7 @@ namespace XPump.SubForm
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.dother_type = DOTHER.DAYEND;
-                this.dayend = db.dayend.Where(d => d.id == dayend.id).FirstOrDefault();
+                this.dayend = db.dayend.Include("daysttak").Where(d => d.id == dayend.id).FirstOrDefault();
                 if (this.dayend == null)
                 {
                     XMessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
@@ -75,10 +75,37 @@ namespace XPump.SubForm
             var available_dother = this.GetAvailableDother(this.dother_type);
 
             this.inline_dother._Items.Add(new XDropdownListItem { Text = string.Empty, Value = -1 });
-
             foreach (var d in available_dother)
             {
                 this.inline_dother._Items.Add(new XDropdownListItem { Text = "[" + d.typcod + "]" + d.typdes, Value = d.id });
+            }
+
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                List<int> section_ids = null;
+                string stkcod = string.Empty;
+
+                if(this.dother_type == DOTHER.DAYEND)
+                {
+                    section_ids = this.dayend.daysttak.Select(d => d.section_id).ToList();
+                    stkcod = this.dayend.stkcod;
+                }
+                if(this.dother_type == DOTHER.SHIFTSALES)
+                {
+                    section_ids = this.salessummary.shiftsales.shiftsttak.Select(s => s.section_id).ToList();
+                    stkcod = this.salessummary.stkcod;
+                }
+
+                this.inline_section._Items.Add(new XDropdownListItem { Text = string.Empty, Value = -1 });
+                var sections = db.section
+                    .Where(s => section_ids.Contains(s.id))
+                    .Where(s => s.stkcod == stkcod)
+                    .OrderBy(s => s.name).ToList();
+
+                foreach (var s in sections)
+                {
+                    this.inline_section._Items.Add(new XDropdownListItem { Text = s.name, Value = s.id });
+                }
             }
 
             this.RemoveInlineForm();
@@ -154,17 +181,25 @@ namespace XPump.SubForm
             this.tmp_dother = (dother)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_dother.Name].Value;
 
             int col_index;
-
             if(this.form_mode == FORM_MODE.ADD_ITEM)
             {
+                col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_section_name.Name).First().Index;
+                this.inline_section.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
+                this.inline_section._ReadOnly = false;
+                var selected_section = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == this.tmp_dother.section_id).FirstOrDefault();
+                this.inline_section._SelectedItem = selected_section != null ? selected_section : this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+
                 col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_typdes.DataPropertyName).First().Index;
                 this.inline_dother.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
                 this.inline_dother._ReadOnly = false;
-                var selected_item = this.inline_dother._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == this.tmp_dother.istab_id).FirstOrDefault();
-                this.inline_dother._SelectedItem = selected_item != null ? selected_item : this.inline_dother._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+                var selected_dother = this.inline_dother._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == this.tmp_dother.istab_id).FirstOrDefault();
+                this.inline_dother._SelectedItem = selected_dother != null ? selected_dother : this.inline_dother._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
             }
             else
             {
+                this.inline_section.SetBounds(-9999, 0, 0, 0);
+                this.inline_section._ReadOnly = true;
+
                 this.inline_dother.SetBounds(-9999, 0, 0, 0);
                 this.inline_dother._ReadOnly = true;
             }
@@ -177,6 +212,7 @@ namespace XPump.SubForm
 
         private void RemoveInlineForm()
         {
+            this.inline_section.SetBounds(-9999, 0, 0, 0);
             this.inline_dother.SetBounds(-9999, 0, 0, 0);
             this.inline_qty.SetBounds(-9999, 0, 0, 0);
             this.tmp_dother = null;
@@ -214,6 +250,12 @@ namespace XPump.SubForm
                 this.tmp_dother.istab_id = (int)((XDropdownListItem)((XDropdownList)sender)._SelectedItem).Value;
         }
 
+        private void inline_section__SelectedItemChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_dother != null)
+                this.tmp_dother.section_id = (int)((XDropdownListItem)((XDropdownList)sender)._SelectedItem).Value;
+        }
+
         private void inline_qty__ValueChanged(object sender, EventArgs e)
         {
             if (this.tmp_dother != null)
@@ -238,7 +280,7 @@ namespace XPump.SubForm
             this.dgv.Rows[this.dgv.Rows.Count - 1].Cells[this.col_typdes.Name].Selected = true;
             this.ResetControlState(FORM_MODE.ADD_ITEM);
             this.ShowInlineForm();
-            this.inline_dother.Focus();
+            this.inline_section.Focus();
             SendKeys.Send("{F6}");
         }
 
@@ -283,6 +325,13 @@ namespace XPump.SubForm
             if (this.IsEditable() == false)
                 return;
 
+            if(this.tmp_dother.section_id == -1)
+            {
+                XMessageBox.Show("กรุณาระบุเลขที่ถัง", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                this.inline_section.Focus();
+                SendKeys.Send("{F6}");
+                return;
+            }
             if (this.tmp_dother.istab_id == -1)
             {
                 XMessageBox.Show("กรุณาระบุรายละเอียดการหักฯ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
@@ -550,8 +599,15 @@ namespace XPump.SubForm
                         this.btnSave.PerformClick();
                         return true;
                     }
-
-                    SendKeys.Send("{TAB}");
+                    if (this.inline_section._Focused)
+                    {
+                        SendKeys.Send("{TAB}");
+                        SendKeys.Send("{F6}");
+                    }
+                    if (this.inline_dother._Focused)
+                    {
+                        SendKeys.Send("{TAB}");
+                    }
                     return true;
                 }
             }

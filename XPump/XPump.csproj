@@ -218,6 +218,12 @@
     <Compile Include="SubForm\DialogDayendEdit.Designer.cs">
       <DependentUpon>DialogDayendEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogDayendItemEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDayendItemEdit.Designer.cs">
+      <DependentUpon>DialogDayendItemEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogDbConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -458,6 +464,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogDayendEdit.resx">
       <DependentUpon>DialogDayendEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDayendItemEdit.resx">
+      <DependentUpon>DialogDayendItemEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogDbConfig.resx">
       <DependentUpon>DialogDbConfig.cs</DependentUpon>
@@ -716,6 +725,7 @@
       <DependentUpon>XPumpModel.edmx</DependentUpon>
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\edit_list_gray_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets')" />
