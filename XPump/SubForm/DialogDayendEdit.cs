@@ -101,25 +101,19 @@ namespace XPump.SubForm
             this.lblStkcod.Text = this.curr_dayend.stkcod;
             this.lblStkdes.Text = vm.stkdes;
             this.lblEndbal.Text = string.Format("{0:#,#0.00}", vm.endbal);
-            this.numBegbal._Value = vm.begbal;
-            this.numRcvqty._Value = vm.rcvqty;
-            this.numSalqty._Value = vm.salqty;
+            this.lblBegbal.Text = string.Format("{0:#,#0.00}", vm.begbal);
+            this.lblRcvqty.Text = string.Format("{0:#,#0.00}", vm.rcvqty);
+            this.lblSalqty.Text = string.Format("{0:#,#0.00}", vm.salqty);
             this.lblDother.Text = string.Format("{0:#,#0.00}", vm.dother);
             this.lblAccbal.Text = string.Format("{0:#,#0.00}", vm.accbal);
             this.lblDifqty.Text = string.Format("{0:#,#0.00}", vm.difqty);
-            this.numBegdif._Value = vm.begdif;
+            this.lblBegdif.Text = string.Format("{0:#,#0.00}", vm.begdif);
             this.lblTotalDif.Text = string.Format("{0:#,#0.00}", vm.begdif + vm.difqty);
         }
 
         private void ResetControlState()
         {
             this.inline_qty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT_ITEM }, this.form_mode);
-            this.numBegbal.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.numBegdif.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.numRcvqty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.numSalqty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.btnDother.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnSyncRcvqty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.btnOK.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnCancel.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
@@ -146,29 +140,12 @@ namespace XPump.SubForm
             this.inline_qty.SetBounds(-9999, 0, 0, 0);
             this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().DefaultCellStyle.Padding = new Padding(0, 0, 0, 0);
             this.tmp_sttak = null;
+            this.dgv.Focus();
         }
 
         private void PerformEdit(object sender, EventArgs e)
         {
-            if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
-                return;
 
-            if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_sttak != null)
-            {
-                if (this.SaveSttak(this.tmp_sttak))
-                {
-                    this.RemoveInlineForm();
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            this.form_mode = FORM_MODE.EDIT;
-            this.ResetControlState();
-
-            ((XNumEdit)sender).Focus();
         }
 
         private void inline_qty__ValueChanged(object sender, EventArgs e)
@@ -329,18 +306,40 @@ namespace XPump.SubForm
                 if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
                     return true;
 
-                if (this.dgv.CurrentCell == null)
-                {
-                    this.form_mode = FORM_MODE.EDIT;
-                    this.ResetControlState();
-                    return true;
-                }
+                //if (this.dgv.CurrentCell == null)
+                //{
+                //    this.form_mode = FORM_MODE.EDIT;
+                //    this.ResetControlState();
+                //    return true;
+                //}
 
                 if(this.dgv.CurrentCell != null)
                 {
                     this.form_mode = FORM_MODE.EDIT_ITEM;
                     this.ResetControlState();
                     this.ShowInlineForm(this.dgv.CurrentCell.RowIndex);
+                    return true;
+                }
+            }
+
+            if (keyData == (Keys.Control | Keys.E))
+            {
+                if (this.dgv.CurrentCell == null)
+                    return false;
+
+                if(this.form_mode == FORM_MODE.READ)
+                {
+                    this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_btn_rcvqty.Name].Selected = true;
+                    Point p = this.dgv.PointToScreen(this.dgv.CurrentCell.ContentBounds.Location);
+                    Rectangle rect = this.dgv.GetCellDisplayRectangle(this.dgv.CurrentCell.ColumnIndex, this.dgv.CurrentCell.RowIndex, true);
+                    DialogDayendItemEdit d = new DialogDayendItemEdit(this.main_form, this.form_dailyclose, (daysttak)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_daysttak.Name].Value);
+                    d.Width = this.col_section_name.Width + this.col_accbal.Width + rect.Width;
+                    Rectangle rect_dialog = new Rectangle(p.X + rect.X + rect.Width - d.Width, p.Y + rect.Y + rect.Height, d.Width, d.Height);
+                    d.SetBounds(rect_dialog.X, rect_dialog.Y, rect_dialog.Width, rect_dialog.Height);
+                    d.ShowDialog();
+                    this.curr_dayend = this.GetDayEndData(this.curr_dayend);
+                    this.FillForm();
+                    this.dgv.Focus();
                     return true;
                 }
             }
@@ -357,24 +356,23 @@ namespace XPump.SubForm
                     {
                         this.SaveSttak(this.tmp_sttak);
                         this.RemoveInlineForm();
-                        this.form_mode = FORM_MODE.EDIT;
+                        this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
-                        this.numBegbal.Focus();
                     }
                     return true;
                 }
 
-                if (this.form_mode == FORM_MODE.EDIT)
-                {
-                    if (this.numBegdif._Focused)
-                    {
-                        this.btnOK.PerformClick();
-                        return true;
-                    }
+                //if (this.form_mode == FORM_MODE.EDIT)
+                //{
+                //    if (this.numBegdif._Focused)
+                //    {
+                //        this.btnOK.PerformClick();
+                //        return true;
+                //    }
 
-                    SendKeys.Send("{TAB}");
-                    return true;
-                }
+                //    SendKeys.Send("{TAB}");
+                //    return true;
+                //}
             }
 
             if(keyData == Keys.F9)
@@ -422,55 +420,11 @@ namespace XPump.SubForm
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void btnDother_Click(object sender, EventArgs e)
-        {
-            DialogDother d = new DialogDother(this.main_form, this.form_dailyclose, this.curr_dayend);
-            d.SetBounds(((Button)sender).PointToScreen(Point.Empty).X + ((Button)sender).Width, ((Button)sender).PointToScreen(Point.Empty).Y, d.Width, d.Height);
-            d.ShowDialog();
-            this.RefreshSummary();
-        }
-
-        private void btnSyncRcvqty_Click(object sender, EventArgs e)
-        {
-            //var rcv = this.curr_dayend.ToViewModel(this.main_form.working_express_db).GetRcvQty();
-            //if(this.curr_dayend.rcvqty != rcv)
-            //{
-            //    if(XMessageBox.Show("เปลี่ยนยอดรับน้ำมันจาก " + string.Format("{0:#,#0.00}", this.curr_dayend.rcvqty) + " ลิตร  ไปเป็น  " + string.Format("{0:#,#0.00}", rcv) + " ลิตร, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
-            //    {
-            //        this.curr_dayend.rcvqty = rcv;
-            //        this.numRcvqty._Value = this.curr_dayend.rcvqty;
-            //        //this.RefreshSummary();
-            //    }
-            //}
-            //this.numRcvqty.Focus();
-        }
-
-        private void numRcvqty__ValueChanged(object sender, EventArgs e)
-        {
-            //this.curr_dayend.rcvqty = ((XNumEdit)sender)._Value;
-            //this.RefreshSummary();
-        }
-
-        private void numBegbal__ValueChanged(object sender, EventArgs e)
-        {
-            //this.curr_dayend.begbal = ((XNumEdit)sender)._Value;
-        }
-
-        private void numSalqty__ValueChanged(object sender, EventArgs e)
-        {
-            //this.curr_dayend.salqty = ((XNumEdit)sender)._Value;
-        }
-
-        private void numBegdif__ValueChanged(object sender, EventArgs e)
-        {
-            //this.curr_dayend.begdif = ((XNumEdit)sender)._Value;
-        }
-
         private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex == -1)
             {
-                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_rcvqty.Name).First().Index)
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_accbal.Name).First().Index)
                 {
                     e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border | DataGridViewPaintParts.ContentBackground);
                     e.Handled = true;
@@ -485,7 +439,7 @@ namespace XPump.SubForm
                         {
                             Rectangle rect = new Rectangle(e.CellBounds.X - 3, e.CellBounds.Y + 2, 6, e.CellBounds.Height - 3);
                             e.Graphics.FillRectangle(brush_bg, rect);
-                            e.Graphics.DrawString(this.col_rcvqty.HeaderText, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, brush_fg, new RectangleF(e.CellBounds.X - this.col_rcvqty.Width, e.CellBounds.Y , e.CellBounds.Width + this.col_rcvqty.Width - 5, e.CellBounds.Height), new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center });
+                            e.Graphics.DrawString(this.col_accbal.HeaderText, ((XDatagrid)sender).ColumnHeadersDefaultCellStyle.Font, brush_fg, new RectangleF(e.CellBounds.X - this.col_rcvqty.Width, e.CellBounds.Y , e.CellBounds.Width + this.col_rcvqty.Width - 5, e.CellBounds.Height), new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center });
                         }
                     }
                     e.Paint(e.CellBounds, DataGridViewPaintParts.None);
@@ -510,6 +464,20 @@ namespace XPump.SubForm
                         e.CellStyle.SelectionForeColor = Color.Red;
                         e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                         e.Handled = true;
+                    }
+                }
+
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_accbal.Name).First().Index)
+                {
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        if(this.curr_dayend.daysttak.ToViewModel(this.main_form.working_express_db).OrderBy(d => d.section_name).ToList()[e.RowIndex].rcvqty < 0)
+                        {
+                            e.CellStyle.ForeColor = Color.Red;
+                            e.CellStyle.SelectionForeColor = Color.Red;
+                            e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                            e.Handled = true;
+                        }
                     }
                 }
 
@@ -576,11 +544,13 @@ namespace XPump.SubForm
                     ((XDatagrid)sender).Rows[row_index].Cells[this.col_btn_rcvqty.Name].Selected = true;
                     Point p = ((XDatagrid)sender).PointToScreen(((XDatagrid)sender).CurrentCell.ContentBounds.Location);
                     Rectangle rect = ((XDatagrid)sender).GetCellDisplayRectangle(col_index, row_index, true);
-                    DialogDayendItemEdit d = new DialogDayendItemEdit(this.main_form, (daysttak)((XDatagrid)sender).Rows[row_index].Cells[this.col_daysttak.Name].Value);
+                    DialogDayendItemEdit d = new DialogDayendItemEdit(this.main_form, this.form_dailyclose, (daysttak)((XDatagrid)sender).Rows[row_index].Cells[this.col_daysttak.Name].Value);
                     d.Width = this.col_section_name.Width + this.col_accbal.Width + rect.Width;
                     Rectangle rect_dialog = new Rectangle(p.X + rect.X + rect.Width - d.Width, p.Y + rect.Y + rect.Height, d.Width, d.Height);
                     d.SetBounds(rect_dialog.X, rect_dialog.Y, rect_dialog.Width, rect_dialog.Height);
                     d.ShowDialog();
+                    this.curr_dayend = this.GetDayEndData(this.curr_dayend);
+                    this.FillForm();
                 }
             }
         }
@@ -590,11 +560,11 @@ namespace XPump.SubForm
             if (e.RowIndex == -1)
                 return;
 
-            if(this.form_mode == FORM_MODE.EDIT_ITEM)
+            if(this.form_mode == FORM_MODE.READ)
             {
                 if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
                 {
-                    e.ToolTipText = "ดึงยอดรับสินค้าจากเอ็กซ์เพรส";
+                    e.ToolTipText = "ดู/แก้ไขรายละเอียด <Ctrl+E>";
                 }
             }
         }

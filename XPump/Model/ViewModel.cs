@@ -980,7 +980,7 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
-                    return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.takqty - (d.begbal + d.rcvqty - d.salqty));
+                    return db.daysttak.Where(d => d.dayend_id == this.id).ToViewModel(this.working_express_db).Sum(d => d.qty - (d.begbal + d.rcvqty - d.salqty - d.dother));
                 }
             }
         }
@@ -1146,6 +1146,7 @@ namespace XPump.Model
                 }
             }
         }
+        public decimal begbal { get { return this.daysttak.begbal; } }
         public decimal rcvqty { get { return this.daysttak.rcvqty; } }
         public decimal salqty { get { return this.daysttak.salqty; } }
         public decimal dother
@@ -1161,42 +1162,11 @@ namespace XPump.Model
                 }
             }
         }
-        // Accounting balance before deduct dother in FormDailyclose
         public decimal accbal
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    //return db.daysttak.Where(d => d.dayend_id == this.id).ToList().Sum(d => d.rcvqty);
-                    decimal begbal = 0m;
-                    var section = db.section.Find(this.daysttak.section_id);
-                    if (section != null)
-                        begbal = section.begacc;
-
-                    var dayend = db.dayend.Find(this.daysttak.dayend_id);
-
-                    if (dayend != null)
-                    {
-                        var rcv_qty = db.daysttak.Include("dayend")
-                                    .Where(d => d.dayend.saldat.CompareTo(dayend.saldat) <= 0)
-                                    .Where(d => d.section_id == this.section_id)
-                                    .ToList()
-                                    .Sum(d => d.rcvqty);
-
-                        var sal_qty = db.daysttak.Include("dayend")
-                                    .Where(d => d.dayend.saldat.CompareTo(dayend.saldat) <= 0)
-                                    .Where(d => d.section_id == this.section_id)
-                                    .ToList()
-                                    .Sum(d => d.salqty);
-
-                        return begbal + rcv_qty - sal_qty;
-                    }
-                    else
-                    {
-                        return begbal;
-                    }
-                }
+                return this.begbal + this.rcvqty - this.salqty - this.dother;
             }
         }
         public decimal qty { get { return this.daysttak.takqty; } }
@@ -1204,6 +1174,36 @@ namespace XPump.Model
         public int section_id { get { return this.daysttak.section_id; } }
 
         public daysttak daysttak { get; set; }
+
+        public decimal GetRcvqty()
+        {
+            if (DbfTable.IsDataFileExist("Stcrd.dbf", working_express_db))
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    var dayend = db.dayend.Find(this.dayend_id);
+                    var section = db.section.Find(this.section_id);
+
+                    if (dayend == null || section == null)
+                        return 0m;
+
+                    var xtrnqty = DbfTable.Stcrd(working_express_db).ToStcrdList()
+                            .Where(s => s.docdat.HasValue)
+                            .Where(s => s.docdat.Value.CompareTo(dayend.saldat) == 0)
+                            .Where(s => s.posopr == "0")
+                            .Where(s => s.stkcod.Trim() == dayend.stkcod.Trim())
+                            .Where(s => s.loccod.Trim() == section.loccod.Trim())
+                            .ToList()
+                            .Sum(s => s.xtrnqty);
+
+                    return Convert.ToDecimal(xtrnqty);
+                }
+            }
+            else
+            {
+                return 0m;
+            }
+        }
 
         public decimal GetSalqty()
         {
@@ -1241,7 +1241,18 @@ namespace XPump.Model
                 }
                 else
                 {
-                    return 0m;
+                    var sections = db.section
+                                .Where(s => s.id == this.section_id)
+                                .FirstOrDefault();
+                    
+                    if(sections != null)
+                    {
+                        return sections.begtak;
+                    }
+                    else
+                    {
+                        return 0m;
+                    }
                 }
             }
         }
@@ -1266,7 +1277,56 @@ namespace XPump.Model
                 }
                 else
                 {
-                    return 0m;
+                    var sections = db.section
+                                .Where(s => s.id == this.section_id)
+                                .FirstOrDefault();
+
+                    if(sections != null)
+                    {
+                        return sections.begdif;
+                    }
+                    else
+                    {
+                        return 0m;
+                    }
+                }
+            }
+        }
+
+        public decimal GetAccbal(DateTime start_from_date)
+        {
+            using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+            {
+                decimal begacc = 0m;
+                var section = db.section.Find(this.daysttak.section_id);
+                if (section != null)
+                    begacc = section.begacc;
+
+                var dayend = db.dayend.Find(this.daysttak.dayend_id);
+
+                if (dayend != null)
+                {
+                    var daysttak_to_process = db.daysttak.Include("dayend")
+                                            .Where(d => d.dayend.saldat.CompareTo(start_from_date) >= 0)
+                                            .Where(d => d.dayend.saldat.CompareTo(dayend.saldat) <= 0)
+                                            .Where(d => d.section_id == this.section_id)
+                                            .ToList();
+
+                    var rcv_qty = daysttak_to_process.Sum(d => d.rcvqty);
+
+                    var sal_qty = daysttak_to_process.Sum(d => d.salqty);
+
+                    var dother_qty = db.dother
+                                .Where(d => d.dayend_id.HasValue)
+                                .Where(d => daysttak_to_process.Select(ds => ds.id).ToList().Contains(d.dayend_id.Value))
+                                .ToList()
+                                .Sum(d => d.qty);
+
+                    return begacc + rcv_qty - sal_qty - dother_qty;
+                }
+                else
+                {
+                    return begacc;
                 }
             }
         }

@@ -16,8 +16,14 @@ namespace XPump.SubForm
     public partial class DialogDother : Form
     {
         private MainForm main_form;
+        
+        /** in case of salessummary deduct **/
         private salessummary salessummary;
+        /** in case of dayend deduct **/
         private dayend dayend;
+        private section section;
+        /******************************/
+
         private FORM_MODE form_mode;
         private BindingList<dotherVM> bl_dother;
         private dother tmp_dother;
@@ -53,7 +59,24 @@ namespace XPump.SubForm
             }
         }
 
-        public DialogDother(MainForm main_form, FormDailyClose form_dailyclose, dayend dayend)
+        //public DialogDother(MainForm main_form, FormDailyClose form_dailyclose, dayend dayend)
+        //    : this(main_form)
+        //{
+        //    this.menu_id = form_dailyclose.menu_id;
+        //    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+        //    {
+        //        this.dother_type = DOTHER.DAYEND;
+        //        this.dayend = db.dayend.Include("daysttak").Where(d => d.id == dayend.id).FirstOrDefault();
+        //        if (this.dayend == null)
+        //        {
+        //            XMessageBox.Show("ข้อมูลที่ท่านต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+        //            this.DialogResult = DialogResult.Abort;
+        //            this.Close();
+        //        }
+        //    }
+        //}
+
+        public DialogDother(MainForm main_form, FormDailyClose form_dailyclose, dayend dayend, section section)
             : this(main_form)
         {
             this.menu_id = form_dailyclose.menu_id;
@@ -67,6 +90,7 @@ namespace XPump.SubForm
                     this.DialogResult = DialogResult.Abort;
                     this.Close();
                 }
+                this.section = db.section.Find(section.id);
             }
         }
 
@@ -122,6 +146,7 @@ namespace XPump.SubForm
             this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
             this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
+            this.btnClose.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
             this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
 
             if(this.bl_dother.Count == 0)
@@ -157,12 +182,10 @@ namespace XPump.SubForm
                     case DOTHER.SHIFTSALES:
                         return db.dother.Where(d => d.salessummary_id == this.salessummary.id).ToList();
                     case DOTHER.DAYEND:
-                        return db.dother.Where(d => d.dayend_id == this.dayend.id).ToList();
+                        return db.dother.Where(d => d.dayend_id == this.dayend.id && d.section_id == this.section.id).ToList();
                     default:
                         return null;
                 }
-
-                
             }
         }
 
@@ -185,9 +208,18 @@ namespace XPump.SubForm
             {
                 col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_section_name.Name).First().Index;
                 this.inline_section.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
-                this.inline_section._ReadOnly = false;
-                var selected_section = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == this.tmp_dother.section_id).FirstOrDefault();
-                this.inline_section._SelectedItem = selected_section != null ? selected_section : this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+                if(this.section != null)
+                {
+                    this.inline_section._ReadOnly = true;
+                    var selected_section = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == this.section.id).FirstOrDefault();
+                    this.inline_section._SelectedItem = selected_section != null ? selected_section : this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+                }
+                else
+                {
+                    this.inline_section._ReadOnly = false;
+                    var selected_section = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == this.tmp_dother.section_id).FirstOrDefault();
+                    this.inline_section._SelectedItem = selected_section != null ? selected_section : this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+                }
 
                 col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.DataPropertyName == this.col_typdes.DataPropertyName).First().Index;
                 this.inline_dother.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
@@ -280,7 +312,18 @@ namespace XPump.SubForm
             this.dgv.Rows[this.dgv.Rows.Count - 1].Cells[this.col_typdes.Name].Selected = true;
             this.ResetControlState(FORM_MODE.ADD_ITEM);
             this.ShowInlineForm();
-            this.inline_section.Focus();
+            switch (this.dother_type)
+            {
+                case DOTHER.SHIFTSALES:
+                    this.inline_section.Focus();
+                    break;
+                case DOTHER.DAYEND:
+                    this.inline_dother.Focus();
+                    break;
+                default:
+                    this.inline_section.Focus();
+                    break;
+            }
             SendKeys.Send("{F6}");
         }
 

@@ -63,6 +63,18 @@ namespace CC
             }
         }
 
+        public Color _ForeColorReadOnlyState
+        {
+            get
+            {
+                return this.label1.ForeColor;
+            }
+            set
+            {
+                this.label1.ForeColor = value;
+            }
+        }
+
         //public new string _Text
         //{
         //    get
