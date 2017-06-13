@@ -1359,20 +1359,18 @@ namespace XPump.SubForm
 
                     rect_dother_txt.X += 50;
                     rect_dother_txt.Width = rect_noz.Width + rect_mitbeg.Width + rect_mitend.Width - 50 - 16;
-                    //foreach (var d in report_data.salessummaryVM_list[i].dother_list)
-                    //{
-                    //    e.Graphics.DrawString(d.ToViewModel(this.main_form.working_express_db).typcod, fnt, brush, rect_dother_txt);
-                    //    rect_dother_txt.Y += line_height;
-                    //}
+
+                    var dother = report_data.salessummaryVM_list[i].dother_list.ToViewModel(this.main_form.working_express_db).GroupBy(d => d.istab_id).Select(d => new { typdes = d.First().typdes, qty = d.ToList().Sum(dx => dx.qty) }).OrderBy(d => d.typdes).ToList();
 
                     for (int r = 0; r < max_dother_item/*4*/; r++)
                     {
                         Rectangle rect_dother = new Rectangle(rect_salqty.X, rect_dother_txt.Y, rect_total.Width, line_height);
-                        if (report_data.salessummaryVM_list[i].dother_list.Count > r)
+                        
+                        if (dother.Count > r)
                         {
-                            e.Graphics.DrawString(report_data.salessummaryVM_list[i].dother_list[r].ToViewModel(this.main_form.working_express_db).typdes, fnt, brush, rect_dother_txt);
+                            e.Graphics.DrawString(dother[r].typdes, fnt, brush, rect_dother_txt);
 
-                            e.Graphics.DrawString(report_data.salessummaryVM_list[i].dother_list[r].qty.FormatCurrency(), fnt, brush, rect_dother, new StringFormat { Alignment = StringAlignment.Far });
+                            e.Graphics.DrawString(dother[r].qty.FormatCurrency(), fnt, brush, rect_dother, new StringFormat { Alignment = StringAlignment.Far });
                         }
                         else
                         {

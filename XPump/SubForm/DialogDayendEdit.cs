@@ -222,12 +222,19 @@ namespace XPump.SubForm
         {
             if(e.RowIndex > -1)
             {
-                if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
-                    return;
+                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_accbal.Name).First().Index)
+                {
+                    this.ShowDetailForm();
+                }
+                else
+                {
+                    if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
+                        return;
 
-                this.form_mode = FORM_MODE.EDIT_ITEM;
-                this.ResetControlState();
-                this.ShowInlineForm(e.RowIndex);
+                    this.form_mode = FORM_MODE.EDIT_ITEM;
+                    this.ResetControlState();
+                    this.ShowInlineForm(e.RowIndex);
+                }
             }
         }
 
@@ -330,16 +337,17 @@ namespace XPump.SubForm
                 if(this.form_mode == FORM_MODE.READ)
                 {
                     this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_btn_rcvqty.Name].Selected = true;
-                    Point p = this.dgv.PointToScreen(this.dgv.CurrentCell.ContentBounds.Location);
-                    Rectangle rect = this.dgv.GetCellDisplayRectangle(this.dgv.CurrentCell.ColumnIndex, this.dgv.CurrentCell.RowIndex, true);
-                    DialogDayendItemEdit d = new DialogDayendItemEdit(this.main_form, this.form_dailyclose, (daysttak)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_daysttak.Name].Value);
-                    d.Width = this.col_section_name.Width + this.col_accbal.Width + rect.Width;
-                    Rectangle rect_dialog = new Rectangle(p.X + rect.X + rect.Width - d.Width, p.Y + rect.Y + rect.Height, d.Width, d.Height);
-                    d.SetBounds(rect_dialog.X, rect_dialog.Y, rect_dialog.Width, rect_dialog.Height);
-                    d.ShowDialog();
-                    this.curr_dayend = this.GetDayEndData(this.curr_dayend);
-                    this.FillForm();
-                    this.dgv.Focus();
+                    this.ShowDetailForm();
+                    //Point p = this.dgv.PointToScreen(this.dgv.CurrentCell.ContentBounds.Location);
+                    //Rectangle rect = this.dgv.GetCellDisplayRectangle(this.dgv.CurrentCell.ColumnIndex, this.dgv.CurrentCell.RowIndex, true);
+                    //DialogDayendItemEdit d = new DialogDayendItemEdit(this.main_form, this.form_dailyclose, (daysttak)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_daysttak.Name].Value);
+                    //d.Width = this.col_section_name.Width + this.col_accbal.Width + rect.Width;
+                    //Rectangle rect_dialog = new Rectangle(p.X + rect.X + rect.Width - d.Width, p.Y + rect.Y + rect.Height, d.Width, d.Height);
+                    //d.SetBounds(rect_dialog.X, rect_dialog.Y, rect_dialog.Width, rect_dialog.Height);
+                    //d.ShowDialog();
+                    //this.curr_dayend = this.GetDayEndData(this.curr_dayend);
+                    //this.FillForm();
+                    //this.dgv.Focus();
                     return true;
                 }
             }
@@ -517,9 +525,19 @@ namespace XPump.SubForm
 
                 ((XDatagrid)sender).Rows[row_index].Cells[this.col_section_name.Name].Selected = true;
                 ContextMenu cm = new ContextMenu();
-                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
+                MenuItem mnu_detail = new MenuItem("ดู/แก้ไข รายละเอียด <Ctrl+E>");
+                mnu_detail.Click += delegate
+                {
+                    this.ShowDetailForm();
+                };
+                cm.MenuItems.Add(mnu_detail);
+
+                MenuItem mnu_edit = new MenuItem("แก้ไขปริมาณที่ตรวจวัด <Alt+E>");
                 mnu_edit.Click += delegate
                 {
+                    if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() != true)
+                        return;
+
                     this.form_mode = FORM_MODE.EDIT_ITEM;
                     this.ResetControlState();
                     this.ShowInlineForm(row_index);
@@ -542,15 +560,16 @@ namespace XPump.SubForm
                 if(col_index == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
                 {
                     ((XDatagrid)sender).Rows[row_index].Cells[this.col_btn_rcvqty.Name].Selected = true;
-                    Point p = ((XDatagrid)sender).PointToScreen(((XDatagrid)sender).CurrentCell.ContentBounds.Location);
-                    Rectangle rect = ((XDatagrid)sender).GetCellDisplayRectangle(col_index, row_index, true);
-                    DialogDayendItemEdit d = new DialogDayendItemEdit(this.main_form, this.form_dailyclose, (daysttak)((XDatagrid)sender).Rows[row_index].Cells[this.col_daysttak.Name].Value);
-                    d.Width = this.col_section_name.Width + this.col_accbal.Width + rect.Width;
-                    Rectangle rect_dialog = new Rectangle(p.X + rect.X + rect.Width - d.Width, p.Y + rect.Y + rect.Height, d.Width, d.Height);
-                    d.SetBounds(rect_dialog.X, rect_dialog.Y, rect_dialog.Width, rect_dialog.Height);
-                    d.ShowDialog();
-                    this.curr_dayend = this.GetDayEndData(this.curr_dayend);
-                    this.FillForm();
+                    this.ShowDetailForm();
+                    //Point p = ((XDatagrid)sender).PointToScreen(((XDatagrid)sender).CurrentCell.ContentBounds.Location);
+                    //Rectangle rect = ((XDatagrid)sender).GetCellDisplayRectangle(col_index, row_index, true);
+                    //DialogDayendItemEdit d = new DialogDayendItemEdit(this.main_form, this.form_dailyclose, (daysttak)((XDatagrid)sender).Rows[row_index].Cells[this.col_daysttak.Name].Value);
+                    //d.Width = this.col_section_name.Width + this.col_accbal.Width + rect.Width;
+                    //Rectangle rect_dialog = new Rectangle(p.X + rect.X + rect.Width - d.Width, p.Y + rect.Y + rect.Height, d.Width, d.Height);
+                    //d.SetBounds(rect_dialog.X, rect_dialog.Y, rect_dialog.Width, rect_dialog.Height);
+                    //d.ShowDialog();
+                    //this.curr_dayend = this.GetDayEndData(this.curr_dayend);
+                    //this.FillForm();
                 }
             }
         }
@@ -569,5 +588,25 @@ namespace XPump.SubForm
             }
         }
         
+        private void ShowDetailForm()
+        {
+            if (this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.EDIT_ITEM)
+                return;
+
+            if (this.dgv.CurrentCell == null || this.dgv.CurrentCell.RowIndex == -1)
+                return;
+
+            //var col_btn_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index;
+            this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_btn_rcvqty.Name].Selected = true;
+            Point p = this.dgv.PointToScreen(this.dgv.CurrentCell.ContentBounds.Location);
+            Rectangle rect = this.dgv.GetCellDisplayRectangle(this.dgv.CurrentCell.ColumnIndex, this.dgv.CurrentCell.RowIndex, true);
+            DialogDayendItemEdit d = new DialogDayendItemEdit(this.main_form, this.form_dailyclose, (daysttak)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_daysttak.Name].Value);
+            d.Width = this.col_section_name.Width + this.col_accbal.Width + rect.Width;
+            Rectangle rect_dialog = new Rectangle(p.X + rect.X + rect.Width - d.Width, p.Y + rect.Y + rect.Height, d.Width, d.Height);
+            d.SetBounds(rect_dialog.X, rect_dialog.Y, rect_dialog.Width, rect_dialog.Height);
+            d.ShowDialog();
+            this.curr_dayend = this.GetDayEndData(this.curr_dayend);
+            this.FillForm();
+        }
     }
 }

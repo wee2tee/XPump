@@ -377,6 +377,12 @@ namespace CC
                     this.btnCancel.PerformClick();
                     return true;
                 }
+
+                if(this.available_button.Count == 1 && this.available_button[0].Name == this.btnOK.Name)
+                {
+                    this.btnOK.PerformClick();
+                    return true;
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

@@ -192,7 +192,7 @@ namespace XPump.SubForm
         private void FillForm()
         {
             this.bl_dother = null;
-            this.bl_dother = new BindingList<dotherVM>(this.GetDother(this.dother_type).ToViewModel(this.main_form.working_express_db).OrderBy(d => d.section_name).ToList());
+            this.bl_dother = new BindingList<dotherVM>(this.GetDother(this.dother_type).ToViewModel(this.main_form.working_express_db).OrderBy(d => d.section_name).ThenBy(d => d.typdes).ToList());
             this.dgv.DataSource = this.bl_dother;
         }
 
@@ -210,6 +210,7 @@ namespace XPump.SubForm
                 this.inline_section.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
                 if(this.section != null)
                 {
+                    this.tmp_dother.section_id = this.section.id;
                     this.inline_section._ReadOnly = true;
                     var selected_section = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == this.section.id).FirstOrDefault();
                     this.inline_section._SelectedItem = selected_section != null ? selected_section : this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();

@@ -125,6 +125,9 @@ namespace XPump.SubForm
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (this.daysttak.dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() != true)
+                return;
+
             this.tmp_daysttak = this.GetDaySttak(this.daysttak);
             if(this.tmp_daysttak.rcvqty < 0)
             {
@@ -147,6 +150,9 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (this.daysttak.dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() != true)
+                return;
+
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 var daysttak_to_update = db.daysttak.Find(this.tmp_daysttak.id);
@@ -241,12 +247,18 @@ namespace XPump.SubForm
 
         private void numBegbal__DoubleClicked(object sender, EventArgs e)
         {
+            if (this.daysttak.dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() != true)
+                return;
+
             this.btnEdit.PerformClick();
             ((XNumEdit)sender).Focus();
         }
 
         private void numRcvqty__DoubleClicked(object sender, EventArgs e)
         {
+            if (this.daysttak.dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() != true)
+                return;
+
             this.btnEdit.PerformClick();
             ((XNumEdit)sender).Focus();
         }

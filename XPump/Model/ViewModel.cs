@@ -1316,9 +1316,11 @@ namespace XPump.Model
 
                     var sal_qty = daysttak_to_process.Sum(d => d.salqty);
 
+                    var dayend_ids = daysttak_to_process.Select(ds => ds.dayend_id).ToList();
                     var dother_qty = db.dother
                                 .Where(d => d.dayend_id.HasValue)
-                                .Where(d => daysttak_to_process.Select(ds => ds.id).ToList().Contains(d.dayend_id.Value))
+                                .Where(d => dayend_ids.Contains(d.dayend_id.Value))
+                                .Where(d => d.section_id == this.section_id)
                                 .ToList()
                                 .Sum(d => d.qty);
 
@@ -1897,7 +1899,7 @@ namespace XPump.Model
             // dayend
             using (xpumpEntities db = DBX.DataSet(this.working_express_db))
             {
-                this.dayend = db.dayend.Include("daysttak").Include("dother").Where(d => d.saldat == this.reportDate).ToList();
+                this.dayend = db.dayend.Include("daysttak").Include("daysttak.section").Include("dother").Where(d => d.saldat == this.reportDate).OrderBy(d => d.stkcod).ToList();
             }
         }
     }

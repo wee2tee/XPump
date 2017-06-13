@@ -1377,16 +1377,18 @@ namespace XPump.SubForm
                         e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product), rect_stk.Width, line_height));
                         e.Graphics.DrawRectangle(p, new Rectangle(rect_stk.X, rect_stk.Y + rect_stk.Height + (line_height * section_per_product) + line_height, rect_stk.Width, line_height * (7 + max_dother_item)));
 
+                        var daysttak = report_data.dayend[i].daysttak.OrderBy(d => d.section.name).ToList();
+
                         for (int j = 0; j < section_per_product; j++)
                         {
                             rect_section.Y += rect_section.Height;
                             rect_section.Height = line_height;
-                            string sect = report_data.dayend[i].daysttak.Count > j ? report_data.dayend[i].daysttak.ToList()[j].ToViewModel(this.main_form.working_express_db).section_name : "-";
+                            string sect = daysttak.Count > j ? daysttak.ToList()[j].ToViewModel(this.main_form.working_express_db).section_name : "-";
                             e.Graphics.DrawString(sect, fnt, brush, rect_section, format_center);
 
                             rect_stk.Y += rect_stk.Height;
                             rect_stk.Height = line_height;
-                            string qty = report_data.dayend[i].daysttak.Count > j ? string.Format("{0:#,#0.00}", report_data.dayend[i].daysttak.ToList()[j].ToViewModel(this.main_form.working_express_db).qty) : string.Empty;
+                            string qty = daysttak.Count > j ? string.Format("{0:#,#0.00}", daysttak.ToList()[j].ToViewModel(this.main_form.working_express_db).qty) : string.Empty;
                             e.Graphics.DrawString(qty, fnt, brush, rect_stk, format_right);
                         }
 
@@ -1406,15 +1408,28 @@ namespace XPump.SubForm
                         rect_section.Y = rect_stk.Y;
                         e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_section.X + 1, rect_section.Y + rect_section.Height + 1, rect_section.Width - 2, (line_height * max_dother_item) - 2));
                         e.Graphics.FillRectangle(bg_lightgray, new Rectangle(rect_stk.X + 1, rect_stk.Y + rect_stk.Height + 1, rect_stk.Width - 2, (line_height * max_dother_item) - 2));
+
+                        var dother = report_data.dayend[i].dother.ToViewModel(this.main_form.working_express_db).GroupBy(d => d.istab_id).Select(d => new { typdes = d.First().typdes, qty = d.ToList().Sum(dx => dx.qty) }).OrderBy(d => d.typdes).ToList();
+
+                        
                         for (int d = 0; d < max_dother_item; d++)
                         {
                             rect_section.Y += rect_section.Height;
                             rect_stk.Y += rect_stk.Height;
 
-                            if (report_data.dayend[i].dother.Count > d)
+                            //if (report_data.dayend[i].dother.Count > d)
+                            //{
+                            //    e.Graphics.DrawString(report_data.dayend[i].dother.ElementAt(d).ToViewModel(this.main_form.working_express_db).typdes, fnt, brush, rect_section);
+                            //    e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].dother.ElementAt(d).qty), fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                            //}
+                            //else
+                            //{
+                            //    e.Graphics.DrawString("-", fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                            //}
+                            if (dother.Count > d)
                             {
-                                e.Graphics.DrawString(report_data.dayend[i].dother.ElementAt(d).ToViewModel(this.main_form.working_express_db).typdes, fnt, brush, rect_section);
-                                e.Graphics.DrawString(string.Format("{0:#,#0.00}", report_data.dayend[i].dother.ElementAt(d).qty), fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
+                                e.Graphics.DrawString(dother[d].typdes, fnt, brush, rect_section);
+                                e.Graphics.DrawString(string.Format("{0:#,#0.00}", dother[d].qty), fnt, brush, rect_stk, new StringFormat { Alignment = StringAlignment.Far });
                             }
                             else
                             {
