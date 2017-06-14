@@ -96,6 +96,19 @@ namespace XPump.Model
         public shift shift { get; set; }
     }
 
+    public class tanksetupVM
+    {
+        public SccompDbf working_express_db { get; set; }
+        public int id { get { return this.tanksetup.id; } }
+        public DateTime startdate { get { return this.tanksetup.startdate; } }
+        public string creby { get { return this.tanksetup.creby; } }
+        public System.DateTime cretime { get { return this.tanksetup.cretime; } }
+        public string chgby { get { return this.tanksetup.chgby; } }
+        public Nullable<System.DateTime> chgtime { get { return this.tanksetup.chgtime; } }
+
+        public tanksetup tanksetup;
+    }
+
     public class tankVM
     {
         public SccompDbf working_express_db { get; set; }

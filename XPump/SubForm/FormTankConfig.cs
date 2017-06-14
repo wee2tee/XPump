@@ -265,6 +265,9 @@ namespace XPump.SubForm
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (this.tanksetup.ToViewModel(this.main_form.working_express_db).IsEditableTankSetup() != true)
+                return;
+
             this.tmp_tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
             this.FillForm();
 
@@ -851,6 +854,9 @@ namespace XPump.SubForm
 
         private void btnAddTank_Click(object sender, EventArgs e)
         {
+            if (this.tanksetup.ToViewModel(this.main_form.working_express_db).IsEditableTankSetup() != true)
+                return;
+
             this.list_tankVM.Add(new tank
             {
                 id = -1,
@@ -872,6 +878,9 @@ namespace XPump.SubForm
 
         private void btnEditTank_Click(object sender, EventArgs e)
         {
+            if (this.tanksetup.ToViewModel(this.main_form.working_express_db).IsEditableTankSetup() != true)
+                return;
+
             if (this.dgvTank.CurrentCell == null)
                 return;
 
@@ -900,14 +909,17 @@ namespace XPump.SubForm
             {
                 try
                 {
+                    if (this.tanksetup.ToViewModel(this.main_form.working_express_db).IsEditableTankSetup() != true)
+                        return;
+
                     int tank_id = (int)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_id.Name].Value;
 
                     var nozzle_ids = db.nozzle.Include("section").Where(n => n.section.tank_id == tank_id).Select(n => n.id).ToArray<int>();
-                    if(db.saleshistory.Where(s => nozzle_ids.Contains(s.nozzle_id)).Count() > 0)
-                    {
-                        XMessageBox.Show("รหัสแท๊งค์ \"" + (string)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_name.Name].Value + "\" มีการเดินรายการแล้ว, ไม่สามารถลบได้", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
-                        return;
-                    }
+                    //if(db.saleshistory.Where(s => nozzle_ids.Contains(s.nozzle_id)).Count() > 0)
+                    //{
+                    //    XMessageBox.Show("รหัสแท๊งค์ \"" + (string)this.dgvTank.Rows[this.dgvTank.CurrentCell.RowIndex].Cells[this.col_tank_name.Name].Value + "\" มีการเดินรายการแล้ว, ไม่สามารถลบได้", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                    //    return;
+                    //}
 
                     if(db.tank.Find(tank_id) != null)
                     {
@@ -943,6 +955,9 @@ namespace XPump.SubForm
 
         private void btnAddSection_Click(object sender, EventArgs e)
         {
+            if (this.tanksetup.ToViewModel(this.main_form.working_express_db).IsEditableTankSetup() != true)
+                return;
+
             this.list_sectionVM.Add(new section
             {
                 id = -1,
@@ -969,6 +984,9 @@ namespace XPump.SubForm
 
         private void btnEditSection_Click(object sender, EventArgs e)
         {
+            if (this.tanksetup.ToViewModel(this.main_form.working_express_db).IsEditableTankSetup() != true)
+                return;
+
             this.btnSection.PerformClick();
 
             if (this.dgvSection.CurrentCell == null)
@@ -989,6 +1007,11 @@ namespace XPump.SubForm
 
             if(XMessageBox.Show("ลบถังน้ำมันเลขที่ \"" + (string)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells[this.col_sect_name.Name].Value + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
+                if (this.tanksetup.ToViewModel(this.main_form.working_express_db).IsEditableTankSetup() != true)
+                    return;
+
+
+
                 try
                 {
                     using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))

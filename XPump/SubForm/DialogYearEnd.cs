@@ -114,57 +114,99 @@ namespace XPump.SubForm
                     st.prdend = this.settings.prdend.Value.AddYears(1);
                 }
 
-                dayend_to_process = db.dayend.Include("daysttak").Include("dother")
+                dayend_to_process = db.dayend
+                                    //.Include("daysttak").Include("dother")
                                     .Where(d => d.saldat.CompareTo(settings.prdstart.Value) >= 0)
                                     .Where(d => d.saldat.CompareTo(settings.prdend.Value) <= 0)
                                     .ToList();
 
-                shiftsales_to_process = db.shiftsales.Include("shiftsttak").Include("salessummary").Include("salessummary.pricelist")
-                                        .Include("salessummary.saleshistory").Include("salessummary.dother")
+                shiftsales_to_process = db.shiftsales
+                                        //.Include("shiftsttak").Include("salessummary").Include("salessummary.pricelist")
+                                        //.Include("salessummary.saleshistory").Include("salessummary.dother")
                                         .Where(s => s.saldat.CompareTo(settings.prdstart.Value) >= 0)
                                         .Where(s => s.saldat.CompareTo(settings.prdend.Value) <= 0)
                                         .ToList();
 
                 // Delete old data
-                foreach (var dayend in dayend_to_process)
+                for (int d = dayend_to_process.Count - 1; d >= 0; d--)
                 {
-                    foreach (var dother in dayend.dother)
+                    var dayend_id = dayend_to_process[d].id;
+                    var dother = db.dother.Where(dd => dd.dayend_id.HasValue && dd.dayend_id.Value == dayend_id).ToList();
+                    for (int i = dother.Count - 1; i >= 0; i--)
                     {
-                        db.dother.Remove(db.dother.Find(dother.id));
+                        db.dother.Remove(db.dother.Find(dother[i].id));
                     }
 
-                    foreach (var daysttak in dayend.daysttak)
+                    var daysttak = db.daysttak.Where(ds => ds.dayend_id == dayend_id).ToList();
+                    for(int i = daysttak.Count - 1; i >= 0; i--)
                     {
-                        db.daysttak.Remove(db.daysttak.Find(daysttak.id));
+                        db.daysttak.Remove(db.daysttak.Find(daysttak[i].id));
                     }
 
-                    db.dayend.Remove(db.dayend.Find(dayend.id));
+                    db.dayend.Remove(db.dayend.Find(dayend_id));
                 }
 
-                foreach (var shiftsales in shiftsales_to_process)
+                for (int s = shiftsales_to_process.Count - 1; s >= 0; s--)
                 {
-                    foreach (var salessummary in shiftsales.salessummary)
+                    //for (int i = shiftsales_to_process.ElementAt(s).salessummary.Count - 1; i >= 0; i--)
+                    //{
+                    //    foreach (var dother in db.dother.Where(d => d.salessummary_id == salessummary.id).ToList())
+                    //    {
+                    //        db.dother.Remove(db.dother.Find(dother.id));
+                    //    }
+
+                    //    for (int sh = shiftsales_to_process.ElementAt(s);  < length; ++)
+                    //    {
+
+                    //    }
+
+
+
+                    //    foreach (var saleshistory in salessummary.saleshistory)
+                    //    {
+                    //        db.saleshistory.Remove(db.saleshistory.Find(saleshistory.id));
+                    //    }
+
+                    //    db.pricelist.Remove(db.pricelist.Find(salessummary.pricelist_id));
+                    //    db.salessummary.Remove(db.salessummary.Find(salessummary.id));
+                    //}
+
+                    //foreach (var shiftsttak in shiftsales.shiftsttak)
+                    //{
+                    //    db.shiftsttak.Remove(db.shiftsttak.Find(shiftsttak.id));
+                    //}
+
+                    var shiftsales_id = shiftsales_to_process[s].id;
+
+                    var dother = db.dother.Include("salessummary").Where(dd => dd.salessummary.shiftsales_id == shiftsales_id).ToList();
+                    for (int i = dother.Count - 1; i >= 0; i--)
                     {
-                        foreach (var dother in salessummary.dother)
-                        {
-                            db.dother.Remove(db.dother.Find(dother.id));
-                        }
-
-                        foreach (var saleshistory in salessummary.saleshistory)
-                        {
-                            db.saleshistory.Remove(db.saleshistory.Find(saleshistory.id));
-                        }
-
-                        db.pricelist.Remove(db.pricelist.Find(salessummary.pricelist_id));
-                        db.salessummary.Remove(db.salessummary.Find(salessummary.id));
+                        db.dother.Remove(db.dother.Find(dother[i].id));
                     }
 
-                    foreach (var shiftsttak in shiftsales.shiftsttak)
+                    var saleshistory = db.saleshistory.Include("salessummary").Where(sh => sh.salessummary.shiftsales_id == shiftsales_id).ToList();
+                    for (int i = saleshistory.Count - 1; i >= 0; i--)
                     {
-                        db.shiftsttak.Remove(db.shiftsttak.Find(shiftsttak.id));
+                        db.saleshistory.Remove(db.saleshistory.Find(saleshistory[i].id));
                     }
 
-                    db.shiftsales.Remove(db.shiftsales.Find(shiftsales.id));
+                    var salessummary = db.salessummary.Where(ss => ss.shiftsales_id == shiftsales_id).ToList();
+                    for (int i = salessummary.Count - 1; i >= 0; i--)
+                    {
+                        var pricelist_id = salessummary[i].pricelist_id;
+
+                        db.salessummary.Remove(db.salessummary.Find(salessummary[i].id));
+
+                        db.pricelist.Remove(db.pricelist.Find(pricelist_id));
+                    }
+
+                    var shiftsttak = db.shiftsttak.Where(st => st.shiftsales_id == shiftsales_id).ToList();
+                    for (int i = shiftsttak.Count - 1; i >= 0; i--)
+                    {
+                        db.shiftsttak.Remove(db.shiftsttak.Find(shiftsttak[i].id));
+                    }
+
+                    db.shiftsales.Remove(db.shiftsales.Find(shiftsales_to_process[s].id));
                 }
 
                 db.SaveChanges();

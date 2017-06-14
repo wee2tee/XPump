@@ -65,6 +65,33 @@ namespace XPump.Misc
     // Extension Method
     public static class Helper
     {
+        public static tanksetupVM ToViewModel(this tanksetup tanksetup, SccompDbf working_express_db)
+        {
+            if(tanksetup == null)
+            {
+                return null;
+            }
+
+            tanksetupVM t = new tanksetupVM
+            {
+                working_express_db = working_express_db,
+                tanksetup = tanksetup,
+            };
+
+            return t;
+        }
+
+        public static List<tanksetupVM> ToViewModel(this IEnumerable<tanksetup> tanksetups, SccompDbf working_express_db)
+        {
+            List<tanksetupVM> t = new List<tanksetupVM>();
+            foreach (var tanksetup in tanksetups)
+            {
+                t.Add(tanksetup.ToViewModel(working_express_db));
+            }
+
+            return t;
+        }
+
         public static istabVM ToViewModel(this istab istab, SccompDbf working_express_db)
         {
             if(istab == null)
@@ -1784,6 +1811,36 @@ namespace XPump.Misc
             foreach (var s in stmas_prices)
             {
                 s.SetLastestPrice(price_date);
+            }
+        }
+
+        public static bool IsEditableTankSetup(this tanksetupVM tanksetup, bool show_alert = true)
+        {
+            using (xpumpEntities db = DBX.DataSet(tanksetup.working_express_db))
+            {
+                var ts = db.tanksetup.Find(tanksetup.id);
+                if(ts == null)
+                {
+                    if(show_alert)
+                        XMessageBox.Show("ข้อมูลที่ต้องการไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                    return false;
+                }
+
+                var saleshistory = db.saleshistory
+                                    .Include("nozzle.section.tank")
+                                    .Where(s => s.nozzle.section.tank.tanksetup_id == ts.id).FirstOrDefault();
+                var shiftsttak = db.shiftsttak
+                                    .Include("section.tank")
+                                    .Where(s => s.section.tank.tanksetup_id == ts.id).FirstOrDefault();
+
+                if(saleshistory != null || shiftsttak != null)
+                {
+                    if (show_alert)
+                        XMessageBox.Show("มีการนำไปเดินรายการแล้ว ห้ามแก้ไข หรือ ลบ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                    return false;
+                }
+
+                return true;
             }
         }
 
