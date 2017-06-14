@@ -410,29 +410,11 @@
     <Compile Include="SubForm\LoadingForm.Designer.cs">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForm\_FormShiftTransaction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\_FormShiftTransaction.Designer.cs">
-      <DependentUpon>_FormShiftTransaction.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SubForm\_FormNozzle.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\_FormNozzle.Designer.cs">
-      <DependentUpon>_FormNozzle.cs</DependentUpon>
-    </Compile>
     <Compile Include="SubForm\FormShift.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SubForm\FormShift.Designer.cs">
       <DependentUpon>FormShift.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SubForm\_TestForm1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForm\_TestForm1.Designer.cs">
-      <DependentUpon>_TestForm1.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -561,17 +543,8 @@
     <EmbeddedResource Include="SubForm\LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\_FormShiftTransaction.resx">
-      <DependentUpon>_FormShiftTransaction.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\_FormNozzle.resx">
-      <DependentUpon>_FormNozzle.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormShift.resx">
       <DependentUpon>FormShift.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubForm\_TestForm1.resx">
-      <DependentUpon>_TestForm1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="Model\XPumpModel.edmx">
