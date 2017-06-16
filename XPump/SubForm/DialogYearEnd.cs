@@ -53,164 +53,171 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            /** Check if last shiftsales not dayend yet **/
-            dayend last_dayend = null;
-            List<dayend> dayend_in_last_day = null;
-            List<dayend> dayend_to_process = null;
-            List<shiftsales> shiftsales_to_process = null;
-            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            LoadingForm loading = new LoadingForm();
+            loading.ShowCenterParent(this);
+
+            bool result = false;
+            string err_message = string.Empty;
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += delegate
             {
-                var last_shiftsales = db.shiftsales
-                                    .Where(s => s.saldat.CompareTo(this.settings.prdstart.Value) >= 0)
-                                    .Where(s => s.saldat.CompareTo(this.settings.prdend.Value) <= 0)
-                                    .OrderByDescending(s => s.saldat)
-                                    .FirstOrDefault();
-
-                last_dayend = db.dayend
-                                    .Where(d => d.saldat.CompareTo(this.settings.prdstart.Value) >= 0)
-                                    .Where(d => d.saldat.CompareTo(this.settings.prdend.Value) <= 0)
-                                    .OrderByDescending(d => d.saldat)
-                                    .FirstOrDefault();
-                if (last_shiftsales != null && last_dayend != null)
+                /** Check if last shiftsales not dayend yet **/
+                dayend last_dayend = null;
+                List<dayend> dayend_in_last_day = null;
+                List<dayend> dayend_to_process = null;
+                List<shiftsales> shiftsales_to_process = null;
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
-                    if (last_shiftsales.saldat.CompareTo(last_dayend.saldat) > 0)
+                    var last_shiftsales = db.shiftsales
+                                        .Where(s => s.saldat.CompareTo(this.settings.prdstart.Value) >= 0)
+                                        .Where(s => s.saldat.CompareTo(this.settings.prdend.Value) <= 0)
+                                        .OrderByDescending(s => s.saldat)
+                                        .FirstOrDefault();
+
+                    last_dayend = db.dayend
+                                        .Where(d => d.saldat.CompareTo(this.settings.prdstart.Value) >= 0)
+                                        .Where(d => d.saldat.CompareTo(this.settings.prdend.Value) <= 0)
+                                        .OrderByDescending(d => d.saldat)
+                                        .FirstOrDefault();
+                    if (last_shiftsales != null && last_dayend != null)
                     {
-                        XMessageBox.Show("ยังไม่สามารถปิดประมวลผลสิ้นปีได้ เนื่องจากรายการขายของวันที่ " + last_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ยังไม่ได้บันทึกปิดยอดขายประจำวัน", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
-
-                        last_shiftsales = null;
-                        return;
-                    }
-                }
-            }
-
-            /** Get list of dayend (in last day of year) **/
-            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-            {
-                if(last_dayend != null)
-                {
-                    dayend_in_last_day = db.dayend.Include("daysttak").Include("daysttak.section")
-                                    .Where(d => d.saldat.CompareTo(last_dayend.saldat) == 0)
-                                    .ToList();
-
-                    // Collect section begacc begtak begdif
-                    foreach (var d in dayend_in_last_day)
-                    {
-                        var daysttakvm = d.daysttak.ToViewModel(this.main_form.working_express_db).OrderBy(dvm => dvm.section_name);
-                        foreach (var sttak in daysttakvm)
+                        if (last_shiftsales.saldat.CompareTo(last_dayend.saldat) > 0)
                         {
-                            var section = db.section.Find(sttak.section_id);
-                            if (section == null)
-                                continue;
+                            err_message = "ยังไม่สามารถปิดประมวลผลสิ้นปีได้ เนื่องจากรายการขายของวันที่ " + last_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ยังไม่ได้บันทึกปิดยอดขายประจำวัน";
+                            result = false;
+                            //XMessageBox.Show("ยังไม่สามารถปิดประมวลผลสิ้นปีได้ เนื่องจากรายการขายของวันที่ " + last_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ยังไม่ได้บันทึกปิดยอดขายประจำวัน", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
 
-                            section.begacc = sttak.GetAccbal(this.settings.prdstart.Value);
-                            section.begtak = sttak.qty;
-                            section.begdif = section.begtak - section.begacc;
+                            last_shiftsales = null;
+                            return;
                         }
                     }
-                    
-                    // Change account period
-                    settings st = db.settings.First();
-                    st.prdstart = this.settings.prdstart.Value.AddYears(1);
-                    st.prdend = this.settings.prdend.Value.AddYears(1);
                 }
 
-                dayend_to_process = db.dayend
-                                    //.Include("daysttak").Include("dother")
-                                    .Where(d => d.saldat.CompareTo(settings.prdstart.Value) >= 0)
-                                    .Where(d => d.saldat.CompareTo(settings.prdend.Value) <= 0)
-                                    .ToList();
-
-                shiftsales_to_process = db.shiftsales
-                                        //.Include("shiftsttak").Include("salessummary").Include("salessummary.pricelist")
-                                        //.Include("salessummary.saleshistory").Include("salessummary.dother")
-                                        .Where(s => s.saldat.CompareTo(settings.prdstart.Value) >= 0)
-                                        .Where(s => s.saldat.CompareTo(settings.prdend.Value) <= 0)
-                                        .ToList();
-
-                // Delete old data
-                for (int d = dayend_to_process.Count - 1; d >= 0; d--)
+                /** Get list of dayend (in last day of year) **/
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
-                    var dayend_id = dayend_to_process[d].id;
-                    var dother = db.dother.Where(dd => dd.dayend_id.HasValue && dd.dayend_id.Value == dayend_id).ToList();
-                    for (int i = dother.Count - 1; i >= 0; i--)
+                    try
                     {
-                        db.dother.Remove(db.dother.Find(dother[i].id));
-                    }
+                        if (last_dayend != null)
+                        {
+                            dayend_in_last_day = db.dayend.Include("daysttak").Include("daysttak.section")
+                                            .Where(d => d.saldat.CompareTo(last_dayend.saldat) == 0)
+                                            .ToList();
 
-                    var daysttak = db.daysttak.Where(ds => ds.dayend_id == dayend_id).ToList();
-                    for(int i = daysttak.Count - 1; i >= 0; i--)
+                            // Collect section begacc begtak begdif
+                            foreach (var d in dayend_in_last_day)
+                            {
+                                var daysttakvm = d.daysttak.ToViewModel(this.main_form.working_express_db).OrderBy(dvm => dvm.section_name);
+                                foreach (var sttak in daysttakvm)
+                                {
+                                    var section = db.section.Find(sttak.section_id);
+                                    if (section == null)
+                                        continue;
+
+                                    section.begacc = sttak.GetAccbal(this.settings.prdstart.Value);
+                                    section.begtak = sttak.qty;
+                                    section.begdif = section.begtak - section.begacc;
+                                }
+                            }
+
+                            // Change account period
+                            settings st = db.settings.First();
+                            st.prdstart = this.settings.prdstart.Value.AddYears(1);
+                            st.prdend = this.settings.prdend.Value.AddYears(1);
+                        }
+
+                        dayend_to_process = db.dayend
+                                            //.Include("daysttak").Include("dother")
+                                            .Where(d => d.saldat.CompareTo(settings.prdstart.Value) >= 0)
+                                            .Where(d => d.saldat.CompareTo(settings.prdend.Value) <= 0)
+                                            .ToList();
+
+                        shiftsales_to_process = db.shiftsales
+                                                //.Include("shiftsttak").Include("salessummary").Include("salessummary.pricelist")
+                                                //.Include("salessummary.saleshistory").Include("salessummary.dother")
+                                                .Where(s => s.saldat.CompareTo(settings.prdstart.Value) >= 0)
+                                                .Where(s => s.saldat.CompareTo(settings.prdend.Value) <= 0)
+                                                .ToList();
+
+                        // Delete old data
+                        for (int d = dayend_to_process.Count - 1; d >= 0; d--)
+                        {
+                            var dayend_id = dayend_to_process[d].id;
+                            var dother = db.dother.Where(dd => dd.dayend_id.HasValue && dd.dayend_id.Value == dayend_id).ToList();
+                            for (int i = dother.Count - 1; i >= 0; i--)
+                            {
+                                db.dother.Remove(db.dother.Find(dother[i].id));
+                            }
+
+                            var daysttak = db.daysttak.Where(ds => ds.dayend_id == dayend_id).ToList();
+                            for (int i = daysttak.Count - 1; i >= 0; i--)
+                            {
+                                db.daysttak.Remove(db.daysttak.Find(daysttak[i].id));
+                            }
+
+                            db.dayend.Remove(db.dayend.Find(dayend_id));
+                        }
+
+                        for (int s = shiftsales_to_process.Count - 1; s >= 0; s--)
+                        {
+                            var shiftsales_id = shiftsales_to_process[s].id;
+
+                            var dother = db.dother.Include("salessummary").Where(dd => dd.salessummary.shiftsales_id == shiftsales_id).ToList();
+                            for (int i = dother.Count - 1; i >= 0; i--)
+                            {
+                                db.dother.Remove(db.dother.Find(dother[i].id));
+                            }
+
+                            var saleshistory = db.saleshistory.Include("salessummary").Where(sh => sh.salessummary.shiftsales_id == shiftsales_id).ToList();
+                            for (int i = saleshistory.Count - 1; i >= 0; i--)
+                            {
+                                db.saleshistory.Remove(db.saleshistory.Find(saleshistory[i].id));
+                            }
+
+                            var salessummary = db.salessummary.Where(ss => ss.shiftsales_id == shiftsales_id).ToList();
+                            for (int i = salessummary.Count - 1; i >= 0; i--)
+                            {
+                                var pricelist_id = salessummary[i].pricelist_id;
+
+                                db.salessummary.Remove(db.salessummary.Find(salessummary[i].id));
+
+                                db.pricelist.Remove(db.pricelist.Find(pricelist_id));
+                            }
+
+                            var shiftsttak = db.shiftsttak.Where(st => st.shiftsales_id == shiftsales_id).ToList();
+                            for (int i = shiftsttak.Count - 1; i >= 0; i--)
+                            {
+                                db.shiftsttak.Remove(db.shiftsttak.Find(shiftsttak[i].id));
+                            }
+
+                            db.shiftsales.Remove(db.shiftsales.Find(shiftsales_to_process[s].id));
+                        }
+                        result = true;
+                        db.SaveChanges();
+                    }
+                    catch (Exception ex)
                     {
-                        db.daysttak.Remove(db.daysttak.Find(daysttak[i].id));
+                        result = false;
+                        err_message = ex.Message;
                     }
-
-                    db.dayend.Remove(db.dayend.Find(dayend_id));
                 }
-
-                for (int s = shiftsales_to_process.Count - 1; s >= 0; s--)
+            };
+            worker.RunWorkerCompleted += delegate
+            {
+                loading.Close();
+                if(result == true)
                 {
-                    //for (int i = shiftsales_to_process.ElementAt(s).salessummary.Count - 1; i >= 0; i--)
-                    //{
-                    //    foreach (var dother in db.dother.Where(d => d.salessummary_id == salessummary.id).ToList())
-                    //    {
-                    //        db.dother.Remove(db.dother.Find(dother.id));
-                    //    }
-
-                    //    for (int sh = shiftsales_to_process.ElementAt(s);  < length; ++)
-                    //    {
-
-                    //    }
-
-
-
-                    //    foreach (var saleshistory in salessummary.saleshistory)
-                    //    {
-                    //        db.saleshistory.Remove(db.saleshistory.Find(saleshistory.id));
-                    //    }
-
-                    //    db.pricelist.Remove(db.pricelist.Find(salessummary.pricelist_id));
-                    //    db.salessummary.Remove(db.salessummary.Find(salessummary.id));
-                    //}
-
-                    //foreach (var shiftsttak in shiftsales.shiftsttak)
-                    //{
-                    //    db.shiftsttak.Remove(db.shiftsttak.Find(shiftsttak.id));
-                    //}
-
-                    var shiftsales_id = shiftsales_to_process[s].id;
-
-                    var dother = db.dother.Include("salessummary").Where(dd => dd.salessummary.shiftsales_id == shiftsales_id).ToList();
-                    for (int i = dother.Count - 1; i >= 0; i--)
-                    {
-                        db.dother.Remove(db.dother.Find(dother[i].id));
-                    }
-
-                    var saleshistory = db.saleshistory.Include("salessummary").Where(sh => sh.salessummary.shiftsales_id == shiftsales_id).ToList();
-                    for (int i = saleshistory.Count - 1; i >= 0; i--)
-                    {
-                        db.saleshistory.Remove(db.saleshistory.Find(saleshistory[i].id));
-                    }
-
-                    var salessummary = db.salessummary.Where(ss => ss.shiftsales_id == shiftsales_id).ToList();
-                    for (int i = salessummary.Count - 1; i >= 0; i--)
-                    {
-                        var pricelist_id = salessummary[i].pricelist_id;
-
-                        db.salessummary.Remove(db.salessummary.Find(salessummary[i].id));
-
-                        db.pricelist.Remove(db.pricelist.Find(pricelist_id));
-                    }
-
-                    var shiftsttak = db.shiftsttak.Where(st => st.shiftsales_id == shiftsales_id).ToList();
-                    for (int i = shiftsttak.Count - 1; i >= 0; i--)
-                    {
-                        db.shiftsttak.Remove(db.shiftsttak.Find(shiftsttak[i].id));
-                    }
-
-                    db.shiftsales.Remove(db.shiftsales.Find(shiftsales_to_process[s].id));
+                    XMessageBox.Show("ประมวลผลสิ้นปีเสร็จเรียบร้อย");
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
-
-                db.SaveChanges();
-            }
+                else
+                {
+                    XMessageBox.Show(err_message, "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                }
+            };
+            worker.RunWorkerAsync();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
