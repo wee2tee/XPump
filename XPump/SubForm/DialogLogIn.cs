@@ -49,6 +49,7 @@ namespace XPump.SubForm
                 this.main_form.islog.LoginFail(this.txtUserID.Text.Trim(), login_result.err_message).Save();
                 XMessageBox.Show(login_result.err_message, "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.txtUserID.Focus();
+                this.txtPassword.Text = string.Empty;
             }
         }
 
@@ -56,7 +57,21 @@ namespace XPump.SubForm
         public static LoginStatus ValidateUser(string user_name, string password)
         {
             // VALIDATE LOG-IN USER
-            var validating_user = DbfTable.Scuser().ToScuserList().Where(u => u.rectyp == "U").Where(u => u.reccod == user_name).FirstOrDefault();
+            var enc_pass = string.Empty;
+            for (int i = 0; i < password.Trim().Length; i++)
+            {
+                enc_pass += ((char)(password.ToCharArray()[i] ^ ((char)'a'))).ToString();
+            }
+            for (int i = enc_pass.Length; i < 8; i++)
+            {
+                enc_pass += "A";
+            }
+
+            var validating_user = DbfTable.Scuser().ToScuserList()
+                                .Where(u => u.rectyp == "U")
+                                .Where(u => u.reccod.Trim() == user_name)
+                                .Where(u => u.userpwd.Trim() == enc_pass)
+                                .FirstOrDefault();
 
             var scacclv = DbfTable.Scacclv().ToScacclvList().ToList();
 
@@ -83,6 +98,12 @@ namespace XPump.SubForm
         {
             if(keyData == Keys.Enter)
             {
+                if (this.txtPassword.Focused)
+                {
+                    this.btnOK.PerformClick();
+                    return true;
+                }
+
                 if(!(this.btnOK.Focused || this.btnCancel.Focused))
                 {
                     SendKeys.Send("{TAB}");
@@ -97,6 +118,18 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void txtUserID_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)sender).SelectionStart = 0;
+            ((TextBox)sender).SelectionLength = ((TextBox)sender).Text.Length;
+        }
+
+        private void txtPassword_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)sender).SelectionStart = 0;
+            ((TextBox)sender).SelectionLength = ((TextBox)sender).Text.Length;
         }
     }
 

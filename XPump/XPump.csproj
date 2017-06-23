@@ -416,6 +416,12 @@
     <Compile Include="SubForm\FormShift.Designer.cs">
       <DependentUpon>FormShift.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\_testpwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\_testpwd.Designer.cs">
+      <DependentUpon>_testpwd.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -545,6 +551,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormShift.resx">
       <DependentUpon>FormShift.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\_testpwd.resx">
+      <DependentUpon>_testpwd.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="Model\XPumpModel.edmx">

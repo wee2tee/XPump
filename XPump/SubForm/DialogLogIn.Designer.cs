@@ -106,6 +106,7 @@
             this.txtUserID.Name = "txtUserID";
             this.txtUserID.Size = new System.Drawing.Size(123, 23);
             this.txtUserID.TabIndex = 0;
+            this.txtUserID.Enter += new System.EventHandler(this.txtUserID_Enter);
             // 
             // txtPassword
             // 
@@ -116,6 +117,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(123, 23);
             this.txtPassword.TabIndex = 1;
+            this.txtPassword.Enter += new System.EventHandler(this.txtPassword_Enter);
             // 
             // DialogLogIn
             // 
