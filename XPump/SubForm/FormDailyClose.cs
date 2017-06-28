@@ -512,7 +512,7 @@ namespace XPump.SubForm
 
             DataGridViewColumn col_chgby = new DataGridViewTextBoxColumn();
             col_chgby.DataPropertyName = "chgby";
-            col_chgby.Visible = true;
+            col_chgby.Visible = false;
             col_chgby.HeaderText = "บันทึกล่าสุดโดย";
             col_chgby.MinimumWidth = 100;
             col_chgby.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -520,7 +520,7 @@ namespace XPump.SubForm
 
             DataGridViewColumn col_chgtime = new DataGridViewTextBoxColumn();
             col_chgtime.DataPropertyName = "chgtime";
-            col_chgtime.Visible = true;
+            col_chgtime.Visible = false;
             col_chgtime.HeaderText = "บันทึกล่าสุดเมื่อ";
             col_chgtime.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
             col_chgtime.Width = 140;
@@ -529,7 +529,6 @@ namespace XPump.SubForm
 
             DataGridViewColumn col_apprby = new DataGridViewTextBoxColumn();
             col_apprby.DataPropertyName = "apprby";
-            col_apprby.Visible = true;
             col_apprby.HeaderText = "รับรองโดย";
             col_apprby.MinimumWidth = 100;
             col_apprby.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -538,13 +537,27 @@ namespace XPump.SubForm
 
             DataGridViewColumn col_apprtime = new DataGridViewTextBoxColumn();
             col_apprtime.DataPropertyName = "apprtime";
-            col_apprtime.Visible = true;
             col_apprtime.HeaderText = "รับรองเมื่อ";
             col_apprtime.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
             col_apprtime.Width = 140;
             col_apprtime.MinimumWidth = 140;
             col_apprtime.Visible = false;
             cols.Add(col_apprtime);
+
+            DataGridViewColumn col_prnby = new DataGridViewTextBoxColumn();
+            col_prnby.DataPropertyName = "prnby";
+            col_prnby.Visible = false;
+            cols.Add(col_prnby);
+
+            DataGridViewColumn col_prntime = new DataGridViewTextBoxColumn();
+            col_prntime.DataPropertyName = "prntime";
+            col_prntime.Visible = false;
+            cols.Add(col_prntime);
+
+            DataGridViewColumn col_prncnt = new DataGridViewTextBoxColumn();
+            col_prncnt.DataPropertyName = "prncnt";
+            col_prncnt.Visible = false;
+            cols.Add(col_prncnt);
 
             DataGridViewColumn col_rcvqty = new DataGridViewTextBoxColumn();
             col_rcvqty.HeaderText = "Rcv qty.";

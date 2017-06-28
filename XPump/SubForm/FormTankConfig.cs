@@ -1212,29 +1212,36 @@ namespace XPump.SubForm
             if (this.tmp_sectionVM == null)
                 return;
 
-            //if(((XBrowseBox)sender)._Text.Trim().Length == 0)
-            //{
-            //    ((XBrowseBox)sender).Focus();
-            //    return;
-            //}
+            if(((XBrowseBox)sender)._Text.Trim().Length == 0)
+            {
+                this.tmp_sectionVM.section.loccod = string.Empty;
+                this.tmp_sectionVM.section.name = string.Empty;
+                ((XBrowseBox)sender).Focus();
+                SendKeys.Send("{F6}");
+                return;
+            }
+            else
+            {
+                string main_loc = DbfTable.Isinfo(this.main_form.working_express_db).ToList<IsinfoDbf>().First().mainloc.Trim();
+                var locs = DbfTable.Istab(this.main_form.working_express_db).ToIstabList().Where(s => s.tabtyp.Trim() == "21" && s.typcod.Trim() != main_loc).Select(s => new { typdes = s.typdes.TrimEnd(), loccod = s.typcod.TrimEnd() }).ToList();
 
-            //string main_loc = DbfTable.Isinfo(this.main_form.working_express_db).ToList<IsinfoDbf>().First().mainloc.Trim();
-            //var loc = DbfTable.Istab(this.main_form.working_express_db).ToIstabList().Where(s => s.tabtyp.Trim() == "21" && s.typcod.Trim() != main_loc).Select(s => new { typdes = s.typdes.TrimEnd(), loccod = s.typcod.TrimEnd() }).ToList();
+                var loc_selected = locs.Where(l => l.typdes == ((XBrowseBox)sender)._Text).FirstOrDefault();
 
-            //var loc_selected = loc.Where(l => l.typdes == ((XBrowseBox)sender)._Text).FirstOrDefault();
-
-            //if (loc_selected != null)
-            //{
-            //    this.tmp_sectionVM.section.loccod = loc_selected.loccod;
-            //    this.tmp_sectionVM.section.name = loc_selected.typdes;
-            //    return;
-            //}
-            //else
-            //{
-            //    ((XBrowseBox)sender).Focus();
-            //    ((XBrowseBox)sender).PerformButtonClick();
-            //    return;
-            //}
+                if (loc_selected != null)
+                {
+                    this.tmp_sectionVM.section.loccod = loc_selected.loccod;
+                    this.tmp_sectionVM.section.name = loc_selected.typdes;
+                    return;
+                }
+                else
+                {
+                    this.tmp_sectionVM.section.loccod = string.Empty;
+                    this.tmp_sectionVM.section.name = string.Empty;
+                    ((XBrowseBox)sender).Focus();
+                    SendKeys.Send("{F6}");
+                    return;
+                }
+            }
         }
 
         private void inlineStkcod__Leave(object sender, EventArgs e)
@@ -1242,26 +1249,39 @@ namespace XPump.SubForm
             if (this.tmp_sectionVM == null)
                 return;
 
-            //if(((XBrowseBox)sender)._Text.Trim().Length == 0)
-            //{
-            //    ((XBrowseBox)sender).Focus();
-            //    return;
-            //}
+            if(((XBrowseBox)sender)._Text.Trim().Length == 0)
+            {
+                this.tmp_sectionVM.section.stkcod = string.Empty;
+                this.tmp_sectionVM.section.stkdes = string.Empty;
+                ((XBrowseBox)sender).Focus();
+                SendKeys.Send("{F6}");
+                return;
+            }
+            else
+            {
+                var stmas = DbfTable.Stmas(this.main_form.working_express_db).ToStmasList()
+                            .Where(s => s.stktyp == "0")
+                            .Select(s => new { stkcod = s.stkcod.Trim(), stkdes = s.stkdes.Trim() })
+                            .OrderBy(s => s.stkcod)
+                            .ToList();
+                var stmas_selected = stmas.Where(s => s.stkcod == ((XBrowseBox)sender)._Text).FirstOrDefault();
 
-            //var stmas = DbfTable.Stmas(this.main_form.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == ((XBrowseBox)sender)._Text).FirstOrDefault();
+                if(stmas_selected != null)
+                {
+                    this.tmp_sectionVM.section.stkcod = stmas_selected.stkcod;
+                    this.tmp_sectionVM.section.stkdes = stmas_selected.stkdes;
+                    return;
+                }
+                else
+                {
+                    this.tmp_sectionVM.section.stkcod = string.Empty;
+                    this.tmp_sectionVM.section.stkdes = string.Empty;
+                    ((XBrowseBox)sender).Focus();
+                    SendKeys.Send("{F6}");
+                    return;
+                }
 
-            //if (stmas != null)
-            //{
-            //    this.tmp_sectionVM.section.stkcod = stmas.stkcod.Trim();
-            //    this.tmp_sectionVM.section.stkdes = stmas.stkdes.Trim();
-            //    return;
-            //}
-            //else
-            //{
-            //    ((XBrowseBox)sender).Focus();
-            //    ((XBrowseBox)sender).PerformButtonClick();
-            //    return;
-            //}
+            }
         }
 
 
@@ -1272,13 +1292,18 @@ namespace XPump.SubForm
 
             List<DataGridViewColumn> cols = new List<DataGridViewColumn>()
             {
-                new DataGridViewTextBoxColumn { Name = "col_typdes", DataPropertyName = "typdes", HeaderText = "เลขที่ถัง", MinimumWidth = 180, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill },
+                new DataGridViewTextBoxColumn { Name = "col_typdes", DataPropertyName = "typdes", HeaderText = "เลขที่ถัง", MinimumWidth = 180, Width = 180, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill },
                 new DataGridViewTextBoxColumn { Name = "col_loccod", DataPropertyName = "loccod", HeaderText = "รหัสคลัง", MinimumWidth = 100, Width = 100 }
             };
 
             var init_loc = loc.Where(l => l.typdes == this.tmp_sectionVM.name).Select(s => s.typdes).FirstOrDefault();
 
             DialogInquiry st = new DialogInquiry(loc, cols, cols[0], init_loc, true);
+            Point dest_point = new Point(((XBrowseBox)sender).PointToScreen(Point.Empty).X + ((XBrowseBox)sender).Width, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y);
+            st.StartPosition = FormStartPosition.Manual;
+            st.Location = dest_point;
+            //st.SetBounds(dest_point.X, dest_point.Y, st.Width, st.Height);
+
             if (st.ShowDialog() == DialogResult.OK)
             {
                 if (this.tmp_sectionVM != null)
@@ -1298,13 +1323,16 @@ namespace XPump.SubForm
             List<DataGridViewColumn> cols = new List<DataGridViewColumn>()
             {
                 new DataGridViewTextBoxColumn { Name = "col_stkcod", DataPropertyName = "stkcod", HeaderText = "รหัสสินค้า", MinimumWidth = 180, Width = 180 },
-                new DataGridViewTextBoxColumn { Name = "col_stkdes", DataPropertyName = "stkdes", HeaderText = "ชื่อสินค้า/รายละเอียด" , MinimumWidth = 80, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill }
+                new DataGridViewTextBoxColumn { Name = "col_stkdes", DataPropertyName = "stkdes", HeaderText = "ชื่อสินค้า/รายละเอียด" , MinimumWidth = 200, Width = 200, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill }
             };
 
             var init_st = stmas.Where(s => s.stkcod == this.tmp_sectionVM.stkcod).Select(s => s.stkcod).FirstOrDefault();
 
             DialogInquiry st = new DialogInquiry(stmas, cols, cols[0], init_st, true);
-            if(st.ShowDialog() == DialogResult.OK)
+            Point dest_point = new Point(((XBrowseBox)sender).PointToScreen(Point.Empty).X + ((XBrowseBox)sender).Width, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y);
+            st.StartPosition = FormStartPosition.Manual;
+            st.Location = dest_point;
+            if (st.ShowDialog() == DialogResult.OK)
             {
                 if(this.tmp_sectionVM != null)
                 {

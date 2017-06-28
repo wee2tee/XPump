@@ -52,9 +52,8 @@ namespace XPump.SubForm
             this.dgv.DataSource = this.bs;
             bs.ResetBindings(true);
             bs.DataSource = this.list_to_show;
-            var dialog_width = this.columns.Where(c => c.Visible).ToList().Count > 0 ? this.columns.Where(c => c.Visible).ToList().Sum(c => c.MinimumWidth) + 30 : 200;
+            var dialog_width = this.columns.Where(c => c.Visible).ToList().Count > 0 ? this.columns.Where(c => c.Visible).ToList().Sum(c => c.MinimumWidth) + SystemInformation.VerticalScrollBarWidth + 30 : 400;
             this.Width = dialog_width;
-            //this.Size = new Size(dialog_width, this.Height);
 
             if(this.initial_selected_key != null)
             {
