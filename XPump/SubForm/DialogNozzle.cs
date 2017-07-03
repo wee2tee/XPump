@@ -333,6 +333,13 @@ namespace XPump.SubForm
                 {
                     try
                     {
+                        if(db.nozzle.Include("section").Where(n => n.section.tank.tanksetup_id == this.section.tank.tanksetup_id && n.name == this.temp_nozzle.name).ToList().Count > 0)
+                        {
+                            XMessageBox.Show("เลขที่หัวจ่ายซ้ำ กรุณาเปลี่ยนใหม่", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                            this.inline_name.Focus();
+                            return;
+                        }
+
                         this.temp_nozzle.cretime = DateTime.Now;
                         db.nozzle.Add(this.temp_nozzle);
                         db.SaveChanges();

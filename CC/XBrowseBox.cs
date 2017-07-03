@@ -281,7 +281,7 @@ namespace CC
             //this.Refresh();
         }
 
-        protected void _btnBrowse_Click(object sender, EventArgs e)
+        public void _btnBrowse_Click(object sender, EventArgs e)
         {
             if(this._ButtonClick != null)
             {

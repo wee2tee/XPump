@@ -19,6 +19,7 @@ namespace XPump.Model
         public int istab_id { get; set; }
         public Nullable<int> salessummary_id { get; set; }
         public Nullable<int> dayend_id { get; set; }
+        public Nullable<int> nozzle_id { get; set; }
         public int section_id { get; set; }
         public string creby { get; set; }
         public System.DateTime cretime { get; set; }
@@ -27,6 +28,7 @@ namespace XPump.Model
     
         public virtual dayend dayend { get; set; }
         public virtual istab istab { get; set; }
+        public virtual nozzle nozzle { get; set; }
         public virtual salessummary salessummary { get; set; }
         public virtual section section { get; set; }
     }

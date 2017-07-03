@@ -17,6 +17,7 @@ namespace XPump.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public nozzle()
         {
+            this.dother = new HashSet<dother>();
             this.saleshistory = new HashSet<saleshistory>();
         }
     
@@ -31,6 +32,8 @@ namespace XPump.Model
         public string chgby { get; set; }
         public Nullable<System.DateTime> chgtime { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<dother> dother { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<saleshistory> saleshistory { get; set; }
         public virtual section section { get; set; }

@@ -23,6 +23,7 @@ namespace XPump.SubForm
         private dayend dayend;
         private section section;
         /******************************/
+        private List<nozzleVM> nozzle_list;
 
         private FORM_MODE form_mode;
         private BindingList<dotherVM> bl_dother;
@@ -130,6 +131,15 @@ namespace XPump.SubForm
                 {
                     this.inline_section._Items.Add(new XDropdownListItem { Text = s.name, Value = s.id });
                 }
+
+                if(this.section != null)
+                {
+                    this.nozzle_list = db.nozzle.Where(n => n.section_id == this.section.id).OrderBy(n => n.name).ToViewModel(this.main_form.working_express_db);
+                }
+                else
+                {
+                    var sh_ids = db.saleshistory.Where(s => s.salessummary_id == this.salessummary.id).Select(s => s.nozzle).ToViewModel(this.main_form.working_express_db);
+                }
             }
 
             this.RemoveInlineForm();
@@ -206,6 +216,9 @@ namespace XPump.SubForm
             int col_index;
             if(this.form_mode == FORM_MODE.ADD_ITEM)
             {
+                col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_nozzle_name.Name).First().Index;
+                this.inline_nozzle.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
+
                 col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_section_name.Name).First().Index;
                 this.inline_section.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
                 if(this.section != null)
@@ -230,6 +243,9 @@ namespace XPump.SubForm
             }
             else
             {
+                this.inline_nozzle.SetBounds(-9999, 0, 0, 0);
+                this.inline_nozzle._ReadOnly = true;
+
                 this.inline_section.SetBounds(-9999, 0, 0, 0);
                 this.inline_section._ReadOnly = true;
 
@@ -245,6 +261,7 @@ namespace XPump.SubForm
 
         private void RemoveInlineForm()
         {
+            this.inline_nozzle.SetBounds(-9999, 0, 0, 0);
             this.inline_section.SetBounds(-9999, 0, 0, 0);
             this.inline_dother.SetBounds(-9999, 0, 0, 0);
             this.inline_qty.SetBounds(-9999, 0, 0, 0);
@@ -715,6 +732,13 @@ namespace XPump.SubForm
                 return;
 
             this.btnEdit.PerformClick();
+        }
+
+        private void inline_nozzle__ButtonClick(object sender, EventArgs e)
+        {
+            DialogInquiry inq = new DialogInquiry(this.nozzle_list.ToList<dynamic>(), );
+            inq.StartPosition = FormStartPosition.Manual;
+            inq.//ShowDialog();
         }
     }
 }

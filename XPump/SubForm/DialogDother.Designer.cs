@@ -33,6 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.inline_nozzle = new CC.XBrowseBox();
             this.inline_qty = new CC.XNumEdit();
             this.inline_section = new CC.XDropdownList();
             this.inline_dother = new CC.XDropdownList();
@@ -49,6 +50,8 @@
             this.col_salessummary_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dayend_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_nozzle_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_nozzle_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_section_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_typdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,20 +71,41 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.inline_nozzle);
             this.panel1.Controls.Add(this.inline_qty);
             this.panel1.Controls.Add(this.inline_section);
             this.panel1.Controls.Add(this.inline_dother);
             this.panel1.Controls.Add(this.dgv);
             this.panel1.Location = new System.Drawing.Point(0, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(361, 136);
+            this.panel1.Size = new System.Drawing.Size(392, 136);
             this.panel1.TabIndex = 0;
+            // 
+            // inline_nozzle
+            // 
+            this.inline_nozzle._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_nozzle._ReadOnly = false;
+            this.inline_nozzle._Text = "";
+            this.inline_nozzle._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.inline_nozzle._UseImage = true;
+            this.inline_nozzle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.inline_nozzle.BackColor = System.Drawing.Color.White;
+            this.inline_nozzle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_nozzle.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.inline_nozzle.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_nozzle.Location = new System.Drawing.Point(1, 31);
+            this.inline_nozzle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_nozzle.Name = "inline_nozzle";
+            this.inline_nozzle.Size = new System.Drawing.Size(89, 23);
+            this.inline_nozzle.TabIndex = 4;
+            this.inline_nozzle._ButtonClick += new System.EventHandler(this.inline_nozzle__ButtonClick);
             // 
             // inline_qty
             // 
             this.inline_qty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_qty._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_qty._DecimalDigit = 2;
+            this.inline_qty._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
             this.inline_qty._MaximumValue = new decimal(new int[] {
             1410065407,
             2,
@@ -103,7 +127,7 @@
             this.inline_qty.BackColor = System.Drawing.Color.White;
             this.inline_qty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_qty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_qty.Location = new System.Drawing.Point(261, 31);
+            this.inline_qty.Location = new System.Drawing.Point(292, 31);
             this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_qty.Name = "inline_qty";
             this.inline_qty.Size = new System.Drawing.Size(98, 23);
@@ -118,10 +142,10 @@
             this.inline_section.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.inline_section.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_section.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_section.Location = new System.Drawing.Point(4, 31);
+            this.inline_section.Location = new System.Drawing.Point(91, 31);
             this.inline_section.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_section.Name = "inline_section";
-            this.inline_section.Size = new System.Drawing.Size(98, 23);
+            this.inline_section.Size = new System.Drawing.Size(90, 23);
             this.inline_section.TabIndex = 1;
             this.inline_section._SelectedItemChanged += new System.EventHandler(this.inline_section__SelectedItemChanged);
             // 
@@ -133,10 +157,10 @@
             this.inline_dother.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.inline_dother.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_dother.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_dother.Location = new System.Drawing.Point(103, 31);
+            this.inline_dother.Location = new System.Drawing.Point(182, 31);
             this.inline_dother.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_dother.Name = "inline_dother";
-            this.inline_dother.Size = new System.Drawing.Size(156, 23);
+            this.inline_dother.Size = new System.Drawing.Size(109, 23);
             this.inline_dother.TabIndex = 2;
             this.inline_dother._SelectedItemChanged += new System.EventHandler(this.inline_dother__SelectedItemChanged);
             // 
@@ -170,6 +194,8 @@
             this.col_salessummary_id,
             this.col_dayend_id,
             this.col_section_id,
+            this.col_nozzle_id,
+            this.col_nozzle_name,
             this.col_section_name,
             this.col_typdes,
             this.col_qty});
@@ -193,7 +219,7 @@
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(361, 136);
+            this.dgv.Size = new System.Drawing.Size(392, 136);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
@@ -295,13 +321,31 @@
             this.col_section_id.ReadOnly = true;
             this.col_section_id.Visible = false;
             // 
+            // col_nozzle_id
+            // 
+            this.col_nozzle_id.DataPropertyName = "nozzle_id";
+            this.col_nozzle_id.HeaderText = "Nozzle ID";
+            this.col_nozzle_id.Name = "col_nozzle_id";
+            this.col_nozzle_id.ReadOnly = true;
+            this.col_nozzle_id.Visible = false;
+            // 
+            // col_nozzle_name
+            // 
+            this.col_nozzle_name.DataPropertyName = "nozzle_name";
+            this.col_nozzle_name.HeaderText = "เลขที่หัวจ่าย";
+            this.col_nozzle_name.MinimumWidth = 90;
+            this.col_nozzle_name.Name = "col_nozzle_name";
+            this.col_nozzle_name.ReadOnly = true;
+            this.col_nozzle_name.Width = 90;
+            // 
             // col_section_name
             // 
             this.col_section_name.DataPropertyName = "section_name";
             this.col_section_name.HeaderText = "เลขที่ถัง";
-            this.col_section_name.MinimumWidth = 100;
+            this.col_section_name.MinimumWidth = 90;
             this.col_section_name.Name = "col_section_name";
             this.col_section_name.ReadOnly = true;
+            this.col_section_name.Width = 90;
             // 
             // col_typdes
             // 
@@ -415,7 +459,7 @@
             this.btnClose.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnClose.Image = global::XPump.Properties.Resources.close_16;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(316, 142);
+            this.btnClose.Location = new System.Drawing.Point(347, 142);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(45, 24);
             this.btnClose.TabIndex = 1;
@@ -428,7 +472,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 169);
+            this.ClientSize = new System.Drawing.Size(393, 169);
             this.ControlBox = false;
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnStop);
@@ -469,6 +513,7 @@
         private CC.XDropdownList inline_dother;
         private System.Windows.Forms.ToolTip toolTip1;
         private CC.XDropdownList inline_section;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_working_express_db;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dother;
@@ -481,9 +526,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_salessummary_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dayend_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_nozzle_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_nozzle_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_section_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_typdes;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_qty;
-        private System.Windows.Forms.Button btnClose;
+        private CC.XBrowseBox inline_nozzle;
     }
 }

@@ -34,11 +34,23 @@ namespace XPump.Model
         public int istab_id { get { return this.dother.istab_id; } }
         public int? salessummary_id { get { return this.dother.salessummary_id; } }
         public int? dayend_id { get { return this.dother.dayend_id; } }
+        public int? nozzle_id { get { return this.dother.nozzle_id; } }
         public int section_id { get { return this.dother.section_id; } }
         public string creby { get { return this.dother.creby; } }
         public DateTime cretime { get { return this.dother.cretime; } }
         public string chgby { get { return this.dother.chgby; } }
         public DateTime? chgtime { get { return this.dother.chgtime; } }
+        public string nozzle_name
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    var nozzle = db.nozzle.Find(this.nozzle_id);
+                    return nozzle != null ? nozzle.name : string.Empty;
+                }
+            }
+        }
         public string section_name
         {
             get

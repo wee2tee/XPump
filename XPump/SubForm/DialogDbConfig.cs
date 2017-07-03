@@ -529,6 +529,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`istab_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`salessummary_id` INT(11) NULL,";
                 cmd.CommandText += "`dayend_id` INT(11) NULL,";
+                cmd.CommandText += "`nozzle_id` INT(11) NULL,";
                 cmd.CommandText += "`section_id` INT(11) NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
@@ -538,9 +539,12 @@ namespace XPump.SubForm
                 cmd.CommandText += "INDEX `fk_dother_istab1_idx` (`istab_id` ASC),";
                 cmd.CommandText += "INDEX `fk_dother_salessummary1_idx` (`salessummary_id` ASC),";
                 cmd.CommandText += "INDEX `fk_dother_dayend1_idx` (`dayend_id` ASC),";
+                cmd.CommandText += "INDEX `fk_dother_nozzle_id` (`nozzle_id` ASC),";
+                cmd.CommandText += "INDEX `fk_dother_section_id` (`section_id` ASC),";
                 cmd.CommandText += "CONSTRAINT `fk_dother_istab1` FOREIGN KEY (`istab_id`) REFERENCES `" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
                 cmd.CommandText += "CONSTRAINT `fk_dother_salessummary1` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
                 cmd.CommandText += "CONSTRAINT `fk_dother_dayend1` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk_dother_nozzle` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
                 cmd.CommandText += "CONSTRAINT `fk_dother_section` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;";
                 cmd.ExecuteNonQuery();
@@ -628,5 +632,9 @@ namespace XPump.SubForm
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        private void btnDefaultPort_Click(object sender, EventArgs e)
+        {
+            this.numPort.Value = 3306;
+        }
     }
 }

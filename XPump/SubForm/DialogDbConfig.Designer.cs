@@ -48,6 +48,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnDefaultPort = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).BeginInit();
             this.SuspendLayout();
             // 
@@ -249,11 +250,23 @@
             this.label2.TabIndex = 19;
             this.label2.Text = "ชื่อฐานข้อมูล";
             // 
+            // btnDefaultPort
+            // 
+            this.btnDefaultPort.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDefaultPort.Location = new System.Drawing.Point(211, 85);
+            this.btnDefaultPort.Name = "btnDefaultPort";
+            this.btnDefaultPort.Size = new System.Drawing.Size(159, 25);
+            this.btnDefaultPort.TabIndex = 20;
+            this.btnDefaultPort.Text = "ใช้พอร์ทมาตรฐาน (3306)";
+            this.btnDefaultPort.UseVisualStyleBackColor = true;
+            this.btnDefaultPort.Click += new System.EventHandler(this.btnDefaultPort_Click);
+            // 
             // DialogDbConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(507, 258);
+            this.Controls.Add(this.btnDefaultPort);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
@@ -312,5 +325,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnDefaultPort;
     }
 }

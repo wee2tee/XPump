@@ -57,6 +57,7 @@
           <Property Name="istab_id" Type="int" Nullable="false" />
           <Property Name="salessummary_id" Type="int" />
           <Property Name="dayend_id" Type="int" />
+          <Property Name="nozzle_id" Type="int" />
           <Property Name="section_id" Type="int" Nullable="false" />
           <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
@@ -327,6 +328,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_dother_nozzle">
+          <End Role="nozzle" Type="Self.nozzle" Multiplicity="0..1" />
+          <End Role="dother" Type="Self.dother" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nozzle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dother">
+              <PropertyRef Name="nozzle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_dother_salessummary1">
           <End Role="salessummary" Type="Self.salessummary" Multiplicity="0..1" />
           <End Role="dother" Type="Self.dother" Multiplicity="*" />
@@ -488,6 +501,10 @@
             <End Role="istab" EntitySet="istab" />
             <End Role="dother" EntitySet="dother" />
           </AssociationSet>
+          <AssociationSet Name="fk_dother_nozzle" Association="Self.fk_dother_nozzle">
+            <End Role="nozzle" EntitySet="nozzle" />
+            <End Role="dother" EntitySet="dother" />
+          </AssociationSet>
           <AssociationSet Name="fk_dother_salessummary1" Association="Self.fk_dother_salessummary1">
             <End Role="salessummary" EntitySet="salessummary" />
             <End Role="dother" EntitySet="dother" />
@@ -590,6 +607,7 @@
           <Property Name="istab_id" Type="Int32" Nullable="false" />
           <Property Name="salessummary_id" Type="Int32" />
           <Property Name="dayend_id" Type="Int32" />
+          <Property Name="nozzle_id" Type="Int32" />
           <Property Name="section_id" Type="Int32" Nullable="false" />
           <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cretime" Type="DateTime" Nullable="false" />
@@ -597,6 +615,7 @@
           <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="dayend" Relationship="Self.fk_dother_dayend1" FromRole="dother" ToRole="dayend" />
           <NavigationProperty Name="istab" Relationship="Self.fk_dother_istab1" FromRole="dother" ToRole="istab" />
+          <NavigationProperty Name="nozzle" Relationship="Self.fk_dother_nozzle" FromRole="dother" ToRole="nozzle" />
           <NavigationProperty Name="salessummary" Relationship="Self.fk_dother_salessummary1" FromRole="dother" ToRole="salessummary" />
           <NavigationProperty Name="section" Relationship="Self.fk_dother_section" FromRole="dother" ToRole="section" />
         </EntityType>
@@ -633,6 +652,7 @@
           <Property Name="cretime" Type="DateTime" Nullable="false" />
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
+          <NavigationProperty Name="dother" Relationship="Self.fk_dother_nozzle" FromRole="nozzle" ToRole="dother" />
           <NavigationProperty Name="saleshistory" Relationship="Self.fk___saleshistory___nozzle_id" FromRole="nozzle" ToRole="saleshistory" />
           <NavigationProperty Name="section" Relationship="Self.fk_nozzle_section_id" FromRole="nozzle" ToRole="section" />
         </EntityType>
@@ -864,6 +884,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_dother_nozzle">
+          <End Role="nozzle" Type="Self.nozzle" Multiplicity="0..1" />
+          <End Role="dother" Type="Self.dother" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nozzle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="dother">
+              <PropertyRef Name="nozzle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_dother_salessummary1">
           <End Role="salessummary" Type="Self.salessummary" Multiplicity="0..1" />
           <End Role="dother" Type="Self.dother" Multiplicity="*" />
@@ -1041,6 +1073,10 @@
             <End Role="istab" EntitySet="istab" />
             <End Role="dother" EntitySet="dother" />
           </AssociationSet>
+          <AssociationSet Name="fk_dother_nozzle" Association="Self.fk_dother_nozzle">
+            <End Role="nozzle" EntitySet="nozzle" />
+            <End Role="dother" EntitySet="dother" />
+          </AssociationSet>
           <AssociationSet Name="fk_dother_salessummary1" Association="Self.fk_dother_salessummary1">
             <End Role="salessummary" EntitySet="salessummary" />
             <End Role="dother" EntitySet="dother" />
@@ -1150,6 +1186,7 @@
                 <ScalarProperty Name="istab_id" ColumnName="istab_id" />
                 <ScalarProperty Name="salessummary_id" ColumnName="salessummary_id" />
                 <ScalarProperty Name="dayend_id" ColumnName="dayend_id" />
+                <ScalarProperty Name="nozzle_id" ColumnName="nozzle_id" />
                 <ScalarProperty Name="section_id" ColumnName="section_id" />
                 <ScalarProperty Name="creby" ColumnName="creby" />
                 <ScalarProperty Name="cretime" ColumnName="cretime" />

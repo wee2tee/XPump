@@ -228,7 +228,7 @@
             this.btnDefaultPort.Name = "btnDefaultPort";
             this.btnDefaultPort.Size = new System.Drawing.Size(159, 25);
             this.btnDefaultPort.TabIndex = 2;
-            this.btnDefaultPort.Text = "restore default port (3306)";
+            this.btnDefaultPort.Text = "ใช้พอร์ทมาตรฐาน (3306)";
             this.btnDefaultPort.UseVisualStyleBackColor = true;
             this.btnDefaultPort.Click += new System.EventHandler(this.btnDefaultPort_Click);
             // 
