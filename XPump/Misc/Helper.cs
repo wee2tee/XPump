@@ -413,12 +413,16 @@ namespace XPump.Misc
                 string rr_prefix = salessummary.shiftsales.shift.prrprefix;
                 DateTime saldat = salessummary.saldat;
 
+                var locs = db.saleshistory.Include("nozzle.section").Where(s => s.salessummary_id == sales.id).GroupBy(s => s.nozzle.section.loccod).Select(g => g.Key).ToList();
+                    //.Select(s => s.nozzle.section.loccod).ToList();
+
                 var purvat = DbfTable.Stcrd(working_express_db).ToStcrdList()
                             .Where(s => s.docdat.HasValue)
                             .Where(s => s.docdat.Value == saldat)
                             .Where(s => s.posopr.Trim() == "0")
                             .Where(s => s.stkcod.Trim() == salessummary.stkcod.Trim())
                             .Where(s => (s.docnum.Substring(0, 2) == hp_prefix || s.docnum.Substring(0, 2) == rr_prefix))
+                            .Where(s => locs.Contains(s.loccod.Trim()))
                             .Sum(s => (s.netval * 7) / 100);
 
                 return Convert.ToDecimal(purvat);

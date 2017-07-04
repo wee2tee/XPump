@@ -138,7 +138,7 @@ namespace XPump.SubForm
                 }
                 else
                 {
-                    var sh_ids = db.saleshistory.Where(s => s.salessummary_id == this.salessummary.id).Select(s => s.nozzle).ToViewModel(this.main_form.working_express_db);
+                    this.nozzle_list = db.saleshistory.Where(s => s.salessummary_id == this.salessummary.id).Select(s => s.nozzle).ToViewModel(this.main_form.working_express_db);
                 }
             }
 
@@ -218,6 +218,8 @@ namespace XPump.SubForm
             {
                 col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_nozzle_name.Name).First().Index;
                 this.inline_nozzle.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
+                if(this.tmp_dother.nozzle_id.HasValue)
+                    this.inline_nozzle._Text = this.nozzle_list.Where( n => n.id == this.tmp_dother.nozzle_id.Value).FirstOrDefault() != null ? this.nozzle_list.Where(n => n.id == this.tmp_dother.nozzle_id.Value).First().name : string.Empty;
 
                 col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_section_name.Name).First().Index;
                 this.inline_section.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
@@ -323,6 +325,8 @@ namespace XPump.SubForm
                 salessummary_id = this.salessummary != null ? (int?)this.salessummary.id : null,
                 dayend_id = this.dayend != null ? (int?)this.dayend.id : null,
                 istab_id = -1,
+                section_id = -1,
+                nozzle_id = -1,
                 qty = 0m,
                 creby = this.main_form.loged_in_status.loged_in_user_name
             }.ToViewModel(this.main_form.working_express_db));
@@ -330,19 +334,20 @@ namespace XPump.SubForm
             this.dgv.Rows[this.dgv.Rows.Count - 1].Cells[this.col_typdes.Name].Selected = true;
             this.ResetControlState(FORM_MODE.ADD_ITEM);
             this.ShowInlineForm();
-            switch (this.dother_type)
-            {
-                case DOTHER.SHIFTSALES:
-                    this.inline_section.Focus();
-                    break;
-                case DOTHER.DAYEND:
-                    this.inline_dother.Focus();
-                    break;
-                default:
-                    this.inline_section.Focus();
-                    break;
-            }
-            SendKeys.Send("{F6}");
+            this.inline_nozzle.Focus();
+            //switch (this.dother_type)
+            //{
+            //    case DOTHER.SHIFTSALES:
+            //        this.inline_section.Focus();
+            //        break;
+            //    case DOTHER.DAYEND:
+            //        this.inline_dother.Focus();
+            //        break;
+            //    default:
+            //        this.inline_section.Focus();
+            //        break;
+            //}
+            //SendKeys.Send("{F6}");
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -660,16 +665,23 @@ namespace XPump.SubForm
                         this.btnSave.PerformClick();
                         return true;
                     }
+                    if (this.inline_nozzle._Focused)
+                    {
+                        SendKeys.Send("{TAB}");
+                        SendKeys.Send("{F6}");
+                        return true;
+                    }
                     if (this.inline_section._Focused)
                     {
                         SendKeys.Send("{TAB}");
                         SendKeys.Send("{F6}");
+                        return true;
                     }
                     if (this.inline_dother._Focused)
                     {
                         SendKeys.Send("{TAB}");
+                        return true;
                     }
-                    return true;
                 }
             }
 
@@ -736,9 +748,128 @@ namespace XPump.SubForm
 
         private void inline_nozzle__ButtonClick(object sender, EventArgs e)
         {
-            DialogInquiry inq = new DialogInquiry(this.nozzle_list.ToList<dynamic>(), );
+            Console.WriteLine(" ===>> button clicked");
+            List<DataGridViewColumn> cols = new List<DataGridViewColumn>();
+
+            DataGridViewColumn col_working_express_db = new DataGridViewTextBoxColumn
+            {
+                Visible = false,
+                Name = "working_express_db",
+                DataPropertyName = "working_express_db"
+            };
+            cols.Add(col_working_express_db);
+            DataGridViewColumn col_id = new DataGridViewTextBoxColumn
+            {
+                Visible = false,
+                Name = "id",
+                DataPropertyName = "id",
+            };
+            cols.Add(col_id);
+            DataGridViewColumn col_name = new DataGridViewTextBoxColumn
+            {
+                Visible = true,
+                Name = "name",
+                DataPropertyName = "name",
+                HeaderText = "เลขที่หัวจ่าย",
+                Width = 90,
+                MinimumWidth = 90
+            };
+            cols.Add(col_name);
+            DataGridViewColumn col_description = new DataGridViewTextBoxColumn
+            {
+                Visible = true,
+                Name = "description",
+                DataPropertyName = "description",
+                HeaderText = "รายละเอียด",
+                MinimumWidth = 100,
+                Width = 250,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            };
+            cols.Add(col_description);
+            DataGridViewColumn col_remark = new DataGridViewTextBoxColumn
+            {
+                Visible = false,
+                Name = "remark",
+                DataPropertyName = "remark"
+            };
+            cols.Add(col_remark);
+            DataGridViewColumn col_isactive = new DataGridViewTextBoxColumn
+            {
+                Visible = false,
+                Name = "isactive",
+                DataPropertyName = "isactive"
+            };
+            cols.Add(col_isactive);
+            DataGridViewColumn col_nozzle = new DataGridViewTextBoxColumn
+            {
+                Visible = false,
+                Name = "nozzle",
+                DataPropertyName = "nozzle"
+            };
+            cols.Add(col_nozzle);
+            DataGridViewColumn col__isactive = new DataGridViewTextBoxColumn
+            {
+                Visible = false,
+                Name = "_isactive",
+                DataPropertyName = "_isactive"
+            };
+            cols.Add(col__isactive);
+
+            DialogInquiry inq = new DialogInquiry(this.nozzle_list.ToList<dynamic>(),cols, col_name, null, false);
             inq.StartPosition = FormStartPosition.Manual;
-            inq.//ShowDialog();
+            Point target_point = new Point(((XBrowseBox)sender).PointToScreen(Point.Empty).X + ((XBrowseBox)sender).Width, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y);
+            inq.SetBounds(target_point.X, target_point.Y, 600, inq.Height);
+            if(inq.ShowDialog() == DialogResult.OK)
+            {
+                ((XBrowseBox)sender)._Text = (string)inq.selected_row.Cells[col_name.Name].Value;
+            }
+        }
+
+        private void inline_nozzle__TextChanged(object sender, EventArgs e)
+        {
+            if(((XBrowseBox)sender)._Text.Trim().Length > 0)
+            {
+                var selected_nozzle = this.nozzle_list.Where(n => n.name == ((XBrowseBox)sender)._Text).FirstOrDefault();
+
+                if(selected_nozzle != null)
+                {
+                    this.tmp_dother.nozzle_id = selected_nozzle.id;
+
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        var section_id = db.nozzle.Find(this.tmp_dother.nozzle_id).section_id;
+                        var selected_section = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == section_id).FirstOrDefault();
+                        this.inline_section._SelectedItem = selected_section != null ? selected_section : this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).FirstOrDefault();
+                        this.inline_section._ReadOnly = true;
+                    }
+                }
+                else
+                {
+                    this.tmp_dother.nozzle_id = -1;
+                    this.inline_section._SelectedItem = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+                    if(this.section ==null)
+                        this.inline_section._ReadOnly = false;
+                }
+            }
+            else
+            {
+                this.tmp_dother.nozzle_id = -1;
+                this.inline_section._SelectedItem = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+                if(this.section == null)
+                    this.inline_section._ReadOnly = false;
+            }
+        }
+
+        private void inline_nozzle__Leave(object sender, EventArgs e)
+        {
+            if (this.tmp_dother == null)
+                return;
+
+            if (((XBrowseBox)sender)._Text.Trim().Length > 0 && this.tmp_dother.nozzle_id == -1)
+            {
+                this.inline_nozzle.Focus();
+                SendKeys.Send("{F6}");
+            }
         }
     }
 }
