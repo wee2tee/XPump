@@ -851,6 +851,31 @@ namespace XPump.Model
         public DateTime? approve { get; set; }
         public string billbe { get; set; }
         public decimal orgnum { get; set; }
+        public string c_type { get; set; }
+        public DateTime? c_date { get; set; }
+        public string c_ref { get; set; }
+        public double c_rate { get; set; }
+        public string c_fixrate { get; set; }
+        public double c_ratio { get; set; }
+        public double c_amount { get; set; }
+        public string c_disc { get; set; }
+        public double c_discamt { get; set; }
+        public double c_aftdisc { get; set; }
+        public double c_advamt { get; set; }
+        public double c_total { get; set; }
+        public double c_netamt { get; set; }
+        public double c_netval { get; set; }
+        public double c_rcvamt { get; set; }
+        public double c_difamt { get; set; }
+        public double c_payamt { get; set; }
+        public double c_remamt { get; set; }
+        public string link1 { get; set; }
+        public DateTime? dat1 { get; set; }
+        public DateTime? dat2 { get; set; }
+        public double num1 { get; set; }
+        public double num2 { get; set; }
+        public string str1 { get; set; }
+        public string str2 { get; set; }
     }
 
     public class ArtrnDbf

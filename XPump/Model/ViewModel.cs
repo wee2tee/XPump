@@ -1757,27 +1757,30 @@ namespace XPump.Model
                 this.shift = db.shift.Find(this.shiftsales.shift_id);
 
                 /*** Get neccessary data from express ***/
-                var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
-                        .Where(a => a.docdat.HasValue)
+                var express_version = Helper.GetExpressVersion();
+                var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList();
+                aptrn = aptrn.Where(a => a.docdat.HasValue)
                         .Where(a => a.docdat.Value == this.reportDate)
                         .Where(a => (a.docnum.Substring(0, 2) == this.shift.phpprefix || a.docnum.Substring(0, 2) == this.shift.prrprefix)).ToList();
-                var artrn = DbfTable.Artrn(this.working_express_db).ToArtrnList()
-                    .Where(a => a.docdat.HasValue)
-                    .Where(a => a.docdat.Value == this.reportDate)
-                    .Where(a => (a.docnum.Substring(0, 2) == this.shift.shsprefix || a.docnum.Substring(0, 2) == this.shift.sivprefix)).ToList();
+
+
+                var artrn = express_version == 1 ? DbfTable.Artrn(this.working_express_db).ToArtrnList() : DbfTable.Artrn(this.working_express_db).ToList<ArtrnDbf>();
+                artrn = artrn.Where(a => a.docdat.HasValue)
+                        .Where(a => a.docdat.Value == this.reportDate)
+                        .Where(a => (a.docnum.Substring(0, 2) == this.shift.shsprefix || a.docnum.Substring(0, 2) == this.shift.sivprefix)).ToList();
                 var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
-                    .Where(s => s.docdat.HasValue)
-                    .Where(s => s.docdat.Value == this.reportDate)
-                    .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum) || artrn.Select(a => a.docnum).Contains(s.docnum))
-                    .OrderBy(s => s.docnum).ToList();
+                        .Where(s => s.docdat.HasValue)
+                        .Where(s => s.docdat.Value == this.reportDate)
+                        .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum.Trim()) || artrn.Select(a => a.docnum).Contains(s.docnum.Trim()))
+                        .OrderBy(s => s.docnum).ToList();
 
                 this.phpvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == this.shift.phpprefix)
                     .Select(s => new VatTransDbfVM
                     {
                         docnum = s.docnum.Trim(),
                         docdat = s.docdat.Value,
-                        people = s.people.Trim(), //apmas.Where(a => a.supcod.Trim() == s.people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == s.people.Trim()).First().supnam.Trim() : string.Empty,
-                            stkcod = s.stkcod.Trim(),
+                        people = s.people.Trim(),
+                        stkcod = s.stkcod.Trim(),
                         netval = s.netval,
                         vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
                     }).OrderBy(s => s.docnum).ToList();
@@ -1815,7 +1818,8 @@ namespace XPump.Model
                         vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
                     }).OrderBy(s => s.docnum).ToList();
 
-                var svat_docs = DbfTable.Artrn(this.working_express_db).ToArtrnList()
+                var artrn_svat = express_version == 1 ? DbfTable.Artrn(this.working_express_db).ToArtrnList() : DbfTable.Artrn(this.working_express_db).ToList<ArtrnDbf>();
+                var svat_docs = artrn_svat
                                 .Where(a => stcrd.Select(s => s.docnum).Contains(a.docnum))
                                 .ToList();
                 this.sales_vatdoc = new List<VatTransDbfVM>();

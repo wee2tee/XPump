@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.Entity.Infrastructure;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -65,6 +66,22 @@ namespace XPump.Misc
     // Extension Method
     public static class Helper
     {
+        public static int GetExpressVersion()
+        {
+            var serial_file_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\Serial.TXT";
+            if (File.Exists(serial_file_path))
+            {
+                string[] lines = File.ReadAllLines(serial_file_path);
+                string ver = lines[0].Substring(2, 1);
+                int version;
+                if(Int32.TryParse(ver, out version))
+                {
+                    return version;
+                }
+            }
+            return 0;
+        }
+
         public static tanksetupVM ToViewModel(this tanksetup tanksetup, SccompDbf working_express_db)
         {
             if(tanksetup == null)
@@ -579,6 +596,16 @@ namespace XPump.Misc
             return s;
         }
 
+        //public static int GetExpressVersion(this SccompDbf working_express_db)
+        //{
+        //    var serial_file_path = working_express_db.abs_path + @"\Serial.TXT";
+        //    if (File.Exists(serial_file_path))
+        //    {
+
+        //    }
+        //    return 0;
+        //}
+
         public static IsprdDbf ToIsprd(this DataTable dt_isprd)
         {
             IsprdDbf isprd = new IsprdDbf
@@ -1056,7 +1083,7 @@ namespace XPump.Misc
                     {
                         stkcod = row.Field<string>("stkcod"),
                         loccod = row.Field<string>("loccod"),
-                        docnum = row.Field<string>("docnum"),
+                        docnum = row.Field<string>("docnum").Trim(),
                         seqnum = row.Field<string>("seqnum"),
                         docdat = !row.IsNull("docdat") ? (DateTime?)row.Field<DateTime>("docdat") : null,
                         rdocnum = row.Field<string>("rdocnum"),
@@ -1182,10 +1209,10 @@ namespace XPump.Misc
                     AptrnDbf a = new AptrnDbf
                     {
                         rectyp = row.Field<string>("rectyp"),
-                        docnum = row.Field<string>("docnum"),
+                        docnum = row.Field<string>("docnum").Trim(),
                         docdat = !row.IsNull("docdat") ? (DateTime?)row.Field<DateTime>("docdat") : null,
                         refnum = row.Field<string>("refnum"),
-                        vatprd = !row.IsNull("docdat") ? (DateTime?)row.Field<DateTime>("vatprd") : null,
+                        vatprd = !row.IsNull("vatprd") ? (DateTime?)row.Field<DateTime>("vatprd") : null,
                         vatlate = row.Field<string>("vatlate"),
                         vattyp = row.Field<string>("vattyp"),
                         postgl = row.Field<string>("postgl"),
@@ -1229,17 +1256,73 @@ namespace XPump.Misc
                         pvatprorat = row.Field<string>("pvatprorat"),
                         pvat_rf = row.Field<decimal>("pvat_rf"),
                         pvat_nrf = row.Field<decimal>("pvat_nrf"),
+                        /* +creby +credat */
                         userid = row.Field<string>("userid"),
                         chgdat = !row.IsNull("chgdat") ? (DateTime?)row.Field<DateTime>("chgdat") : null,
                         userprn = row.Field<string>("userprn"),
                         prndat = !row.IsNull("prndat") ? (DateTime?)row.Field<DateTime>("prndat") : null,
                         prncnt = row.Field<decimal>("prncnt"),
-                        prntim = row.Field<string>("prntim"),
+                        //prntim = row.Field<string>("prntim"), /* only in v.1 */
                         authid = row.Field<string>("authid"),
                         approve = !row.IsNull("approve") ? (DateTime?)row.Field<DateTime>("approve") : null,
                         billbe = row.Field<string>("billbe"),
                         orgnum = row.Field<decimal>("orgnum")
                     };
+                    /* only in V.1 */
+                    if (aptrn_dbf.Columns.Contains("prntim"))
+                        a.prntim = row.Field<string>("prntim");
+
+                    /* only in V.2^ */
+                    if (aptrn_dbf.Columns.Contains("c_type"))
+                        a.c_type = row.Field<string>("c_type");
+                    if (aptrn_dbf.Columns.Contains("c_date"))
+                        a.c_date = !row.IsNull("c_date") ? (DateTime?)row.Field<DateTime>("c_date") : null;
+                    if (aptrn_dbf.Columns.Contains("c_ref"))
+                        a.c_ref = row.Field<string>("c_ref");
+                    if (aptrn_dbf.Columns.Contains("c_rate"))
+                        a.c_rate = row.Field<double>("c_rate");
+                    if (aptrn_dbf.Columns.Contains("c_fixrate"))
+                        a.c_fixrate = row.Field<string>("c_fixrate");
+                    if (aptrn_dbf.Columns.Contains("c_ratio"))
+                        a.c_ratio = row.Field<double>("c_ratio");
+                    if (aptrn_dbf.Columns.Contains("c_amount"))
+                        a.c_amount = row.Field<double>("c_amount");
+                    if (aptrn_dbf.Columns.Contains("c_disc"))
+                        a.c_disc = row.Field<string>("c_disc");
+                    if (aptrn_dbf.Columns.Contains("c_discamt"))
+                        a.c_discamt = row.Field<double>("c_discamt");
+                    if (aptrn_dbf.Columns.Contains("c_aftdisc"))
+                        a.c_aftdisc = row.Field<double>("c_aftdisc");
+                    if (aptrn_dbf.Columns.Contains("c_advamt"))
+                        a.c_advamt = row.Field<double>("c_advamt");
+                    if (aptrn_dbf.Columns.Contains("c_total"))
+                        a.c_total = row.Field<double>("c_total");
+                    if (aptrn_dbf.Columns.Contains("c_netamt"))
+                        a.c_netamt = row.Field<double>("c_netamt");
+                    if (aptrn_dbf.Columns.Contains("c_netval"))
+                        a.c_netval = row.Field<double>("c_netval");
+                    if (aptrn_dbf.Columns.Contains("c_rcvamt"))
+                        a.c_rcvamt = row.Field<double>("c_rcvamt");
+                    if (aptrn_dbf.Columns.Contains("c_difamt"))
+                        a.c_difamt = row.Field<double>("c_difamt");
+                    if (aptrn_dbf.Columns.Contains("c_payamt"))
+                        a.c_payamt = row.Field<double>("c_payamt");
+                    if (aptrn_dbf.Columns.Contains("c_remamt"))
+                        a.c_remamt = row.Field<double>("c_remamt");
+                    if (aptrn_dbf.Columns.Contains("link1"))
+                        a.link1 = row.Field<string>("link1");
+                    if (aptrn_dbf.Columns.Contains("dat1"))
+                        a.dat1 = !row.IsNull("dat1") ? (DateTime?)row.Field<DateTime>("dat1") : null;
+                    if (aptrn_dbf.Columns.Contains("dat2"))
+                        a.dat2 = !row.IsNull("dat2") ? (DateTime?)row.Field<DateTime>("dat2") : null;
+                    if (aptrn_dbf.Columns.Contains("num1"))
+                        a.num1 = row.Field<double>("num1");
+                    if (aptrn_dbf.Columns.Contains("num2"))
+                        a.num2 = row.Field<double>("num2");
+                    if (aptrn_dbf.Columns.Contains("str1"))
+                        a.str1 = row.Field<string>("str1");
+                    if (aptrn_dbf.Columns.Contains("str2"))
+                        a.str2 = row.Field<string>("str2");
 
                     aptrn.Add(a);
                 }
@@ -1263,7 +1346,7 @@ namespace XPump.Misc
                     ArtrnDbf a = new ArtrnDbf
                     {
                         rectyp = row.Field<string>("rectyp"),
-                        docnum = row.Field<string>("docnum"),
+                        docnum = row.Field<string>("docnum").Trim(),
                         docdat = !row.IsNull("docdat") ? (DateTime?)row.Field<DateTime>("docdat") : null,
                         postgl = row.Field<string>("postgl"),
                         sonum = row.Field<string>("sonum"),
@@ -1317,7 +1400,7 @@ namespace XPump.Misc
                         userprn = row.Field<string>("userprn"),
                         prndat = !row.IsNull("prndat") ? (DateTime?)row.Field<DateTime>("prndat") : null,
                         prncnt = row.Field<decimal>("prncnt"),
-                        prntim = row.Field<string>("prntim"),
+                        //prntim = row.Field<string>("prntim"),
                         authid = row.Field<string>("authid"),
                         approve = !row.IsNull("approve") ? (DateTime?)row.Field<DateTime>("approve") : null,
                         billto = row.Field<string>("billto"),
@@ -1334,6 +1417,91 @@ namespace XPump.Misc
 
             return artrn;
         }
+
+        /** For Express V.2 **/
+
+        //public static List<AptrnDbf> ToAptrn246List(this DataTable aptrn_dbf)
+        //{
+        //    List<AptrnDbf> aptrn = new List<AptrnDbf>();
+
+        //    foreach (DataRow row in aptrn_dbf.Rows)
+        //    {
+        //        try
+        //        {
+        //            AptrnDbf a = new AptrnDbf
+        //            {
+        //                rectyp = row.Field<string>("rectyp"),
+        //                docnum = row.Field<string>("docnum").Trim(),
+        //                docdat = !row.IsNull("docdat") ? (DateTime?)row.Field<DateTime>("docdat") : null,
+        //                refnum = row.Field<string>("refnum"),
+        //                vatprd = !row.IsNull("vatprd") ? (DateTime?)row.Field<DateTime>("vatprd") : null,
+        //                vatlate = row.Field<string>("vatlate"),
+        //                vattyp = row.Field<string>("vattyp"),
+        //                postgl = row.Field<string>("postgl"),
+        //                ponum = row.Field<string>("ponum"),
+        //                dntyp = row.Field<string>("dntyp"),
+        //                depcod = row.Field<string>("depcod"),
+        //                flgvat = row.Field<string>("flgvat"),
+        //                supcod = row.Field<string>("supcod"),
+        //                shipto = row.Field<string>("shipto"),
+        //                youref = row.Field<string>("youref"),
+        //                paytrm = row.Field<decimal>("paytrm"),
+        //                duedat = !row.IsNull("duedat") ? (DateTime?)row.Field<DateTime>("duedat") : null,
+        //                bilnum = row.Field<string>("bilnum"),
+        //                dlvby = row.Field<string>("dlvby"),
+        //                nxtseq = row.Field<string>("nxtseq"),
+        //                amount = row.Field<double>("amount"),
+        //                disc = row.Field<string>("disc"),
+        //                discamt = row.Field<double>("discamt"),
+        //                aftdisc = row.Field<double>("aftdisc"),
+        //                advnum = row.Field<string>("advnum"),
+        //                advamt = row.Field<double>("advamt"),
+        //                total = row.Field<double>("total"),
+        //                amtrat0 = row.Field<double>("amtrat0"),
+        //                vatrat = row.Field<decimal>("vatrat"),
+        //                vatamt = row.Field<double>("vatamt"),
+        //                netamt = row.Field<double>("netamt"),
+        //                netval = row.Field<double>("netval"),
+        //                payamt = row.Field<double>("payamt"),
+        //                remamt = row.Field<double>("remamt"),
+        //                cmplapp = row.Field<string>("cmplapp"),
+        //                cmpldat = !row.IsNull("cmpldat") ? (DateTime?)row.Field<DateTime>("cmpldat") : null,
+        //                docstat = row.Field<string>("docstat"),
+        //                cshpay = row.Field<double>("cshpay"),
+        //                chqpay = row.Field<double>("chqpay"),
+        //                intpay = row.Field<double>("intpay"),
+        //                tax = row.Field<double>("tax"),
+        //                rcvamt = row.Field<double>("rcvamt"),
+        //                chqpas = row.Field<double>("chqpas"),
+        //                vatdat = !row.IsNull("vatdat") ? (DateTime?)row.Field<DateTime>("vatdat") : null,
+        //                srv_vattyp = row.Field<string>("srv_vattyp"),
+        //                pvatprorat = row.Field<string>("pvatprorat"),
+        //                pvat_rf = row.Field<decimal>("pvat_rf"),
+        //                pvat_nrf = row.Field<decimal>("pvat_nrf"),
+        //                /* +creby +credat */
+        //                userid = row.Field<string>("userid"),
+        //                chgdat = !row.IsNull("chgdat") ? (DateTime?)row.Field<DateTime>("chgdat") : null,
+        //                userprn = row.Field<string>("userprn"),
+        //                prndat = !row.IsNull("prndat") ? (DateTime?)row.Field<DateTime>("prndat") : null,
+        //                prncnt = row.Field<decimal>("prncnt"),
+        //                prntim = row.Field<string>("prntim"), /* only in v.1 */
+        //                authid = row.Field<string>("authid"),
+        //                approve = !row.IsNull("approve") ? (DateTime?)row.Field<DateTime>("approve") : null,
+        //                billbe = row.Field<string>("billbe"),
+        //                orgnum = row.Field<decimal>("orgnum")
+        //            };
+
+        //            aptrn.Add(a);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            continue;
+        //        }
+        //    }
+
+        //    return aptrn;
+        //}
+        /** End for Express V.2 **/
 
         public static List<T> ToList<T>(this DataTable table) where T : class, new()
         {
@@ -1353,6 +1521,10 @@ namespace XPump.Misc
                             if (propertyInfo.PropertyType == typeof(string))
                             {
                                 propertyInfo.SetValue(obj, ((string)Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType)).Trim(), null);
+                            }
+                            else if (propertyInfo.PropertyType.FullName.Contains("DateTime"))
+                            {
+                                propertyInfo.SetValue(obj, ((DateTime?)Convert.ChangeType(row[prop.Name], typeof(DateTime))), null);
                             }
                             else
                             {
