@@ -169,7 +169,7 @@ namespace XPump.SubForm
                 //item.price_date = DateTime.Now;
                 item.price_date = this.price_date;
             }
-            var x = this.stmas_list;
+            //var x = this.stmas_list;
             this.FillForm();
 
             this.form_mode = FORM_MODE.EDIT_ITEM;

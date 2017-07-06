@@ -1256,13 +1256,11 @@ namespace XPump.Misc
                         pvatprorat = row.Field<string>("pvatprorat"),
                         pvat_rf = row.Field<decimal>("pvat_rf"),
                         pvat_nrf = row.Field<decimal>("pvat_nrf"),
-                        /* +creby +credat */
                         userid = row.Field<string>("userid"),
                         chgdat = !row.IsNull("chgdat") ? (DateTime?)row.Field<DateTime>("chgdat") : null,
                         userprn = row.Field<string>("userprn"),
                         prndat = !row.IsNull("prndat") ? (DateTime?)row.Field<DateTime>("prndat") : null,
                         prncnt = row.Field<decimal>("prncnt"),
-                        //prntim = row.Field<string>("prntim"), /* only in v.1 */
                         authid = row.Field<string>("authid"),
                         approve = !row.IsNull("approve") ? (DateTime?)row.Field<DateTime>("approve") : null,
                         billbe = row.Field<string>("billbe"),
@@ -1273,6 +1271,10 @@ namespace XPump.Misc
                         a.prntim = row.Field<string>("prntim");
 
                     /* only in V.2^ */
+                    if (aptrn_dbf.Columns.Contains("creby"))
+                        a.creby = row.Field<string>("creby");
+                    if (aptrn_dbf.Columns.Contains("credat"))
+                        a.credat = !row.IsNull("credat") ? (DateTime?)row.Field<DateTime>("credat") : null;
                     if (aptrn_dbf.Columns.Contains("c_type"))
                         a.c_type = row.Field<string>("c_type");
                     if (aptrn_dbf.Columns.Contains("c_date"))
@@ -1400,13 +1402,73 @@ namespace XPump.Misc
                         userprn = row.Field<string>("userprn"),
                         prndat = !row.IsNull("prndat") ? (DateTime?)row.Field<DateTime>("prndat") : null,
                         prncnt = row.Field<decimal>("prncnt"),
-                        //prntim = row.Field<string>("prntim"),
                         authid = row.Field<string>("authid"),
                         approve = !row.IsNull("approve") ? (DateTime?)row.Field<DateTime>("approve") : null,
                         billto = row.Field<string>("billto"),
                         orgnum = row.Field<decimal>("orgnum")
                     };
 
+                    /* only in v.1 */
+                    if (artrn_dbf.Columns.Contains("prntim"))
+                        a.prntim = row.Field<string>("prntim");
+                    /* only in v.2 */
+                    if (artrn_dbf.Columns.Contains("creby"))
+                        a.creby = row.Field<string>("creby");
+                    if (artrn_dbf.Columns.Contains("credat"))
+                        a.credat = !row.IsNull("credat") ? (DateTime?)row.Field<DateTime>("credat") : null;
+                    if (artrn_dbf.Columns.Contains("ponum"))
+                        a.ponum = row.Field<string>("ponum");
+                    if (artrn_dbf.Columns.Contains("c_type"))
+                        a.c_type = row.Field<string>("c_type");
+                    if (artrn_dbf.Columns.Contains("c_date"))
+                        a.c_date = !row.IsNull("c_date") ? (DateTime?)row.Field<DateTime>("c_date") : null;
+                    if (artrn_dbf.Columns.Contains("c_ref"))
+                        a.c_ref = row.Field<string>("c_ref");
+                    if (artrn_dbf.Columns.Contains("c_rate"))
+                        a.c_rate = row.Field<double>("c_rate");
+                    if (artrn_dbf.Columns.Contains("c_fixrate"))
+                        a.c_fixrate = row.Field<string>("c_fixrate");
+                    if (artrn_dbf.Columns.Contains("c_ratio"))
+                        a.c_ratio = row.Field<double>("c_ratio");
+                    if (artrn_dbf.Columns.Contains("c_amount"))
+                        a.c_amount = row.Field<double>("c_amount");
+                    if (artrn_dbf.Columns.Contains("c_disc"))
+                        a.c_disc = row.Field<string>("c_disc");
+                    if (artrn_dbf.Columns.Contains("c_discamt"))
+                        a.c_discamt = row.Field<double>("c_discamt");
+                    if (artrn_dbf.Columns.Contains("c_aftdisc"))
+                        a.c_aftdisc = row.Field<double>("c_aftdisc");
+                    if (artrn_dbf.Columns.Contains("c_advamt"))
+                        a.c_advamt = row.Field<double>("c_advamt");
+                    if (artrn_dbf.Columns.Contains("c_total"))
+                        a.c_total = row.Field<double>("c_total");
+                    if (artrn_dbf.Columns.Contains("c_netamt"))
+                        a.c_netamt = row.Field<double>("c_netamt");
+                    if (artrn_dbf.Columns.Contains("c_netval"))
+                        a.c_netval = row.Field<double>("c_netval");
+                    if (artrn_dbf.Columns.Contains("c_ivcamt"))
+                        a.c_ivcamt = row.Field<double>("c_ivcamt");
+                    if (artrn_dbf.Columns.Contains("c_difamt"))
+                        a.c_difamt = row.Field<double>("c_difamt");
+                    if (artrn_dbf.Columns.Contains("c_rcvamt"))
+                        a.c_rcvamt = row.Field<double>("c_rcvamt");
+                    if (artrn_dbf.Columns.Contains("c_remamt"))
+                        a.c_remamt = row.Field<double>("c_remamt");
+                    if (artrn_dbf.Columns.Contains("link1"))
+                        a.link1 = row.Field<string>("link1");
+                    if (artrn_dbf.Columns.Contains("dat1"))
+                        a.dat1 = !row.IsNull("dat1") ? (DateTime?)row.Field<DateTime>("dat1") : null;
+                    if (artrn_dbf.Columns.Contains("dat2"))
+                        a.dat2 = !row.IsNull("dat2") ? (DateTime?)row.Field<DateTime>("dat2") : null;
+                    if (artrn_dbf.Columns.Contains("num1"))
+                        a.num1 = row.Field<double>("num1");
+                    if (artrn_dbf.Columns.Contains("num2"))
+                        a.num2 = row.Field<double>("num2");
+                    if (artrn_dbf.Columns.Contains("str1"))
+                        a.str1 = row.Field<string>("str1");
+                    if (artrn_dbf.Columns.Contains("str2"))
+                        a.str2 = row.Field<string>("str2");
+                        
                     artrn.Add(a);
                 }
                 catch (Exception ex)
