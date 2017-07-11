@@ -68,7 +68,7 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            this.backup_file_name = this.backup_file_name.EndsWith(".rp") ? this.backup_file_name : this.backup_file_name + ".rp";
+            this.backup_file_name = this.backup_file_name.EndsWith(".oil7") ? this.backup_file_name : this.backup_file_name + ".oil7";
 
             if(XMessageBox.Show("สำรองข้อมูลไปไว้ที่ \"" + this.backup_path + "\\" + this.backup_file_name + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {

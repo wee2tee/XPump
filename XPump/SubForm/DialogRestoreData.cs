@@ -34,7 +34,7 @@ namespace XPump.SubForm
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             OpenFileDialog of = new OpenFileDialog();
-            of.Filter = "XPump backup file(*.rp)|*.rp";
+            of.Filter = "XPump backup file(*.oil7)|*.oil7";
             string init_dir = string.Empty;
 
             if(this.backup_file_path.Trim().Length > 0 && Directory.Exists(Directory.GetParent(this.backup_file_path).FullName))
