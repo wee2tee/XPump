@@ -25,7 +25,13 @@ namespace XPump.SubForm
         private shift curr_shift; // current focused row
         private FORM_MODE form_mode;
         private shiftVM temp_shift; // model for add/edit shift
-        private string menu_id;
+        private string menu_id
+        {
+            get
+            {
+                return MenuIdClass.FormShift;
+            }
+        }
 
         public FormShift()
         {
@@ -40,7 +46,7 @@ namespace XPump.SubForm
 
         private void ShiftForm_Load(object sender, EventArgs e)
         {
-            this.menu_id = this.GetType().Name;
+            //this.menu_id = this.GetType().Name;
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
 

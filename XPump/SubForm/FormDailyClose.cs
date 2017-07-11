@@ -22,7 +22,12 @@ namespace XPump.SubForm
         private List<dayend> dayend_list;
         private DateTime? curr_date;
         private dayend curr_dayend;
-        public string menu_id;
+        public string menu_id {
+            get
+            {
+                return MenuIdClass.FormDailyClose;
+            }
+        }
 
         public FormDailyClose(MainForm main_form)
         {
@@ -53,7 +58,7 @@ namespace XPump.SubForm
 
         private void DialogDailySummary_Load(object sender, EventArgs e)
         {
-            this.menu_id = this.GetType().Name;
+            //this.menu_id = this.GetType().Name;
             this.BackColor = MiscResource.WIND_BG;
             this.bs = new BindingSource();
             this.dgv.DataSource = this.bs;

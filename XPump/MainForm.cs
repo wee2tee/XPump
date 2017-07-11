@@ -363,6 +363,21 @@ namespace XPump
             this.opened_child_form.Add(new ChildFormDetail() { form = daily, docPrefix = string.Empty });
         }
 
+        private void mnuSecure_Click(object sender, EventArgs e)
+        {
+            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).First().form.Activate();
+                return;
+            }
+
+            FormSecure sec = new FormSecure(this);
+            sec.MdiParent = this;
+            sec.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            sec.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = sec, docPrefix = string.Empty });
+        }
+
         private void mnuBackup_Click(object sender, EventArgs e)
         {
             XMessageBox.Show("ในขั้นตอนการสำรองข้อมูลนี้ ต้องให้ผู้ใช้งานรายอื่นออกจากระบบก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);

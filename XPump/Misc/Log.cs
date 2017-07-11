@@ -10,6 +10,7 @@ using System.Data.SQLite;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using CC;
+using System.Globalization;
 
 namespace XPump.Misc
 {
@@ -383,7 +384,8 @@ namespace XPump.Misc
             LogObject l = new LogObject(this.main_form)
             {
                 Code = "017",
-                Description = string.Format("เปลี่ยนแปลงการตั้งค่าระบบสำเร็จ")
+                Description = string.Format("เปลี่ยนแปลงการตั้งค่าระบบสำเร็จ"),
+                Module = MenuIdClass.Settings
             };
             return l;
         }
@@ -393,7 +395,8 @@ namespace XPump.Misc
             LogObject l = new LogObject(this.main_form)
             {
                 Code = "018",
-                Description = string.Format("เปลี่ยนไปใช้ข้อมูล \"{0}\" [{1}]", absolute_data_path.Replace("\\", "\\\\"), company_name)
+                Description = string.Format("เปลี่ยนไปใช้ข้อมูล \"{0}\" [{1}]", absolute_data_path.Replace("\\", "\\\\"), company_name),
+                Module = MenuIdClass.ChangeCompany
             };
             return l;
         }
@@ -403,7 +406,8 @@ namespace XPump.Misc
             LogObject l = new LogObject(this.main_form)
             {
                 Code = "019",
-                Description = "สำรองฐานข้อมูล \"" + xpump_db_name + "\" ไปเก็บไว้ที่ \"" + backup_file_path.Replace("\\", "\\\\") + "\""
+                Description = "สำรองฐานข้อมูล \"" + xpump_db_name + "\" ไปเก็บไว้ที่ \"" + backup_file_path.Replace("\\", "\\\\") + "\"",
+                Module = MenuIdClass.Backup
             };
             return l;
         }
@@ -413,7 +417,19 @@ namespace XPump.Misc
             LogObject l = new LogObject(this.main_form)
             {
                 Code = "020",
-                Description = "นำข้อมูลสำรองจาก \"" + backup_file_path.Replace("\\", "\\\\") + "\" มาลงในฐานข้อมูล \"" + xpump_db_name + "\""
+                Description = "นำข้อมูลสำรองจาก \"" + backup_file_path.Replace("\\", "\\\\") + "\" มาลงในฐานข้อมูล \"" + xpump_db_name + "\"",
+                Module = MenuIdClass.Restore
+            };
+            return l;
+        }
+
+        public LogObject YearEnd(string xpump_db_name, DateTime prd_start_date, DateTime prd_end_date)
+        {
+            LogObject l = new LogObject(this.main_form)
+            {
+                Code = "030",
+                Description = "ปิดประมวลผลรอบบัญชี " + prd_start_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("en-US")) + " - " + prd_end_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("en-US")) + " สำหรับฐานข้อมูล " + xpump_db_name,
+                Module = MenuIdClass.YearEnd
             };
             return l;
         }

@@ -17,11 +17,20 @@ namespace XPump.SubForm
     {
         private MainForm main_form;
         private settings settings;
+        private LocalDbConfig dbConfig;
+        public string menu_id
+        {
+            get
+            {
+                return MenuIdClass.YearEnd;
+            }
+        }
 
         public DialogYearEnd(MainForm main_form)
         {
             InitializeComponent();
             this.main_form = main_form;
+            this.dbConfig = new LocalDbConfig(this.main_form.working_express_db);
         }
 
         private void DialogYearEnd_Load(object sender, EventArgs e)
@@ -195,6 +204,8 @@ namespace XPump.SubForm
                         }
                         result = true;
                         db.SaveChanges();
+
+                        this.main_form.islog.YearEnd(dbConfig.ConfigValue.dbname, this.settings.prdstart.Value, this.settings.prdend.Value).Save();
                     }
                     catch (Exception ex)
                     {

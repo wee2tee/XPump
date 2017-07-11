@@ -15,7 +15,13 @@ namespace XPump.SubForm
 {
     public partial class FormTankConfig : Form
     {
-        public string menu_id;
+        public string menu_id
+        {
+            get
+            {
+                return MenuIdClass.FormTankConfig;
+            }
+        }
         private MainForm main_form;
         private FORM_MODE form_mode;
         public tanksetup tanksetup;
@@ -37,7 +43,7 @@ namespace XPump.SubForm
         public FormTankConfig(MainForm main_form)
         {
             InitializeComponent();
-            this.menu_id = this.GetType().Name;
+            //this.menu_id = this.GetType().Name;
             this.main_form = main_form;
         }
 

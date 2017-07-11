@@ -25,7 +25,13 @@ namespace XPump.SubForm
         private BindingSource bs_sales;
         private BindingSource bs_sttak;
         private FORM_MODE form_mode;
-        public string menu_id;
+        public string menu_id
+        {
+            get
+            {
+                return MenuIdClass.FormShiftTransaction;
+            }
+        }
         //private List<salessummaryVM> reportAData;
         //private List<salessummaryVM> reportBData;
         //private List<salessummaryVM> reportCData;
@@ -38,7 +44,7 @@ namespace XPump.SubForm
 
         private void FormShiftTransaction_Load(object sender, EventArgs e)
         {
-            this.menu_id = this.GetType().Name;
+            //this.menu_id = this.GetType().Name;
             this.BackColor = MiscResource.WIND_BG;
 
             this.bs_sales = new BindingSource();

@@ -20,7 +20,10 @@ namespace XPump.SubForm
         private string tabtyp;
         private BindingList<istabVM> bl_istab;
         private istab tmp_istab;
-        private string menu_id;
+        public string menu_id
+        {
+            get { return MenuIdClass.FormIstab; }
+        }
 
         public FormIstab(MainForm main_form, string tabtyp, string window_title = "")
         {
@@ -32,7 +35,7 @@ namespace XPump.SubForm
 
         private void FormIstab_Load(object sender, EventArgs e)
         {
-            this.menu_id = this.GetType().Name;
+            //this.menu_id = this.GetType().Name;
             this.inline_isdayend._Items.Add(new XDropdownListItem { Text = "Y", Value = true });
             this.inline_isdayend._Items.Add(new XDropdownListItem { Text = "N", Value = false });
             this.inline_isshiftsales._Items.Add(new XDropdownListItem { Text = "Y", Value = true });

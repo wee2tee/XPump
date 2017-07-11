@@ -53,6 +53,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.mnuSecure = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -154,6 +155,7 @@
             // 
             this.อนๆToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.จดการขอมลToolStripMenuItem,
+            this.mnuSecure,
             this.mnuYearEnd,
             this.mnuChangeCompany});
             this.อนๆToolStripMenuItem.Name = "อนๆToolStripMenuItem";
@@ -268,6 +270,13 @@
             this.lblVersion.Text = "version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // mnuSecure
+            // 
+            this.mnuSecure.Name = "mnuSecure";
+            this.mnuSecure.Size = new System.Drawing.Size(178, 22);
+            this.mnuSecure.Text = "แฟ้มผู้ใช้งานระบบ";
+            this.mnuSecure.Click += new System.EventHandler(this.mnuSecure_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -321,6 +330,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuBackup;
         private System.Windows.Forms.ToolStripMenuItem mnuRestore;
         private System.Windows.Forms.ToolStripMenuItem mnuYearEnd;
+        private System.Windows.Forms.ToolStripMenuItem mnuSecure;
     }
 }
 
