@@ -23,6 +23,7 @@ namespace XPump
         public SccompDbf working_express_db;
         public SecureDbConnectionConfig secure_db_config;
         public Log islog;
+        public const string helpfile = "Help.chm";
 
         public MainForm()
         {
@@ -432,6 +433,17 @@ namespace XPump
             }
             
             base.OnFormClosing(e);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.F1)
+            {
+                Helper.ShowHelp("page-1.1.html");
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 

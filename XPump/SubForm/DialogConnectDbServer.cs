@@ -203,11 +203,14 @@ namespace XPump.SubForm
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `xpumpsecure`.`scacclv` ";
                 cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
+                cmd.CommandText += "`datacod` VARCHAR(50) NOT NULL,";
                 cmd.CommandText += "`menu_id` VARCHAR(50) NOT NULL,";
                 cmd.CommandText += "`read` VARCHAR(1) NOT NULL,";
                 cmd.CommandText += "`add` VARCHAR(1) NOT NULL,";
                 cmd.CommandText += "`edit` VARCHAR(1) NOT NULL,";
                 cmd.CommandText += "`delete` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`print` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`approve` VARCHAR(1) NOT NULL,";
                 cmd.CommandText += "PRIMARY KEY(`id`),";
                 cmd.CommandText += "INDEX `ndx-scacclv-username` (`username` ASC)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
@@ -284,6 +287,12 @@ namespace XPump.SubForm
                     SendKeys.Send("{TAB}");
                     return true;
                 }
+            }
+
+            if (keyData == Keys.F1)
+            {
+                Helper.ShowHelp("page-1.1.html#db-server-config");
+                return true;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

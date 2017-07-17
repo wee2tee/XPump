@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -45,6 +45,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.inline_isdayend = new CC.XDropdownList();
+            this.inline_isshiftsales = new CC.XDropdownList();
             this.inline_typdes2 = new CC.XTextEdit();
             this.inline_typdes = new CC.XTextEdit();
             this.inline_shortnam2 = new CC.XTextEdit();
@@ -66,8 +68,6 @@
             this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_chgby = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_chgtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.inline_isshiftsales = new CC.XDropdownList();
-            this.inline_isdayend = new CC.XDropdownList();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
@@ -242,9 +242,38 @@
             this.panel1.Size = new System.Drawing.Size(859, 436);
             this.panel1.TabIndex = 6;
             // 
+            // inline_isdayend
+            // 
+            this.inline_isdayend._ReadOnly = false;
+            this.inline_isdayend._SelectedItem = null;
+            this.inline_isdayend._Text = "";
+            this.inline_isdayend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_isdayend.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_isdayend.Location = new System.Drawing.Point(800, 50);
+            this.inline_isdayend.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_isdayend.Name = "inline_isdayend";
+            this.inline_isdayend.Size = new System.Drawing.Size(58, 23);
+            this.inline_isdayend.TabIndex = 6;
+            this.inline_isdayend._SelectedItemChanged += new System.EventHandler(this.inline_isdayend__SelectedItemChanged);
+            // 
+            // inline_isshiftsales
+            // 
+            this.inline_isshiftsales._ReadOnly = false;
+            this.inline_isshiftsales._SelectedItem = null;
+            this.inline_isshiftsales._Text = "";
+            this.inline_isshiftsales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_isshiftsales.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_isshiftsales.Location = new System.Drawing.Point(740, 50);
+            this.inline_isshiftsales.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_isshiftsales.Name = "inline_isshiftsales";
+            this.inline_isshiftsales.Size = new System.Drawing.Size(58, 23);
+            this.inline_isshiftsales.TabIndex = 5;
+            this.inline_isshiftsales._SelectedItemChanged += new System.EventHandler(this.inline_isshiftsales__SelectedItemChanged);
+            // 
             // inline_typdes2
             // 
             this.inline_typdes2._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_typdes2._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_typdes2._MaxLength = 50;
             this.inline_typdes2._ReadOnly = false;
             this.inline_typdes2._Text = "";
@@ -262,6 +291,7 @@
             // inline_typdes
             // 
             this.inline_typdes._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_typdes._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_typdes._MaxLength = 50;
             this.inline_typdes._ReadOnly = false;
             this.inline_typdes._Text = "";
@@ -279,6 +309,7 @@
             // inline_shortnam2
             // 
             this.inline_shortnam2._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_shortnam2._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_shortnam2._MaxLength = 15;
             this.inline_shortnam2._ReadOnly = false;
             this.inline_shortnam2._Text = "";
@@ -296,6 +327,7 @@
             // inline_shortnam
             // 
             this.inline_shortnam._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_shortnam._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_shortnam._MaxLength = 15;
             this.inline_shortnam._ReadOnly = false;
             this.inline_shortnam._Text = "";
@@ -313,6 +345,7 @@
             // inline_typcod
             // 
             this.inline_typcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_typcod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_typcod._MaxLength = 4;
             this.inline_typcod._ReadOnly = false;
             this.inline_typcod._Text = "";
@@ -334,14 +367,14 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.ColumnHeadersHeight = 40;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -360,14 +393,14 @@
             this.col_cretime,
             this.col_chgby,
             this.col_chgtime});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -513,34 +546,6 @@
             this.col_chgtime.ReadOnly = true;
             this.col_chgtime.Visible = false;
             // 
-            // inline_isshiftsales
-            // 
-            this.inline_isshiftsales._ReadOnly = false;
-            this.inline_isshiftsales._SelectedItem = null;
-            this.inline_isshiftsales._Text = "";
-            this.inline_isshiftsales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_isshiftsales.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_isshiftsales.Location = new System.Drawing.Point(740, 50);
-            this.inline_isshiftsales.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_isshiftsales.Name = "inline_isshiftsales";
-            this.inline_isshiftsales.Size = new System.Drawing.Size(58, 23);
-            this.inline_isshiftsales.TabIndex = 5;
-            this.inline_isshiftsales._SelectedItemChanged += new System.EventHandler(this.inline_isshiftsales__SelectedItemChanged);
-            // 
-            // inline_isdayend
-            // 
-            this.inline_isdayend._ReadOnly = false;
-            this.inline_isdayend._SelectedItem = null;
-            this.inline_isdayend._Text = "";
-            this.inline_isdayend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inline_isdayend.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_isdayend.Location = new System.Drawing.Point(800, 50);
-            this.inline_isdayend.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.inline_isdayend.Name = "inline_isdayend";
-            this.inline_isdayend.Size = new System.Drawing.Size(58, 23);
-            this.inline_isdayend.TabIndex = 6;
-            this.inline_isdayend._SelectedItemChanged += new System.EventHandler(this.inline_isdayend__SelectedItemChanged);
-            // 
             // FormIstab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -553,6 +558,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(610, 200);
             this.Name = "FormIstab";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ตารางข้อมูล";
             this.Load += new System.EventHandler(this.FormIstab_Load);

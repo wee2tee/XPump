@@ -2317,5 +2317,11 @@ namespace XPump.Misc
                 return db.daysttak.Where(d => d.dayend_id == dayend.id && d.takqty < 0).ToList();
             }
         }
+
+        public static void ShowHelp(string html_file_name)
+        {
+            Form helpParentWind = new Form();
+            Help.ShowHelp(helpParentWind, MainForm.helpfile, HelpNavigator.Topic, html_file_name);
+        }
     }
 }

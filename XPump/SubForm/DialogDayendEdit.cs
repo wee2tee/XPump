@@ -425,6 +425,12 @@ namespace XPump.SubForm
                 }
             }
 
+            if (keyData == Keys.F1)
+            {
+                Helper.ShowHelp("page-2.3.html");
+                return true;
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

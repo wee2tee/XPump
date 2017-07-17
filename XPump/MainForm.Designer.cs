@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripDailyTransaction = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuShiftTransaction = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +44,7 @@
             this.จดการขอมลToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBackup = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRestore = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSecure = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuYearEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuChangeCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -53,7 +55,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.mnuSecure = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -67,7 +68,7 @@
             this.อนๆToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1084, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(848, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -185,6 +186,14 @@
             this.mnuRestore.Text = "นำข้อมูลสำรองมาใช้";
             this.mnuRestore.Click += new System.EventHandler(this.mnuRestore_Click);
             // 
+            // mnuSecure
+            // 
+            this.mnuSecure.Name = "mnuSecure";
+            this.mnuSecure.Size = new System.Drawing.Size(178, 22);
+            this.mnuSecure.Text = "แฟ้มผู้ใช้งานระบบ";
+            this.mnuSecure.Visible = false;
+            this.mnuSecure.Click += new System.EventHandler(this.mnuSecure_Click);
+            // 
             // mnuYearEnd
             // 
             this.mnuYearEnd.Name = "mnuYearEnd";
@@ -209,9 +218,9 @@
             this.toolStripStatusLabel2,
             this.lblMysqlDbName,
             this.lblVersion});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 637);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 539);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1084, 24);
+            this.statusStrip1.Size = new System.Drawing.Size(848, 24);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -265,26 +274,20 @@
             // lblVersion
             // 
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(728, 19);
+            this.lblVersion.Size = new System.Drawing.Size(492, 19);
             this.lblVersion.Spring = true;
             this.lblVersion.Text = "version";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // mnuSecure
-            // 
-            this.mnuSecure.Name = "mnuSecure";
-            this.mnuSecure.Size = new System.Drawing.Size(178, 22);
-            this.mnuSecure.Text = "แฟ้มผู้ใช้งานระบบ";
-            this.mnuSecure.Click += new System.EventHandler(this.mnuSecure_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1084, 661);
+            this.ClientSize = new System.Drawing.Size(848, 563);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;

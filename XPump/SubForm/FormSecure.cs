@@ -17,6 +17,7 @@ namespace XPump.SubForm
         private MainForm main_form;
         private List<ScuserDbf> scusers;
         private ScuserDbf curr_user;
+        private ScacclvDbf tmp_scacclv;
 
         public FormSecure(MainForm main_form)
         {
@@ -57,6 +58,33 @@ namespace XPump.SubForm
                         break;
                 }
             }
+        }
+
+        private void ShowInlineForm()
+        {
+            
+        }
+
+        private void RemoveInlineForm()
+        {
+            this.inline_datacod.SetBounds(-9999, 0, 0, 0);
+            this.inline_datacod._Text = string.Empty;
+            this.inline_menu.SetBounds(-9999, 0, 0, 0);
+            this.inline_menu._Text = string.Empty;
+            this.inline_read.SetBounds(-9999, 0, 0, 0);
+            this.inline_read._Text = string.Empty;
+            this.inline_add.SetBounds(-9999, 0, 0, 0);
+            this.inline_add._Text = string.Empty;
+            this.inline_edit.SetBounds(-9999, 0, 0, 0);
+            this.inline_edit._Text = string.Empty;
+            this.inline_delete.SetBounds(-9999, 0, 0, 0);
+            this.inline_delete._Text = string.Empty;
+            this.inline_print.SetBounds(-9999, 0, 0, 0);
+            this.inline_print._Text = string.Empty;
+            this.inline_approve.SetBounds(-9999, 0, 0, 0);
+            this.inline_approve._Text = string.Empty;
+
+            this.tmp_scacclv = null;
         }
 
         private void btnFirst_Click(object sender, EventArgs e)
@@ -127,6 +155,21 @@ namespace XPump.SubForm
             }
 
             this.FillForm();
+        }
+
+        private void btnAddItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeleteItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

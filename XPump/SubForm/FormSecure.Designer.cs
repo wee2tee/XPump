@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
@@ -47,7 +48,26 @@
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.inline_approve = new CC.XDropdownList();
+            this.inline_print = new CC.XDropdownList();
+            this.inline_delete = new CC.XDropdownList();
+            this.inline_edit = new CC.XDropdownList();
+            this.inline_add = new CC.XDropdownList();
+            this.inline_read = new CC.XDropdownList();
+            this.inline_menu = new CC.XBrowseBox();
+            this.inline_datacod = new CC.XBrowseBox();
             this.xDatagrid1 = new CC.XDatagrid();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_menu_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_menu_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -64,6 +84,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtLanguage = new System.Windows.Forms.TextBox();
+            this.btnAddItem = new System.Windows.Forms.Button();
+            this.btnEditItem = new System.Windows.Forms.Button();
+            this.btnDeleteItem = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -102,6 +125,7 @@
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(36, 40);
             this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
+            this.btnEdit.Visible = false;
             // 
             // btnDelete
             // 
@@ -112,11 +136,13 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(36, 40);
             this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
+            this.btnDelete.Visible = false;
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 43);
+            this.toolStripSeparator3.Visible = false;
             // 
             // btnStop
             // 
@@ -243,7 +269,18 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.inline_approve);
+            this.tabPage1.Controls.Add(this.inline_print);
+            this.tabPage1.Controls.Add(this.inline_delete);
+            this.tabPage1.Controls.Add(this.inline_edit);
+            this.tabPage1.Controls.Add(this.inline_add);
+            this.tabPage1.Controls.Add(this.inline_read);
+            this.tabPage1.Controls.Add(this.inline_menu);
+            this.tabPage1.Controls.Add(this.inline_datacod);
             this.tabPage1.Controls.Add(this.xDatagrid1);
+            this.tabPage1.Controls.Add(this.btnDeleteItem);
+            this.tabPage1.Controls.Add(this.btnEditItem);
+            this.tabPage1.Controls.Add(this.btnAddItem);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -251,6 +288,118 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "เมนูที่อนุญาตให้ผู้ใช้รายนี้";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // inline_approve
+            // 
+            this.inline_approve._ReadOnly = false;
+            this.inline_approve._SelectedItem = null;
+            this.inline_approve._Text = "";
+            this.inline_approve.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_approve.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_approve.Location = new System.Drawing.Point(801, 40);
+            this.inline_approve.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_approve.Name = "inline_approve";
+            this.inline_approve.Size = new System.Drawing.Size(48, 23);
+            this.inline_approve.TabIndex = 3;
+            // 
+            // inline_print
+            // 
+            this.inline_print._ReadOnly = false;
+            this.inline_print._SelectedItem = null;
+            this.inline_print._Text = "";
+            this.inline_print.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_print.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_print.Location = new System.Drawing.Point(751, 40);
+            this.inline_print.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_print.Name = "inline_print";
+            this.inline_print.Size = new System.Drawing.Size(48, 23);
+            this.inline_print.TabIndex = 3;
+            // 
+            // inline_delete
+            // 
+            this.inline_delete._ReadOnly = false;
+            this.inline_delete._SelectedItem = null;
+            this.inline_delete._Text = "";
+            this.inline_delete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_delete.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_delete.Location = new System.Drawing.Point(701, 40);
+            this.inline_delete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_delete.Name = "inline_delete";
+            this.inline_delete.Size = new System.Drawing.Size(48, 23);
+            this.inline_delete.TabIndex = 3;
+            // 
+            // inline_edit
+            // 
+            this.inline_edit._ReadOnly = false;
+            this.inline_edit._SelectedItem = null;
+            this.inline_edit._Text = "";
+            this.inline_edit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_edit.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_edit.Location = new System.Drawing.Point(650, 40);
+            this.inline_edit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_edit.Name = "inline_edit";
+            this.inline_edit.Size = new System.Drawing.Size(48, 23);
+            this.inline_edit.TabIndex = 3;
+            // 
+            // inline_add
+            // 
+            this.inline_add._ReadOnly = false;
+            this.inline_add._SelectedItem = null;
+            this.inline_add._Text = "";
+            this.inline_add.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_add.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_add.Location = new System.Drawing.Point(600, 40);
+            this.inline_add.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_add.Name = "inline_add";
+            this.inline_add.Size = new System.Drawing.Size(48, 23);
+            this.inline_add.TabIndex = 3;
+            // 
+            // inline_read
+            // 
+            this.inline_read._ReadOnly = false;
+            this.inline_read._SelectedItem = null;
+            this.inline_read._Text = "";
+            this.inline_read.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_read.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_read.Location = new System.Drawing.Point(550, 40);
+            this.inline_read.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_read.Name = "inline_read";
+            this.inline_read.Size = new System.Drawing.Size(48, 23);
+            this.inline_read.TabIndex = 3;
+            // 
+            // inline_menu
+            // 
+            this.inline_menu._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_menu._ReadOnly = false;
+            this.inline_menu._Text = "";
+            this.inline_menu._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.inline_menu._UseImage = true;
+            this.inline_menu.BackColor = System.Drawing.Color.White;
+            this.inline_menu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_menu.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.inline_menu.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_menu.Location = new System.Drawing.Point(126, 40);
+            this.inline_menu.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_menu.Name = "inline_menu";
+            this.inline_menu.Size = new System.Drawing.Size(139, 23);
+            this.inline_menu.TabIndex = 2;
+            // 
+            // inline_datacod
+            // 
+            this.inline_datacod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_datacod._ReadOnly = false;
+            this.inline_datacod._Text = "";
+            this.inline_datacod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.inline_datacod._UseImage = true;
+            this.inline_datacod.BackColor = System.Drawing.Color.White;
+            this.inline_datacod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_datacod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.inline_datacod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inline_datacod.Location = new System.Drawing.Point(5, 40);
+            this.inline_datacod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inline_datacod.Name = "inline_datacod";
+            this.inline_datacod.Size = new System.Drawing.Size(120, 23);
+            this.inline_datacod.TabIndex = 1;
             // 
             // xDatagrid1
             // 
@@ -267,7 +416,28 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.xDatagrid1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.xDatagrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.xDatagrid1.ColumnHeadersHeight = 28;
+            this.xDatagrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.xDatagrid1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_id,
+            this.col_username,
+            this.col_datacod,
+            this.col_menu_id,
+            this.col_menu_desc,
+            this.col_read,
+            this.col_add,
+            this.col_edit,
+            this.col_delete,
+            this.col_print,
+            this.col_approve});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.xDatagrid1.DefaultCellStyle = dataGridViewCellStyle2;
             this.xDatagrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xDatagrid1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.xDatagrid1.EnableHeadersVisualStyles = false;
@@ -283,6 +453,102 @@
             this.xDatagrid1.Size = new System.Drawing.Size(848, 302);
             this.xDatagrid1.StandardTab = true;
             this.xDatagrid1.TabIndex = 0;
+            // 
+            // col_id
+            // 
+            this.col_id.DataPropertyName = "id";
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
+            // 
+            // col_username
+            // 
+            this.col_username.DataPropertyName = "username";
+            this.col_username.HeaderText = "User Name";
+            this.col_username.Name = "col_username";
+            this.col_username.ReadOnly = true;
+            this.col_username.Visible = false;
+            // 
+            // col_datacod
+            // 
+            this.col_datacod.DataPropertyName = "datacod";
+            this.col_datacod.HeaderText = "รหัสข้อมูล";
+            this.col_datacod.MinimumWidth = 120;
+            this.col_datacod.Name = "col_datacod";
+            this.col_datacod.ReadOnly = true;
+            this.col_datacod.Width = 120;
+            // 
+            // col_menu_id
+            // 
+            this.col_menu_id.DataPropertyName = "menu_id";
+            this.col_menu_id.HeaderText = "เมนู";
+            this.col_menu_id.MinimumWidth = 140;
+            this.col_menu_id.Name = "col_menu_id";
+            this.col_menu_id.ReadOnly = true;
+            this.col_menu_id.Width = 140;
+            // 
+            // col_menu_desc
+            // 
+            this.col_menu_desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_menu_desc.HeaderText = "";
+            this.col_menu_desc.MinimumWidth = 120;
+            this.col_menu_desc.Name = "col_menu_desc";
+            this.col_menu_desc.ReadOnly = true;
+            // 
+            // col_read
+            // 
+            this.col_read.DataPropertyName = "read";
+            this.col_read.HeaderText = "อ่าน";
+            this.col_read.MinimumWidth = 50;
+            this.col_read.Name = "col_read";
+            this.col_read.ReadOnly = true;
+            this.col_read.Width = 50;
+            // 
+            // col_add
+            // 
+            this.col_add.DataPropertyName = "add";
+            this.col_add.HeaderText = "เพิ่ม";
+            this.col_add.MinimumWidth = 50;
+            this.col_add.Name = "col_add";
+            this.col_add.ReadOnly = true;
+            this.col_add.Width = 50;
+            // 
+            // col_edit
+            // 
+            this.col_edit.DataPropertyName = "edit";
+            this.col_edit.HeaderText = "แก้ไข";
+            this.col_edit.MinimumWidth = 50;
+            this.col_edit.Name = "col_edit";
+            this.col_edit.ReadOnly = true;
+            this.col_edit.Width = 50;
+            // 
+            // col_delete
+            // 
+            this.col_delete.DataPropertyName = "delete";
+            this.col_delete.HeaderText = "ลบ";
+            this.col_delete.MinimumWidth = 50;
+            this.col_delete.Name = "col_delete";
+            this.col_delete.ReadOnly = true;
+            this.col_delete.Width = 50;
+            // 
+            // col_print
+            // 
+            this.col_print.DataPropertyName = "print";
+            this.col_print.HeaderText = "พิมพ์";
+            this.col_print.MinimumWidth = 50;
+            this.col_print.Name = "col_print";
+            this.col_print.ReadOnly = true;
+            this.col_print.Width = 50;
+            // 
+            // col_approve
+            // 
+            this.col_approve.DataPropertyName = "approve";
+            this.col_approve.HeaderText = "รับรอง";
+            this.col_approve.MinimumWidth = 50;
+            this.col_approve.Name = "col_approve";
+            this.col_approve.ReadOnly = true;
+            this.col_approve.Width = 50;
             // 
             // label1
             // 
@@ -384,7 +650,7 @@
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label6.Location = new System.Drawing.Point(20, 184);
             this.label6.Name = "label6";
-            this.label6.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.label6.Padding = new System.Windows.Forms.Padding(5);
             this.label6.Size = new System.Drawing.Size(475, 35);
             this.label6.TabIndex = 10;
             this.label6.Text = "หมายเหตุ : รหัสผู้ใช้งาน และ รายละเอียดต่าง ๆ นี้ถูกกำหนดไว้ในโปรแกรมเอ็กซ์เพรส";
@@ -425,6 +691,36 @@
             this.txtLanguage.ReadOnly = true;
             this.txtLanguage.Size = new System.Drawing.Size(56, 23);
             this.txtLanguage.TabIndex = 9;
+            // 
+            // btnAddItem
+            // 
+            this.btnAddItem.Location = new System.Drawing.Point(307, 40);
+            this.btnAddItem.Name = "btnAddItem";
+            this.btnAddItem.Size = new System.Drawing.Size(45, 22);
+            this.btnAddItem.TabIndex = 4;
+            this.btnAddItem.Text = "Add";
+            this.btnAddItem.UseVisualStyleBackColor = true;
+            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
+            // 
+            // btnEditItem
+            // 
+            this.btnEditItem.Location = new System.Drawing.Point(358, 40);
+            this.btnEditItem.Name = "btnEditItem";
+            this.btnEditItem.Size = new System.Drawing.Size(45, 22);
+            this.btnEditItem.TabIndex = 4;
+            this.btnEditItem.Text = "Edit";
+            this.btnEditItem.UseVisualStyleBackColor = true;
+            this.btnEditItem.Click += new System.EventHandler(this.btnEditItem_Click);
+            // 
+            // btnDeleteItem
+            // 
+            this.btnDeleteItem.Location = new System.Drawing.Point(409, 40);
+            this.btnDeleteItem.Name = "btnDeleteItem";
+            this.btnDeleteItem.Size = new System.Drawing.Size(53, 22);
+            this.btnDeleteItem.TabIndex = 4;
+            this.btnDeleteItem.Text = "Delete";
+            this.btnDeleteItem.UseVisualStyleBackColor = true;
+            this.btnDeleteItem.Click += new System.EventHandler(this.btnDeleteItem_Click);
             // 
             // FormSecure
             // 
@@ -504,5 +800,27 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtLanguage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_username;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_datacod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_menu_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_menu_desc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_read;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_add;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_edit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_delete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_print;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_approve;
+        private CC.XBrowseBox inline_menu;
+        private CC.XBrowseBox inline_datacod;
+        private CC.XDropdownList inline_approve;
+        private CC.XDropdownList inline_print;
+        private CC.XDropdownList inline_delete;
+        private CC.XDropdownList inline_edit;
+        private CC.XDropdownList inline_add;
+        private CC.XDropdownList inline_read;
+        private System.Windows.Forms.Button btnDeleteItem;
+        private System.Windows.Forms.Button btnEditItem;
+        private System.Windows.Forms.Button btnAddItem;
     }
 }

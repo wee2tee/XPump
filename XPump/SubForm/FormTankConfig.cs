@@ -39,12 +39,14 @@ namespace XPump.SubForm
             F7,
             F8
         }
+        private HelpProvider help;
 
         public FormTankConfig(MainForm main_form)
         {
             InitializeComponent();
             //this.menu_id = this.GetType().Name;
             this.main_form = main_form;
+            this.help = new HelpProvider();
         }
 
         private void FormTankConfig_Load(object sender, EventArgs e)
@@ -57,6 +59,11 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
             this.btnLast.PerformClick();
+
+            this.help.SetShowHelp(this.dtStartDate, true);
+            this.help.SetHelpString(this.dtStartDate, "this is a help..");
+
+            this.help.HelpNamespace = "xphelp.chm";
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -1654,6 +1661,12 @@ namespace XPump.SubForm
                         }
                     }
                 }
+            }
+
+            if(keyData == Keys.F1)
+            {
+                Helper.ShowHelp("page-1.3.html");
+                return true;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

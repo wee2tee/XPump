@@ -629,6 +629,12 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if (keyData == Keys.F1)
+            {
+                Helper.ShowHelp("page-1.1.html#db-config");
+                return true;
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
