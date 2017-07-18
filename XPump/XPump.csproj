@@ -114,6 +114,9 @@
     <Compile Include="Misc\Log.cs" />
     <Compile Include="Misc\StringEnh.cs" />
     <Compile Include="Misc\StringResource.cs" />
+    <Compile Include="Model\affdata.cs">
+      <DependentUpon>SecureModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\dayend.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
@@ -125,6 +128,9 @@
     </Compile>
     <Compile Include="Model\dother.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\islog.cs">
+      <DependentUpon>SecureModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\istab.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
@@ -147,8 +153,26 @@
     <Compile Include="Model\salessummary.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\scacclv.cs">
+      <DependentUpon>SecureModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\section.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SecureModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecureModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SecureModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecureModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SecureModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecureModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\settings.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
@@ -573,6 +597,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>XPumpModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Model\SecureModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SecureModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\SecureModel.edmx.diagram">
+      <DependentUpon>SecureModel.edmx</DependentUpon>
+    </None>
     <None Include="Model\XPumpModel.edmx.diagram">
       <DependentUpon>XPumpModel.edmx</DependentUpon>
     </None>
@@ -715,6 +746,16 @@
   <ItemGroup>
     <Content Include="Icons\icon-purple.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Model\SecureModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SecureModel.edmx</DependentUpon>
+      <LastGenOutput>SecureModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\SecureModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SecureModel.edmx</DependentUpon>
+      <LastGenOutput>SecureModel.cs</LastGenOutput>
     </Content>
     <Content Include="Model\XPumpModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -191,7 +191,6 @@
             this.mnuSecure.Name = "mnuSecure";
             this.mnuSecure.Size = new System.Drawing.Size(178, 22);
             this.mnuSecure.Text = "แฟ้มผู้ใช้งานระบบ";
-            this.mnuSecure.Visible = false;
             this.mnuSecure.Click += new System.EventHandler(this.mnuSecure_Click);
             // 
             // mnuYearEnd

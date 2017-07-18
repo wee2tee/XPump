@@ -20,6 +20,8 @@ namespace XPump.Model
 
         private string server_name;
         public string ServerName { get { return this.server_name; } }
+        private string db_prefix;
+        public string DbPrefix { get { return this.db_prefix; } }
         private string db_name;
         public string DbName { get { return this.db_name; } }
         private string db_userid;
@@ -29,7 +31,7 @@ namespace XPump.Model
         public int port_no;
         public int PortNo { get { return this.port_no; } }
 
-        public DBX(string server_name, string db_userid, string db_password, string db_name, int port_no = 3306)
+        public DBX(string server_name, string db_userid, string db_password, string db_prefix, string db_name, int port_no = 3306)
         {
             //string cloud_server = "localhost";
             //string cloud_db_name = "sn";
@@ -55,6 +57,7 @@ namespace XPump.Model
             //return new xpumpEntities(contextConnectionString);
 
             this.server_name = server_name;
+            this.db_prefix = db_prefix;
             this.db_name = db_name;
             this.db_userid = db_userid;
             this.db_password = db_password;
@@ -63,15 +66,20 @@ namespace XPump.Model
 
         public xpumpEntities GetDBEntities()
         {
-            return new xpumpEntities("metadata=res://*/Model.XPumpModel.csdl|res://*/Model.XPumpModel.ssdl|res://*/Model.XPumpModel.msl;provider=MySql.Data.MySqlClient;provider connection string=\"Data Source=" + this.server_name + ";Port=" + this.port_no.ToString() +";Initial Catalog=" + this.db_name + ";Persist Security Info=True;User ID=" + this.db_userid + ";Password=" + this.db_password + ";charset=utf8\"");
+            return new xpumpEntities("metadata=res://*/Model.XPumpModel.csdl|res://*/Model.XPumpModel.ssdl|res://*/Model.XPumpModel.msl;provider=MySql.Data.MySqlClient;provider connection string=\"Data Source=" + this.server_name + ";Port=" + this.port_no.ToString() +";Initial Catalog=" + this.db_prefix + "_" + this.db_name + ";Persist Security Info=True;User ID=" + this.db_userid + ";Password=" + this.db_password + ";charset=utf8\"");
         }
 
         public static xpumpEntities DataSet(SccompDbf working_express_db)
         {
             DbConnectionConfig config = new LocalDbConfig(working_express_db).ConfigValue;
 
-            DBX db_context = new DBX(config.servername, config.uid, config.passwordhash.Decrypted(), config.dbname, config.port);
+            DBX db_context = new DBX(config.servername, config.uid, config.passwordhash.Decrypted(), config.db_prefix, config.dbname, config.port);
             return db_context.GetDBEntities();
+        }
+
+        public static secureEntities DataSecureSet(SecureDbConnectionConfig config)
+        {
+            return new secureEntities("metadata=res://*/Model.SecureModel.csdl|res://*/Model.SecureModel.ssdl|res://*/Model.SecureModel.msl;provider=MySql.Data.MySqlClient;provider connection string=\"Data Source=" + config.servername + ";Port=" + config.port.ToString() + ";Initial Catalog=" + config.db_prefix + "_xpumpsecure;Persist Security Info=True;User ID=" + config.uid + ";Password=" + config.passwordhash.Decrypted() + ";charset=utf8\"");
         }
     }
 }

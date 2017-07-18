@@ -49,7 +49,7 @@ namespace XPump.SubForm
         private void DialogDbConfig_Load(object sender, EventArgs e)
         {
             this.FormFreeze = false;
-            //this.DialogResult = DialogResult.Cancel;
+            this.lblPrefix.Text = SecureDbHelper.GetDbPrefix() + "_";
             this.curr_config = this.LoadConfig();
             this.FillForm();
         }
@@ -91,6 +91,7 @@ namespace XPump.SubForm
         private void btnSave_Click(object sender, EventArgs e)
         {
             this.FormFreeze = true;
+            this.curr_config.db_prefix = LocalDbHelper.GetDbPrefix(this.main_form.working_express_db);
             LoadingForm loading = new LoadingForm();
             var context = this;
             loading.ShowCenterParent(context);
@@ -193,11 +194,11 @@ namespace XPump.SubForm
             try
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("CREATE DATABASE IF NOT EXISTS `" + local_config.dbname + "` DEFAULT CHARACTER SET utf8", conn);
+                MySqlCommand cmd = new MySqlCommand("CREATE DATABASE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "` DEFAULT CHARACTER SET utf8", conn);
                 cmd.ExecuteNonQuery();
 
                 // DBVer Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dbver` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`dbver` ";
                 cmd.CommandText += "(`id` INT(7) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`version` VARCHAR(15) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
@@ -207,7 +208,7 @@ namespace XPump.SubForm
                 cmd.ExecuteNonQuery();
 
                 // Settings Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`settings` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`settings` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`orgname` VARCHAR(60) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`prdstart` DATE NULL,";
@@ -223,7 +224,7 @@ namespace XPump.SubForm
                 cmd.ExecuteNonQuery();
 
                 // Istab Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`istab` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`istab` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`tabtyp` VARCHAR(2) NOT NULL DEFAULT '' COMMENT '01 = deduct cause',";
                 cmd.CommandText += "`typcod` VARCHAR(4) NOT NULL DEFAULT '',";
@@ -243,7 +244,7 @@ namespace XPump.SubForm
                 cmd.ExecuteNonQuery();
 
                 // Shift Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`shift` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`shift` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`seq` INT(3) NOT NULL,";
                 cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
@@ -267,7 +268,7 @@ namespace XPump.SubForm
                 cmd.ExecuteNonQuery();
 
                 // Tanksetup Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`tanksetup` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`tanksetup` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`startdate` DATE NOT NULL,";
                 cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
@@ -279,7 +280,7 @@ namespace XPump.SubForm
                 cmd.ExecuteNonQuery();
 
                 // Tank Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`tank` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`tank` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
                 cmd.CommandText += "`description` VARCHAR(50) NULL,";
@@ -292,7 +293,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "UNIQUE INDEX `unq-tank-name` (`tanksetup_id` ASC, `name` ASC),";
                 cmd.CommandText += "INDEX `ndx-tank-tanksetup_id` (`tanksetup_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk-tank-tanksetup_id` FOREIGN KEY (`tanksetup_id`) REFERENCES `" + local_config.dbname + "`.`tanksetup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk-tank-tanksetup_id` FOREIGN KEY (`tanksetup_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`tanksetup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -312,7 +313,7 @@ namespace XPump.SubForm
                 //cmd.ExecuteNonQuery();
 
                 // Shiftsales Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`shiftsales` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`shiftsales` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`saldat` DATE NOT NULL,";
                 cmd.CommandText += "`closed` TINYINT(1) NOT NULL DEFAULT 0,";
@@ -329,12 +330,12 @@ namespace XPump.SubForm
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "INDEX `ndx-shiftsales-shift_id` (`shift_id` ASC),";
                 cmd.CommandText += "UNIQUE INDEX `unq-shiftsales` (`saldat` ASC, `shift_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk-shiftsales-shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk-shiftsales-shift_id` FOREIGN KEY (`shift_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
                 // Section Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`section` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`section` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
                 cmd.CommandText += "`loccod` VARCHAR(4) NOT NULL DEFAULT '',";
@@ -351,12 +352,12 @@ namespace XPump.SubForm
                 cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "INDEX `ndx-section-tank_id` (`tank_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk-section-tank_id` FOREIGN KEY (`tank_id`) REFERENCES `" + local_config.dbname + "`.`tank` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk-section-tank_id` FOREIGN KEY (`tank_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`tank` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
                 // Pricelist Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`pricelist` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`pricelist` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`date` DATE NOT NULL,";
                 cmd.CommandText += "`stkcod` VARCHAR(40) NOT NULL DEFAULT '',";
@@ -370,7 +371,7 @@ namespace XPump.SubForm
                 cmd.ExecuteNonQuery();
 
                 // Nozzle Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`nozzle` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`nozzle` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`name` VARCHAR(20) NOT NULL,";
                 cmd.CommandText += "`description` VARCHAR(50) NULL,";
@@ -384,12 +385,12 @@ namespace XPump.SubForm
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "UNIQUE INDEX `unq-nozzle-name` (`name` ASC, `section_id` ASC),";
                 cmd.CommandText += "INDEX `ndx-nozzle-section_id` (`section_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk-nozzle-section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk-nozzle-section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
                 // Shiftsttak Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`shiftsttak` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`shiftsttak` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`takdat` DATE NOT NULL,";
                 cmd.CommandText += "`qty` DECIMAL(15, 2) NOT NULL DEFAULT - 1,";
@@ -403,13 +404,13 @@ namespace XPump.SubForm
                 cmd.CommandText += "INDEX `ndx-sttak-section_id` (`section_id` ASC),";
                 cmd.CommandText += "INDEX `ndx-sttak-shiftsales_id` (`shiftsales_id` ASC),";
                 cmd.CommandText += "UNIQUE INDEX `unq-sttak` (`shiftsales_id` ASC, `section_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk-sttak-section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk-sttak-shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk-sttak-section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk-sttak-shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
                 // Salessummary Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`salessummary` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`salessummary` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`saldat` DATE NOT NULL,";
                 cmd.CommandText += "`stkcod` VARCHAR(40) NOT NULL DEFAULT '',";
@@ -426,13 +427,13 @@ namespace XPump.SubForm
                 cmd.CommandText += "UNIQUE INDEX `unq-salessummary` (`shiftsales_id` ASC, `stkcod` ASC),";
                 cmd.CommandText += "INDEX `ndx-salessummary-pricelist_id` (`pricelist_id` ASC),";
                 cmd.CommandText += "INDEX `ndx-salessummary-shiftsales_id` (`shiftsales_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk-salessummary-pricelist_id` FOREIGN KEY (`pricelist_id`) REFERENCES `" + local_config.dbname + "`.`pricelist` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk-salessummary-shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk-salessummary-pricelist_id` FOREIGN KEY (`pricelist_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`pricelist` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk-salessummary-shiftsales_id` FOREIGN KEY (`shiftsales_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`shiftsales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
                 // Saleshistory Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`saleshistory` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`saleshistory` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`saldat` DATE NOT NULL,";
                 cmd.CommandText += "`mitbeg` DECIMAL(14, 2) NOT NULL,";
@@ -449,13 +450,13 @@ namespace XPump.SubForm
                 cmd.CommandText += "UNIQUE INDEX `unq-saleshistory` (`salessummary_id` ASC, `nozzle_id` ASC),";
                 cmd.CommandText += "INDEX `ndx-saleshistory-nozzle_id` (`nozzle_id` ASC),";
                 cmd.CommandText += "INDEX `ndx - saleshistory - salessummary_id` (`salessummary_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - saleshistory - nozzle_id` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk - saleshistory - salessummary_id` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - nozzle_id` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - salessummary_id` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
                 // Dayend Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dayend` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`dayend` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`saldat` DATE NOT NULL,";
                 cmd.CommandText += "`stkcod` VARCHAR(40) NOT NULL DEFAULT '',";
@@ -479,7 +480,7 @@ namespace XPump.SubForm
                 cmd.ExecuteNonQuery();
 
                 // Daysttak Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`daysttak` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`daysttak` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`takqty` DECIMAL(15, 2) NOT NULL DEFAULT 0,";
                 cmd.CommandText += "`begbal` DECIMAL(15, 2) NOT NULL DEFAULT 0,"; // From previous daysttak.takqty
@@ -497,8 +498,8 @@ namespace XPump.SubForm
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "INDEX `ndx - daysttak - section_id` (`section_id` ASC),";
                 cmd.CommandText += "INDEX `ndx - daysttak - dayend_id` (`dayend_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - daysttak - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk - daysttak - dayend_id` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk - daysttak - section_id` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - daysttak - dayend_id` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -523,7 +524,7 @@ namespace XPump.SubForm
                 //cmd.ExecuteNonQuery();
 
                 // Dother Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.dbname + "`.`dother` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`dother` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`qty` DECIMAL(14,2) NOT NULL DEFAULT 0,";
                 cmd.CommandText += "`istab_id` INT(11) NOT NULL,";
@@ -541,22 +542,22 @@ namespace XPump.SubForm
                 cmd.CommandText += "INDEX `fk_dother_dayend1_idx` (`dayend_id` ASC),";
                 cmd.CommandText += "INDEX `fk_dother_nozzle_id` (`nozzle_id` ASC),";
                 cmd.CommandText += "INDEX `fk_dother_section_id` (`section_id` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk_dother_istab1` FOREIGN KEY (`istab_id`) REFERENCES `" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk_dother_salessummary1` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk_dother_dayend1` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk_dother_nozzle` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
-                cmd.CommandText += "CONSTRAINT `fk_dother_section` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk_dother_istab1` FOREIGN KEY (`istab_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk_dother_salessummary1` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk_dother_dayend1` FOREIGN KEY (`dayend_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`dayend` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk_dother_nozzle` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk_dother_section` FOREIGN KEY (`section_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;";
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`dbver` (`version`) VALUES ('1.0.0.0')";
+                cmd.CommandText = "INSERT INTO `" + local_config.db_prefix + "_" + local_config.dbname + "`.`dbver` (`version`) VALUES ('1.0.0.0')";
                 cmd.ExecuteNonQuery();
 
                 IsprdDbf isprd = DbfTable.Isprd(this.main_form.working_express_db).ToIsprd();
                 DateTime start_date = isprd.beg1.HasValue ? isprd.beg1.Value : DateTime.Parse(DateTime.Now.ToString("yyyy", CultureInfo.GetCultureInfo("en-US")) + "-01-01", CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None);
                 DateTime end_date = isprd.end12.HasValue ? isprd.end12.Value : DateTime.Parse(DateTime.Now.ToString("yyyy", CultureInfo.GetCultureInfo("en-US")) + "-01-01", CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None).AddMonths(11).AddDays(30);
 
-                cmd.CommandText = "INSERT INTO `" + local_config.dbname + "`.`settings` (`orgname`,`prdstart`,`prdend`,`shiftprintmet`,`shiftauthlev`,`dayprintmet`,`dayauthlev`,`chgby`,`chgtime`) VALUES ('','" + start_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("en-US")) + "','" + end_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("en-US")) + "','0','','0','',NULL,NULL)";
+                cmd.CommandText = "INSERT INTO `" + local_config.db_prefix + "_" + local_config.dbname + "`.`settings` (`orgname`,`prdstart`,`prdend`,`shiftprintmet`,`shiftauthlev`,`dayprintmet`,`dayauthlev`,`chgby`,`chgtime`) VALUES ('','" + start_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("en-US")) + "','" + end_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("en-US")) + "','0','','0','',NULL,NULL)";
                 cmd.ExecuteNonQuery();
 
                 create_result.is_success = true;

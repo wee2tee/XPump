@@ -413,7 +413,7 @@ namespace XPump
                 return string.Empty;
 
             LocalDbConfig loc = new LocalDbConfig(this.working_express_db);
-            return loc != null ? loc.ConfigValue.servername + "." + loc.ConfigValue.dbname : string.Empty;
+            return loc != null ? loc.ConfigValue.servername + "." + loc.ConfigValue.db_prefix + "_" + loc.ConfigValue.dbname : string.Empty;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

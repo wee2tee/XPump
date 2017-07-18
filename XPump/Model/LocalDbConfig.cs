@@ -46,11 +46,11 @@ namespace XPump.Model
                 if (!this.IsTableExists("config"))
                 {
                     this.connection.Open();
-                    string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, dbname VARCHAR(50) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
+                    string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
                     SQLiteCommand cmd = new SQLiteCommand(sql, this.connection);
                     cmd.ExecuteNonQuery();
 
-                    sql = "INSERT INTO config (servername, dbname, port, uid, passwordhash) VALUES('', '', 3306, '', '')";
+                    sql = "INSERT INTO config (servername, db_prefix, dbname, port, uid, passwordhash) VALUES('', '', '', 3306, '', '')";
                     cmd = new SQLiteCommand(sql, this.connection);
                     cmd.ExecuteNonQuery();
 
@@ -68,6 +68,7 @@ namespace XPump.Model
                     {
                         id = Convert.ToInt32(reader["id"]),
                         servername = reader["servername"].ToString(),
+                        db_prefix = reader["db_prefix"].ToString(),
                         dbname = reader["dbname"].ToString(),
                         port = Convert.ToInt32(reader["port"]),
                         uid = reader["uid"].ToString(),
@@ -104,6 +105,7 @@ namespace XPump.Model
     {
         public int id { get; set; }
         public string servername { get; set; }
+        public string db_prefix { get; set; }
         public string dbname { get; set; }
         public int port { get; set; }
         public string uid { get; set; }
@@ -120,7 +122,7 @@ namespace XPump.Model
             {
                 LocalDbConfig db = new LocalDbConfig(working_express_db);
                 db.connection.Open();
-                string sql = "UPDATE config SET servername='" + local_config.servername + "', dbname='" + local_config.dbname + "', port=" + local_config.port.ToString() + ", uid='" + local_config.uid + "', passwordhash='" + local_config.passwordhash + "' WHERE id = 1";
+                string sql = "UPDATE config SET servername='" + local_config.servername + "', db_prefix='" + local_config.db_prefix + "', dbname='" + local_config.dbname + "', port=" + local_config.port.ToString() + ", uid='" + local_config.uid + "', passwordhash='" + local_config.passwordhash + "' WHERE id = 1";
                 SQLiteCommand cmd = new SQLiteCommand(sql, db.connection);
                 cmd.ExecuteNonQuery();
                 db.connection.Close();
@@ -137,7 +139,7 @@ namespace XPump.Model
 
         public static MySqlConnection GetMysqlDbConnection(this DbConnectionConfig local_config)
         {
-            var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Database=" + local_config.dbname + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted() + ";Character Set=utf8";
+            var conn_info = "Server=" + local_config.servername + ";Port=" + local_config.port.ToString() + ";Database=" + local_config.db_prefix + "_" + local_config.dbname + ";Uid=" + local_config.uid + ";Pwd=" + local_config.passwordhash.Decrypted() + ";Character Set=utf8";
             return new MySqlConnection(conn_info);
         }
 
@@ -202,6 +204,19 @@ namespace XPump.Model
                 }
             }
             return conn_result;
+        }
+
+        public static string GetDbPrefix(SccompDbf working_express_db)
+        {
+            var config = new LocalDbConfig(working_express_db).ConfigValue;
+            if(config.db_prefix.Trim().Length > 0)
+            {
+                return config.db_prefix;
+            }
+            else
+            {
+                return SecureDbHelper.GetDbPrefix();
+            }
         }
     }
 

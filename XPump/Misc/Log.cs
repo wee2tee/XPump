@@ -502,6 +502,7 @@ namespace XPump.Misc
 
         public LogSaveResult Save()
         {
+            var db_prefix = SecureDbHelper.GetDbPrefix();
             MySqlConnection conn = this.main_form.secure_db_config.GetSecureDbConnection();
 
             try
@@ -511,7 +512,7 @@ namespace XPump.Misc
 
                 conn.Open();
 
-                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + this.UserName + "'); select last_insert_id();";
+                string sql = "INSERT INTO `" + db_prefix + "_xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + this.UserName + "'); select last_insert_id();";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 int islog_id = Convert.ToInt32(cmd.ExecuteScalar());
@@ -520,7 +521,7 @@ namespace XPump.Misc
                 {
                     foreach (var id in this.affid)
                     {
-                        sql = "INSERT INTO `xpumpsecure`.`affdata` (`islog_id`, `afftable`, `affid`) VALUES (" + islog_id + ", '" + this.afftable + "', " + id + ")";
+                        sql = "INSERT INTO `" + db_prefix + "_xpumpsecure`.`affdata` (`islog_id`, `afftable`, `affid`) VALUES (" + islog_id + ", '" + this.afftable + "', " + id + ")";
 
                         cmd = new MySqlCommand(sql, conn);
                         cmd.ExecuteNonQuery();
@@ -543,6 +544,8 @@ namespace XPump.Misc
 
         public LogSaveResult Save(string user_name)
         {
+            var db_prefix = SecureDbHelper.GetDbPrefix();
+
             MySqlConnection conn = this.main_form.secure_db_config.GetSecureDbConnection();
 
             try
@@ -553,7 +556,7 @@ namespace XPump.Misc
                 //string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `afftable`, `affid`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', " + (this.afftable != null ? "'" + this.afftable + "'" : "NULL") + ", " + (this.affid != null ? "'" + this.affid + "'" : "NULL") + ", '" + docnum + "', '" + this.Description + "', '" + user_name + "')";
                 conn.Open();
 
-                string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + user_name + "'); select last_insert_id();";
+                string sql = "INSERT INTO `" + db_prefix + "_xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + user_name + "'); select last_insert_id();";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 int islog_id = Convert.ToInt32(cmd.ExecuteScalar());
@@ -562,7 +565,7 @@ namespace XPump.Misc
                 {
                     foreach (var id in this.affid)
                     {
-                        sql = "INSERT INTO `xpumpsecure`.`affdata` (`islog_id`, `afftable`, `affid`) VALUES (" + islog_id + ", '" + this.afftable + "', " + id + ")";
+                        sql = "INSERT INTO `" + db_prefix + "_xpumpsecure`.`affdata` (`islog_id`, `afftable`, `affid`) VALUES (" + islog_id + ", '" + this.afftable + "', " + id + ")";
 
                         cmd = new MySqlCommand(sql, conn);
                         cmd.ExecuteNonQuery();

@@ -29,10 +29,17 @@ namespace XPump.SubForm
         {
             this.BackColor = MiscResource.WIND_BG;
             this.btnFirst.PerformClick();
+
+            this.RemoveInlineForm();
         }
 
         private void FillForm()
         {
+            using (secureEntities sec = DBX.DataSecureSet(new LocalSecureDbConfig().ConfigValue))
+            {
+                var islog = sec.islog.ToList();
+            }
+
             if(this.curr_user != null)
             {
                 this.txtUserId.Text = this.curr_user.reccod.Trim();

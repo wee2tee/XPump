@@ -49,6 +49,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnDefaultPort = new System.Windows.Forms.Button();
+            this.lblPrefix = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,6 +64,7 @@
             // txtDbName
             // 
             this.txtDbName.Location = new System.Drawing.Point(120, 58);
+            this.txtDbName.MaxLength = 20;
             this.txtDbName.Name = "txtDbName";
             this.txtDbName.Size = new System.Drawing.Size(249, 23);
             this.txtDbName.TabIndex = 1;
@@ -102,7 +104,7 @@
             0,
             0});
             this.numPort.Name = "numPort";
-            this.numPort.Size = new System.Drawing.Size(89, 23);
+            this.numPort.Size = new System.Drawing.Size(100, 23);
             this.numPort.TabIndex = 2;
             this.numPort.ValueChanged += new System.EventHandler(this.numPort_ValueChanged);
             // 
@@ -253,31 +255,42 @@
             // btnDefaultPort
             // 
             this.btnDefaultPort.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnDefaultPort.Location = new System.Drawing.Point(211, 85);
+            this.btnDefaultPort.Location = new System.Drawing.Point(222, 85);
             this.btnDefaultPort.Name = "btnDefaultPort";
-            this.btnDefaultPort.Size = new System.Drawing.Size(159, 25);
+            this.btnDefaultPort.Size = new System.Drawing.Size(148, 25);
             this.btnDefaultPort.TabIndex = 20;
             this.btnDefaultPort.Text = "ใช้พอร์ทมาตรฐาน (3306)";
             this.btnDefaultPort.UseVisualStyleBackColor = true;
             this.btnDefaultPort.Click += new System.EventHandler(this.btnDefaultPort_Click);
+            // 
+            // lblPrefix
+            // 
+            this.lblPrefix.Location = new System.Drawing.Point(26, 217);
+            this.lblPrefix.Name = "lblPrefix";
+            this.lblPrefix.Size = new System.Drawing.Size(98, 16);
+            this.lblPrefix.TabIndex = 19;
+            this.lblPrefix.Text = "db_prefix_";
+            this.lblPrefix.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPrefix.Visible = false;
             // 
             // DialogDbConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(507, 258);
+            this.Controls.Add(this.txtDbName);
             this.Controls.Add(this.btnDefaultPort);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblPrefix);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numPort);
             this.Controls.Add(this.txtConfPwd);
             this.Controls.Add(this.txtPwd);
             this.Controls.Add(this.txtUserId);
-            this.Controls.Add(this.txtDbName);
             this.Controls.Add(this.txtServerName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -326,5 +339,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnDefaultPort;
+        private System.Windows.Forms.Label lblPrefix;
     }
 }

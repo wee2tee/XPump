@@ -128,6 +128,8 @@ namespace XPump.SubForm
                 return;
             }
 
+            this.curr_config.db_prefix = SecureDbHelper.GetDbPrefix();
+
             this.FormFreeze = true;
             LoadingForm loading = new LoadingForm();
             loading.ShowCenterParent(this);
@@ -186,7 +188,7 @@ namespace XPump.SubForm
             try
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("CREATE DATABASE IF NOT EXISTS xpumpsecure", conn);
+                MySqlCommand cmd = new MySqlCommand("CREATE DATABASE IF NOT EXISTS `" + config.db_prefix + "_xpumpsecure`", conn);
                 cmd.ExecuteNonQuery();
 
                 //// DBVer Table
@@ -200,7 +202,7 @@ namespace XPump.SubForm
                 //cmd.ExecuteNonQuery();
 
                 // Scacclv Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `xpumpsecure`.`scacclv` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + config.db_prefix + "_xpumpsecure`.`scacclv` ";
                 cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
                 cmd.CommandText += "`datacod` VARCHAR(50) NOT NULL,";
@@ -217,7 +219,7 @@ namespace XPump.SubForm
                 cmd.ExecuteNonQuery();
 
                 // Islog Table
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `xpumpsecure`.`islog` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + config.db_prefix + "_xpumpsecure`.`islog` ";
                 cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`logcode` VARCHAR(10) NOT NULL,";
                 cmd.CommandText += "`expressdata` VARCHAR(50) NULL,";
@@ -239,13 +241,13 @@ namespace XPump.SubForm
                 cmd.ExecuteNonQuery();
 
                 // Affdata
-                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `xpumpsecure`.`affdata` ";
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + config.db_prefix + "_xpumpsecure`.`affdata` ";
                 cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`islog_id` INT(15) NOT NULL,";
                 cmd.CommandText += "`afftable` VARCHAR(30) NOT NULL,";
                 cmd.CommandText += "`affid` INT(7) NOT NULL,";
                 cmd.CommandText += "PRIMARY KEY(`id`),";
-                cmd.CommandText += "CONSTRAINT `fk-affdata-islog_id` FOREIGN KEY (`islog_id`) REFERENCES `xpumpsecure`.`islog` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk-affdata-islog_id` FOREIGN KEY (`islog_id`) REFERENCES `" + config.db_prefix + "_xpumpsecure`.`islog` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 

@@ -48,11 +48,11 @@ namespace XPump.Model
                 if (!this.IsTableExists("config"))
                 {
                     this.connection.Open();
-                    string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
+                    string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL)";
                     SQLiteCommand cmd = new SQLiteCommand(sql, this.connection);
                     cmd.ExecuteNonQuery();
 
-                    sql = "INSERT INTO config (servername, port, uid, passwordhash) VALUES('', 3306, '', '')";
+                    sql = "INSERT INTO config (servername, port, uid, passwordhash, db_prefix) VALUES('', 3306, '', '', '')";
                     cmd = new SQLiteCommand(sql, this.connection);
                     cmd.ExecuteNonQuery();
 
@@ -72,7 +72,8 @@ namespace XPump.Model
                         servername = reader["servername"].ToString(),
                         port = Convert.ToInt32(reader["port"]),
                         uid = reader["uid"].ToString(),
-                        passwordhash = reader["passwordhash"].ToString()
+                        passwordhash = reader["passwordhash"].ToString(),
+                        db_prefix = reader["db_prefix"].ToString()
                     };
                 }
                 this.connection.Close();
@@ -108,13 +109,14 @@ namespace XPump.Model
         public int port { get; set; }
         public string uid { get; set; }
         public string passwordhash { get; set; }
+        public string db_prefix { get; set; }
     }
 
     public static class SecureDbHelper
     {
         public static MySqlConnection GetSecureDbConnection(this SecureDbConnectionConfig config)
         {
-            MySqlConnection conn = new MySqlConnection("Server=" + config.servername + ";Port=" + config.port.ToString() + ";Database=xpumpsecure;Uid=" + config.uid + ";Pwd=" + config.passwordhash.Decrypted() + ";Character Set=utf8");
+            MySqlConnection conn = new MySqlConnection("Server=" + config.servername + ";Port=" + config.port.ToString() + ";Database=" + config.db_prefix + "_xpumpsecure;Uid=" + config.uid + ";Pwd=" + config.passwordhash.Decrypted() + ";Character Set=utf8");
             return conn;
         }
 
@@ -170,7 +172,7 @@ namespace XPump.Model
         {
             MySqlConnectionResult conn_result = new MySqlConnectionResult { is_connected = false, err_message = string.Empty, connection_code = MYSQL_CONNECTION.DISCONNECTED };
 
-            MySqlConnection conn = config.GetSecureDbConnection(); //new MySqlConnection("Server=" + config.servername + ";Port=" + config.port.ToString() + ";Database=xpumpsecure;Uid=" + config.uid + ";Pwd=" + config.passwordhash.Decrypted());
+            MySqlConnection conn = config.GetSecureDbConnection();
             try
             {
                 conn.Open();
@@ -220,7 +222,7 @@ namespace XPump.Model
             {
                 LocalSecureDbConfig db = new LocalSecureDbConfig();
                 db.connection.Open();
-                string sql = "UPDATE config SET servername='" + config.servername + "', port=" + config.port.ToString() + ", uid='" + config.uid + "', passwordhash='" + config.passwordhash + "' WHERE id = 1";
+                string sql = "UPDATE config SET servername='" + config.servername + "', port=" + config.port.ToString() + ", uid='" + config.uid + "', passwordhash='" + config.passwordhash + "'" + ", db_prefix='" + config.db_prefix + "' WHERE id = 1";
                 SQLiteCommand cmd = new SQLiteCommand(sql, db.connection);
                 cmd.ExecuteNonQuery();
                 db.connection.Close();
@@ -230,6 +232,29 @@ namespace XPump.Model
             {
                 XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 return false;
+            }
+        }
+
+        public static string GetDbPrefix()
+        {
+            var local_secure_config = new LocalSecureDbConfig().ConfigValue;
+
+            if (local_secure_config.db_prefix.Trim().Length > 0)
+            {
+                return local_secure_config.db_prefix;
+            }
+            else
+            {
+                string serial_file_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\Serial.TXT";
+                if (File.Exists(serial_file_path))
+                {
+                    var lines = File.ReadLines(serial_file_path);
+                    return lines.First().Trim();
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
         }
     }
