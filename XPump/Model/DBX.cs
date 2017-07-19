@@ -77,9 +77,10 @@ namespace XPump.Model
             return db_context.GetDBEntities();
         }
 
-        public static secureEntities DataSecureSet(SecureDbConnectionConfig config)
+        public static xpumpsecureEntities DataSecureSet()
         {
-            return new secureEntities("metadata=res://*/Model.SecureModel.csdl|res://*/Model.SecureModel.ssdl|res://*/Model.SecureModel.msl;provider=MySql.Data.MySqlClient;provider connection string=\"Data Source=" + config.servername + ";Port=" + config.port.ToString() + ";Initial Catalog=" + config.db_prefix + "_xpumpsecure;Persist Security Info=True;User ID=" + config.uid + ";Password=" + config.passwordhash.Decrypted() + ";charset=utf8\"");
+            var config = new LocalSecureDbConfig().ConfigValue;
+            return new xpumpsecureEntities("metadata=res://*/Model.SecureModel.csdl|res://*/Model.SecureModel.ssdl|res://*/Model.SecureModel.msl;provider=MySql.Data.MySqlClient;provider connection string=\"Data Source=" + config.servername + ";Port=" + config.port.ToString() + ";Initial Catalog=" + config.db_prefix + "_xpumpsecure;Persist Security Info=True;User ID=" + config.uid + ";Password=" + config.passwordhash.Decrypted() + ";charset=utf8\"");
         }
     }
 }

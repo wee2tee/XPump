@@ -13,14 +13,14 @@ namespace XPump.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class secureEntities : DbContext
+    public partial class xpumpsecureEntities : DbContext
     {
-        public secureEntities()
-            : base("name=secureEntities")
+        public xpumpsecureEntities()
+            : base("name=xpumpsecureEntities")
         {
         }
     
-        public secureEntities(string connection_string)
+        public xpumpsecureEntities(string connection_string)
             : base(connection_string)
         {
 
@@ -34,5 +34,6 @@ namespace XPump.Model
         public virtual DbSet<affdata> affdata { get; set; }
         public virtual DbSet<islog> islog { get; set; }
         public virtual DbSet<scacclv> scacclv { get; set; }
+        public virtual DbSet<scmodul> scmodul { get; set; }
     }
 }

@@ -1742,6 +1742,28 @@ namespace XPump.Misc
             return s;
         }
 
+        public static scacclvVM ToViewModel(this scacclv scacclv)
+        {
+            if (scacclv == null)
+                return null;
+
+            return new scacclvVM
+            {
+                scacclv = scacclv
+            };
+        }
+
+        public static List<scacclvVM> ToViewModel(this IEnumerable<scacclv> scacclv_list)
+        {
+            List<scacclvVM> sc = new List<scacclvVM>();
+            foreach (var item in scacclv_list)
+            {
+                sc.Add(item.ToViewModel());
+            }
+
+            return sc;
+        }
+
         public static void SetControlState(this Component comp, FORM_MODE[] form_mode_to_enable, FORM_MODE form_mode)
         {
             if (form_mode_to_enable.ToList().Where(fm => fm == form_mode).Count() > 0)

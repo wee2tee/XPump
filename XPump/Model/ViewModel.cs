@@ -1764,6 +1764,46 @@ namespace XPump.Model
         public double vatamt { get; set; }
     }
 
+    public class scacclvVM
+    {
+        public int id { get { return this.scacclv.id; } }
+        public string username { get { return this.scacclv.username; } }
+        public string datacod { get { return this.scacclv.datacod; } }
+        public int scmodul_id { get { return this.scacclv.scmodul_id; } }
+        public scmodul scmodul
+        {
+            get
+            {
+                using (xpumpsecureEntities sec = DBX.DataSecureSet())
+                {
+                    return sec.scmodul.Find(this.scacclv.scmodul_id);
+                }
+            }
+        }
+        public string modcod
+        {
+            get
+            {
+                return this.scmodul != null ? this.scmodul.modcod : string.Empty;
+            }
+        }
+        public string moddesc
+        {
+            get
+            {
+                return this.scmodul != null ? this.scmodul.description : string.Empty;
+            }
+        }
+        public string read { get { return this.scacclv.read; } }
+        public string add { get { return this.scacclv.add; } }
+        public string edit { get { return this.scacclv.edit; } }
+        public string delete { get { return this.scacclv.delete; } }
+        public string print { get { return this.scacclv.print; } }
+        public string approve { get { return this.scacclv.approve; } }
+
+        public scacclv scacclv { get; set; }
+    }
+
     public class ReportAModel
     {
         private SccompDbf working_express_db { get; set; }

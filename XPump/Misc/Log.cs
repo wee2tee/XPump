@@ -512,7 +512,7 @@ namespace XPump.Misc
 
                 conn.Open();
 
-                string sql = "INSERT INTO `" + db_prefix + "_xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + this.UserName + "'); select last_insert_id();";
+                string sql = "INSERT INTO `" + db_prefix + "_xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `modcod`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + this.UserName + "'); select last_insert_id();";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 int islog_id = Convert.ToInt32(cmd.ExecuteScalar());
@@ -556,7 +556,7 @@ namespace XPump.Misc
                 //string sql = "INSERT INTO `xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `afftable`, `affid`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', " + (this.afftable != null ? "'" + this.afftable + "'" : "NULL") + ", " + (this.affid != null ? "'" + this.affid + "'" : "NULL") + ", '" + docnum + "', '" + this.Description + "', '" + user_name + "')";
                 conn.Open();
 
-                string sql = "INSERT INTO `" + db_prefix + "_xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `module`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + user_name + "'); select last_insert_id();";
+                string sql = "INSERT INTO `" + db_prefix + "_xpumpsecure`.`islog` (`logcode`, `expressdata`, `xpumpdata`, `xpumpuser`, `modcod`, `docnum`, `description`, `username`) VALUES ('" + this.Code + "', '" + this.ExpressData + "', '" + this.XPumpData + "', '" + this.XPumpUser + "', '" + module + "', '" + docnum + "', '" + this.Description + "', '" + user_name + "'); select last_insert_id();";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 int islog_id = Convert.ToInt32(cmd.ExecuteScalar());

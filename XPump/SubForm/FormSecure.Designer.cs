@@ -56,18 +56,10 @@
             this.inline_read = new CC.XDropdownList();
             this.inline_menu = new CC.XBrowseBox();
             this.inline_datacod = new CC.XBrowseBox();
-            this.xDatagrid1 = new CC.XDatagrid();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_menu_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_menu_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgv = new CC.XDatagrid();
+            this.btnDeleteItem = new System.Windows.Forms.Button();
+            this.btnEditItem = new System.Windows.Forms.Button();
+            this.btnAddItem = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -84,13 +76,24 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtLanguage = new System.Windows.Forms.TextBox();
-            this.btnAddItem = new System.Windows.Forms.Button();
-            this.btnEditItem = new System.Windows.Forms.Button();
-            this.btnDeleteItem = new System.Windows.Forms.Button();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_menu_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_menu_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scacclv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scmodul = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scmodul_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.xDatagrid1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -277,13 +280,12 @@
             this.tabPage1.Controls.Add(this.inline_read);
             this.tabPage1.Controls.Add(this.inline_menu);
             this.tabPage1.Controls.Add(this.inline_datacod);
-            this.tabPage1.Controls.Add(this.xDatagrid1);
+            this.tabPage1.Controls.Add(this.dgv);
             this.tabPage1.Controls.Add(this.btnDeleteItem);
             this.tabPage1.Controls.Add(this.btnEditItem);
             this.tabPage1.Controls.Add(this.btnAddItem);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(854, 308);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "เมนูที่อนุญาตให้ผู้ใช้รายนี้";
@@ -401,13 +403,13 @@
             this.inline_datacod.Size = new System.Drawing.Size(120, 23);
             this.inline_datacod.TabIndex = 1;
             // 
-            // xDatagrid1
+            // dgv
             // 
-            this.xDatagrid1.AllowSortByColumnHeaderClicked = false;
-            this.xDatagrid1.AllowUserToAddRows = false;
-            this.xDatagrid1.AllowUserToDeleteRows = false;
-            this.xDatagrid1.AllowUserToResizeColumns = false;
-            this.xDatagrid1.AllowUserToResizeRows = false;
+            this.dgv.AllowSortByColumnHeaderClicked = false;
+            this.dgv.AllowUserToAddRows = false;
+            this.dgv.AllowUserToDeleteRows = false;
+            this.dgv.AllowUserToResizeColumns = false;
+            this.dgv.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -415,10 +417,10 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.xDatagrid1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.xDatagrid1.ColumnHeadersHeight = 28;
-            this.xDatagrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.xDatagrid1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv.ColumnHeadersHeight = 28;
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
             this.col_username,
             this.col_datacod,
@@ -429,126 +431,64 @@
             this.col_edit,
             this.col_delete,
             this.col_print,
-            this.col_approve});
+            this.col_approve,
+            this.col_scacclv,
+            this.col_scmodul,
+            this.col_scmodul_id});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.xDatagrid1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.xDatagrid1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xDatagrid1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.xDatagrid1.EnableHeadersVisualStyles = false;
-            this.xDatagrid1.FillEmptyRow = false;
-            this.xDatagrid1.FocusedRowBorderRedLine = false;
-            this.xDatagrid1.Location = new System.Drawing.Point(3, 3);
-            this.xDatagrid1.MultiSelect = false;
-            this.xDatagrid1.Name = "xDatagrid1";
-            this.xDatagrid1.ReadOnly = true;
-            this.xDatagrid1.RowHeadersVisible = false;
-            this.xDatagrid1.RowTemplate.Height = 26;
-            this.xDatagrid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.xDatagrid1.Size = new System.Drawing.Size(848, 302);
-            this.xDatagrid1.StandardTab = true;
-            this.xDatagrid1.TabIndex = 0;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgv.EnableHeadersVisualStyles = false;
+            this.dgv.FillEmptyRow = false;
+            this.dgv.FocusedRowBorderRedLine = true;
+            this.dgv.Location = new System.Drawing.Point(0, 0);
+            this.dgv.MultiSelect = false;
+            this.dgv.Name = "dgv";
+            this.dgv.ReadOnly = true;
+            this.dgv.RowHeadersVisible = false;
+            this.dgv.RowTemplate.Height = 26;
+            this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv.Size = new System.Drawing.Size(854, 308);
+            this.dgv.StandardTab = true;
+            this.dgv.TabIndex = 0;
+            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             // 
-            // col_id
+            // btnDeleteItem
             // 
-            this.col_id.DataPropertyName = "id";
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
+            this.btnDeleteItem.Location = new System.Drawing.Point(409, 40);
+            this.btnDeleteItem.Name = "btnDeleteItem";
+            this.btnDeleteItem.Size = new System.Drawing.Size(53, 22);
+            this.btnDeleteItem.TabIndex = 4;
+            this.btnDeleteItem.Text = "Delete";
+            this.btnDeleteItem.UseVisualStyleBackColor = true;
+            this.btnDeleteItem.Click += new System.EventHandler(this.btnDeleteItem_Click);
             // 
-            // col_username
+            // btnEditItem
             // 
-            this.col_username.DataPropertyName = "username";
-            this.col_username.HeaderText = "User Name";
-            this.col_username.Name = "col_username";
-            this.col_username.ReadOnly = true;
-            this.col_username.Visible = false;
+            this.btnEditItem.Location = new System.Drawing.Point(358, 40);
+            this.btnEditItem.Name = "btnEditItem";
+            this.btnEditItem.Size = new System.Drawing.Size(45, 22);
+            this.btnEditItem.TabIndex = 4;
+            this.btnEditItem.Text = "Edit";
+            this.btnEditItem.UseVisualStyleBackColor = true;
+            this.btnEditItem.Click += new System.EventHandler(this.btnEditItem_Click);
             // 
-            // col_datacod
+            // btnAddItem
             // 
-            this.col_datacod.DataPropertyName = "datacod";
-            this.col_datacod.HeaderText = "รหัสข้อมูล";
-            this.col_datacod.MinimumWidth = 120;
-            this.col_datacod.Name = "col_datacod";
-            this.col_datacod.ReadOnly = true;
-            this.col_datacod.Width = 120;
-            // 
-            // col_menu_id
-            // 
-            this.col_menu_id.DataPropertyName = "menu_id";
-            this.col_menu_id.HeaderText = "เมนู";
-            this.col_menu_id.MinimumWidth = 140;
-            this.col_menu_id.Name = "col_menu_id";
-            this.col_menu_id.ReadOnly = true;
-            this.col_menu_id.Width = 140;
-            // 
-            // col_menu_desc
-            // 
-            this.col_menu_desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_menu_desc.HeaderText = "";
-            this.col_menu_desc.MinimumWidth = 120;
-            this.col_menu_desc.Name = "col_menu_desc";
-            this.col_menu_desc.ReadOnly = true;
-            // 
-            // col_read
-            // 
-            this.col_read.DataPropertyName = "read";
-            this.col_read.HeaderText = "อ่าน";
-            this.col_read.MinimumWidth = 50;
-            this.col_read.Name = "col_read";
-            this.col_read.ReadOnly = true;
-            this.col_read.Width = 50;
-            // 
-            // col_add
-            // 
-            this.col_add.DataPropertyName = "add";
-            this.col_add.HeaderText = "เพิ่ม";
-            this.col_add.MinimumWidth = 50;
-            this.col_add.Name = "col_add";
-            this.col_add.ReadOnly = true;
-            this.col_add.Width = 50;
-            // 
-            // col_edit
-            // 
-            this.col_edit.DataPropertyName = "edit";
-            this.col_edit.HeaderText = "แก้ไข";
-            this.col_edit.MinimumWidth = 50;
-            this.col_edit.Name = "col_edit";
-            this.col_edit.ReadOnly = true;
-            this.col_edit.Width = 50;
-            // 
-            // col_delete
-            // 
-            this.col_delete.DataPropertyName = "delete";
-            this.col_delete.HeaderText = "ลบ";
-            this.col_delete.MinimumWidth = 50;
-            this.col_delete.Name = "col_delete";
-            this.col_delete.ReadOnly = true;
-            this.col_delete.Width = 50;
-            // 
-            // col_print
-            // 
-            this.col_print.DataPropertyName = "print";
-            this.col_print.HeaderText = "พิมพ์";
-            this.col_print.MinimumWidth = 50;
-            this.col_print.Name = "col_print";
-            this.col_print.ReadOnly = true;
-            this.col_print.Width = 50;
-            // 
-            // col_approve
-            // 
-            this.col_approve.DataPropertyName = "approve";
-            this.col_approve.HeaderText = "รับรอง";
-            this.col_approve.MinimumWidth = 50;
-            this.col_approve.Name = "col_approve";
-            this.col_approve.ReadOnly = true;
-            this.col_approve.Width = 50;
+            this.btnAddItem.Location = new System.Drawing.Point(307, 40);
+            this.btnAddItem.Name = "btnAddItem";
+            this.btnAddItem.Size = new System.Drawing.Size(45, 22);
+            this.btnAddItem.TabIndex = 4;
+            this.btnAddItem.Text = "Add";
+            this.btnAddItem.UseVisualStyleBackColor = true;
+            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
             // 
             // label1
             // 
@@ -692,35 +632,126 @@
             this.txtLanguage.Size = new System.Drawing.Size(56, 23);
             this.txtLanguage.TabIndex = 9;
             // 
-            // btnAddItem
+            // col_id
             // 
-            this.btnAddItem.Location = new System.Drawing.Point(307, 40);
-            this.btnAddItem.Name = "btnAddItem";
-            this.btnAddItem.Size = new System.Drawing.Size(45, 22);
-            this.btnAddItem.TabIndex = 4;
-            this.btnAddItem.Text = "Add";
-            this.btnAddItem.UseVisualStyleBackColor = true;
-            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
+            this.col_id.DataPropertyName = "id";
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
             // 
-            // btnEditItem
+            // col_username
             // 
-            this.btnEditItem.Location = new System.Drawing.Point(358, 40);
-            this.btnEditItem.Name = "btnEditItem";
-            this.btnEditItem.Size = new System.Drawing.Size(45, 22);
-            this.btnEditItem.TabIndex = 4;
-            this.btnEditItem.Text = "Edit";
-            this.btnEditItem.UseVisualStyleBackColor = true;
-            this.btnEditItem.Click += new System.EventHandler(this.btnEditItem_Click);
+            this.col_username.DataPropertyName = "username";
+            this.col_username.HeaderText = "User Name";
+            this.col_username.Name = "col_username";
+            this.col_username.ReadOnly = true;
+            this.col_username.Visible = false;
             // 
-            // btnDeleteItem
+            // col_datacod
             // 
-            this.btnDeleteItem.Location = new System.Drawing.Point(409, 40);
-            this.btnDeleteItem.Name = "btnDeleteItem";
-            this.btnDeleteItem.Size = new System.Drawing.Size(53, 22);
-            this.btnDeleteItem.TabIndex = 4;
-            this.btnDeleteItem.Text = "Delete";
-            this.btnDeleteItem.UseVisualStyleBackColor = true;
-            this.btnDeleteItem.Click += new System.EventHandler(this.btnDeleteItem_Click);
+            this.col_datacod.DataPropertyName = "datacod";
+            this.col_datacod.HeaderText = "รหัสข้อมูล";
+            this.col_datacod.MinimumWidth = 120;
+            this.col_datacod.Name = "col_datacod";
+            this.col_datacod.ReadOnly = true;
+            this.col_datacod.Width = 120;
+            // 
+            // col_menu_id
+            // 
+            this.col_menu_id.DataPropertyName = "modcod";
+            this.col_menu_id.HeaderText = "เมนู";
+            this.col_menu_id.MinimumWidth = 140;
+            this.col_menu_id.Name = "col_menu_id";
+            this.col_menu_id.ReadOnly = true;
+            this.col_menu_id.Width = 140;
+            // 
+            // col_menu_desc
+            // 
+            this.col_menu_desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_menu_desc.DataPropertyName = "moddesc";
+            this.col_menu_desc.HeaderText = "";
+            this.col_menu_desc.MinimumWidth = 120;
+            this.col_menu_desc.Name = "col_menu_desc";
+            this.col_menu_desc.ReadOnly = true;
+            // 
+            // col_read
+            // 
+            this.col_read.DataPropertyName = "read";
+            this.col_read.HeaderText = "อ่าน";
+            this.col_read.MinimumWidth = 50;
+            this.col_read.Name = "col_read";
+            this.col_read.ReadOnly = true;
+            this.col_read.Width = 50;
+            // 
+            // col_add
+            // 
+            this.col_add.DataPropertyName = "add";
+            this.col_add.HeaderText = "เพิ่ม";
+            this.col_add.MinimumWidth = 50;
+            this.col_add.Name = "col_add";
+            this.col_add.ReadOnly = true;
+            this.col_add.Width = 50;
+            // 
+            // col_edit
+            // 
+            this.col_edit.DataPropertyName = "edit";
+            this.col_edit.HeaderText = "แก้ไข";
+            this.col_edit.MinimumWidth = 50;
+            this.col_edit.Name = "col_edit";
+            this.col_edit.ReadOnly = true;
+            this.col_edit.Width = 50;
+            // 
+            // col_delete
+            // 
+            this.col_delete.DataPropertyName = "delete";
+            this.col_delete.HeaderText = "ลบ";
+            this.col_delete.MinimumWidth = 50;
+            this.col_delete.Name = "col_delete";
+            this.col_delete.ReadOnly = true;
+            this.col_delete.Width = 50;
+            // 
+            // col_print
+            // 
+            this.col_print.DataPropertyName = "print";
+            this.col_print.HeaderText = "พิมพ์";
+            this.col_print.MinimumWidth = 50;
+            this.col_print.Name = "col_print";
+            this.col_print.ReadOnly = true;
+            this.col_print.Width = 50;
+            // 
+            // col_approve
+            // 
+            this.col_approve.DataPropertyName = "approve";
+            this.col_approve.HeaderText = "รับรอง";
+            this.col_approve.MinimumWidth = 50;
+            this.col_approve.Name = "col_approve";
+            this.col_approve.ReadOnly = true;
+            this.col_approve.Width = 50;
+            // 
+            // col_scacclv
+            // 
+            this.col_scacclv.DataPropertyName = "scacclv";
+            this.col_scacclv.HeaderText = "Scacclv";
+            this.col_scacclv.Name = "col_scacclv";
+            this.col_scacclv.ReadOnly = true;
+            this.col_scacclv.Visible = false;
+            // 
+            // col_scmodul
+            // 
+            this.col_scmodul.DataPropertyName = "scmodul";
+            this.col_scmodul.HeaderText = "Scmodul";
+            this.col_scmodul.Name = "col_scmodul";
+            this.col_scmodul.ReadOnly = true;
+            this.col_scmodul.Visible = false;
+            // 
+            // col_scmodul_id
+            // 
+            this.col_scmodul_id.DataPropertyName = "scmodul_id";
+            this.col_scmodul_id.HeaderText = "Scmodul ID";
+            this.col_scmodul_id.Name = "col_scmodul_id";
+            this.col_scmodul_id.ReadOnly = true;
+            this.col_scmodul_id.Visible = false;
             // 
             // FormSecure
             // 
@@ -757,7 +788,7 @@
             this.toolStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.xDatagrid1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -794,23 +825,12 @@
         private System.Windows.Forms.TextBox txtLevel;
         private System.Windows.Forms.TextBox txtSecure;
         private System.Windows.Forms.TextBox txtStatus;
-        private CC.XDatagrid xDatagrid1;
+        private CC.XDatagrid dgv;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblUserGroup;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtLanguage;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_username;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_datacod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_menu_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_menu_desc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_read;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_add;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_edit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_delete;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_print;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_approve;
         private CC.XBrowseBox inline_menu;
         private CC.XBrowseBox inline_datacod;
         private CC.XDropdownList inline_approve;
@@ -822,5 +842,19 @@
         private System.Windows.Forms.Button btnDeleteItem;
         private System.Windows.Forms.Button btnEditItem;
         private System.Windows.Forms.Button btnAddItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_username;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_datacod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_menu_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_menu_desc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_read;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_add;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_edit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_delete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_print;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_approve;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_scacclv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_scmodul;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_scmodul_id;
     }
 }

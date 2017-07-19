@@ -4,11 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4ab468d6fff04ff19f8986c338957392" Name="Diagram1">
-        <EntityTypeShape EntityType="secureModel.affdata" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="secureModel.islog" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="secureModel.scacclv" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="secureModel.fk_affdata_islog_id" ManuallyRouted="false" />
+      <Diagram DiagramId="3c6d913515b848e383b1ac2a3af59f71" Name="Diagram1">
+        <EntityTypeShape EntityType="xpumpsecureModel.affdata" Width="1.5" PointX="8" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpsecureModel.islog" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpsecureModel.scacclv" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpsecureModel.scmodul" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="xpumpsecureModel.fk_affdata_islog_id" ManuallyRouted="false" />
+        <AssociationConnector Association="xpumpsecureModel.fk_scacclv_scmodul_id" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

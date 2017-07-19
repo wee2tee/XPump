@@ -12,26 +12,20 @@ namespace XPump.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class islog
+    public partial class scmodul
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public islog()
+        public scmodul()
         {
-            this.affdata = new HashSet<affdata>();
+            this.scacclv = new HashSet<scacclv>();
         }
     
         public int id { get; set; }
-        public string logcode { get; set; }
-        public string expressdata { get; set; }
-        public string xpumpdata { get; set; }
-        public string xpumpuser { get; set; }
         public string modcod { get; set; }
-        public string docnum { get; set; }
         public string description { get; set; }
-        public System.DateTime cretime { get; set; }
-        public string username { get; set; }
+        public string p_modcod { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<affdata> affdata { get; set; }
+        public virtual ICollection<scacclv> scacclv { get; set; }
     }
 }

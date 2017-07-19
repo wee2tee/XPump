@@ -156,6 +156,9 @@
     <Compile Include="Model\scacclv.cs">
       <DependentUpon>SecureModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\scmodul.cs">
+      <DependentUpon>SecureModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\section.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>

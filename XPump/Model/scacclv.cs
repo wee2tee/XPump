@@ -17,12 +17,14 @@ namespace XPump.Model
         public int id { get; set; }
         public string username { get; set; }
         public string datacod { get; set; }
-        public string menu_id { get; set; }
+        public int scmodul_id { get; set; }
         public string read { get; set; }
         public string add { get; set; }
         public string edit { get; set; }
         public string delete { get; set; }
         public string print { get; set; }
         public string approve { get; set; }
+    
+        public virtual scmodul scmodul { get; set; }
     }
 }

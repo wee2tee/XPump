@@ -150,6 +150,8 @@ namespace XPump.SubForm
                         loading.Close();
                         if (this.curr_config.Save())
                         {
+                            this.AddScmodulData();
+                            
                             this.FormFreeze = false;
                             this.main_form.secure_db_config = this.curr_config;
                             this.DialogResult = DialogResult.OK;
@@ -201,12 +203,23 @@ namespace XPump.SubForm
                 //cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 //cmd.ExecuteNonQuery();
 
+                // Scmodule Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + config.db_prefix + "_xpumpsecure`.`scmodul` ";
+                cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`modcod` VARCHAR(50) NOT NULL,";
+                cmd.CommandText += "`description` VARCHAR(100) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`p_modcod` VARCHAR(50) NOT NULL DEFAULT 'ALLMENU',";
+                cmd.CommandText += "PRIMARY KEY(`id`),";
+                cmd.CommandText += "INDEX `ndx-scmodul-module_code` (`modcod` ASC)) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
+
                 // Scacclv Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + config.db_prefix + "_xpumpsecure`.`scacclv` ";
                 cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
                 cmd.CommandText += "`datacod` VARCHAR(50) NOT NULL,";
-                cmd.CommandText += "`menu_id` VARCHAR(50) NOT NULL,";
+                cmd.CommandText += "`scmodul_id` INT(15) NOT NULL,";
                 cmd.CommandText += "`read` VARCHAR(1) NOT NULL,";
                 cmd.CommandText += "`add` VARCHAR(1) NOT NULL,";
                 cmd.CommandText += "`edit` VARCHAR(1) NOT NULL,";
@@ -214,6 +227,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`print` VARCHAR(1) NOT NULL,";
                 cmd.CommandText += "`approve` VARCHAR(1) NOT NULL,";
                 cmd.CommandText += "PRIMARY KEY(`id`),";
+                cmd.CommandText += "CONSTRAINT `fk-scacclv-scmodul_id` FOREIGN KEY (`scmodul_id`) REFERENCES `" + config.db_prefix + "_xpumpsecure`.`scmodul` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION, ";
                 cmd.CommandText += "INDEX `ndx-scacclv-username` (`username` ASC)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
@@ -225,7 +239,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`expressdata` VARCHAR(50) NULL,";
                 cmd.CommandText += "`xpumpdata` VARCHAR(50) NULL,";
                 cmd.CommandText += "`xpumpuser` VARCHAR(50) NULL,";
-                cmd.CommandText += "`module` VARCHAR(30) NULL,";
+                cmd.CommandText += "`modcod` VARCHAR(50) NULL,";
                 //cmd.CommandText += "`afftable` VARCHAR(30) NULL,";
                 //cmd.CommandText += "`affid` VARCHAR(255) NULL,";
                 cmd.CommandText += "`docnum` VARCHAR(50) NULL,";
@@ -234,7 +248,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`username` VARCHAR(20) NOT NULL,";
                 cmd.CommandText += "PRIMARY KEY(`id`),";
                 cmd.CommandText += "INDEX `ndx-islog-logcode` (`logcode` ASC),";
-                cmd.CommandText += "INDEX `ndx-islog-module` (`module` ASC),";
+                cmd.CommandText += "INDEX `ndx-islog-module_code` (`modcod` ASC),";
                 //cmd.CommandText += "INDEX `ndx-islog-afftable` (`afftable` ASC),";
                 cmd.CommandText += "INDEX `ndx-islog-username` (`username` ASC)) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
@@ -279,6 +293,36 @@ namespace XPump.SubForm
             return create_result;
         }
 
+        private void AddScmodulData()
+        {
+            using (xpumpsecureEntities sec = DBX.DataSecureSet())
+            {
+                try
+                {
+                    sec.scmodul.Add(new scmodul { modcod = "ALLMENU", p_modcod = "", description = "ทุกระบบ" });
+                    sec.scmodul.Add(new scmodul { modcod = "1", p_modcod = "ALLMENU", description = "รายการประจำวัน" });
+                    sec.scmodul.Add(new scmodul { modcod = "11", p_modcod = "1", description = "บันทึกรายการประจำผลัด" });
+                    sec.scmodul.Add(new scmodul { modcod = "12", p_modcod = "1", description = "ปิดยอดขายประจำวัน" });
+                    sec.scmodul.Add(new scmodul { modcod = "2", p_modcod = "ALLMENU", description = "เริ่มระบบ" });
+                    sec.scmodul.Add(new scmodul { modcod = "21", p_modcod = "2", description = "ตั้งค่าระบบ" });
+                    sec.scmodul.Add(new scmodul { modcod = "22", p_modcod = "2", description = "กำหนดแท๊งค์เก็บน้ำมัน" });
+                    sec.scmodul.Add(new scmodul { modcod = "23", p_modcod = "2", description = "กำหนดผลัดพนักงาน" });
+                    sec.scmodul.Add(new scmodul { modcod = "24", p_modcod = "2", description = "ตารางข้อมูล" });
+                    sec.scmodul.Add(new scmodul { modcod = "3", p_modcod = "ALLMENU", description = "อื่น ๆ" });
+                    sec.scmodul.Add(new scmodul { modcod = "31", p_modcod = "3", description = "จัดการฐานข้อมูล" });
+                    sec.scmodul.Add(new scmodul { modcod = "311", p_modcod = "31", description = "สำรองข้อมูล" });
+                    sec.scmodul.Add(new scmodul { modcod = "312", p_modcod = "31", description = "นำข้อมูลสำรองมาใช้" });
+                    sec.scmodul.Add(new scmodul { modcod = "32", p_modcod = "3", description = "แฟ้มผู้ใช้งานระบบ" });
+                    sec.scmodul.Add(new scmodul { modcod = "33", p_modcod = "3", description = "การประมวลผลสิ้นปี" });
+                    sec.scmodul.Add(new scmodul { modcod = "34", p_modcod = "3", description = "เปลี่ยนบริษัท" });
+                    sec.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    XMessageBox.Show(ex.Message, "", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                }
+            }
+        }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
