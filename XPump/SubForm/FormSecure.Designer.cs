@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
@@ -79,8 +79,8 @@
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_menu_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_menu_desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_modcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_moddesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -383,8 +383,10 @@
             this.inline_menu.Location = new System.Drawing.Point(126, 40);
             this.inline_menu.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_menu.Name = "inline_menu";
-            this.inline_menu.Size = new System.Drawing.Size(139, 23);
+            this.inline_menu.Size = new System.Drawing.Size(118, 23);
             this.inline_menu.TabIndex = 2;
+            this.inline_menu._ButtonClick += new System.EventHandler(this.inline_menu__ButtonClick);
+            this.inline_menu._Leave += new System.EventHandler(this.inline_menu__Leave);
             // 
             // inline_datacod
             // 
@@ -397,11 +399,13 @@
             this.inline_datacod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_datacod.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.inline_datacod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_datacod.Location = new System.Drawing.Point(5, 40);
+            this.inline_datacod.Location = new System.Drawing.Point(3, 40);
             this.inline_datacod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_datacod.Name = "inline_datacod";
             this.inline_datacod.Size = new System.Drawing.Size(120, 23);
             this.inline_datacod.TabIndex = 1;
+            this.inline_datacod._ButtonClick += new System.EventHandler(this.inline_datacod__ButtonClick);
+            this.inline_datacod._Leave += new System.EventHandler(this.inline_datacod__Leave);
             // 
             // dgv
             // 
@@ -410,22 +414,22 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
             this.col_username,
             this.col_datacod,
-            this.col_menu_id,
-            this.col_menu_desc,
+            this.col_modcod,
+            this.col_moddesc,
             this.col_read,
             this.col_add,
             this.col_edit,
@@ -435,14 +439,14 @@
             this.col_scacclv,
             this.col_scmodul,
             this.col_scmodul_id});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -459,6 +463,7 @@
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
+            this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
             // 
             // btnDeleteItem
             // 
@@ -657,23 +662,23 @@
             this.col_datacod.ReadOnly = true;
             this.col_datacod.Width = 120;
             // 
-            // col_menu_id
+            // col_modcod
             // 
-            this.col_menu_id.DataPropertyName = "modcod";
-            this.col_menu_id.HeaderText = "เมนู";
-            this.col_menu_id.MinimumWidth = 140;
-            this.col_menu_id.Name = "col_menu_id";
-            this.col_menu_id.ReadOnly = true;
-            this.col_menu_id.Width = 140;
+            this.col_modcod.DataPropertyName = "modcod";
+            this.col_modcod.HeaderText = "เมนู";
+            this.col_modcod.MinimumWidth = 120;
+            this.col_modcod.Name = "col_modcod";
+            this.col_modcod.ReadOnly = true;
+            this.col_modcod.Width = 120;
             // 
-            // col_menu_desc
+            // col_moddesc
             // 
-            this.col_menu_desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_menu_desc.DataPropertyName = "moddesc";
-            this.col_menu_desc.HeaderText = "";
-            this.col_menu_desc.MinimumWidth = 120;
-            this.col_menu_desc.Name = "col_menu_desc";
-            this.col_menu_desc.ReadOnly = true;
+            this.col_moddesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_moddesc.DataPropertyName = "moddesc";
+            this.col_moddesc.HeaderText = "รายละเอียด";
+            this.col_moddesc.MinimumWidth = 120;
+            this.col_moddesc.Name = "col_moddesc";
+            this.col_moddesc.ReadOnly = true;
             // 
             // col_read
             // 
@@ -845,8 +850,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_username;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_datacod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_menu_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_menu_desc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_modcod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_moddesc;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_read;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_add;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_edit;
