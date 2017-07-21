@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
@@ -57,6 +57,20 @@
             this.inline_menu = new CC.XBrowseBox();
             this.inline_datacod = new CC.XBrowseBox();
             this.dgv = new CC.XDatagrid();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_modcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_moddesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scacclv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scmodul = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scmodul_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteItem = new System.Windows.Forms.Button();
             this.btnEditItem = new System.Windows.Forms.Button();
             this.btnAddItem = new System.Windows.Forms.Button();
@@ -76,20 +90,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtLanguage = new System.Windows.Forms.TextBox();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_modcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_moddesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scacclv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scmodul = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scmodul_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnItem = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -113,6 +114,7 @@
             this.btnLast,
             this.btnSearch,
             this.toolStripSeparator2,
+            this.btnItem,
             this.btnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -156,6 +158,7 @@
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(36, 40);
             this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnSave
             // 
@@ -166,6 +169,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(36, 40);
             this.btnSave.Text = "บันทึกข้อมูล <F9>";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // toolStripSeparator1
             // 
@@ -230,18 +234,21 @@
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(52, 40);
             this.btnSearch.Text = "ค้นหา <Alt+S>";
+            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
             // 
             // btnInquiryAll
             // 
             this.btnInquiryAll.Name = "btnInquiryAll";
             this.btnInquiryAll.Size = new System.Drawing.Size(245, 22);
             this.btnInquiryAll.Text = "เรียกดูข้อมูล ตั้งแต่ต้น <Ctrl+L>";
+            this.btnInquiryAll.Click += new System.EventHandler(this.btnInquiryAll_Click);
             // 
             // btnInquiryRest
             // 
             this.btnInquiryRest.Name = "btnInquiryRest";
             this.btnInquiryRest.Size = new System.Drawing.Size(245, 22);
             this.btnInquiryRest.Text = "เรียกดูข้อมูล ตั้งแต่รายการนี้ <Alt+L>";
+            this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
             // 
             // toolStripSeparator2
             // 
@@ -257,6 +264,7 @@
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(36, 40);
             this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // tabControl1
             // 
@@ -269,6 +277,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(862, 337);
             this.tabControl1.TabIndex = 7;
+            this.tabControl1.TabStop = false;
             // 
             // tabPage1
             // 
@@ -288,7 +297,7 @@
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(854, 308);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "เมนูที่อนุญาตให้ผู้ใช้รายนี้";
+            this.tabPage1.Text = "เมนูที่อนุญาตให้ผู้ใช้รายนี้ <F8>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // inline_approve
@@ -302,7 +311,9 @@
             this.inline_approve.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_approve.Name = "inline_approve";
             this.inline_approve.Size = new System.Drawing.Size(48, 23);
-            this.inline_approve.TabIndex = 3;
+            this.inline_approve.TabIndex = 8;
+            this.inline_approve._SelectedItemChanged += new System.EventHandler(this.inline_approve__SelectedItemChanged);
+            this.inline_approve.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_print
             // 
@@ -315,7 +326,9 @@
             this.inline_print.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_print.Name = "inline_print";
             this.inline_print.Size = new System.Drawing.Size(48, 23);
-            this.inline_print.TabIndex = 3;
+            this.inline_print.TabIndex = 7;
+            this.inline_print._SelectedItemChanged += new System.EventHandler(this.inline_print__SelectedItemChanged);
+            this.inline_print.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_delete
             // 
@@ -328,7 +341,9 @@
             this.inline_delete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_delete.Name = "inline_delete";
             this.inline_delete.Size = new System.Drawing.Size(48, 23);
-            this.inline_delete.TabIndex = 3;
+            this.inline_delete.TabIndex = 6;
+            this.inline_delete._SelectedItemChanged += new System.EventHandler(this.inline_delete__SelectedItemChanged);
+            this.inline_delete.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_edit
             // 
@@ -341,7 +356,9 @@
             this.inline_edit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_edit.Name = "inline_edit";
             this.inline_edit.Size = new System.Drawing.Size(48, 23);
-            this.inline_edit.TabIndex = 3;
+            this.inline_edit.TabIndex = 5;
+            this.inline_edit._SelectedItemChanged += new System.EventHandler(this.inline_edit__SelectedItemChanged);
+            this.inline_edit.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_add
             // 
@@ -354,7 +371,9 @@
             this.inline_add.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_add.Name = "inline_add";
             this.inline_add.Size = new System.Drawing.Size(48, 23);
-            this.inline_add.TabIndex = 3;
+            this.inline_add.TabIndex = 4;
+            this.inline_add._SelectedItemChanged += new System.EventHandler(this.inline_add__SelectedItemChanged);
+            this.inline_add.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_read
             // 
@@ -368,6 +387,8 @@
             this.inline_read.Name = "inline_read";
             this.inline_read.Size = new System.Drawing.Size(48, 23);
             this.inline_read.TabIndex = 3;
+            this.inline_read._SelectedItemChanged += new System.EventHandler(this.inline_read__SelectedItemChanged);
+            this.inline_read.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_menu
             // 
@@ -414,14 +435,14 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -439,203 +460,30 @@
             this.col_scacclv,
             this.col_scmodul,
             this.col_scmodul_id});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
             this.dgv.FillEmptyRow = false;
             this.dgv.FocusedRowBorderRedLine = true;
-            this.dgv.Location = new System.Drawing.Point(0, 0);
+            this.dgv.Location = new System.Drawing.Point(0, 88);
             this.dgv.MultiSelect = false;
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(854, 308);
+            this.dgv.Size = new System.Drawing.Size(854, 220);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
-            // 
-            // btnDeleteItem
-            // 
-            this.btnDeleteItem.Location = new System.Drawing.Point(409, 40);
-            this.btnDeleteItem.Name = "btnDeleteItem";
-            this.btnDeleteItem.Size = new System.Drawing.Size(53, 22);
-            this.btnDeleteItem.TabIndex = 4;
-            this.btnDeleteItem.Text = "Delete";
-            this.btnDeleteItem.UseVisualStyleBackColor = true;
-            this.btnDeleteItem.Click += new System.EventHandler(this.btnDeleteItem_Click);
-            // 
-            // btnEditItem
-            // 
-            this.btnEditItem.Location = new System.Drawing.Point(358, 40);
-            this.btnEditItem.Name = "btnEditItem";
-            this.btnEditItem.Size = new System.Drawing.Size(45, 22);
-            this.btnEditItem.TabIndex = 4;
-            this.btnEditItem.Text = "Edit";
-            this.btnEditItem.UseVisualStyleBackColor = true;
-            this.btnEditItem.Click += new System.EventHandler(this.btnEditItem_Click);
-            // 
-            // btnAddItem
-            // 
-            this.btnAddItem.Location = new System.Drawing.Point(307, 40);
-            this.btnAddItem.Name = "btnAddItem";
-            this.btnAddItem.Size = new System.Drawing.Size(45, 22);
-            this.btnAddItem.TabIndex = 4;
-            this.btnAddItem.Text = "Add";
-            this.btnAddItem.UseVisualStyleBackColor = true;
-            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(48, 61);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 16);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "รหัสผู้ใช้";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 86);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 16);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "กลุ่มของผู้ใช้";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(32, 111);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 16);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "ระดับอนุมัติ";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(34, 161);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 16);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "สถานะผู้ใช้";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 136);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(83, 16);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "ตรวจสอบสิทธิ";
-            // 
-            // txtUserId
-            // 
-            this.txtUserId.Location = new System.Drawing.Point(116, 58);
-            this.txtUserId.Name = "txtUserId";
-            this.txtUserId.ReadOnly = true;
-            this.txtUserId.Size = new System.Drawing.Size(90, 23);
-            this.txtUserId.TabIndex = 9;
-            // 
-            // txtUserName
-            // 
-            this.txtUserName.Location = new System.Drawing.Point(210, 58);
-            this.txtUserName.Name = "txtUserName";
-            this.txtUserName.ReadOnly = true;
-            this.txtUserName.Size = new System.Drawing.Size(285, 23);
-            this.txtUserName.TabIndex = 9;
-            // 
-            // txtGroup
-            // 
-            this.txtGroup.Location = new System.Drawing.Point(116, 83);
-            this.txtGroup.Name = "txtGroup";
-            this.txtGroup.ReadOnly = true;
-            this.txtGroup.Size = new System.Drawing.Size(90, 23);
-            this.txtGroup.TabIndex = 9;
-            // 
-            // txtLevel
-            // 
-            this.txtLevel.Location = new System.Drawing.Point(116, 108);
-            this.txtLevel.Name = "txtLevel";
-            this.txtLevel.ReadOnly = true;
-            this.txtLevel.Size = new System.Drawing.Size(25, 23);
-            this.txtLevel.TabIndex = 9;
-            // 
-            // txtSecure
-            // 
-            this.txtSecure.Location = new System.Drawing.Point(116, 133);
-            this.txtSecure.Name = "txtSecure";
-            this.txtSecure.ReadOnly = true;
-            this.txtSecure.Size = new System.Drawing.Size(150, 23);
-            this.txtSecure.TabIndex = 9;
-            // 
-            // txtStatus
-            // 
-            this.txtStatus.Location = new System.Drawing.Point(116, 158);
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.ReadOnly = true;
-            this.txtStatus.Size = new System.Drawing.Size(150, 23);
-            this.txtStatus.TabIndex = 9;
-            // 
-            // label6
-            // 
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label6.Location = new System.Drawing.Point(20, 184);
-            this.label6.Name = "label6";
-            this.label6.Padding = new System.Windows.Forms.Padding(5);
-            this.label6.Size = new System.Drawing.Size(475, 35);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "หมายเหตุ : รหัสผู้ใช้งาน และ รายละเอียดต่าง ๆ นี้ถูกกำหนดไว้ในโปรแกรมเอ็กซ์เพรส";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblUserGroup
-            // 
-            this.lblUserGroup.AutoSize = true;
-            this.lblUserGroup.Location = new System.Drawing.Point(212, 86);
-            this.lblUserGroup.Name = "lblUserGroup";
-            this.lblUserGroup.Size = new System.Drawing.Size(26, 16);
-            this.lblUserGroup.TabIndex = 8;
-            this.lblUserGroup.Text = "xxx";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label8.Location = new System.Drawing.Point(212, 111);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(274, 16);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "[ 0=พนักงาน  5=หัวหน้าแผนก  9=ผู้จัดการระบบ ]";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(355, 161);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(78, 16);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "เมนูเป็นภาษา";
-            // 
-            // txtLanguage
-            // 
-            this.txtLanguage.Location = new System.Drawing.Point(439, 158);
-            this.txtLanguage.Name = "txtLanguage";
-            this.txtLanguage.ReadOnly = true;
-            this.txtLanguage.Size = new System.Drawing.Size(56, 23);
-            this.txtLanguage.TabIndex = 9;
             // 
             // col_id
             // 
@@ -758,6 +606,200 @@
             this.col_scmodul_id.ReadOnly = true;
             this.col_scmodul_id.Visible = false;
             // 
+            // btnDeleteItem
+            // 
+            this.btnDeleteItem.Location = new System.Drawing.Point(409, 40);
+            this.btnDeleteItem.Name = "btnDeleteItem";
+            this.btnDeleteItem.Size = new System.Drawing.Size(53, 22);
+            this.btnDeleteItem.TabIndex = 4;
+            this.btnDeleteItem.TabStop = false;
+            this.btnDeleteItem.Text = "Delete";
+            this.btnDeleteItem.UseVisualStyleBackColor = true;
+            this.btnDeleteItem.Click += new System.EventHandler(this.btnDeleteItem_Click);
+            // 
+            // btnEditItem
+            // 
+            this.btnEditItem.Location = new System.Drawing.Point(358, 40);
+            this.btnEditItem.Name = "btnEditItem";
+            this.btnEditItem.Size = new System.Drawing.Size(45, 22);
+            this.btnEditItem.TabIndex = 4;
+            this.btnEditItem.TabStop = false;
+            this.btnEditItem.Text = "Edit";
+            this.btnEditItem.UseVisualStyleBackColor = true;
+            this.btnEditItem.Click += new System.EventHandler(this.btnEditItem_Click);
+            // 
+            // btnAddItem
+            // 
+            this.btnAddItem.Location = new System.Drawing.Point(307, 40);
+            this.btnAddItem.Name = "btnAddItem";
+            this.btnAddItem.Size = new System.Drawing.Size(45, 22);
+            this.btnAddItem.TabIndex = 4;
+            this.btnAddItem.TabStop = false;
+            this.btnAddItem.Text = "Add";
+            this.btnAddItem.UseVisualStyleBackColor = true;
+            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(48, 61);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 16);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "รหัสผู้ใช้";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(24, 86);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 16);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "กลุ่มของผู้ใช้";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(32, 111);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(68, 16);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "ระดับอนุมัติ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(34, 161);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(66, 16);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "สถานะผู้ใช้";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 136);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 16);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "ตรวจสอบสิทธิ";
+            // 
+            // txtUserId
+            // 
+            this.txtUserId.Location = new System.Drawing.Point(116, 58);
+            this.txtUserId.Name = "txtUserId";
+            this.txtUserId.ReadOnly = true;
+            this.txtUserId.Size = new System.Drawing.Size(90, 23);
+            this.txtUserId.TabIndex = 9;
+            this.txtUserId.TabStop = false;
+            // 
+            // txtUserName
+            // 
+            this.txtUserName.Location = new System.Drawing.Point(210, 58);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.ReadOnly = true;
+            this.txtUserName.Size = new System.Drawing.Size(285, 23);
+            this.txtUserName.TabIndex = 9;
+            this.txtUserName.TabStop = false;
+            // 
+            // txtGroup
+            // 
+            this.txtGroup.Location = new System.Drawing.Point(116, 83);
+            this.txtGroup.Name = "txtGroup";
+            this.txtGroup.ReadOnly = true;
+            this.txtGroup.Size = new System.Drawing.Size(90, 23);
+            this.txtGroup.TabIndex = 9;
+            this.txtGroup.TabStop = false;
+            // 
+            // txtLevel
+            // 
+            this.txtLevel.Location = new System.Drawing.Point(116, 108);
+            this.txtLevel.Name = "txtLevel";
+            this.txtLevel.ReadOnly = true;
+            this.txtLevel.Size = new System.Drawing.Size(25, 23);
+            this.txtLevel.TabIndex = 9;
+            this.txtLevel.TabStop = false;
+            // 
+            // txtSecure
+            // 
+            this.txtSecure.Location = new System.Drawing.Point(116, 133);
+            this.txtSecure.Name = "txtSecure";
+            this.txtSecure.ReadOnly = true;
+            this.txtSecure.Size = new System.Drawing.Size(150, 23);
+            this.txtSecure.TabIndex = 9;
+            this.txtSecure.TabStop = false;
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.Location = new System.Drawing.Point(116, 158);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ReadOnly = true;
+            this.txtStatus.Size = new System.Drawing.Size(150, 23);
+            this.txtStatus.TabIndex = 9;
+            this.txtStatus.TabStop = false;
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label6.Location = new System.Drawing.Point(20, 184);
+            this.label6.Name = "label6";
+            this.label6.Padding = new System.Windows.Forms.Padding(5);
+            this.label6.Size = new System.Drawing.Size(475, 35);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "หมายเหตุ : รหัสผู้ใช้งาน และ รายละเอียดต่าง ๆ นี้ถูกกำหนดไว้ในโปรแกรมเอ็กซ์เพรส";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblUserGroup
+            // 
+            this.lblUserGroup.AutoSize = true;
+            this.lblUserGroup.Location = new System.Drawing.Point(212, 86);
+            this.lblUserGroup.Name = "lblUserGroup";
+            this.lblUserGroup.Size = new System.Drawing.Size(26, 16);
+            this.lblUserGroup.TabIndex = 8;
+            this.lblUserGroup.Text = "xxx";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label8.Location = new System.Drawing.Point(212, 111);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(274, 16);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "[ 0=พนักงาน  5=หัวหน้าแผนก  9=ผู้จัดการระบบ ]";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(355, 161);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(78, 16);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "เมนูเป็นภาษา";
+            // 
+            // txtLanguage
+            // 
+            this.txtLanguage.Location = new System.Drawing.Point(439, 158);
+            this.txtLanguage.Name = "txtLanguage";
+            this.txtLanguage.ReadOnly = true;
+            this.txtLanguage.Size = new System.Drawing.Size(56, 23);
+            this.txtLanguage.TabIndex = 9;
+            this.txtLanguage.TabStop = false;
+            // 
+            // btnItem
+            // 
+            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnItem.Image = global::XPump.Properties.Resources.item;
+            this.btnItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.btnItem.Name = "btnItem";
+            this.btnItem.Size = new System.Drawing.Size(36, 40);
+            this.btnItem.Text = "เมนูที่อนุญาตให้ผู้ใช้รายนี้ <F8>";
+            this.btnItem.Click += new System.EventHandler(this.btnItem_Click);
+            // 
             // FormSecure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -861,5 +903,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_scacclv;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_scmodul;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_scmodul_id;
+        private System.Windows.Forms.ToolStripButton btnItem;
     }
 }
