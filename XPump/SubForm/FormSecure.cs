@@ -71,6 +71,7 @@ namespace XPump.SubForm
             this.btnEditItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
             this.btnDeleteItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
 
+            this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
             this.dgv.TabStop = this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM ? false : true;
         }
 
@@ -117,9 +118,6 @@ namespace XPump.SubForm
 
         private void ShowInlineForm()
         {
-            //this.tmp_scacclv = (scacclv)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_scacclv.Name].Value;
-            this.SetInlineControlPosition();
-
             List<XDropdownList> dl = new List<XDropdownList>
             {
                 this.inline_read,
@@ -136,6 +134,17 @@ namespace XPump.SubForm
                 item._Items.Add(new XDropdownListItem { Text = "Y", Value = "Y" });
                 item._Items.Add(new XDropdownListItem { Text = "N", Value = "N" });
             }
+
+            this.inline_datacod._Text = this.tmp_scacclv.datacod;
+            this.inline_menu._Text = this.tmp_scacclv.modcod;
+            this.inline_read._Text = this.tmp_scacclv.read;
+            this.inline_add._Text = this.tmp_scacclv.add;
+            this.inline_edit._Text = this.tmp_scacclv.edit;
+            this.inline_delete._Text = this.tmp_scacclv.delete;
+            this.inline_print._Text = this.tmp_scacclv.print;
+            this.inline_approve._Text = this.tmp_scacclv.approve;
+
+            this.SetInlineControlPosition();
         }
 
         private void SetInlineControlPosition()
@@ -302,7 +311,13 @@ namespace XPump.SubForm
 
         private void btnEditItem_Click(object sender, EventArgs e)
         {
+            if (this.dgv.CurrentCell == null)
+                return;
 
+            this.tmp_scacclv = ((scacclv)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_scacclv.Name].Value).ToViewModel();
+            this.ResetFormState(FORM_MODE.EDIT_ITEM);
+            this.ShowInlineForm();
+            this.inline_datacod.Focus();
         }
 
         private void btnDeleteItem_Click(object sender, EventArgs e)
@@ -311,12 +326,22 @@ namespace XPump.SubForm
                 return;
 
             scacclv s = (scacclv)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_scacclv.Name].Value;
+            this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Tag = DGV_TAG.DELETE;
+            this.dgv.Refresh();
+            if (XMessageBox.Show("ลบข้อมูลนี้หรือไม่", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
+            {
+                this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Tag = DGV_TAG.NORMAL;
+                this.dgv.Refresh();
+                this.dgv.Focus();
+                return;
+            }
+
             using (xpumpsecureEntities sec = DBX.DataSecureSet())
             {
                 try
                 {
                     var scacclv_to_delete = sec.scacclv.Find(s.id);
-                    if(scacclv_to_delete != null)
+                    if(scacclv_to_delete == null)
                     {
                         XMessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     }
@@ -347,6 +372,7 @@ namespace XPump.SubForm
                 MenuItem mnu_add = new MenuItem("เพิ่ม <Alt + A>");
                 mnu_add.Click += delegate
                 {
+                    this.ResetFormState(FORM_MODE.READ_ITEM);
                     this.btnAddItem.PerformClick();
                 };
                 cm.MenuItems.Add(mnu_add);
@@ -354,6 +380,7 @@ namespace XPump.SubForm
                 MenuItem mnu_edit = new MenuItem("แก้ไข <Alt + E>");
                 mnu_edit.Click += delegate
                 {
+                    this.ResetFormState(FORM_MODE.READ_ITEM);
                     this.btnEditItem.PerformClick();
                 };
                 mnu_edit.Enabled = row_index == -1 ? false : true;
@@ -362,6 +389,7 @@ namespace XPump.SubForm
                 MenuItem mnu_delete = new MenuItem("ลบ <Alt + D>");
                 mnu_delete.Click += delegate
                 {
+                    this.ResetFormState(FORM_MODE.READ_ITEM);
                     this.btnDeleteItem.PerformClick();
                 };
                 mnu_delete.Enabled = row_index == -1 ? false : true;
@@ -571,6 +599,7 @@ namespace XPump.SubForm
         private void btnItem_Click(object sender, EventArgs e)
         {
             this.ResetFormState(FORM_MODE.READ_ITEM);
+            this.dgv.Focus();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -585,6 +614,7 @@ namespace XPump.SubForm
             if(this.form_mode == FORM_MODE.READ_ITEM)
             {
                 this.ResetFormState(FORM_MODE.READ);
+                this.dgv.Refresh();
                 this.toolStrip1.Focus();
                 return;
             }
@@ -595,28 +625,97 @@ namespace XPump.SubForm
             if (this.tmp_scacclv == null)
                 return;
 
-            using (xpumpsecureEntities sec = DBX.DataSecureSet())
+            if(this.form_mode == FORM_MODE.ADD_ITEM)
             {
-                try
+                using (xpumpsecureEntities sec = DBX.DataSecureSet())
                 {
-                    sec.scacclv.Add(this.tmp_scacclv.scacclv);
-                    sec.SaveChanges();
-                    //this.ReloadCurrentScuser();
-                    //this.btnStop.PerformClick();
-                    this.RemoveInlineForm();
-                    this.ResetFormState(FORM_MODE.READ_ITEM);
-                    this.btnAddItem.PerformClick();
+                    var sc = sec.scacclv.Include("scmodul").Where(s => s.username == this.tmp_scacclv.username && s.datacod == this.tmp_scacclv.datacod && s.scmodul_id == this.tmp_scacclv.scmodul_id);
+                    if(sc.Count() > 0)
+                    {
+                        XMessageBox.Show("เมนู \"" + this.tmp_scacclv.scmodul.description + "\" ถูกกำหนดไว้แล้วสำหรับข้อมูล \"" + this.tmp_scacclv.datacod + "\"", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        this.inline_menu.Focus();
+                        return;
+                    }
+
+                    try
+                    {
+                        sec.scacclv.Add(this.tmp_scacclv.scacclv);
+                        sec.SaveChanges();
+                        this.RemoveInlineForm();
+                        this.ResetFormState(FORM_MODE.READ_ITEM);
+                        this.btnAddItem.PerformClick();
+                    }
+                    catch (Exception ex)
+                    {
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception ex)
+                return;
+            }
+            if(this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                using (xpumpsecureEntities sec = DBX.DataSecureSet())
                 {
-                    XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                    var sc = sec.scacclv.Include("scmodul").Where(s => s.username == this.tmp_scacclv.username && s.datacod == this.tmp_scacclv.datacod && s.scmodul_id == this.tmp_scacclv.scmodul_id && s.id != this.tmp_scacclv.id);
+                    if (sc.Count() > 0)
+                    {
+                        XMessageBox.Show("เมนู \"" + this.tmp_scacclv.scmodul.description + "\" ถูกกำหนดไว้แล้วสำหรับข้อมูล \"" + this.tmp_scacclv.datacod + "\"", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        this.inline_menu.Focus();
+                        return;
+                    }
+
+                    try
+                    {
+                        var scacclv_to_update = sec.scacclv.Find(this.tmp_scacclv.id);
+                        if(scacclv_to_update != null)
+                        {
+                            scacclv_to_update.datacod = this.tmp_scacclv.datacod;
+                            scacclv_to_update.scmodul_id = this.tmp_scacclv.scmodul_id;
+                            scacclv_to_update.read = this.tmp_scacclv.read;
+                            scacclv_to_update.add = this.tmp_scacclv.add;
+                            scacclv_to_update.edit = this.tmp_scacclv.edit;
+                            scacclv_to_update.delete = this.tmp_scacclv.delete;
+                            scacclv_to_update.print = this.tmp_scacclv.print;
+                            scacclv_to_update.approve = this.tmp_scacclv.approve;
+                            sec.SaveChanges();
+                            this.RemoveInlineForm();
+                            this.ResetFormState(FORM_MODE.READ_ITEM);
+                        }
+                        else
+                        {
+                            XMessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                    }
                 }
             }
         }
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
         {
-
+            using (xpumpsecureEntities sec = DBX.DataSecureSet())
+            {
+                DialogSimpleSearch search = new DialogSimpleSearch("รหัสผู้ใช้", "");
+                search.txtKeyword.CharacterCasing = CharacterCasing.Upper;
+                if(search.ShowDialog() == DialogResult.OK)
+                {
+                    ScuserDbf user = this.GetScuser(search.keyword.Trim());
+                    if(user == null)
+                    {
+                        XMessageBox.Show("ค้นหารหัสผู้ใช้ \"" + search.keyword.Trim() + "\" ไม่พบ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        return;
+                    }
+                    else
+                    {
+                        this.curr_user = user;
+                        this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(user).ToViewModel());
+                        this.FillForm();
+                    }
+                }
+            }
         }
 
         private void btnInquiryAll_Click(object sender, EventArgs e)
@@ -794,6 +893,12 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if(keyData == (Keys.Alt | Keys.S))
+            {
+                this.btnSearch.PerformButtonClick();
+                return true;
+            }
+
             if (keyData == (Keys.Alt | Keys.A))
             {
                 this.btnAddItem.PerformClick();
@@ -813,6 +918,41 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgv_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+            if (((XDatagrid)sender).Rows[e.RowIndex].Tag == null)
+                return;
+
+            if(e.RowIndex == ((XDatagrid)sender).CurrentCell.RowIndex)
+            {
+                scacclv s = (scacclv)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_scacclv.Name].Value;
+
+                if(((XDatagrid)sender).Rows[e.RowIndex].Tag.GetType() == typeof(DGV_TAG) && (DGV_TAG)((XDatagrid)sender).Rows[e.RowIndex].Tag == DGV_TAG.DELETE)
+                {
+                    Rectangle row_rect = ((XDatagrid)sender).GetRowDisplayRectangle(((XDatagrid)sender).CurrentCell.RowIndex, true);
+
+                    for (int i = row_rect.X - 12; i < row_rect.X + row_rect.Width; i += 10)
+                    {
+                        using (Pen p = new Pen(Color.Red))
+                        {
+                            e.Graphics.DrawLine(p, new Point(i, row_rect.Y), new Point(i+12, row_rect.Y + row_rect.Height - 2));
+                        }
+                    }
+                }
+            }
+        }
+
+        private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1 || ((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            this.btnItem.PerformClick();
+            this.btnEditItem.PerformClick();
         }
     }
 }

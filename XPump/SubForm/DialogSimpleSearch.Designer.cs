@@ -84,9 +84,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtKeyword;
         private System.Windows.Forms.Label lblSearchLabel;
         private System.Windows.Forms.Button btnOK;
+        public System.Windows.Forms.TextBox txtKeyword;
     }
 }

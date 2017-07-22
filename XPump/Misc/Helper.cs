@@ -45,6 +45,12 @@ namespace XPump.Misc
         REST
     }
 
+    public enum DGV_TAG
+    {
+        NORMAL,
+        DELETE
+    }
+
     // Miscellenous class
     public class InlineControlGridPosition
     {
