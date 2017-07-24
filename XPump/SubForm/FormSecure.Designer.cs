@@ -45,7 +45,6 @@
             this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
             this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnItem = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -57,24 +56,10 @@
             this.inline_read = new CC.XDropdownList();
             this.inline_menu = new CC.XBrowseBox();
             this.inline_datacod = new CC.XBrowseBox();
-            this.dgv = new CC.XDatagrid();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_modcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_moddesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scacclv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scmodul = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scmodul_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteItem = new System.Windows.Forms.Button();
             this.btnEditItem = new System.Windows.Forms.Button();
             this.btnAddItem = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -91,6 +76,24 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtLanguage = new System.Windows.Forms.TextBox();
+            this.dgv = new CC.XDatagrid();
+            this.col_scmodul_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scmodul = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scacclv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_moddesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_modcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -255,18 +258,6 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
             // 
-            // btnItem
-            // 
-            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnItem.Image = global::XPump.Properties.Resources.item;
-            this.btnItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.btnItem.Name = "btnItem";
-            this.btnItem.Size = new System.Drawing.Size(36, 40);
-            this.btnItem.Text = "เมนูที่อนุญาตให้ผู้ใช้รายนี้ <F8>";
-            this.btnItem.Click += new System.EventHandler(this.btnItem_Click);
-            // 
             // btnRefresh
             // 
             this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -284,32 +275,37 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tabControl1.Location = new System.Drawing.Point(3, 230);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(862, 337);
             this.tabControl1.TabIndex = 7;
             this.tabControl1.TabStop = false;
+            this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
+            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.inline_approve);
             this.tabPage1.Controls.Add(this.inline_print);
             this.tabPage1.Controls.Add(this.inline_delete);
+            this.tabPage1.Controls.Add(this.inline_datacod);
+            this.tabPage1.Controls.Add(this.inline_menu);
             this.tabPage1.Controls.Add(this.inline_edit);
             this.tabPage1.Controls.Add(this.inline_add);
             this.tabPage1.Controls.Add(this.inline_read);
-            this.tabPage1.Controls.Add(this.inline_menu);
-            this.tabPage1.Controls.Add(this.inline_datacod);
             this.tabPage1.Controls.Add(this.dgv);
             this.tabPage1.Controls.Add(this.btnDeleteItem);
             this.tabPage1.Controls.Add(this.btnEditItem);
             this.tabPage1.Controls.Add(this.btnAddItem);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(854, 308);
+            this.tabPage1.Size = new System.Drawing.Size(854, 311);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "เมนูที่อนุญาตให้ผู้ใช้รายนี้ <F8>";
+            this.tabPage1.Text = "ข้อมูล และเมนูที่อนุญาตให้ผู้ใช้รายนี้ <F8>";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // inline_approve
@@ -317,94 +313,95 @@
             this.inline_approve._ReadOnly = false;
             this.inline_approve._SelectedItem = null;
             this.inline_approve._Text = "";
+            this.inline_approve.BackColor = System.Drawing.Color.White;
             this.inline_approve.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_approve.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_approve.Location = new System.Drawing.Point(801, 40);
+            this.inline_approve.Location = new System.Drawing.Point(801, 15);
             this.inline_approve.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_approve.Name = "inline_approve";
             this.inline_approve.Size = new System.Drawing.Size(48, 23);
             this.inline_approve.TabIndex = 8;
             this.inline_approve._SelectedItemChanged += new System.EventHandler(this.inline_approve__SelectedItemChanged);
-            this.inline_approve.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_print
             // 
             this.inline_print._ReadOnly = false;
             this.inline_print._SelectedItem = null;
             this.inline_print._Text = "";
+            this.inline_print.BackColor = System.Drawing.Color.White;
             this.inline_print.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_print.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_print.Location = new System.Drawing.Point(751, 40);
+            this.inline_print.Location = new System.Drawing.Point(751, 15);
             this.inline_print.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_print.Name = "inline_print";
             this.inline_print.Size = new System.Drawing.Size(48, 23);
             this.inline_print.TabIndex = 7;
             this.inline_print._SelectedItemChanged += new System.EventHandler(this.inline_print__SelectedItemChanged);
-            this.inline_print.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_delete
             // 
             this.inline_delete._ReadOnly = false;
             this.inline_delete._SelectedItem = null;
             this.inline_delete._Text = "";
+            this.inline_delete.BackColor = System.Drawing.Color.White;
             this.inline_delete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_delete.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_delete.Location = new System.Drawing.Point(701, 40);
+            this.inline_delete.Location = new System.Drawing.Point(701, 15);
             this.inline_delete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_delete.Name = "inline_delete";
             this.inline_delete.Size = new System.Drawing.Size(48, 23);
             this.inline_delete.TabIndex = 6;
             this.inline_delete._SelectedItemChanged += new System.EventHandler(this.inline_delete__SelectedItemChanged);
-            this.inline_delete.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_edit
             // 
             this.inline_edit._ReadOnly = false;
             this.inline_edit._SelectedItem = null;
             this.inline_edit._Text = "";
+            this.inline_edit.BackColor = System.Drawing.Color.White;
             this.inline_edit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_edit.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_edit.Location = new System.Drawing.Point(650, 40);
+            this.inline_edit.Location = new System.Drawing.Point(650, 15);
             this.inline_edit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_edit.Name = "inline_edit";
             this.inline_edit.Size = new System.Drawing.Size(48, 23);
             this.inline_edit.TabIndex = 5;
             this.inline_edit._SelectedItemChanged += new System.EventHandler(this.inline_edit__SelectedItemChanged);
-            this.inline_edit.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_add
             // 
             this.inline_add._ReadOnly = false;
             this.inline_add._SelectedItem = null;
             this.inline_add._Text = "";
+            this.inline_add.BackColor = System.Drawing.Color.White;
             this.inline_add.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_add.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_add.Location = new System.Drawing.Point(600, 40);
+            this.inline_add.Location = new System.Drawing.Point(600, 15);
             this.inline_add.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_add.Name = "inline_add";
             this.inline_add.Size = new System.Drawing.Size(48, 23);
             this.inline_add.TabIndex = 4;
             this.inline_add._SelectedItemChanged += new System.EventHandler(this.inline_add__SelectedItemChanged);
-            this.inline_add.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_read
             // 
             this.inline_read._ReadOnly = false;
             this.inline_read._SelectedItem = null;
             this.inline_read._Text = "";
+            this.inline_read.BackColor = System.Drawing.Color.White;
             this.inline_read.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_read.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_read.Location = new System.Drawing.Point(550, 40);
+            this.inline_read.Location = new System.Drawing.Point(550, 15);
             this.inline_read.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_read.Name = "inline_read";
             this.inline_read.Size = new System.Drawing.Size(48, 23);
             this.inline_read.TabIndex = 3;
             this.inline_read._SelectedItemChanged += new System.EventHandler(this.inline_read__SelectedItemChanged);
-            this.inline_read.Enter += new System.EventHandler(this.inline_dropdownlist_Enter);
             // 
             // inline_menu
             // 
             this.inline_menu._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_menu._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_menu._ReadOnly = false;
             this.inline_menu._Text = "";
             this.inline_menu._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -413,17 +410,19 @@
             this.inline_menu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_menu.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.inline_menu.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_menu.Location = new System.Drawing.Point(126, 40);
+            this.inline_menu.Location = new System.Drawing.Point(131, 15);
             this.inline_menu.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_menu.Name = "inline_menu";
             this.inline_menu.Size = new System.Drawing.Size(118, 23);
             this.inline_menu.TabIndex = 2;
             this.inline_menu._ButtonClick += new System.EventHandler(this.inline_menu__ButtonClick);
             this.inline_menu._Leave += new System.EventHandler(this.inline_menu__Leave);
+            this.inline_menu._TextChanged += new System.EventHandler(this.inline_menu__TextChanged);
             // 
             // inline_datacod
             // 
             this.inline_datacod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_datacod._CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.inline_datacod._ReadOnly = false;
             this.inline_datacod._Text = "";
             this.inline_datacod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -432,197 +431,18 @@
             this.inline_datacod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_datacod.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.inline_datacod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_datacod.Location = new System.Drawing.Point(3, 40);
+            this.inline_datacod.Location = new System.Drawing.Point(5, 15);
             this.inline_datacod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_datacod.Name = "inline_datacod";
             this.inline_datacod.Size = new System.Drawing.Size(120, 23);
             this.inline_datacod.TabIndex = 1;
             this.inline_datacod._ButtonClick += new System.EventHandler(this.inline_datacod__ButtonClick);
             this.inline_datacod._Leave += new System.EventHandler(this.inline_datacod__Leave);
-            // 
-            // dgv
-            // 
-            this.dgv.AllowSortByColumnHeaderClicked = false;
-            this.dgv.AllowUserToAddRows = false;
-            this.dgv.AllowUserToDeleteRows = false;
-            this.dgv.AllowUserToResizeColumns = false;
-            this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgv.ColumnHeadersHeight = 28;
-            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_id,
-            this.col_username,
-            this.col_datacod,
-            this.col_modcod,
-            this.col_moddesc,
-            this.col_read,
-            this.col_add,
-            this.col_edit,
-            this.col_delete,
-            this.col_print,
-            this.col_approve,
-            this.col_scacclv,
-            this.col_scmodul,
-            this.col_scmodul_id});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgv.EnableHeadersVisualStyles = false;
-            this.dgv.FillEmptyRow = false;
-            this.dgv.FocusedRowBorderRedLine = true;
-            this.dgv.Location = new System.Drawing.Point(0, 88);
-            this.dgv.MultiSelect = false;
-            this.dgv.Name = "dgv";
-            this.dgv.ReadOnly = true;
-            this.dgv.RowHeadersVisible = false;
-            this.dgv.RowTemplate.Height = 26;
-            this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(854, 220);
-            this.dgv.StandardTab = true;
-            this.dgv.TabIndex = 0;
-            this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
-            this.dgv.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgv_RowPostPaint);
-            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
-            this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
-            // 
-            // col_id
-            // 
-            this.col_id.DataPropertyName = "id";
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
-            // 
-            // col_username
-            // 
-            this.col_username.DataPropertyName = "username";
-            this.col_username.HeaderText = "User Name";
-            this.col_username.Name = "col_username";
-            this.col_username.ReadOnly = true;
-            this.col_username.Visible = false;
-            // 
-            // col_datacod
-            // 
-            this.col_datacod.DataPropertyName = "datacod";
-            this.col_datacod.HeaderText = "รหัสข้อมูล";
-            this.col_datacod.MinimumWidth = 120;
-            this.col_datacod.Name = "col_datacod";
-            this.col_datacod.ReadOnly = true;
-            this.col_datacod.Width = 120;
-            // 
-            // col_modcod
-            // 
-            this.col_modcod.DataPropertyName = "modcod";
-            this.col_modcod.HeaderText = "เมนู";
-            this.col_modcod.MinimumWidth = 120;
-            this.col_modcod.Name = "col_modcod";
-            this.col_modcod.ReadOnly = true;
-            this.col_modcod.Width = 120;
-            // 
-            // col_moddesc
-            // 
-            this.col_moddesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_moddesc.DataPropertyName = "moddesc";
-            this.col_moddesc.HeaderText = "รายละเอียด";
-            this.col_moddesc.MinimumWidth = 120;
-            this.col_moddesc.Name = "col_moddesc";
-            this.col_moddesc.ReadOnly = true;
-            // 
-            // col_read
-            // 
-            this.col_read.DataPropertyName = "read";
-            this.col_read.HeaderText = "อ่าน";
-            this.col_read.MinimumWidth = 50;
-            this.col_read.Name = "col_read";
-            this.col_read.ReadOnly = true;
-            this.col_read.Width = 50;
-            // 
-            // col_add
-            // 
-            this.col_add.DataPropertyName = "add";
-            this.col_add.HeaderText = "เพิ่ม";
-            this.col_add.MinimumWidth = 50;
-            this.col_add.Name = "col_add";
-            this.col_add.ReadOnly = true;
-            this.col_add.Width = 50;
-            // 
-            // col_edit
-            // 
-            this.col_edit.DataPropertyName = "edit";
-            this.col_edit.HeaderText = "แก้ไข";
-            this.col_edit.MinimumWidth = 50;
-            this.col_edit.Name = "col_edit";
-            this.col_edit.ReadOnly = true;
-            this.col_edit.Width = 50;
-            // 
-            // col_delete
-            // 
-            this.col_delete.DataPropertyName = "delete";
-            this.col_delete.HeaderText = "ลบ";
-            this.col_delete.MinimumWidth = 50;
-            this.col_delete.Name = "col_delete";
-            this.col_delete.ReadOnly = true;
-            this.col_delete.Width = 50;
-            // 
-            // col_print
-            // 
-            this.col_print.DataPropertyName = "print";
-            this.col_print.HeaderText = "พิมพ์";
-            this.col_print.MinimumWidth = 50;
-            this.col_print.Name = "col_print";
-            this.col_print.ReadOnly = true;
-            this.col_print.Width = 50;
-            // 
-            // col_approve
-            // 
-            this.col_approve.DataPropertyName = "approve";
-            this.col_approve.HeaderText = "รับรอง";
-            this.col_approve.MinimumWidth = 50;
-            this.col_approve.Name = "col_approve";
-            this.col_approve.ReadOnly = true;
-            this.col_approve.Width = 50;
-            // 
-            // col_scacclv
-            // 
-            this.col_scacclv.DataPropertyName = "scacclv";
-            this.col_scacclv.HeaderText = "Scacclv";
-            this.col_scacclv.Name = "col_scacclv";
-            this.col_scacclv.ReadOnly = true;
-            this.col_scacclv.Visible = false;
-            // 
-            // col_scmodul
-            // 
-            this.col_scmodul.DataPropertyName = "scmodul";
-            this.col_scmodul.HeaderText = "Scmodul";
-            this.col_scmodul.Name = "col_scmodul";
-            this.col_scmodul.ReadOnly = true;
-            this.col_scmodul.Visible = false;
-            // 
-            // col_scmodul_id
-            // 
-            this.col_scmodul_id.DataPropertyName = "scmodul_id";
-            this.col_scmodul_id.HeaderText = "Scmodul ID";
-            this.col_scmodul_id.Name = "col_scmodul_id";
-            this.col_scmodul_id.ReadOnly = true;
-            this.col_scmodul_id.Visible = false;
+            this.inline_datacod._TextChanged += new System.EventHandler(this.inline_datacod__TextChanged);
             // 
             // btnDeleteItem
             // 
-            this.btnDeleteItem.Location = new System.Drawing.Point(409, 40);
+            this.btnDeleteItem.Location = new System.Drawing.Point(426, 15);
             this.btnDeleteItem.Name = "btnDeleteItem";
             this.btnDeleteItem.Size = new System.Drawing.Size(53, 22);
             this.btnDeleteItem.TabIndex = 4;
@@ -633,7 +453,7 @@
             // 
             // btnEditItem
             // 
-            this.btnEditItem.Location = new System.Drawing.Point(358, 40);
+            this.btnEditItem.Location = new System.Drawing.Point(375, 15);
             this.btnEditItem.Name = "btnEditItem";
             this.btnEditItem.Size = new System.Drawing.Size(45, 22);
             this.btnEditItem.TabIndex = 4;
@@ -644,7 +464,7 @@
             // 
             // btnAddItem
             // 
-            this.btnAddItem.Location = new System.Drawing.Point(307, 40);
+            this.btnAddItem.Location = new System.Drawing.Point(324, 15);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(45, 22);
             this.btnAddItem.TabIndex = 4;
@@ -652,6 +472,16 @@
             this.btnAddItem.Text = "Add";
             this.btnAddItem.UseVisualStyleBackColor = true;
             this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(854, 311);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "ข้อมูล และเมนูที่อนุญาตให้กลุ่มของผู้ใช้ <F7>";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -758,11 +588,13 @@
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label6.Location = new System.Drawing.Point(20, 184);
+            this.label6.MinimumSize = new System.Drawing.Size(526, 35);
             this.label6.Name = "label6";
             this.label6.Padding = new System.Windows.Forms.Padding(5);
-            this.label6.Size = new System.Drawing.Size(475, 35);
+            this.label6.Size = new System.Drawing.Size(526, 35);
             this.label6.TabIndex = 10;
-            this.label6.Text = "หมายเหตุ : รหัสผู้ใช้งาน และ รายละเอียดต่าง ๆ นี้ถูกกำหนดไว้ในโปรแกรมเอ็กซ์เพรส";
+            this.label6.Text = "หมายเหตุ : รหัสผู้ใช้งาน และ รายละเอียดต่าง ๆ ข้างบนนี้ถูกกำหนดไว้ในโปรแกรมเอ็กซ์" +
+    "เพรส";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblUserGroup
@@ -801,6 +633,214 @@
             this.txtLanguage.Size = new System.Drawing.Size(56, 23);
             this.txtLanguage.TabIndex = 9;
             this.txtLanguage.TabStop = false;
+            // 
+            // dgv
+            // 
+            this.dgv.AllowSortByColumnHeaderClicked = false;
+            this.dgv.AllowUserToAddRows = false;
+            this.dgv.AllowUserToDeleteRows = false;
+            this.dgv.AllowUserToResizeColumns = false;
+            this.dgv.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv.ColumnHeadersHeight = 28;
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_id,
+            this.col_username,
+            this.col_datacod,
+            this.col_modcod,
+            this.col_moddesc,
+            this.col_read,
+            this.col_add,
+            this.col_edit,
+            this.col_delete,
+            this.col_print,
+            this.col_approve,
+            this.col_scacclv,
+            this.col_scmodul,
+            this.col_scmodul_id});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgv.EnableHeadersVisualStyles = false;
+            this.dgv.FillEmptyRow = false;
+            this.dgv.FocusedRowBorderRedLine = true;
+            this.dgv.Location = new System.Drawing.Point(5, 45);
+            this.dgv.MultiSelect = false;
+            this.dgv.Name = "dgv";
+            this.dgv.ReadOnly = true;
+            this.dgv.RowHeadersVisible = false;
+            this.dgv.RowTemplate.Height = 26;
+            this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv.Size = new System.Drawing.Size(844, 261);
+            this.dgv.StandardTab = true;
+            this.dgv.TabIndex = 0;
+            this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
+            this.dgv.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgv_RowPostPaint);
+            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
+            this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
+            // 
+            // col_scmodul_id
+            // 
+            this.col_scmodul_id.DataPropertyName = "scmodul_id";
+            this.col_scmodul_id.HeaderText = "Scmodul ID";
+            this.col_scmodul_id.Name = "col_scmodul_id";
+            this.col_scmodul_id.ReadOnly = true;
+            this.col_scmodul_id.Visible = false;
+            // 
+            // col_scmodul
+            // 
+            this.col_scmodul.DataPropertyName = "scmodul";
+            this.col_scmodul.HeaderText = "Scmodul";
+            this.col_scmodul.Name = "col_scmodul";
+            this.col_scmodul.ReadOnly = true;
+            this.col_scmodul.Visible = false;
+            // 
+            // col_scacclv
+            // 
+            this.col_scacclv.DataPropertyName = "scacclv";
+            this.col_scacclv.HeaderText = "Scacclv";
+            this.col_scacclv.Name = "col_scacclv";
+            this.col_scacclv.ReadOnly = true;
+            this.col_scacclv.Visible = false;
+            // 
+            // col_approve
+            // 
+            this.col_approve.DataPropertyName = "approve";
+            this.col_approve.HeaderText = "รับรอง";
+            this.col_approve.MinimumWidth = 50;
+            this.col_approve.Name = "col_approve";
+            this.col_approve.ReadOnly = true;
+            this.col_approve.Width = 50;
+            // 
+            // col_print
+            // 
+            this.col_print.DataPropertyName = "print";
+            this.col_print.HeaderText = "พิมพ์";
+            this.col_print.MinimumWidth = 50;
+            this.col_print.Name = "col_print";
+            this.col_print.ReadOnly = true;
+            this.col_print.Width = 50;
+            // 
+            // col_delete
+            // 
+            this.col_delete.DataPropertyName = "delete";
+            this.col_delete.HeaderText = "ลบ";
+            this.col_delete.MinimumWidth = 50;
+            this.col_delete.Name = "col_delete";
+            this.col_delete.ReadOnly = true;
+            this.col_delete.Width = 50;
+            // 
+            // col_edit
+            // 
+            this.col_edit.DataPropertyName = "edit";
+            this.col_edit.HeaderText = "แก้ไข";
+            this.col_edit.MinimumWidth = 50;
+            this.col_edit.Name = "col_edit";
+            this.col_edit.ReadOnly = true;
+            this.col_edit.Width = 50;
+            // 
+            // col_add
+            // 
+            this.col_add.DataPropertyName = "add";
+            this.col_add.HeaderText = "เพิ่ม";
+            this.col_add.MinimumWidth = 50;
+            this.col_add.Name = "col_add";
+            this.col_add.ReadOnly = true;
+            this.col_add.Width = 50;
+            // 
+            // col_read
+            // 
+            this.col_read.DataPropertyName = "read";
+            this.col_read.HeaderText = "อ่าน";
+            this.col_read.MinimumWidth = 50;
+            this.col_read.Name = "col_read";
+            this.col_read.ReadOnly = true;
+            this.col_read.Width = 50;
+            // 
+            // col_moddesc
+            // 
+            this.col_moddesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_moddesc.DataPropertyName = "moddesc";
+            this.col_moddesc.HeaderText = "รายละเอียด";
+            this.col_moddesc.MinimumWidth = 120;
+            this.col_moddesc.Name = "col_moddesc";
+            this.col_moddesc.ReadOnly = true;
+            // 
+            // col_modcod
+            // 
+            this.col_modcod.DataPropertyName = "modcod";
+            this.col_modcod.HeaderText = "เมนู";
+            this.col_modcod.MinimumWidth = 120;
+            this.col_modcod.Name = "col_modcod";
+            this.col_modcod.ReadOnly = true;
+            this.col_modcod.Width = 120;
+            // 
+            // col_datacod
+            // 
+            this.col_datacod.DataPropertyName = "datacod";
+            this.col_datacod.HeaderText = "รหัสข้อมูล";
+            this.col_datacod.MinimumWidth = 120;
+            this.col_datacod.Name = "col_datacod";
+            this.col_datacod.ReadOnly = true;
+            this.col_datacod.Width = 120;
+            // 
+            // col_username
+            // 
+            this.col_username.DataPropertyName = "username";
+            this.col_username.HeaderText = "User Name";
+            this.col_username.Name = "col_username";
+            this.col_username.ReadOnly = true;
+            this.col_username.Visible = false;
+            // 
+            // col_id
+            // 
+            this.col_id.DataPropertyName = "id";
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
+            // 
+            // btnItem
+            // 
+            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnItemF8,
+            this.btnItemF7});
+            this.btnItem.Image = global::XPump.Properties.Resources.item;
+            this.btnItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.btnItem.Name = "btnItem";
+            this.btnItem.Size = new System.Drawing.Size(45, 40);
+            this.btnItem.Text = "เมนูที่อนุญาตให้ผู้ใช้รายนี้ <F8>";
+            // 
+            // btnItemF8
+            // 
+            this.btnItemF8.Name = "btnItemF8";
+            this.btnItemF8.Size = new System.Drawing.Size(287, 22);
+            this.btnItemF8.Text = "ข้อมูล และเมนูที่อนุญาตให้ผู้ใช้รายนี้ <F8>";
+            this.btnItemF8.Click += new System.EventHandler(this.btnItemF8_Click);
+            // 
+            // btnItemF7
+            // 
+            this.btnItemF7.Name = "btnItemF7";
+            this.btnItemF7.Size = new System.Drawing.Size(287, 22);
+            this.btnItemF7.Text = "ข้อมูล และเมนูที่อนุญาตให้กลุ่มของผู้ใช้ <F7>";
+            this.btnItemF7.Click += new System.EventHandler(this.btnItemF7_Click);
             // 
             // FormSecure
             // 
@@ -874,7 +914,6 @@
         private System.Windows.Forms.TextBox txtLevel;
         private System.Windows.Forms.TextBox txtSecure;
         private System.Windows.Forms.TextBox txtStatus;
-        private CC.XDatagrid dgv;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblUserGroup;
         private System.Windows.Forms.Label label8;
@@ -891,6 +930,8 @@
         private System.Windows.Forms.Button btnDeleteItem;
         private System.Windows.Forms.Button btnEditItem;
         private System.Windows.Forms.Button btnAddItem;
+        private System.Windows.Forms.TabPage tabPage2;
+        private CC.XDatagrid dgv;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_username;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_datacod;
@@ -905,6 +946,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_scacclv;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_scmodul;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_scmodul_id;
-        private System.Windows.Forms.ToolStripButton btnItem;
+        private System.Windows.Forms.ToolStripDropDownButton btnItem;
+        private System.Windows.Forms.ToolStripMenuItem btnItemF8;
+        private System.Windows.Forms.ToolStripMenuItem btnItemF7;
     }
 }

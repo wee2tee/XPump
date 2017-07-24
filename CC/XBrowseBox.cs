@@ -108,6 +108,18 @@ namespace CC
             }
         }
 
+        public CharacterCasing _CharacterCasing
+        {
+            get
+            {
+                return this._textBox.CharacterCasing;
+            }
+            set
+            {
+                this._textBox.CharacterCasing = value;
+            }
+        }
+
         private bool focused;
         public bool _Focused
         {

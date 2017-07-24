@@ -45,7 +45,7 @@ namespace XPump.Misc
         REST
     }
 
-    public enum DGV_TAG
+    public enum DGVROW_TAG
     {
         NORMAL,
         DELETE

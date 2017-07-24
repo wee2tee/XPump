@@ -226,6 +226,10 @@ namespace XPump.SubForm
                 cmd.CommandText += "`delete` VARCHAR(1) NOT NULL,";
                 cmd.CommandText += "`print` VARCHAR(1) NOT NULL,";
                 cmd.CommandText += "`approve` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL,";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
                 cmd.CommandText += "PRIMARY KEY(`id`),";
                 cmd.CommandText += "CONSTRAINT `fk-scacclv-scmodul_id` FOREIGN KEY (`scmodul_id`) REFERENCES `" + config.db_prefix + "_xpumpsecure`.`scmodul` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION, ";
                 cmd.CommandText += "INDEX `ndx-scacclv-username` (`username` ASC)) ";

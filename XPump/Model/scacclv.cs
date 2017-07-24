@@ -24,6 +24,10 @@ namespace XPump.Model
         public string delete { get; set; }
         public string print { get; set; }
         public string approve { get; set; }
+        public string creby { get; set; }
+        public System.DateTime cretime { get; set; }
+        public string chgby { get; set; }
+        public Nullable<System.DateTime> chgtime { get; set; }
     
         public virtual scmodul scmodul { get; set; }
     }

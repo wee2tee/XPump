@@ -19,6 +19,7 @@ namespace XPump.SubForm
         private ScuserDbf curr_user;
         private scacclvVM tmp_scacclv;
         private BindingList<scacclvVM> bl_scacclv = new BindingList<scacclvVM>();
+        //private BindingList<scacclvVM> bl_scacclv2 = new BindingList<scacclvVM>();
         private List<scmodul> scmodul_list;
         private List<SccompDbf> sccomp_list;
         private FORM_MODE form_mode;
@@ -65,6 +66,8 @@ namespace XPump.SubForm
             this.btnInquiryRest.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnItemF7.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnItemF8.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             this.btnAddItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
@@ -77,7 +80,7 @@ namespace XPump.SubForm
 
         private void FillForm()
         {
-            if(this.curr_user != null)
+            if (this.curr_user != null)
             {
                 this.txtUserId.Text = this.curr_user.reccod.Trim();
                 this.txtUserName.Text = this.curr_user.recdes.Trim();
@@ -179,6 +182,8 @@ namespace XPump.SubForm
 
         private void RemoveInlineForm()
         {
+            this.tmp_scacclv = null;
+
             this.inline_datacod.SetBounds(-9999, 0, 0, 0);
             this.inline_datacod._Text = string.Empty;
             this.inline_menu.SetBounds(-9999, 0, 0, 0);
@@ -195,19 +200,108 @@ namespace XPump.SubForm
             this.inline_print._Text = string.Empty;
             this.inline_approve.SetBounds(-9999, 0, 0, 0);
             this.inline_approve._Text = string.Empty;
-
-            this.tmp_scacclv = null;
         }
 
-        private List<scacclv> GetScacclv(ScuserDbf scuser)
+        //private void ShowInlineFormF7()
+        //{
+        //    List<XDropdownList> dl = new List<XDropdownList>
+        //    {
+        //        this.inline_read2,
+        //        this.inline_add2,
+        //        this.inline_edit2,
+        //        this.inline_delete2,
+        //        this.inline_print2,
+        //        this.inline_approve2
+        //    };
+
+        //    foreach (var item in dl)
+        //    {
+        //        item._Items.Clear();
+        //        item._Items.Add(new XDropdownListItem { Text = "Y", Value = "Y" });
+        //        item._Items.Add(new XDropdownListItem { Text = "N", Value = "N" });
+        //    }
+
+        //    this.inline_datacod2._Text = this.tmp_scacclv.datacod;
+        //    this.inline_menu2._Text = this.tmp_scacclv.modcod;
+        //    this.inline_read2._Text = this.tmp_scacclv.read;
+        //    this.inline_add2._Text = this.tmp_scacclv.add;
+        //    this.inline_edit2._Text = this.tmp_scacclv.edit;
+        //    this.inline_delete2._Text = this.tmp_scacclv.delete;
+        //    this.inline_print2._Text = this.tmp_scacclv.print;
+        //    this.inline_approve2._Text = this.tmp_scacclv.approve;
+
+        //    this.SetInlineControlPositionF7();
+        //}
+
+        //private void SetInlineControlPositionF7()
+        //{
+        //    if (!(this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM))
+        //        return;
+
+        //    int col_index = this.dgv2.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_datacod2.Name).First().Index;
+        //    this.inline_datacod2.SetInlineControlPosition(this.dgv2, this.dgv2.CurrentCell.RowIndex, col_index);
+
+        //    col_index = this.dgv2.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_modcod2.Name).First().Index;
+        //    this.inline_menu2.SetInlineControlPosition(this.dgv2, this.dgv2.CurrentCell.RowIndex, col_index);
+
+        //    col_index = this.dgv2.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_read2.Name).First().Index;
+        //    this.inline_read2.SetInlineControlPosition(this.dgv2, this.dgv2.CurrentCell.RowIndex, col_index);
+
+        //    col_index = this.dgv2.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_add2.Name).First().Index;
+        //    this.inline_add2.SetInlineControlPosition(this.dgv2, this.dgv2.CurrentCell.RowIndex, col_index);
+
+        //    col_index = this.dgv2.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_edit2.Name).First().Index;
+        //    this.inline_edit2.SetInlineControlPosition(this.dgv2, this.dgv2.CurrentCell.RowIndex, col_index);
+
+        //    col_index = this.dgv2.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_delete2.Name).First().Index;
+        //    this.inline_delete2.SetInlineControlPosition(this.dgv2, this.dgv2.CurrentCell.RowIndex, col_index);
+
+        //    col_index = this.dgv2.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_print2.Name).First().Index;
+        //    this.inline_print2.SetInlineControlPosition(this.dgv2, this.dgv2.CurrentCell.RowIndex, col_index);
+
+        //    col_index = this.dgv2.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_approve2.Name).First().Index;
+        //    this.inline_approve2.SetInlineControlPosition(this.dgv2, this.dgv2.CurrentCell.RowIndex, col_index);
+        //}
+
+        //private void RemoveInlineFormF7()
+        //{
+        //    this.tmp_scacclv = null;
+
+        //    this.inline_datacod2.SetBounds(-9999, 0, 0, 0);
+        //    this.inline_datacod2._Text = string.Empty;
+        //    this.inline_menu2.SetBounds(-9999, 0, 0, 0);
+        //    this.inline_menu2._Text = string.Empty;
+        //    this.inline_read2.SetBounds(-9999, 0, 0, 0);
+        //    this.inline_read2._Text = string.Empty;
+        //    this.inline_add2.SetBounds(-9999, 0, 0, 0);
+        //    this.inline_add2._Text = string.Empty;
+        //    this.inline_edit2.SetBounds(-9999, 0, 0, 0);
+        //    this.inline_edit2._Text = string.Empty;
+        //    this.inline_delete2.SetBounds(-9999, 0, 0, 0);
+        //    this.inline_delete2._Text = string.Empty;
+        //    this.inline_print2.SetBounds(-9999, 0, 0, 0);
+        //    this.inline_print2._Text = string.Empty;
+        //    this.inline_approve2.SetBounds(-9999, 0, 0, 0);
+        //    this.inline_approve2._Text = string.Empty;
+        //}
+
+        private List<scacclv> GetScacclv(ScuserDbf scuser, bool is_group = false)
         {
             using (xpumpsecureEntities sec = DBX.DataSecureSet())
             {
                 if (scuser == null)
                     return new List<scacclv>();
 
-                var scacclv = sec.scacclv.Where(s => s.username == scuser.reccod.Trim()).ToList();
-                return scacclv;
+                if (!is_group) // access level for user
+                {
+                    var scacclv = sec.scacclv.Where(s => s.username == scuser.reccod.Trim()).ToList();
+                    return scacclv;
+                }
+                else // access level for group
+                {
+                    var scacclv = sec.scacclv.Where(s => s.username == scuser.connectgrp.Trim()).ToList();
+                    return scacclv;
+                }
             }
         }
 
@@ -223,12 +317,19 @@ namespace XPump.SubForm
             if (sc.Count > 0)
             {
                 this.curr_user = sc.First();
-                this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+
+                if (this.tabControl1.SelectedTab == this.tabPage1)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if (this.tabControl1.SelectedTab == this.tabPage2)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user, true).ToViewModel());
             }
             else
             {
                 this.curr_user = null;
-                this.bl_scacclv = new BindingList<scacclvVM>();
+                if (this.tabControl1.SelectedTab == this.tabPage1)
+                    this.bl_scacclv = new BindingList<scacclvVM>();
+                if (this.tabControl1.SelectedTab == this.tabPage2)
+                    this.bl_scacclv = new BindingList<scacclvVM>();
             }
 
             this.FillForm();
@@ -244,7 +345,10 @@ namespace XPump.SubForm
             if (sc.Count > 0)
             {
                 this.curr_user = sc.First();
-                this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if (this.tabControl1.SelectedTab == this.tabPage1)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if (this.tabControl1.SelectedTab == this.tabPage2)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user, true).ToViewModel());
                 this.FillForm();
             }
             else
@@ -263,7 +367,10 @@ namespace XPump.SubForm
             if (sc.Count > 0)
             {
                 this.curr_user = sc.First();
-                this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if (this.tabControl1.SelectedTab == this.tabPage1)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if (this.tabControl1.SelectedTab == this.tabPage2)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user, true).ToViewModel());
                 this.FillForm();
             }
             else
@@ -279,12 +386,18 @@ namespace XPump.SubForm
             if (sc.Count > 0)
             {
                 this.curr_user = sc.Last();
-                this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if (this.tabControl1.SelectedTab == this.tabPage1)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if (this.tabControl1.SelectedTab == this.tabPage2)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user, true).ToViewModel());
             }
             else
             {
                 this.curr_user = null;
-                this.bl_scacclv = new BindingList<scacclvVM>();
+                if (this.tabControl1.SelectedTab == this.tabPage1)
+                    this.bl_scacclv = new BindingList<scacclvVM>();
+                if (this.tabControl1.SelectedTab == this.tabPage2)
+                    this.bl_scacclv = new BindingList<scacclvVM>();
             }
 
             this.FillForm();
@@ -292,16 +405,19 @@ namespace XPump.SubForm
 
         private void btnAddItem_Click(object sender, EventArgs e)
         {
-            this.tmp_scacclv = new scacclv { id = -1, username = this.curr_user.reccod.Trim(), datacod = string.Empty, scmodul_id = -1, read = string.Empty, add = string.Empty, edit = string.Empty, delete = string.Empty, print = string.Empty, approve = string.Empty }.ToViewModel();
+            this.inline_datacod.Focus();
+
+            string access_id = this.tabControl1.SelectedTab == this.tabPage1 ? this.curr_user.reccod.Trim() : (this.tabControl1.SelectedTab == this.tabPage2 ? this.curr_user.connectgrp.Trim() : string.Empty);
+
+            this.tmp_scacclv = new scacclv { id = -1, username = access_id, datacod = string.Empty, scmodul_id = -1, read = "N", add = "N", edit = "N", delete = "N", print = "N", approve = "N" }.ToViewModel();
             this.bl_scacclv.Add(this.tmp_scacclv);
-            
+
             var added_row = this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == this.tmp_scacclv.id).FirstOrDefault();
-            if(added_row != null)
+            if (added_row != null)
             {
-                this.ResetFormState(FORM_MODE.ADD_ITEM);
                 added_row.Cells[this.col_datacod.Name].Selected = true;
+                this.ResetFormState(FORM_MODE.ADD_ITEM);
                 this.ShowInlineForm();
-                this.inline_datacod.Focus();
             }
             else
             {
@@ -326,11 +442,11 @@ namespace XPump.SubForm
                 return;
 
             scacclv s = (scacclv)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_scacclv.Name].Value;
-            this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Tag = DGV_TAG.DELETE;
+            this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Tag = DGVROW_TAG.DELETE;
             this.dgv.Refresh();
             if (XMessageBox.Show("ลบข้อมูลนี้หรือไม่", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
             {
-                this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Tag = DGV_TAG.NORMAL;
+                this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Tag = DGVROW_TAG.NORMAL;
                 this.dgv.Refresh();
                 this.dgv.Focus();
                 return;
@@ -341,7 +457,7 @@ namespace XPump.SubForm
                 try
                 {
                     var scacclv_to_delete = sec.scacclv.Find(s.id);
-                    if(scacclv_to_delete == null)
+                    if (scacclv_to_delete == null)
                     {
                         XMessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     }
@@ -361,7 +477,7 @@ namespace XPump.SubForm
 
         private void dgv_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
 
@@ -443,7 +559,7 @@ namespace XPump.SubForm
             Point p = ((XBrowseBox)sender).PointToScreen(Point.Empty);
             inq.StartPosition = FormStartPosition.Manual;
             inq.SetBounds(p.X + ((XBrowseBox)sender).Width, p.Y, inq.Width, inq.Height);
-            if(inq.ShowDialog() == DialogResult.OK)
+            if (inq.ShowDialog() == DialogResult.OK)
             {
                 ((XBrowseBox)sender)._Text = (string)inq.selected_row.Cells[cols.Where(c => c.DataPropertyName == "compcod").First().Name].Value;
             }
@@ -508,24 +624,30 @@ namespace XPump.SubForm
             if (this.tmp_scacclv == null)
                 return;
 
-            var selected_data = this.sccomp_list.Where(s => s.compcod.Trim() == ((XBrowseBox)sender)._Text).FirstOrDefault();
+            this.bl_scacclv.ResetItem(this.bl_scacclv.IndexOf(this.bl_scacclv.Where(b => b.id == this.tmp_scacclv.id).First()));
+            ((XBrowseBox)sender)._Text = this.bl_scacclv[this.bl_scacclv.IndexOf(this.bl_scacclv.Where(b => b.id == this.tmp_scacclv.id).First())].datacod;
 
-            if(selected_data != null)
+            if (this.tmp_scacclv.datacod.Trim().Length == 0)
+            {
+                ((XBrowseBox)sender).Focus();
+                SendKeys.Send("{F6}");
+            }
+        }
+
+        private void inline_datacod__TextChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_scacclv == null)
+                return;
+
+            var selected_data = this.sccomp_list.Where(s => s.compcod.Trim() == ((XBrowseBox)sender)._Text.Trim()).FirstOrDefault();
+
+            if (selected_data != null)
             {
                 this.tmp_scacclv.scacclv.datacod = selected_data.compcod;
             }
             else
             {
                 this.tmp_scacclv.scacclv.datacod = string.Empty;
-            }
-
-            this.bl_scacclv.ResetItem(this.bl_scacclv.IndexOf(this.bl_scacclv.Where(b => b.id == this.tmp_scacclv.id).First()));
-            ((XBrowseBox)sender)._Text = this.bl_scacclv[this.bl_scacclv.IndexOf(this.bl_scacclv.Where(b => b.id == this.tmp_scacclv.id).First())].datacod;
-
-            if(this.tmp_scacclv.datacod.Trim().Length == 0)
-            {
-                ((XBrowseBox)sender).Focus();
-                SendKeys.Send("{F6}");
             }
         }
 
@@ -534,9 +656,24 @@ namespace XPump.SubForm
             if (this.tmp_scacclv == null)
                 return;
 
+            this.bl_scacclv.ResetItem(this.bl_scacclv.IndexOf(this.bl_scacclv.Where(b => b.id == this.tmp_scacclv.id).First()));
+            ((XBrowseBox)sender)._Text = this.bl_scacclv[this.bl_scacclv.IndexOf(this.bl_scacclv.Where(b => b.id == this.tmp_scacclv.id).First())].modcod;
+
+            if (this.tmp_scacclv.scmodul_id == -1)
+            {
+                ((XBrowseBox)sender).Focus();
+                SendKeys.Send("{F6}");
+            }
+        }
+
+        private void inline_menu__TextChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_scacclv == null)
+                return;
+
             var selected_menu = this.scmodul_list.Where(s => s.modcod == ((XBrowseBox)sender)._Text).FirstOrDefault();
 
-            if(selected_menu != null)
+            if (selected_menu != null)
             {
                 this.tmp_scacclv.scacclv.scmodul_id = selected_menu.id;
             }
@@ -544,20 +681,6 @@ namespace XPump.SubForm
             {
                 this.tmp_scacclv.scacclv.scmodul_id = -1;
             }
-            this.bl_scacclv.ResetItem(this.bl_scacclv.IndexOf(this.bl_scacclv.Where(b => b.id == this.tmp_scacclv.id).First()));
-            ((XBrowseBox)sender)._Text = this.bl_scacclv[this.bl_scacclv.IndexOf(this.bl_scacclv.Where(b => b.id == this.tmp_scacclv.id).First())].modcod;
-
-            if(this.tmp_scacclv.scmodul_id == -1)
-            {
-                ((XBrowseBox)sender).Focus();
-                SendKeys.Send("{F6}");
-            }
-        }
-
-        private void inline_dropdownlist_Enter(object sender, EventArgs e)
-        {
-            //SendKeys.Send("{F6}");
-            //((XDropdownList)sender).comboBox1.DroppedDown = true;
         }
 
         private void inline_read__SelectedItemChanged(object sender, EventArgs e)
@@ -596,22 +719,16 @@ namespace XPump.SubForm
                 this.tmp_scacclv.scacclv.approve = ((XDropdownList)sender)._Text;
         }
 
-        private void btnItem_Click(object sender, EventArgs e)
-        {
-            this.ResetFormState(FORM_MODE.READ_ITEM);
-            this.dgv.Focus();
-        }
-
         private void btnStop_Click(object sender, EventArgs e)
         {
-            if(this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+            if (this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
             {
                 this.RemoveInlineForm();
                 this.bl_scacclv.Remove(this.bl_scacclv.Where(s => s.id == -1).FirstOrDefault());
                 this.ResetFormState(FORM_MODE.READ_ITEM);
                 return;
             }
-            if(this.form_mode == FORM_MODE.READ_ITEM)
+            if (this.form_mode == FORM_MODE.READ_ITEM)
             {
                 this.ResetFormState(FORM_MODE.READ);
                 this.dgv.Refresh();
@@ -625,12 +742,27 @@ namespace XPump.SubForm
             if (this.tmp_scacclv == null)
                 return;
 
-            if(this.form_mode == FORM_MODE.ADD_ITEM)
+            if (this.tmp_scacclv.datacod.Trim().Length == 0)
+            {
+                XMessageBox.Show("กรุณาระบุรหัสข้อมูล", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                this.inline_datacod.Focus();
+                return;
+            }
+
+            if (this.tmp_scacclv.scmodul_id < 1)
+            {
+                XMessageBox.Show("กรุณาระบุเมนู", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                this.inline_menu.Focus();
+                return;
+            }
+
+
+            if (this.form_mode == FORM_MODE.ADD_ITEM)
             {
                 using (xpumpsecureEntities sec = DBX.DataSecureSet())
                 {
                     var sc = sec.scacclv.Include("scmodul").Where(s => s.username == this.tmp_scacclv.username && s.datacod == this.tmp_scacclv.datacod && s.scmodul_id == this.tmp_scacclv.scmodul_id);
-                    if(sc.Count() > 0)
+                    if (sc.Count() > 0)
                     {
                         XMessageBox.Show("เมนู \"" + this.tmp_scacclv.scmodul.description + "\" ถูกกำหนดไว้แล้วสำหรับข้อมูล \"" + this.tmp_scacclv.datacod + "\"", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         this.inline_menu.Focus();
@@ -639,6 +771,9 @@ namespace XPump.SubForm
 
                     try
                     {
+                        this.tmp_scacclv.scacclv.creby = this.main_form.loged_in_status.loged_in_user_name;
+                        this.tmp_scacclv.scacclv.cretime = DateTime.Now;
+
                         sec.scacclv.Add(this.tmp_scacclv.scacclv);
                         sec.SaveChanges();
                         this.RemoveInlineForm();
@@ -652,7 +787,7 @@ namespace XPump.SubForm
                 }
                 return;
             }
-            if(this.form_mode == FORM_MODE.EDIT_ITEM)
+            if (this.form_mode == FORM_MODE.EDIT_ITEM)
             {
                 using (xpumpsecureEntities sec = DBX.DataSecureSet())
                 {
@@ -667,7 +802,7 @@ namespace XPump.SubForm
                     try
                     {
                         var scacclv_to_update = sec.scacclv.Find(this.tmp_scacclv.id);
-                        if(scacclv_to_update != null)
+                        if (scacclv_to_update != null)
                         {
                             scacclv_to_update.datacod = this.tmp_scacclv.datacod;
                             scacclv_to_update.scmodul_id = this.tmp_scacclv.scmodul_id;
@@ -677,6 +812,8 @@ namespace XPump.SubForm
                             scacclv_to_update.delete = this.tmp_scacclv.delete;
                             scacclv_to_update.print = this.tmp_scacclv.print;
                             scacclv_to_update.approve = this.tmp_scacclv.approve;
+                            scacclv_to_update.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                            scacclv_to_update.chgtime = DateTime.Now;
                             sec.SaveChanges();
                             this.RemoveInlineForm();
                             this.ResetFormState(FORM_MODE.READ_ITEM);
@@ -700,10 +837,10 @@ namespace XPump.SubForm
             {
                 DialogSimpleSearch search = new DialogSimpleSearch("รหัสผู้ใช้", "");
                 search.txtKeyword.CharacterCasing = CharacterCasing.Upper;
-                if(search.ShowDialog() == DialogResult.OK)
+                if (search.ShowDialog() == DialogResult.OK)
                 {
                     ScuserDbf user = this.GetScuser(search.keyword.Trim());
-                    if(user == null)
+                    if (user == null)
                     {
                         XMessageBox.Show("ค้นหารหัสผู้ใช้ \"" + search.keyword.Trim() + "\" ไม่พบ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return;
@@ -711,7 +848,11 @@ namespace XPump.SubForm
                     else
                     {
                         this.curr_user = user;
-                        this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(user).ToViewModel());
+                        if(this.tabControl1.SelectedTab == this.tabPage1)
+                            this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(user).ToViewModel());
+                        if(this.tabControl1.SelectedTab == this.tabPage2)
+                            this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(user, true).ToViewModel());
+
                         this.FillForm();
                     }
                 }
@@ -742,7 +883,7 @@ namespace XPump.SubForm
 
             var scusers = DbfTable.Scuser().ToScuserList().Where(s => s.rectyp == "U").Select(s => new { reccod = s.reccod.Trim(), recdes = s.recdes.Trim() }).ToList<dynamic>();
             DialogInquiry inq = new DialogInquiry(scusers, cols, cols.Where(c => c.DataPropertyName == "reccod").First());
-            if(inq.ShowDialog() == DialogResult.OK)
+            if (inq.ShowDialog() == DialogResult.OK)
             {
                 var selected_user_name = (string)inq.selected_row.Cells[cols.Where(c => c.DataPropertyName == "reccod").First().Name].Value;
                 var user = this.GetScuser(selected_user_name);
@@ -750,7 +891,11 @@ namespace XPump.SubForm
                     return;
 
                 this.curr_user = user;
-                this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if(this.tabControl1.SelectedTab == this.tabPage1)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if(this.tabControl1.SelectedTab == this.tabPage2)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user, true).ToViewModel());
+
                 this.FillForm();
             }
         }
@@ -788,7 +933,11 @@ namespace XPump.SubForm
                     return;
 
                 this.curr_user = user;
-                this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if (this.tabControl1.SelectedTab == this.tabPage1)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                if(this.tabControl1.SelectedTab == this.tabPage2)
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user, true).ToViewModel());
+
                 this.FillForm();
             }
         }
@@ -800,7 +949,11 @@ namespace XPump.SubForm
                 this.curr_user = this.GetScuser(this.curr_user.reccod.Trim());
                 if (this.curr_user != null)
                 {
-                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                    if(this.tabControl1.SelectedTab == this.tabPage1)
+                        this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                    if(this.tabControl1.SelectedTab == this.tabPage2)
+                        this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user, true).ToViewModel());
+
                     this.FillForm();
                 }
                 else
@@ -822,9 +975,15 @@ namespace XPump.SubForm
             //    Console.WriteLine(" ==> " + this.ActiveControl.Name + " is focused.");
             //}
 
+            if(keyData == Keys.F7)
+            {
+                this.btnItemF7.PerformClick();
+                return true;
+            }
+
             if (keyData == Keys.F8)
             {
-                this.btnItem.PerformClick();
+                this.btnItemF8.PerformClick();
                 return true;
             }
 
@@ -893,7 +1052,7 @@ namespace XPump.SubForm
                 return true;
             }
 
-            if(keyData == (Keys.Alt | Keys.S))
+            if (keyData == (Keys.Alt | Keys.S))
             {
                 this.btnSearch.PerformButtonClick();
                 return true;
@@ -927,11 +1086,11 @@ namespace XPump.SubForm
             if (((XDatagrid)sender).Rows[e.RowIndex].Tag == null)
                 return;
 
-            if(e.RowIndex == ((XDatagrid)sender).CurrentCell.RowIndex)
+            if (e.RowIndex == ((XDatagrid)sender).CurrentCell.RowIndex)
             {
                 scacclv s = (scacclv)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_scacclv.Name].Value;
 
-                if(((XDatagrid)sender).Rows[e.RowIndex].Tag.GetType() == typeof(DGV_TAG) && (DGV_TAG)((XDatagrid)sender).Rows[e.RowIndex].Tag == DGV_TAG.DELETE)
+                if (((XDatagrid)sender).Rows[e.RowIndex].Tag.GetType() == typeof(DGVROW_TAG) && (DGVROW_TAG)((XDatagrid)sender).Rows[e.RowIndex].Tag == DGVROW_TAG.DELETE)
                 {
                     Rectangle row_rect = ((XDatagrid)sender).GetRowDisplayRectangle(((XDatagrid)sender).CurrentCell.RowIndex, true);
 
@@ -939,7 +1098,7 @@ namespace XPump.SubForm
                     {
                         using (Pen p = new Pen(Color.Red))
                         {
-                            e.Graphics.DrawLine(p, new Point(i, row_rect.Y), new Point(i+12, row_rect.Y + row_rect.Height - 2));
+                            e.Graphics.DrawLine(p, new Point(i, row_rect.Y), new Point(i + 12, row_rect.Y + row_rect.Height - 2));
                         }
                     }
                 }
@@ -951,8 +1110,118 @@ namespace XPump.SubForm
             if (e.RowIndex == -1 || ((XDatagrid)sender).CurrentCell == null)
                 return;
 
-            this.btnItem.PerformClick();
+            if(this.tabControl1.SelectedTab == this.tabPage1)
+                this.btnItemF8.PerformClick();
+
+            if (this.tabControl1.SelectedTab == this.tabPage2)
+                this.btnItemF7.PerformClick();
+
             this.btnEditItem.PerformClick();
+        }
+
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            if (e.TabPage == this.tabPage1)
+            {
+                if (this.curr_user != null)
+                {
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user).ToViewModel());
+                }
+                else
+                {
+                    this.bl_scacclv = new BindingList<scacclvVM>();
+                }
+                this.dgv.DataSource = this.bl_scacclv;
+
+                this.tabPage1.Controls.Add(this.btnAddItem);
+                this.tabPage1.Controls.Add(this.btnEditItem);
+                this.tabPage1.Controls.Add(this.btnDeleteItem);
+                this.tabPage1.Controls.Add(this.dgv);
+                this.tabPage1.Controls.Add(this.inline_datacod);
+                this.tabPage1.Controls.Add(this.inline_menu);
+                this.tabPage1.Controls.Add(this.inline_read);
+                this.tabPage1.Controls.Add(this.inline_add);
+                this.tabPage1.Controls.Add(this.inline_edit);
+                this.tabPage1.Controls.Add(this.inline_delete);
+                this.tabPage1.Controls.Add(this.inline_print);
+                this.tabPage1.Controls.Add(this.inline_approve);
+
+                this.tabPage1.Controls.SetChildIndex(this.btnAddItem, 11);
+                this.tabPage1.Controls.SetChildIndex(this.btnEditItem, 10);
+                this.tabPage1.Controls.SetChildIndex(this.btnDeleteItem, 9);
+                this.tabPage1.Controls.SetChildIndex(this.dgv, 8);
+                this.tabPage1.Controls.SetChildIndex(this.inline_datacod, 7);
+                this.tabPage1.Controls.SetChildIndex(this.inline_menu, 6);
+                this.tabPage1.Controls.SetChildIndex(this.inline_read, 5);
+                this.tabPage1.Controls.SetChildIndex(this.inline_add, 4);
+                this.tabPage1.Controls.SetChildIndex(this.inline_edit, 3);
+                this.tabPage1.Controls.SetChildIndex(this.inline_delete, 2);
+                this.tabPage1.Controls.SetChildIndex(this.inline_print, 1);
+                this.tabPage1.Controls.SetChildIndex(this.inline_approve, 0);
+                return;
+            }
+            if (e.TabPage == this.tabPage2)
+            {
+                if (this.curr_user != null)
+                {
+                    this.bl_scacclv = new BindingList<scacclvVM>(this.GetScacclv(this.curr_user, true).ToViewModel());
+                }
+                else
+                {
+                    this.bl_scacclv = new BindingList<scacclvVM>();
+                }
+                this.dgv.DataSource = this.bl_scacclv;
+
+                this.tabPage2.Controls.Add(this.btnAddItem);
+                this.tabPage2.Controls.Add(this.btnEditItem);
+                this.tabPage2.Controls.Add(this.btnDeleteItem);
+                this.tabPage2.Controls.Add(this.dgv);
+                this.tabPage2.Controls.Add(this.inline_datacod);
+                this.tabPage2.Controls.Add(this.inline_menu);
+                this.tabPage2.Controls.Add(this.inline_read);
+                this.tabPage2.Controls.Add(this.inline_add);
+                this.tabPage2.Controls.Add(this.inline_edit);
+                this.tabPage2.Controls.Add(this.inline_delete);
+                this.tabPage2.Controls.Add(this.inline_print);
+                this.tabPage2.Controls.Add(this.inline_approve);
+
+                this.tabPage2.Controls.SetChildIndex(this.btnAddItem, 11);
+                this.tabPage2.Controls.SetChildIndex(this.btnEditItem, 10);
+                this.tabPage2.Controls.SetChildIndex(this.btnDeleteItem, 9);
+                this.tabPage2.Controls.SetChildIndex(this.dgv, 8);
+                this.tabPage2.Controls.SetChildIndex(this.inline_datacod, 7);
+                this.tabPage2.Controls.SetChildIndex(this.inline_menu, 6);
+                this.tabPage2.Controls.SetChildIndex(this.inline_read, 5);
+                this.tabPage2.Controls.SetChildIndex(this.inline_add, 4);
+                this.tabPage2.Controls.SetChildIndex(this.inline_edit, 3);
+                this.tabPage2.Controls.SetChildIndex(this.inline_delete, 2);
+                this.tabPage2.Controls.SetChildIndex(this.inline_print, 1);
+                this.tabPage2.Controls.SetChildIndex(this.inline_approve, 0);
+                return;
+            }
+        }
+
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (this.form_mode == FORM_MODE.READ_ITEM || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+            {
+                e.Cancel = true;
+                return;
+            }
+        }
+
+        private void btnItemF8_Click(object sender, EventArgs e)
+        {
+            this.tabControl1.SelectedTab = this.tabPage1;
+            this.ResetFormState(FORM_MODE.READ_ITEM);
+            this.dgv.Focus();
+        }
+
+        private void btnItemF7_Click(object sender, EventArgs e)
+        {
+            this.tabControl1.SelectedTab = this.tabPage2;
+            this.ResetFormState(FORM_MODE.READ_ITEM);
+            this.dgv.Focus();
         }
     }
 }

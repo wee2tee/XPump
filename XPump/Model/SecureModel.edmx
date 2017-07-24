@@ -43,6 +43,10 @@
           <Property Name="delete" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="print" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="approve" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="creby" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cretime" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="chgby" Type="varchar" MaxLength="20" />
+          <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="scmodul">
           <Key>
@@ -136,6 +140,10 @@
           <Property Name="delete" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="print" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="approve" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="creby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cretime" Type="DateTime" Nullable="false" />
+          <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="scmodul" Relationship="Self.fk_scacclv_scmodul_id" FromRole="scacclv" ToRole="scmodul" />
         </EntityType>
         <EntityType Name="scmodul">
@@ -231,6 +239,10 @@
                 <ScalarProperty Name="delete" ColumnName="delete" />
                 <ScalarProperty Name="print" ColumnName="print" />
                 <ScalarProperty Name="approve" ColumnName="approve" />
+                <ScalarProperty Name="creby" ColumnName="creby" />
+                <ScalarProperty Name="cretime" ColumnName="cretime" />
+                <ScalarProperty Name="chgby" ColumnName="chgby" />
+                <ScalarProperty Name="chgtime" ColumnName="chgtime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
