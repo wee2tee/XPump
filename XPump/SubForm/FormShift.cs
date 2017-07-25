@@ -19,7 +19,9 @@ namespace XPump.SubForm
 {
     public partial class FormShift : Form
     {
+        public const string modcod = "23";
         private MainForm main_form;
+        private scacclvVM scacclv;
         private BindingSource bs;
         private List<shiftVM> shift_list;
         private shift curr_shift; // current focused row
@@ -38,10 +40,11 @@ namespace XPump.SubForm
             InitializeComponent();
         }
 
-        public FormShift(MainForm main_form)
+        public FormShift(MainForm main_form, scacclvVM scacclv)
             : this()
         {
             this.main_form = main_form;
+            this.scacclv = scacclv;
         }
 
         private void ShiftForm_Load(object sender, EventArgs e)

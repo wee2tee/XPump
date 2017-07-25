@@ -22,6 +22,7 @@ namespace XPump
         public LoginStatus loged_in_status;
         public SccompDbf working_express_db;
         public SecureDbConnectionConfig secure_db_config;
+        public List<scacclvVM> scacclv_list;
         public Log islog;
         public const string helpfile = "Help.chm";
 
@@ -72,11 +73,12 @@ namespace XPump
             this.islog = new Log(this);
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             this.lblVersion.Text = string.Format("XPump V.{0}", version);
+            this.SetMenuBehavior(menuStrip1.Items);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            // CREATE MYSQL DB FOR STORING ISLOG
+            // CREATE MYSQL DB FOR STORING SECURE DATA
             LocalSecureDbConfig loc_sec = new LocalSecureDbConfig();
             if (!loc_sec.ConfigValue.TestMysqlSecureDbExist().is_connected) //!loc_sec.ConfigValue.TestMysqlConnection().is_connected)
             {
@@ -106,9 +108,11 @@ namespace XPump
             this.SetStatusLabelText(null, null, this.loged_in_status.loged_in_user_name);
 
             this.mnuChangeCompany.PerformClick();
+            
+
             // SELECT COMPANY
             //List<SccompDbf> sccomp = DbfTable.Sccomp().ToSccompList().OrderBy(s => s.compnam).ToList();
-            
+
             //if (this.loged_in_status.is_secure)
             //{
             //    List<string> comp_codes = DbfTable.Scacclv().ToScacclvList()
@@ -119,7 +123,7 @@ namespace XPump
 
             //    sccomp = sccomp.Where(s => comp_codes.Contains(s.compcod)).ToList();
             //}
-            
+
             //DialogSccompSelection sel = new DialogSccompSelection(this, sccomp, string.Empty);
             //if (sel.ShowDialog() == DialogResult.OK)
             //{
@@ -163,9 +167,32 @@ namespace XPump
             //            return;
             //        }
             //    }
-                    
+
             //}
             //this.SetStatusLabelText(null, local_db.ConfigValue.dbname, null);
+        }
+
+        private List<scacclvVM> GetScacclv(string user_name)
+        {
+            ScuserDbf user = DbfTable.Scuser().ToScuserList().Where(s => s.reccod.Trim() == user_name).FirstOrDefault();
+            if (user == null)
+                return new List<scacclvVM>();
+
+            using (xpumpsecureEntities sec = DBX.DataSecureSet())
+            {
+                var scacclv = sec.scacclv.Where(s => (s.username == user.reccod.Trim() || s.username == user.connectgrp.Trim()) && s.datacod == this.working_express_db.compcod.Trim()).ToViewModel();
+                var sca_user = scacclv.Where(s => s.username == user.reccod.Trim()).ToList();
+                var sca_group = scacclv.Where(s => s.username == user.connectgrp.Trim()).ToList();
+                foreach (var sc in sca_group)
+                {
+                    if(sca_user.Where(s => s.datacod == sc.datacod && s.scmodul_id == sc.scmodul_id).FirstOrDefault() != null)
+                    {
+                        continue;
+                    }
+                    sca_user.Add(sc);
+                }
+                return sca_user;
+            }
         }
 
         private void MnuShift_Click(object sender, EventArgs e)
@@ -175,28 +202,16 @@ namespace XPump
                 this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShift)).First().form.Activate();
                 return;
             }
-
-            FormShift shift = new FormShift(this);
+            var sfac = this.GetSubFormAccessControl(FormShift.modcod);
+            FormShift shift = new FormShift(this, sfac);
             shift.MdiParent = this;
             shift.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
             shift.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = shift, docPrefix = string.Empty });
         }
 
-        private void MnuTank_Click(object sender, EventArgs e)
+        private void MnuTankSetup_Click(object sender, EventArgs e)
         {
-            //if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankSetup)).FirstOrDefault() != null)
-            //{
-            //    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankSetup)).First().form.Activate();
-            //    return;
-            //}
-
-            //FormTankSetup tank = new FormTankSetup(this);
-            //tank.MdiParent = this;
-            //tank.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-            //tank.Show();
-            //this.opened_child_form.Add(new ChildFormDetail() { form = tank, docPrefix = string.Empty });
-
             if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankConfig)).FirstOrDefault() != null)
             {
                 this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankConfig)).First().form.Activate();
@@ -208,21 +223,6 @@ namespace XPump
             tank.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
             tank.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = tank, docPrefix = string.Empty });
-        }
-
-        private void MnuStmas_Click(object sender, EventArgs e)
-        {
-            //if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormStmas)).FirstOrDefault() != null)
-            //{
-            //    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormStmas)).First().form.Activate();
-            //    return;
-            //}
-
-            //FormStmas stmas = new FormStmas(this);
-            //stmas.MdiParent = this;
-            //stmas.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-            //stmas.Show();
-            //this.opened_child_form.Add(new ChildFormDetail() { form = stmas, docPrefix = string.Empty });
         }
 
         private void mnuDotherMessage_Click(object sender, EventArgs e)
@@ -249,7 +249,9 @@ namespace XPump
                 return;
             }
 
-            FormShiftTransaction trans = new FormShiftTransaction(this);
+            var scacclv = this.GetSubFormAccessControl(FormShiftTransaction.modcod);
+
+            FormShiftTransaction trans = new FormShiftTransaction(this, scacclv);
             trans.MdiParent = this;
             trans.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
             trans.Show();
@@ -301,7 +303,9 @@ namespace XPump
                     this.working_express_db = sel.selected_sccomp;
                     this.islog.ChangeCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
                 }
-                
+
+                this.scacclv_list = this.GetScacclv(this.loged_in_status.loged_in_user_name);
+                this.SetMenuAccessible(this.menuStrip1.Items);
             }
             else
             {
@@ -414,6 +418,120 @@ namespace XPump
 
             LocalDbConfig loc = new LocalDbConfig(this.working_express_db);
             return loc != null ? loc.ConfigValue.servername + "." + loc.ConfigValue.db_prefix + "_" + loc.ConfigValue.dbname : string.Empty;
+        }
+
+        /* Set menu behavior for on EnableChanged */
+        private void SetMenuBehavior(ToolStripItemCollection menus)
+        {
+            foreach (ToolStripMenuItem mnu in menus)
+            {
+                mnu.EnabledChanged += new EventHandler(this.MenuItemEnableChanged);
+                if (mnu.HasDropDownItems)
+                {
+                    this.SetMenuBehavior(mnu.DropDownItems);
+                }
+            }
+        }
+
+        private void MenuItemEnableChanged(object sender, EventArgs e)
+        {
+            var m = ((ToolStripMenuItem)sender);
+            if(m.OwnerItem != null && m.OwnerItem.GetType() == typeof(ToolStripMenuItem))
+            {
+                if (m.Enabled)
+                {
+                    m.OwnerItem.Enabled = true;
+                }
+            }
+        }
+
+        /* Set menu accessible depend on scacclv */
+        private void SetMenuAccessible(ToolStripItemCollection menus)
+        {
+            if (!this.loged_in_status.is_secure)
+                return;
+
+            using (xpumpsecureEntities sec = DBX.DataSecureSet())
+            {
+                var scmoduls = sec.scmodul.ToList();
+
+                foreach (ToolStripMenuItem mnu in menus)
+                {
+                    if (mnu.OwnerItem != null && mnu.OwnerItem.GetType() == typeof(ToolStripMenuItem)) // is sub menu
+                    {
+                        mnu.Enabled = ((ToolStripMenuItem)mnu.OwnerItem).Enabled;
+                    }
+                    else // is top level menu
+                    {
+                        mnu.Enabled = this.scacclv_list.Where(s => s.modcod == "ALLMENU").FirstOrDefault() != null ? true : false;
+                    }
+
+                    if (mnu.Tag != null)
+                    {
+                        var mod = this.scacclv_list.Where(s => s.modcod == mnu.Tag.ToString().Trim()).FirstOrDefault();
+                        if (mod != null)
+                        {
+                            mnu.Enabled = mod.read == "Y" ? true : false;
+                        }
+                        else
+                        {
+                            if (mnu.OwnerItem != null && mnu.OwnerItem.GetType() == typeof(ToolStripMenuItem))
+                            {
+                                if(((ToolStripMenuItem)mnu.OwnerItem).Tag != null)
+                                {
+                                    scmodul parent_mod = scmoduls.Where(s => s.modcod == mnu.OwnerItem.Tag.ToString().Trim()).FirstOrDefault();
+                                    if (parent_mod == null)
+                                        mnu.Enabled = false;
+
+                                    scacclvVM parent_ac = this.scacclv_list.Where(s => s.modcod == parent_mod.modcod).FirstOrDefault();
+                                    if (parent_ac == null)
+                                    {
+                                        mnu.Enabled = false;
+                                    }
+                                    else
+                                    {
+                                        mnu.Enabled = parent_ac.read == "Y" ? true : false;
+                                    }
+                                }
+                                else
+                                {
+                                    mnu.Enabled = true;
+                                }
+                            }
+                            else
+                            {
+                                mnu.Enabled = false;
+                            }
+                        }
+                    }
+
+                    if (mnu.HasDropDownItems)
+                    {
+                        this.SetMenuAccessible(mnu.DropDownItems);
+                    }
+                }
+            }
+        }
+
+        /* Get SubForm Access Control */
+        private scacclvVM GetSubFormAccessControl(string modcod)
+        {
+            var sc = this.scacclv_list.Where(s => s.modcod == modcod).FirstOrDefault();
+            if(sc != null)
+            {
+                return sc;
+            }
+            else
+            {
+                using (xpumpsecureEntities sec = DBX.DataSecureSet())
+                {
+                    var mod = sec.scmodul.Where(s => s.modcod == modcod).FirstOrDefault();
+                    if (mod == null)
+                        return null;
+
+                    return this.GetSubFormAccessControl(mod.p_modcod);
+                }
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

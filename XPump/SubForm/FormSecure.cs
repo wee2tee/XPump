@@ -1206,6 +1206,10 @@ namespace XPump.SubForm
             if (this.form_mode == FORM_MODE.READ_ITEM || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
             {
                 e.Cancel = true;
+
+                if (this.tmp_scacclv != null)
+                    this.inline_datacod.Focus();
+
                 return;
             }
         }

@@ -30,18 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.ToolStripDailyTransaction = new System.Windows.Forms.ToolStripMenuItem();
-            this.MnuShiftTransaction = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDaily = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuShiftTransaction = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDailyClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripStock = new System.Windows.Forms.ToolStripMenuItem();
-            this.MnuStmas = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ตารางขอมลToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuTankSetup = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuShift = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuIstab = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDotherMessage = new System.Windows.Forms.ToolStripMenuItem();
-            this.อนๆToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.จดการขอมลToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuOther = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDataManage = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBackup = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRestore = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSecure = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,87 +62,85 @@
             // 
             this.menuStrip1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripDailyTransaction,
-            this.ToolStripStock,
-            this.อนๆToolStripMenuItem});
+            this.mnuDaily,
+            this.mnuSetup,
+            this.mnuOther});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(848, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // ToolStripDailyTransaction
+            // mnuDaily
             // 
-            this.ToolStripDailyTransaction.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MnuShiftTransaction,
+            this.mnuDaily.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuShiftTransaction,
             this.mnuDailyClose});
-            this.ToolStripDailyTransaction.Name = "ToolStripDailyTransaction";
-            this.ToolStripDailyTransaction.Size = new System.Drawing.Size(107, 20);
-            this.ToolStripDailyTransaction.Text = "รายการประจำวัน";
+            this.mnuDaily.Name = "mnuDaily";
+            this.mnuDaily.Size = new System.Drawing.Size(107, 20);
+            this.mnuDaily.Tag = "1";
+            this.mnuDaily.Text = "รายการประจำวัน";
             // 
-            // MnuShiftTransaction
+            // mnuShiftTransaction
             // 
-            this.MnuShiftTransaction.Name = "MnuShiftTransaction";
-            this.MnuShiftTransaction.Size = new System.Drawing.Size(206, 22);
-            this.MnuShiftTransaction.Text = "บันทึกรายการประจำผลัด";
-            this.MnuShiftTransaction.Click += new System.EventHandler(this.MnuShiftTransaction_Click);
+            this.mnuShiftTransaction.Name = "mnuShiftTransaction";
+            this.mnuShiftTransaction.Size = new System.Drawing.Size(206, 22);
+            this.mnuShiftTransaction.Tag = "11";
+            this.mnuShiftTransaction.Text = "บันทึกรายการประจำผลัด";
+            this.mnuShiftTransaction.Click += new System.EventHandler(this.MnuShiftTransaction_Click);
             // 
             // mnuDailyClose
             // 
             this.mnuDailyClose.Name = "mnuDailyClose";
             this.mnuDailyClose.Size = new System.Drawing.Size(206, 22);
+            this.mnuDailyClose.Tag = "12";
             this.mnuDailyClose.Text = "ปิดยอดขายประจำวัน";
             this.mnuDailyClose.Click += new System.EventHandler(this.mnuDailyClose_Click);
             // 
-            // ToolStripStock
+            // mnuSetup
             // 
-            this.ToolStripStock.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MnuStmas,
+            this.mnuSetup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuSettings,
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem1,
-            this.ตารางขอมลToolStripMenuItem});
-            this.ToolStripStock.Name = "ToolStripStock";
-            this.ToolStripStock.Size = new System.Drawing.Size(66, 20);
-            this.ToolStripStock.Text = "เริ่มระบบ";
-            // 
-            // MnuStmas
-            // 
-            this.MnuStmas.Enabled = false;
-            this.MnuStmas.Name = "MnuStmas";
-            this.MnuStmas.Size = new System.Drawing.Size(195, 22);
-            this.MnuStmas.Text = "รายละเอียดสินค้า";
-            this.MnuStmas.Visible = false;
-            this.MnuStmas.Click += new System.EventHandler(this.MnuStmas_Click);
+            this.mnuTankSetup,
+            this.mnuShift,
+            this.mnuIstab});
+            this.mnuSetup.Name = "mnuSetup";
+            this.mnuSetup.Size = new System.Drawing.Size(66, 20);
+            this.mnuSetup.Tag = "2";
+            this.mnuSetup.Text = "เริ่มระบบ";
             // 
             // mnuSettings
             // 
             this.mnuSettings.Name = "mnuSettings";
             this.mnuSettings.Size = new System.Drawing.Size(195, 22);
+            this.mnuSettings.Tag = "21";
             this.mnuSettings.Text = "ตั้งค่าระบบ";
             this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
             // 
-            // toolStripMenuItem2
+            // mnuTankSetup
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(195, 22);
-            this.toolStripMenuItem2.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.MnuTank_Click);
+            this.mnuTankSetup.Name = "mnuTankSetup";
+            this.mnuTankSetup.Size = new System.Drawing.Size(195, 22);
+            this.mnuTankSetup.Tag = "22";
+            this.mnuTankSetup.Text = "กำหนดแท๊งค์เก็บน้ำมัน";
+            this.mnuTankSetup.Click += new System.EventHandler(this.MnuTankSetup_Click);
             // 
-            // toolStripMenuItem1
+            // mnuShift
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
-            this.toolStripMenuItem1.Text = "กำหนดผลัดพนักงาน";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.MnuShift_Click);
+            this.mnuShift.Name = "mnuShift";
+            this.mnuShift.Size = new System.Drawing.Size(195, 22);
+            this.mnuShift.Tag = "23";
+            this.mnuShift.Text = "กำหนดผลัดพนักงาน";
+            this.mnuShift.Click += new System.EventHandler(this.MnuShift_Click);
             // 
-            // ตารางขอมลToolStripMenuItem
+            // mnuIstab
             // 
-            this.ตารางขอมลToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuIstab.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuDotherMessage});
-            this.ตารางขอมลToolStripMenuItem.Name = "ตารางขอมลToolStripMenuItem";
-            this.ตารางขอมลToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.ตารางขอมลToolStripMenuItem.Text = "ตารางข้อมูล";
+            this.mnuIstab.Name = "mnuIstab";
+            this.mnuIstab.Size = new System.Drawing.Size(195, 22);
+            this.mnuIstab.Tag = "24";
+            this.mnuIstab.Text = "ตารางข้อมูล";
             // 
             // mnuDotherMessage
             // 
@@ -152,30 +149,33 @@
             this.mnuDotherMessage.Text = "รายการหักยอดขาย (อื่น ๆ)";
             this.mnuDotherMessage.Click += new System.EventHandler(this.mnuDotherMessage_Click);
             // 
-            // อนๆToolStripMenuItem
+            // mnuOther
             // 
-            this.อนๆToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.จดการขอมลToolStripMenuItem,
+            this.mnuOther.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuDataManage,
             this.mnuSecure,
             this.mnuYearEnd,
             this.mnuChangeCompany});
-            this.อนๆToolStripMenuItem.Name = "อนๆToolStripMenuItem";
-            this.อนๆToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.อนๆToolStripMenuItem.Text = "อื่น ๆ";
+            this.mnuOther.Name = "mnuOther";
+            this.mnuOther.Size = new System.Drawing.Size(46, 20);
+            this.mnuOther.Tag = "3";
+            this.mnuOther.Text = "อื่น ๆ";
             // 
-            // จดการขอมลToolStripMenuItem
+            // mnuDataManage
             // 
-            this.จดการขอมลToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuDataManage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuBackup,
             this.mnuRestore});
-            this.จดการขอมลToolStripMenuItem.Name = "จดการขอมลToolStripMenuItem";
-            this.จดการขอมลToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.จดการขอมลToolStripMenuItem.Text = "จัดการฐานข้อมูล";
+            this.mnuDataManage.Name = "mnuDataManage";
+            this.mnuDataManage.Size = new System.Drawing.Size(178, 22);
+            this.mnuDataManage.Tag = "31";
+            this.mnuDataManage.Text = "จัดการฐานข้อมูล";
             // 
             // mnuBackup
             // 
             this.mnuBackup.Name = "mnuBackup";
             this.mnuBackup.Size = new System.Drawing.Size(184, 22);
+            this.mnuBackup.Tag = "311";
             this.mnuBackup.Text = "สำรองข้อมูล";
             this.mnuBackup.Click += new System.EventHandler(this.mnuBackup_Click);
             // 
@@ -183,6 +183,7 @@
             // 
             this.mnuRestore.Name = "mnuRestore";
             this.mnuRestore.Size = new System.Drawing.Size(184, 22);
+            this.mnuRestore.Tag = "312";
             this.mnuRestore.Text = "นำข้อมูลสำรองมาใช้";
             this.mnuRestore.Click += new System.EventHandler(this.mnuRestore_Click);
             // 
@@ -190,6 +191,7 @@
             // 
             this.mnuSecure.Name = "mnuSecure";
             this.mnuSecure.Size = new System.Drawing.Size(178, 22);
+            this.mnuSecure.Tag = "32";
             this.mnuSecure.Text = "แฟ้มผู้ใช้งานระบบ";
             this.mnuSecure.Click += new System.EventHandler(this.mnuSecure_Click);
             // 
@@ -197,6 +199,7 @@
             // 
             this.mnuYearEnd.Name = "mnuYearEnd";
             this.mnuYearEnd.Size = new System.Drawing.Size(178, 22);
+            this.mnuYearEnd.Tag = "33";
             this.mnuYearEnd.Text = "การประมวลผลสิ้นปี";
             this.mnuYearEnd.Click += new System.EventHandler(this.mnuYearEnd_Click);
             // 
@@ -204,6 +207,7 @@
             // 
             this.mnuChangeCompany.Name = "mnuChangeCompany";
             this.mnuChangeCompany.Size = new System.Drawing.Size(178, 22);
+            this.mnuChangeCompany.Tag = "34";
             this.mnuChangeCompany.Text = "เปลี่ยนบริษัท";
             this.mnuChangeCompany.Click += new System.EventHandler(this.mnuChangeCompany_Click);
             // 
@@ -308,14 +312,13 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripDailyTransaction;
-        private System.Windows.Forms.ToolStripMenuItem MnuShiftTransaction;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripStock;
-        private System.Windows.Forms.ToolStripMenuItem MnuStmas;
+        private System.Windows.Forms.ToolStripMenuItem mnuDaily;
+        private System.Windows.Forms.ToolStripMenuItem mnuShiftTransaction;
+        private System.Windows.Forms.ToolStripMenuItem mnuSetup;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem อนๆToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuShift;
+        private System.Windows.Forms.ToolStripMenuItem mnuTankSetup;
+        private System.Windows.Forms.ToolStripMenuItem mnuOther;
         private System.Windows.Forms.ToolStripMenuItem mnuDailyClose;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel lblExpressDataPath;
@@ -325,10 +328,10 @@
         private System.Windows.Forms.ToolStripStatusLabel lblUserID;
         private System.Windows.Forms.ToolStripStatusLabel lblVersion;
         private System.Windows.Forms.ToolStripMenuItem mnuChangeCompany;
-        private System.Windows.Forms.ToolStripMenuItem ตารางขอมลToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuIstab;
         private System.Windows.Forms.ToolStripMenuItem mnuDotherMessage;
         private System.Windows.Forms.ToolStripMenuItem mnuSettings;
-        private System.Windows.Forms.ToolStripMenuItem จดการขอมลToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuDataManage;
         private System.Windows.Forms.ToolStripMenuItem mnuBackup;
         private System.Windows.Forms.ToolStripMenuItem mnuRestore;
         private System.Windows.Forms.ToolStripMenuItem mnuYearEnd;

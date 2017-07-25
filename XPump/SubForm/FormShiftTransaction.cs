@@ -16,6 +16,8 @@ namespace XPump.SubForm
 {
     public partial class FormShiftTransaction : Form
     {
+        public const string modcod = "11";
+        private scacclvVM scacclv;
         private MainForm main_form;
         public shiftsales curr_shiftsales;
         private shiftsales tmp_shiftsales;
@@ -36,10 +38,11 @@ namespace XPump.SubForm
         //private List<salessummaryVM> reportBData;
         //private List<salessummaryVM> reportCData;
 
-        public FormShiftTransaction(MainForm main_form)
+        public FormShiftTransaction(MainForm main_form, scacclvVM scacclv)
         {
             InitializeComponent();
             this.main_form = main_form;
+            this.scacclv = scacclv;
         }
 
         private void FormShiftTransaction_Load(object sender, EventArgs e)
