@@ -32,6 +32,19 @@ namespace XPump.SubForm
 
         private void DialogShiftSttak_Load(object sender, EventArgs e)
         {
+            /* disable edit button depend on scacclv */
+            if(this.form_shifttransaction.scacclv != null)
+            {
+                if(this.form_shifttransaction.scacclv.edit == "N")
+                {
+                    this.btnEdit.Enabled = false;
+                }
+            }
+            else
+            {
+                this.btnEdit.Enabled = false;
+            }
+
             if (this.shiftsales == null)
             {
                 this.DialogResult = DialogResult.Abort;

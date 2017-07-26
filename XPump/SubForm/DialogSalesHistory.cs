@@ -112,7 +112,7 @@ namespace XPump.SubForm
 
         private void ResetControlState()
         {
-            this.dgvNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
+            this.dgvNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM/*, FORM_MODE.EDIT_ITEM*/ }, this.form_mode);
             this.numDtest.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.btnDother.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
             this.numDdisc.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
@@ -333,6 +333,9 @@ namespace XPump.SubForm
             if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
+            if (this.main_form.loged_in_status.is_secure && (this.form_shifttransaction.scacclv == null || (this.form_shifttransaction.scacclv != null && this.form_shifttransaction.scacclv.edit == "N")))
+                return;
+
             this.form_mode = FORM_MODE.EDIT;
             this.ResetControlState();
 
@@ -398,6 +401,10 @@ namespace XPump.SubForm
         private void dgvNozzle_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
+                return;
+
+            /* disable editing depend on scacclv */
+            if (this.main_form.loged_in_status.is_secure && (this.form_shifttransaction.scacclv == null || (this.form_shifttransaction.scacclv != null && this.form_shifttransaction.scacclv.edit == "N")))
                 return;
 
             if (e.RowIndex > -1 && ((XDatagrid)sender).CurrentCell != null)
@@ -621,6 +628,34 @@ namespace XPump.SubForm
                 }
             }
             this.numPurvat.Focus();
+        }
+
+        private void dgvNozzle_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                if (!(this.form_mode == FORM_MODE.READ || this.form_mode == FORM_MODE.READ_ITEM))
+                    return;
+
+                int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+
+                if (row_index == -1)
+                    return;
+
+                ContextMenu cm = new ContextMenu();
+                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt + E>");
+                mnu_edit.Click += delegate
+                {
+                    ((XDatagrid)sender).Rows[row_index].Cells[this.col_nozzle_name.Name].Selected = true;
+                    this.form_mode = FORM_MODE.EDIT_ITEM;
+                    this.ResetControlState();
+                    this.ShowInlineForm(row_index);
+                    this.inline_mit_start.Focus();
+                };
+                mnu_edit.Enabled = (!this.main_form.loged_in_status.is_secure || (this.form_shifttransaction.scacclv != null && this.form_shifttransaction.scacclv.edit == "Y")) ? true : false;
+                cm.MenuItems.Add(mnu_edit);
+                cm.Show((XDatagrid)sender, new Point(e.X, e.Y));
+            }
         }
     }
 }

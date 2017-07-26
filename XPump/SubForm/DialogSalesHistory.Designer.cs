@@ -234,7 +234,9 @@
             // inline_mit_start
             // 
             this.inline_mit_start._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_mit_start._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_mit_start._DecimalDigit = 2;
+            this.inline_mit_start._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
             this.inline_mit_start._MaximumValue = new decimal(new int[] {
             999999999,
             0,
@@ -267,7 +269,9 @@
             // inline_mit_end
             // 
             this.inline_mit_end._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_mit_end._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_mit_end._DecimalDigit = 2;
+            this.inline_mit_end._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
             this.inline_mit_end._MaximumValue = new decimal(new int[] {
             999999999,
             0,
@@ -360,6 +364,7 @@
             this.dgvNozzle.TabIndex = 0;
             this.dgvNozzle.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNozzle_CellDoubleClick);
             this.dgvNozzle.CurrentCellChanged += new System.EventHandler(this.dgvNozzle_CurrentCellChanged);
+            this.dgvNozzle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvNozzle_MouseClick);
             // 
             // col_id
             // 
@@ -825,7 +830,9 @@
             // numPurvat
             // 
             this.numPurvat._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numPurvat._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.numPurvat._DecimalDigit = 2;
+            this.numPurvat._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
             this.numPurvat._MaximumValue = new decimal(new int[] {
             -727379969,
             232,
@@ -859,7 +866,9 @@
             // numDdisc
             // 
             this.numDdisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numDdisc._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.numDdisc._DecimalDigit = 2;
+            this.numDdisc._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
             this.numDdisc._MaximumValue = new decimal(new int[] {
             -727379969,
             232,
@@ -893,7 +902,9 @@
             // numDtest
             // 
             this.numDtest._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numDtest._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.numDtest._DecimalDigit = 2;
+            this.numDtest._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
             this.numDtest._MaximumValue = new decimal(new int[] {
             -727379969,
             232,

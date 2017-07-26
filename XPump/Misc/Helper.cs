@@ -1770,53 +1770,97 @@ namespace XPump.Misc
             return sc;
         }
 
-        public static void SetControlState(this Component comp, FORM_MODE[] form_mode_to_enable, FORM_MODE form_mode)
+        public static void SetControlState(this Component comp, FORM_MODE[] form_mode_to_enable, FORM_MODE form_mode, string accessibility_by_scacclv = null)
         {
             if (form_mode_to_enable.ToList().Where(fm => fm == form_mode).Count() > 0)
             {
                 if (comp is ToolStripButton)
                 {
-                    ((ToolStripButton)comp).Enabled = true; return;
+                    ((ToolStripButton)comp).Enabled = true;
+                    if(accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((ToolStripButton)comp).Enabled = false;
+
+                    return;
                 }
                 if(comp is ToolStripSplitButton)
                 {
-                    ((ToolStripSplitButton)comp).Enabled = true; return;
+                    ((ToolStripSplitButton)comp).Enabled = true;
+                    if (accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((ToolStripSplitButton)comp).Enabled = false;
+
+                    return;
                 }
                 if(comp is ToolStripDropDownButton)
                 {
-                    ((ToolStripDropDownButton)comp).Enabled = true; return;
+                    ((ToolStripDropDownButton)comp).Enabled = true;
+                    if (accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((ToolStripDropDownButton)comp).Enabled = false;
+
+                    return;
                 }
                 if(comp is ToolStripMenuItem)
                 {
-                    ((ToolStripMenuItem)comp).Enabled = true; return;
+                    ((ToolStripMenuItem)comp).Enabled = true;
+                    if (accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((ToolStripMenuItem)comp).Enabled = false;
+
+                    return;
                 }
                 if(comp is TabControl)
                 {
-                    ((TabControl)comp).Enabled = true; return;
+                    ((TabControl)comp).Enabled = true;
+                    if (accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((TabControl)comp).Enabled = false;
+
+                    return;
                 }
                 if(comp is Button)
                 {
-                    ((Button)comp).Enabled = true; return;
+                    ((Button)comp).Enabled = true;
+                    if (accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((Button)comp).Enabled = false;
+
+                    return;
                 }
                 if (comp is DataGridView)
                 {
-                    ((DataGridView)comp).Enabled = true; return;
+                    ((DataGridView)comp).Enabled = true;
+                    if (accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((DataGridView)comp).Enabled = false;
+
+                    return;
                 }
                 if (comp is XTextEdit)
                 {
-                    ((XTextEdit)comp)._ReadOnly = false; return;
+                    ((XTextEdit)comp)._ReadOnly = false;
+                    if (accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((XTextEdit)comp)._ReadOnly = true;
+
+                    return;
                 }
                 if(comp is XDropdownList)
                 {
-                    ((XDropdownList)comp)._ReadOnly = false; return;
+                    ((XDropdownList)comp)._ReadOnly = false;
+                    if (accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((XDropdownList)comp)._ReadOnly = true;
+
+                    return;
                 }
                 if(comp is XDatePicker)
                 {
-                    ((XDatePicker)comp)._ReadOnly = false; return;
+                    ((XDatePicker)comp)._ReadOnly = false;
+                    if (accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((XDatePicker)comp)._ReadOnly = true;
+
+                    return;
                 }
                 if(comp is XBrowseBox)
                 {
-                    ((XBrowseBox)comp)._ReadOnly = false; return;
+                    ((XBrowseBox)comp)._ReadOnly = false;
+                    if (accessibility_by_scacclv != null && accessibility_by_scacclv == "N")
+                        ((XBrowseBox)comp)._ReadOnly = true;
+
+                    return;
                 }
             }
             else

@@ -19,8 +19,10 @@ namespace XPump.SubForm
         
         /** in case of salessummary deduct **/
         private salessummary salessummary;
+        private FormShiftTransaction form_shifttransaction;
         /** in case of dayend deduct **/
         private dayend dayend;
+        private FormDailyClose form_dailyclose;
         private section section;
         /******************************/
         private List<nozzleVM> nozzle_list;
@@ -46,6 +48,7 @@ namespace XPump.SubForm
         public DialogDother(MainForm main_form,FormShiftTransaction form_shifttransaction, salessummary salessummary)
             : this(main_form)
         {
+            this.form_shifttransaction = form_shifttransaction;
             this.menu_id = form_shifttransaction.menu_id;
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
@@ -80,6 +83,7 @@ namespace XPump.SubForm
         public DialogDother(MainForm main_form, FormDailyClose form_dailyclose, dayend dayend, section section)
             : this(main_form)
         {
+            this.form_dailyclose = form_dailyclose;
             this.menu_id = form_dailyclose.menu_id;
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
@@ -151,9 +155,19 @@ namespace XPump.SubForm
         {
             this.form_mode = form_mode;
 
-            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            string ac_edit = null;
+            if(this.main_form.loged_in_status.is_secure && this.form_shifttransaction != null && this.form_shifttransaction.scacclv != null)
+            {
+                ac_edit = this.form_shifttransaction.scacclv.edit;
+            }
+            //if(this.main_form.loged_in_status.is_secure && this.form_dailyclose != null && this.form_dailyclose.scacclv != null)
+            //{
+            //    ac_edit = this.form_dailyclose.scacclv.edit;
+            //}
+
+            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
             this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnClose.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);

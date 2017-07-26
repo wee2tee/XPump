@@ -723,6 +723,19 @@ namespace XPump.SubForm
         {
             if (this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
             {
+                if(this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    using (xpumpsecureEntities sec = DBX.DataSecureSet())
+                    {
+                        var sc = sec.scacclv.Find(this.tmp_scacclv.id);
+                        if(sc != null)
+                        {
+                            var target_sc = this.bl_scacclv.Where(b => b.id == this.tmp_scacclv.id).First();
+                            target_sc.scacclv = sc;
+                        }
+                        this.bl_scacclv.ResetItem(this.bl_scacclv.IndexOf(this.bl_scacclv.Where(b => b.id == this.tmp_scacclv.id).First()));
+                    }
+                }
                 this.RemoveInlineForm();
                 this.bl_scacclv.Remove(this.bl_scacclv.Where(s => s.id == -1).FirstOrDefault());
                 this.ResetFormState(FORM_MODE.READ_ITEM);

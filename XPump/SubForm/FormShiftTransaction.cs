@@ -17,7 +17,7 @@ namespace XPump.SubForm
     public partial class FormShiftTransaction : Form
     {
         public const string modcod = "11";
-        private scacclvVM scacclv;
+        public scacclvVM scacclv;
         private MainForm main_form;
         public shiftsales curr_shiftsales;
         private shiftsales tmp_shiftsales;
@@ -64,9 +64,34 @@ namespace XPump.SubForm
         private void ResetControlState()
         {
             /* Toolstrip button */
-            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            string ac_add = null;
+            string ac_edit = null;
+            string ac_delete = null;
+            string ac_print = null;
+            string ac_approve = null;
+            if (this.main_form.loged_in_status.is_secure)
+            {
+                if(this.scacclv != null)
+                {
+                    ac_add = this.scacclv.add;
+                    ac_edit = this.scacclv.edit;
+                    ac_delete = this.scacclv.delete;
+                    ac_print = this.scacclv.print;
+                    ac_approve = this.scacclv.approve;
+                }
+                else
+                {
+                    ac_add = "N";
+                    ac_edit = "N";
+                    ac_delete = "N";
+                    ac_print = "N";
+                    ac_approve = "N";
+                }
+            }
+
+            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_add);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_edit);
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_delete);
             this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.READ_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnFirst.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
@@ -76,13 +101,13 @@ namespace XPump.SubForm
             this.btnSearch.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryRest.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnPrintALandscape.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_print);
+            this.btnPrintALandscape.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_print);
             this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             //this.btnItemF7.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnUnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_approve);
+            this.btnUnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_approve);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             /* Form control */
@@ -96,8 +121,8 @@ namespace XPump.SubForm
             /*Form control state depend on data*/
             if (this.form_mode == FORM_MODE.READ)
             {
-                this.btnEdit.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
-                this.btnDelete.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnEdit.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : this.btnEdit.Enabled;
+                this.btnDelete.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : this.btnDelete.Enabled;
                 this.btnFirst.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
                 this.btnPrevious.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
                 this.btnNext.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
@@ -105,11 +130,11 @@ namespace XPump.SubForm
                 this.btnSearch.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
                 this.btnInquiryAll.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
                 this.btnInquiryRest.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
-                this.btnPrint.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
-                this.btnPrintALandscape.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnPrint.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : this.btnPrint.Enabled;
+                this.btnPrintALandscape.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : this.btnPrintALandscape.Enabled;
                 this.btnItem.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
-                this.btnApprove.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
-                this.btnUnApprove.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
+                this.btnApprove.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : this.btnApprove.Enabled;
+                this.btnUnApprove.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : this.btnUnApprove.Enabled;
                 //this.btnRefresh.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
                 this.btnSttak.Enabled = this.curr_shiftsales == null || this.curr_shiftsales.id == -1 ? false : true;
 
@@ -123,6 +148,25 @@ namespace XPump.SubForm
         {
             if (this.form_mode == FORM_MODE.READ)
             {
+                if (this.main_form.loged_in_status.is_secure)
+                {
+                    if(this.scacclv != null)
+                    {
+                        if (this.scacclv.approve == "N")
+                        {
+                            this.btnApprove.Enabled = false;
+                            this.btnUnApprove.Enabled = false;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        this.btnApprove.Enabled = false;
+                        this.btnUnApprove.Enabled = false;
+                        return;
+                    }
+                }
+
                 this.btnApprove.Enabled = this.curr_shiftsales != null && this.curr_shiftsales.id != -1 && !this.curr_shiftsales.apprtime.HasValue ? true : false;
                 this.btnUnApprove.Enabled = this.curr_shiftsales != null && this.curr_shiftsales.id != -1 && this.curr_shiftsales.apprtime.HasValue ? true : false;
             }
@@ -1080,7 +1124,7 @@ namespace XPump.SubForm
                 ((XDatagrid)sender).Rows[row_index].Cells[this.col_stkcod.Name].Selected = true;
                 ContextMenu cm = new ContextMenu();
                 MenuItem mnu_sales = new MenuItem();
-                mnu_sales.Text = "แก้ไขรายละเอียดการขาย <Alt+E>";
+                mnu_sales.Text = "รายละเอียดการขาย <Alt+E>";
                 mnu_sales.Click += delegate
                 {
                     this.ShowSalesForm();
@@ -1095,7 +1139,8 @@ namespace XPump.SubForm
                     this.ShowEditPrice();
                     return;
                 };
-                cm.MenuItems.Add(mnu_price);
+                mnu_price.Enabled = (!this.main_form.loged_in_status.is_secure || (this.scacclv != null && this.scacclv.edit == "Y")) ? true : false;
+                    cm.MenuItems.Add(mnu_price);
 
                 cm.Show((XDatagrid)sender, new Point(e.X, e.Y));
             }
@@ -1757,8 +1802,17 @@ namespace XPump.SubForm
                     int x = e.CellBounds.X + (int)Math.Floor((decimal)(e.CellBounds.Width - img_w) / 2);
                     int y = e.CellBounds.Y + (int)Math.Floor((decimal)(e.CellBounds.Height - img_h) / 2);
 
-                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                    e.Graphics.DrawImage(XPump.Properties.Resources.edit_16, new Rectangle(x, y, img_w, img_h));
+
+                    if (!this.main_form.loged_in_status.is_secure || (this.scacclv != null && this.scacclv.edit == "Y"))
+                    {
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                        e.Graphics.DrawImage(XPump.Properties.Resources.edit_16, new Rectangle(x, y, img_w, img_h));
+                    }
+                    else
+                    {
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border);
+                        e.Graphics.DrawImage(XPump.Properties.Resources.edit_gray_16, new Rectangle(x, y, img_w, img_h));
+                    }
                     e.Handled = true;
                     return;
                 }
@@ -1793,7 +1847,10 @@ namespace XPump.SubForm
 
             if (this.dgvSalesSummary.CurrentCell.ColumnIndex == this.dgvSalesSummary.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_price.Name).First().Index)
             {
-                this.ShowEditPrice();
+                if(!this.main_form.loged_in_status.is_secure || (this.scacclv != null && this.scacclv.edit == "Y"))
+                {
+                    this.ShowEditPrice();
+                }
                 return;
             }
         }
@@ -1870,7 +1927,7 @@ namespace XPump.SubForm
 
             if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_qty.Name).First().Index)
             {
-                e.ToolTipText = "แก้ไขรายละเอียดการขาย <Alt+E>";
+                e.ToolTipText = "รายละเอียดการขาย <Alt+E>";
                 return;
             }
 

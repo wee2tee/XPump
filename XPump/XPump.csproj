@@ -34,7 +34,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\Express\ExpressI-v2\XPump\</OutputPath>
+    <OutputPath>..\..\..\Express\ExpressI\XPump\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -771,6 +771,7 @@
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
     <Content Include="Nozzle.ico" />
+    <None Include="Resources\edit_gray_16.png" />
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
