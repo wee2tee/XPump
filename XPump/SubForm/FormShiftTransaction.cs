@@ -1124,7 +1124,7 @@ namespace XPump.SubForm
                 ((XDatagrid)sender).Rows[row_index].Cells[this.col_stkcod.Name].Selected = true;
                 ContextMenu cm = new ContextMenu();
                 MenuItem mnu_sales = new MenuItem();
-                mnu_sales.Text = "รายละเอียดการขาย <Alt+E>";
+                mnu_sales.Text = "ดู/แก้ไข รายละเอียดการขาย <Alt+E>";
                 mnu_sales.Click += delegate
                 {
                     this.ShowSalesForm();
@@ -1927,7 +1927,7 @@ namespace XPump.SubForm
 
             if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_qty.Name).First().Index)
             {
-                e.ToolTipText = "รายละเอียดการขาย <Alt+E>";
+                e.ToolTipText = "ดู/แก้ไข รายละเอียดการขาย <Alt+E>";
                 return;
             }
 

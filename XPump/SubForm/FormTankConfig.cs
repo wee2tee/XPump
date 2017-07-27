@@ -22,6 +22,8 @@ namespace XPump.SubForm
                 return MenuIdClass.FormTankConfig;
             }
         }
+        public const string modcod = "22";
+        public scacclvVM scacclv; 
         private MainForm main_form;
         private FORM_MODE form_mode;
         public tanksetup tanksetup;
@@ -39,14 +41,15 @@ namespace XPump.SubForm
             F7,
             F8
         }
-        private HelpProvider help;
+        //private HelpProvider help;
 
-        public FormTankConfig(MainForm main_form)
+        public FormTankConfig(MainForm main_form, scacclvVM scacclv)
         {
             InitializeComponent();
             //this.menu_id = this.GetType().Name;
             this.main_form = main_form;
-            this.help = new HelpProvider();
+            this.scacclv = scacclv;
+            //this.help = new HelpProvider();
         }
 
         private void FormTankConfig_Load(object sender, EventArgs e)
@@ -60,10 +63,10 @@ namespace XPump.SubForm
             this.ResetControlState();
             this.btnLast.PerformClick();
 
-            this.help.SetShowHelp(this.dtStartDate, true);
-            this.help.SetHelpString(this.dtStartDate, "this is a help..");
+            //this.help.SetShowHelp(this.dtStartDate, true);
+            //this.help.SetHelpString(this.dtStartDate, "this is a help..");
 
-            this.help.HelpNamespace = "xphelp.chm";
+            //this.help.HelpNamespace = "xphelp.chm";
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -74,10 +77,30 @@ namespace XPump.SubForm
 
         public void ResetControlState()
         {
+            string ac_add = null;
+            string ac_edit = null;
+            string ac_delete = null;
+
+            if (this.main_form.loged_in_status.is_secure)
+            {
+                if(this.scacclv != null)
+                {
+                    ac_add = this.scacclv.add;
+                    ac_edit = this.scacclv.edit;
+                    ac_delete = this.scacclv.delete;
+                }
+                else
+                {
+                    ac_add = "N";
+                    ac_edit = "N";
+                    ac_delete = "N";
+                }
+            }
+
             /** Toolstrip item **/
-            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_add);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_edit);
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_delete);
             this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.READ_ITEM, FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnFirst.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
@@ -93,12 +116,12 @@ namespace XPump.SubForm
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             /** Form control **/
-            this.btnAddTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnEditTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnDeleteTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnAddSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnEditSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnDeleteSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnAddTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnEditTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnDeleteTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnAddSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnEditSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnDeleteSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
             this.dtStartDate.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.dgvTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
             this.dgvSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
@@ -1153,6 +1176,7 @@ namespace XPump.SubForm
                 {
                     this.btnAddTank.PerformClick();
                 };
+                mnu_add.Enabled = this.btnAddTank.Enabled;
                 cm.MenuItems.Add(mnu_add);
 
                 MenuItem mnu_edit = new MenuItem("แก้ไข");
@@ -1160,7 +1184,7 @@ namespace XPump.SubForm
                 {
                     this.btnEditTank.PerformClick();
                 };
-                mnu_edit.Enabled = row_index == -1 ? false : true;
+                mnu_edit.Enabled = row_index == -1 ? false : this.btnEditTank.Enabled;
                 cm.MenuItems.Add(mnu_edit);
 
                 MenuItem mnu_delete = new MenuItem("ลบ");
@@ -1168,7 +1192,7 @@ namespace XPump.SubForm
                 {
                     this.btnDeleteTank.PerformClick();
                 };
-                mnu_delete.Enabled = row_index == -1 ? false : true;
+                mnu_delete.Enabled = row_index == -1 ? false : this.btnDeleteTank.Enabled;
                 cm.MenuItems.Add(mnu_delete);
 
                 cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
@@ -1198,6 +1222,7 @@ namespace XPump.SubForm
                 {
                     this.btnAddSection.PerformClick();
                 };
+                mnu_add.Enabled = this.btnAddSection.Enabled;
                 cm.MenuItems.Add(mnu_add);
 
                 MenuItem mnu_edit = new MenuItem("แก้ไข");
@@ -1205,7 +1230,7 @@ namespace XPump.SubForm
                 {
                     this.btnEditSection.PerformClick();
                 };
-                mnu_edit.Enabled = row_index == -1 ? false : true;
+                mnu_edit.Enabled = row_index == -1 ? false : this.btnEditSection.Enabled;
                 cm.MenuItems.Add(mnu_edit);
 
                 MenuItem mnu_delete = new MenuItem("ลบ");
@@ -1213,7 +1238,7 @@ namespace XPump.SubForm
                 {
                     this.btnDeleteSection.PerformClick();
                 };
-                mnu_delete.Enabled = row_index == -1 ? false : true;
+                mnu_delete.Enabled = row_index == -1 ? false : this.btnDeleteSection.Enabled;
                 cm.MenuItems.Add(mnu_delete);
 
                 cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));

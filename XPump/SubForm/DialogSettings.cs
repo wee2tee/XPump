@@ -24,7 +24,9 @@ namespace XPump.SubForm
 
     public partial class DialogSettings : Form
     {
+        public const string modcod = "21";
         private MainForm main_form;
+        public scacclvVM scacclv;
         private DbConnectionConfig localconfig;
         private bool is_mysql_connected;
         private settings settings;
@@ -39,15 +41,30 @@ namespace XPump.SubForm
             }
             set
             {
+                if (this.main_form.loged_in_status.is_secure)
+                {
+                    if (this.scacclv != null)
+                    {
+                        this.btnEdit.Enabled = this.scacclv.edit == "Y" ? true : false;
+                        return;
+                    }
+                    else
+                    {
+                        this.btnEdit.Enabled = false;
+                        return;
+                    }
+                }
+
                 this.btnEdit.Enabled = !value;
                 this.btnEditMysqlConnection.Enabled = !value;
             }
         }
 
-        public DialogSettings(MainForm main_form)
+        public DialogSettings(MainForm main_form, scacclvVM scacclv)
         {
             InitializeComponent();
             this.main_form = main_form;
+            this.scacclv = scacclv;
         }
 
         private void DialogSettings_Load(object sender, EventArgs e)
@@ -126,13 +143,26 @@ namespace XPump.SubForm
 
         private void ResetControlState()
         {
+            string ac_edit = null;
+            if (this.main_form.loged_in_status.is_secure)
+            {
+                if(this.scacclv != null)
+                {
+                    ac_edit = this.scacclv.edit;
+                }
+                else
+                {
+                    ac_edit = "N";
+                }
+            }
+
             /* Toolstrip button */
-            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_edit);
+            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode, ac_edit);
+            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode, ac_edit);
 
             /* Form control */
-            this.btnEditMysqlConnection.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnEditMysqlConnection.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_edit);
             //this.btnBrowseExpressData.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.txtOrgname.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.dtPeriodFrom.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);

@@ -330,10 +330,10 @@ namespace XPump.SubForm
             if (this.form_mode == FORM_MODE.EDIT_ITEM)
                 this.btnOK.PerformClick();
 
-            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
+            if (this.main_form.loged_in_status.is_secure && (this.form_shifttransaction.scacclv == null || (this.form_shifttransaction.scacclv != null && this.form_shifttransaction.scacclv.edit == "N")))
                 return;
 
-            if (this.main_form.loged_in_status.is_secure && (this.form_shifttransaction.scacclv == null || (this.form_shifttransaction.scacclv != null && this.form_shifttransaction.scacclv.edit == "N")))
+            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
             this.form_mode = FORM_MODE.EDIT;
@@ -400,11 +400,11 @@ namespace XPump.SubForm
 
         private void dgvNozzle_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
-                return;
-
             /* disable editing depend on scacclv */
             if (this.main_form.loged_in_status.is_secure && (this.form_shifttransaction.scacclv == null || (this.form_shifttransaction.scacclv != null && this.form_shifttransaction.scacclv.edit == "N")))
+                return;
+
+            if (this.salessummary.shiftsales.ToViewModel(this.main_form.working_express_db).IsEditableShiftSales() == false)
                 return;
 
             if (e.RowIndex > -1 && ((XDatagrid)sender).CurrentCell != null)
@@ -642,11 +642,12 @@ namespace XPump.SubForm
                 if (row_index == -1)
                     return;
 
+                ((XDatagrid)sender).Rows[row_index].Cells[this.col_nozzle_name.Name].Selected = true;
+
                 ContextMenu cm = new ContextMenu();
-                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt + E>");
+                MenuItem mnu_edit = new MenuItem("แก้ไข  <Alt + E>");
                 mnu_edit.Click += delegate
                 {
-                    ((XDatagrid)sender).Rows[row_index].Cells[this.col_nozzle_name.Name].Selected = true;
                     this.form_mode = FORM_MODE.EDIT_ITEM;
                     this.ResetControlState();
                     this.ShowInlineForm(row_index);

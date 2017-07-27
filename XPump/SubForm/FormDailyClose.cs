@@ -16,7 +16,9 @@ namespace XPump.SubForm
 {
     public partial class FormDailyClose : Form
     {
+        public const string modcod = "12";
         private MainForm main_form;
+        public scacclvVM scacclv;
         private FORM_MODE form_mode;
         private BindingSource bs;
         private List<dayend> dayend_list;
@@ -29,10 +31,11 @@ namespace XPump.SubForm
             }
         }
 
-        public FormDailyClose(MainForm main_form)
+        public FormDailyClose(MainForm main_form, scacclvVM scacclv)
         {
             InitializeComponent();
             this.main_form = main_form;
+            this.scacclv = scacclv;
         }
 
         //protected override void OnFormClosing(FormClosingEventArgs e)
@@ -77,9 +80,35 @@ namespace XPump.SubForm
 
         private void ResetControlState()
         {
-            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            string ac_add = null;
+            string ac_edit = null;
+            string ac_delete = null;
+            string ac_print = null;
+            string ac_approve = null;
+            if (this.main_form.loged_in_status.is_secure)
+            {
+                if(this.scacclv != null)
+                {
+                    ac_add = this.scacclv.add;
+                    ac_edit = this.scacclv.edit;
+                    ac_delete = this.scacclv.delete;
+                    ac_print = this.scacclv.print;
+                    ac_approve = this.scacclv.approve;
+                }
+                else
+                {
+                    ac_add = "N";
+                    ac_edit = "N";
+                    ac_delete = "N";
+                    ac_print = "N";
+                    ac_approve = "N";
+                }
+            }
+
+
+            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_add);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_delete);
             this.btnFirst.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnPrevious.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnNext.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
@@ -87,19 +116,19 @@ namespace XPump.SubForm
             this.btnSearch.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnInquiryRest.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnPrintB.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnPrintC.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnApproveMulti.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnUnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_print);
+            this.btnPrintB.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_print);
+            this.btnPrintC.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_print);
+            this.btnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_approve);
+            this.btnApproveMulti.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_approve);
+            this.btnUnApprove.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_approve);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             /*Form control state depend on data*/
             if (this.form_mode == FORM_MODE.READ)
             {
-                this.btnEdit.Enabled = this.dayend_list.Count == 0 ? false : true;
-                this.btnDelete.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnEdit.Enabled = this.dayend_list.Count == 0 ? false : this.btnEdit.Enabled;
+                this.btnDelete.Enabled = this.dayend_list.Count == 0 ? false : this.btnDelete.Enabled;
                 this.btnFirst.Enabled = this.dayend_list.Count == 0 ? false : true;
                 this.btnPrevious.Enabled = this.dayend_list.Count == 0 ? false : true;
                 this.btnNext.Enabled = this.dayend_list.Count == 0 ? false : true;
@@ -107,12 +136,14 @@ namespace XPump.SubForm
                 this.btnSearch.Enabled = this.dayend_list.Count == 0 ? false : true;
                 this.btnInquiryAll.Enabled = this.dayend_list.Count == 0 ? false : true;
                 this.btnInquiryRest.Enabled = this.dayend_list.Count == 0 ? false : true;
-                this.btnPrint.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnPrint.Enabled = this.dayend_list.Count == 0 ? false : this.btnPrint.Enabled;
+                this.btnPrintB.Enabled = this.dayend_list.Count == 0 ? false : this.btnPrintB.Enabled;
+                this.btnPrintC.Enabled = this.dayend_list.Count == 0 ? false : this.btnPrintC.Enabled;
                 this.btnItem.Enabled = this.dayend_list.Count == 0 ? false : true;
                 //this.btnRefresh.Enabled = this.dayend_list.Count == 0 ? false : true;
-                this.btnApprove.Enabled = this.dayend_list.Count == 0 ? false : true;
-                this.btnApproveMulti.Enabled = this.dayend_list.Count == 0 ? false : true;
-                this.btnUnApprove.Enabled = this.dayend_list.Count == 0 ? false : true;
+                this.btnApprove.Enabled = this.dayend_list.Count == 0 ? false : this.btnApprove.Enabled;
+                this.btnApproveMulti.Enabled = this.dayend_list.Count == 0 ? false : this.btnApproveMulti.Enabled;
+                this.btnUnApprove.Enabled = this.dayend_list.Count == 0 ? false : this.btnUnApprove.Enabled;
             }
 
             this.ResetApproveBtn();
@@ -122,6 +153,27 @@ namespace XPump.SubForm
         {
             if(this.form_mode == FORM_MODE.READ)
             {
+                if (this.main_form.loged_in_status.is_secure)
+                {
+                    if (this.scacclv != null)
+                    {
+                        if (this.scacclv.approve == "N")
+                        {
+                            this.btnApprove.Enabled = false;
+                            this.btnApproveMulti.Enabled = false;
+                            this.btnUnApprove.Enabled = false;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        this.btnApprove.Enabled = false;
+                        this.btnApproveMulti.Enabled = false;
+                        this.btnUnApprove.Enabled = false;
+                        return;
+                    }
+                }
+
                 this.btnApprove.Enabled = this.curr_dayend == null ? false : (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().HasValue && this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().Value == true ? false : true);
 
                 this.btnApproveMulti.Enabled = this.curr_dayend == null ? false : (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().HasValue && this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsApproved().Value == true ? false : true);
@@ -1189,7 +1241,7 @@ namespace XPump.SubForm
                 ((XDatagrid)sender).Rows[row_index].Cells[this.col_stkcod.Name].Selected = true;
 
                 ContextMenu cm = new ContextMenu();
-                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
+                MenuItem mnu_edit = new MenuItem("ดู/แก้ไข รายละเอียด <Alt+E>");
                 mnu_edit.Click += delegate
                 {
                     this.ShowEditForm();
@@ -2192,7 +2244,7 @@ namespace XPump.SubForm
 
             if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_button_edit.Name).First().Index)
             {
-                e.ToolTipText = "แก้ไข <Alt+E>";
+                e.ToolTipText = "ดู/แก้ไข รายละเอียด <Alt+E>";
             }
         }
     }

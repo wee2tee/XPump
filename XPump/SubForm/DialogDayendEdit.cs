@@ -228,6 +228,19 @@ namespace XPump.SubForm
                 }
                 else
                 {
+                    if (this.main_form.loged_in_status.is_secure)
+                    {
+                        if(this.form_dailyclose.scacclv != null)
+                        {
+                            if (this.form_dailyclose.scacclv.edit == "N")
+                                return;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+
                     if (this.curr_dayend.ToViewModel(this.main_form.working_express_db).IsEditableDayend() == false)
                         return;
 
@@ -548,6 +561,20 @@ namespace XPump.SubForm
                     this.ResetControlState();
                     this.ShowInlineForm(row_index);
                 };
+                if (this.main_form.loged_in_status.is_secure)
+                {
+                    if (this.form_dailyclose.scacclv != null)
+                    {
+                        if (this.form_dailyclose.scacclv.edit == "N")
+                        {
+                            mnu_edit.Enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        mnu_edit.Enabled = false;
+                    }
+                }
                 cm.MenuItems.Add(mnu_edit);
                 cm.Show((XDatagrid)sender, new Point(e.X, e.Y));
             }
@@ -589,7 +616,7 @@ namespace XPump.SubForm
             {
                 if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_btn_rcvqty.Name).First().Index)
                 {
-                    e.ToolTipText = "ดู/แก้ไขรายละเอียด <Ctrl+E>";
+                    e.ToolTipText = "ดู/แก้ไข รายละเอียด <Ctrl+E>";
                 }
             }
         }

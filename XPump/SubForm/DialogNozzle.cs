@@ -101,11 +101,24 @@ namespace XPump.SubForm
 
         private void ResetControlState()
         {
-            this.btnAddItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnEditItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnDeleteItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnSaveItem.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
-            this.btnStopItem.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
+            string ac_edit = null;
+            if (this.main_form.loged_in_status.is_secure)
+            {
+                if(this.form_tankconfig.scacclv != null)
+                {
+                    ac_edit = this.form_tankconfig.scacclv.edit;
+                }
+                else
+                {
+                    ac_edit = "N";
+                }
+            }
+
+            this.btnAddItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnEditItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnDeleteItem.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnSaveItem.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode, ac_edit);
+            this.btnStopItem.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode, ac_edit);
             this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
         }
 
@@ -493,9 +506,10 @@ namespace XPump.SubForm
         {
             int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
 
-            if(e.Button == MouseButtons.Right && row_index > -1)
+            if(e.Button == MouseButtons.Right/* && row_index > -1*/)
             {
-                ((XDatagrid)sender).Rows[row_index].Cells["col_name"].Selected = true;
+                if(row_index > -1)
+                    ((XDatagrid)sender).Rows[row_index].Cells["col_name"].Selected = true;
                 
                 ContextMenu cm = new ContextMenu();
 
@@ -505,6 +519,7 @@ namespace XPump.SubForm
                 {
                     this.btnAddItem.PerformClick();
                 };
+                mnu_add.Enabled = this.btnAddItem.Enabled;
                 cm.MenuItems.Add(mnu_add);
 
                 MenuItem mnu_edit = new MenuItem();
@@ -513,6 +528,7 @@ namespace XPump.SubForm
                 {
                     this.btnEditItem.PerformClick();
                 };
+                mnu_edit.Enabled = row_index < 0 ? false : this.btnEditItem.Enabled;
                 cm.MenuItems.Add(mnu_edit);
 
                 MenuItem mnu_delete = new MenuItem();
@@ -521,6 +537,7 @@ namespace XPump.SubForm
                 {
                     this.btnDeleteItem.PerformClick();
                 };
+                mnu_delete.Enabled = row_index < 0 ? false : this.btnDeleteItem.Enabled;
                 cm.MenuItems.Add(mnu_delete);
 
                 cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));

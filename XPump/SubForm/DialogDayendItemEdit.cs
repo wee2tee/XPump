@@ -48,13 +48,26 @@ namespace XPump.SubForm
         {
             this.form_mode = form_mode;
 
+            string ac_edit = null;
+            if (this.main_form.loged_in_status.is_secure)
+            {
+                if(this.form_dailyclose.scacclv != null)
+                {
+                    ac_edit = this.form_dailyclose.scacclv.edit;
+                }
+                else
+                {
+                    ac_edit = "N";
+                }
+            }
+
             this.numBegbal.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.numRcvqty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.btnSyncRcvqty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnSyncRcvqty.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode, ac_edit);
             this.btnDother.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_edit);
+            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode, ac_edit);
+            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode, ac_edit);
             this.btnClose.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
         }
 

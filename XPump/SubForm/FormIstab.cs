@@ -15,7 +15,9 @@ namespace XPump.SubForm
 {
     public partial class FormIstab : Form
     {
+        public const string modcod = "24";
         private MainForm main_form;
+        public scacclvVM scacclv;
         private FORM_MODE form_mode;
         private string tabtyp;
         private BindingList<istabVM> bl_istab;
@@ -25,10 +27,11 @@ namespace XPump.SubForm
             get { return MenuIdClass.FormIstab; }
         }
 
-        public FormIstab(MainForm main_form, string tabtyp, string window_title = "")
+        public FormIstab(MainForm main_form, scacclvVM scacclv, string tabtyp, string window_title = "")
         {
             InitializeComponent();
             this.main_form = main_form;
+            this.scacclv = scacclv;
             this.tabtyp = tabtyp;
             this.Text = this.Text + " [" + window_title + "]";
         }
@@ -56,9 +59,28 @@ namespace XPump.SubForm
         {
             this.form_mode = form_mode;
 
-            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            string ac_add = null;
+            string ac_edit = null;
+            string ac_delete = null;
+            if (this.main_form.loged_in_status.is_secure)
+            {
+                if(this.scacclv != null)
+                {
+                    ac_add = this.scacclv.add;
+                    ac_edit = this.scacclv.edit;
+                    ac_delete = this.scacclv.delete;
+                }
+                else
+                {
+                    ac_add = "N";
+                    ac_edit = "N";
+                    ac_delete = "N";
+                }
+            }
+
+            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_add);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_delete);
             this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD_ITEM, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
@@ -496,6 +518,7 @@ namespace XPump.SubForm
                 {
                     this.btnAdd.PerformClick();
                 };
+                mnu_add.Enabled = this.btnAdd.Enabled;
                 cm.MenuItems.Add(mnu_add);
 
                 MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
@@ -503,7 +526,7 @@ namespace XPump.SubForm
                 {
                     this.btnEdit.PerformClick();
                 };
-                mnu_edit.Enabled = row_index == -1 ? false : true;
+                mnu_edit.Enabled = row_index == -1 ? false : this.btnEdit.Enabled;
                 cm.MenuItems.Add(mnu_edit);
 
                 MenuItem mnu_delete = new MenuItem("ลบ <Alt+D>");
@@ -511,7 +534,7 @@ namespace XPump.SubForm
                 {
                     this.btnDelete.PerformClick();
                 };
-                mnu_delete.Enabled = row_index == -1 ? false : true;
+                mnu_delete.Enabled = row_index == -1 ? false : this.btnDelete.Enabled;
                 cm.MenuItems.Add(mnu_delete);
 
                 cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));

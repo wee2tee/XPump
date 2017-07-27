@@ -156,14 +156,29 @@ namespace XPump.SubForm
             this.form_mode = form_mode;
 
             string ac_edit = null;
-            if(this.main_form.loged_in_status.is_secure && this.form_shifttransaction != null && this.form_shifttransaction.scacclv != null)
+            if(this.main_form.loged_in_status.is_secure && this.form_shifttransaction != null)
             {
-                ac_edit = this.form_shifttransaction.scacclv.edit;
+                if (this.form_shifttransaction.scacclv != null)
+                {
+                    ac_edit = this.form_shifttransaction.scacclv.edit;
+                }
+                else
+                {
+                    ac_edit = "N";
+                }
+                
             }
-            //if(this.main_form.loged_in_status.is_secure && this.form_dailyclose != null && this.form_dailyclose.scacclv != null)
-            //{
-            //    ac_edit = this.form_dailyclose.scacclv.edit;
-            //}
+            if(this.main_form.loged_in_status.is_secure && this.form_dailyclose != null)
+            {
+                if (this.form_dailyclose.scacclv != null)
+                {
+                    ac_edit = this.form_dailyclose.scacclv.edit;
+                }
+                else
+                {
+                    ac_edit = "N";
+                }
+            }
 
             this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
             this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
@@ -340,7 +355,7 @@ namespace XPump.SubForm
                 dayend_id = this.dayend != null ? (int?)this.dayend.id : null,
                 istab_id = -1,
                 section_id = -1,
-                nozzle_id = -1,
+                nozzle_id = null,
                 qty = 0m,
                 creby = this.main_form.loged_in_status.loged_in_user_name
             }.ToViewModel(this.main_form.working_express_db));
@@ -626,6 +641,7 @@ namespace XPump.SubForm
                 {
                     this.btnAdd.PerformClick();
                 };
+                mnu_add.Enabled = this.btnAdd.Enabled;
                 cm.MenuItems.Add(mnu_add);
 
                 MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
@@ -633,7 +649,7 @@ namespace XPump.SubForm
                 {
                     this.btnEdit.PerformClick();
                 };
-                mnu_edit.Enabled = row_index == -1 ? false : true;
+                mnu_edit.Enabled = row_index == -1 ? false : this.btnEdit.Enabled;
                 cm.MenuItems.Add(mnu_edit);
 
                 MenuItem mnu_delete = new MenuItem("ลบ <Alt+D>");
@@ -641,7 +657,7 @@ namespace XPump.SubForm
                 {
                     this.btnDelete.PerformClick();
                 };
-                mnu_delete.Enabled = row_index == -1 ? false : true;
+                mnu_delete.Enabled = row_index == -1 ? false : this.btnDelete.Enabled;
                 cm.MenuItems.Add(mnu_delete);
 
                 cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
@@ -859,16 +875,22 @@ namespace XPump.SubForm
                 }
                 else
                 {
-                    this.tmp_dother.nozzle_id = -1;
-                    this.inline_section._SelectedItem = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+                    this.tmp_dother.nozzle_id = null;
+
+                    if (this.form_shifttransaction != null)
+                        this.inline_section._SelectedItem = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+
                     if(this.section ==null)
                         this.inline_section._ReadOnly = false;
                 }
             }
             else
             {
-                this.tmp_dother.nozzle_id = -1;
-                this.inline_section._SelectedItem = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+                this.tmp_dother.nozzle_id = null;
+
+                if(this.form_shifttransaction != null)
+                    this.inline_section._SelectedItem = this.inline_section._Items.Cast<XDropdownListItem>().Where(i => (int)i.Value == -1).First();
+
                 if(this.section == null)
                     this.inline_section._ReadOnly = false;
             }

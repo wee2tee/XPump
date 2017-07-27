@@ -218,7 +218,9 @@ namespace XPump
                 return;
             }
 
-            FormTankConfig tank = new FormTankConfig(this);
+            var scacclv = this.GetSubFormAccessControl(FormTankConfig.modcod);
+
+            FormTankConfig tank = new FormTankConfig(this, scacclv);
             tank.MdiParent = this;
             tank.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
             tank.Show();
@@ -233,8 +235,10 @@ namespace XPump
                 this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
                 return;
             }
-            
-            FormIstab i = new FormIstab(this, ISTAB_TABTYP.DOTHER, ((ToolStripMenuItem)sender).Text);
+
+            var scacclv = this.GetSubFormAccessControl(FormIstab.modcod);
+
+            FormIstab i = new FormIstab(this, scacclv, ISTAB_TABTYP.DOTHER, ((ToolStripMenuItem)sender).Text);
             i.MdiParent = this;
             i.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
             i.Show();
@@ -260,7 +264,9 @@ namespace XPump
 
         private void mnuSettings_Click(object sender, EventArgs e)
         {
-            DialogSettings setting = new DialogSettings(this);
+            var scacclv = this.GetSubFormAccessControl(DialogSettings.modcod);
+
+            DialogSettings setting = new DialogSettings(this, scacclv);
             setting.ShowDialog();
         }
 
@@ -361,7 +367,9 @@ namespace XPump
                 return;
             }
 
-            FormDailyClose daily = new FormDailyClose(this);
+            var scacclv = this.GetSubFormAccessControl(FormDailyClose.modcod);
+
+            FormDailyClose daily = new FormDailyClose(this, scacclv);
             daily.MdiParent = this;
             daily.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
             daily.Show();

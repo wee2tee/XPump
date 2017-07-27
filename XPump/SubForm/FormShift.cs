@@ -74,9 +74,28 @@ namespace XPump.SubForm
 
         private void ResetControlState()
         {
-            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            string ac_add = null;
+            string ac_edit = null;
+            string ac_delete = null;
+            if (this.main_form.loged_in_status.is_secure)
+            {
+                if(this.scacclv != null)
+                {
+                    ac_add = this.scacclv.add;
+                    ac_edit = this.scacclv.edit;
+                    ac_delete = this.scacclv.delete;
+                }
+                else
+                {
+                    ac_add = "N";
+                    ac_edit = "N";
+                    ac_delete = "N";
+                }
+            }
+
+            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_add);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_edit);
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode, ac_delete);
             this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
@@ -423,16 +442,16 @@ namespace XPump.SubForm
 
         private void dgv_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.RowIndex == -1 && e.Button == MouseButtons.Left/* && this.form_mode == FORM_MODE_LIST.READ*/)
-            {
-                //((XDatagrid)sender).SortByColumn<shiftVM>(e.ColumnIndex);
-                return;
-            }
-            else
-            {
-                ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_name.Name].Selected = true;
-                this.curr_shift = (shift)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_shift.Name].Value;
-            }
+            //if (e.RowIndex == -1 && e.Button == MouseButtons.Left/* && this.form_mode == FORM_MODE_LIST.READ*/)
+            //{
+            //    //((XDatagrid)sender).SortByColumn<shiftVM>(e.ColumnIndex);
+            //    return;
+            //}
+            //else
+            //{
+            //    ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_name.Name].Selected = true;
+            //    this.curr_shift = (shift)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_shift.Name].Value;
+            //}
         }
 
         private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -488,9 +507,10 @@ namespace XPump.SubForm
             int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
             int col_index = ((XDatagrid)sender).HitTest(e.X, e.Y).ColumnIndex;
 
-            if (e.Button == MouseButtons.Right && row_index > -1)
+            if (e.Button == MouseButtons.Right/* && row_index > -1*/)
             {
-                ((XDatagrid)sender).Rows[row_index].Cells[col_index].Selected = true;
+                if (row_index > -1)
+                    ((XDatagrid)sender).Rows[row_index].Cells[col_index].Selected = true;
 
                 ContextMenu cm = new ContextMenu();
                 MenuItem mnu_add = new MenuItem("เพิ่ม <Alt+A>");
@@ -498,6 +518,7 @@ namespace XPump.SubForm
                 {
                     this.btnAdd.PerformClick();
                 };
+                mnu_add.Enabled = this.btnAdd.Enabled;
                 cm.MenuItems.Add(mnu_add);
 
                 MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
@@ -505,6 +526,7 @@ namespace XPump.SubForm
                 {
                     this.btnEdit.PerformClick();
                 };
+                mnu_edit.Enabled = row_index == -1 ? false : this.btnEdit.Enabled;
                 cm.MenuItems.Add(mnu_edit);
 
                 MenuItem mnu_delete = new MenuItem("ลบ <Alt+D>");
@@ -512,6 +534,7 @@ namespace XPump.SubForm
                 {
                     this.btnDelete.PerformClick();
                 };
+                mnu_delete.Enabled = row_index == -1 ? false : this.btnDelete.Enabled;
                 cm.MenuItems.Add(mnu_delete);
 
                 //MenuItem mnu_up = new MenuItem("เลื่อนขึ้น");

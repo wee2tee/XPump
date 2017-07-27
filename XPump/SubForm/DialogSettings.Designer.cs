@@ -61,9 +61,9 @@
             this.txtOrgname = new CC.XTextEdit();
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -260,6 +260,7 @@
             // numDayAuthLevel
             // 
             this.numDayAuthLevel._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numDayAuthLevel._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.numDayAuthLevel._MaxLength = 1;
             this.numDayAuthLevel._ReadOnly = false;
             this.numDayAuthLevel._Text = "";
@@ -278,6 +279,7 @@
             // numShiftAuthLevel
             // 
             this.numShiftAuthLevel._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numShiftAuthLevel._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.numShiftAuthLevel._MaxLength = 1;
             this.numShiftAuthLevel._ReadOnly = false;
             this.numShiftAuthLevel._Text = "";
@@ -434,6 +436,7 @@
             // txtOrgname
             // 
             this.txtOrgname._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtOrgname._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.txtOrgname._MaxLength = 32767;
             this.txtOrgname._ReadOnly = false;
             this.txtOrgname._Text = "";
@@ -467,14 +470,14 @@
             this.label19.TabIndex = 7;
             this.label19.Text = "จาก";
             // 
-            // label18
+            // label11
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(187, 42);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(13, 16);
-            this.label18.TabIndex = 7;
-            this.label18.Text = ":";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(300, 138);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(13, 16);
+            this.label11.TabIndex = 7;
+            this.label11.Text = ":";
             // 
             // label21
             // 
@@ -485,14 +488,14 @@
             this.label21.TabIndex = 7;
             this.label21.Text = ":";
             // 
-            // label11
+            // label18
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(300, 138);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(13, 16);
-            this.label11.TabIndex = 7;
-            this.label11.Text = ":";
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(187, 42);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(13, 16);
+            this.label18.TabIndex = 7;
+            this.label18.Text = ":";
             // 
             // DialogSettings
             // 
