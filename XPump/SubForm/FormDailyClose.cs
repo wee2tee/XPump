@@ -24,12 +24,12 @@ namespace XPump.SubForm
         private List<dayend> dayend_list;
         private DateTime? curr_date;
         private dayend curr_dayend;
-        public string menu_id {
-            get
-            {
-                return MenuIdClass.FormDailyClose;
-            }
-        }
+        //public string menu_id {
+        //    get
+        //    {
+        //        return MenuIdClass.FormDailyClose;
+        //    }
+        //}
 
         public FormDailyClose(MainForm main_form, scacclvVM scacclv)
         {
@@ -334,7 +334,7 @@ namespace XPump.SubForm
                             //this.main_form.islog.AddData(this.menu_id, "เพิ่มรายการปิดยอดขายประจำวันที่ " + dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + ", รหัสสินค้า \"" + dayend.stkcod + "\"", dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + dayend.stkcod, "dayend", dayend.id).Save();
                         }
 
-                        this.main_form.islog.AddData(this.menu_id, "เพิ่มรายการปิดยอดขายประจำวันที่ " + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), dlg.selected_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", inserted_id.ToArray()).Save();
+                        this.main_form.islog.AddData(modcod, "เพิ่มรายการปิดยอดขายประจำวันที่ " + dlg.selected_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), dlg.selected_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", inserted_id.ToArray()).Save();
                     }
                     catch (Exception ex)
                     {
@@ -395,7 +395,7 @@ namespace XPump.SubForm
                         }
 
                         db.SaveChanges();
-                        this.main_form.islog.DeleteData(this.menu_id, "ลบรายการปิดยอดขายประจำวันที่ " + dayends.First().saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), dayends.First().saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", deleted_id.ToArray()).Save();
+                        this.main_form.islog.DeleteData(modcod, "ลบรายการปิดยอดขายประจำวันที่ " + dayends.First().saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), dayends.First().saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", deleted_id.ToArray()).Save();
                         this.btnNext.PerformClick();
                         //this.ResetControlState();
                         //this.btnRefresh.PerformClick();
@@ -810,7 +810,7 @@ namespace XPump.SubForm
                                     }
                                     db.SaveChanges();
 
-                                    this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ข. ของวันที่ " + print.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", print.selected_date.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                                    this.main_form.islog.Print(modcod, "พิมพ์รายงานส่วน ข. ของวันที่ " + print.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", print.selected_date.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
                                 }
                             };
                             xp.Show();
@@ -873,7 +873,7 @@ namespace XPump.SubForm
                                     }
                                     db.SaveChanges();
 
-                                    this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ข. ของวันที่ " + print.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", print.selected_date.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                                    this.main_form.islog.Print(modcod, "พิมพ์รายงานส่วน ข. ของวันที่ " + print.selected_date.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", print.selected_date.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
                                 }
 
                                 pd.Document.Print();
@@ -957,7 +957,7 @@ namespace XPump.SubForm
                                 using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                                 {
                                     var ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
-                                    this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                                    this.main_form.islog.Print(modcod, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
                                 }
                             };
                             xp.Show();
@@ -1019,7 +1019,7 @@ namespace XPump.SubForm
                                 {
                                     var ids = db.dayend.Where(d => d.saldat == this.curr_dayend.saldat).Select(d => d.id).ToArray();
 
-                                    this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
+                                    this.main_form.islog.Print(modcod, "พิมพ์รายงานส่วน ค. ของวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ออกทางเครื่องพิมพ์", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", ids).Save();
                                 }
                                 pd.Document.Print();
                             }
@@ -1070,7 +1070,7 @@ namespace XPump.SubForm
                         db.SaveChanges();
                     }
 
-                    this.main_form.islog.Approve(this.menu_id, "รับรองรายการ ปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", dayend_ids.ToArray()).Save(approved_user);
+                    this.main_form.islog.Approve(modcod, "รับรองรายการ ปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", dayend_ids.ToArray()).Save(approved_user);
 
                     this.btnRefresh.PerformClick();
                     this.ResetApproveBtn();
@@ -1126,7 +1126,7 @@ namespace XPump.SubForm
                         }
                         db.SaveChanges();
 
-                        this.main_form.islog.ApproveMultiple(this.menu_id, "รับรองรายการ ปิดยอดขายประจำวันช่วงวันที่ " + date_selector.FromDate.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ถึงวันที่ " + date_selector.ToDate.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), date_selector.FromDate.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + date_selector.ToDate.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", dayends.Select(d => d.id).ToArray()).Save(approved_user);
+                        this.main_form.islog.ApproveMultiple(modcod, "รับรองรายการ ปิดยอดขายประจำวันช่วงวันที่ " + date_selector.FromDate.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ถึงวันที่ " + date_selector.ToDate.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), date_selector.FromDate.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + date_selector.ToDate.Value.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", dayends.Select(d => d.id).ToArray()).Save(approved_user);
 
                         this.btnRefresh.PerformClick();
                         this.ResetApproveBtn();
@@ -1176,7 +1176,7 @@ namespace XPump.SubForm
                     }
                     
 
-                    this.main_form.islog.UnApprove(this.menu_id, "ยกเลิกการรับรองรายการ ปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", unapprove_id.ToArray()).Save(unapproved_user);
+                    this.main_form.islog.UnApprove(modcod, "ยกเลิกการรับรองรายการ ปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")), "dayend", unapprove_id.ToArray()).Save(unapproved_user);
 
                     this.btnRefresh.PerformClick();
                     this.ResetApproveBtn();

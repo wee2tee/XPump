@@ -49,7 +49,7 @@ namespace XPump.SubForm
             : this(main_form)
         {
             this.form_shifttransaction = form_shifttransaction;
-            this.menu_id = form_shifttransaction.menu_id;
+            this.menu_id = FormShiftTransaction.modcod; //form_shifttransaction.menu_id;
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.dother_type = DOTHER.SHIFTSALES;
@@ -84,7 +84,7 @@ namespace XPump.SubForm
             : this(main_form)
         {
             this.form_dailyclose = form_dailyclose;
-            this.menu_id = form_dailyclose.menu_id;
+            this.menu_id = FormDailyClose.modcod; //form_dailyclose.menu_id;
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.dother_type = DOTHER.DAYEND;

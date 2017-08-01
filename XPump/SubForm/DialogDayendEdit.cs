@@ -202,7 +202,7 @@ namespace XPump.SubForm
                     dayend_to_update.chgtime = DateTime.Now;
                     db.SaveChanges();
 
-                    this.main_form.islog.EditData(this.form_dailyclose.menu_id, "แก้ไขปริมาณน้ำมันที่ตรวจวัดได้ ในรายการปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " , รหัสสินค้า \"" + this.curr_dayend.stkcod + "\", เลขที่ถัง \"" + sttak_to_update.ToViewModel(this.main_form.working_express_db).section_name + "\"", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_dayend.stkcod + "|" + sttak_to_update.ToViewModel(this.main_form.working_express_db).section_name, "daysttak", sttak_to_update.id).Save();
+                    this.main_form.islog.EditData(FormDailyClose.modcod, "แก้ไขปริมาณน้ำมันที่ตรวจวัดได้ ในรายการปิดยอดขายประจำวันที่ " + this.curr_dayend.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " , รหัสสินค้า \"" + this.curr_dayend.stkcod + "\", เลขที่ถัง \"" + sttak_to_update.ToViewModel(this.main_form.working_express_db).section_name + "\"", this.curr_dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_dayend.stkcod + "|" + sttak_to_update.ToViewModel(this.main_form.working_express_db).section_name, "daysttak", sttak_to_update.id).Save();
 
                     this.curr_dayend.daysttak.Where(d => d.id == this.tmp_sttak.id).First().takqty = this.tmp_sttak.takqty;
                     this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == this.tmp_sttak.id).First().Cells[this.col_qty.Name].Value = this.tmp_sttak.takqty;
@@ -278,7 +278,7 @@ namespace XPump.SubForm
                         dayend_to_update.chgtime = DateTime.Now;
 
                         db.SaveChanges();
-                        this.main_form.islog.EditData(this.form_dailyclose.menu_id, "แก้ไขรายการปิดยอดขายประจำวันที่ " + dayend_to_update.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " , รหัสสินค้า \"" + dayend_to_update.stkcod + "\"", dayend_to_update.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + dayend_to_update.stkcod, "dayend", dayend_to_update.id).Save();
+                        this.main_form.islog.EditData(FormDailyClose.modcod, "แก้ไขรายการปิดยอดขายประจำวันที่ " + dayend_to_update.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " , รหัสสินค้า \"" + dayend_to_update.stkcod + "\"", dayend_to_update.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + dayend_to_update.stkcod, "dayend", dayend_to_update.id).Save();
 
                         this.form_mode = FORM_MODE.READ;
                         this.ResetControlState();
