@@ -459,7 +459,16 @@
     <Compile Include="SubForm\_testpwd.Designer.cs">
       <DependentUpon>_testpwd.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="MainForm.en-UM.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.en-US.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.th-TH.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -546,6 +555,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSearchShiftTransaction.resx">
       <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSettings.en-US.resx">
+      <DependentUpon>DialogSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSettings.resx">
       <DependentUpon>DialogSettings.cs</DependentUpon>

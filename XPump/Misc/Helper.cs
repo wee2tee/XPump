@@ -51,6 +51,12 @@ namespace XPump.Misc
         DELETE
     }
 
+    public enum UILANGUAGE
+    {
+        ENG,
+        THA
+    }
+
     // Miscellenous class
     public class InlineControlGridPosition
     {

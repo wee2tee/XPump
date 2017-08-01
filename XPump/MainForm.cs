@@ -13,6 +13,7 @@ using XPump.SubForm;
 using System.Data.SQLite;
 using System.IO;
 using CC;
+using System.Threading;
 
 namespace XPump
 {
@@ -64,6 +65,18 @@ namespace XPump
             }
         }
 
+        public void SetUILanguage()
+        {
+            if (this.loged_in_status != null && this.loged_in_status.language == UILANGUAGE.ENG)
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            }
+            else
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("th-TH");
+            }
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             //if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/Local"))
@@ -103,8 +116,13 @@ namespace XPump
             }
             else
             {
+                //this.menuStrip1.Refresh();
                 this.islog.LoginSuccess(this.loged_in_status.loged_in_user_name).Save();
             }
+            this.SetUILanguage();
+            this.Controls.RemoveByKey("menuStrip1");
+            this.Controls.RemoveByKey("statusStrip1");
+            this.InitializeComponent();
             this.SetStatusLabelText(null, null, this.loged_in_status.loged_in_user_name);
 
             this.mnuChangeCompany.PerformClick();
@@ -378,17 +396,7 @@ namespace XPump
 
         private void mnuSecure_Click(object sender, EventArgs e)
         {
-            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).FirstOrDefault() != null)
-            {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).First().form.Activate();
-                return;
-            }
-
-            FormSecure sec = new FormSecure(this);
-            sec.MdiParent = this;
-            sec.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-            sec.Show();
-            this.opened_child_form.Add(new ChildFormDetail() { form = sec, docPrefix = string.Empty });
+           
         }
 
         private void mnuBackup_Click(object sender, EventArgs e)
@@ -431,7 +439,7 @@ namespace XPump
         /* Set menu behavior for on EnableChanged */
         private void SetMenuBehavior(ToolStripItemCollection menus)
         {
-            foreach (ToolStripMenuItem mnu in menus)
+            foreach (ToolStripMenuItem mnu in menus.Cast<ToolStripItem>().Where(m => m.GetType() == typeof(ToolStripMenuItem)))
             {
                 mnu.EnabledChanged += new EventHandler(this.MenuItemEnableChanged);
                 if (mnu.HasDropDownItems)
@@ -463,7 +471,7 @@ namespace XPump
             {
                 var scmoduls = sec.scmodul.ToList();
 
-                foreach (ToolStripMenuItem mnu in menus)
+                foreach (ToolStripMenuItem mnu in menus.Cast<ToolStripItem>().Where(m => m.GetType() == typeof(ToolStripMenuItem)))
                 {
                     if (mnu.OwnerItem != null && mnu.OwnerItem.GetType() == typeof(ToolStripMenuItem)) // is sub menu
                     {
@@ -570,6 +578,21 @@ namespace XPump
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void mnuUsersFile_Click(object sender, EventArgs e)
+        {
+            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).First().form.Activate();
+                return;
+            }
+
+            FormSecure sec = new FormSecure(this);
+            sec.MdiParent = this;
+            sec.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            sec.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = sec, docPrefix = string.Empty });
         }
     }
 

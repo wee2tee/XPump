@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DialogSettings));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
@@ -36,9 +37,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnEditMysqlConnection = new System.Windows.Forms.Button();
-            this.lblNotConnect = new System.Windows.Forms.Label();
-            this.lblConnected = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dtPeriodTo = new CC.XDatePicker();
             this.dtPeriodFrom = new CC.XDatePicker();
@@ -64,137 +62,71 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.btnEditMysqlConnection = new System.Windows.Forms.Button();
+            this.lblNotConnect = new System.Windows.Forms.Label();
+            this.lblConnected = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
             // 
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.toolStrip1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnEdit,
             this.btnSave,
             this.btnStop});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(554, 43);
-            this.toolStrip1.TabIndex = 6;
             // 
             // btnEdit
             // 
+            resources.ApplyResources(this.btnEdit, "btnEdit");
             this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnEdit.Image = global::XPump.Properties.Resources.edit;
-            this.btnEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(36, 40);
-            this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSave
             // 
+            resources.ApplyResources(this.btnSave, "btnSave");
             this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSave.Enabled = false;
             this.btnSave.Image = global::XPump.Properties.Resources.save;
-            this.btnSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(36, 40);
-            this.btnSave.Text = "บันทึกข้อมูล <F9>";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnStop
             // 
+            resources.ApplyResources(this.btnStop, "btnStop");
             this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnStop.Enabled = false;
             this.btnStop.Image = global::XPump.Properties.Resources.stop;
-            this.btnStop.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(36, 40);
-            this.btnStop.Text = "ยกเลิกการแก้ไขข้อมูล <Esc>";
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 13);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 16);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "1. ชื่อสถานีบริการน้ำมัน";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 71);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(201, 16);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "กำหนดการเชื่อมต่อฐานข้อมูล MySql";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(219, 71);
+            resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(13, 16);
-            this.label4.TabIndex = 7;
-            this.label4.Text = ":";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(187, 13);
+            resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(13, 16);
-            this.label6.TabIndex = 7;
-            this.label6.Text = ":";
-            // 
-            // btnEditMysqlConnection
-            // 
-            this.btnEditMysqlConnection.Image = global::XPump.Properties.Resources.edit_16;
-            this.btnEditMysqlConnection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditMysqlConnection.Location = new System.Drawing.Point(347, 64);
-            this.btnEditMysqlConnection.Name = "btnEditMysqlConnection";
-            this.btnEditMysqlConnection.Padding = new System.Windows.Forms.Padding(3);
-            this.btnEditMysqlConnection.Size = new System.Drawing.Size(178, 30);
-            this.btnEditMysqlConnection.TabIndex = 8;
-            this.btnEditMysqlConnection.Text = "แก้ไขการเชื่อมต่อ MySQL";
-            this.btnEditMysqlConnection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEditMysqlConnection.UseVisualStyleBackColor = true;
-            this.btnEditMysqlConnection.Click += new System.EventHandler(this.btnEditMysqlConnection_Click);
-            // 
-            // lblNotConnect
-            // 
-            this.lblNotConnect.Image = global::XPump.Properties.Resources.exclaimation_16;
-            this.lblNotConnect.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblNotConnect.Location = new System.Drawing.Point(236, 71);
-            this.lblNotConnect.Name = "lblNotConnect";
-            this.lblNotConnect.Size = new System.Drawing.Size(110, 16);
-            this.lblNotConnect.TabIndex = 7;
-            this.lblNotConnect.Text = "ไม่มีการเชื่อมต่อ";
-            this.lblNotConnect.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblConnected
-            // 
-            this.lblConnected.Image = global::XPump.Properties.Resources.ok_16;
-            this.lblConnected.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblConnected.Location = new System.Drawing.Point(236, 71);
-            this.lblConnected.Name = "lblConnected";
-            this.lblConnected.Size = new System.Drawing.Size(94, 16);
-            this.lblConnected.TabIndex = 7;
-            this.lblConnected.Text = "เชื่อมต่อแล้ว";
-            this.lblConnected.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblConnected.Visible = false;
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.dtPeriodTo);
             this.panel1.Controls.Add(this.dtPeriodFrom);
@@ -222,23 +154,16 @@
             this.panel1.Controls.Add(this.label21);
             this.panel1.Controls.Add(this.label18);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Location = new System.Drawing.Point(17, 109);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(518, 275);
-            this.panel1.TabIndex = 9;
             // 
             // dtPeriodTo
             // 
             this.dtPeriodTo._ReadOnly = false;
             this.dtPeriodTo._SelectedDate = null;
+            resources.ApplyResources(this.dtPeriodTo, "dtPeriodTo");
             this.dtPeriodTo.BackColor = System.Drawing.Color.White;
             this.dtPeriodTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtPeriodTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtPeriodTo.Location = new System.Drawing.Point(388, 39);
-            this.dtPeriodTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtPeriodTo.Name = "dtPeriodTo";
-            this.dtPeriodTo.Size = new System.Drawing.Size(103, 23);
-            this.dtPeriodTo.TabIndex = 3;
             this.dtPeriodTo._SelectedDateChanged += new System.EventHandler(this.dtPeriodTo__SelectedDateChanged);
             this.dtPeriodTo._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
@@ -246,14 +171,10 @@
             // 
             this.dtPeriodFrom._ReadOnly = false;
             this.dtPeriodFrom._SelectedDate = null;
+            resources.ApplyResources(this.dtPeriodFrom, "dtPeriodFrom");
             this.dtPeriodFrom.BackColor = System.Drawing.Color.White;
             this.dtPeriodFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtPeriodFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtPeriodFrom.Location = new System.Drawing.Point(240, 39);
-            this.dtPeriodFrom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtPeriodFrom.Name = "dtPeriodFrom";
-            this.dtPeriodFrom.Size = new System.Drawing.Size(103, 23);
-            this.dtPeriodFrom.TabIndex = 2;
             this.dtPeriodFrom._SelectedDateChanged += new System.EventHandler(this.dtPeriodFrom__SelectedDateChanged);
             this.dtPeriodFrom._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
@@ -265,14 +186,10 @@
             this.numDayAuthLevel._ReadOnly = false;
             this.numDayAuthLevel._Text = "";
             this.numDayAuthLevel._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            resources.ApplyResources(this.numDayAuthLevel, "numDayAuthLevel");
             this.numDayAuthLevel.BackColor = System.Drawing.Color.White;
             this.numDayAuthLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numDayAuthLevel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numDayAuthLevel.Location = new System.Drawing.Point(316, 190);
-            this.numDayAuthLevel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numDayAuthLevel.Name = "numDayAuthLevel";
-            this.numDayAuthLevel.Size = new System.Drawing.Size(20, 23);
-            this.numDayAuthLevel.TabIndex = 6;
             this.numDayAuthLevel._TextChanged += new System.EventHandler(this.numDayAuthLevel__TextChanged);
             this.numDayAuthLevel._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
@@ -284,14 +201,10 @@
             this.numShiftAuthLevel._ReadOnly = false;
             this.numShiftAuthLevel._Text = "";
             this.numShiftAuthLevel._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            resources.ApplyResources(this.numShiftAuthLevel, "numShiftAuthLevel");
             this.numShiftAuthLevel.BackColor = System.Drawing.Color.White;
             this.numShiftAuthLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numShiftAuthLevel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.numShiftAuthLevel.Location = new System.Drawing.Point(316, 94);
-            this.numShiftAuthLevel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numShiftAuthLevel.Name = "numShiftAuthLevel";
-            this.numShiftAuthLevel.Size = new System.Drawing.Size(20, 23);
-            this.numShiftAuthLevel.TabIndex = 4;
             this.numShiftAuthLevel._TextChanged += new System.EventHandler(this.numShiftAuthLevel__TextChanged);
             this.numShiftAuthLevel._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
@@ -300,13 +213,9 @@
             this.drDayPrintMethod._ReadOnly = false;
             this.drDayPrintMethod._SelectedItem = null;
             this.drDayPrintMethod._Text = "";
+            resources.ApplyResources(this.drDayPrintMethod, "drDayPrintMethod");
             this.drDayPrintMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.drDayPrintMethod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.drDayPrintMethod.Location = new System.Drawing.Point(316, 232);
-            this.drDayPrintMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.drDayPrintMethod.Name = "drDayPrintMethod";
-            this.drDayPrintMethod.Size = new System.Drawing.Size(167, 23);
-            this.drDayPrintMethod.TabIndex = 7;
             this.drDayPrintMethod._SelectedItemChanged += new System.EventHandler(this.drDayPrintMethod__SelectedItemChanged);
             this.drDayPrintMethod._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
@@ -315,123 +224,71 @@
             this.drShiftPrintMethod._ReadOnly = false;
             this.drShiftPrintMethod._SelectedItem = null;
             this.drShiftPrintMethod._Text = "";
+            resources.ApplyResources(this.drShiftPrintMethod, "drShiftPrintMethod");
             this.drShiftPrintMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.drShiftPrintMethod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.drShiftPrintMethod.Location = new System.Drawing.Point(316, 135);
-            this.drShiftPrintMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.drShiftPrintMethod.Name = "drShiftPrintMethod";
-            this.drShiftPrintMethod.Size = new System.Drawing.Size(167, 23);
-            this.drShiftPrintMethod.TabIndex = 5;
             this.drShiftPrintMethod._SelectedItemChanged += new System.EventHandler(this.drShiftPrintMethod__SelectedItemChanged);
             this.drShiftPrintMethod._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(341, 194);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(169, 32);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "0 = ไม่ต้องรับรอง,\r\n1 - 9 = ระดับอนุมัติที่ให้รับรอง";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(341, 98);
+            resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(169, 32);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "0 = ไม่ต้องรับรอง,\r\n1 - 9 = ระดับอนุมัติที่ให้รับรอง";
             // 
             // label17
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(35, 194);
+            resources.ApplyResources(this.label17, "label17");
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(184, 16);
-            this.label17.TabIndex = 7;
-            this.label17.Text = "รับรองรายการ ต้องขออนุมัติระดับ";
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(35, 98);
+            resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(184, 16);
-            this.label10.TabIndex = 7;
-            this.label10.Text = "รับรองรายการ ต้องขออนุมัติระดับ";
             // 
             // label16
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(35, 235);
+            resources.ApplyResources(this.label16, "label16");
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(278, 16);
-            this.label16.TabIndex = 7;
-            this.label16.Text = "การรับรองรายการเพื่อพิมพ์รายงานส่วน ข. และ ค. :";
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(35, 138);
+            resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(227, 16);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "การรับรองรายการเพื่อพิมพ์รายงานส่วน ก.";
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 170);
+            resources.ApplyResources(this.label15, "label15");
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(261, 16);
-            this.label15.TabIndex = 7;
-            this.label15.Text = "4. การรับรอง/พิมพ์ รายการปิดยอดขายประจำวัน";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 74);
+            resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(209, 16);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "3. การรับรอง/พิมพ์ รายการประจำผลัด";
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(300, 194);
+            resources.ApplyResources(this.label14, "label14");
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(13, 16);
-            this.label14.TabIndex = 7;
-            this.label14.Text = ":";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 42);
+            resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 16);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "2. รอบบัญชี";
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(233, 235);
+            resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(13, 16);
-            this.label13.TabIndex = 7;
-            this.label13.Text = ":";
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(233, 138);
+            resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(13, 16);
-            this.label12.TabIndex = 7;
-            this.label12.Text = ":";
             // 
             // txtOrgname
             // 
@@ -441,84 +298,75 @@
             this.txtOrgname._ReadOnly = false;
             this.txtOrgname._Text = "";
             this.txtOrgname._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            resources.ApplyResources(this.txtOrgname, "txtOrgname");
             this.txtOrgname.BackColor = System.Drawing.Color.White;
             this.txtOrgname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtOrgname.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtOrgname.Location = new System.Drawing.Point(204, 9);
-            this.txtOrgname.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtOrgname.Name = "txtOrgname";
-            this.txtOrgname.Size = new System.Drawing.Size(287, 23);
-            this.txtOrgname.TabIndex = 1;
             this.txtOrgname._TextChanged += new System.EventHandler(this.txtOrgname__TextChanged);
             this.txtOrgname._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // label20
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(356, 42);
+            resources.ApplyResources(this.label20, "label20");
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(22, 16);
-            this.label20.TabIndex = 7;
-            this.label20.Text = "ถึง";
             // 
             // label19
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(208, 42);
+            resources.ApplyResources(this.label19, "label19");
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(29, 16);
-            this.label19.TabIndex = 7;
-            this.label19.Text = "จาก";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(300, 138);
+            resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(13, 16);
-            this.label11.TabIndex = 7;
-            this.label11.Text = ":";
             // 
             // label21
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(300, 98);
+            resources.ApplyResources(this.label21, "label21");
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(13, 16);
-            this.label21.TabIndex = 7;
-            this.label21.Text = ":";
             // 
             // label18
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(187, 42);
+            resources.ApplyResources(this.label18, "label18");
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(13, 16);
-            this.label18.TabIndex = 7;
-            this.label18.Text = ":";
+            // 
+            // btnEditMysqlConnection
+            // 
+            resources.ApplyResources(this.btnEditMysqlConnection, "btnEditMysqlConnection");
+            this.btnEditMysqlConnection.Image = global::XPump.Properties.Resources.edit_16;
+            this.btnEditMysqlConnection.Name = "btnEditMysqlConnection";
+            this.btnEditMysqlConnection.UseVisualStyleBackColor = true;
+            this.btnEditMysqlConnection.Click += new System.EventHandler(this.btnEditMysqlConnection_Click);
+            // 
+            // lblNotConnect
+            // 
+            resources.ApplyResources(this.lblNotConnect, "lblNotConnect");
+            this.lblNotConnect.Image = global::XPump.Properties.Resources.exclaimation_16;
+            this.lblNotConnect.Name = "lblNotConnect";
+            // 
+            // lblConnected
+            // 
+            resources.ApplyResources(this.lblConnected, "lblConnected");
+            this.lblConnected.Image = global::XPump.Properties.Resources.ok_16;
+            this.lblConnected.Name = "lblConnected";
             // 
             // DialogSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 400);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnEditMysqlConnection);
-            this.Controls.Add(this.lblNotConnect);
-            this.Controls.Add(this.lblConnected);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.toolStrip1);
-            this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.Controls.Add(this.lblNotConnect);
+            this.Controls.Add(this.lblConnected);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DialogSettings";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ตั้งค่าระบบ";
             this.Load += new System.EventHandler(this.DialogSettings_Load);
             this.Shown += new System.EventHandler(this.DialogSettings_Shown);
             this.toolStrip1.ResumeLayout(false);

@@ -81,16 +81,16 @@ namespace XPump.SubForm
 
                 if(validating_user.status == "X")
                 {
-                    return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = is_secure, err_message = "ถูกกำหนดสถานะห้ามใช้งาน", loged_in_user_level = 0 };
+                    return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = is_secure, err_message = "ถูกกำหนดสถานะห้ามใช้งาน", loged_in_user_level = 0, language = UILANGUAGE.THA };
                 }
                 else
                 {
-                    return new LoginStatus { result = true, loged_in_user_name = user_name, loged_in_user_group = validating_user.connectgrp, is_secure = is_secure, err_message = string.Empty, loged_in_user_level = Convert.ToInt32(validating_user.authlev) };
+                    return new LoginStatus { result = true, loged_in_user_name = user_name, loged_in_user_group = validating_user.connectgrp, is_secure = is_secure, err_message = string.Empty, loged_in_user_level = Convert.ToInt32(validating_user.authlev), language = (validating_user.language != null && validating_user.language == "E" ? UILANGUAGE.ENG : UILANGUAGE.THA) };
                 }
             }
             else
             {
-                return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = false, err_message = "รหัสผู้ใช้/รหัสผ่าน ไม่ถูกต้อง", loged_in_user_level = 0 };
+                return new LoginStatus { result = false, loged_in_user_name = null, loged_in_user_group = null, is_secure = false, err_message = "รหัสผู้ใช้/รหัสผ่าน ไม่ถูกต้อง", loged_in_user_level = 0, language = UILANGUAGE.THA };
             }
         }
 
@@ -145,6 +145,7 @@ namespace XPump.SubForm
         public string loged_in_user_name { get; set; }
         public string loged_in_user_group { get; set; }
         public int loged_in_user_level { get; set; }
+        public UILANGUAGE language { get; set; }
         public bool is_secure { get; set; }
         public string err_message { get; set; }
     }
