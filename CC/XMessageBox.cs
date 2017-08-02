@@ -7,7 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
-
+using System.Threading;
 
 namespace CC
 {
@@ -37,13 +37,15 @@ namespace CC
         private Panel panelBtnContainer;
         private RichTextBox txtMessage;
 
+        private CultureInfo c_info = new CultureInfo("th-TH");
+
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XMessageBox));
-            this.pctIcon = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtMessage = new System.Windows.Forms.RichTextBox();
+            this.pctIcon = new System.Windows.Forms.PictureBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnYes = new System.Windows.Forms.Button();
@@ -53,128 +55,79 @@ namespace CC
             this.btnIgnore = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panelBtnContainer = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.pctIcon)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctIcon)).BeginInit();
             this.panelBtnContainer.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pctIcon
-            // 
-            this.pctIcon.Location = new System.Drawing.Point(11, 9);
-            this.pctIcon.Name = "pctIcon";
-            this.pctIcon.Size = new System.Drawing.Size(32, 32);
-            this.pctIcon.TabIndex = 0;
-            this.pctIcon.TabStop = false;
-            // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.txtMessage);
             this.panel1.Controls.Add(this.pctIcon);
-            this.panel1.Location = new System.Drawing.Point(11, 10);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(362, 75);
-            this.panel1.TabIndex = 1;
             // 
             // txtMessage
             // 
-            this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.txtMessage, "txtMessage");
             this.txtMessage.BackColor = System.Drawing.Color.White;
             this.txtMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMessage.Location = new System.Drawing.Point(59, 3);
             this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(300, 69);
-            this.txtMessage.TabIndex = 1;
-            this.txtMessage.Text = "ซีรีส์หม่านโถวอึมครึม เธคอุเทนอาข่าอึมครึมอุปสงค์ ฮิตมอคคาดีมานด์ บึ้มเพนกวินเลกเ" +
-    "ชอร์โทรพาสต้า";
+            // 
+            // pctIcon
+            // 
+            resources.ApplyResources(this.pctIcon, "pctIcon");
+            this.pctIcon.Name = "pctIcon";
+            this.pctIcon.TabStop = false;
             // 
             // btnOK
             // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.btnOK, "btnOK");
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(-14, 9);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(74, 27);
-            this.btnOK.TabIndex = 2;
-            this.btnOK.Text = "ตกลง (&O)";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Visible = false;
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.btnCancel, "btnCancel");
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(39, 9);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(74, 27);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "ยกเลิก (&C)";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Visible = false;
             // 
             // btnYes
             // 
-            this.btnYes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.btnYes, "btnYes");
             this.btnYes.DialogResult = System.Windows.Forms.DialogResult.Yes;
-            this.btnYes.Location = new System.Drawing.Point(93, 9);
             this.btnYes.Name = "btnYes";
-            this.btnYes.Size = new System.Drawing.Size(74, 27);
-            this.btnYes.TabIndex = 2;
-            this.btnYes.Text = "ใช่ (&Y)";
             this.btnYes.UseVisualStyleBackColor = true;
-            this.btnYes.Visible = false;
             // 
             // btnNo
             // 
-            this.btnNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.btnNo, "btnNo");
             this.btnNo.DialogResult = System.Windows.Forms.DialogResult.No;
-            this.btnNo.Location = new System.Drawing.Point(144, 9);
             this.btnNo.Name = "btnNo";
-            this.btnNo.Size = new System.Drawing.Size(74, 27);
-            this.btnNo.TabIndex = 2;
-            this.btnNo.Text = "ไม่ใช่ (&N)";
             this.btnNo.UseVisualStyleBackColor = true;
-            this.btnNo.Visible = false;
             // 
             // btnRetry
             // 
-            this.btnRetry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.btnRetry, "btnRetry");
             this.btnRetry.DialogResult = System.Windows.Forms.DialogResult.Retry;
-            this.btnRetry.Location = new System.Drawing.Point(194, 9);
             this.btnRetry.Name = "btnRetry";
-            this.btnRetry.Size = new System.Drawing.Size(97, 27);
-            this.btnRetry.TabIndex = 2;
-            this.btnRetry.Text = "ลองอีกครั้ง (&R)";
             this.btnRetry.UseVisualStyleBackColor = true;
-            this.btnRetry.Visible = false;
             // 
             // btnAbort
             // 
-            this.btnAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.btnAbort, "btnAbort");
             this.btnAbort.DialogResult = System.Windows.Forms.DialogResult.Abort;
-            this.btnAbort.Location = new System.Drawing.Point(301, 9);
             this.btnAbort.Name = "btnAbort";
-            this.btnAbort.Size = new System.Drawing.Size(74, 27);
-            this.btnAbort.TabIndex = 2;
-            this.btnAbort.Text = "หยุด (&A)";
             this.btnAbort.UseVisualStyleBackColor = true;
-            this.btnAbort.Visible = false;
             // 
             // btnIgnore
             // 
-            this.btnIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.btnIgnore, "btnIgnore");
             this.btnIgnore.DialogResult = System.Windows.Forms.DialogResult.Ignore;
-            this.btnIgnore.Location = new System.Drawing.Point(257, 9);
             this.btnIgnore.Name = "btnIgnore";
-            this.btnIgnore.Size = new System.Drawing.Size(74, 27);
-            this.btnIgnore.TabIndex = 2;
-            this.btnIgnore.Text = "ข้ามไป (&I)";
             this.btnIgnore.UseVisualStyleBackColor = true;
-            this.btnIgnore.Visible = false;
             // 
             // imageList1
             // 
@@ -188,8 +141,7 @@ namespace CC
             // 
             // panelBtnContainer
             // 
-            this.panelBtnContainer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panelBtnContainer, "panelBtnContainer");
             this.panelBtnContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.panelBtnContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelBtnContainer.Controls.Add(this.btnAbort);
@@ -199,31 +151,24 @@ namespace CC
             this.panelBtnContainer.Controls.Add(this.btnYes);
             this.panelBtnContainer.Controls.Add(this.btnCancel);
             this.panelBtnContainer.Controls.Add(this.btnOK);
-            this.panelBtnContainer.Location = new System.Drawing.Point(-1, 95);
             this.panelBtnContainer.Name = "panelBtnContainer";
-            this.panelBtnContainer.Size = new System.Drawing.Size(386, 48);
-            this.panelBtnContainer.TabIndex = 3;
             // 
             // XMessageBox
             // 
+            resources.ApplyResources(this, "$this");
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(384, 141);
             this.Controls.Add(this.panelBtnContainer);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.KeyPreview = true;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(650, 400);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(400, 160);
             this.Name = "XMessageBox";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.TopMost = true;
             this.Load += new System.EventHandler(this.XMessageBox_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.XMessageBox_Paint);
-            ((System.ComponentModel.ISupportInitialize)(this.pctIcon)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pctIcon)).EndInit();
             this.panelBtnContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -236,8 +181,21 @@ namespace CC
         private MessageBoxDefaultButton msg_def_button = MessageBoxDefaultButton.Button1;
         private List<Button> available_button = new List<Button>();
 
-        private XMessageBox()
+        //private XMessageBox()
+        //{
+        //    this.InitializeComponent();
+        //}
+
+        private XMessageBox(CultureInfo c_info = null)
         {
+            if(c_info != null)
+            {
+                if(c_info.Name == "en-US" || c_info.Name == "th-TH")
+                {
+                    this.c_info = c_info;
+                    Thread.CurrentThread.CurrentUICulture = this.c_info;
+                }
+            }
             this.InitializeComponent();
         }
 
@@ -388,9 +346,9 @@ namespace CC
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        public static DialogResult Show(string message)
+        public static DialogResult Show(string message, CultureInfo c_info = null)
         {
-            XMessageBox msgbox = new XMessageBox();
+            XMessageBox msgbox = new XMessageBox(c_info);
             msgbox.message = message;
             msgbox.title_text = string.Empty;
 
@@ -398,18 +356,18 @@ namespace CC
         }
 
 
-        public static DialogResult Show(string message, string title)
+        public static DialogResult Show(string message, string title, CultureInfo c_info = null)
         {
-            XMessageBox msgbox = new XMessageBox();
+            XMessageBox msgbox = new XMessageBox(c_info);
             msgbox.message = message;
             msgbox.title_text = title;
-            
+
             return msgbox.ShowDialog();
         }
 
-        public static DialogResult Show(string message, string title, MessageBoxButtons msg_button)
+        public static DialogResult Show(string message, string title, MessageBoxButtons msg_button, CultureInfo c_info = null)
         {
-            XMessageBox msgbox = new XMessageBox();
+            XMessageBox msgbox = new XMessageBox(c_info);
             msgbox.message = message;
             msgbox.title_text = title;
             msgbox.msg_button = msg_button;
@@ -417,9 +375,9 @@ namespace CC
             return msgbox.ShowDialog();
         }
 
-        public static DialogResult Show(string message, string title, MessageBoxButtons msg_button, XMessageBoxIcon msg_icon)
+        public static DialogResult Show(string message, string title, MessageBoxButtons msg_button, XMessageBoxIcon msg_icon, CultureInfo c_info = null)
         {
-            XMessageBox msgbox = new XMessageBox();
+            XMessageBox msgbox = new XMessageBox(c_info);
             msgbox.message = message;
             msgbox.title_text = title;
             msgbox.msg_button = msg_button;
@@ -428,9 +386,9 @@ namespace CC
             return msgbox.ShowDialog();
         }
 
-        public static DialogResult Show(string message, string title, MessageBoxButtons msg_button, XMessageBoxIcon msg_icon, MessageBoxDefaultButton msg_default_button)
+        public static DialogResult Show(string message, string title, MessageBoxButtons msg_button, XMessageBoxIcon msg_icon, MessageBoxDefaultButton msg_default_button, CultureInfo c_info = null)
         {
-            XMessageBox msgbox = new XMessageBox();
+            XMessageBox msgbox = new XMessageBox(c_info);
             msgbox.message = message;
             msgbox.title_text = title;
             msgbox.msg_button = msg_button;

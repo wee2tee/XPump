@@ -208,6 +208,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "(`id` INT(15) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`modcod` VARCHAR(50) NOT NULL,";
                 cmd.CommandText += "`description` VARCHAR(100) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`description_en` VARCHAR(100) NOT NULL DEFAULT '',";
                 cmd.CommandText += "`p_modcod` VARCHAR(50) NOT NULL DEFAULT 'ALLMENU',";
                 cmd.CommandText += "PRIMARY KEY(`id`),";
                 cmd.CommandText += "INDEX `ndx-scmodul-module_code` (`modcod` ASC)) ";
@@ -303,22 +304,24 @@ namespace XPump.SubForm
             {
                 try
                 {
-                    sec.scmodul.Add(new scmodul { modcod = "ALLMENU", p_modcod = "", description = "ทุกระบบ" });
-                    sec.scmodul.Add(new scmodul { modcod = "1", p_modcod = "ALLMENU", description = "รายการประจำวัน" });
-                    sec.scmodul.Add(new scmodul { modcod = "11", p_modcod = "1", description = "บันทึกรายการประจำผลัด" });
-                    sec.scmodul.Add(new scmodul { modcod = "12", p_modcod = "1", description = "ปิดยอดขายประจำวัน" });
-                    sec.scmodul.Add(new scmodul { modcod = "2", p_modcod = "ALLMENU", description = "เริ่มระบบ" });
-                    sec.scmodul.Add(new scmodul { modcod = "21", p_modcod = "2", description = "ตั้งค่าระบบ" });
-                    sec.scmodul.Add(new scmodul { modcod = "22", p_modcod = "2", description = "กำหนดแท๊งค์เก็บน้ำมัน" });
-                    sec.scmodul.Add(new scmodul { modcod = "23", p_modcod = "2", description = "กำหนดผลัดพนักงาน" });
-                    sec.scmodul.Add(new scmodul { modcod = "24", p_modcod = "2", description = "ตารางข้อมูล" });
-                    sec.scmodul.Add(new scmodul { modcod = "3", p_modcod = "ALLMENU", description = "อื่น ๆ" });
-                    sec.scmodul.Add(new scmodul { modcod = "31", p_modcod = "3", description = "จัดการฐานข้อมูล" });
-                    sec.scmodul.Add(new scmodul { modcod = "311", p_modcod = "31", description = "สำรองข้อมูล" });
-                    sec.scmodul.Add(new scmodul { modcod = "312", p_modcod = "31", description = "นำข้อมูลสำรองมาใช้" });
-                    sec.scmodul.Add(new scmodul { modcod = "32", p_modcod = "3", description = "แฟ้มผู้ใช้งานระบบ" });
-                    sec.scmodul.Add(new scmodul { modcod = "33", p_modcod = "3", description = "การประมวลผลสิ้นปี" });
-                    sec.scmodul.Add(new scmodul { modcod = "34", p_modcod = "3", description = "เปลี่ยนบริษัท" });
+                    sec.scmodul.Add(new scmodul { modcod = "ALLMENU", p_modcod = "", description = "ทุกระบบ", description_en = "All Menu" });
+                    sec.scmodul.Add(new scmodul { modcod = "1", p_modcod = "ALLMENU", description = "รายการประจำวัน", description_en = "Daily Transaction" });
+                    sec.scmodul.Add(new scmodul { modcod = "11", p_modcod = "1", description = "บันทึกรายการประจำผลัด", description_en = "Shift Transaction" });
+                    sec.scmodul.Add(new scmodul { modcod = "12", p_modcod = "1", description = "ปิดยอดขายประจำวัน", description_en = "Daily Summary" });
+                    sec.scmodul.Add(new scmodul { modcod = "2", p_modcod = "ALLMENU", description = "เริ่มระบบ", description_en = "Setup" });
+                    sec.scmodul.Add(new scmodul { modcod = "21", p_modcod = "2", description = "ตั้งค่าระบบ", description_en = "Main Configuration" });
+                    sec.scmodul.Add(new scmodul { modcod = "22", p_modcod = "2", description = "กำหนดแท๊งค์เก็บน้ำมัน", description_en = "Tank Setup" });
+                    sec.scmodul.Add(new scmodul { modcod = "23", p_modcod = "2", description = "กำหนดผลัดพนักงาน", description_en = "Shift File" });
+                    sec.scmodul.Add(new scmodul { modcod = "24", p_modcod = "2", description = "ตารางข้อมูล", description_en = "Category Table" });
+                    sec.scmodul.Add(new scmodul { modcod = "3", p_modcod = "ALLMENU", description = "อื่น ๆ", description_en = "Others" });
+                    sec.scmodul.Add(new scmodul { modcod = "31", p_modcod = "3", description = "จัดการฐานข้อมูล", description_en = "Database Management" });
+                    sec.scmodul.Add(new scmodul { modcod = "311", p_modcod = "31", description = "สำรองข้อมูล", description_en = "Backup Data" });
+                    sec.scmodul.Add(new scmodul { modcod = "312", p_modcod = "31", description = "นำข้อมูลสำรองมาใช้", description_en = "Restore Data" });
+                    sec.scmodul.Add(new scmodul { modcod = "32", p_modcod = "3", description = "ระบบความปลอดภัย", description_en = "Security Setup" });
+                    sec.scmodul.Add(new scmodul { modcod = "321", p_modcod = "32", description = "กำหนดสิทธิ์ผู้ใช้งานระบบ", description_en = "User Access Control" });
+                    sec.scmodul.Add(new scmodul { modcod = "322", p_modcod = "32", description = "แฟ้มบันทึกเหตุการณ์ทำงาน", description_en = "Event Logging File" });
+                    sec.scmodul.Add(new scmodul { modcod = "33", p_modcod = "3", description = "การประมวลผลสิ้นปี", description_en = "Year-End Processing" });
+                    sec.scmodul.Add(new scmodul { modcod = "34", p_modcod = "3", description = "เปลี่ยนบริษัท", description_en = "Change Company" });
                     sec.SaveChanges();
                 }
                 catch (Exception ex)

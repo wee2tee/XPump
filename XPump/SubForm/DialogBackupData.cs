@@ -11,6 +11,7 @@ using CC;
 using MySql.Data.MySqlClient;
 using XPump.Model;
 using XPump.Misc;
+using System.Threading;
 
 namespace XPump.SubForm
 {
@@ -22,8 +23,9 @@ namespace XPump.SubForm
 
         public DialogBackupData(MainForm main_form)
         {
-            InitializeComponent();
             this.main_form = main_form;
+            Thread.CurrentThread.CurrentUICulture = this.main_form.c_info;
+            InitializeComponent();
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -70,17 +72,17 @@ namespace XPump.SubForm
         {
             this.backup_file_name = this.backup_file_name.EndsWith(".oil7") ? this.backup_file_name : this.backup_file_name + ".oil7";
 
-            if(XMessageBox.Show("สำรองข้อมูลไปไว้ที่ \"" + this.backup_path + "\\" + this.backup_file_name + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
+            if(XMessageBox.Show(string.Format(this.main_form.GetMessage("0011"), this.backup_path + "\\" + this.backup_file_name), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
                 if(File.Exists(this.backup_path + "\\" + this.backup_file_name))
                 {
-                    if (XMessageBox.Show("แฟ้ม \"" + this.backup_path + "\\" + this.backup_file_name + "\" มีอยู่แล้ว, ต้องการแทนที่ด้วยแฟ้มใหม่นี้ใช่หรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
+                    if (XMessageBox.Show(string.Format(this.main_form.GetMessage("0012"), this.backup_path + "\\" + this.backup_file_name), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                         return;
                 }
 
                 DbConnectionConfig config = new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
 
-                string conn_string = "server=" + config.servername + ";user=" + config.uid + ";pwd=" + config.passwordhash.Decrypted() + ";database=" + config.dbname + ";charset=utf8;";
+                string conn_string = "server=" + config.servername + ";user=" + config.uid + ";pwd=" + config.passwordhash.Decrypted() + ";database=" + config.db_prefix + "_" + config.dbname + ";charset=utf8;";
                 using (MySqlConnection conn = new MySqlConnection(conn_string))
                 {
                     using (MySqlCommand cmd = new MySqlCommand())
@@ -117,7 +119,7 @@ namespace XPump.SubForm
                             if (is_success)
                             {
                                 this.DialogResult = DialogResult.OK;
-                                XMessageBox.Show("สำรองข้อมูลเสร็จเรียบร้อย", "", MessageBoxButtons.OK);
+                                XMessageBox.Show(this.main_form.GetMessage("0013"), "", MessageBoxButtons.OK);
                                 this.Close();
                             }
                             else

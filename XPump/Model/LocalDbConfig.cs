@@ -10,6 +10,7 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.ComponentModel;
 using CC;
+using System.Globalization;
 
 namespace XPump.Model
 {
@@ -143,7 +144,7 @@ namespace XPump.Model
             return new MySqlConnection(conn_info);
         }
 
-        public static MySqlConnectionResult TestMysqlDbConnection(this DbConnectionConfig local_config)
+        public static MySqlConnectionResult TestMysqlDbConnection(this DbConnectionConfig local_config, MainForm main_form)
         {
             MySqlConnectionResult conn_result = new MySqlConnectionResult { is_connected = false, err_message = string.Empty, connection_code = MYSQL_CONNECTION.DISCONNECTED };
 
@@ -170,17 +171,17 @@ namespace XPump.Model
                 if (ex.Message.ToLower().Contains("unable to connect to any of the specified mysql hosts"))
                 {
                     conn_result.connection_code = MYSQL_CONNECTION.HOST_NOT_FOUND;
-                    conn_result.err_message = "ไม่พบเซิร์ฟเวอร์ชื่อ \"" + local_config.servername + "\"";
+                    conn_result.err_message = string.Format(main_form.GetMessage("0003"), local_config.servername);
                 }
                 else if (ex.Message.ToLower().Contains("unknown database"))
                 {
                     conn_result.connection_code = MYSQL_CONNECTION.UNKNOW_DATABASE;
-                    conn_result.err_message = "ไม่พบฐานข้อมูลชื่อ \"" + local_config.dbname + "\"";
+                    conn_result.err_message = string.Format(main_form.GetMessage("0005"), local_config.dbname);
                 }
                 else if (ex.Message.ToLower().Contains("access denied"))
                 {
                     conn_result.connection_code = MYSQL_CONNECTION.ACCESS_DENIED;
-                    conn_result.err_message = "รหัสผู้ใช้/รหัสผ่านที่ระบุไว้ ไม่สามารถใช้งานฐานข้อมูล \"" + local_config.dbname + "\" ได้";
+                    conn_result.err_message = string.Format(main_form.GetMessage("0006"), local_config.dbname);
                 }
                 else
                 {

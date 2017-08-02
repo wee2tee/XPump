@@ -62,7 +62,7 @@ namespace XPump.SubForm
         {
             DbConnectionConfig config = new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
 
-            if (XMessageBox.Show("นำข้อมูลสำรองจาก \"" + this.backup_file_path + "\" มาใช้ โดยนำมาลงที่ฐานข้อมูล \"" + config.dbname + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
+            if (XMessageBox.Show(string.Format(this.main_form.GetMessage("0014"), this.backup_file_path, config.dbname), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                 return;
 
             string conn_string = "server=" + config.servername + ";user=" + config.uid + ";pwd=" + config.passwordhash.Decrypted() + ";database=" + config.dbname + ";charset=utf8;";
@@ -101,7 +101,7 @@ namespace XPump.SubForm
                             loading.Close();
                             if (is_success)
                             {
-                                XMessageBox.Show("นำข้อมูลสำรองมาใช้เสร็จเรียบร้อย", "", MessageBoxButtons.OK);
+                                XMessageBox.Show(this.main_form.GetMessage("0015"), "", MessageBoxButtons.OK);
                                 this.DialogResult = DialogResult.OK;
                                 this.Close();
                             }

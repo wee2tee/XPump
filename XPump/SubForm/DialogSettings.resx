@@ -278,7 +278,7 @@
     <value>label11</value>
   </data>
   <data name="&gt;&gt;txtOrgname.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>18</value>
   </data>
   <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
     <value>29, 16</value>
@@ -371,7 +371,7 @@
     <value>13, 16</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>21</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 13</value>
@@ -642,7 +642,7 @@
     <value>True</value>
   </data>
   <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>19</value>
   </data>
   <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
     <value>toolStrip1</value>
@@ -924,7 +924,7 @@
     <value>True</value>
   </data>
   <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>20</value>
   </data>
   <data name="label10.Text" xml:space="preserve">
     <value>รับรองรายการ ต้องขออนุมัติระดับ</value>
@@ -1111,5 +1111,8 @@
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>en-US</value>
   </metadata>
 </root>

@@ -45,8 +45,10 @@
             this.mnuRestore = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSecure = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUsersFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.eventLoggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuYearEnd = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuChangeCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -56,8 +58,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -189,12 +189,19 @@
             // 
             resources.ApplyResources(this.mnuUsersFile, "mnuUsersFile");
             this.mnuUsersFile.Name = "mnuUsersFile";
+            this.mnuUsersFile.Tag = "321";
             this.mnuUsersFile.Click += new System.EventHandler(this.mnuUsersFile_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
             // 
             // eventLoggingToolStripMenuItem
             // 
             resources.ApplyResources(this.eventLoggingToolStripMenuItem, "eventLoggingToolStripMenuItem");
             this.eventLoggingToolStripMenuItem.Name = "eventLoggingToolStripMenuItem";
+            this.eventLoggingToolStripMenuItem.Tag = "322";
             // 
             // mnuYearEnd
             // 
@@ -202,6 +209,11 @@
             this.mnuYearEnd.Name = "mnuYearEnd";
             this.mnuYearEnd.Tag = "33";
             this.mnuYearEnd.Click += new System.EventHandler(this.mnuYearEnd_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
             // 
             // mnuChangeCompany
             // 
@@ -267,16 +279,6 @@
             resources.ApplyResources(this.lblVersion, "lblVersion");
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Spring = true;
-            // 
-            // toolStripSeparator1
-            // 
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            // 
-            // toolStripSeparator2
-            // 
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
             // 
             // MainForm
             // 

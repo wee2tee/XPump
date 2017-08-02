@@ -78,6 +78,41 @@ namespace XPump.Misc
     // Extension Method
     public static class Helper
     {
+        public static CultureInfo GetCulture(this UILANGUAGE ui_language)
+        {
+            if(ui_language == UILANGUAGE.ENG)
+            {
+                return new CultureInfo("en-US");
+            }
+            else
+            {
+                return new CultureInfo("th-TH");
+            }
+        }
+
+        public static string GetMessage(this MainForm main_form, string message_id)
+        {
+            if (main_form.c_info == null || main_form.msg_template == null)
+                return string.Empty;
+
+            var msg = main_form.msg_template.Where(m => m.id == message_id).FirstOrDefault();
+
+            if(msg != null)
+            {
+                if (main_form.c_info.Name == "en-US")
+                    return msg.en;
+
+                if (main_form.c_info.Name == "th-TH")
+                    return msg.th;
+
+                return "No message found!";
+            }
+            else
+            {
+                return "No message found!";
+            }
+        }
+
         public static int GetExpressVersion()
         {
             var serial_file_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\Serial.TXT";

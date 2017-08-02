@@ -140,6 +140,7 @@
     <Compile Include="Model\DBX.cs" />
     <Compile Include="Model\LocalSecureDbConfig.cs" />
     <Compile Include="Model\MenuIdClass.cs" />
+    <Compile Include="Model\MsgTemplate.cs" />
     <Compile Include="Model\MiscResource.cs" />
     <Compile Include="Model\nozzle.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
@@ -481,6 +482,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SubForm\DialogBackupData.en-US.resx">
+      <DependentUpon>DialogBackupData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogBackupData.resx">
       <DependentUpon>DialogBackupData.cs</DependentUpon>
     </EmbeddedResource>
@@ -502,7 +506,13 @@
     <EmbeddedResource Include="SubForm\DialogDayendItemEdit.resx">
       <DependentUpon>DialogDayendItemEdit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDbConfig.en-US.resx">
+      <DependentUpon>DialogDbConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogDbConfig.resx">
+      <DependentUpon>DialogDbConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDbConfig.th-TH.resx">
       <DependentUpon>DialogDbConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogDother.resx">
@@ -543,6 +553,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogPrintSetupC.resx">
       <DependentUpon>DialogPrintSetupC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogRestoreData.en-US.resx">
+      <DependentUpon>DialogRestoreData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogRestoreData.resx">
       <DependentUpon>DialogRestoreData.cs</DependentUpon>
@@ -586,6 +599,9 @@
     <EmbeddedResource Include="SubForm\FormPrintPreview.resx">
       <DependentUpon>FormPrintPreview.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormSecure.en-US.resx">
+      <DependentUpon>FormSecure.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormSecure.resx">
       <DependentUpon>FormSecure.cs</DependentUpon>
     </EmbeddedResource>
@@ -622,7 +638,9 @@
     <None Include="Model\XPumpModel.edmx.diagram">
       <DependentUpon>XPumpModel.edmx</DependentUpon>
     </None>
-    <None Include="msg.json" />
+    <None Include="msg.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

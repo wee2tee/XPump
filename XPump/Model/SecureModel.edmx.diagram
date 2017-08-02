@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0d2495127f864e1990bcf50737d7e432" Name="Diagram1">
+      <Diagram DiagramId="87e46c78b7c040fda5c1629eb504dcee" Name="Diagram1">
         <EntityTypeShape EntityType="xpumpsecureModel.affdata" Width="1.5" PointX="8" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpsecureModel.islog" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="xpumpsecureModel.scacclv" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="xpumpsecureModel.scmodul" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="xpumpsecureModel.scmodul" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
         <AssociationConnector Association="xpumpsecureModel.fk_affdata_islog_id" ManuallyRouted="false" />
         <AssociationConnector Association="xpumpsecureModel.fk_scacclv_scmodul_id" ManuallyRouted="false" />
       </Diagram>

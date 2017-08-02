@@ -55,10 +55,10 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.txtOrgname = new CC.XTextEdit();
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -146,10 +146,10 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.txtOrgname);
             this.panel1.Controls.Add(this.label20);
             this.panel1.Controls.Add(this.label19);
+            this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label21);
             this.panel1.Controls.Add(this.label18);
@@ -285,11 +285,6 @@
             resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
             // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
             // txtOrgname
             // 
             this.txtOrgname._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -314,6 +309,11 @@
             // 
             resources.ApplyResources(this.label19, "label19");
             this.label19.Name = "label19";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
             // 
             // label11
             // 
@@ -397,7 +397,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label12;
         private CC.XNumTextEdit numShiftAuthLevel;
         private System.Windows.Forms.Label label7;
         private CC.XNumTextEdit numDayAuthLevel;
@@ -416,5 +415,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label12;
     }
 }

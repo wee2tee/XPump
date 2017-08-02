@@ -98,9 +98,18 @@ namespace XPump.SubForm
 
         private void AddSelectorItems(XDropdownList dropdown)
         {
-            dropdown._Items.Add(new XDropdownListItem { Text = "0 : อะไรก่อนก็ได้", Value = "0" });
-            dropdown._Items.Add(new XDropdownListItem { Text = "1 : พิมพ์ก่อนรับรอง", Value = "1" });
-            dropdown._Items.Add(new XDropdownListItem { Text = "2 : รับรองก่อนพิมพ์", Value = "2" });
+            if(this.main_form.loged_in_status.language == UILANGUAGE.THA)
+            {
+                dropdown._Items.Add(new XDropdownListItem { Text = "0 : อะไรก่อนก็ได้", Value = "0" });
+                dropdown._Items.Add(new XDropdownListItem { Text = "1 : พิมพ์ก่อนรับรอง", Value = "1" });
+                dropdown._Items.Add(new XDropdownListItem { Text = "2 : รับรองก่อนพิมพ์", Value = "2" });
+            }
+            else
+            {
+                dropdown._Items.Add(new XDropdownListItem { Text = "0 : Not strict", Value = "0" });
+                dropdown._Items.Add(new XDropdownListItem { Text = "1 : Print before approve", Value = "1" });
+                dropdown._Items.Add(new XDropdownListItem { Text = "2 : Approve before print", Value = "2" });
+            }
         }
 
         private void BindConfigData2Control()
@@ -114,7 +123,7 @@ namespace XPump.SubForm
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += delegate
             {
-                this.is_mysql_connected = this.localconfig.TestMysqlDbConnection().is_connected;
+                this.is_mysql_connected = this.localconfig.TestMysqlDbConnection(this.main_form).is_connected;
             };
             worker.RunWorkerCompleted += delegate
             {
@@ -242,22 +251,22 @@ namespace XPump.SubForm
             }
             else
             {
-                XMessageBox.Show("กรุณากำหนดค่าการเชื่อมต่อฐานข้อมูล MySql ให้เรียบร้อยก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Warning);
+                XMessageBox.Show(this.main_form.GetMessage("0007"), "", MessageBoxButtons.OK, XMessageBoxIcon.Warning);
             }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!this.tmp_settings.prdstart.HasValue)
+            if (!this.tmp_settings.prdstart.HasValue || !this.tmp_settings.prdend.HasValue)
             {
-                XMessageBox.Show("กรุณาระบุวันที่เริ่มรอบบัญชี", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                XMessageBox.Show(this.main_form.GetMessage("0008"), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return;
             }
-            if (!this.tmp_settings.prdend.HasValue)
-            {
-                XMessageBox.Show("กรุณาระบุวันที่สิ้นสุดรอบบัญชี", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
-                return;
-            }
+            //if (!this.tmp_settings.prdend.HasValue)
+            //{
+            //    XMessageBox.Show("กรุณาระบุวันที่สิ้นสุดรอบบัญชี", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+            //    return;
+            //}
 
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
@@ -268,7 +277,7 @@ namespace XPump.SubForm
                     // Warning if accounting period is changed
                     if(setting_to_update.prdstart.HasValue && setting_to_update.prdend.HasValue && (setting_to_update.prdstart != this.tmp_settings.prdstart || setting_to_update.prdend != this.tmp_settings.prdend))
                     {
-                        if (XMessageBox.Show("คำเตือน !" + Environment.NewLine + "    การเปลี่ยนรอบบัญชีอาจส่งผลให้การแสดงตัวเลขในรายงานเปลี่ยนแปลงไปจากเดิม(ที่เคยพิมพ์เก็บไว้), ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                        if (XMessageBox.Show(this.main_form.GetMessage("0009"), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                         return;
                     }
                     

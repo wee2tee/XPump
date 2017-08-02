@@ -23,6 +23,7 @@ namespace XPump.Model
         public int id { get; set; }
         public string modcod { get; set; }
         public string description { get; set; }
+        public string description_en { get; set; }
         public string p_modcod { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

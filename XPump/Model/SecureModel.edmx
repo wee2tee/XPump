@@ -55,6 +55,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="modcod" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="description_en" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="p_modcod" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="fk-affdata-islog_id">
@@ -153,6 +154,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="modcod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description_en" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="p_modcod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="scacclv" Relationship="Self.fk_scacclv_scmodul_id" FromRole="scmodul" ToRole="scacclv" />
         </EntityType>
@@ -252,6 +254,7 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="modcod" ColumnName="modcod" />
                 <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="description_en" ColumnName="description_en" />
                 <ScalarProperty Name="p_modcod" ColumnName="p_modcod" />
               </MappingFragment>
             </EntityTypeMapping>

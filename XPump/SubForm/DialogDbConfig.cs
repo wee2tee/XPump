@@ -11,6 +11,7 @@ using XPump.Misc;
 using CC;
 using MySql.Data.MySqlClient;
 using System.Globalization;
+using System.Threading;
 
 namespace XPump.SubForm
 {
@@ -42,8 +43,10 @@ namespace XPump.SubForm
 
         public DialogDbConfig(MainForm main_form)
         {
-            InitializeComponent();
             this.main_form = main_form;
+            Thread.CurrentThread.CurrentUICulture = this.main_form.c_info;
+            //this.SetUILanguage();
+            InitializeComponent();
         }
 
         private void DialogDbConfig_Load(object sender, EventArgs e)
@@ -54,6 +57,18 @@ namespace XPump.SubForm
             this.FillForm();
         }
 
+        //public void SetUILanguage()
+        //{
+        //    if (this.main_form.loged_in_status.language == UILANGUAGE.ENG)
+        //    {
+        //        Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+        //    }
+        //    else
+        //    {
+        //        Thread.CurrentThread.CurrentUICulture = new CultureInfo("th-TH");
+        //    }
+        //}
+
         protected override void OnClosing(CancelEventArgs e)
         {
             if(this.DialogResult == DialogResult.OK)
@@ -62,7 +77,7 @@ namespace XPump.SubForm
                 return;
             }
 
-            if(XMessageBox.Show("ข้อมูลที่ท่านกำลังแก้ไขจะไม่ถูกบันทึก, ยืนยันทำต่อ?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
+            if (XMessageBox.Show(this.main_form.GetMessage("0001"), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question, this.main_form.c_info) != DialogResult.OK)
             {
                 e.Cancel = true;
                 return;
@@ -99,7 +114,7 @@ namespace XPump.SubForm
             if (this.txtPwd.Text != this.txtConfPwd.Text)
             {
                 loading.Close();
-                XMessageBox.Show("กรุณายืนยันรหัสผ่าน(Confirm Password)ให้ถูกต้อง", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                XMessageBox.Show(this.main_form.GetMessage("0002"), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop, this.main_form.c_info);
                 this.FormFreeze = false;
                 this.txtConfPwd.Focus();
                 return;
@@ -110,7 +125,7 @@ namespace XPump.SubForm
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += delegate
             {
-                conn_result = this.curr_config.TestMysqlDbConnection();
+                conn_result = this.curr_config.TestMysqlDbConnection(this.main_form);
             };
             worker.RunWorkerCompleted += delegate
             {
@@ -131,7 +146,7 @@ namespace XPump.SubForm
                     if(conn_result.connection_code == MYSQL_CONNECTION.UNKNOW_DATABASE)
                     {
                         loading.ShowCenterParent(context);
-                        if(XMessageBox.Show(conn_result.err_message + " ต้องการสร้างฐานข้อมูลดังกล่าวขึ้นมาใหม่หรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
+                        if(XMessageBox.Show(conn_result.err_message, "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
                         {
                             MySqlCreateResult create_result = new MySqlCreateResult { is_success = false, err_message = string.Empty };
                             BackgroundWorker wk = new BackgroundWorker();

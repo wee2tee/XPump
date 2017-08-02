@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using XPump.Misc;
 using XPump.Model;
 using CC;
+using System.Threading;
 
 namespace XPump.SubForm
 {
@@ -26,8 +27,9 @@ namespace XPump.SubForm
 
         public FormSecure(MainForm main_form)
         {
-            InitializeComponent();
             this.main_form = main_form;
+            Thread.CurrentThread.CurrentUICulture = this.main_form.c_info;
+            InitializeComponent();
         }
 
         private void FormSecure_Load(object sender, EventArgs e)

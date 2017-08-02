@@ -14,6 +14,7 @@ using System.Data.SQLite;
 using System.IO;
 using CC;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace XPump
 {
@@ -26,6 +27,8 @@ namespace XPump
         public List<scacclvVM> scacclv_list;
         public Log islog;
         public const string helpfile = "Help.chm";
+        public CultureInfo c_info = CultureInfo.GetCultureInfo("th-TH");
+        public List<MsgTemplate> msg_template = new List<MsgTemplate>();
 
         public MainForm()
         {
@@ -75,14 +78,27 @@ namespace XPump
             {
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo("th-TH");
             }
+
+            this.c_info = this.loged_in_status.language.GetCulture();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/Local"))
-            //{
-            //    Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "/Local");
-            //}
+            // Load message templat to memory
+            if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\msg.json"))
+            {
+                using (StreamReader r = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"\msg.json"))
+                {
+                    try
+                    {
+                        this.msg_template = JsonConvert.DeserializeObject<List<MsgTemplate>>(r.ReadToEnd());
+                    }
+                    catch (Exception)
+                    {
+                        
+                    }
+                }
+            }
             this.islog = new Log(this);
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             this.lblVersion.Text = string.Format("XPump V.{0}", version);
@@ -116,78 +132,19 @@ namespace XPump
             }
             else
             {
-                //this.menuStrip1.Refresh();
                 this.islog.LoginSuccess(this.loged_in_status.loged_in_user_name).Save();
             }
             this.SetUILanguage();
             this.Controls.RemoveByKey("menuStrip1");
             this.Controls.RemoveByKey("statusStrip1");
             this.InitializeComponent();
+
             this.SetStatusLabelText(null, null, this.loged_in_status.loged_in_user_name);
 
             this.mnuChangeCompany.PerformClick();
-            
 
-            // SELECT COMPANY
-            //List<SccompDbf> sccomp = DbfTable.Sccomp().ToSccompList().OrderBy(s => s.compnam).ToList();
-
-            //if (this.loged_in_status.is_secure)
-            //{
-            //    List<string> comp_codes = DbfTable.Scacclv().ToScacclvList()
-            //                        .Where(s => s.compcod.Trim().Length > 0)
-            //                        .Where(s => s.accessid.Trim() == this.loged_in_status.loged_in_user_name || s.accessid.Trim() == this.loged_in_status.loged_in_user_group)
-            //                        .Where(s => s.isread == "Y")
-            //                        .Select(s => s.compcod).Distinct<string>().ToList();
-
-            //    sccomp = sccomp.Where(s => comp_codes.Contains(s.compcod)).ToList();
-            //}
-
-            //DialogSccompSelection sel = new DialogSccompSelection(this, sccomp, string.Empty);
-            //if (sel.ShowDialog() == DialogResult.OK)
-            //{
-            //    this.working_express_db = sel.selected_sccomp;
-            //    this.islog.SelectCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
-            //}
-            //else
-            //{
-            //    this.Close();
-            //    return;
-            //}
-            //this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), null, null);
-
-            //LocalDbConfig local_db = new LocalDbConfig(this.working_express_db);
-            //if (local_db.ConfigValue.servername.Trim().Length == 0)
-            //{
-            //    DialogDbConfig config = new DialogDbConfig(this);
-            //    if (config.ShowDialog() != DialogResult.OK)
-            //    {
-            //        this.Close();
-            //        return;
-            //    }
-            //}
-            //else
-            //{
-            //    MySqlConnectionResult test_connect = local_db.ConfigValue.TestMysqlDbConnection();
-
-            //    if (test_connect.is_connected)
-            //    {
-            //        this.islog.ConnectMysqlSuccess(local_db.ConfigValue.servername, local_db.ConfigValue.dbname).Save();
-            //    }
-            //    else
-            //    {
-            //        this.islog.ConnectMysqlFail(local_db.ConfigValue.servername, local_db.ConfigValue.dbname, test_connect.err_message).Save();
-            //        MessageBox.Show(test_connect.err_message + ", กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            //        DialogDbConfig config = new DialogDbConfig(this);
-            //        if (config.ShowDialog() != DialogResult.OK)
-            //        {
-            //            this.Close();
-            //            return;
-            //        }
-            //    }
-
-            //}
-            //this.SetStatusLabelText(null, local_db.ConfigValue.dbname, null);
+            //this.scacclv_list = this.GetScacclv(this.loged_in_status.loged_in_user_name);
+            //this.SetMenuAccessible(menuStrip1.Items);
         }
 
         private List<scacclvVM> GetScacclv(string user_name)
@@ -198,6 +155,11 @@ namespace XPump
 
             using (xpumpsecureEntities sec = DBX.DataSecureSet())
             {
+                var reccod = user.reccod.Trim();
+                var connectgrp = user.connectgrp.Trim();
+                var compcod = this.working_express_db.compcod.Trim();
+
+                //var sx = sec.scacclv.Where(s => (s.username == reccod || s.username == connectgrp) && s.datacod == compcod);
                 var scacclv = sec.scacclv.Where(s => (s.username == user.reccod.Trim() || s.username == user.connectgrp.Trim()) && s.datacod == this.working_express_db.compcod.Trim()).ToViewModel();
                 var sca_user = scacclv.Where(s => s.username == user.reccod.Trim()).ToList();
                 var sca_group = scacclv.Where(s => s.username == user.connectgrp.Trim()).ToList();
@@ -354,7 +316,7 @@ namespace XPump
             }
             else
             {
-                MySqlConnectionResult test_connect = local_db.ConfigValue.TestMysqlDbConnection();
+                MySqlConnectionResult test_connect = local_db.ConfigValue.TestMysqlDbConnection(this);
 
                 if (test_connect.is_connected)
                 {
@@ -401,7 +363,7 @@ namespace XPump
 
         private void mnuBackup_Click(object sender, EventArgs e)
         {
-            XMessageBox.Show("ในขั้นตอนการสำรองข้อมูลนี้ ต้องให้ผู้ใช้งานรายอื่นออกจากระบบก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+            XMessageBox.Show(this.GetMessage("0010"), "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
 
             DialogBackupData bck = new DialogBackupData(this);
             bck.ShowDialog();

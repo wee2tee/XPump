@@ -1,42 +1,77 @@
 ﻿[
   {
-    "msgID": "0001",
-    "message_th": "ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก",
-    "message_en": "Adding/editing data will not save."
+    "id"  : "0001",
+    "th"  : "ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก, ยืนยันทำต่อ?",
+    "en"  : "Data will not be saved, do you want to continue?"
   },
   {
-    "msgID": "0002",
-    "message_th": "ค้นหาข้อมูลที่ต้องการแก้ไขไม่พบ, อาจมีผู้ใช้รายอื่นลบข้อมูลดังกล่าวไปแล้ว",
-    "message_en": "Data not found, maybe deleted by another user."
+    "id": "0002",
+    "th": "กรุณายืนยันรหัสผ่านให้ถูกต้อง",
+    "en": "Password confirm not match"
   },
   {
-    "msgID": "0003",
-    "message_th": "ลบข้อมูลที่เลือก, ทำต่อหรือไม่?",
-    "message_en": "Confirm delete data, continue?"
+    "id": "0003",
+    "th": "ไม่พบเซิร์ฟเวอร์ชื่อ \"{0}\"",
+    "en": "Server \"{0}\" not found"
   },
   {
-    "msgID": "0004",
-    "message_th": "ค้นหาข้อมูลที่ต้องการลบไม่พบ, อาจมีผู้ใช้รายอื่นลบข้อมูลดังกล่าวไปแล้ว",
-    "message_en": "Data not found, maybe it was deleted by another user."
+    "id": "0004",
+    "th": "ไม่พบฐานข้อมูลชื่อ \"{0}\"",
+    "en": "Database \"{0}\" not found"
   },
   {
-    "msgID": "0005",
-    "message_th": "ค้นหาข้อมูลไม่พบ",
-    "message_en": "Data not found."
+    "id": "0005",
+    "th": "ไม่พบฐานข้อมูลชื่อ \"{0}\", ต้องการสร้างฐานข้อมูลดังกล่าวขึ้นมาใหม่หรือไม่?",
+    "en": "Database \"{0}\" not found, continue to create a new database?"
   },
   {
-    "msgID": "0006",
-    "message_th": "ไม่สามารถค้นหาแท๊งค์ที่ต้องการแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว",
-    "message_en": "Tank not found, maybe it was deleted by another user."
+    "id": "0006",
+    "th": "รหัสผู้ใช้/รหัสผ่านที่ระบุไว้ ไม่สามารถใช้งานฐานข้อมูล \"{0}\" ได้",
+    "en": "Access to database \"{0}\" is denied for specified User ID/Password"
   },
   {
-    "msgID": "0007",
-    "message_th": "ค้นหาข้อมูลไม่พบ, ต้องการข้อมูลถัดไปหรือไม่",
-    "message_en": "Data not found, show next data instead?"
+    "id": "0007",
+    "th": "กรุณากำหนดค่าการเชื่อมต่อฐานข้อมูล MySql ให้เรียบร้อยก่อน",
+    "en": "Please configure mysql connection"
   },
   {
-    "msgID": "0008",
-    "message_th": "ไม่สามารถค้นหาช่องเก็บน้ำมันที่ต้องการแก้ไข, อาจมีผู้ใช้รายอื่นลบไปแล้ว",
-    "message_en": "Section not found, maybe it was deleted by another user."
+    "id": "0008",
+    "th": "กรุณาระบุวันที่เริ่มรอบบัญชี และ วันสิ้นรอบบัญชี",
+    "en": "Please specify beginning date and ending date of fiscal year"
+  },
+  {
+    "id": "0009",
+    "th": "คำเตือน !\n การเปลี่ยนรอบบัญชีอาจส่งผลให้การแสดงตัวเลขในรายงานเปลี่ยนแปลงไปจากเดิม(ที่เคยพิมพ์เก็บไว้), ทำต่อหรือไม่?",
+    "en": "Warning !\n Changing a fiscal year can cause an error in report, do you want to continue?",
+  },
+  {
+    "id": "0010",
+    "th": "ในขั้นตอนการสำรองข้อมูลนี้ ต้องให้ผู้ใช้งานรายอื่นออกจากระบบก่อน",
+    "en": "This process other users must logout"
+  },
+  {
+    "id": "0011",
+    "th": "สำรองข้อมูลไปไว้ที่ \"{0}\", ทำต่อหรือไม่?",
+    "en": "Backup data to \"{0}\", do you want to continue?",
+  },
+  {
+    "id": "0012",
+    "th": "แฟ้ม \"{0}\" มีอยู่แล้ว, ต้องการแทนที่ด้วยแฟ้มใหม่นี้ใช่หรือไม่?",
+    "en": "The file \"{0}\" is already exist, do you want to replace it",
+  },
+  {
+    "id": "0013",
+    "th": "สำรองข้อมูลเสร็จเรียบร้อย",
+    "en": "Backup data completed"
+  },
+  {
+    "id": "0014",
+    "th": "นำข้อมูลสำรองจาก \"{0}\" มาใช้ โดยนำมาลงที่ฐานข้อมูล \"{1}\", ทำต่อหรือไม่?",
+    "en": "Restore data from backup file \"{0}\" to database \"{1}\", continue?",
+  },
+  {
+    "id": "0015",
+    "th": "นำข้อมูลสำรองมาใช้เสร็จเรียบร้อย",
+    "en": "Restore data completed"
   }
 ]

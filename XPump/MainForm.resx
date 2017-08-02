@@ -120,6 +120,9 @@
   <data name="&gt;&gt;eventLoggingToolStripMenuItem.Name" xml:space="preserve">
     <value>eventLoggingToolStripMenuItem</value>
   </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>XPump</value>
+  </data>
   <data name="mnuShift.Text" xml:space="preserve">
     <value>กำหนดผลัดพนักงาน</value>
   </data>
@@ -155,9 +158,6 @@
   <data name="&gt;&gt;mnuSetup.Name" xml:space="preserve">
     <value>mnuSetup</value>
   </data>
-  <data name="&gt;&gt;toolStripStatusLabel3.Name" xml:space="preserve">
-    <value>toolStripStatusLabel3</value>
-  </data>
   <data name="mnuSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>195, 22</value>
   </data>
@@ -180,17 +180,23 @@
   <data name="lblUserID.Text" xml:space="preserve">
     <value> - </value>
   </data>
+  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>848, 24</value>
+  </data>
   <data name="&gt;&gt;lblMysqlDbName.Name" xml:space="preserve">
     <value>lblMysqlDbName</value>
   </data>
   <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="&gt;&gt;mnuTankSetup.Name" xml:space="preserve">
+    <value>mnuTankSetup</value>
+  </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="mnuShift.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
   </data>
   <data name="&gt;&gt;mnuIstab.Name" xml:space="preserve">
     <value>mnuIstab</value>
@@ -215,9 +221,6 @@
   </data>
   <data name="mnuChangeCompany.Text" xml:space="preserve">
     <value>เปลี่ยนบริษัท</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lblVersion.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -288,9 +291,6 @@
   <data name="&gt;&gt;mnuDailyClose.Name" xml:space="preserve">
     <value>mnuDailyClose</value>
   </data>
-  <data name="mnuTankSetup.Text" xml:space="preserve">
-    <value>กำหนดแท๊งค์เก็บน้ำมัน</value>
-  </data>
   <data name="&gt;&gt;mnuSettings.Name" xml:space="preserve">
     <value>mnuSettings</value>
   </data>
@@ -333,9 +333,6 @@
   <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mnuRestore.Name" xml:space="preserve">
-    <value>mnuRestore</value>
-  </data>
   <data name="&gt;&gt;mnuUsersFile.Name" xml:space="preserve">
     <value>mnuUsersFile</value>
   </data>
@@ -363,8 +360,8 @@
   <data name="statusStrip1.Text" xml:space="preserve">
     <value>statusStrip1</value>
   </data>
-  <data name="&gt;&gt;mnuDaily.Name" xml:space="preserve">
-    <value>mnuDaily</value>
+  <data name="mnuIstab.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
   </data>
   <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
     <value>statusStrip1</value>
@@ -381,8 +378,8 @@
   <data name="mnuYearEnd.Size" type="System.Drawing.Size, System.Drawing">
     <value>178, 22</value>
   </data>
-  <data name="mnuIstab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+  <data name="lblExpressDataPath.Text" xml:space="preserve">
+    <value> - </value>
   </data>
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -411,8 +408,8 @@
   <data name="mnuDaily.Text" xml:space="preserve">
     <value>รายการประจำวัน</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MainForm</value>
+  <data name="&gt;&gt;toolStripStatusLabel3.Name" xml:space="preserve">
+    <value>toolStripStatusLabel3</value>
   </data>
   <data name="mnuShiftTransaction.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 22</value>
@@ -420,8 +417,8 @@
   <data name="&gt;&gt;toolStripStatusLabel1.Name" xml:space="preserve">
     <value>toolStripStatusLabel1</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>XPump</value>
+  <data name="mnuShift.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
   </data>
   <data name="&gt;&gt;mnuBackup.Name" xml:space="preserve">
     <value>mnuBackup</value>
@@ -435,8 +432,8 @@
   <data name="mnuDataManage.Text" xml:space="preserve">
     <value>จัดการฐานข้อมูล</value>
   </data>
-  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>848, 24</value>
+  <data name="&gt;&gt;mnuDaily.Name" xml:space="preserve">
+    <value>mnuDaily</value>
   </data>
   <data name="mnuRestore.Text" xml:space="preserve">
     <value>นำข้อมูลสำรองมาใช้</value>
@@ -453,8 +450,8 @@
   <data name="&gt;&gt;lblMysqlDbName.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripStatusLabel2.Name" xml:space="preserve">
-    <value>toolStripStatusLabel2</value>
+  <data name="&gt;&gt;lblVersion.Name" xml:space="preserve">
+    <value>lblVersion</value>
   </data>
   <data name="&gt;&gt;mnuChangeCompany.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2152,8 +2149,8 @@
   <data name="&gt;&gt;statusStrip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mnuRestore.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
     <value>toolStripSeparator2</value>
@@ -2167,17 +2164,20 @@
   <data name="&gt;&gt;mnuShiftTransaction.Name" xml:space="preserve">
     <value>mnuShiftTransaction</value>
   </data>
+  <data name="&gt;&gt;toolStripStatusLabel2.Name" xml:space="preserve">
+    <value>toolStripStatusLabel2</value>
+  </data>
   <data name="mnuSecure.Size" type="System.Drawing.Size, System.Drawing">
     <value>178, 22</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>177, 6</value>
   </data>
-  <data name="&gt;&gt;lblVersion.Name" xml:space="preserve">
-    <value>lblVersion</value>
+  <data name="&gt;&gt;mnuRestore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="lblExpressDataPath.Text" xml:space="preserve">
-    <value> - </value>
+  <data name="mnuTankSetup.Text" xml:space="preserve">
+    <value>กำหนดแท๊งค์เก็บน้ำมัน</value>
   </data>
   <data name="mnuDataManage.Size" type="System.Drawing.Size, System.Drawing">
     <value>178, 22</value>
@@ -2185,8 +2185,8 @@
   <data name="mnuYearEnd.Text" xml:space="preserve">
     <value>การประมวลผลสิ้นปี</value>
   </data>
-  <data name="&gt;&gt;mnuTankSetup.Name" xml:space="preserve">
-    <value>mnuTankSetup</value>
+  <data name="&gt;&gt;mnuRestore.Name" xml:space="preserve">
+    <value>mnuRestore</value>
   </data>
   <data name="&gt;&gt;mnuDaily.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
