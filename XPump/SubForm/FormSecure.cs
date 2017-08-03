@@ -446,7 +446,7 @@ namespace XPump.SubForm
             scacclv s = (scacclv)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_scacclv.Name].Value;
             this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Tag = DGVROW_TAG.DELETE;
             this.dgv.Refresh();
-            if (XMessageBox.Show("ลบข้อมูลนี้หรือไม่", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
+            if (XMessageBox.Show(this.main_form.GetMessage("0016"), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
             {
                 this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Tag = DGVROW_TAG.NORMAL;
                 this.dgv.Refresh();
@@ -461,7 +461,7 @@ namespace XPump.SubForm
                     var scacclv_to_delete = sec.scacclv.Find(s.id);
                     if (scacclv_to_delete == null)
                     {
-                        XMessageBox.Show("ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        XMessageBox.Show(this.main_form.GetMessage("0017"), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                     }
                     else
                     {
@@ -487,7 +487,8 @@ namespace XPump.SubForm
                     ((XDatagrid)sender).Rows[row_index].Cells[this.col_datacod.Name].Selected = true;
 
                 ContextMenu cm = new ContextMenu();
-                MenuItem mnu_add = new MenuItem("เพิ่ม <Alt + A>");
+                string add_str = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? "Add <Alt + A>" : "เพิ่ม <Alt + A>";
+                MenuItem mnu_add = new MenuItem(add_str);
                 mnu_add.Click += delegate
                 {
                     this.ResetFormState(FORM_MODE.READ_ITEM);
@@ -495,7 +496,8 @@ namespace XPump.SubForm
                 };
                 cm.MenuItems.Add(mnu_add);
 
-                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt + E>");
+                string edit_str = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? "Edit <Alt + E>" : "แก้ไข <Alt + E>";
+                MenuItem mnu_edit = new MenuItem(edit_str);
                 mnu_edit.Click += delegate
                 {
                     this.ResetFormState(FORM_MODE.READ_ITEM);
@@ -504,7 +506,8 @@ namespace XPump.SubForm
                 mnu_edit.Enabled = row_index == -1 ? false : true;
                 cm.MenuItems.Add(mnu_edit);
 
-                MenuItem mnu_delete = new MenuItem("ลบ <Alt + D>");
+                string delete_str = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? "Delete <Alt + D>" : "ลบ <Alt + D>";
+                MenuItem mnu_delete = new MenuItem(delete_str);
                 mnu_delete.Click += delegate
                 {
                     this.ResetFormState(FORM_MODE.READ_ITEM);
@@ -532,7 +535,7 @@ namespace XPump.SubForm
                 {
                     DataPropertyName = "compnam",
                     Name = "col_compnam",
-                    HeaderText = "ชื่อข้อมูล",
+                    HeaderText = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? "Company Name" : "ชื่อข้อมูล",
                     MinimumWidth = 180,
                     AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                     FillWeight = 100
@@ -541,7 +544,7 @@ namespace XPump.SubForm
                 {
                     DataPropertyName = "compcod",
                     Name = "col_compcod",
-                    HeaderText = "รหัส",
+                    HeaderText = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? "Data Code" : "รหัส",
                     Width = 120,
                     MinimumWidth = 120
                 },
@@ -549,7 +552,7 @@ namespace XPump.SubForm
                 {
                     DataPropertyName = "path",
                     Name = "col_path",
-                    HeaderText = "ที่เก็บข้อมูล",
+                    HeaderText = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? "Data Path" : "ที่เก็บข้อมูล",
                     MinimumWidth = 180,
                     AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                     FillWeight = 100
@@ -557,7 +560,7 @@ namespace XPump.SubForm
 
             };
 
-            DialogInquiry inq = new DialogInquiry(list, cols, cols.Where(c => c.DataPropertyName == "compcod").First(), ((XBrowseBox)sender)._Text);
+            DialogInquiry inq = new DialogInquiry(list, cols, cols.Where(c => c.DataPropertyName == "compnam").First(), ((XBrowseBox)sender)._Text, true, this.main_form.c_info);
             Point p = ((XBrowseBox)sender).PointToScreen(Point.Empty);
             inq.StartPosition = FormStartPosition.Manual;
             inq.SetBounds(p.X + ((XBrowseBox)sender).Width, p.Y, inq.Width, inq.Height);
@@ -583,7 +586,7 @@ namespace XPump.SubForm
                 {
                     DataPropertyName = "modcod",
                     Name = "col_modcod",
-                    HeaderText = "รหัสเมนู",
+                    HeaderText = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? "Menu Code" : "รหัสเมนู",
                     MinimumWidth = 100,
                     Width = 100
                 },
@@ -601,7 +604,18 @@ namespace XPump.SubForm
                     HeaderText = "รายละเอียด",
                     MinimumWidth = 220,
                     AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                    FillWeight = 100
+                    FillWeight = 100,
+                    Visible = this.main_form.loged_in_status.language == UILANGUAGE.THA ? true : false
+                },
+                new DataGridViewTextBoxColumn()
+                {
+                    DataPropertyName = "description_en",
+                    Name = "col_desc_en",
+                    HeaderText = "Description",
+                    MinimumWidth = 220,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                    FillWeight = 100,
+                    Visible = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? true : false
                 },
                 new DataGridViewTextBoxColumn()
                 {
@@ -611,7 +625,7 @@ namespace XPump.SubForm
                 }
             };
 
-            DialogInquiry inq = new DialogInquiry(list, cols, cols.Where(c => c.DataPropertyName == "modcod").First(), ((XBrowseBox)sender)._Text);
+            DialogInquiry inq = new DialogInquiry(list, cols, cols.Where(c => c.DataPropertyName == "modcod").First(), ((XBrowseBox)sender)._Text, true, this.main_form.c_info);
             Point p = ((XBrowseBox)sender).PointToScreen(Point.Empty);
             inq.StartPosition = FormStartPosition.Manual;
             inq.SetBounds(p.X + ((XBrowseBox)sender).Width, p.Y, inq.Width, inq.Height);
@@ -759,14 +773,14 @@ namespace XPump.SubForm
 
             if (this.tmp_scacclv.datacod.Trim().Length == 0)
             {
-                XMessageBox.Show("กรุณาระบุรหัสข้อมูล", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                XMessageBox.Show(this.main_form.GetMessage("0018"), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.inline_datacod.Focus();
                 return;
             }
 
             if (this.tmp_scacclv.scmodul_id < 1)
             {
-                XMessageBox.Show("กรุณาระบุเมนู", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                XMessageBox.Show(this.main_form.GetMessage("0019"), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 this.inline_menu.Focus();
                 return;
             }
@@ -779,7 +793,8 @@ namespace XPump.SubForm
                     var sc = sec.scacclv.Include("scmodul").Where(s => s.username == this.tmp_scacclv.username && s.datacod == this.tmp_scacclv.datacod && s.scmodul_id == this.tmp_scacclv.scmodul_id);
                     if (sc.Count() > 0)
                     {
-                        XMessageBox.Show("เมนู \"" + this.tmp_scacclv.scmodul.description + "\" ถูกกำหนดไว้แล้วสำหรับข้อมูล \"" + this.tmp_scacclv.datacod + "\"", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        string mod_desc = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? this.tmp_scacclv.scmodul.description_en : this.tmp_scacclv.scmodul.description;
+                        XMessageBox.Show(string.Format(this.main_form.GetMessage("0020"), mod_desc, this.tmp_scacclv.datacod), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         this.inline_menu.Focus();
                         return;
                     }
@@ -809,7 +824,8 @@ namespace XPump.SubForm
                     var sc = sec.scacclv.Include("scmodul").Where(s => s.username == this.tmp_scacclv.username && s.datacod == this.tmp_scacclv.datacod && s.scmodul_id == this.tmp_scacclv.scmodul_id && s.id != this.tmp_scacclv.id);
                     if (sc.Count() > 0)
                     {
-                        XMessageBox.Show("เมนู \"" + this.tmp_scacclv.scmodul.description + "\" ถูกกำหนดไว้แล้วสำหรับข้อมูล \"" + this.tmp_scacclv.datacod + "\"", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        string mod_desc = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? this.tmp_scacclv.scmodul.description_en : this.tmp_scacclv.scmodul.description;
+                        XMessageBox.Show(string.Format(this.main_form.GetMessage("0020"), mod_desc, this.tmp_scacclv.datacod), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         this.inline_menu.Focus();
                         return;
                     }
@@ -835,7 +851,7 @@ namespace XPump.SubForm
                         }
                         else
                         {
-                            XMessageBox.Show("ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                            XMessageBox.Show(this.main_form.GetMessage("0021"), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         }
                     }
                     catch (Exception ex)
@@ -850,14 +866,15 @@ namespace XPump.SubForm
         {
             using (xpumpsecureEntities sec = DBX.DataSecureSet())
             {
-                DialogSimpleSearch search = new DialogSimpleSearch("รหัสผู้ใช้", "");
+                string label = this.main_form.loged_in_status.language == UILANGUAGE.ENG ? "User ID" : "รหัสผู้ใช้";
+                DialogSimpleSearch search = new DialogSimpleSearch(label, "", this.main_form.c_info);
                 search.txtKeyword.CharacterCasing = CharacterCasing.Upper;
                 if (search.ShowDialog() == DialogResult.OK)
                 {
                     ScuserDbf user = this.GetScuser(search.keyword.Trim());
                     if (user == null)
                     {
-                        XMessageBox.Show("ค้นหารหัสผู้ใช้ \"" + search.keyword.Trim() + "\" ไม่พบ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        XMessageBox.Show(string.Format(this.main_form.GetMessage("0022"), search.keyword.Trim()), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                         return;
                     }
                     else
@@ -1241,6 +1258,15 @@ namespace XPump.SubForm
             this.tabControl1.SelectedTab = this.tabPage2;
             this.ResetFormState(FORM_MODE.READ_ITEM);
             this.dgv.Focus();
+        }
+
+        private void dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (this.main_form.loged_in_status.language == UILANGUAGE.THA)
+                ((XDatagrid)sender).Columns[this.col_moddesc_en.Name].Visible = false;
+
+            if(this.main_form.loged_in_status.language == UILANGUAGE.ENG)
+                ((XDatagrid)sender).Columns[this.col_moddesc.Name].Visible = false;
         }
     }
 }

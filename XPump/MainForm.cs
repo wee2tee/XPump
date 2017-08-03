@@ -102,7 +102,7 @@ namespace XPump
             this.islog = new Log(this);
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             this.lblVersion.Text = string.Format("XPump V.{0}", version);
-            this.SetMenuBehavior(menuStrip1.Items);
+            this.SetMenuBehavior(this.menuStrip1.Items);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -134,11 +134,13 @@ namespace XPump
             {
                 this.islog.LoginSuccess(this.loged_in_status.loged_in_user_name).Save();
             }
-            this.SetUILanguage();
+
+            // Uncomment this to apply multi language menu
+            //this.SetUILanguage();
             this.Controls.RemoveByKey("menuStrip1");
             this.Controls.RemoveByKey("statusStrip1");
             this.InitializeComponent();
-
+            this.SetMenuBehavior(this.menuStrip1.Items);
             this.SetStatusLabelText(null, null, this.loged_in_status.loged_in_user_name);
 
             this.mnuChangeCompany.PerformClick();
@@ -254,7 +256,7 @@ namespace XPump
         {
             if(this.opened_child_form.Count > 0)
             {
-                if (XMessageBox.Show("โปรแกรมจะปิดหน้าต่างงานที่เปิดอยู่ทั้งหมดให้ก่อน, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
+                if (XMessageBox.Show(this.GetMessage("0999"), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                     return;
 
                 for (int i = this.opened_child_form.Count - 1; i > -1; i--)
@@ -291,6 +293,7 @@ namespace XPump
                 }
 
                 this.scacclv_list = this.GetScacclv(this.loged_in_status.loged_in_user_name);
+                var x = this.menuStrip1.Items;
                 this.SetMenuAccessible(this.menuStrip1.Items);
             }
             else
@@ -432,6 +435,7 @@ namespace XPump
             using (xpumpsecureEntities sec = DBX.DataSecureSet())
             {
                 var scmoduls = sec.scmodul.ToList();
+                var all_menu_access = this.scacclv_list.Where(s => s.modcod == "ALLMENU").FirstOrDefault();
 
                 foreach (ToolStripMenuItem mnu in menus.Cast<ToolStripItem>().Where(m => m.GetType() == typeof(ToolStripMenuItem)))
                 {
@@ -441,46 +445,50 @@ namespace XPump
                     }
                     else // is top level menu
                     {
-                        mnu.Enabled = this.scacclv_list.Where(s => s.modcod == "ALLMENU").FirstOrDefault() != null ? true : false;
+                        mnu.Enabled = all_menu_access != null ? (all_menu_access.read == "Y" ? true : false) : false;
                     }
 
-                    if (mnu.Tag != null)
+                    if (mnu.Tag != null) // have tag (ToolStripMenuItem)
                     {
-                        var mod = this.scacclv_list.Where(s => s.modcod == mnu.Tag.ToString().Trim()).FirstOrDefault();
-                        if (mod != null)
+                        var curr_mnu_acc_lev = this.scacclv_list.Where(s => s.modcod == mnu.Tag.ToString().Trim()).FirstOrDefault();
+                        if (curr_mnu_acc_lev != null) // have current menu config
                         {
-                            mnu.Enabled = mod.read == "Y" ? true : false;
+                            mnu.Enabled = curr_mnu_acc_lev.read == "Y" ? true : false;
                         }
-                        else
+                        else // don't have current menu config
                         {
-                            if (mnu.OwnerItem != null && mnu.OwnerItem.GetType() == typeof(ToolStripMenuItem))
+                            if (mnu.OwnerItem != null && mnu.OwnerItem.GetType() == typeof(ToolStripMenuItem)) // sub menu
                             {
                                 if(((ToolStripMenuItem)mnu.OwnerItem).Tag != null)
                                 {
                                     scmodul parent_mod = scmoduls.Where(s => s.modcod == mnu.OwnerItem.Tag.ToString().Trim()).FirstOrDefault();
                                     if (parent_mod == null)
-                                        mnu.Enabled = false;
+                                        mnu.Enabled = false; //all_menu_access != null ? (all_menu_access.read == "Y" ? true : false) : false;
 
                                     scacclvVM parent_ac = this.scacclv_list.Where(s => s.modcod == parent_mod.modcod).FirstOrDefault();
-                                    if (parent_ac == null)
+                                    if (parent_ac != null)
                                     {
-                                        mnu.Enabled = false;
+                                        mnu.Enabled = parent_ac.read == "Y" ? true : false;
                                     }
                                     else
                                     {
-                                        mnu.Enabled = parent_ac.read == "Y" ? true : false;
+                                        mnu.Enabled = all_menu_access != null ? (all_menu_access.read == "Y" ? true : false) : false;
                                     }
                                 }
                                 else
                                 {
-                                    mnu.Enabled = true;
+                                    mnu.Enabled = all_menu_access != null ? (all_menu_access.read == "Y" ? true : false) : false;
                                 }
                             }
-                            else
+                            else // top menu
                             {
-                                mnu.Enabled = false;
+                                mnu.Enabled = all_menu_access != null ? (all_menu_access.read == "Y" ? true : false) : false;
                             }
                         }
+                    }
+                    else // don't have tag (ToolStripSeparator)
+                    {
+                        continue;
                     }
 
                     if (mnu.HasDropDownItems)
@@ -516,7 +524,7 @@ namespace XPump
         {
             if(this.opened_child_form.Count > 0)
             {
-                if(XMessageBox.Show("โปรแกรมจะปิดงานที่เปิดค้างอยู่ทั้งหมดให้ก่อน", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+                if(XMessageBox.Show(this.GetMessage("0999"), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 {
                     e.Cancel = true;
                     return;

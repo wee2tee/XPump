@@ -166,6 +166,9 @@
   <data name="btnItem.Text" xml:space="preserve">
     <value>Entrance to item &lt;F8&gt;</value>
   </data>
+  <data name="btnRefresh.Text" xml:space="preserve">
+    <value>Refresh data &lt;Ctrl+F5&gt;</value>
+  </data>
   <data name="col_datacod.HeaderText" xml:space="preserve">
     <value>Data Code</value>
   </data>
@@ -174,6 +177,10 @@
   </data>
   <data name="col_moddesc.HeaderText" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="col_moddesc_en.MinimumWidth" type="System.Int32, mscorlib">
+    <value>120</value>
   </data>
   <data name="col_read.HeaderText" xml:space="preserve">
     <value>Read</value>

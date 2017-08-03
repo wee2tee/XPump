@@ -1794,6 +1794,13 @@ namespace XPump.Model
                 return this.scmodul != null ? this.scmodul.description : string.Empty;
             }
         }
+        public string moddesc_en
+        {
+            get
+            {
+                return this.scmodul != null ? this.scmodul.description_en : string.Empty;
+            }
+        }
         public string read { get { return this.scacclv.read; } }
         public string add { get { return this.scacclv.add; } }
         public string edit { get { return this.scacclv.edit; } }

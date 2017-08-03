@@ -10,6 +10,7 @@ using XPump.Misc;
 using XPump.Model;
 using CC;
 using System.Globalization;
+using System.Threading;
 
 namespace XPump.SubForm
 {
@@ -28,8 +29,9 @@ namespace XPump.SubForm
 
         public DialogYearEnd(MainForm main_form)
         {
-            InitializeComponent();
             this.main_form = main_form;
+            Thread.CurrentThread.CurrentUICulture = this.main_form.c_info;
+            InitializeComponent();
             this.dbConfig = new LocalDbConfig(this.main_form.working_express_db);
         }
 
@@ -93,9 +95,8 @@ namespace XPump.SubForm
                     {
                         if (last_shiftsales.saldat.CompareTo(last_dayend.saldat) > 0)
                         {
-                            err_message = "ยังไม่สามารถปิดประมวลผลสิ้นปีได้ เนื่องจากรายการขายของวันที่ " + last_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ยังไม่ได้บันทึกปิดยอดขายประจำวัน";
+                            err_message = string.Format(this.main_form.GetMessage("0023"), last_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")));
                             result = false;
-                            //XMessageBox.Show("ยังไม่สามารถปิดประมวลผลสิ้นปีได้ เนื่องจากรายการขายของวันที่ " + last_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " ยังไม่ได้บันทึกปิดยอดขายประจำวัน", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
 
                             last_shiftsales = null;
                             return;
@@ -219,7 +220,7 @@ namespace XPump.SubForm
                 loading.Close();
                 if(result == true)
                 {
-                    XMessageBox.Show("ประมวลผลสิ้นปีเสร็จเรียบร้อย");
+                    XMessageBox.Show(this.main_form.GetMessage("0024"));
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }

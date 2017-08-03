@@ -318,7 +318,7 @@ namespace XPump.SubForm
                     sec.scmodul.Add(new scmodul { modcod = "311", p_modcod = "31", description = "สำรองข้อมูล", description_en = "Backup Data" });
                     sec.scmodul.Add(new scmodul { modcod = "312", p_modcod = "31", description = "นำข้อมูลสำรองมาใช้", description_en = "Restore Data" });
                     sec.scmodul.Add(new scmodul { modcod = "32", p_modcod = "3", description = "ระบบความปลอดภัย", description_en = "Security Setup" });
-                    sec.scmodul.Add(new scmodul { modcod = "321", p_modcod = "32", description = "กำหนดสิทธิ์ผู้ใช้งานระบบ", description_en = "User Access Control" });
+                    sec.scmodul.Add(new scmodul { modcod = "321", p_modcod = "32", description = "กำหนดสิทธิ์ผู้ใช้งาน", description_en = "User Access Control" });
                     sec.scmodul.Add(new scmodul { modcod = "322", p_modcod = "32", description = "แฟ้มบันทึกเหตุการณ์ทำงาน", description_en = "Event Logging File" });
                     sec.scmodul.Add(new scmodul { modcod = "33", p_modcod = "3", description = "การประมวลผลสิ้นปี", description_en = "Year-End Processing" });
                     sec.scmodul.Add(new scmodul { modcod = "34", p_modcod = "3", description = "เปลี่ยนบริษัท", description_en = "Change Company" });

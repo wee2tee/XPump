@@ -2,7 +2,7 @@
   {
     "id"  : "0001",
     "th"  : "ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก, ยืนยันทำต่อ?",
-    "en"  : "Data will not be saved, do you want to continue?"
+    "en"  : "Data will not be saved, Do you want to continue?"
   },
   {
     "id": "0002",
@@ -42,7 +42,7 @@
   {
     "id": "0009",
     "th": "คำเตือน !\n การเปลี่ยนรอบบัญชีอาจส่งผลให้การแสดงตัวเลขในรายงานเปลี่ยนแปลงไปจากเดิม(ที่เคยพิมพ์เก็บไว้), ทำต่อหรือไม่?",
-    "en": "Warning !\n Changing a fiscal year can cause an error in report, do you want to continue?",
+    "en": "Warning !\n Changing a fiscal year can cause an error in report, Do you want to continue?",
   },
   {
     "id": "0010",
@@ -52,12 +52,12 @@
   {
     "id": "0011",
     "th": "สำรองข้อมูลไปไว้ที่ \"{0}\", ทำต่อหรือไม่?",
-    "en": "Backup data to \"{0}\", do you want to continue?",
+    "en": "Backup data to \"{0}\", Do you want to continue?",
   },
   {
     "id": "0012",
     "th": "แฟ้ม \"{0}\" มีอยู่แล้ว, ต้องการแทนที่ด้วยแฟ้มใหม่นี้ใช่หรือไม่?",
-    "en": "The file \"{0}\" is already exist, do you want to replace it",
+    "en": "The file \"{0}\" is already exist, Do you want to replace it",
   },
   {
     "id": "0013",
@@ -73,5 +73,61 @@
     "id": "0015",
     "th": "นำข้อมูลสำรองมาใช้เสร็จเรียบร้อย",
     "en": "Restore data completed"
+  },
+  {
+    "id": "0016",
+    "th": "ลบข้อมูลนี้หรือไม่",
+    "en": "Delete Record?"
+  },
+  {
+    "id": "0017",
+    "th": "ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว",
+    "en": "This record does not exist, Maybe deleted by another users"
+  },
+  {
+    "id": "0018",
+    "th": "กรุณาระบุรหัสข้อมูล",
+    "en": "Please specify Data Code"
+  },
+  {
+    "id": "0019",
+    "th": "กรุณาระบุเมนู",
+    "en": "Please specify Menu"
+  },
+  {
+    "id": "0020",
+    "th": "เมนู \"{0}\" ถูกกำหนดไว้แล้วสำหรับข้อมูล \"{1}\"",
+    "en": "Menu \"{0}\" is already assigned for Data Code \"{1}\""
+  },
+  {
+    "id": "0021",
+    "th": "ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว",
+    "en": "This record does not exist, Maybe deleted by another users"
+  },
+  {
+    "id": "0022",
+    "th": "ค้นหารหัสผู้ใช้ \"{0}\" ไม่พบ",
+    "en": "User ID \"{0}\" not found"
+  },
+  {
+    "id": "0023",
+    "th": "ยังไม่สามารถปิดประมวลผลสิ้นปีได้ เนื่องจากรายการขายของวันที่ {0} ยังไม่ได้บันทึกปิดยอดขายประจำวัน",
+    "en": "Year-End Processing cannot start right now, Because transaction in {0} not summary yet"
+  },
+  {
+    "id": "0024",
+    "th": "ประมวลผลสิ้นปีเสร็จเรียบร้อย",
+    "en": "Year-End Processing completed"
+  },
+
+
+
+
+
+
+  {
+    "id": "0999",
+    "th": "โปรแกรมจะปิดหน้าต่างงานที่เปิดอยู่ทั้งหมดให้ก่อน, ทำต่อหรือไม่?",
+    "en": "All open windows will be closing, Do you want to continue?",
   }
 ]

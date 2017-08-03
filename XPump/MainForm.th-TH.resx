@@ -121,18 +121,6 @@
   <data name="mnuDataManage.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
-  <data name="mnuUsersFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="mnuUsersFile.Text" xml:space="preserve">
-    <value>กำหนดสิทธิ์ผู้ใช้งานระบบ</value>
-  </data>
-  <data name="eventLoggingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
-  <data name="eventLoggingToolStripMenuItem.Text" xml:space="preserve">
-    <value>แฟ้มบันทึกเหตุการณ์ทำงาน</value>
-  </data>
   <data name="mnuSecure.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
@@ -141,6 +129,9 @@
   </data>
   <data name="mnuYearEnd.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 6</value>
   </data>
   <data name="mnuChangeCompany.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>

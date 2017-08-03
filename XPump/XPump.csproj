@@ -527,6 +527,9 @@
     <EmbeddedResource Include="SubForm\DialogInlineSearch.resx">
       <DependentUpon>DialogInlineSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogInquiry.en-US.resx">
+      <DependentUpon>DialogInquiry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogInquiry.resx">
       <DependentUpon>DialogInquiry.cs</DependentUpon>
     </EmbeddedResource>
@@ -563,6 +566,9 @@
     <EmbeddedResource Include="SubForm\DialogSalesHistory.resx">
       <DependentUpon>DialogSalesHistory.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSccompSelection.en-US.resx">
+      <DependentUpon>DialogSccompSelection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSccompSelection.resx">
       <DependentUpon>DialogSccompSelection.cs</DependentUpon>
     </EmbeddedResource>
@@ -581,11 +587,17 @@
     <EmbeddedResource Include="SubForm\DialogShiftSttak.resx">
       <DependentUpon>DialogShiftSttak.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSimpleSearch.en-US.resx">
+      <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
       <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogValidateUser.resx">
       <DependentUpon>DialogValidateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogYearEnd.en-US.resx">
+      <DependentUpon>DialogYearEnd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogYearEnd.resx">
       <DependentUpon>DialogYearEnd.cs</DependentUpon>

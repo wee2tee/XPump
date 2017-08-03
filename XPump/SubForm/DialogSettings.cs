@@ -64,22 +64,22 @@ namespace XPump.SubForm
         public DialogSettings(MainForm main_form, scacclvVM scacclv)
         {
             this.main_form = main_form;
-            this.SetUILanguage();
+            Thread.CurrentThread.CurrentUICulture = this.main_form.c_info;
             InitializeComponent();
             this.scacclv = scacclv;
         }
 
-        public void SetUILanguage()
-        {
-            if(this.main_form.loged_in_status.language == UILANGUAGE.ENG)
-            {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-            }
-            else
-            {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("th-TH");
-            }
-        }
+        //public void SetUILanguage()
+        //{
+        //    if(this.main_form.loged_in_status.language == UILANGUAGE.ENG)
+        //    {
+        //        Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+        //    }
+        //    else
+        //    {
+        //        Thread.CurrentThread.CurrentUICulture = new CultureInfo("th-TH");
+        //    }
+        //}
 
         private void DialogSettings_Load(object sender, EventArgs e)
         {

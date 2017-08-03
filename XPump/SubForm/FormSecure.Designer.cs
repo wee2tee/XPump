@@ -66,6 +66,21 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtLanguage = new System.Windows.Forms.TextBox();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_modcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_moddesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_moddesc_en = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scacclv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scmodul = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scmodul_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
@@ -81,20 +96,6 @@
             this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_modcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_moddesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scacclv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scmodul = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scmodul_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -289,6 +290,7 @@
             this.col_datacod,
             this.col_modcod,
             this.col_moddesc,
+            this.col_moddesc_en,
             this.col_read,
             this.col_add,
             this.col_edit,
@@ -318,6 +320,7 @@
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.StandardTab = true;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
+            this.dgv.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_DataBindingComplete);
             this.dgv.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgv_RowPostPaint);
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
@@ -448,6 +451,113 @@
             this.txtLanguage.ReadOnly = true;
             this.txtLanguage.TabStop = false;
             // 
+            // col_id
+            // 
+            this.col_id.DataPropertyName = "id";
+            resources.ApplyResources(this.col_id, "col_id");
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            // 
+            // col_username
+            // 
+            this.col_username.DataPropertyName = "username";
+            resources.ApplyResources(this.col_username, "col_username");
+            this.col_username.Name = "col_username";
+            this.col_username.ReadOnly = true;
+            // 
+            // col_datacod
+            // 
+            this.col_datacod.DataPropertyName = "datacod";
+            resources.ApplyResources(this.col_datacod, "col_datacod");
+            this.col_datacod.Name = "col_datacod";
+            this.col_datacod.ReadOnly = true;
+            // 
+            // col_modcod
+            // 
+            this.col_modcod.DataPropertyName = "modcod";
+            resources.ApplyResources(this.col_modcod, "col_modcod");
+            this.col_modcod.Name = "col_modcod";
+            this.col_modcod.ReadOnly = true;
+            // 
+            // col_moddesc
+            // 
+            this.col_moddesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_moddesc.DataPropertyName = "moddesc";
+            resources.ApplyResources(this.col_moddesc, "col_moddesc");
+            this.col_moddesc.Name = "col_moddesc";
+            this.col_moddesc.ReadOnly = true;
+            // 
+            // col_moddesc_en
+            // 
+            this.col_moddesc_en.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_moddesc_en.DataPropertyName = "moddesc_en";
+            resources.ApplyResources(this.col_moddesc_en, "col_moddesc_en");
+            this.col_moddesc_en.Name = "col_moddesc_en";
+            this.col_moddesc_en.ReadOnly = true;
+            // 
+            // col_read
+            // 
+            this.col_read.DataPropertyName = "read";
+            resources.ApplyResources(this.col_read, "col_read");
+            this.col_read.Name = "col_read";
+            this.col_read.ReadOnly = true;
+            // 
+            // col_add
+            // 
+            this.col_add.DataPropertyName = "add";
+            resources.ApplyResources(this.col_add, "col_add");
+            this.col_add.Name = "col_add";
+            this.col_add.ReadOnly = true;
+            // 
+            // col_edit
+            // 
+            this.col_edit.DataPropertyName = "edit";
+            resources.ApplyResources(this.col_edit, "col_edit");
+            this.col_edit.Name = "col_edit";
+            this.col_edit.ReadOnly = true;
+            // 
+            // col_delete
+            // 
+            this.col_delete.DataPropertyName = "delete";
+            resources.ApplyResources(this.col_delete, "col_delete");
+            this.col_delete.Name = "col_delete";
+            this.col_delete.ReadOnly = true;
+            // 
+            // col_print
+            // 
+            this.col_print.DataPropertyName = "print";
+            resources.ApplyResources(this.col_print, "col_print");
+            this.col_print.Name = "col_print";
+            this.col_print.ReadOnly = true;
+            // 
+            // col_approve
+            // 
+            this.col_approve.DataPropertyName = "approve";
+            resources.ApplyResources(this.col_approve, "col_approve");
+            this.col_approve.Name = "col_approve";
+            this.col_approve.ReadOnly = true;
+            // 
+            // col_scacclv
+            // 
+            this.col_scacclv.DataPropertyName = "scacclv";
+            resources.ApplyResources(this.col_scacclv, "col_scacclv");
+            this.col_scacclv.Name = "col_scacclv";
+            this.col_scacclv.ReadOnly = true;
+            // 
+            // col_scmodul
+            // 
+            this.col_scmodul.DataPropertyName = "scmodul";
+            resources.ApplyResources(this.col_scmodul, "col_scmodul");
+            this.col_scmodul.Name = "col_scmodul";
+            this.col_scmodul.ReadOnly = true;
+            // 
+            // col_scmodul_id
+            // 
+            this.col_scmodul_id.DataPropertyName = "scmodul_id";
+            resources.ApplyResources(this.col_scmodul_id, "col_scmodul_id");
+            this.col_scmodul_id.Name = "col_scmodul_id";
+            this.col_scmodul_id.ReadOnly = true;
+            // 
             // btnEdit
             // 
             resources.ApplyResources(this.btnEdit, "btnEdit");
@@ -566,105 +676,6 @@
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // col_id
-            // 
-            this.col_id.DataPropertyName = "id";
-            resources.ApplyResources(this.col_id, "col_id");
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            // 
-            // col_username
-            // 
-            this.col_username.DataPropertyName = "username";
-            resources.ApplyResources(this.col_username, "col_username");
-            this.col_username.Name = "col_username";
-            this.col_username.ReadOnly = true;
-            // 
-            // col_datacod
-            // 
-            this.col_datacod.DataPropertyName = "datacod";
-            resources.ApplyResources(this.col_datacod, "col_datacod");
-            this.col_datacod.Name = "col_datacod";
-            this.col_datacod.ReadOnly = true;
-            // 
-            // col_modcod
-            // 
-            this.col_modcod.DataPropertyName = "modcod";
-            resources.ApplyResources(this.col_modcod, "col_modcod");
-            this.col_modcod.Name = "col_modcod";
-            this.col_modcod.ReadOnly = true;
-            // 
-            // col_moddesc
-            // 
-            this.col_moddesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_moddesc.DataPropertyName = "moddesc";
-            resources.ApplyResources(this.col_moddesc, "col_moddesc");
-            this.col_moddesc.Name = "col_moddesc";
-            this.col_moddesc.ReadOnly = true;
-            // 
-            // col_read
-            // 
-            this.col_read.DataPropertyName = "read";
-            resources.ApplyResources(this.col_read, "col_read");
-            this.col_read.Name = "col_read";
-            this.col_read.ReadOnly = true;
-            // 
-            // col_add
-            // 
-            this.col_add.DataPropertyName = "add";
-            resources.ApplyResources(this.col_add, "col_add");
-            this.col_add.Name = "col_add";
-            this.col_add.ReadOnly = true;
-            // 
-            // col_edit
-            // 
-            this.col_edit.DataPropertyName = "edit";
-            resources.ApplyResources(this.col_edit, "col_edit");
-            this.col_edit.Name = "col_edit";
-            this.col_edit.ReadOnly = true;
-            // 
-            // col_delete
-            // 
-            this.col_delete.DataPropertyName = "delete";
-            resources.ApplyResources(this.col_delete, "col_delete");
-            this.col_delete.Name = "col_delete";
-            this.col_delete.ReadOnly = true;
-            // 
-            // col_print
-            // 
-            this.col_print.DataPropertyName = "print";
-            resources.ApplyResources(this.col_print, "col_print");
-            this.col_print.Name = "col_print";
-            this.col_print.ReadOnly = true;
-            // 
-            // col_approve
-            // 
-            this.col_approve.DataPropertyName = "approve";
-            resources.ApplyResources(this.col_approve, "col_approve");
-            this.col_approve.Name = "col_approve";
-            this.col_approve.ReadOnly = true;
-            // 
-            // col_scacclv
-            // 
-            this.col_scacclv.DataPropertyName = "scacclv";
-            resources.ApplyResources(this.col_scacclv, "col_scacclv");
-            this.col_scacclv.Name = "col_scacclv";
-            this.col_scacclv.ReadOnly = true;
-            // 
-            // col_scmodul
-            // 
-            this.col_scmodul.DataPropertyName = "scmodul";
-            resources.ApplyResources(this.col_scmodul, "col_scmodul");
-            this.col_scmodul.Name = "col_scmodul";
-            this.col_scmodul.ReadOnly = true;
-            // 
-            // col_scmodul_id
-            // 
-            this.col_scmodul_id.DataPropertyName = "scmodul_id";
-            resources.ApplyResources(this.col_scmodul_id, "col_scmodul_id");
-            this.col_scmodul_id.Name = "col_scmodul_id";
-            this.col_scmodul_id.ReadOnly = true;
-            // 
             // FormSecure
             // 
             resources.ApplyResources(this, "$this");
@@ -758,6 +769,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_datacod;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_modcod;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_moddesc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_moddesc_en;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_read;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_add;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_edit;

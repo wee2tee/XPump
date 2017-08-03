@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using XPump.Model;
 using XPump.Misc;
 using CC;
+using System.Globalization;
+using System.Threading;
 
 namespace XPump.SubForm
 {
@@ -21,15 +23,22 @@ namespace XPump.SubForm
         private bool show_search_btn = false;
         private List<dynamic> list_to_show;
         private BindingSource bs;
+        private CultureInfo c_info = CultureInfo.GetCultureInfo("th-TH");
 
-        public DialogInquiry(List<dynamic> list_to_show)
+        public DialogInquiry(List<dynamic> list_to_show, CultureInfo c_info = null)
         {
+            if(c_info != null)
+            {
+                this.c_info = c_info;
+            }
+            Thread.CurrentThread.CurrentUICulture = this.c_info;
+
             InitializeComponent();
             this.list_to_show = list_to_show;
         }
 
-        public DialogInquiry(List<dynamic> list_to_show, List<DataGridViewColumn> columns, DataGridViewColumn column_search_key, object initial_selected_key = null, bool show_search_btn = true)
-            : this(list_to_show)
+        public DialogInquiry(List<dynamic> list_to_show, List<DataGridViewColumn> columns, DataGridViewColumn column_search_key, object initial_selected_key = null, bool show_search_btn = true, CultureInfo c_info = null)
+            : this(list_to_show, c_info)
         {
             this.columns = columns;
             this.col_search_key = column_search_key;

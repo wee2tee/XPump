@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using XPump.Model;
 using XPump.Misc;
 using CC;
+using System.Globalization;
+using System.Threading;
 
 namespace XPump.SubForm
 {
@@ -22,8 +24,9 @@ namespace XPump.SubForm
 
         public DialogSccompSelection(MainForm main_form, List<SccompDbf> sccomp_list, string initial_data_path)
         {
-            InitializeComponent();
             this.main_form = main_form;
+            Thread.CurrentThread.CurrentUICulture = this.main_form.c_info;
+            InitializeComponent();
             this.sccomp_list = sccomp_list;
             this.initial_data_path = initial_data_path;
         }
