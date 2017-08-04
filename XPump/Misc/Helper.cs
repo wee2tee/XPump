@@ -1811,6 +1811,28 @@ namespace XPump.Misc
             return sc;
         }
 
+        public static islogVM ToViewModel(this islog islog)
+        {
+            if (islog == null)
+                return null;
+
+            return new islogVM
+            {
+                islog = islog
+            };
+        }
+
+        public static List<islogVM> ToViewModel(this IEnumerable<islog> islog_list)
+        {
+            List<islogVM> i = new List<islogVM>();
+            foreach (var item in islog_list)
+            {
+                i.Add(item.ToViewModel());
+            }
+
+            return i;
+        }
+
         public static void SetControlState(this Component comp, FORM_MODE[] form_mode_to_enable, FORM_MODE form_mode, string accessibility_by_scacclv = null)
         {
             if (form_mode_to_enable.ToList().Where(fm => fm == form_mode).Count() > 0)

@@ -1811,6 +1811,22 @@ namespace XPump.Model
         public scacclv scacclv { get; set; }
     }
 
+    public class islogVM
+    {
+        public int id { get { return this.islog.id; } }
+        public string logcode { get { return this.islog.logcode; } }
+        public string expressdata { get { return this.islog.expressdata; } }
+        public string xpumpdata { get { return this.islog.xpumpdata; } }
+        public string xpumpuser { get { return this.islog.xpumpuser; } }
+        public string modcod { get { return this.islog.modcod; } }
+        public string docnum { get { return this.islog.docnum; } }
+        public string description { get { return this.islog.description; } }
+        public System.DateTime cretime { get { return this.islog.cretime; } }
+        public string username { get { return this.islog.username; } }
+
+        public islog islog;
+    }
+
     public class ReportAModel
     {
         private SccompDbf working_express_db { get; set; }

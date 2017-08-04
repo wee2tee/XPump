@@ -202,6 +202,7 @@
             resources.ApplyResources(this.eventLoggingToolStripMenuItem, "eventLoggingToolStripMenuItem");
             this.eventLoggingToolStripMenuItem.Name = "eventLoggingToolStripMenuItem";
             this.eventLoggingToolStripMenuItem.Tag = "322";
+            this.eventLoggingToolStripMenuItem.Click += new System.EventHandler(this.eventLoggingToolStripMenuItem_Click);
             // 
             // mnuYearEnd
             // 

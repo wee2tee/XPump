@@ -564,6 +564,23 @@ namespace XPump
             sec.Show();
             this.opened_child_form.Add(new ChildFormDetail() { form = sec, docPrefix = string.Empty });
         }
+
+        private void eventLoggingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).First().form.Activate();
+                if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).First().form.WindowState == FormWindowState.Minimized)
+                    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).First().form.WindowState = FormWindowState.Normal;
+                return;
+            }
+
+            FormIslog islog = new FormIslog(this);
+            islog.MdiParent = this;
+            islog.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            islog.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = islog, docPrefix = string.Empty });
+        }
     }
 
     public class ChildFormDetail

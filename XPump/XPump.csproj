@@ -406,6 +406,12 @@
     <Compile Include="SubForm\FormDailyClose.Designer.cs">
       <DependentUpon>FormDailyClose.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\FormIslog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormIslog.Designer.cs">
+      <DependentUpon>FormIslog.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\FormIstab.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -604,6 +610,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormDailyClose.resx">
       <DependentUpon>FormDailyClose.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormIslog.resx">
+      <DependentUpon>FormIslog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormIstab.resx">
       <DependentUpon>FormIstab.cs</DependentUpon>
