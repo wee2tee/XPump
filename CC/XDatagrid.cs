@@ -103,6 +103,23 @@ namespace CC
             this.RowHeadersVisible = false;
             this.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.StandardTab = true;
+
+            this.VerticalScrollBar.Scroll += VerticalScrollBar_Scroll;
+        }
+
+        private void VerticalScrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            //if(e.NewValue > e.OldValue) // scroll down
+            //{
+            //    this.Rows[this.FirstDisplayedScrollingRowIndex + this.DisplayedRowCount(false)].Cells[this.Columns.Cast<DataGridViewColumn>().Where(c => c.Visible).First().Name].Selected = true;
+            //    return;
+            //}
+            //if(e.NewValue < e.OldValue) // scroll up
+            //{
+            //    this.Rows[this.FirstDisplayedScrollingRowIndex].Cells[this.Columns.Cast<DataGridViewColumn>().Where(c => c.Visible).First().Name].Selected = true;
+            //    return;
+            //}
+            this.Rows[this.FirstDisplayedScrollingRowIndex].Cells[this.Columns.Cast<DataGridViewColumn>().Where(c => c.Visible).First().Name].Selected = true;
         }
 
         protected override void OnCreateControl()
@@ -268,5 +285,46 @@ namespace CC
         {
             base.OnPaint(pe);
         }
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            if (this.CurrentCell == null)
+                return;
+
+            if(e.Delta > 0) // scroll up
+            {
+                if(this.CurrentCell.RowIndex > 0)
+                {
+                    this.Rows[this.CurrentCell.RowIndex - 1].Cells[this.Columns.Cast<DataGridViewColumn>().Where(c => c.Visible).First().Name].Selected = true;
+                }
+            }
+            if(e.Delta < 0) // scroll down
+            {
+                if (this.CurrentCell.RowIndex < this.Rows.Count - 1)
+                {
+                    this.Rows[this.CurrentCell.RowIndex + 1].Cells[this.Columns.Cast<DataGridViewColumn>().Where(c => c.Visible).First().Name].Selected = true;
+                }
+            }
+
+            HandledMouseEventArgs ee = (HandledMouseEventArgs)e;
+            ee.Handled = true;
+            //base.OnMouseWheel(e);
+        }
+
+        //protected override void OnScroll(ScrollEventArgs e)
+        //{
+        //    if (this.CurrentCell == null)
+        //        return;
+        //    //if(e.Type == ScrollEventType.)
+
+        //    if(e.Type == ScrollEventType.)
+        //    {
+        //        if (this.CurrentCell.RowIndex != this.FirstDisplayedScrollingRowIndex)
+        //        {
+        //            this.Rows[this.FirstDisplayedScrollingRowIndex].Cells[this.Columns.Cast<DataGridViewColumn>().Where(c => c.Visible).First().Name].Selected = true;
+        //        }
+        //        return;
+        //    }
+        //}
     }
 }

@@ -43,7 +43,13 @@
             this.btnPrevious = new System.Windows.Forms.ToolStripButton();
             this.btnNext = new System.Windows.Forms.ToolStripButton();
             this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnSearchByDate = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSearchByCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPrint = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnPrintAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrintCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
             this.btnApprove = new System.Windows.Forms.ToolStripButton();
@@ -51,12 +57,6 @@
             this.btnApproveMulti = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.dgv = new CC.XDatagrid();
-            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnSearchByDate = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnSearchByCondition = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPrint = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnPrintAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPrintCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_logcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_expressdata = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,6 +67,7 @@
             this.col_description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_islog = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -215,10 +216,68 @@
             this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
             this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
             // 
+            // btnSearch
+            // 
+            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSearch.DropDownButtonWidth = 12;
+            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnSearchByDate,
+            this.btnSearchByCondition});
+            this.btnSearch.Image = global::XPump.Properties.Resources.search;
+            this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(49, 40);
+            this.btnSearch.Text = "toolStripSplitButton1";
+            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
+            // 
+            // btnSearchByDate
+            // 
+            this.btnSearchByDate.Name = "btnSearchByDate";
+            this.btnSearchByDate.Size = new System.Drawing.Size(251, 22);
+            this.btnSearchByDate.Text = "ค้นหารายการ วันที่... <Alt + S>";
+            this.btnSearchByDate.Click += new System.EventHandler(this.btnSearchByDate_Click);
+            // 
+            // btnSearchByCondition
+            // 
+            this.btnSearchByCondition.Name = "btnSearchByCondition";
+            this.btnSearchByCondition.Size = new System.Drawing.Size(251, 22);
+            this.btnSearchByCondition.Text = "เรียกดูข้อมูล โดยระบุเงื่อนไข <Alt+K>";
+            this.btnSearchByCondition.Click += new System.EventHandler(this.btnSearchByCondition_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrint.DropDownButtonWidth = 12;
+            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnPrintAll,
+            this.btnPrintCondition});
+            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
+            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(49, 40);
+            this.btnPrint.Text = "toolStripSplitButton1";
+            this.btnPrint.ButtonClick += new System.EventHandler(this.btnPrint_ButtonClick);
+            // 
+            // btnPrintAll
+            // 
+            this.btnPrintAll.Name = "btnPrintAll";
+            this.btnPrintAll.Size = new System.Drawing.Size(347, 22);
+            this.btnPrintAll.Text = "พิมพ์รายงานบันทึกการทำงานทั้งหมด <Alt + P>";
+            this.btnPrintAll.Click += new System.EventHandler(this.btnPrintAll_Click);
+            // 
+            // btnPrintCondition
+            // 
+            this.btnPrintCondition.Name = "btnPrintCondition";
+            this.btnPrintCondition.Size = new System.Drawing.Size(347, 22);
+            this.btnPrintCondition.Text = "พิมพ์รายงานบันทึกการทำงานโดยกำหนดเงื่อนไข <Ctrl + P>";
+            this.btnPrintCondition.Click += new System.EventHandler(this.btnPrintCondition_Click);
             // 
             // toolStripSeparator4
             // 
@@ -315,7 +374,8 @@
             this.col_docnum,
             this.col_description,
             this.col_cretime,
-            this.col_username});
+            this.col_username,
+            this.col_islog});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -339,66 +399,8 @@
             this.dgv.Size = new System.Drawing.Size(851, 447);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 7;
+            this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
             this.dgv.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_DataBindingComplete);
-            this.dgv.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_Scroll);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSearch.DropDownButtonWidth = 12;
-            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnSearchByDate,
-            this.btnSearchByCondition});
-            this.btnSearch.Image = global::XPump.Properties.Resources.search;
-            this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(49, 40);
-            this.btnSearch.Text = "toolStripSplitButton1";
-            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
-            // 
-            // btnSearchByDate
-            // 
-            this.btnSearchByDate.Name = "btnSearchByDate";
-            this.btnSearchByDate.Size = new System.Drawing.Size(251, 22);
-            this.btnSearchByDate.Text = "ค้นหารายการ วันที่... <Alt + S>";
-            this.btnSearchByDate.Click += new System.EventHandler(this.btnSearchByDate_Click);
-            // 
-            // btnSearchByCondition
-            // 
-            this.btnSearchByCondition.Name = "btnSearchByCondition";
-            this.btnSearchByCondition.Size = new System.Drawing.Size(251, 22);
-            this.btnSearchByCondition.Text = "เรียกดูข้อมูล โดยระบุเงื่อนไข <Alt+K>";
-            this.btnSearchByCondition.Click += new System.EventHandler(this.btnSearchByCondition_Click);
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrint.DropDownButtonWidth = 12;
-            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnPrintAll,
-            this.btnPrintCondition});
-            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
-            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(49, 40);
-            this.btnPrint.Text = "toolStripSplitButton1";
-            this.btnPrint.ButtonClick += new System.EventHandler(this.btnPrint_ButtonClick);
-            // 
-            // btnPrintAll
-            // 
-            this.btnPrintAll.Name = "btnPrintAll";
-            this.btnPrintAll.Size = new System.Drawing.Size(347, 22);
-            this.btnPrintAll.Text = "พิมพ์รายงานบันทึกการทำงานทั้งหมด <Alt + P>";
-            this.btnPrintAll.Click += new System.EventHandler(this.btnPrintAll_Click);
-            // 
-            // btnPrintCondition
-            // 
-            this.btnPrintCondition.Name = "btnPrintCondition";
-            this.btnPrintCondition.Size = new System.Drawing.Size(347, 22);
-            this.btnPrintCondition.Text = "พิมพ์รายงานบันทึกการทำงานโดยกำหนดเงื่อนไข <Ctrl + P>";
-            this.btnPrintCondition.Click += new System.EventHandler(this.btnPrintCondition_Click);
             // 
             // col_id
             // 
@@ -493,6 +495,14 @@
             this.col_username.ReadOnly = true;
             this.col_username.Width = 80;
             // 
+            // col_islog
+            // 
+            this.col_islog.DataPropertyName = "islog";
+            this.col_islog.HeaderText = "Islog";
+            this.col_islog.Name = "col_islog";
+            this.col_islog.ReadOnly = true;
+            this.col_islog.Visible = false;
+            // 
             // FormIslog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -553,5 +563,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_description;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_cretime;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_username;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_islog;
     }
 }

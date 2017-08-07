@@ -18,6 +18,7 @@ namespace XPump.SubForm
         private MainForm main_form;
         private FORM_MODE form_mode;
         private BindingList<islogVM> islogs;
+        private int? focused_id;
 
         public FormIslog(MainForm main_form)
         {
@@ -29,8 +30,9 @@ namespace XPump.SubForm
         private void FormIslog_Load(object sender, EventArgs e)
         {
             this.ResetControlState(FORM_MODE.READ_ITEM);
-            this.islogs = new BindingList<islogVM>(this.GetLog(null, 300).ToViewModel());
-            this.dgv.DataSource = this.islogs;
+            //this.islogs = new BindingList<islogVM>(this.GetLog(null, 300).ToViewModel());
+            //this.dgv.DataSource = this.islogs;
+            this.btnRefresh.PerformClick();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -127,40 +129,37 @@ namespace XPump.SubForm
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            this.focused_id = null;
             this.islogs = new BindingList<islogVM>(this.GetLog(null, 300).ToViewModel());
             this.dgv.DataSource = this.islogs;
         }
 
-        private void dgv_Scroll(object sender, ScrollEventArgs e)
-        {
-            //if (e.ScrollOrientation == ScrollOrientation.VerticalScroll)
-            //{
-
-            //    if (e.OldValue < e.NewValue) // scroll down
-            //        return;
-
-            //    var first_display_row_index = ((XDatagrid)sender).FirstDisplayedScrollingRowIndex;
-            //    var first_id = this.islogs.OrderBy(i => i.id).First().id;
-
-            //    if ((int)((XDatagrid)sender).Rows[first_display_row_index].Cells[this.col_id.Name].Value == first_id)
-            //    {
-            //        foreach (var item in this.GetLog(first_id, 5).ToViewModel().OrderByDescending(i => i.id))
-            //        {
-            //            this.islogs.Insert(0, item);
-            //        }
-            //    }
-            //}
-            int curr_row_index = ((XDatagrid)sender).CurrentCell.RowIndex;
-            if(curr_row_index > 0)
-            {
-                ((XDatagrid)sender).Rows[curr_row_index - 1].Cells[this.col_logcode.Name].Selected = true;
-            }
-        }
-
         private void dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            //if (this.islogs.Count > 0)
-            //    this.dgv.Rows[this.dgv.Rows.Count - 1].Cells[this.col_logcode.Name].Selected = true;
+            if (this.islogs.Count > 0 && this.focused_id == null)
+                this.dgv.Rows[this.dgv.Rows.Count - 1].Cells[this.col_logcode.Name].Selected = true;
+        }
+
+        private void dgv_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            var d = this.islogs;
+
+            this.focused_id = (int?)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_id.Name].Value;
+
+            if (((XDatagrid)sender).CurrentCell.RowIndex == 0)
+            {
+                int curr_id = (int)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_id.Name].Value;
+
+                foreach (var item in this.GetLog(curr_id, 10).ToViewModel().OrderByDescending(i => i.id))
+                {
+                    this.islogs.Insert(0, item);
+                }
+
+                ((XDatagrid)sender).FirstDisplayedScrollingRowIndex = ((XDatagrid)sender).Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == curr_id).First().Index;
+            }
         }
     }
 }
