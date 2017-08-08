@@ -292,6 +292,12 @@
     <Compile Include="SubForm\DialogInquiry.Designer.cs">
       <DependentUpon>DialogInquiry.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogIslogCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogIslogCondition.Designer.cs">
+      <DependentUpon>DialogIslogCondition.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogLoccodSelection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -538,6 +544,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogInquiry.resx">
       <DependentUpon>DialogInquiry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogIslogCondition.resx">
+      <DependentUpon>DialogIslogCondition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogLoccodSelection.resx">
       <DependentUpon>DialogLoccodSelection.cs</DependentUpon>
