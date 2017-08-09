@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Text;
 using System.Windows.Forms;
 using XPump.Model;
@@ -20,6 +21,12 @@ namespace XPump.SubForm
         private FORM_MODE form_mode;
         private BindingList<islogVM> islogs;
         private int? focused_id;
+        private DateTime? condLogDateFrom = null;
+        private DateTime? condLogDateTo = null;
+        private string condLogCode = string.Empty;
+        private string condLogData = string.Empty;
+        private string condLogModule = string.Empty;
+        private string condLogUser = string.Empty;
         private SORT sort;
         private enum SORT
         {
@@ -96,6 +103,42 @@ namespace XPump.SubForm
             }
         }
 
+        private List<dynamic> GetLogByCondition(DateTime? logDateFrom = null, DateTime? logDateTo = null, string logCode = "", string logData = "", string logModule = "", string logUser = "")
+        {
+            List<dynamic> logs = new List<dynamic>();
+            using (xpumpsecureEntities sec = DBX.DataSecureSet())
+            {
+                string condition = string.Empty;
+                condition += logCode.Trim().Length > 0 ? " logcode=\"" + logCode.Trim() + "\" " : "";
+                condition += condition.Trim().Length > 0 && logData.Trim().Length > 0 ? " AND " : "";
+                condition += logData.Trim().Length > 0 ? " expressdata=\"" + logData.Trim() + "\" " : "";
+                condition += condition.Trim().Length > 0 && logModule.Trim().Length > 0 ? " AND " : "";
+                condition += logModule.Trim().Length > 0 ? " modcod=\"" + logModule.Trim() + "\" " : "";
+                condition += condition.Trim().Length > 0 && logUser.Trim().Length > 0 ? " AND " : "";
+                condition += logUser.Trim().Length > 0 ? " username=\"" + logUser.Trim() + "\" " : "";
+
+                if (logDateFrom.HasValue && logDateTo.HasValue)
+                {
+                    var from_date = logDateFrom.Value;
+                    var to_date = logDateTo.Value.AddDays(1); // adding 1 day to support time suffix
+
+                    if (condition.Trim().Length > 0)
+                    {
+                        logs = sec.islog.Where(i => i.cretime.CompareTo(from_date) >= 0 && i.cretime.CompareTo(to_date) < 0).Where(condition).ToViewModel().ToList<dynamic>();
+                    }
+                    else
+                    {
+                        logs = sec.islog.Where(i => i.cretime.CompareTo(from_date) >= 0 && i.cretime.CompareTo(to_date) < 0).ToViewModel().ToList<dynamic>();
+                    }
+                }
+                else
+                {
+                    logs = condition.Trim().Length > 0 ? sec.islog.Where(condition).ToViewModel().ToList<dynamic>() : sec.islog.ToViewModel().ToList<dynamic>();
+                }
+            }
+            return logs;
+        }
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
             
@@ -151,13 +194,37 @@ namespace XPump.SubForm
                     DialogInquiry inq = new DialogInquiry(logs, cols, cols.Where(c => c.Name == this.col_cretime.Name).First(), null, false, this.main_form.c_info);
                     inq.ShowDialog();
                 }
-                
             }
         }
 
         private void btnSearchByCondition_Click(object sender, EventArgs e)
         {
-            
+            DialogIslogCondition cond = new DialogIslogCondition(this.main_form, this.condLogDateFrom, this.condLogDateTo, this.condLogCode, this.condLogData, this.condLogModule, this.condLogUser);
+            if(cond.ShowDialog() == DialogResult.OK)
+            {
+                this.condLogDateFrom = cond.logDateFrom;
+                this.condLogDateTo = cond.logDateTo;
+                this.condLogCode = cond.logCode;
+                this.condLogData = cond.logData;
+                this.condLogModule = cond.logModule;
+                this.condLogUser = cond.logUserName;
+
+                List<dynamic> logs = this.GetLogByCondition(this.condLogDateFrom, this.condLogDateTo, this.condLogCode, this.condLogData, this.condLogModule, this.condLogUser);
+                logs = this.sort == SORT.DESC ? logs.OrderBy(l => l.id).ToList<dynamic>() : logs.OrderByDescending(l => l.id).ToList<dynamic>();
+
+                List<DataGridViewColumn> cols = new List<DataGridViewColumn>();
+                foreach (DataGridViewColumn col in this.dgv.Columns.Cast<DataGridViewColumn>())
+                {
+                    var c = (DataGridViewColumn)col.Clone();
+                    c.DisplayIndex = ((DataGridViewColumn)col).DisplayIndex;
+                    cols.Add(c);
+                }
+
+                cols.Where(c => c.Name == this.col_description.Name).First().MinimumWidth = 300;
+
+                DialogInquiry inq = new DialogInquiry(logs, cols, cols.Where(c => c.Name == this.col_cretime.Name).First(), null, false, this.main_form.c_info);
+                inq.ShowDialog();
+            }
         }
 
         private void btnPrint_ButtonClick(object sender, EventArgs e)
@@ -167,15 +234,39 @@ namespace XPump.SubForm
 
         private void btnPrintAll_Click(object sender, EventArgs e)
         {
+            //DialogDateRangeSelector d = new DialogDateRangeSelector(this.main_form, false, false, DateTime.Now, DateTime.Now);
+            DialogIslogCondition cond = new DialogIslogCondition(this.main_form, this.condLogDateFrom, this.condLogDateTo, "", "", "", "", true, false);
 
+            if(cond.ShowDialog() == DialogResult.OK)
+            {
+                using (xpumpsecureEntities sec = DBX.DataSecureSet())
+                {
+                    var from_date = cond.logDateFrom.Value;
+                    var to_date = cond.logDateTo.Value.AddDays(1); // plus 1 day to support time(suffix)
+                    List<islogVM> logs = sec.islog.Where(i => i.cretime.CompareTo(from_date) >= 0 && i.cretime.CompareTo(to_date) < 0).ToViewModel();
+
+                    /* Perform print */
+                    //this.PerformPrint(logs, d.print)
+                }
+            }
         }
 
         private void btnPrintCondition_Click(object sender, EventArgs e)
         {
-            DialogIslogCondition cond = new DialogIslogCondition(this.main_form);
-            if(cond.ShowDialog() == DialogResult.OK)
+            DialogIslogCondition cond = new DialogIslogCondition(this.main_form, this.condLogDateFrom, this.condLogDateTo, this.condLogCode, this.condLogData, this.condLogModule, this.condLogUser, true);
+            if (cond.ShowDialog() == DialogResult.OK)
             {
+                this.condLogDateFrom = cond.logDateFrom;
+                this.condLogDateTo = cond.logDateTo;
+                this.condLogCode = cond.logCode;
+                this.condLogData = cond.logData;
+                this.condLogModule = cond.logModule;
+                this.condLogUser = cond.logUserName;
 
+                List<dynamic> logs = this.GetLogByCondition(this.condLogDateFrom, this.condLogDateTo, this.condLogCode, this.condLogData, this.condLogModule, this.condLogUser);
+                //logs = this.sort == SORT.DESC ? logs.OrderBy(l => l.id).ToList<dynamic>() : logs.OrderByDescending(l => l.id).ToList<dynamic>();
+
+                /* Perform print */
             }
         }
 
@@ -277,6 +368,11 @@ namespace XPump.SubForm
 
                 e.Handled = true;
             }
+        }
+
+        private void PerformPrint()
+        {
+
         }
     }
 }

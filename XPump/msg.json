@@ -119,6 +119,11 @@
     "th": "ประมวลผลสิ้นปีเสร็จเรียบร้อย",
     "en": "Year-End Processing completed"
   },
+  {
+    "id": "0025",
+    "th": "กรุณาระบุวันที่ให้เรียบร้อย",
+    "en": "Please fill in the date"
+  },
 
 
 
