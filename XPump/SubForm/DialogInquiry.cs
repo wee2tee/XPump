@@ -24,8 +24,9 @@ namespace XPump.SubForm
         private List<dynamic> list_to_show;
         private BindingSource bs;
         private CultureInfo c_info = CultureInfo.GetCultureInfo("th-TH");
+        private bool showOKCancelBtnInsteadCloseBtn;
 
-        public DialogInquiry(List<dynamic> list_to_show, CultureInfo c_info = null)
+        public DialogInquiry(List<dynamic> list_to_show, CultureInfo c_info = null, bool show_okcancelbtn_instead_closebtn = true)
         {
             if(c_info != null)
             {
@@ -33,12 +34,13 @@ namespace XPump.SubForm
             }
             Thread.CurrentThread.CurrentUICulture = this.c_info;
 
+            this.showOKCancelBtnInsteadCloseBtn = show_okcancelbtn_instead_closebtn;
             InitializeComponent();
             this.list_to_show = list_to_show;
         }
 
-        public DialogInquiry(List<dynamic> list_to_show, List<DataGridViewColumn> columns, DataGridViewColumn column_search_key, object initial_selected_key = null, bool show_search_btn = true, CultureInfo c_info = null)
-            : this(list_to_show, c_info)
+        public DialogInquiry(List<dynamic> list_to_show, List<DataGridViewColumn> columns, DataGridViewColumn column_search_key, object initial_selected_key = null, bool show_search_btn = true, CultureInfo c_info = null, bool show_okcancelbtn_instead_closebtn = true)
+            : this(list_to_show, c_info, show_okcancelbtn_instead_closebtn)
         {
             this.columns = columns;
             this.col_search_key = column_search_key;
@@ -63,6 +65,14 @@ namespace XPump.SubForm
             bs.DataSource = this.list_to_show;
             var dialog_width = this.columns.Where(c => c.Visible).ToList().Count > 0 ? this.columns.Where(c => c.Visible).ToList().Sum(c => c.MinimumWidth) + SystemInformation.VerticalScrollBarWidth + 30 : 400;
             this.Width = dialog_width;
+
+            if (!this.showOKCancelBtnInsteadCloseBtn)
+            {
+                this.btnOK.Visible = false;
+                this.btnOK.Enabled = false;
+                this.btnCancel.Text = "Close";
+                this.btnCancel.SetBounds(this.btnOK.Location.X, this.btnOK.Location.Y, this.btnCancel.Width, this.btnCancel.Height);
+            }
 
             if(this.initial_selected_key != null)
             {

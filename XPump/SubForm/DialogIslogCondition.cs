@@ -198,5 +198,19 @@ namespace XPump.SubForm
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        private void radScreen_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+                this.printOutput = PRINT_OUTPUT.SCREEN;
+        }
+
+        private void radPrinter_CheckedChanged(object sender, EventArgs e)
+        {
+            if(((RadioButton)sender).Checked)
+            {
+                this.printOutput = PRINT_OUTPUT.PRINTER;
+            }
+        }
     }
 }

@@ -300,6 +300,7 @@
             this.radPrinter.TabStop = true;
             this.radPrinter.Text = "เครื่องพิมพ์";
             this.radPrinter.UseVisualStyleBackColor = true;
+            this.radPrinter.CheckedChanged += new System.EventHandler(this.radPrinter_CheckedChanged);
             // 
             // radScreen
             // 
@@ -312,6 +313,7 @@
             this.radScreen.TabStop = true;
             this.radScreen.Text = "จอภาพ";
             this.radScreen.UseVisualStyleBackColor = true;
+            this.radScreen.CheckedChanged += new System.EventHandler(this.radScreen_CheckedChanged);
             // 
             // label6
             // 

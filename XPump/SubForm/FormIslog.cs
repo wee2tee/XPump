@@ -12,6 +12,7 @@ using XPump.Misc;
 using System.Threading;
 using CC;
 using System.Globalization;
+using System.Drawing.Printing;
 
 namespace XPump.SubForm
 {
@@ -103,9 +104,9 @@ namespace XPump.SubForm
             }
         }
 
-        private List<dynamic> GetLogByCondition(DateTime? logDateFrom = null, DateTime? logDateTo = null, string logCode = "", string logData = "", string logModule = "", string logUser = "")
+        private List<islogVM> GetLogByCondition(DateTime? logDateFrom = null, DateTime? logDateTo = null, string logCode = "", string logData = "", string logModule = "", string logUser = "")
         {
-            List<dynamic> logs = new List<dynamic>();
+            List<islogVM> logs = new List<islogVM>();
             using (xpumpsecureEntities sec = DBX.DataSecureSet())
             {
                 string condition = string.Empty;
@@ -124,16 +125,16 @@ namespace XPump.SubForm
 
                     if (condition.Trim().Length > 0)
                     {
-                        logs = sec.islog.Where(i => i.cretime.CompareTo(from_date) >= 0 && i.cretime.CompareTo(to_date) < 0).Where(condition).ToViewModel().ToList<dynamic>();
+                        logs = sec.islog.Where(i => i.cretime.CompareTo(from_date) >= 0 && i.cretime.CompareTo(to_date) < 0).Where(condition).ToViewModel();
                     }
                     else
                     {
-                        logs = sec.islog.Where(i => i.cretime.CompareTo(from_date) >= 0 && i.cretime.CompareTo(to_date) < 0).ToViewModel().ToList<dynamic>();
+                        logs = sec.islog.Where(i => i.cretime.CompareTo(from_date) >= 0 && i.cretime.CompareTo(to_date) < 0).ToViewModel();
                     }
                 }
                 else
                 {
-                    logs = condition.Trim().Length > 0 ? sec.islog.Where(condition).ToViewModel().ToList<dynamic>() : sec.islog.ToViewModel().ToList<dynamic>();
+                    logs = condition.Trim().Length > 0 ? sec.islog.Where(condition).ToViewModel() : sec.islog.ToViewModel();
                 }
             }
             return logs;
@@ -175,25 +176,21 @@ namespace XPump.SubForm
             if(d.ShowDialog() == DialogResult.OK)
             {
                 List<dynamic> logs;
-                using (xpumpsecureEntities sec = DBX.DataSecureSet())
+                var date = d.selected_date.Date;
+                logs = this.GetLogByCondition(date, date, "", "", "", "").ToList<dynamic>();
+
+                List<DataGridViewColumn> cols = new List<DataGridViewColumn>();
+                foreach (DataGridViewColumn col in this.dgv.Columns.Cast<DataGridViewColumn>())
                 {
-                    var date = d.selected_date.Date;
-                    var next_date = d.selected_date.Date.AddDays(1);
-                    logs = sec.islog.Where(i => i.cretime.CompareTo(date) >= 0 && i.cretime.CompareTo(next_date) < 0).ToViewModel().ToList<dynamic>();
-
-                    List<DataGridViewColumn> cols = new List<DataGridViewColumn>();
-                    foreach (DataGridViewColumn col in this.dgv.Columns.Cast<DataGridViewColumn>())
-                    {
-                        var c = (DataGridViewColumn)col.Clone();
-                        c.DisplayIndex = ((DataGridViewColumn)col).DisplayIndex;
-                        cols.Add(c);
-                    }
-
-                    cols.Where(c => c.Name == this.col_description.Name).First().MinimumWidth = 300;
-
-                    DialogInquiry inq = new DialogInquiry(logs, cols, cols.Where(c => c.Name == this.col_cretime.Name).First(), null, false, this.main_form.c_info);
-                    inq.ShowDialog();
+                    var c = (DataGridViewColumn)col.Clone();
+                    c.DisplayIndex = ((DataGridViewColumn)col).DisplayIndex;
+                    cols.Add(c);
                 }
+
+                cols.Where(c => c.Name == this.col_description.Name).First().MinimumWidth = 300;
+
+                DialogInquiry inq = new DialogInquiry(logs, cols, cols.Where(c => c.Name == this.col_cretime.Name).First(), null, false, this.main_form.c_info, false);
+                inq.ShowDialog();
             }
         }
 
@@ -209,7 +206,7 @@ namespace XPump.SubForm
                 this.condLogModule = cond.logModule;
                 this.condLogUser = cond.logUserName;
 
-                List<dynamic> logs = this.GetLogByCondition(this.condLogDateFrom, this.condLogDateTo, this.condLogCode, this.condLogData, this.condLogModule, this.condLogUser);
+                List<dynamic> logs = this.GetLogByCondition(this.condLogDateFrom, this.condLogDateTo, this.condLogCode, this.condLogData, this.condLogModule, this.condLogUser).ToList<dynamic>();
                 logs = this.sort == SORT.DESC ? logs.OrderBy(l => l.id).ToList<dynamic>() : logs.OrderByDescending(l => l.id).ToList<dynamic>();
 
                 List<DataGridViewColumn> cols = new List<DataGridViewColumn>();
@@ -222,14 +219,14 @@ namespace XPump.SubForm
 
                 cols.Where(c => c.Name == this.col_description.Name).First().MinimumWidth = 300;
 
-                DialogInquiry inq = new DialogInquiry(logs, cols, cols.Where(c => c.Name == this.col_cretime.Name).First(), null, false, this.main_form.c_info);
+                DialogInquiry inq = new DialogInquiry(logs, cols, cols.Where(c => c.Name == this.col_cretime.Name).First(), null, false, this.main_form.c_info, false);
                 inq.ShowDialog();
             }
         }
 
         private void btnPrint_ButtonClick(object sender, EventArgs e)
         {
-
+            this.btnPrintAll.PerformClick();
         }
 
         private void btnPrintAll_Click(object sender, EventArgs e)
@@ -239,15 +236,10 @@ namespace XPump.SubForm
 
             if(cond.ShowDialog() == DialogResult.OK)
             {
-                using (xpumpsecureEntities sec = DBX.DataSecureSet())
-                {
-                    var from_date = cond.logDateFrom.Value;
-                    var to_date = cond.logDateTo.Value.AddDays(1); // plus 1 day to support time(suffix)
-                    List<islogVM> logs = sec.islog.Where(i => i.cretime.CompareTo(from_date) >= 0 && i.cretime.CompareTo(to_date) < 0).ToViewModel();
+                List<islogVM> logs = this.GetLogByCondition(cond.logDateFrom, cond.logDateTo, "", "", "", "");
 
-                    /* Perform print */
-                    //this.PerformPrint(logs, d.print)
-                }
+                /* Perform print */
+                this.PerformPrint(logs, cond);
             }
         }
 
@@ -263,11 +255,201 @@ namespace XPump.SubForm
                 this.condLogModule = cond.logModule;
                 this.condLogUser = cond.logUserName;
 
-                List<dynamic> logs = this.GetLogByCondition(this.condLogDateFrom, this.condLogDateTo, this.condLogCode, this.condLogData, this.condLogModule, this.condLogUser);
+                List<islogVM> logs = this.GetLogByCondition(this.condLogDateFrom, this.condLogDateTo, this.condLogCode, this.condLogData, this.condLogModule, this.condLogUser);
                 //logs = this.sort == SORT.DESC ? logs.OrderBy(l => l.id).ToList<dynamic>() : logs.OrderByDescending(l => l.id).ToList<dynamic>();
 
                 /* Perform print */
+                this.PerformPrint(logs, cond);
             }
+        }
+
+        private void PerformPrint(List<islogVM> logs, DialogIslogCondition cond)
+        {
+            LoadingForm loading = new LoadingForm();
+            loading.ShowCenterParent(this);
+
+            XPrintPreview xp = null;
+            PrintDialog pd = null;
+            string err_msg = string.Empty;
+
+            BackgroundWorker work = new BackgroundWorker();
+            work.DoWork += delegate
+            {
+                try
+                {
+                    int total_page = XPrintPreview.GetTotalPageCount(this.PreparePrintDoc(logs, cond));
+
+                    if (cond.printOutput == PRINT_OUTPUT.SCREEN)
+                    {
+                        xp = new XPrintPreview(this.PreparePrintDoc(logs, cond, total_page), total_page);
+                        return;
+                    }
+
+                    if (cond.printOutput == PRINT_OUTPUT.PRINTER)
+                    {
+                        pd = new PrintDialog();
+                        pd.Document = this.PreparePrintDoc(logs, cond, total_page);
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    err_msg = ex.Message;
+                }
+            };
+            work.RunWorkerCompleted += delegate
+            {
+                loading.Close();
+                if(cond.printOutput == PRINT_OUTPUT.SCREEN && xp != null)
+                {
+                    xp.MdiParent = this.main_form;
+                    xp.Show();
+                    return;
+                }
+
+                if(cond.printOutput == PRINT_OUTPUT.PRINTER && pd != null)
+                {
+                    if (pd.ShowDialog() == DialogResult.OK)
+                    {
+                        pd.Document.Print();
+                    }
+                    return;
+                }
+
+                XMessageBox.Show(err_msg, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error, this.main_form.c_info);
+            };
+
+            work.RunWorkerAsync();
+        }
+
+        private PrintDocument PreparePrintDoc(List<islogVM> logs, DialogIslogCondition cond, int total_page = 0)
+        {
+            Font fnt_title_bold = new Font("angsana new", 12f, FontStyle.Bold);
+            Font fnt_header_bold = new Font("angsana new", 11f, FontStyle.Bold); // tahoma 8f bold
+            Font fnt_header = new Font("angsana new", 11f, FontStyle.Regular); // tahoma 8f
+            Font fnt_bold = new Font("angsana new", 10f, FontStyle.Bold); // tahoma 7f bold
+            Font fnt = new Font("angsana new", 10f, FontStyle.Regular); // tahoma 7f
+            Pen p = new Pen(Color.Black);
+            SolidBrush brush = new SolidBrush(Color.Black);
+            SolidBrush bg_gray = new SolidBrush(Color.Silver);
+            SolidBrush bg_lightgray = new SolidBrush(Color.Gainsboro);
+            StringFormat format_left = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+            StringFormat format_right = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+            StringFormat format_center = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+
+            int page = 0;
+            int item_count = 0;
+
+            PrintDocument docs = new PrintDocument();
+            //PaperSize ps = new PaperSize();
+            //ps.RawKind = (int)PaperKind.A4;
+            //docs.DefaultPageSettings.PaperSize = ps;
+            docs.DefaultPageSettings.Margins = new Margins(50, 40, 50, 50);
+            //docs.DefaultPageSettings.Landscape = true;
+            docs.BeginPrint += delegate (object sender, PrintEventArgs e)
+            {
+                page = 0;
+                item_count = 0;
+            };
+            docs.PrintPage += delegate (object sender, PrintPageEventArgs e)
+            {
+                int x = e.MarginBounds.Left;
+                int y = e.MarginBounds.Top;
+                int line_height = fnt_header.Height;
+
+                page++;
+
+                /* report header */
+                Rectangle rect = new Rectangle(x, y, e.MarginBounds.Right - x, line_height);
+                string str = "Event Log Report";
+                e.Graphics.DrawString(str, fnt_title_bold, brush, rect, format_center);
+
+                str = "Page " + page.ToString() + " / " + total_page.ToString();
+                var str_measure = TextRenderer.MeasureText(e.Graphics, str, fnt_header);
+                rect = str.GetDisplayRect(fnt_header, e.MarginBounds.Right - str_measure.Width, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_right);
+
+                y += line_height;
+                str = "Log Date/Time : " + (cond.logDateFrom.HasValue && cond.logDateTo.HasValue ? cond.logDateFrom.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) + " - " + cond.logDateTo.Value.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture) : "*All");
+                rect = str.GetDisplayRect(fnt_header, x, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                y += line_height;
+                str = "Log Code : " + (cond.logCode.Trim().Length > 0 ? cond.logCode.Trim() : "*All");
+                rect = str.GetDisplayRect(fnt_header, x, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                str = "Express Data : " + (cond.logData.Trim().Length > 0 ? cond.logData.Trim() : "*All");
+                rect = str.GetDisplayRect(fnt_header, rect.X + rect.Width + 5, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                str = "Module : " + (cond.logModule.Trim().Length > 0 ? cond.logModule.Trim() : "*All");
+                rect = str.GetDisplayRect(fnt_header, rect.X + rect.Width + 5, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                str = "User Name : " + (cond.logUserName.Trim().Length > 0 ? cond.logUserName.Trim() : "*All");
+                rect = str.GetDisplayRect(fnt_header, rect.X + rect.Width + 5, y);
+                e.Graphics.DrawString(str, fnt_header, brush, rect, format_left);
+
+                y += line_height;
+                e.Graphics.DrawLine(p, new Point(e.MarginBounds.X, y), new Point(e.MarginBounds.Right, y));
+
+                //y += line_height / 2;
+                Rectangle rect_date = ("00/00/0000 00:00:00").GetDisplayRect(fnt_header_bold, x, y);
+                e.Graphics.DrawString("Date/TIme", fnt_header_bold, brush, rect_date, format_center);
+
+                Rectangle rect_desc = ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").GetDisplayRect(fnt_header_bold, rect_date.X + rect_date.Width + 5, y);
+                e.Graphics.DrawString("Description", fnt_header_bold, brush, rect_desc, format_center);
+
+                Rectangle rect_data = ("xxxxxxxxxxxxxxxxx").GetDisplayRect(fnt_header_bold, rect_desc.X + rect_desc.Width + 5, y);
+                e.Graphics.DrawString("Express Data Path", fnt_header_bold, brush, rect_data, format_center);
+
+                Rectangle rect_modul = ("xxxxxxx").GetDisplayRect(fnt_header_bold, rect_data.X + rect_data.Width + 5, y);
+                e.Graphics.DrawString("Module", fnt_header_bold, brush, rect_modul, format_center);
+
+                Rectangle rect_code = ("xxxxxxxx").GetDisplayRect(fnt_header_bold, rect_modul.X + rect_modul.Width + 5, y);
+                e.Graphics.DrawString("Log Code", fnt_header_bold, brush, rect_code, format_center);
+
+                Rectangle rect_user = ("xxxxxxxxxx").GetDisplayRect(fnt_header_bold, rect_code.X + rect_code.Width + 5, y);
+                e.Graphics.DrawString("User Name", fnt_header_bold, brush, rect_user, format_center);
+
+                y += line_height;
+                e.Graphics.DrawLine(p, new Point(e.MarginBounds.X, y), new Point(e.MarginBounds.Right, y));
+
+                y += line_height / 2;
+                /* report item data */
+                for (int i = item_count; i < logs.Count; i++)
+                {
+                    rect_date.Y = y;
+                    e.Graphics.DrawString(logs[i].cretime.ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture), fnt, brush, rect_date, format_left);
+
+                    rect_desc.Y = y;
+                    e.Graphics.DrawString(logs[i].description, fnt, brush, rect_desc, format_left);
+
+                    rect_data.Y = y;
+                    e.Graphics.DrawString(logs[i].expressdata, fnt, brush, rect_data, format_center);
+
+                    rect_modul.Y = y;
+                    e.Graphics.DrawString(logs[i].modcod, fnt, brush, rect_modul, format_center);
+
+                    rect_code.Y = y;
+                    e.Graphics.DrawString(logs[i].logcode, fnt, brush, rect_code, format_center);
+
+                    rect_user.Y = y;
+                    e.Graphics.DrawString(logs[i].username, fnt, brush, rect_user, format_center);
+
+                    y += line_height;
+                    item_count++;
+
+                    if(y >= e.MarginBounds.Bottom)
+                    {
+                        e.HasMorePages = true;
+                        return;
+                    }
+                }
+            };
+
+            return docs;
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -368,11 +550,6 @@ namespace XPump.SubForm
 
                 e.Handled = true;
             }
-        }
-
-        private void PerformPrint()
-        {
-
         }
     }
 }
