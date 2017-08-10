@@ -123,184 +123,1693 @@
   <metadata name="toolStrip1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolStrip1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnAdd.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnAdd.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="btnAdd.Text" xml:space="preserve">
+    <value>เพิ่มข้อมูล &lt;Alt+A&gt;</value>
+  </data>
+  <data name="btnEdit.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnEdit.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnEdit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="btnEdit.Text" xml:space="preserve">
+    <value>แก้ไขข้อมูล &lt;Alt+E&gt;</value>
+  </data>
+  <data name="btnDelete.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnDelete.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="btnDelete.Text" xml:space="preserve">
+    <value>ลบข้อมูล &lt;Alt+D&gt;</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 43</value>
+  </data>
+  <data name="btnStop.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnStop.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnStop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="btnStop.Text" xml:space="preserve">
+    <value>ยกเลิกการเพิ่ม/แก้ไขข้อมูล &lt;Esc&gt;</value>
+  </data>
+  <data name="btnSave.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnSave.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="btnSave.Text" xml:space="preserve">
+    <value>บันทึกข้อมูล &lt;F9&gt;</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 43</value>
+  </data>
+  <data name="btnFirst.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnFirst.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnFirst.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="btnFirst.Text" xml:space="preserve">
+    <value>ข้อมูลแรก &lt;Ctrl+Home&gt;</value>
+  </data>
+  <data name="btnPrevious.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnPrevious.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnPrevious.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="btnPrevious.Text" xml:space="preserve">
+    <value>ข้อมูลที่แล้ว &lt;PageUp&gt;</value>
+  </data>
+  <data name="btnNext.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnNext.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnNext.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="btnNext.Text" xml:space="preserve">
+    <value>ข้อมูลถัดไป &lt;PageDown&gt;</value>
+  </data>
+  <data name="btnLast.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnLast.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnLast.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="btnLast.Text" xml:space="preserve">
+    <value>ข้อมูลสุดท้าย &lt;Ctrl+End&gt;</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 43</value>
+  </data>
+  <data name="btnInquiryAll.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+L</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnInquiryAll.ShowShortcutKeys" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="btnInquiryAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 22</value>
+  </data>
+  <data name="btnInquiryAll.Text" xml:space="preserve">
+    <value>เรียกดูข้อมูล ตั้งแต่ต้น &lt;Ctrl+L&gt;</value>
+  </data>
+  <data name="btnInquiryRest.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+L</value>
+  </data>
+  <data name="btnInquiryRest.ShowShortcutKeys" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="btnInquiryRest.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 22</value>
+  </data>
+  <data name="btnInquiryRest.Text" xml:space="preserve">
+    <value>เรียกดูข้อมูล ตั้งแต่รายการนี้ &lt;Alt+L&gt;</value>
+  </data>
+  <data name="btnSearch.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnSearch.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnSearch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 40</value>
+  </data>
+  <data name="btnSearch.Text" xml:space="preserve">
+    <value>ค้นหา &lt;Alt+S&gt;</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 43</value>
+  </data>
+  <data name="btnTank.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>F8</value>
+  </data>
+  <data name="btnTank.ShowShortcutKeys" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="btnTank.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 22</value>
+  </data>
+  <data name="btnTank.Text" xml:space="preserve">
+    <value>แท๊งค์ &lt;F8&gt;</value>
+  </data>
+  <data name="btnSection.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>F7</value>
+  </data>
+  <data name="btnSection.ShowShortcutKeys" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="btnSection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 22</value>
+  </data>
+  <data name="btnSection.Text" xml:space="preserve">
+    <value>ถังน้ำมัน &lt;F7&gt;</value>
+  </data>
+  <data name="btnItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnItem.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 40</value>
+  </data>
+  <data name="btnItem.Text" xml:space="preserve">
+    <value>จัดการข้อมูลถังน้ำมัน &lt;F8&gt;</value>
+  </data>
+  <data name="btnRefresh.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnRefresh.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="btnRefresh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="btnRefresh.Text" xml:space="preserve">
+    <value>โหลดข้อมูลปัจจุบันใหม่ &lt;Ctrl+F5&gt;</value>
+  </data>
+  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>965, 43</value>
+  </data>
+  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <metadata name="label5.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>27, 72</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 16</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>เริ่มใช้วันที่</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="tabControl1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <metadata name="tabPage1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="tabPage1.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <metadata name="splitContainer1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="splitContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="splitContainer1.IsSplitterFixed" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="splitContainer1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
   <metadata name="panel1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <metadata name="inline_tankname.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="inline_tankname.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
+  <data name="inline_tankname.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 58</value>
+  </data>
+  <data name="inline_tankname.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="inline_tankname.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 23</value>
+  </data>
+  <data name="inline_tankname.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="inline_tankname.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;inline_tankname.Name" xml:space="preserve">
+    <value>inline_tankname</value>
+  </data>
+  <data name="&gt;&gt;inline_tankname.Type" xml:space="preserve">
+    <value>CC.XTextEdit, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;inline_tankname.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;inline_tankname.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="dgvTank.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="dgvTank.ColumnHeadersHeight" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
   <metadata name="col_tank_id.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_id.HeaderText" xml:space="preserve">
+    <value>Tank Id</value>
+  </data>
+  <data name="col_tank_id.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_working_express_db.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_working_express_db.HeaderText" xml:space="preserve">
+    <value>Working Express Db</value>
+  </data>
+  <data name="col_tank_working_express_db.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_name.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_name.HeaderText" xml:space="preserve">
+    <value>รหัสแท๊งค์</value>
+  </data>
   <metadata name="col_tank_description.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_description.HeaderText" xml:space="preserve">
+    <value>Tank Description</value>
+  </data>
+  <data name="col_tank_description.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_startdate.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_startdate.HeaderText" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="col_tank_startdate.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_end_date.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_end_date.HeaderText" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="col_tank_end_date.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_remark.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_remark.HeaderText" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="col_tank_remark.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_isactive.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_isactive.HeaderText" xml:space="preserve">
+    <value>Is active</value>
+  </data>
+  <data name="col_tank_isactive.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_tanksetup_id.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_tanksetup_id.HeaderText" xml:space="preserve">
+    <value>Tank Setup Id</value>
+  </data>
+  <data name="col_tank_tanksetup_id.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_tanksetup_start_date.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_tanksetup_start_date.HeaderText" xml:space="preserve">
+    <value>Tanksetup start date</value>
+  </data>
+  <data name="col_tank_tanksetup_start_date.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_creby.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_creby.HeaderText" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="col_tank_creby.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_cretime.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_cretime.HeaderText" xml:space="preserve">
+    <value>Created time</value>
+  </data>
+  <data name="col_tank_cretime.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_chgby.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_chgby.HeaderText" xml:space="preserve">
+    <value>Changed by</value>
+  </data>
+  <data name="col_tank_chgby.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_chgtime.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_chgtime.HeaderText" xml:space="preserve">
+    <value>Changed time</value>
+  </data>
+  <data name="col_tank_chgtime.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank_tank.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank_tank.HeaderText" xml:space="preserve">
+    <value>Tank</value>
+  </data>
+  <data name="col_tank_tank.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_tank__isactive.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_tank__isactive.HeaderText" xml:space="preserve">
+    <value>Isactive</value>
+  </data>
+  <data name="col_tank__isactive.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="dgvTank.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvTank.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dgvTank.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 363</value>
+  </data>
+  <data name="dgvTank.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dgvTank.Name" xml:space="preserve">
+    <value>dgvTank</value>
+  </data>
+  <data name="&gt;&gt;dgvTank.Type" xml:space="preserve">
+    <value>CC.XDatagrid, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dgvTank.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;dgvTank.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="btnDeleteTank.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="btnDeleteTank.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="btnDeleteTank.Location" type="System.Drawing.Point, System.Drawing">
+    <value>161, 88</value>
+  </data>
+  <data name="btnDeleteTank.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 27</value>
+  </data>
+  <data name="btnDeleteTank.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="btnDeleteTank.Text" xml:space="preserve">
+    <value>delete_tank</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteTank.Name" xml:space="preserve">
+    <value>btnDeleteTank</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteTank.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteTank.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteTank.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="btnEditTank.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="btnEditTank.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="btnEditTank.Location" type="System.Drawing.Point, System.Drawing">
+    <value>87, 88</value>
+  </data>
+  <data name="btnEditTank.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 27</value>
+  </data>
+  <data name="btnEditTank.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="btnEditTank.Text" xml:space="preserve">
+    <value>edit_tank</value>
+  </data>
+  <data name="&gt;&gt;btnEditTank.Name" xml:space="preserve">
+    <value>btnEditTank</value>
+  </data>
+  <data name="&gt;&gt;btnEditTank.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnEditTank.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btnEditTank.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <metadata name="btnAddTank.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="btnAddTank.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="btnAddTank.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 88</value>
+  </data>
+  <data name="btnAddTank.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 27</value>
+  </data>
+  <data name="btnAddTank.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="btnAddTank.Text" xml:space="preserve">
+    <value>add_tank</value>
+  </data>
+  <data name="&gt;&gt;btnAddTank.Name" xml:space="preserve">
+    <value>btnAddTank</value>
+  </data>
+  <data name="&gt;&gt;btnAddTank.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnAddTank.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btnAddTank.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 29</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 363</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="lblTank.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="lblTank.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lblTank.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt, style=Bold</value>
+  </data>
+  <data name="lblTank.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 4</value>
+  </data>
+  <data name="lblTank.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 2, 0, 2</value>
+  </data>
+  <data name="lblTank.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 20</value>
+  </data>
+  <data name="lblTank.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="lblTank.Text" xml:space="preserve">
+    <value>แท๊งค์ &lt;F8&gt;</value>
+  </data>
+  <data name="&gt;&gt;lblTank.Name" xml:space="preserve">
+    <value>lblTank</value>
+  </data>
+  <data name="&gt;&gt;lblTank.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTank.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;lblTank.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel1.Name" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel1.Parent" xml:space="preserve">
+    <value>splitContainer1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="splitContainer1.Panel1MinSize" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
   <metadata name="panel2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <metadata name="inlineStkcod.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="inlineStkcod.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
+  <data name="inlineStkcod.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 58</value>
+  </data>
+  <data name="inlineStkcod.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="inlineStkcod.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 23</value>
+  </data>
+  <data name="inlineStkcod.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="inlineStkcod.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;inlineStkcod.Name" xml:space="preserve">
+    <value>inlineStkcod</value>
+  </data>
+  <data name="&gt;&gt;inlineStkcod.Type" xml:space="preserve">
+    <value>CC.XBrowseBox, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;inlineStkcod.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;inlineStkcod.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="inlineSectionName.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="inlineSectionName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
+  <data name="inlineSectionName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 58</value>
+  </data>
+  <data name="inlineSectionName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="inlineSectionName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 23</value>
+  </data>
+  <data name="inlineSectionName.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="inlineSectionName.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;inlineSectionName.Name" xml:space="preserve">
+    <value>inlineSectionName</value>
+  </data>
+  <data name="&gt;&gt;inlineSectionName.Type" xml:space="preserve">
+    <value>CC.XBrowseBox, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;inlineSectionName.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;inlineSectionName.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="inlineBegacc.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="inlineBegacc.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
+  <data name="inlineBegacc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>519, 58</value>
+  </data>
+  <data name="inlineBegacc.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="inlineBegacc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 23</value>
+  </data>
+  <data name="inlineBegacc.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="inlineBegacc.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;inlineBegacc.Name" xml:space="preserve">
+    <value>inlineBegacc</value>
+  </data>
+  <data name="&gt;&gt;inlineBegacc.Type" xml:space="preserve">
+    <value>CC.XNumEdit, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;inlineBegacc.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;inlineBegacc.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="inlineBegtak.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="inlineBegtak.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
+  <data name="inlineBegtak.Location" type="System.Drawing.Point, System.Drawing">
+    <value>399, 58</value>
+  </data>
+  <data name="inlineBegtak.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="inlineBegtak.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 23</value>
+  </data>
+  <data name="inlineBegtak.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="inlineBegtak.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;inlineBegtak.Name" xml:space="preserve">
+    <value>inlineBegtak</value>
+  </data>
+  <data name="&gt;&gt;inlineBegtak.Type" xml:space="preserve">
+    <value>CC.XNumEdit, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;inlineBegtak.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;inlineBegtak.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <metadata name="inlineCapacity.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="inlineCapacity.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
+  <data name="inlineCapacity.Location" type="System.Drawing.Point, System.Drawing">
+    <value>299, 58</value>
+  </data>
+  <data name="inlineCapacity.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="inlineCapacity.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 23</value>
+  </data>
+  <data name="inlineCapacity.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="inlineCapacity.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;inlineCapacity.Name" xml:space="preserve">
+    <value>inlineCapacity</value>
+  </data>
+  <data name="&gt;&gt;inlineCapacity.Type" xml:space="preserve">
+    <value>CC.XNumEdit, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;inlineCapacity.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;inlineCapacity.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <metadata name="dgvSection.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="dgvSection.ColumnHeadersHeight" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
   <metadata name="col_sect_working_express_db.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_working_express_db.HeaderText" xml:space="preserve">
+    <value>Working Express db</value>
+  </data>
+  <data name="col_sect_working_express_db.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_id.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_id.HeaderText" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="col_sect_id.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_tank_name.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_tank_name.HeaderText" xml:space="preserve">
+    <value>Tank name</value>
+  </data>
+  <data name="col_sect_tank_name.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_name.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_name.HeaderText" xml:space="preserve">
+    <value>เลขที่ถัง</value>
+  </data>
+  <data name="col_sect_name.MinimumWidth" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
   <metadata name="col_sect_stkcod.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_stkcod.HeaderText" xml:space="preserve">
+    <value>ชนิดน้ำมัน</value>
+  </data>
+  <data name="col_sect_stkcod.MinimumWidth" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
   <metadata name="col_sect_nozzlecount.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_nozzlecount.HeaderText" xml:space="preserve">
+    <value>หัวจ่าย</value>
+  </data>
+  <data name="col_sect_nozzlecount.MinimumWidth" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="col_sect_nozzlecount.Width" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
   <metadata name="col_sect_nozzle_btn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_nozzle_btn.HeaderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="col_sect_nozzle_btn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="col_sect_nozzle_btn.Width" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
   <metadata name="col_sect_capacity.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_capacity.HeaderText" xml:space="preserve">
+    <value>ความจุ(ลิตร)</value>
+  </data>
+  <data name="col_sect_capacity.MinimumWidth" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
   <metadata name="col_sect_begtak.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_begtak.HeaderText" xml:space="preserve">
+    <value>ยกมา(ตรวจวัดจริง)</value>
+  </data>
+  <data name="col_sect_begtak.MinimumWidth" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <data name="col_sect_begtak.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
   <metadata name="col_sect_begacc.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_begacc.HeaderText" xml:space="preserve">
+    <value>ยกมา(ตามบัญชี)</value>
+  </data>
+  <data name="col_sect_begacc.MinimumWidth" type="System.Int32, mscorlib">
+    <value>110</value>
+  </data>
+  <data name="col_sect_begacc.Width" type="System.Int32, mscorlib">
+    <value>110</value>
+  </data>
   <metadata name="col_sect_begdif.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_begdif.HeaderText" xml:space="preserve">
+    <value>ผลต่างสะสมยกมา</value>
+  </data>
+  <data name="col_sect_begdif.MinimumWidth" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <data name="col_sect_begdif.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
   <metadata name="col_sect_totbal.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_totbal.HeaderText" xml:space="preserve">
+    <value>Totbal</value>
+  </data>
+  <data name="col_sect_totbal.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_tank_id.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_tank_id.HeaderText" xml:space="preserve">
+    <value>Tank Id</value>
+  </data>
+  <data name="col_sect_tank_id.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_stmas_id.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_stmas_id.HeaderText" xml:space="preserve">
+    <value>Stmas Id</value>
+  </data>
+  <data name="col_sect_stmas_id.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_stkdes.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_stkdes.HeaderText" xml:space="preserve">
+    <value>Stkdes</value>
+  </data>
+  <data name="col_sect_stkdes.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_loccod.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_loccod.HeaderText" xml:space="preserve">
+    <value>Loccod</value>
+  </data>
+  <data name="col_sect_loccod.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_start_date.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_start_date.HeaderText" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="col_sect_start_date.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_end_date.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_end_date.HeaderText" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="col_sect_end_date.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_section.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_section.HeaderText" xml:space="preserve">
+    <value>Section</value>
+  </data>
+  <data name="col_sect_section.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <metadata name="col_sect_state.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="col_sect_state.HeaderText" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="col_sect_state.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="dgvSection.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvSection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dgvSection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>748, 363</value>
+  </data>
+  <data name="dgvSection.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dgvSection.Name" xml:space="preserve">
+    <value>dgvSection</value>
+  </data>
+  <data name="&gt;&gt;dgvSection.Type" xml:space="preserve">
+    <value>CC.XDatagrid, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dgvSection.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;dgvSection.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
   <metadata name="btnDeleteSection.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="btnDeleteSection.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="btnDeleteSection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 24</value>
+  </data>
+  <data name="btnDeleteSection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 27</value>
+  </data>
+  <data name="btnDeleteSection.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="btnDeleteSection.Text" xml:space="preserve">
+    <value>delete_section</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteSection.Name" xml:space="preserve">
+    <value>btnDeleteSection</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteSection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteSection.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteSection.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <metadata name="btnEditSection.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="btnEditSection.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="btnEditSection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>91, 24</value>
+  </data>
+  <data name="btnEditSection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 27</value>
+  </data>
+  <data name="btnEditSection.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="btnEditSection.Text" xml:space="preserve">
+    <value>edit_section</value>
+  </data>
+  <data name="&gt;&gt;btnEditSection.Name" xml:space="preserve">
+    <value>btnEditSection</value>
+  </data>
+  <data name="&gt;&gt;btnEditSection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnEditSection.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;btnEditSection.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <metadata name="btnAddSection.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="btnAddSection.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="btnAddSection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 24</value>
+  </data>
+  <data name="btnAddSection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 27</value>
+  </data>
+  <data name="btnAddSection.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="btnAddSection.Text" xml:space="preserve">
+    <value>add_section</value>
+  </data>
+  <data name="&gt;&gt;btnAddSection.Name" xml:space="preserve">
+    <value>btnAddSection</value>
+  </data>
+  <data name="&gt;&gt;btnAddSection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnAddSection.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;btnAddSection.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 29</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>748, 363</value>
+  </data>
+  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="lblSection.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="lblSection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lblSection.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt, style=Bold</value>
+  </data>
+  <data name="lblSection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 4</value>
+  </data>
+  <data name="lblSection.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 2, 0, 2</value>
+  </data>
+  <data name="lblSection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>748, 20</value>
+  </data>
+  <data name="lblSection.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="lblSection.Text" xml:space="preserve">
+    <value>ถังน้ำมัน &lt;F7&gt;</value>
+  </data>
+  <data name="&gt;&gt;lblSection.Name" xml:space="preserve">
+    <value>lblSection</value>
+  </data>
+  <data name="&gt;&gt;lblSection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblSection.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel2</value>
+  </data>
+  <data name="&gt;&gt;lblSection.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel2.Name" xml:space="preserve">
+    <value>splitContainer1.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel2.Parent" xml:space="preserve">
+    <value>splitContainer1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>943, 395</value>
+  </data>
+  <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
+    <value>189</value>
+  </data>
+  <data name="splitContainer1.SplitterWidth" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="splitContainer1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Name" xml:space="preserve">
+    <value>splitContainer1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 25</value>
+  </data>
+  <data name="tabPage1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>949, 401</value>
+  </data>
+  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>แท๊งค์ / ถัง / หัวจ่ายน้ำมัน</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 111</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>957, 430</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="dtStartDate.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dtStartDate.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
+  <data name="dtStartDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>97, 68</value>
+  </data>
+  <data name="dtStartDate.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="dtStartDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 23</value>
+  </data>
+  <data name="dtStartDate.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;dtStartDate.Name" xml:space="preserve">
+    <value>dtStartDate</value>
+  </data>
+  <data name="&gt;&gt;dtStartDate.Type" xml:space="preserve">
+    <value>CC.XDatePicker, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dtStartDate.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;dtStartDate.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>en-US</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 16</value>
+  </data>
+  <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>965, 545</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>Manual</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>ตั้งค่าแท๊งค์เก็บน้ำมัน</value>
+  </data>
+  <data name="&gt;&gt;btnAdd.Name" xml:space="preserve">
+    <value>btnAdd</value>
+  </data>
+  <data name="&gt;&gt;btnAdd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnEdit.Name" xml:space="preserve">
+    <value>btnEdit</value>
+  </data>
+  <data name="&gt;&gt;btnEdit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnDelete.Name" xml:space="preserve">
+    <value>btnDelete</value>
+  </data>
+  <data name="&gt;&gt;btnDelete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
+    <value>toolStripSeparator3</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnStop.Name" xml:space="preserve">
+    <value>btnStop</value>
+  </data>
+  <data name="&gt;&gt;btnStop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
+    <value>btnSave</value>
+  </data>
+  <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnFirst.Name" xml:space="preserve">
+    <value>btnFirst</value>
+  </data>
+  <data name="&gt;&gt;btnFirst.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPrevious.Name" xml:space="preserve">
+    <value>btnPrevious</value>
+  </data>
+  <data name="&gt;&gt;btnPrevious.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnNext.Name" xml:space="preserve">
+    <value>btnNext</value>
+  </data>
+  <data name="&gt;&gt;btnNext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnLast.Name" xml:space="preserve">
+    <value>btnLast</value>
+  </data>
+  <data name="&gt;&gt;btnLast.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSearch.Name" xml:space="preserve">
+    <value>btnSearch</value>
+  </data>
+  <data name="&gt;&gt;btnSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSplitButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnInquiryAll.Name" xml:space="preserve">
+    <value>btnInquiryAll</value>
+  </data>
+  <data name="&gt;&gt;btnInquiryAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnInquiryRest.Name" xml:space="preserve">
+    <value>btnInquiryRest</value>
+  </data>
+  <data name="&gt;&gt;btnInquiryRest.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
+    <value>toolStripSeparator4</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnItem.Name" xml:space="preserve">
+    <value>btnItem</value>
+  </data>
+  <data name="&gt;&gt;btnItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnTank.Name" xml:space="preserve">
+    <value>btnTank</value>
+  </data>
+  <data name="&gt;&gt;btnTank.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSection.Name" xml:space="preserve">
+    <value>btnSection</value>
+  </data>
+  <data name="&gt;&gt;btnSection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnRefresh.Name" xml:space="preserve">
+    <value>btnRefresh</value>
+  </data>
+  <data name="&gt;&gt;btnRefresh.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_id.Name" xml:space="preserve">
+    <value>col_tank_id</value>
+  </data>
+  <data name="&gt;&gt;col_tank_id.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_working_express_db.Name" xml:space="preserve">
+    <value>col_tank_working_express_db</value>
+  </data>
+  <data name="&gt;&gt;col_tank_working_express_db.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_name.Name" xml:space="preserve">
+    <value>col_tank_name</value>
+  </data>
+  <data name="&gt;&gt;col_tank_name.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_description.Name" xml:space="preserve">
+    <value>col_tank_description</value>
+  </data>
+  <data name="&gt;&gt;col_tank_description.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_startdate.Name" xml:space="preserve">
+    <value>col_tank_startdate</value>
+  </data>
+  <data name="&gt;&gt;col_tank_startdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_end_date.Name" xml:space="preserve">
+    <value>col_tank_end_date</value>
+  </data>
+  <data name="&gt;&gt;col_tank_end_date.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_remark.Name" xml:space="preserve">
+    <value>col_tank_remark</value>
+  </data>
+  <data name="&gt;&gt;col_tank_remark.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_isactive.Name" xml:space="preserve">
+    <value>col_tank_isactive</value>
+  </data>
+  <data name="&gt;&gt;col_tank_isactive.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_tanksetup_id.Name" xml:space="preserve">
+    <value>col_tank_tanksetup_id</value>
+  </data>
+  <data name="&gt;&gt;col_tank_tanksetup_id.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_tanksetup_start_date.Name" xml:space="preserve">
+    <value>col_tank_tanksetup_start_date</value>
+  </data>
+  <data name="&gt;&gt;col_tank_tanksetup_start_date.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_creby.Name" xml:space="preserve">
+    <value>col_tank_creby</value>
+  </data>
+  <data name="&gt;&gt;col_tank_creby.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_cretime.Name" xml:space="preserve">
+    <value>col_tank_cretime</value>
+  </data>
+  <data name="&gt;&gt;col_tank_cretime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_chgby.Name" xml:space="preserve">
+    <value>col_tank_chgby</value>
+  </data>
+  <data name="&gt;&gt;col_tank_chgby.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_chgtime.Name" xml:space="preserve">
+    <value>col_tank_chgtime</value>
+  </data>
+  <data name="&gt;&gt;col_tank_chgtime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank_tank.Name" xml:space="preserve">
+    <value>col_tank_tank</value>
+  </data>
+  <data name="&gt;&gt;col_tank_tank.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_tank__isactive.Name" xml:space="preserve">
+    <value>col_tank__isactive</value>
+  </data>
+  <data name="&gt;&gt;col_tank__isactive.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_working_express_db.Name" xml:space="preserve">
+    <value>col_sect_working_express_db</value>
+  </data>
+  <data name="&gt;&gt;col_sect_working_express_db.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_id.Name" xml:space="preserve">
+    <value>col_sect_id</value>
+  </data>
+  <data name="&gt;&gt;col_sect_id.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_tank_name.Name" xml:space="preserve">
+    <value>col_sect_tank_name</value>
+  </data>
+  <data name="&gt;&gt;col_sect_tank_name.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_name.Name" xml:space="preserve">
+    <value>col_sect_name</value>
+  </data>
+  <data name="&gt;&gt;col_sect_name.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_stkcod.Name" xml:space="preserve">
+    <value>col_sect_stkcod</value>
+  </data>
+  <data name="&gt;&gt;col_sect_stkcod.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_nozzlecount.Name" xml:space="preserve">
+    <value>col_sect_nozzlecount</value>
+  </data>
+  <data name="&gt;&gt;col_sect_nozzlecount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_nozzle_btn.Name" xml:space="preserve">
+    <value>col_sect_nozzle_btn</value>
+  </data>
+  <data name="&gt;&gt;col_sect_nozzle_btn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_capacity.Name" xml:space="preserve">
+    <value>col_sect_capacity</value>
+  </data>
+  <data name="&gt;&gt;col_sect_capacity.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_begtak.Name" xml:space="preserve">
+    <value>col_sect_begtak</value>
+  </data>
+  <data name="&gt;&gt;col_sect_begtak.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_begacc.Name" xml:space="preserve">
+    <value>col_sect_begacc</value>
+  </data>
+  <data name="&gt;&gt;col_sect_begacc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_begdif.Name" xml:space="preserve">
+    <value>col_sect_begdif</value>
+  </data>
+  <data name="&gt;&gt;col_sect_begdif.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_totbal.Name" xml:space="preserve">
+    <value>col_sect_totbal</value>
+  </data>
+  <data name="&gt;&gt;col_sect_totbal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_tank_id.Name" xml:space="preserve">
+    <value>col_sect_tank_id</value>
+  </data>
+  <data name="&gt;&gt;col_sect_tank_id.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_stmas_id.Name" xml:space="preserve">
+    <value>col_sect_stmas_id</value>
+  </data>
+  <data name="&gt;&gt;col_sect_stmas_id.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_stkdes.Name" xml:space="preserve">
+    <value>col_sect_stkdes</value>
+  </data>
+  <data name="&gt;&gt;col_sect_stkdes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_loccod.Name" xml:space="preserve">
+    <value>col_sect_loccod</value>
+  </data>
+  <data name="&gt;&gt;col_sect_loccod.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_start_date.Name" xml:space="preserve">
+    <value>col_sect_start_date</value>
+  </data>
+  <data name="&gt;&gt;col_sect_start_date.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_end_date.Name" xml:space="preserve">
+    <value>col_sect_end_date</value>
+  </data>
+  <data name="&gt;&gt;col_sect_end_date.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_section.Name" xml:space="preserve">
+    <value>col_sect_section</value>
+  </data>
+  <data name="&gt;&gt;col_sect_section.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_sect_state.Name" xml:space="preserve">
+    <value>col_sect_state</value>
+  </data>
+  <data name="&gt;&gt;col_sect_state.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FormTankConfig</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

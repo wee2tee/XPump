@@ -142,27 +142,27 @@ namespace XPump.SubForm
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            
-        }
+            DateTime two_years_ago = DateTime.Now.Date.AddYears(-2);
 
-        private void btnFirst_Click(object sender, EventArgs e)
-        {
+            if(XMessageBox.Show(string.Format(this.main_form.GetMessage("0026"), two_years_ago.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH"))), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question, this.main_form.c_info) == DialogResult.OK)
+            {
+                using (xpumpsecureEntities sec = DBX.DataSecureSet())
+                {
+                    try
+                    {
+                        var islog_to_delete = sec.islog.Where(s => s.cretime.CompareTo(two_years_ago) < 0);
 
-        }
-
-        private void btnPrevious_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnLast_Click(object sender, EventArgs e)
-        {
-            
+                        sec.affdata.RemoveRange(sec.affdata.Where(s => islog_to_delete.Select(i => i.id).Contains(s.islog_id)));
+                        sec.islog.RemoveRange(islog_to_delete);
+                        sec.SaveChanges();
+                        this.btnRefresh.PerformClick();
+                    }
+                    catch (Exception ex)
+                    {
+                        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error, this.main_form.c_info);
+                    }
+                }
+            }
         }
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
@@ -511,7 +511,6 @@ namespace XPump.SubForm
             {
                 if (e.Button == MouseButtons.Left && e.Clicks == 1 && e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_cretime.Name).First().Index)
                 {
-                    Console.WriteLine(" ==>> cretime columns is clicked");
                     this.sort = this.sort == SORT.DESC ? SORT.ASC : SORT.DESC;
                     this.btnRefresh.PerformClick();
                 }
@@ -550,6 +549,59 @@ namespace XPump.SubForm
 
                 e.Handled = true;
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == (Keys.Alt | Keys.D))
+            {
+                this.btnDelete.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.S))
+            {
+                this.btnSearchByDate.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.K))
+            {
+                this.btnSearchByCondition.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.P))
+            {
+                this.btnPrintAll.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.P))
+            {
+                this.btnPrintCondition.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.F5))
+            {
+                this.btnRefresh.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Tab)
+            {
+                using (xpumpsecureEntities sec = DBX.DataSecureSet())
+                {
+                    int total_record = sec.islog.AsEnumerable().Count();
+                    int curr_record_id = this.dgv.CurrentCell != null ? (int)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_id.Name].Value : -1;
+
+                    DialogDataInfo info = new DialogDataInfo("Islog", curr_record_id, total_record, "", null, "", null);
+                    info.ShowDialog();
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

@@ -225,5 +225,13 @@ namespace CC
             if (this._DoubleClicked != null)
                 this._DoubleClicked(this, e);
         }
+
+        private void XDatePicker_Enter(object sender, EventArgs e)
+        {
+            if (this._ReadOnly)
+            {
+                SendKeys.Send("{TAB}");
+            }
+        }
     }
 }

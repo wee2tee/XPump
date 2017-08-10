@@ -268,21 +268,24 @@ namespace CC
         private void textBox1_ReadOnlyChanged(object sender, EventArgs e)
         {
             this.read_only = ((TextBox)sender).ReadOnly;
-            this.TabStop = this._ReadOnly ? false : true;
-            this.textBox1.TabStop = this._ReadOnly ? false : true;
-            ((TextBox)sender).TabStop = this._ReadOnly ? false : true;
+            this.TabStop = (this._ReadOnly ? false : true);
+            this.textBox1.TabStop = (this._ReadOnly ? false : true);
+            
+            //((TextBox)sender).TabStop = this._ReadOnly ? false : true;
             this.textBox1.Visible = this.read_only ? false : true;
 
             if (this.read_only)
             {
                 this.BackColor = Color.White;
                 this.textBox1.BackColor = Color.White;
+                this.textBox1.Visible = false;
                 this.label1.Visible = true;
                 //this.Refresh();
             }
 
             if (!this.read_only)
             {
+                this.textBox1.Visible = true;
                 this.textBox1.SelectionStart = 0;
                 this.label1.Visible = false;
             }
@@ -324,7 +327,15 @@ namespace CC
 
         private void XTextEdit_TabStopChanged(object sender, EventArgs e)
         {
-            this.textBox1.TabStop = this.TabStop;
+            //this.textBox1.TabStop = this.TabStop;
+        }
+
+        private void XTextEdit_Enter(object sender, EventArgs e)
+        {
+            if (this._ReadOnly)
+            {
+                SendKeys.Send("{TAB}");
+            }
         }
     }
 }

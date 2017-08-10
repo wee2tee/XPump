@@ -41,6 +41,8 @@ namespace XPump.SubForm
 
         private void DialogIslogCondition_Load(object sender, EventArgs e)
         {
+            this.ActiveControl = this.chkAllDate;
+
             if (this.logDateFrom.HasValue)
             {
                 this.chkAllDate.Checked = false;
@@ -211,6 +213,33 @@ namespace XPump.SubForm
             {
                 this.printOutput = PRINT_OUTPUT.PRINTER;
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.Enter)
+            {
+                if(!(this.btnOK.Focused || this.btnCancel.Focused))
+                {
+                    SendKeys.Send("{TAB}");
+                    Console.WriteLine(" ==> active control is : " + this.ActiveControl.Name);
+                    return true;
+                }
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnCancel.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.F5 || keyData == (Keys.Alt | Keys.P))
+            {
+                this.btnOK.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

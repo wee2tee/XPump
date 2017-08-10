@@ -624,6 +624,9 @@
     <EmbeddedResource Include="SubForm\FormDailyClose.resx">
       <DependentUpon>FormDailyClose.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormIslog.en-US.resx">
+      <DependentUpon>FormIslog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormIslog.resx">
       <DependentUpon>FormIslog.cs</DependentUpon>
     </EmbeddedResource>

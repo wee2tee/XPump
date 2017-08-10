@@ -87,6 +87,7 @@
             this.Name = "XDatePicker";
             this.Size = new System.Drawing.Size(103, 23);
             this.Load += new System.EventHandler(this.XDatePicker_Load);
+            this.Enter += new System.EventHandler(this.XDatePicker_Enter);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -38,11 +38,6 @@
             this.chkAllData = new System.Windows.Forms.CheckBox();
             this.chkAllModule = new System.Windows.Forms.CheckBox();
             this.chkAllUser = new System.Windows.Forms.CheckBox();
-            this.dtLogDateFrom = new CC.XDatePicker();
-            this.txtLogCode = new CC.XTextEdit();
-            this.txtLogData = new CC.XTextEdit();
-            this.txtLogModule = new CC.XTextEdit();
-            this.txtLogUser = new CC.XTextEdit();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panelPrintOutput = new System.Windows.Forms.GroupBox();
@@ -50,7 +45,12 @@
             this.radScreen = new System.Windows.Forms.RadioButton();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.txtLogUser = new CC.XTextEdit();
+            this.txtLogModule = new CC.XTextEdit();
+            this.txtLogData = new CC.XTextEdit();
+            this.txtLogCode = new CC.XTextEdit();
             this.dtLogDateTo = new CC.XDatePicker();
+            this.dtLogDateFrom = new CC.XDatePicker();
             this.panelPrintOutput.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -169,92 +169,6 @@
             this.chkAllUser.UseVisualStyleBackColor = true;
             this.chkAllUser.CheckedChanged += new System.EventHandler(this.chkAllUser_CheckedChanged);
             // 
-            // dtLogDateFrom
-            // 
-            this.dtLogDateFrom._ReadOnly = true;
-            this.dtLogDateFrom._SelectedDate = null;
-            this.dtLogDateFrom.BackColor = System.Drawing.Color.White;
-            this.dtLogDateFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dtLogDateFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.dtLogDateFrom.Location = new System.Drawing.Point(213, 21);
-            this.dtLogDateFrom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtLogDateFrom.Name = "dtLogDateFrom";
-            this.dtLogDateFrom.Size = new System.Drawing.Size(103, 23);
-            this.dtLogDateFrom.TabIndex = 1;
-            this.dtLogDateFrom._SelectedDateChanged += new System.EventHandler(this.dtLogDateFrom__SelectedDateChanged);
-            // 
-            // txtLogCode
-            // 
-            this.txtLogCode._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLogCode._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.txtLogCode._MaxLength = 32767;
-            this.txtLogCode._ReadOnly = true;
-            this.txtLogCode._Text = "";
-            this.txtLogCode._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtLogCode.BackColor = System.Drawing.Color.White;
-            this.txtLogCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLogCode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtLogCode.Location = new System.Drawing.Point(174, 49);
-            this.txtLogCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtLogCode.Name = "txtLogCode";
-            this.txtLogCode.Size = new System.Drawing.Size(275, 23);
-            this.txtLogCode.TabIndex = 4;
-            this.txtLogCode._TextChanged += new System.EventHandler(this.txtLogCode__TextChanged);
-            // 
-            // txtLogData
-            // 
-            this.txtLogData._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLogData._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.txtLogData._MaxLength = 32767;
-            this.txtLogData._ReadOnly = true;
-            this.txtLogData._Text = "";
-            this.txtLogData._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtLogData.BackColor = System.Drawing.Color.White;
-            this.txtLogData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLogData.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtLogData.Location = new System.Drawing.Point(174, 77);
-            this.txtLogData.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtLogData.Name = "txtLogData";
-            this.txtLogData.Size = new System.Drawing.Size(275, 23);
-            this.txtLogData.TabIndex = 6;
-            this.txtLogData._TextChanged += new System.EventHandler(this.txtLogData__TextChanged);
-            // 
-            // txtLogModule
-            // 
-            this.txtLogModule._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLogModule._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.txtLogModule._MaxLength = 32767;
-            this.txtLogModule._ReadOnly = true;
-            this.txtLogModule._Text = "";
-            this.txtLogModule._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtLogModule.BackColor = System.Drawing.Color.White;
-            this.txtLogModule.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLogModule.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtLogModule.Location = new System.Drawing.Point(174, 105);
-            this.txtLogModule.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtLogModule.Name = "txtLogModule";
-            this.txtLogModule.Size = new System.Drawing.Size(275, 23);
-            this.txtLogModule.TabIndex = 8;
-            this.txtLogModule._TextChanged += new System.EventHandler(this.txtLogModule__TextChanged);
-            // 
-            // txtLogUser
-            // 
-            this.txtLogUser._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLogUser._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.txtLogUser._MaxLength = 32767;
-            this.txtLogUser._ReadOnly = true;
-            this.txtLogUser._Text = "";
-            this.txtLogUser._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtLogUser.BackColor = System.Drawing.Color.White;
-            this.txtLogUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLogUser.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtLogUser.Location = new System.Drawing.Point(174, 133);
-            this.txtLogUser.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtLogUser.Name = "txtLogUser";
-            this.txtLogUser.Size = new System.Drawing.Size(275, 23);
-            this.txtLogUser.TabIndex = 10;
-            this.txtLogUser._TextChanged += new System.EventHandler(this.txtLogUser__TextChanged);
-            // 
             // btnOK
             // 
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -333,6 +247,78 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "To";
             // 
+            // txtLogUser
+            // 
+            this.txtLogUser._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLogUser._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.txtLogUser._MaxLength = 32767;
+            this.txtLogUser._ReadOnly = true;
+            this.txtLogUser._Text = "";
+            this.txtLogUser._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtLogUser.BackColor = System.Drawing.Color.White;
+            this.txtLogUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLogUser.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtLogUser.Location = new System.Drawing.Point(174, 133);
+            this.txtLogUser.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtLogUser.Name = "txtLogUser";
+            this.txtLogUser.Size = new System.Drawing.Size(275, 23);
+            this.txtLogUser.TabIndex = 10;
+            this.txtLogUser._TextChanged += new System.EventHandler(this.txtLogUser__TextChanged);
+            // 
+            // txtLogModule
+            // 
+            this.txtLogModule._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLogModule._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.txtLogModule._MaxLength = 32767;
+            this.txtLogModule._ReadOnly = true;
+            this.txtLogModule._Text = "";
+            this.txtLogModule._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtLogModule.BackColor = System.Drawing.Color.White;
+            this.txtLogModule.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLogModule.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtLogModule.Location = new System.Drawing.Point(174, 105);
+            this.txtLogModule.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtLogModule.Name = "txtLogModule";
+            this.txtLogModule.Size = new System.Drawing.Size(275, 23);
+            this.txtLogModule.TabIndex = 8;
+            this.txtLogModule._TextChanged += new System.EventHandler(this.txtLogModule__TextChanged);
+            // 
+            // txtLogData
+            // 
+            this.txtLogData._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLogData._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.txtLogData._MaxLength = 32767;
+            this.txtLogData._ReadOnly = true;
+            this.txtLogData._Text = "";
+            this.txtLogData._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtLogData.BackColor = System.Drawing.Color.White;
+            this.txtLogData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLogData.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtLogData.Location = new System.Drawing.Point(174, 77);
+            this.txtLogData.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtLogData.Name = "txtLogData";
+            this.txtLogData.Size = new System.Drawing.Size(275, 23);
+            this.txtLogData.TabIndex = 6;
+            this.txtLogData._TextChanged += new System.EventHandler(this.txtLogData__TextChanged);
+            // 
+            // txtLogCode
+            // 
+            this.txtLogCode._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLogCode._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.txtLogCode._MaxLength = 32767;
+            this.txtLogCode._ReadOnly = true;
+            this.txtLogCode._Text = "";
+            this.txtLogCode._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtLogCode.BackColor = System.Drawing.Color.White;
+            this.txtLogCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLogCode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtLogCode.Location = new System.Drawing.Point(174, 49);
+            this.txtLogCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtLogCode.Name = "txtLogCode";
+            this.txtLogCode.Size = new System.Drawing.Size(275, 23);
+            this.txtLogCode.TabIndex = 4;
+            this.txtLogCode._TextChanged += new System.EventHandler(this.txtLogCode__TextChanged);
+            // 
             // dtLogDateTo
             // 
             this.dtLogDateTo._ReadOnly = true;
@@ -346,6 +332,20 @@
             this.dtLogDateTo.Size = new System.Drawing.Size(103, 23);
             this.dtLogDateTo.TabIndex = 2;
             this.dtLogDateTo._SelectedDateChanged += new System.EventHandler(this.dtLogDateTo__SelectedDateChanged);
+            // 
+            // dtLogDateFrom
+            // 
+            this.dtLogDateFrom._ReadOnly = true;
+            this.dtLogDateFrom._SelectedDate = null;
+            this.dtLogDateFrom.BackColor = System.Drawing.Color.White;
+            this.dtLogDateFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dtLogDateFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.dtLogDateFrom.Location = new System.Drawing.Point(213, 21);
+            this.dtLogDateFrom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtLogDateFrom.Name = "dtLogDateFrom";
+            this.dtLogDateFrom.Size = new System.Drawing.Size(103, 23);
+            this.dtLogDateFrom.TabIndex = 1;
+            this.dtLogDateFrom._SelectedDateChanged += new System.EventHandler(this.dtLogDateFrom__SelectedDateChanged);
             // 
             // DialogIslogCondition
             // 
