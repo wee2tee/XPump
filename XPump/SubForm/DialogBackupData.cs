@@ -17,6 +17,7 @@ namespace XPump.SubForm
 {
     public partial class DialogBackupData : Form
     {
+        public const string modcod = "311";
         private string backup_path = string.Empty;
         private string backup_file_name = string.Empty;
         private MainForm main_form;

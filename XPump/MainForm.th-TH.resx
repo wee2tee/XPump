@@ -121,6 +121,9 @@
   <data name="mnuDataManage.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
+  <data name="mnuEventLog.Text" xml:space="preserve">
+    <value>แฟ้มบันทึกเหตุการณ์ทำงาน</value>
+  </data>
   <data name="mnuSecure.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>

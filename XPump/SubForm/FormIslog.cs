@@ -18,7 +18,9 @@ namespace XPump.SubForm
 {
     public partial class FormIslog : Form
     {
+        public const string modcod = "322";
         private MainForm main_form;
+        public scacclvVM scacclv;
         private FORM_MODE form_mode;
         private BindingList<islogVM> islogs;
         private int? focused_id;
@@ -35,9 +37,10 @@ namespace XPump.SubForm
             DESC
         }
 
-        public FormIslog(MainForm main_form)
+        public FormIslog(MainForm main_form, scacclvVM scacclv)
         {
             this.main_form = main_form;
+            this.scacclv = scacclv;
             Thread.CurrentThread.CurrentUICulture = this.main_form.c_info;
             InitializeComponent();
         }
@@ -60,13 +63,31 @@ namespace XPump.SubForm
         {
             this.form_mode = form_mode;
 
-            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnFirst.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnPrevious.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnNext.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnLast.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            string ac_delete = null;
+            string ac_print = null;
+            if (this.main_form.loged_in_status.is_secure)
+            {
+                if(this.scacclv != null)
+                {
+                    ac_delete = this.scacclv.delete;
+                    ac_print = this.scacclv.print;
+                }
+                else
+                {
+                    ac_delete = "N";
+                    ac_print = "N";
+                }
+            }
+
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_delete);
+            //this.btnFirst.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            //this.btnPrevious.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            //this.btnNext.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            //this.btnLast.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
             this.btnSearch.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
-            this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_print);
+            this.btnPrintAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_print);
+            this.btnPrintCondition.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_print);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode);
         }
 
@@ -155,6 +176,8 @@ namespace XPump.SubForm
                         sec.affdata.RemoveRange(sec.affdata.Where(s => islog_to_delete.Select(i => i.id).Contains(s.islog_id)));
                         sec.islog.RemoveRange(islog_to_delete);
                         sec.SaveChanges();
+
+                        this.main_form.islog.DeleteData(FormIslog.modcod, "", "", "islog", new int[] { }).Save();
                         this.btnRefresh.PerformClick();
                     }
                     catch (Exception ex)
@@ -256,7 +279,6 @@ namespace XPump.SubForm
                 this.condLogUser = cond.logUserName;
 
                 List<islogVM> logs = this.GetLogByCondition(this.condLogDateFrom, this.condLogDateTo, this.condLogCode, this.condLogData, this.condLogModule, this.condLogUser);
-                //logs = this.sort == SORT.DESC ? logs.OrderBy(l => l.id).ToList<dynamic>() : logs.OrderByDescending(l => l.id).ToList<dynamic>();
 
                 /* Perform print */
                 this.PerformPrint(logs, cond);

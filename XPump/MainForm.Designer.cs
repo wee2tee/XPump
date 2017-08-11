@@ -46,7 +46,7 @@
             this.mnuSecure = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUsersFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.eventLoggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuEventLog = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuYearEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuChangeCompany = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,76 +73,75 @@
             // 
             // mnuDaily
             // 
-            resources.ApplyResources(this.mnuDaily, "mnuDaily");
             this.mnuDaily.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuShiftTransaction,
             this.mnuDailyClose});
             this.mnuDaily.Name = "mnuDaily";
+            resources.ApplyResources(this.mnuDaily, "mnuDaily");
             this.mnuDaily.Tag = "1";
             // 
             // mnuShiftTransaction
             // 
-            resources.ApplyResources(this.mnuShiftTransaction, "mnuShiftTransaction");
             this.mnuShiftTransaction.Name = "mnuShiftTransaction";
+            resources.ApplyResources(this.mnuShiftTransaction, "mnuShiftTransaction");
             this.mnuShiftTransaction.Tag = "11";
             this.mnuShiftTransaction.Click += new System.EventHandler(this.MnuShiftTransaction_Click);
             // 
             // mnuDailyClose
             // 
-            resources.ApplyResources(this.mnuDailyClose, "mnuDailyClose");
             this.mnuDailyClose.Name = "mnuDailyClose";
+            resources.ApplyResources(this.mnuDailyClose, "mnuDailyClose");
             this.mnuDailyClose.Tag = "12";
             this.mnuDailyClose.Click += new System.EventHandler(this.mnuDailyClose_Click);
             // 
             // mnuSetup
             // 
-            resources.ApplyResources(this.mnuSetup, "mnuSetup");
             this.mnuSetup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuSettings,
             this.mnuTankSetup,
             this.mnuShift,
             this.mnuIstab});
             this.mnuSetup.Name = "mnuSetup";
+            resources.ApplyResources(this.mnuSetup, "mnuSetup");
             this.mnuSetup.Tag = "2";
             // 
             // mnuSettings
             // 
-            resources.ApplyResources(this.mnuSettings, "mnuSettings");
             this.mnuSettings.Name = "mnuSettings";
+            resources.ApplyResources(this.mnuSettings, "mnuSettings");
             this.mnuSettings.Tag = "21";
             this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
             // 
             // mnuTankSetup
             // 
-            resources.ApplyResources(this.mnuTankSetup, "mnuTankSetup");
             this.mnuTankSetup.Name = "mnuTankSetup";
+            resources.ApplyResources(this.mnuTankSetup, "mnuTankSetup");
             this.mnuTankSetup.Tag = "22";
             this.mnuTankSetup.Click += new System.EventHandler(this.MnuTankSetup_Click);
             // 
             // mnuShift
             // 
-            resources.ApplyResources(this.mnuShift, "mnuShift");
             this.mnuShift.Name = "mnuShift";
+            resources.ApplyResources(this.mnuShift, "mnuShift");
             this.mnuShift.Tag = "23";
             this.mnuShift.Click += new System.EventHandler(this.MnuShift_Click);
             // 
             // mnuIstab
             // 
-            resources.ApplyResources(this.mnuIstab, "mnuIstab");
             this.mnuIstab.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuDotherMessage});
             this.mnuIstab.Name = "mnuIstab";
+            resources.ApplyResources(this.mnuIstab, "mnuIstab");
             this.mnuIstab.Tag = "24";
             // 
             // mnuDotherMessage
             // 
-            resources.ApplyResources(this.mnuDotherMessage, "mnuDotherMessage");
             this.mnuDotherMessage.Name = "mnuDotherMessage";
+            resources.ApplyResources(this.mnuDotherMessage, "mnuDotherMessage");
             this.mnuDotherMessage.Click += new System.EventHandler(this.mnuDotherMessage_Click);
             // 
             // mnuOther
             // 
-            resources.ApplyResources(this.mnuOther, "mnuOther");
             this.mnuOther.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuDataManage,
             this.mnuSecure,
@@ -150,82 +149,82 @@
             this.toolStripSeparator2,
             this.mnuChangeCompany});
             this.mnuOther.Name = "mnuOther";
+            resources.ApplyResources(this.mnuOther, "mnuOther");
             this.mnuOther.Tag = "3";
             // 
             // mnuDataManage
             // 
-            resources.ApplyResources(this.mnuDataManage, "mnuDataManage");
             this.mnuDataManage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuBackup,
             this.mnuRestore});
             this.mnuDataManage.Name = "mnuDataManage";
+            resources.ApplyResources(this.mnuDataManage, "mnuDataManage");
             this.mnuDataManage.Tag = "31";
             // 
             // mnuBackup
             // 
-            resources.ApplyResources(this.mnuBackup, "mnuBackup");
             this.mnuBackup.Name = "mnuBackup";
+            resources.ApplyResources(this.mnuBackup, "mnuBackup");
             this.mnuBackup.Tag = "311";
             this.mnuBackup.Click += new System.EventHandler(this.mnuBackup_Click);
             // 
             // mnuRestore
             // 
-            resources.ApplyResources(this.mnuRestore, "mnuRestore");
             this.mnuRestore.Name = "mnuRestore";
+            resources.ApplyResources(this.mnuRestore, "mnuRestore");
             this.mnuRestore.Tag = "312";
             this.mnuRestore.Click += new System.EventHandler(this.mnuRestore_Click);
             // 
             // mnuSecure
             // 
-            resources.ApplyResources(this.mnuSecure, "mnuSecure");
             this.mnuSecure.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuUsersFile,
             this.toolStripSeparator1,
-            this.eventLoggingToolStripMenuItem});
+            this.mnuEventLog});
             this.mnuSecure.Name = "mnuSecure";
+            resources.ApplyResources(this.mnuSecure, "mnuSecure");
             this.mnuSecure.Tag = "32";
             // 
             // mnuUsersFile
             // 
-            resources.ApplyResources(this.mnuUsersFile, "mnuUsersFile");
             this.mnuUsersFile.Name = "mnuUsersFile";
+            resources.ApplyResources(this.mnuUsersFile, "mnuUsersFile");
             this.mnuUsersFile.Tag = "321";
             this.mnuUsersFile.Click += new System.EventHandler(this.mnuUsersFile_Click);
             // 
             // toolStripSeparator1
             // 
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
-            // eventLoggingToolStripMenuItem
+            // mnuEventLog
             // 
-            resources.ApplyResources(this.eventLoggingToolStripMenuItem, "eventLoggingToolStripMenuItem");
-            this.eventLoggingToolStripMenuItem.Name = "eventLoggingToolStripMenuItem";
-            this.eventLoggingToolStripMenuItem.Tag = "322";
-            this.eventLoggingToolStripMenuItem.Click += new System.EventHandler(this.eventLoggingToolStripMenuItem_Click);
+            this.mnuEventLog.Name = "mnuEventLog";
+            resources.ApplyResources(this.mnuEventLog, "mnuEventLog");
+            this.mnuEventLog.Tag = "322";
+            this.mnuEventLog.Click += new System.EventHandler(this.mnuEventLog_Click);
             // 
             // mnuYearEnd
             // 
-            resources.ApplyResources(this.mnuYearEnd, "mnuYearEnd");
             this.mnuYearEnd.Name = "mnuYearEnd";
+            resources.ApplyResources(this.mnuYearEnd, "mnuYearEnd");
             this.mnuYearEnd.Tag = "33";
             this.mnuYearEnd.Click += new System.EventHandler(this.mnuYearEnd_Click);
             // 
             // toolStripSeparator2
             // 
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // mnuChangeCompany
             // 
-            resources.ApplyResources(this.mnuChangeCompany, "mnuChangeCompany");
             this.mnuChangeCompany.Name = "mnuChangeCompany";
+            resources.ApplyResources(this.mnuChangeCompany, "mnuChangeCompany");
             this.mnuChangeCompany.Tag = "34";
             this.mnuChangeCompany.Click += new System.EventHandler(this.mnuChangeCompany_Click);
             // 
             // statusStrip1
             // 
-            resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel3,
             this.lblUserID,
@@ -234,20 +233,21 @@
             this.toolStripStatusLabel2,
             this.lblMysqlDbName,
             this.lblVersion});
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.Name = "statusStrip1";
             // 
             // toolStripStatusLabel3
             // 
-            resources.ApplyResources(this.toolStripStatusLabel3, "toolStripStatusLabel3");
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            resources.ApplyResources(this.toolStripStatusLabel3, "toolStripStatusLabel3");
             // 
             // lblUserID
             // 
-            resources.ApplyResources(this.lblUserID, "lblUserID");
             this.lblUserID.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lblUserID.Name = "lblUserID";
+            resources.ApplyResources(this.lblUserID, "lblUserID");
             // 
             // toolStripStatusLabel1
             // 
@@ -256,11 +256,11 @@
             // 
             // lblExpressDataPath
             // 
-            resources.ApplyResources(this.lblExpressDataPath, "lblExpressDataPath");
             this.lblExpressDataPath.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lblExpressDataPath.Name = "lblExpressDataPath";
+            resources.ApplyResources(this.lblExpressDataPath, "lblExpressDataPath");
             // 
             // toolStripStatusLabel2
             // 
@@ -269,16 +269,16 @@
             // 
             // lblMysqlDbName
             // 
-            resources.ApplyResources(this.lblMysqlDbName, "lblMysqlDbName");
             this.lblMysqlDbName.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lblMysqlDbName.Name = "lblMysqlDbName";
+            resources.ApplyResources(this.lblMysqlDbName, "lblMysqlDbName");
             // 
             // lblVersion
             // 
-            resources.ApplyResources(this.lblVersion, "lblVersion");
             this.lblVersion.Name = "lblVersion";
+            resources.ApplyResources(this.lblVersion, "lblVersion");
             this.lblVersion.Spring = true;
             // 
             // MainForm
@@ -330,7 +330,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuYearEnd;
         private System.Windows.Forms.ToolStripMenuItem mnuSecure;
         private System.Windows.Forms.ToolStripMenuItem mnuUsersFile;
-        private System.Windows.Forms.ToolStripMenuItem eventLoggingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuEventLog;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }

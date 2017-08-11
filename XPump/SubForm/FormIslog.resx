@@ -121,9 +121,6 @@
   <data name="toolStripSeparator4.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="btnPrintAll.Text" xml:space="preserve">
-    <value>พิมพ์รายงานบันทึกการทำงานทั้งหมดในช่วงวันที่... &lt;Alt + P&gt;</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnPrintCondition.Size" type="System.Drawing.Size, System.Drawing">
     <value>351, 22</value>
@@ -134,17 +131,27 @@
   <data name="btnApproveMulti.Text" xml:space="preserve">
     <value>toolStripButton1</value>
   </data>
+  <data name="btnPrint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 40</value>
+  </data>
   <data name="btnEdit.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="dgv.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+  <data name="&gt;&gt;btnApprove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="btnSave.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
+  <data name="btnEdit.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="btnApprove.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 40</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="dgv.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -155,7 +162,6 @@
   <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
@@ -174,14 +180,14 @@
   <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
     <value>toolStrip1</value>
   </data>
+  <data name="dgv.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
   <data name="&gt;&gt;btnItem.Name" xml:space="preserve">
     <value>btnItem</value>
   </data>
   <data name="col_cretime.HeaderText" xml:space="preserve">
     <value>Log Date/Time</value>
-  </data>
-  <data name="btnDelete.Text" xml:space="preserve">
-    <value>ลบข้อมูล &lt;Alt+D&gt;</value>
   </data>
   <data name="btnSearchByCondition.Size" type="System.Drawing.Size, System.Drawing">
     <value>251, 22</value>
@@ -194,9 +200,6 @@
   </data>
   <data name="col_cretime.MinimumWidth" type="System.Int32, mscorlib">
     <value>140</value>
-  </data>
-  <data name="dgv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 43</value>
   </data>
   <data name="&gt;&gt;col_id.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -216,9 +219,6 @@
   <data name="btnStop.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="btnNext.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 40</value>
-  </data>
   <data name="&gt;&gt;col_modcod.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -230,6 +230,9 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>แฟ้มบันทึกเหตุการณ์ทำงาน</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="col_expressdata.MinimumWidth" type="System.Int32, mscorlib">
     <value>120</value>
@@ -270,9 +273,6 @@
   <data name="btnApprove.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="btnApprove.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
-  </data>
   <data name="btnNext.Text" xml:space="preserve">
     <value>ข้อมูลถัดไป &lt;PageDown&gt;</value>
   </data>
@@ -287,9 +287,6 @@
   </data>
   <data name="&gt;&gt;col_cretime.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="col_docnum.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="col_xpumpuser.HeaderText" xml:space="preserve">
     <value>Xpump User</value>
@@ -306,8 +303,8 @@
   <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnApprove.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="btnEdit.Text" xml:space="preserve">
+    <value>แก้ไขข้อมูล &lt;Alt+E&gt;</value>
   </data>
   <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -330,8 +327,8 @@
   <data name="btnFirst.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="&gt;&gt;btnDelete.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="btnFirst.Text" xml:space="preserve">
+    <value>ข้อมูลแรก &lt;Ctrl+Home&gt;</value>
   </data>
   <data name="&gt;&gt;btnAdd.Name" xml:space="preserve">
     <value>btnAdd</value>
@@ -348,9 +345,6 @@
   <data name="&gt;&gt;btnSearch.Name" xml:space="preserve">
     <value>btnSearch</value>
   </data>
-  <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 40</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
     <value>toolStripSeparator3</value>
   </data>
@@ -358,6 +352,9 @@
     <value>False</value>
   </data>
   <data name="&gt;&gt;col_username.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;col_logcode.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="btnApproveMulti.ToolTipText" xml:space="preserve">
@@ -375,13 +372,10 @@
   <data name="btnApprove.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;btnRefresh.Name" xml:space="preserve">
-    <value>btnRefresh</value>
+  <data name="btnStop.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="btnFirst.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="btnEdit.Enabled" type="System.Boolean, mscorlib">
+  <data name="btnItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="&gt;&gt;btnPrevious.Name" xml:space="preserve">
@@ -411,14 +405,11 @@
   <data name="col_id.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="btnEdit.Text" xml:space="preserve">
-    <value>แก้ไขข้อมูล &lt;Alt+E&gt;</value>
-  </data>
   <data name="&gt;&gt;col_xpumpdata.Name" xml:space="preserve">
     <value>col_xpumpdata</value>
   </data>
-  <data name="btnStop.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;btnDelete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="col_logcode.Width" type="System.Int32, mscorlib">
     <value>70</value>
@@ -426,8 +417,20 @@
   <data name="btnAdd.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="btnRefresh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
+  </data>
+  <data name="&gt;&gt;btnRefresh.Name" xml:space="preserve">
+    <value>btnRefresh</value>
+  </data>
   <data name="col_docnum.MinimumWidth" type="System.Int32, mscorlib">
     <value>120</value>
+  </data>
+  <data name="&gt;&gt;btnRefresh.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgv.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="btnSave.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -437,9 +440,6 @@
   </data>
   <data name="btnStop.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
-  </data>
-  <data name="btnFirst.Text" xml:space="preserve">
-    <value>ข้อมูลแรก &lt;Ctrl+Home&gt;</value>
   </data>
   <data name="col_docnum.HeaderText" xml:space="preserve">
     <value>Doc. Number</value>
@@ -458,6 +458,9 @@
   </data>
   <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="col_username.MinimumWidth" type="System.Int32, mscorlib">
+    <value>80</value>
   </data>
   <data name="btnEdit.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
@@ -480,6 +483,9 @@
   <data name="col_islog.HeaderText" xml:space="preserve">
     <value>Islog</value>
   </data>
+  <data name="&gt;&gt;col_description.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;btnLast.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -488,9 +494,6 @@
   </data>
   <data name="col_id.Width" type="System.Int32, mscorlib">
     <value>30</value>
-  </data>
-  <data name="btnStop.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="btnPrint.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
@@ -503,9 +506,6 @@
   </data>
   <data name="col_id.MinimumWidth" type="System.Int32, mscorlib">
     <value>30</value>
-  </data>
-  <data name="btnPrintAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 22</value>
   </data>
   <data name="toolStrip1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
@@ -527,9 +527,6 @@
   </data>
   <data name="&gt;&gt;btnEdit.Name" xml:space="preserve">
     <value>btnEdit</value>
-  </data>
-  <data name="btnItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;btnSearchByDate.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -564,8 +561,8 @@
   <data name="btnApproveMulti.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;col_docnum.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="dgv.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 43</value>
   </data>
   <data name="btnApprove.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -594,8 +591,8 @@
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormIslog</value>
   </data>
-  <data name="&gt;&gt;dgv.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;col_docnum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="btnSearch.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
@@ -603,14 +600,17 @@
   <data name="col_logcode.MinimumWidth" type="System.Int32, mscorlib">
     <value>70</value>
   </data>
+  <data name="&gt;&gt;btnNext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;btnPrint.Name" xml:space="preserve">
     <value>btnPrint</value>
   </data>
   <data name="btnDelete.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="btnRefresh.Text" xml:space="preserve">
-    <value>โหลดข้อมูลปัจจุบันใหม่ &lt;Ctrl+F5&gt;</value>
+  <data name="btnStop.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="col_xpumpdata.HeaderText" xml:space="preserve">
     <value>MySQL DB.</value>
@@ -621,8 +621,8 @@
   <data name="col_logcode.HeaderText" xml:space="preserve">
     <value>Log Code</value>
   </data>
-  <data name="btnRefresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 40</value>
+  <data name="btnPrintAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>351, 22</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 43</value>
@@ -636,14 +636,11 @@
   <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;col_logcode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="btnApprove.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="col_expressdata.Width" type="System.Int32, mscorlib">
     <value>120</value>
-  </data>
-  <data name="&gt;&gt;btnSearchByCondition.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="col_islog.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -653,6 +650,9 @@
   </data>
   <data name="&gt;&gt;btnPrint.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSplitButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnApproveMulti.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="btnAdd.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -690,8 +690,8 @@
   <data name="btnDelete.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 40</value>
   </data>
-  <data name="col_username.MinimumWidth" type="System.Int32, mscorlib">
-    <value>80</value>
+  <data name="btnNext.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
   </data>
   <data name="btnLast.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -732,14 +732,14 @@
   <data name="btnPrevious.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 40</value>
   </data>
-  <data name="btnApproveMulti.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="btnRefresh.Text" xml:space="preserve">
+    <value>โหลดข้อมูลปัจจุบันใหม่ &lt;Ctrl+F5&gt;</value>
   </data>
   <data name="col_username.HeaderText" xml:space="preserve">
     <value>User Name</value>
   </data>
-  <data name="&gt;&gt;col_description.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="btnFirst.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>851, 490</value>
@@ -774,14 +774,14 @@
   <data name="&gt;&gt;btnPrintCondition.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnNext.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="col_docnum.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="btnApprove.ToolTipText" xml:space="preserve">
     <value>รับรองรายการ &lt;Alt+O&gt;</value>
   </data>
-  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="btnPrintAll.Text" xml:space="preserve">
+    <value>พิมพ์รายงานบันทึกการทำงานทั้งหมดในช่วงวันที่... &lt;Alt + P&gt;</value>
   </data>
   <data name="&gt;&gt;btnPrevious.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -795,17 +795,17 @@
   <data name="btnRefresh.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="dgv.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
   </data>
   <data name="&gt;&gt;btnPrintAll.Name" xml:space="preserve">
     <value>btnPrintAll</value>
   </data>
-  <data name="btnPrint.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 40</value>
+  <data name="&gt;&gt;btnSearchByCondition.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnRefresh.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="btnDelete.Text" xml:space="preserve">
+    <value>ลบข้อมูล &lt;Alt+D&gt;</value>
   </data>
   <data name="&gt;&gt;col_xpumpdata.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -828,8 +828,8 @@
   <metadata name="col_docnum.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>th-TH</value>
   </metadata>
   <metadata name="col_islog.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -840,16 +840,16 @@
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>th-TH</value>
+  <metadata name="toolStrip1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <metadata name="col_xpumpdata.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="toolStrip1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="col_logcode.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="col_logcode.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="col_description.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

@@ -183,7 +183,7 @@ namespace XPump.SubForm
 
                         db.SaveChanges();
 
-                        this.main_form.islog.EditData(this.form_shifttransaction.menu_id, "แก้ไขยอดขายของหัวจ่าย \"" + this.tmp_saleshistory.ToViewModel(this.main_form.working_express_db).nozzle_name + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "saleshistory", this.tmp_saleshistory.id).Save();
+                        this.main_form.islog.EditData(FormShiftTransaction.modcod, "แก้ไขยอดขายของหัวจ่าย \"" + this.tmp_saleshistory.ToViewModel(this.main_form.working_express_db).nozzle_name + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "saleshistory", this.tmp_saleshistory.id).Save();
 
                         this.salessummary = this.GetSalesSummary(this.salessummary.id);
 
@@ -378,7 +378,7 @@ namespace XPump.SubForm
                     shiftsales_to_update.chgtime = DateTime.Now;
 
                     db.SaveChanges();
-                    this.main_form.islog.EditData(this.form_shifttransaction.menu_id, "แก้ไขรายละเอียดการขายสินค้ารหัส \"" + this.salessummary.stkcod + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "salessummary", this.salessummary.id).Save();
+                    this.main_form.islog.EditData(FormShiftTransaction.modcod, "แก้ไขรายละเอียดการขายสินค้ารหัส \"" + this.salessummary.stkcod + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.salessummary.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "salessummary", this.salessummary.id).Save();
                 }
 
                 this.salessummary = this.GetSalesSummary(this.salessummary.id);

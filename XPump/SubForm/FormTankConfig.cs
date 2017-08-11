@@ -15,13 +15,6 @@ namespace XPump.SubForm
 {
     public partial class FormTankConfig : Form
     {
-        public string menu_id
-        {
-            get
-            {
-                return MenuIdClass.FormTankConfig;
-            }
-        }
         public const string modcod = "22";
         public scacclvVM scacclv; 
         private MainForm main_form;
@@ -62,6 +55,7 @@ namespace XPump.SubForm
             this.form_mode = FORM_MODE.READ;
             this.ResetControlState();
             this.btnLast.PerformClick();
+            this.ActiveControl = this.toolStrip1;
 
             //this.help.SetShowHelp(this.dtStartDate, true);
             //this.help.SetHelpString(this.dtStartDate, "this is a help..");
@@ -349,7 +343,7 @@ namespace XPump.SubForm
                             db.tanksetup.Remove(db.tanksetup.Find(this.tanksetup.id));
 
                             db.SaveChanges();
-                            this.main_form.islog.DeleteData(this.menu_id, "ลบการตั้งค่าแท๊งค์น้ำมันวันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "tanksetup", this.tanksetup.id).Save();
+                            this.main_form.islog.DeleteData(modcod, "ลบการตั้งค่าแท๊งค์น้ำมันวันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "tanksetup", this.tanksetup.id).Save();
                             this.btnPrevious.PerformClick();
                         }
                         catch (Exception ex)
@@ -428,7 +422,7 @@ namespace XPump.SubForm
                             db.SaveChanges();
 
                             // kept log
-                            this.main_form.islog.AddData(this.menu_id, "เพิ่มการตั้งค่าแท๊งค์เก็บน้ำมันวันที่ " + this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "tanksetup", this.tmp_tanksetup.id).Save();
+                            this.main_form.islog.AddData(modcod, "เพิ่มการตั้งค่าแท๊งค์เก็บน้ำมันวันที่ " + this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "tanksetup", this.tmp_tanksetup.id).Save();
                            
 
                             this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tmp_tanksetup.id);
@@ -465,7 +459,7 @@ namespace XPump.SubForm
                                 tanksetup_to_update.chgtime = DateTime.Now;
 
                                 // kept log
-                                this.main_form.islog.EditData(this.menu_id, "แก้ไขการตั้งค่าแท๊งค์เก็บน้ำมัน, เปลี่ยนวันที่ " + old_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " => " + this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "tanksetup", this.tmp_tanksetup.id).Save();
+                                this.main_form.islog.EditData(modcod, "แก้ไขการตั้งค่าแท๊งค์เก็บน้ำมัน, เปลี่ยนวันที่ " + old_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " => " + this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), "tanksetup", this.tmp_tanksetup.id).Save();
 
                                 db.SaveChanges();
                                 this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tmp_tanksetup.id);
@@ -511,7 +505,7 @@ namespace XPump.SubForm
                             this.tmp_tankVM.tank.cretime = DateTime.Now;
                             db.tank.Add(this.tmp_tankVM.tank);
                             db.SaveChanges();
-                            this.main_form.islog.AddData(this.menu_id, "เพิ่มรหัสแท๊งค์ \"" + this.tmp_tankVM.name + "\", ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tankVM.tank.name, "tank", this.tmp_tankVM.tank.id).Save();
+                            this.main_form.islog.AddData(modcod, "เพิ่มรหัสแท๊งค์ \"" + this.tmp_tankVM.name + "\", ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tankVM.tank.name, "tank", this.tmp_tankVM.tank.id).Save();
                             this.RemoveInlineTankForm();
                             this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
                             this.FillForm();
@@ -557,7 +551,7 @@ namespace XPump.SubForm
                                 tank_to_update.chgtime = DateTime.Now;
 
                                 db.SaveChanges();
-                                this.main_form.islog.EditData(this.menu_id, "แก้ไขรหัสแท๊งค์ \"" + old_name + "\" => \"" + this.tmp_tankVM.name + "\", ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tankVM.name, "tank", this.tmp_tankVM.id).Save();
+                                this.main_form.islog.EditData(modcod, "แก้ไขรหัสแท๊งค์ \"" + old_name + "\" => \"" + this.tmp_tankVM.name + "\", ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_tankVM.name, "tank", this.tmp_tankVM.id).Save();
 
                                 this.RemoveInlineTankForm();
                                 this.form_mode = FORM_MODE.READ_ITEM;
@@ -612,7 +606,7 @@ namespace XPump.SubForm
                                 this.tmp_sectionVM.section.cretime = DateTime.Now;
                                 db.section.Add(this.tmp_sectionVM.section);
                                 db.SaveChanges();
-                                this.main_form.islog.AddData(this.menu_id, "เพิ่มเลขที่ถังน้ำมัน \"" + this.tmp_sectionVM.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_sectionVM.name, "section", this.tmp_sectionVM.id).Save();
+                                this.main_form.islog.AddData(modcod, "เพิ่มเลขที่ถังน้ำมัน \"" + this.tmp_sectionVM.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_sectionVM.name, "section", this.tmp_sectionVM.id).Save();
                                 this.RemoveInlineSectionForm();
                                 this.form_mode = FORM_MODE.READ_ITEM;
                                 this.ResetControlState();
@@ -658,7 +652,7 @@ namespace XPump.SubForm
                                 sect_to_update.chgtime = DateTime.Now;
 
                                 db.SaveChanges();
-                                this.main_form.islog.AddData(this.menu_id, "แก้ไขรายละเอียดถังน้ำมัน \"" + this.tmp_sectionVM.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_sectionVM.name, "section", this.tmp_sectionVM.id).Save();
+                                this.main_form.islog.AddData(modcod, "แก้ไขรายละเอียดถังน้ำมัน \"" + this.tmp_sectionVM.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_sectionVM.name, "section", this.tmp_sectionVM.id).Save();
                                 this.RemoveInlineSectionForm();
                                 this.form_mode = FORM_MODE.READ_ITEM;
                                 this.ResetControlState();
@@ -972,7 +966,7 @@ namespace XPump.SubForm
                         db.tank.Remove(tank_to_delete);
                         db.SaveChanges();
 
-                        this.main_form.islog.DeleteData(this.menu_id, "ลบรหัสแท๊งค์ \"" + tank_to_delete.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), tank_to_delete.name, "tank", tank_to_delete.id).Save();
+                        this.main_form.islog.DeleteData(modcod, "ลบรหัสแท๊งค์ \"" + tank_to_delete.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), tank_to_delete.name, "tank", tank_to_delete.id).Save();
                         this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
                         this.FillForm();
                     }
@@ -1068,7 +1062,7 @@ namespace XPump.SubForm
                             db.section.Remove(section_to_delete);
                             db.SaveChanges();
 
-                            this.main_form.islog.DeleteData(this.menu_id, "ลบถังน้ำมันเลขที่ \"" + section_to_delete.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), section_to_delete.name, "section", section_to_delete.id).Save();
+                            this.main_form.islog.DeleteData(modcod, "ลบถังน้ำมันเลขที่ \"" + section_to_delete.name + "\" ในการตั้งค่าแท๊งค์วันที่ " + this.tanksetup.startdate.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), section_to_delete.name, "section", section_to_delete.id).Save();
                             this.tanksetup = GetTankSetup(this.main_form.working_express_db, this.tanksetup.id);
                             this.FillForm();
                         }

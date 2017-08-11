@@ -27,13 +27,6 @@ namespace XPump.SubForm
         private shift curr_shift; // current focused row
         private FORM_MODE form_mode;
         private shiftVM temp_shift; // model for add/edit shift
-        private string menu_id
-        {
-            get
-            {
-                return MenuIdClass.FormShift;
-            }
-        }
 
         public FormShift()
         {
@@ -322,7 +315,7 @@ namespace XPump.SubForm
                         //db.shift.Remove(shift_to_delete);
                         db.shift.Remove(db.shift.Find(this.curr_shift.id));
                         db.SaveChanges();
-                        this.main_form.islog.DeleteData(this.menu_id, "ลบผลัดพนักงาน \"" + this.curr_shift.name + "\"", this.curr_shift.name, "shift", this.curr_shift.id).Save();
+                        this.main_form.islog.DeleteData(modcod, "ลบผลัดพนักงาน \"" + this.curr_shift.name + "\"", this.curr_shift.name, "shift", this.curr_shift.id).Save();
 
                         this.btnRefresh.PerformClick();
                     }
@@ -373,7 +366,7 @@ namespace XPump.SubForm
                         db.shift.Add(this.temp_shift.shift);
                         db.SaveChanges();
 
-                        this.main_form.islog.AddData(this.menu_id, "เพิ่มผลัดพนักงาน \"" + this.temp_shift.name + "\"", this.temp_shift.name, "shift", this.temp_shift.id).Save();
+                        this.main_form.islog.AddData(modcod, "เพิ่มผลัดพนักงาน \"" + this.temp_shift.name + "\"", this.temp_shift.name, "shift", this.temp_shift.id).Save();
 
                         this.RemoveInlineControl();
                         this.form_mode = FORM_MODE.READ;
@@ -416,7 +409,7 @@ namespace XPump.SubForm
                         shift.sivprefix = this.temp_shift.shift.sivprefix;
                         db.SaveChanges();
 
-                        this.main_form.islog.EditData(this.menu_id, "แก้ไขผลัดพนักงาน \"" + this.temp_shift.name + "\"", this.temp_shift.name, "shift", this.temp_shift.id).Save();
+                        this.main_form.islog.EditData(modcod, "แก้ไขผลัดพนักงาน \"" + this.temp_shift.name + "\"", this.temp_shift.name, "shift", this.temp_shift.id).Save();
 
                         this.RemoveInlineControl();
                         this.form_mode = FORM_MODE.READ;

@@ -22,10 +22,6 @@ namespace XPump.SubForm
         private string tabtyp;
         private BindingList<istabVM> bl_istab;
         private istab tmp_istab;
-        public string menu_id
-        {
-            get { return MenuIdClass.FormIstab; }
-        }
 
         public FormIstab(MainForm main_form, scacclvVM scacclv, string tabtyp, string window_title = "")
         {
@@ -231,7 +227,7 @@ namespace XPump.SubForm
                         db.istab.Add(this.tmp_istab);
                         db.SaveChanges();
 
-                        this.main_form.islog.AddData(this.menu_id, "เพิ่มตารางข้อมูล(" + this.tmp_istab.tabtyp + ") รหัส \"" + this.tmp_istab.typcod + "\"", this.tmp_istab.tabtyp + "|" + this.tmp_istab.typcod, "istab", this.tmp_istab.id).Save();
+                        this.main_form.islog.AddData(modcod, "เพิ่มตารางข้อมูล(" + this.tmp_istab.tabtyp + ") รหัส \"" + this.tmp_istab.typcod + "\"", this.tmp_istab.tabtyp + "|" + this.tmp_istab.typcod, "istab", this.tmp_istab.id).Save();
 
                         this.RemoveInlineForm();
                         this.ResetControlState(FORM_MODE.READ_ITEM);
@@ -293,7 +289,7 @@ namespace XPump.SubForm
 
                         db.SaveChanges();
 
-                        this.main_form.islog.EditData(this.menu_id, "แก้ไขตารางข้อมูล(" + this.tmp_istab.tabtyp + ") รหัส \"" + this.tmp_istab.typcod + "\"", this.tmp_istab.tabtyp + "|" + this.tmp_istab.typcod, "istab", this.tmp_istab.id).Save();
+                        this.main_form.islog.EditData(modcod, "แก้ไขตารางข้อมูล(" + this.tmp_istab.tabtyp + ") รหัส \"" + this.tmp_istab.typcod + "\"", this.tmp_istab.tabtyp + "|" + this.tmp_istab.typcod, "istab", this.tmp_istab.id).Save();
 
                         this.RemoveInlineForm();
                         this.ResetControlState(FORM_MODE.READ_ITEM);
@@ -334,7 +330,7 @@ namespace XPump.SubForm
                         db.istab.Remove(istab_to_delete);
                         db.SaveChanges();
 
-                        this.main_form.islog.DeleteData(this.menu_id, "ลบตารางข้อมูล(" + istab_to_delete.tabtyp + ") รหัส \"" + istab_to_delete.typcod + "\"", istab_to_delete.tabtyp + "|" + istab_to_delete.typcod, "istab", istab_to_delete.id).Save();
+                        this.main_form.islog.DeleteData(modcod, "ลบตารางข้อมูล(" + istab_to_delete.tabtyp + ") รหัส \"" + istab_to_delete.typcod + "\"", istab_to_delete.tabtyp + "|" + istab_to_delete.typcod, "istab", istab_to_delete.id).Save();
 
                         this.bl_istab.Remove(this.bl_istab.Where(i => i.id == istab_to_delete.id).First());
                         this.ResetControlState(FORM_MODE.READ_ITEM);

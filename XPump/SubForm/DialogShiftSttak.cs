@@ -230,7 +230,7 @@ namespace XPump.SubForm
 
                         db.SaveChanges();
 
-                        this.main_form.islog.EditData(this.form_shifttransaction.menu_id, "บันทึกปริมาณน้ำมันที่ตรวจวัดได้ รหัส \"" + sttak_to_update.ToViewModel(this.main_form.working_express_db).stkcod + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.form_shifttransaction.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsttak", sttak_to_update.id).Save();
+                        this.main_form.islog.EditData(FormShiftTransaction.modcod, "บันทึกปริมาณน้ำมันที่ตรวจวัดได้ รหัส \"" + sttak_to_update.ToViewModel(this.main_form.working_express_db).stkcod + "\" ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.form_shifttransaction.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsttak", sttak_to_update.id).Save();
                     }
 
                     this.DialogResult = DialogResult.OK;

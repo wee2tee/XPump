@@ -77,7 +77,7 @@ namespace XPump.SubForm
                     pricelist_to_update.unitpr = this.Value;
                     db.SaveChanges();
 
-                    this.main_form.islog.EditData(this.form_shifttransaction.menu_id, "แก้ไขราคาขายสินค้ารหัส \"" + stkcod + "\" (" + string.Format("{0:#,#0.00}", old_price) + " => " + string.Format("{0:#,#0.00}", pricelist_to_update.unitpr) + ") ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.form_shifttransaction.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "pricelist", this.pricelist_id).Save();
+                    this.main_form.islog.EditData(FormShiftTransaction.modcod, "แก้ไขราคาขายสินค้ารหัส \"" + stkcod + "\" (" + string.Format("{0:#,#0.00}", old_price) + " => " + string.Format("{0:#,#0.00}", pricelist_to_update.unitpr) + ") ในบันทึกรายการประจำผลัด \"" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.form_shifttransaction.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.form_shifttransaction.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.form_shifttransaction.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "pricelist", this.pricelist_id).Save();
 
                     this.DialogResult = DialogResult.OK;
                     this.Close();

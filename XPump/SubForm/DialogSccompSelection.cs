@@ -17,6 +17,7 @@ namespace XPump.SubForm
     public partial class DialogSccompSelection : Form
     {
         private MainForm main_form;
+        public const string modcod = "34";
         private List<SccompDbf> sccomp_list;
         private string initial_data_path;
         private BindingSource bs;

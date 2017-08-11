@@ -29,14 +29,34 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormIslog));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnAdd = new System.Windows.Forms.ToolStripButton();
+            this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnStop = new System.Windows.Forms.ToolStripButton();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnFirst = new System.Windows.Forms.ToolStripButton();
+            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
+            this.btnNext = new System.Windows.Forms.ToolStripButton();
+            this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnSearchByDate = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSearchByCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPrint = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnPrintAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrintCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnApprove = new System.Windows.Forms.ToolStripButton();
+            this.btnUnApprove = new System.Windows.Forms.ToolStripButton();
+            this.btnApproveMulti = new System.Windows.Forms.ToolStripButton();
+            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.dgv = new CC.XDatagrid();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_cretime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,26 +69,6 @@
             this.col_description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_islog = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnAdd = new System.Windows.Forms.ToolStripButton();
-            this.btnEdit = new System.Windows.Forms.ToolStripButton();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
-            this.btnStop = new System.Windows.Forms.ToolStripButton();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
-            this.btnFirst = new System.Windows.Forms.ToolStripButton();
-            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
-            this.btnNext = new System.Windows.Forms.ToolStripButton();
-            this.btnLast = new System.Windows.Forms.ToolStripButton();
-            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnSearchByDate = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnSearchByCondition = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPrint = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnPrintAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPrintCondition = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnApprove = new System.Windows.Forms.ToolStripButton();
-            this.btnUnApprove = new System.Windows.Forms.ToolStripButton();
-            this.btnApproveMulti = new System.Windows.Forms.ToolStripButton();
-            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -100,25 +100,174 @@
             this.btnRefresh});
             this.toolStrip1.Name = "toolStrip1";
             // 
+            // btnAdd
+            // 
+            resources.ApplyResources(this.btnAdd, "btnAdd");
+            this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAdd.Image = global::XPump.Properties.Resources.add;
+            this.btnAdd.Name = "btnAdd";
+            // 
+            // btnEdit
+            // 
+            resources.ApplyResources(this.btnEdit, "btnEdit");
+            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnEdit.Image = global::XPump.Properties.Resources.edit;
+            this.btnEdit.Name = "btnEdit";
+            // 
+            // btnDelete
+            // 
+            resources.ApplyResources(this.btnDelete, "btnDelete");
+            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // toolStripSeparator3
             // 
             resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
+            // 
+            // btnStop
+            // 
+            resources.ApplyResources(this.btnStop, "btnStop");
+            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnStop.Image = global::XPump.Properties.Resources.stop;
+            this.btnStop.Name = "btnStop";
+            // 
+            // btnSave
+            // 
+            resources.ApplyResources(this.btnSave, "btnSave");
+            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSave.Image = global::XPump.Properties.Resources.save;
+            this.btnSave.Name = "btnSave";
             // 
             // toolStripSeparator1
             // 
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             // 
+            // btnFirst
+            // 
+            resources.ApplyResources(this.btnFirst, "btnFirst");
+            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFirst.Image = global::XPump.Properties.Resources.first;
+            this.btnFirst.Name = "btnFirst";
+            // 
+            // btnPrevious
+            // 
+            resources.ApplyResources(this.btnPrevious, "btnPrevious");
+            this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
+            this.btnPrevious.Name = "btnPrevious";
+            // 
+            // btnNext
+            // 
+            resources.ApplyResources(this.btnNext, "btnNext");
+            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNext.Image = global::XPump.Properties.Resources.next;
+            this.btnNext.Name = "btnNext";
+            // 
+            // btnLast
+            // 
+            resources.ApplyResources(this.btnLast, "btnLast");
+            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnLast.Image = global::XPump.Properties.Resources.last;
+            this.btnLast.Name = "btnLast";
+            // 
+            // btnSearch
+            // 
+            resources.ApplyResources(this.btnSearch, "btnSearch");
+            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSearch.DropDownButtonWidth = 12;
+            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnSearchByDate,
+            this.btnSearchByCondition});
+            this.btnSearch.Image = global::XPump.Properties.Resources.search;
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
+            // 
+            // btnSearchByDate
+            // 
+            resources.ApplyResources(this.btnSearchByDate, "btnSearchByDate");
+            this.btnSearchByDate.Name = "btnSearchByDate";
+            this.btnSearchByDate.Click += new System.EventHandler(this.btnSearchByDate_Click);
+            // 
+            // btnSearchByCondition
+            // 
+            resources.ApplyResources(this.btnSearchByCondition, "btnSearchByCondition");
+            this.btnSearchByCondition.Name = "btnSearchByCondition";
+            this.btnSearchByCondition.Click += new System.EventHandler(this.btnSearchByCondition_Click);
+            // 
             // toolStripSeparator2
             // 
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             // 
+            // btnPrint
+            // 
+            resources.ApplyResources(this.btnPrint, "btnPrint");
+            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrint.DropDownButtonWidth = 12;
+            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnPrintAll,
+            this.btnPrintCondition});
+            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.ButtonClick += new System.EventHandler(this.btnPrint_ButtonClick);
+            // 
+            // btnPrintAll
+            // 
+            resources.ApplyResources(this.btnPrintAll, "btnPrintAll");
+            this.btnPrintAll.Name = "btnPrintAll";
+            this.btnPrintAll.Click += new System.EventHandler(this.btnPrintAll_Click);
+            // 
+            // btnPrintCondition
+            // 
+            resources.ApplyResources(this.btnPrintCondition, "btnPrintCondition");
+            this.btnPrintCondition.Name = "btnPrintCondition";
+            this.btnPrintCondition.Click += new System.EventHandler(this.btnPrintCondition_Click);
+            // 
             // toolStripSeparator4
             // 
             resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.Name = "toolStripSeparator4";
+            // 
+            // btnItem
+            // 
+            resources.ApplyResources(this.btnItem, "btnItem");
+            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnItem.Image = global::XPump.Properties.Resources.item;
+            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.btnItem.Name = "btnItem";
+            // 
+            // btnApprove
+            // 
+            resources.ApplyResources(this.btnApprove, "btnApprove");
+            this.btnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnApprove.Image = global::XPump.Properties.Resources.approve;
+            this.btnApprove.Name = "btnApprove";
+            // 
+            // btnUnApprove
+            // 
+            resources.ApplyResources(this.btnUnApprove, "btnUnApprove");
+            this.btnUnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnUnApprove.Image = global::XPump.Properties.Resources.unapprove;
+            this.btnUnApprove.Name = "btnUnApprove";
+            // 
+            // btnApproveMulti
+            // 
+            resources.ApplyResources(this.btnApproveMulti, "btnApproveMulti");
+            this.btnApproveMulti.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnApproveMulti.Image = global::XPump.Properties.Resources.approve_multiple;
+            this.btnApproveMulti.Name = "btnApproveMulti";
+            // 
+            // btnRefresh
+            // 
+            resources.ApplyResources(this.btnRefresh, "btnRefresh");
+            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // dgv
             // 
@@ -128,14 +277,14 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
@@ -149,14 +298,14 @@
             this.col_description,
             this.col_username,
             this.col_islog});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
             this.dgv.FillEmptyRow = false;
@@ -183,9 +332,9 @@
             // col_cretime
             // 
             this.col_cretime.DataPropertyName = "cretime";
-            dataGridViewCellStyle5.Format = "dd/MM/yy HH:mm:ss";
-            dataGridViewCellStyle5.NullValue = null;
-            this.col_cretime.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Format = "dd/MM/yy HH:mm:ss";
+            dataGridViewCellStyle2.NullValue = null;
+            this.col_cretime.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.col_cretime, "col_cretime");
             this.col_cretime.Name = "col_cretime";
             this.col_cretime.ReadOnly = true;
@@ -254,155 +403,6 @@
             this.col_islog.Name = "col_islog";
             this.col_islog.ReadOnly = true;
             // 
-            // btnAdd
-            // 
-            resources.ApplyResources(this.btnAdd, "btnAdd");
-            this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnAdd.Image = global::XPump.Properties.Resources.add;
-            this.btnAdd.Name = "btnAdd";
-            // 
-            // btnEdit
-            // 
-            resources.ApplyResources(this.btnEdit, "btnEdit");
-            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnEdit.Image = global::XPump.Properties.Resources.edit;
-            this.btnEdit.Name = "btnEdit";
-            // 
-            // btnDelete
-            // 
-            resources.ApplyResources(this.btnDelete, "btnDelete");
-            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnStop
-            // 
-            resources.ApplyResources(this.btnStop, "btnStop");
-            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnStop.Image = global::XPump.Properties.Resources.stop;
-            this.btnStop.Name = "btnStop";
-            // 
-            // btnSave
-            // 
-            resources.ApplyResources(this.btnSave, "btnSave");
-            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSave.Image = global::XPump.Properties.Resources.save;
-            this.btnSave.Name = "btnSave";
-            // 
-            // btnFirst
-            // 
-            resources.ApplyResources(this.btnFirst, "btnFirst");
-            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFirst.Image = global::XPump.Properties.Resources.first;
-            this.btnFirst.Name = "btnFirst";
-            // 
-            // btnPrevious
-            // 
-            resources.ApplyResources(this.btnPrevious, "btnPrevious");
-            this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
-            this.btnPrevious.Name = "btnPrevious";
-            // 
-            // btnNext
-            // 
-            resources.ApplyResources(this.btnNext, "btnNext");
-            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnNext.Image = global::XPump.Properties.Resources.next;
-            this.btnNext.Name = "btnNext";
-            // 
-            // btnLast
-            // 
-            resources.ApplyResources(this.btnLast, "btnLast");
-            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnLast.Image = global::XPump.Properties.Resources.last;
-            this.btnLast.Name = "btnLast";
-            // 
-            // btnSearch
-            // 
-            resources.ApplyResources(this.btnSearch, "btnSearch");
-            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSearch.DropDownButtonWidth = 12;
-            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnSearchByDate,
-            this.btnSearchByCondition});
-            this.btnSearch.Image = global::XPump.Properties.Resources.search;
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
-            // 
-            // btnSearchByDate
-            // 
-            resources.ApplyResources(this.btnSearchByDate, "btnSearchByDate");
-            this.btnSearchByDate.Name = "btnSearchByDate";
-            this.btnSearchByDate.Click += new System.EventHandler(this.btnSearchByDate_Click);
-            // 
-            // btnSearchByCondition
-            // 
-            resources.ApplyResources(this.btnSearchByCondition, "btnSearchByCondition");
-            this.btnSearchByCondition.Name = "btnSearchByCondition";
-            this.btnSearchByCondition.Click += new System.EventHandler(this.btnSearchByCondition_Click);
-            // 
-            // btnPrint
-            // 
-            resources.ApplyResources(this.btnPrint, "btnPrint");
-            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrint.DropDownButtonWidth = 12;
-            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnPrintAll,
-            this.btnPrintCondition});
-            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.ButtonClick += new System.EventHandler(this.btnPrint_ButtonClick);
-            // 
-            // btnPrintAll
-            // 
-            resources.ApplyResources(this.btnPrintAll, "btnPrintAll");
-            this.btnPrintAll.Name = "btnPrintAll";
-            this.btnPrintAll.Click += new System.EventHandler(this.btnPrintAll_Click);
-            // 
-            // btnPrintCondition
-            // 
-            resources.ApplyResources(this.btnPrintCondition, "btnPrintCondition");
-            this.btnPrintCondition.Name = "btnPrintCondition";
-            this.btnPrintCondition.Click += new System.EventHandler(this.btnPrintCondition_Click);
-            // 
-            // btnItem
-            // 
-            resources.ApplyResources(this.btnItem, "btnItem");
-            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnItem.Image = global::XPump.Properties.Resources.item;
-            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.btnItem.Name = "btnItem";
-            // 
-            // btnApprove
-            // 
-            resources.ApplyResources(this.btnApprove, "btnApprove");
-            this.btnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnApprove.Image = global::XPump.Properties.Resources.approve;
-            this.btnApprove.Name = "btnApprove";
-            // 
-            // btnUnApprove
-            // 
-            resources.ApplyResources(this.btnUnApprove, "btnUnApprove");
-            this.btnUnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnUnApprove.Image = global::XPump.Properties.Resources.unapprove;
-            this.btnUnApprove.Name = "btnUnApprove";
-            // 
-            // btnApproveMulti
-            // 
-            resources.ApplyResources(this.btnApproveMulti, "btnApproveMulti");
-            this.btnApproveMulti.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnApproveMulti.Image = global::XPump.Properties.Resources.approve_multiple;
-            this.btnApproveMulti.Name = "btnApproveMulti";
-            // 
-            // btnRefresh
-            // 
-            resources.ApplyResources(this.btnRefresh, "btnRefresh");
-            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // FormIslog
             // 
             resources.ApplyResources(this, "$this");
@@ -412,6 +412,7 @@
             this.KeyPreview = true;
             this.Name = "FormIslog";
             this.ShowIcon = false;
+            this.Tag = "322";
             this.Load += new System.EventHandler(this.FormIslog_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

@@ -292,6 +292,7 @@ namespace XPump.SubForm
                     setting_to_update.chgtime = DateTime.Now;
 
                     db.SaveChanges();
+                    this.main_form.islog.ChangeSettings().Save();
                     this.settings = GetSettings(this.main_form.working_express_db);
                     this.FillForm();
 

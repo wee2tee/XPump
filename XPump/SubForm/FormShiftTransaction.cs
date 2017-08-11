@@ -27,13 +27,6 @@ namespace XPump.SubForm
         private BindingSource bs_sales;
         private BindingSource bs_sttak;
         private FORM_MODE form_mode;
-        public string menu_id
-        {
-            get
-            {
-                return MenuIdClass.FormShiftTransaction;
-            }
-        }
         //private List<salessummaryVM> reportAData;
         //private List<salessummaryVM> reportBData;
         //private List<salessummaryVM> reportCData;
@@ -47,7 +40,6 @@ namespace XPump.SubForm
 
         private void FormShiftTransaction_Load(object sender, EventArgs e)
         {
-            //this.menu_id = this.GetType().Name;
             this.BackColor = MiscResource.WIND_BG;
 
             this.bs_sales = new BindingSource();
@@ -403,7 +395,7 @@ namespace XPump.SubForm
                         db.shiftsales.Remove(shiftsales_to_delete);
                         db.SaveChanges();
 
-                        this.main_form.islog.AddData(this.menu_id, "ลบบันทึกรายการประจำผลัด \"" + shift_name + "\" วันที่ " + shiftsales_to_delete.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_delete.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shift_name, "shiftsales", shiftsales_to_delete.id).Save();
+                        this.main_form.islog.AddData(modcod, "ลบบันทึกรายการประจำผลัด \"" + shift_name + "\" วันที่ " + shiftsales_to_delete.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_delete.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shift_name, "shiftsales", shiftsales_to_delete.id).Save();
 
                         this.btnRefresh.PerformClick();
                         this.ResetControlState();
@@ -550,7 +542,7 @@ namespace XPump.SubForm
 
                         db.SaveChanges();
 
-                        this.main_form.islog.AddData(this.menu_id, "เพิ่มบันทึกรายการประจำผลัด \"" + this.tmp_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.tmp_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.tmp_shiftsales.id).Save();
+                        this.main_form.islog.AddData(modcod, "เพิ่มบันทึกรายการประจำผลัด \"" + this.tmp_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + this.tmp_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), this.tmp_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.tmp_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.tmp_shiftsales.id).Save();
 
                         this.curr_shiftsales = this.GetShiftSales(this.tmp_shiftsales.id);
                         this.FillForm();
@@ -925,7 +917,7 @@ namespace XPump.SubForm
                                         db.SaveChanges();
                                     }
                                 }
-                                this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
+                                this.main_form.islog.Print(modcod, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
                             };
                             xp.Show();
                         };
@@ -961,7 +953,7 @@ namespace XPump.SubForm
                                         db.SaveChanges();
                                     }
                                 }
-                                this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
+                                this.main_form.islog.Print(modcod, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
                             }
                         };
                         wrk_printer.RunWorkerCompleted += delegate
@@ -990,7 +982,7 @@ namespace XPump.SubForm
                     xp.MdiParent = this.main_form;
                     xp._OnOutputToPrinter += delegate
                     {
-                        this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
+                        this.main_form.islog.Print(modcod, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
                     };
                     xp.Show();
                 }
@@ -1016,7 +1008,7 @@ namespace XPump.SubForm
                                 db.SaveChanges();
                             }
                         }
-                        this.main_form.islog.Print(this.menu_id, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
+                        this.main_form.islog.Print(modcod, "พิมพ์รายงานส่วน ก. ของวันที่ " + this.curr_shiftsales.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) + " (" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name + ") ออกทางเครื่องพิมพ์", this.curr_shiftsales.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + this.curr_shiftsales.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", this.curr_shiftsales.id).Save();
 
                         pd.Document.Print();
                     }
@@ -1995,7 +1987,7 @@ namespace XPump.SubForm
 
                     db.SaveChanges();
 
-                    this.main_form.islog.Approve(this.menu_id, "รับรองรายการ บันทึกรายการประจำผลัด \"" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + shiftsales_to_appr.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_appr.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", shiftsales_to_appr.id).Save(approved_user);
+                    this.main_form.islog.Approve(modcod, "รับรองรายการ บันทึกรายการประจำผลัด \"" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + shiftsales_to_appr.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_appr.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", shiftsales_to_appr.id).Save(approved_user);
 
                     this.btnRefresh.PerformClick();
                     this.ResetApproveBtn();
@@ -2037,7 +2029,7 @@ namespace XPump.SubForm
 
                     db.SaveChanges();
 
-                    this.main_form.islog.UnApprove(this.menu_id, "ยกเลิกการรับรองรายการ บันทึกรายการประจำผลัด \"" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + shiftsales_to_appr.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_appr.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", shiftsales_to_appr.id).Save(unapproved_user);
+                    this.main_form.islog.UnApprove(modcod, "ยกเลิกการรับรองรายการ บันทึกรายการประจำผลัด \"" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name + "\" วันที่ " + shiftsales_to_appr.saldat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")), shiftsales_to_appr.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("th-TH")) + "|" + shiftsales_to_appr.ToViewModel(this.main_form.working_express_db).shift_name, "shiftsales", shiftsales_to_appr.id).Save(unapproved_user);
 
                     this.btnRefresh.PerformClick();
                     this.ResetApproveBtn();

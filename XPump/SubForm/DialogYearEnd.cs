@@ -16,16 +16,17 @@ namespace XPump.SubForm
 {
     public partial class DialogYearEnd : Form
     {
+        public const string modcod = "33";
         private MainForm main_form;
         private settings settings;
         private LocalDbConfig dbConfig;
-        public string menu_id
-        {
-            get
-            {
-                return MenuIdClass.YearEnd;
-            }
-        }
+        //public string menu_id
+        //{
+        //    get
+        //    {
+        //        return MenuIdClass.YearEnd;
+        //    }
+        //}
 
         public DialogYearEnd(MainForm main_form)
         {

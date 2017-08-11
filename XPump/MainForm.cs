@@ -182,6 +182,7 @@ namespace XPump
             if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShift)).FirstOrDefault() != null)
             {
                 this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShift)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShift)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
                 return;
             }
             var sfac = this.GetSubFormAccessControl(FormShift.modcod);
@@ -197,6 +198,7 @@ namespace XPump
             if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankConfig)).FirstOrDefault() != null)
             {
                 this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankConfig)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormTankConfig)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
                 return;
             }
 
@@ -232,6 +234,7 @@ namespace XPump
             if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShiftTransaction)).FirstOrDefault() != null)
             {
                 this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShiftTransaction)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShiftTransaction)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
                 return;
             }
 
@@ -252,9 +255,87 @@ namespace XPump
             setting.ShowDialog();
         }
 
+        private void mnuDailyClose_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormDailyClose)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormDailyClose)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormDailyClose)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+                return;
+            }
+
+            var scacclv = this.GetSubFormAccessControl(FormDailyClose.modcod);
+
+            FormDailyClose daily = new FormDailyClose(this, scacclv);
+            daily.MdiParent = this;
+            daily.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            daily.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = daily, docPrefix = string.Empty });
+        }
+
+        private void mnuSecure_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void mnuBackup_Click(object sender, EventArgs e)
+        {
+            XMessageBox.Show(this.GetMessage("0010"), "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+
+            DialogBackupData bck = new DialogBackupData(this);
+            bck.ShowDialog();
+
+        }
+
+        private void mnuRestore_Click(object sender, EventArgs e)
+        {
+            DialogRestoreData restore = new DialogRestoreData(this);
+            restore.ShowDialog();
+        }
+
+        private void mnuUsersFile_Click(object sender, EventArgs e)
+        {
+            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+                return;
+            }
+
+            FormSecure sec = new FormSecure(this);
+            sec.MdiParent = this;
+            sec.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            sec.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = sec, docPrefix = string.Empty });
+        }
+
+        private void mnuEventLog_Click(object sender, EventArgs e)
+        {
+            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+                return;
+            }
+
+            scacclvVM scacclv = this.GetSubFormAccessControl(FormIslog.modcod);
+
+            FormIslog islog = new FormIslog(this, scacclv);
+            islog.MdiParent = this;
+            islog.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            islog.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = islog, docPrefix = string.Empty });
+        }
+
+        private void mnuYearEnd_Click(object sender, EventArgs e)
+        {
+            DialogYearEnd yearend = new DialogYearEnd(this);
+            yearend.ShowDialog();
+        }
+
         private void mnuChangeCompany_Click(object sender, EventArgs e)
         {
-            if(this.opened_child_form.Count > 0)
+            if (this.opened_child_form.Count > 0)
             {
                 if (XMessageBox.Show(this.GetMessage("0999"), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                     return;
@@ -281,7 +362,7 @@ namespace XPump
             DialogSccompSelection sel = new DialogSccompSelection(this, sccomp, string.Empty);
             if (sel.ShowDialog() == DialogResult.OK)
             {
-                if(this.working_express_db == null)
+                if (this.working_express_db == null)
                 {
                     this.working_express_db = sel.selected_sccomp;
                     this.islog.SelectCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
@@ -298,7 +379,7 @@ namespace XPump
             }
             else
             {
-                if(this.working_express_db == null)
+                if (this.working_express_db == null)
                 {
                     this.Close();
                 }
@@ -340,49 +421,6 @@ namespace XPump
 
             }
             this.SetStatusLabelText(null, local_db.ConfigValue.dbname, null);
-        }
-
-        private void mnuDailyClose_Click(object sender, EventArgs e)
-        {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormDailyClose)).FirstOrDefault() != null)
-            {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormDailyClose)).First().form.Activate();
-                return;
-            }
-
-            var scacclv = this.GetSubFormAccessControl(FormDailyClose.modcod);
-
-            FormDailyClose daily = new FormDailyClose(this, scacclv);
-            daily.MdiParent = this;
-            daily.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-            daily.Show();
-            this.opened_child_form.Add(new ChildFormDetail() { form = daily, docPrefix = string.Empty });
-        }
-
-        private void mnuSecure_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void mnuBackup_Click(object sender, EventArgs e)
-        {
-            XMessageBox.Show(this.GetMessage("0010"), "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
-
-            DialogBackupData bck = new DialogBackupData(this);
-            bck.ShowDialog();
-
-        }
-
-        private void mnuRestore_Click(object sender, EventArgs e)
-        {
-            DialogRestoreData restore = new DialogRestoreData(this);
-            restore.ShowDialog();
-        }
-
-        private void mnuYearEnd_Click(object sender, EventArgs e)
-        {
-            DialogYearEnd yearend = new DialogYearEnd(this);
-            yearend.ShowDialog();
         }
 
         public void SetStatusLabelText(string express_db_path, string mysql_db_name, string user_name)
@@ -548,38 +586,6 @@ namespace XPump
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void mnuUsersFile_Click(object sender, EventArgs e)
-        {
-            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).FirstOrDefault() != null)
-            {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSecure)).First().form.Activate();
-                return;
-            }
-
-            FormSecure sec = new FormSecure(this);
-            sec.MdiParent = this;
-            sec.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-            sec.Show();
-            this.opened_child_form.Add(new ChildFormDetail() { form = sec, docPrefix = string.Empty });
-        }
-
-        private void eventLoggingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).FirstOrDefault() != null)
-            {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).First().form.Activate();
-                if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).First().form.WindowState == FormWindowState.Minimized)
-                    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIslog)).First().form.WindowState = FormWindowState.Normal;
-                return;
-            }
-
-            FormIslog islog = new FormIslog(this);
-            islog.MdiParent = this;
-            islog.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-            islog.Show();
-            this.opened_child_form.Add(new ChildFormDetail() { form = islog, docPrefix = string.Empty });
         }
     }
 

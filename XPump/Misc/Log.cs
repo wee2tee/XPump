@@ -385,7 +385,7 @@ namespace XPump.Misc
             {
                 Code = "017",
                 Description = string.Format("เปลี่ยนแปลงการตั้งค่าระบบสำเร็จ"),
-                Module = MenuIdClass.Settings
+                Module = DialogSettings.modcod
             };
             return l;
         }
@@ -396,7 +396,7 @@ namespace XPump.Misc
             {
                 Code = "018",
                 Description = string.Format("เปลี่ยนไปใช้ข้อมูล \"{0}\" [{1}]", absolute_data_path.Replace("\\", "\\\\"), company_name),
-                Module = MenuIdClass.ChangeCompany
+                Module = DialogSccompSelection.modcod
             };
             return l;
         }
@@ -407,7 +407,7 @@ namespace XPump.Misc
             {
                 Code = "019",
                 Description = "สำรองฐานข้อมูล \"" + xpump_db_name + "\" ไปเก็บไว้ที่ \"" + backup_file_path.Replace("\\", "\\\\") + "\"",
-                Module = MenuIdClass.Backup
+                Module = DialogBackupData.modcod
             };
             return l;
         }
@@ -418,7 +418,7 @@ namespace XPump.Misc
             {
                 Code = "020",
                 Description = "นำข้อมูลสำรองจาก \"" + backup_file_path.Replace("\\", "\\\\") + "\" มาลงในฐานข้อมูล \"" + xpump_db_name + "\"",
-                Module = MenuIdClass.Restore
+                Module = DialogRestoreData.modcod
             };
             return l;
         }
@@ -429,7 +429,7 @@ namespace XPump.Misc
             {
                 Code = "030",
                 Description = "ปิดประมวลผลรอบบัญชี " + prd_start_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("en-US")) + " - " + prd_end_date.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("en-US")) + " สำหรับฐานข้อมูล " + xpump_db_name,
-                Module = MenuIdClass.YearEnd
+                Module = DialogYearEnd.modcod
             };
             return l;
         }
