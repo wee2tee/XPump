@@ -572,7 +572,7 @@ namespace XPump.SubForm
                 DateTime start_date = isprd.beg1.HasValue ? isprd.beg1.Value : DateTime.Parse(DateTime.Now.ToString("yyyy", CultureInfo.GetCultureInfo("en-US")) + "-01-01", CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None);
                 DateTime end_date = isprd.end12.HasValue ? isprd.end12.Value : DateTime.Parse(DateTime.Now.ToString("yyyy", CultureInfo.GetCultureInfo("en-US")) + "-01-01", CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None).AddMonths(11).AddDays(30);
 
-                cmd.CommandText = "INSERT INTO `" + local_config.db_prefix + "_" + local_config.dbname + "`.`settings` (`orgname`,`prdstart`,`prdend`,`shiftprintmet`,`shiftauthlev`,`dayprintmet`,`dayauthlev`,`chgby`,`chgtime`) VALUES ('','" + start_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("en-US")) + "','" + end_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("en-US")) + "','0','','0','',NULL,NULL)";
+                cmd.CommandText = "INSERT INTO `" + local_config.db_prefix + "_" + local_config.dbname + "`.`settings` (`orgname`,`prdstart`,`prdend`,`shiftprintmet`,`shiftauthlev`,`dayprintmet`,`dayauthlev`,`chgby`,`chgtime`) VALUES ('','" + start_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("en-US")) + "','" + end_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("en-US")) + "','0',0,'0',0,NULL,NULL)";
                 cmd.ExecuteNonQuery();
 
                 create_result.is_success = true;

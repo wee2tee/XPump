@@ -120,6 +120,12 @@
     <Compile Include="XNumTextEdit.Designer.cs">
       <DependentUpon>XNumTextEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="XTextEditMasked.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XTextEditMasked.Designer.cs">
+      <DependentUpon>XTextEditMasked.cs</DependentUpon>
+    </Compile>
     <Compile Include="_XPrintPreviewDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="XNumTextEdit.resx">
       <DependentUpon>XNumTextEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XTextEditMasked.resx">
+      <DependentUpon>XTextEditMasked.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="_XPrintPreviewDialog.resx">
       <DependentUpon>_XPrintPreviewDialog.cs</DependentUpon>

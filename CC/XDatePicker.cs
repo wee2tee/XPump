@@ -25,6 +25,7 @@ namespace CC
                 //this.selected_date = value;
 
                 this.txtDate.Text = value.HasValue ? value.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) : "  /  /    ";
+                this.label1.Text = value.HasValue ? value.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("th-TH")) : "  /  /    ";
 
                 if (this.is_read_only)
                 {
@@ -185,16 +186,14 @@ namespace CC
             if (DateTime.TryParse(((MaskedTextBox)sender).Text, CultureInfo.GetCultureInfo("th-TH"), DateTimeStyles.None, out d))
             {
                 this.selected_date = d;
+                this.label1.Text = ((MaskedTextBox)sender).Text;
+                if (this._SelectedDateChanged != null)
+                    this._SelectedDateChanged(this, e);
             }
             else
             {
                 this.selected_date = null;
             }
-
-            this.label1.Text = ((MaskedTextBox)sender).Text;
-
-            if (this._SelectedDateChanged != null)
-                this._SelectedDateChanged(this, e);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
