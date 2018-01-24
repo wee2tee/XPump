@@ -1038,14 +1038,18 @@ namespace XPump.Model
             {
                 string path_txt = string.Empty;
 
-                if(this.path.Substring(1, 2) == @":\" || this.path.StartsWith(@"\\"))
+                string p = this.path;
+                if (this.path.Contains("("))
+                    p = this.path.Substring(0, this.path.IndexOf("("));
+
+                if(p.Contains(@":\") || p.StartsWith(@"\\"))
                 {
-                    path_txt = this.path;
+                    path_txt = p.Trim();
                 }
                 else
                 {
                     DirectoryInfo dir_info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-                    string absolute_path = dir_info.Parent.FullName + @"\" + this.path;
+                    string absolute_path = dir_info.Parent.FullName + @"\" + p.Trim();
                     path_txt = absolute_path;
                 }
 

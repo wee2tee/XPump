@@ -48,14 +48,14 @@
             this.btnFirst = new System.Windows.Forms.ToolStripButton();
             this.btnPrevious = new System.Windows.Forms.ToolStripButton();
             this.btnNext = new System.Windows.Forms.ToolStripButton();
+            this.btnPrint = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnPrintB = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrintC = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLast = new System.Windows.Forms.ToolStripButton();
             this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
             this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
             this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPrint = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnPrintB = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPrintC = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
             this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,10 +113,10 @@
             this.btnFirst,
             this.btnPrevious,
             this.btnNext,
-            this.btnPrint,
             this.btnLast,
             this.btnSearch,
             this.toolStripSeparator2,
+            this.btnPrint,
             this.toolStripSeparator4,
             this.btnItem,
             this.btnApprove,
@@ -227,6 +227,34 @@
             this.btnNext.Text = "ข้อมูลถัดไป <PageDown>";
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
+            // btnPrint
+            // 
+            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnPrintB,
+            this.btnPrintC});
+            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
+            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnPrint.Size = new System.Drawing.Size(51, 40);
+            this.btnPrint.Text = "พิมพ์รายงานส่วน ข.";
+            // 
+            // btnPrintB
+            // 
+            this.btnPrintB.Name = "btnPrintB";
+            this.btnPrintB.Size = new System.Drawing.Size(217, 22);
+            this.btnPrintB.Text = "พิมพ์รายงานส่วน ข. <Alt + P>";
+            this.btnPrintB.Click += new System.EventHandler(this.btnPrintB_Click);
+            // 
+            // btnPrintC
+            // 
+            this.btnPrintC.Name = "btnPrintC";
+            this.btnPrintC.Size = new System.Drawing.Size(217, 22);
+            this.btnPrintC.Text = "พิมพ์รายงานส่วน ค. <Ctrl + P>";
+            this.btnPrintC.Click += new System.EventHandler(this.btnPrintC_Click);
+            // 
             // btnLast
             // 
             this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -272,34 +300,6 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnPrintB,
-            this.btnPrintC});
-            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
-            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnPrint.Size = new System.Drawing.Size(51, 40);
-            this.btnPrint.Text = "พิมพ์รายงานส่วน ข.";
-            // 
-            // btnPrintB
-            // 
-            this.btnPrintB.Name = "btnPrintB";
-            this.btnPrintB.Size = new System.Drawing.Size(217, 22);
-            this.btnPrintB.Text = "พิมพ์รายงานส่วน ข. <Alt + P>";
-            this.btnPrintB.Click += new System.EventHandler(this.btnPrintB_Click);
-            // 
-            // btnPrintC
-            // 
-            this.btnPrintC.Name = "btnPrintC";
-            this.btnPrintC.Size = new System.Drawing.Size(217, 22);
-            this.btnPrintC.Text = "พิมพ์รายงานส่วน ค. <Ctrl + P>";
-            this.btnPrintC.Click += new System.EventHandler(this.btnPrintC_Click);
             // 
             // toolStripSeparator4
             // 

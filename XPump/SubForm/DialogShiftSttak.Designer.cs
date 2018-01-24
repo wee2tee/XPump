@@ -66,7 +66,9 @@
             // inline_qty
             // 
             this.inline_qty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inline_qty._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.inline_qty._DecimalDigit = 2;
+            this.inline_qty._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
             this.inline_qty._MaximumValue = new decimal(new int[] {
             1874919423,
             2328306,

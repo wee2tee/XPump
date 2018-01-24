@@ -403,6 +403,13 @@ namespace XPump.SubForm
                     if (this.tmp_tanksetup == null)
                         return;
 
+                    var existing = db.tanksetup.Where(t => t.startdate.CompareTo(this.tmp_tanksetup.startdate.Date) == 0).FirstOrDefault();
+                    if(existing != null)
+                    {
+                        XMessageBox.Show("วันที่เริ่มใช้ต้องไม่ซ้ำกับที่มีอยู่แล้ว", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        return;
+                    }
+
                     var last_sale = db.salessummary.OrderByDescending(s => s.saldat).FirstOrDefault();
                     if (last_sale != null && last_sale.saldat.CompareTo(this.tmp_tanksetup.startdate) >= 0)
                     {
@@ -1262,7 +1269,7 @@ namespace XPump.SubForm
                 if (loc_selected != null)
                 {
                     this.tmp_sectionVM.section.loccod = loc_selected.loccod;
-                    this.tmp_sectionVM.section.name = loc_selected.typdes;
+                    this.tmp_sectionVM.section.name = loc_selected.typdes.SubStringX(0, 20);
                     return;
                 }
                 else
@@ -1340,7 +1347,7 @@ namespace XPump.SubForm
             {
                 if (this.tmp_sectionVM != null)
                 {
-                    this.tmp_sectionVM.section.name = st.selected_row.Cells[0].Value.ToString();
+                    this.tmp_sectionVM.section.name = st.selected_row.Cells[0].Value.ToString().SubStringX(0, 20);
                     this.tmp_sectionVM.section.loccod = st.selected_row.Cells[1].Value.ToString();
                     this.list_sectionVM.ResetItem(this.dgvSection.CurrentCell.RowIndex);
                 }

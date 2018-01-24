@@ -39,10 +39,14 @@ namespace XPump.SubForm
                 {
                     this.btnEdit.Enabled = false;
                 }
+                else
+                {
+                    this.btnEdit.Enabled = true;
+                }
             }
             else
             {
-                this.btnEdit.Enabled = false;
+                this.btnEdit.Enabled = true;
             }
 
             if (this.shiftsales == null)

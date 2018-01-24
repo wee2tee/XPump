@@ -648,6 +648,9 @@
     <EmbeddedResource Include="SubForm\FormSttak.resx">
       <DependentUpon>FormSttak.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormTankConfig.en-US.resx">
+      <DependentUpon>FormTankConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormTankConfig.resx">
       <DependentUpon>FormTankConfig.cs</DependentUpon>
     </EmbeddedResource>

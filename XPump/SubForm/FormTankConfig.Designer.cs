@@ -156,148 +156,148 @@
             // 
             // btnAdd
             // 
+            resources.ApplyResources(this.btnAdd, "btnAdd");
             this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnAdd.Image = global::XPump.Properties.Resources.add;
-            resources.ApplyResources(this.btnAdd, "btnAdd");
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnEdit
             // 
+            resources.ApplyResources(this.btnEdit, "btnEdit");
             this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnEdit.Image = global::XPump.Properties.Resources.edit;
-            resources.ApplyResources(this.btnEdit, "btnEdit");
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
+            resources.ApplyResources(this.btnDelete, "btnDelete");
             this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnDelete.Image = global::XPump.Properties.Resources.trash;
-            resources.ApplyResources(this.btnDelete, "btnDelete");
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // toolStripSeparator3
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
             resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
             // 
             // btnStop
             // 
+            resources.ApplyResources(this.btnStop, "btnStop");
             this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnStop.Image = global::XPump.Properties.Resources.stop;
-            resources.ApplyResources(this.btnStop, "btnStop");
             this.btnStop.Name = "btnStop";
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnSave
             // 
+            resources.ApplyResources(this.btnSave, "btnSave");
             this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnSave.Image = global::XPump.Properties.Resources.save;
-            resources.ApplyResources(this.btnSave, "btnSave");
             this.btnSave.Name = "btnSave";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
             // 
             // btnFirst
             // 
+            resources.ApplyResources(this.btnFirst, "btnFirst");
             this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnFirst.Image = global::XPump.Properties.Resources.first;
-            resources.ApplyResources(this.btnFirst, "btnFirst");
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
             // 
             // btnPrevious
             // 
+            resources.ApplyResources(this.btnPrevious, "btnPrevious");
             this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
-            resources.ApplyResources(this.btnPrevious, "btnPrevious");
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // btnNext
             // 
+            resources.ApplyResources(this.btnNext, "btnNext");
             this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnNext.Image = global::XPump.Properties.Resources.next;
-            resources.ApplyResources(this.btnNext, "btnNext");
             this.btnNext.Name = "btnNext";
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnLast
             // 
+            resources.ApplyResources(this.btnLast, "btnLast");
             this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnLast.Image = global::XPump.Properties.Resources.last;
-            resources.ApplyResources(this.btnLast, "btnLast");
             this.btnLast.Name = "btnLast";
             this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
             // 
             // toolStripSeparator2
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
             // 
             // btnSearch
             // 
+            resources.ApplyResources(this.btnSearch, "btnSearch");
             this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnSearch.DropDownButtonWidth = 15;
             this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnInquiryAll,
             this.btnInquiryRest});
             this.btnSearch.Image = global::XPump.Properties.Resources.search;
-            resources.ApplyResources(this.btnSearch, "btnSearch");
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
             // 
             // btnInquiryAll
             // 
-            this.btnInquiryAll.Name = "btnInquiryAll";
             resources.ApplyResources(this.btnInquiryAll, "btnInquiryAll");
+            this.btnInquiryAll.Name = "btnInquiryAll";
             this.btnInquiryAll.Click += new System.EventHandler(this.btnInquiryAll_Click);
             // 
             // btnInquiryRest
             // 
-            this.btnInquiryRest.Name = "btnInquiryRest";
             resources.ApplyResources(this.btnInquiryRest, "btnInquiryRest");
+            this.btnInquiryRest.Name = "btnInquiryRest";
             this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
             // 
             // toolStripSeparator4
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
             resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
             // 
             // btnItem
             // 
+            resources.ApplyResources(this.btnItem, "btnItem");
             this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnTank,
             this.btnSection});
             this.btnItem.Image = global::XPump.Properties.Resources.item;
-            resources.ApplyResources(this.btnItem, "btnItem");
             this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.btnItem.Name = "btnItem";
             // 
             // btnTank
             // 
-            this.btnTank.Name = "btnTank";
             resources.ApplyResources(this.btnTank, "btnTank");
+            this.btnTank.Name = "btnTank";
             this.btnTank.Click += new System.EventHandler(this.btnTank_Click);
             // 
             // btnSection
             // 
-            this.btnSection.Name = "btnSection";
             resources.ApplyResources(this.btnSection, "btnSection");
+            this.btnSection.Name = "btnSection";
             this.btnSection.Click += new System.EventHandler(this.btnSection_Click);
             // 
             // btnRefresh
             // 
+            resources.ApplyResources(this.btnRefresh, "btnRefresh");
             this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
-            resources.ApplyResources(this.btnRefresh, "btnRefresh");
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -328,11 +328,13 @@
             // 
             // splitContainer1.Panel1
             // 
+            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
             this.splitContainer1.Panel1.Controls.Add(this.lblTank);
             // 
             // splitContainer1.Panel2
             // 
+            resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Panel2.Controls.Add(this.lblSection);
             // 
@@ -354,14 +356,15 @@
             this.inline_tankname._ReadOnly = false;
             this.inline_tankname._Text = "";
             this.inline_tankname._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            resources.ApplyResources(this.inline_tankname, "inline_tankname");
             this.inline_tankname.BackColor = System.Drawing.Color.White;
             this.inline_tankname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.inline_tankname, "inline_tankname");
             this.inline_tankname.Name = "inline_tankname";
             this.inline_tankname._TextChanged += new System.EventHandler(this.inline_tankname__TextChanged);
             // 
             // dgvTank
             // 
+            resources.ApplyResources(this.dgvTank, "dgvTank");
             this.dgvTank.AllowSortByColumnHeaderClicked = false;
             this.dgvTank.AllowUserToAddRows = false;
             this.dgvTank.AllowUserToDeleteRows = false;
@@ -369,13 +372,12 @@
             this.dgvTank.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvTank.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            resources.ApplyResources(this.dgvTank, "dgvTank");
             this.dgvTank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvTank.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_tank_id,
@@ -580,10 +582,10 @@
             this.inlineStkcod._Text = "";
             this.inlineStkcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.inlineStkcod._UseImage = true;
+            resources.ApplyResources(this.inlineStkcod, "inlineStkcod");
             this.inlineStkcod.BackColor = System.Drawing.Color.White;
             this.inlineStkcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inlineStkcod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            resources.ApplyResources(this.inlineStkcod, "inlineStkcod");
             this.inlineStkcod.Name = "inlineStkcod";
             this.inlineStkcod._ButtonClick += new System.EventHandler(this.inlineStkcod__ButtonClick);
             this.inlineStkcod._Leave += new System.EventHandler(this.inlineStkcod__Leave);
@@ -596,10 +598,10 @@
             this.inlineSectionName._Text = "";
             this.inlineSectionName._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.inlineSectionName._UseImage = true;
+            resources.ApplyResources(this.inlineSectionName, "inlineSectionName");
             this.inlineSectionName.BackColor = System.Drawing.Color.White;
             this.inlineSectionName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inlineSectionName.Cursor = System.Windows.Forms.Cursors.IBeam;
-            resources.ApplyResources(this.inlineSectionName, "inlineSectionName");
             this.inlineSectionName.Name = "inlineSectionName";
             this.inlineSectionName._ButtonClick += new System.EventHandler(this.inlineSectionName__ButtonClick);
             this.inlineSectionName._Leave += new System.EventHandler(this.inlineSectionName__Leave);
@@ -627,9 +629,9 @@
             0,
             0,
             131072});
+            resources.ApplyResources(this.inlineBegacc, "inlineBegacc");
             this.inlineBegacc.BackColor = System.Drawing.Color.White;
             this.inlineBegacc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.inlineBegacc, "inlineBegacc");
             this.inlineBegacc.Name = "inlineBegacc";
             this.inlineBegacc._ValueChanged += new System.EventHandler(this.inlineBegacc__ValueChanged);
             // 
@@ -656,9 +658,9 @@
             0,
             0,
             131072});
+            resources.ApplyResources(this.inlineBegtak, "inlineBegtak");
             this.inlineBegtak.BackColor = System.Drawing.Color.White;
             this.inlineBegtak.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.inlineBegtak, "inlineBegtak");
             this.inlineBegtak.Name = "inlineBegtak";
             this.inlineBegtak._ValueChanged += new System.EventHandler(this.inlineBegtak__ValueChanged);
             // 
@@ -685,14 +687,15 @@
             0,
             0,
             131072});
+            resources.ApplyResources(this.inlineCapacity, "inlineCapacity");
             this.inlineCapacity.BackColor = System.Drawing.Color.White;
             this.inlineCapacity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.inlineCapacity, "inlineCapacity");
             this.inlineCapacity.Name = "inlineCapacity";
             this.inlineCapacity._ValueChanged += new System.EventHandler(this.inlineCapacity__ValueChanged);
             // 
             // dgvSection
             // 
+            resources.ApplyResources(this.dgvSection, "dgvSection");
             this.dgvSection.AllowSortByColumnHeaderClicked = false;
             this.dgvSection.AllowUserToAddRows = false;
             this.dgvSection.AllowUserToDeleteRows = false;
@@ -700,13 +703,12 @@
             this.dgvSection.AllowUserToResizeRows = false;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F);
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvSection.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            resources.ApplyResources(this.dgvSection, "dgvSection");
             this.dgvSection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvSection.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_sect_working_express_db,
@@ -949,9 +951,9 @@
             // 
             this.dtStartDate._ReadOnly = true;
             this.dtStartDate._SelectedDate = null;
+            resources.ApplyResources(this.dtStartDate, "dtStartDate");
             this.dtStartDate.BackColor = System.Drawing.Color.White;
             this.dtStartDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.dtStartDate, "dtStartDate");
             this.dtStartDate.Name = "dtStartDate";
             this.dtStartDate._SelectedDateChanged += new System.EventHandler(this.dtStartDate__SelectedDateChanged);
             // 

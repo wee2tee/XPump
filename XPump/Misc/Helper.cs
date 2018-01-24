@@ -2458,5 +2458,13 @@ namespace XPump.Misc
             Form helpParentWind = new Form();
             Help.ShowHelp(helpParentWind, MainForm.helpfile, HelpNavigator.Topic, html_file_name);
         }
+
+        public static string SubStringX(this string str, int start, int length)
+        {
+            if (str.Length < length)
+                return str;
+
+            return str.Substring(start, length);
+        }
     }
 }
