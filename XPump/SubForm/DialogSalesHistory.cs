@@ -114,7 +114,7 @@ namespace XPump.SubForm
         {
             this.dgvNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM/*, FORM_MODE.EDIT_ITEM*/ }, this.form_mode);
             this.numDtest.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
-            this.btnDother.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
+            this.btnDother.SetControlState(new FORM_MODE[] { /*FORM_MODE.READ, FORM_MODE.READ_ITEM*/ FORM_MODE.EDIT }, this.form_mode);
             this.numDdisc.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.numPurvat.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
             this.btnSyncPurvat.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);

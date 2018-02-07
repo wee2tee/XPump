@@ -247,8 +247,15 @@ namespace XPump.SubForm
             {
                 col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_nozzle_name.Name).First().Index;
                 this.inline_nozzle.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);
-                if(this.tmp_dother.nozzle_id.HasValue)
-                    this.inline_nozzle._Text = this.nozzle_list.Where( n => n.id == this.tmp_dother.nozzle_id.Value).FirstOrDefault() != null ? this.nozzle_list.Where(n => n.id == this.tmp_dother.nozzle_id.Value).First().name : string.Empty;
+                if (this.tmp_dother.nozzle_id.HasValue)
+                {
+                    this.inline_nozzle._Text = this.nozzle_list.Where(n => n.id == this.tmp_dother.nozzle_id.Value).FirstOrDefault() != null ? this.nozzle_list.Where(n => n.id == this.tmp_dother.nozzle_id.Value).First().name : string.Empty;
+                }
+                else
+                {
+                    this.inline_nozzle._Text = string.Empty;
+                }
+                    
 
                 col_index = this.dgv.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_section_name.Name).First().Index;
                 this.inline_section.SetInlineControlPosition(this.dgv, this.dgv.CurrentCell.RowIndex, col_index);

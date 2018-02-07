@@ -229,7 +229,8 @@ namespace CC
         {
             if (this._ReadOnly)
             {
-                SendKeys.Send("{TAB}");
+                //SendKeys.Send("{TAB}");
+                this.Parent.SelectNextControl(this, true, true, false, false);
             }
         }
     }

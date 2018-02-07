@@ -309,7 +309,7 @@ namespace XPump.SubForm
                                 {
                                     dayend_id = dayend.id,
                                     takqty = sttak != null ? sttak.qty : -1,
-                                    rcvqty = -1,
+                                    rcvqty = 0,
                                     section_id = sect.id,
                                     creby = this.main_form.loged_in_status.loged_in_user_name,
                                     cretime = DateTime.Now
