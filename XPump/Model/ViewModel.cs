@@ -1337,6 +1337,7 @@ namespace XPump.Model
 
                     var dothers = db.dother
                                     .Where(d => d.dayend_id == sttak.dayend_id && section_id == sttak.section_id)
+                                    .ToList()
                                     .Sum(d => d.qty);
                     return sttak.begdif + (sttak.takqty - (sttak.begbal + sttak.rcvqty - sttak.salqty - dothers));
                 }
