@@ -132,19 +132,7 @@ namespace XPump.SubForm
                     BackgroundWorker w = new BackgroundWorker();
                     w.DoWork += delegate
                     {
-                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-                        {
-                            if (db.settings.ToList().Count() == 0)
-                            {
-                                db.settings.Add(new settings
-                                {
-                                    //express_data_path = string.Empty,
-                                    orgname = string.Empty
-                                });
-                                db.SaveChanges();
-                            }
-                        }
-
+                        CreateSettingsProfile(this.main_form.working_express_db);
                         this.settings = GetSettings(this.main_form.working_express_db);
                     };
                     w.RunWorkerCompleted += delegate
@@ -162,6 +150,32 @@ namespace XPump.SubForm
                 }
             };
             worker.RunWorkerAsync();
+        }
+
+        public static void CreateSettingsProfile(SccompDbf working_express_db)
+        {
+            using (xpumpEntities db = DBX.DataSet(working_express_db))
+            {
+                if (db.settings.ToList().Count() == 0)
+                {
+                    DateTime? prd_start = DbfTable.Isprd(working_express_db).ToList<IsprdDbf>().First().beg1;
+                    DateTime? prd_end = DbfTable.Isprd(working_express_db).ToList<IsprdDbf>().First().end12;
+
+                    db.settings.Add(new settings
+                    {
+                        orgname = string.Empty,
+                        shiftprintmet = "0",
+                        shiftauthlev = 0,
+                        dayprintmet = "0",
+                        dayauthlev = 0,
+                        prdstart = prd_start,
+                        prdend = prd_end,
+                        chgby = null,
+                        chgtime = null
+                    });
+                    db.SaveChanges();
+                }
+            }
         }
 
         private void ResetControlState()

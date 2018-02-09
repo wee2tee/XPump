@@ -145,6 +145,9 @@ namespace XPump
 
             this.mnuChangeCompany.PerformClick();
 
+            // CREATE SETTINGS FOR THIS COMPANY IF NOT EXIST
+            DialogSettings.CreateSettingsProfile(this.working_express_db);
+
             //this.scacclv_list = this.GetScacclv(this.loged_in_status.loged_in_user_name);
             //this.SetMenuAccessible(menuStrip1.Items);
         }

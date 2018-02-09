@@ -159,9 +159,6 @@
   <data name="&gt;&gt;label15.Name" xml:space="preserve">
     <value>label15</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>554, 400</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -268,8 +265,8 @@
   <data name="&gt;&gt;numShiftAuthLevel.Type" xml:space="preserve">
     <value>CC.XNumTextEdit, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>ตั้งค่าระบบ</value>
+  <data name="drShiftPrintMethod.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>22</value>
@@ -361,10 +358,10 @@
   <data name="&gt;&gt;label20.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="numShiftAuthLevel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="&gt;&gt;numDayAuthLevel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
@@ -381,9 +378,6 @@
   </data>
   <data name="lblNotConnect.Text" xml:space="preserve">
     <value>ไม่มีการเชื่อมต่อ</value>
-  </data>
-  <data name="label14.Text" xml:space="preserve">
-    <value>:</value>
   </data>
   <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
     <value>208, 42</value>
@@ -460,8 +454,11 @@
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
   </data>
-  <data name="numShiftAuthLevel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>:</value>
   </data>
   <data name="label17.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -593,9 +590,6 @@
   <data name="&gt;&gt;drShiftPrintMethod.Name" xml:space="preserve">
     <value>drShiftPrintMethod</value>
   </data>
-  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>261, 16</value>
-  </data>
   <data name="&gt;&gt;dtPeriodTo.Type" xml:space="preserve">
     <value>CC.XDatePicker, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
@@ -719,9 +713,6 @@
   <data name="label8.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
   <data name="label15.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -733,6 +724,9 @@
   </data>
   <data name="btnEdit.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>341, 98</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>518, 275</value>
@@ -794,6 +788,9 @@
   <data name="lblConnected.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>35, 235</value>
+  </data>
   <data name="label17.Text" xml:space="preserve">
     <value>รับรองรายการ ต้องขออนุมัติระดับ</value>
   </data>
@@ -830,8 +827,8 @@
   <data name="&gt;&gt;label18.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>:</value>
+  <data name="&gt;&gt;numDayAuthLevel.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
   <data name="numDayAuthLevel.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -842,9 +839,6 @@
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 98</value>
-  </data>
   <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
@@ -854,8 +848,14 @@
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
     <value>17</value>
   </data>
+  <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="btnEditMysqlConnection.Location" type="System.Drawing.Point, System.Drawing">
     <value>347, 64</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>:</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>:</value>
@@ -986,14 +986,11 @@
   <data name="label9.Text" xml:space="preserve">
     <value>3. การรับรอง/พิมพ์ รายการประจำผลัด</value>
   </data>
-  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 235</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>554, 400</value>
   </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
-  </data>
-  <data name="drShiftPrintMethod.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
   </data>
   <data name="label21.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1006,6 +1003,9 @@
   </data>
   <data name="dtPeriodFrom.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>ตั้งค่าระบบ</value>
   </data>
   <data name="&gt;&gt;label21.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1064,11 +1064,11 @@
   <data name="drDayPrintMethod.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>:</value>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>261, 16</value>
   </data>
-  <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
+    <value>300, 98</value>
   </data>
   <data name="&gt;&gt;label3.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1076,8 +1076,8 @@
   <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
     <value>btnSave</value>
   </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>341, 98</value>
+  <data name="label14.Text" xml:space="preserve">
+    <value>:</value>
   </data>
   <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
     <value>184, 16</value>
@@ -1106,13 +1106,115 @@
   <data name="&gt;&gt;label14.Name" xml:space="preserve">
     <value>label14</value>
   </data>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <metadata name="panel1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="label3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label8.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dtPeriodFrom.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label21.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label19.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label16.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="txtOrgname.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="lblConnected.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>en-US</value>
+  </metadata>
+  <metadata name="label12.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label5.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="toolStrip1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="label17.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label6.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label13.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label7.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label9.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="btnEditMysqlConnection.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="drShiftPrintMethod.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dtPeriodTo.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="numDayAuthLevel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="drDayPrintMethod.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label11.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label20.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label15.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="lblNotConnect.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label14.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label10.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="numShiftAuthLevel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label18.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
 </root>
