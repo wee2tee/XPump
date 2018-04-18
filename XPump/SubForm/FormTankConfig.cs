@@ -116,6 +116,7 @@ namespace XPump.SubForm
             this.btnAddSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
             this.btnEditSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
             this.btnDeleteSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
+            this.btnChangeStkcod.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, this.form_mode, ac_edit);
             this.dtStartDate.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.dgvTank.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
             this.dgvSection.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.READ_ITEM }, this.form_mode);
@@ -1086,6 +1087,35 @@ namespace XPump.SubForm
             }
         }
 
+        private void btnChangeStkcod_Click(object sender, EventArgs e)
+        {
+            section sect = (section)this.dgvSection.Rows[this.dgvSection.CurrentCell.RowIndex].Cells[this.col_sect_section.Name].Value;
+            DialogChangeStkcod chgcod = new DialogChangeStkcod(this.main_form, sect);
+            if(chgcod.ShowDialog() == DialogResult.OK)
+            {
+                /*** Perform Change Stkcod ***/
+                LoadingForm loading = new LoadingForm();
+                loading.ShowCenterParent(this);
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    section section = db.section.Include("tank.tanksetup").Where(st => st.id == sect.id).FirstOrDefault();
+                    if(section != null)
+                    {
+                        DateTime start_date = section.tank.tanksetup.startdate;
+
+                        section.stkcod = chgcod.new_stkcod;
+                        db.dayend.Where(d => d.stkcod == sect.stkcod && d.saldat.CompareTo(start_date) >= 0).ToList().ForEach(d => d.stkcod = chgcod.new_stkcod);
+                        db.pricelist.Where(p => p.stkcod == sect.stkcod && p.date.CompareTo(start_date) >= 0).ToList().ForEach(p => p.stkcod = chgcod.new_stkcod);
+                        db.salessummary.Where(s => s.stkcod == sect.stkcod && s.saldat.CompareTo(start_date) >= 0).ToList().ForEach(s => s.stkcod = chgcod.new_stkcod);
+
+                        db.SaveChanges();
+                        loading.Close();
+                        this.btnStop.PerformClick();
+                    }
+                }
+            }
+        }
+
         private void dtStartDate__SelectedDateChanged(object sender, EventArgs e)
         {
             if (this.tmp_tanksetup != null && ((XDatePicker)sender)._SelectedDate.HasValue)
@@ -1241,6 +1271,17 @@ namespace XPump.SubForm
                 };
                 mnu_delete.Enabled = row_index == -1 ? false : this.btnDeleteSection.Enabled;
                 cm.MenuItems.Add(mnu_delete);
+
+                MenuItem mnu_chgcod = new MenuItem("เปลี่ยนรหัสสินค้า");
+                mnu_chgcod.Enabled = row_index == -1 ? false : true;
+                mnu_chgcod.Click += delegate
+                {
+                    //section sect = (section)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_sect_section.Name].Value;
+                    //DialogChangeStkcod chgcod = new DialogChangeStkcod(sect);
+                    //chgcod.ShowDialog();
+                    this.btnChangeStkcod.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_chgcod);
 
                 cm.Show(((XDatagrid)sender), new Point(e.X, e.Y));
             }

@@ -224,6 +224,12 @@
     <Compile Include="SubForm\DialogBackupData.Designer.cs">
       <DependentUpon>DialogBackupData.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogChangeStkcod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogChangeStkcod.Designer.cs">
+      <DependentUpon>DialogChangeStkcod.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogConnectDbServer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -503,6 +509,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogBackupData.resx">
       <DependentUpon>DialogBackupData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogChangeStkcod.resx">
+      <DependentUpon>DialogChangeStkcod.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogConnectDbServer.resx">
       <DependentUpon>DialogConnectDbServer.cs</DependentUpon>
