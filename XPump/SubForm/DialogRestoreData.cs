@@ -66,7 +66,7 @@ namespace XPump.SubForm
             if (XMessageBox.Show(string.Format(this.main_form.GetMessage("0014"), this.backup_file_path, config.dbname), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                 return;
 
-            string conn_string = "server=" + config.servername + ";user=" + config.uid + ";pwd=" + config.passwordhash.Decrypted() + ";database=" + config.db_prefix + "_" + config.dbname + ";charset=utf8;";
+            string conn_string = "server=" + config.servername + ";port=" + config.port.ToString() + ";user=" + config.uid + ";pwd=" + config.passwordhash.Decrypted() + ";database=" + config.db_prefix + "_" + config.dbname + ";charset=utf8;";
 
             using (MySqlConnection conn = new MySqlConnection(conn_string))
             {
