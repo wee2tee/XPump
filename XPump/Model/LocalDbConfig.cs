@@ -47,13 +47,13 @@ namespace XPump.Model
                 if (!this.IsTableExists("config"))
                 {
                     this.connection.Open();
-                    //string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, depcod VARCHAR(10) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
-                    string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
+                    //string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
+                    string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, depcod VARCHAR(10) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
                     SQLiteCommand cmd = new SQLiteCommand(sql, this.connection);
                     cmd.ExecuteNonQuery();
 
-                    sql = "INSERT INTO config (servername, db_prefix, dbname, port, uid, passwordhash) VALUES('', '', '', '', 3306, '', '')";
-                    //sql = "INSERT INTO config (servername, db_prefix, dbname, depcod, port, uid, passwordhash) VALUES('', '', '', '', 3306, '', '')";
+                    //sql = "INSERT INTO config (servername, db_prefix, dbname, port, uid, passwordhash) VALUES('', '', '', '', 3306, '', '')";
+                    sql = "INSERT INTO config (servername, db_prefix, dbname, depcod, port, uid, passwordhash) VALUES('', '', '', '', 3306, '', '')";
                     cmd = new SQLiteCommand(sql, this.connection);
                     cmd.ExecuteNonQuery();
 
@@ -110,7 +110,7 @@ namespace XPump.Model
         public string servername { get; set; }
         public string db_prefix { get; set; }
         public string dbname { get; set; }
-        
+        public string depcod { get; set; }
         public int port { get; set; }
         public string uid { get; set; }
         public string passwordhash { get; set; }

@@ -156,6 +156,9 @@ namespace XPump.SubForm
         {
             using (xpumpEntities db = DBX.DataSet(working_express_db))
             {
+                if (db == null)
+                    return;
+
                 if (db.settings.ToList().Count() == 0)
                 {
                     DateTime? prd_start = DbfTable.Isprd(working_express_db).ToList<IsprdDbf>().First().beg1;

@@ -73,6 +73,9 @@ namespace XPump.Model
         {
             DbConnectionConfig config = new LocalDbConfig(working_express_db).ConfigValue;
 
+            if (config.dbname.Trim().Length == 0)
+                return null;
+
             DBX db_context = new DBX(config.servername, config.uid, config.passwordhash.Decrypted(), config.db_prefix, config.dbname, config.port);
             return db_context.GetDBEntities();
         }
