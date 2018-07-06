@@ -136,7 +136,7 @@ namespace XPump
             }
 
             // Uncomment this to apply multi language menu
-            //this.SetUILanguage();
+            this.SetUILanguage();
             this.Controls.RemoveByKey("menuStrip1");
             this.Controls.RemoveByKey("statusStrip1");
             this.InitializeComponent();
@@ -146,10 +146,18 @@ namespace XPump
             this.mnuChangeCompany.PerformClick();
 
             // CREATE SETTINGS FOR THIS COMPANY IF NOT EXIST
-            DialogSettings.CreateSettingsProfile(this.working_express_db);
+            if(this.working_express_db != null)
+            {
+                DialogSettings.CreateSettingsProfile(this.working_express_db);
+                /* Getting Department */
+                var x = DbfTable.Istab(this.working_express_db).ToIstabList().Where(t => t.tabtyp == "50").ToList();
+                Console.WriteLine(x.Count());
+            }
+
 
             //this.scacclv_list = this.GetScacclv(this.loged_in_status.loged_in_user_name);
             //this.SetMenuAccessible(menuStrip1.Items);
+
         }
 
         private List<scacclvVM> GetScacclv(string user_name)
