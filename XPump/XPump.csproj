@@ -224,6 +224,12 @@
     <Compile Include="SubForm\DialogBackupData.Designer.cs">
       <DependentUpon>DialogBackupData.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogBranch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogBranch.Designer.cs">
+      <DependentUpon>DialogBranch.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogChangeStkcod.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -271,6 +277,12 @@
     </Compile>
     <Compile Include="SubForm\DialogDbConfig.Designer.cs">
       <DependentUpon>DialogDbConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogDbConfig2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDbConfig2.Designer.cs">
+      <DependentUpon>DialogDbConfig2.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm\DialogDother.cs">
       <SubType>Form</SubType>
@@ -510,6 +522,9 @@
     <EmbeddedResource Include="SubForm\DialogBackupData.resx">
       <DependentUpon>DialogBackupData.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogBranch.resx">
+      <DependentUpon>DialogBranch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogChangeStkcod.resx">
       <DependentUpon>DialogChangeStkcod.cs</DependentUpon>
     </EmbeddedResource>
@@ -539,6 +554,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogDbConfig.th-TH.resx">
       <DependentUpon>DialogDbConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDbConfig2.resx">
+      <DependentUpon>DialogDbConfig2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogDother.resx">
       <DependentUpon>DialogDother.cs</DependentUpon>
@@ -607,6 +625,9 @@
       <DependentUpon>DialogSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSettings.resx">
+      <DependentUpon>DialogSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSettings.th-TH.resx">
       <DependentUpon>DialogSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogShiftSelector.resx">

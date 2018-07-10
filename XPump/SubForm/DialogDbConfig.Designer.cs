@@ -45,6 +45,8 @@
             this.lblPrefix = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).BeginInit();
             this.SuspendLayout();
             // 
@@ -146,6 +148,16 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
             // DialogDbConfig
             // 
             resources.ApplyResources(this, "$this");
@@ -158,6 +170,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lblPrefix);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numPort);
             this.Controls.Add(this.txtConfPwd);
@@ -196,5 +210,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnDefaultPort;
         private System.Windows.Forms.Label lblPrefix;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }

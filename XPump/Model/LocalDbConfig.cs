@@ -18,6 +18,7 @@ namespace XPump.Model
     {
         public SQLiteConnection connection;
         private string dbconfig_file_name = "XPUMP.RDB";
+        private SccompDbf working_express_db;
 
         //public LocalDb()
         //{
@@ -32,6 +33,8 @@ namespace XPump.Model
 
         public LocalDbConfig(SccompDbf working_express_db)
         {
+            this.working_express_db = working_express_db;
+
             if (!File.Exists(working_express_db.abs_path + @"\" + this.dbconfig_file_name))
             {
                 SQLiteConnection.CreateFile(working_express_db.abs_path + @"\" + this.dbconfig_file_name);
@@ -40,24 +43,73 @@ namespace XPump.Model
             this.connection = new SQLiteConnection("Data Source=" + working_express_db.abs_path + @"\" + this.dbconfig_file_name + ";Version=3");
         }
 
+        private void CreateFirstRow()
+        {
+            this.connection.Open();
+            //string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
+            string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, branch VARCHAR(254) NOT NULL, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, depcod VARCHAR(10) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
+            SQLiteCommand cmd = new SQLiteCommand(sql, this.connection);
+            cmd.ExecuteNonQuery();
+
+            //sql = "INSERT INTO config (servername, db_prefix, dbname, port, uid, passwordhash) VALUES('', '', '', '', 3306, '', '')";
+            sql = "INSERT INTO config (branch, servername, db_prefix, dbname, depcod, port, uid, passwordhash) VALUES('" + this.working_express_db.compnam.Trim() + "', '', '', '', '', 3306, '', '')";
+            cmd = new SQLiteCommand(sql, this.connection);
+            cmd.ExecuteNonQuery();
+
+            this.connection.Close();
+        }
+
+        public List<DbConnectionConfig> BranchList
+        {
+            get
+            {
+                if (!this.IsTableExists("config"))
+                {
+                    this.CreateFirstRow();
+                }
+
+                this.connection.Open();
+                string sql_select = "SELECT * from config";
+                SQLiteCommand cmd_select = new SQLiteCommand(sql_select, this.connection);
+                SQLiteDataReader reader = cmd_select.ExecuteReader();
+                List<DbConnectionConfig> configs = new List<DbConnectionConfig>();
+                while (reader.Read())
+                {
+                    configs.Add(new Model.DbConnectionConfig
+                    {
+                        id = Convert.ToInt32(reader["id"]),
+                        branch = reader["branch"].ToString(),
+                        servername = reader["servername"].ToString(),
+                        db_prefix = reader["db_prefix"].ToString(),
+                        dbname = reader["dbname"].ToString(),
+                        depcod = reader["depcod"].ToString(),
+                        port = Convert.ToInt32(reader["port"]),
+                        uid = reader["uid"].ToString(),
+                        passwordhash = reader["passwordhash"].ToString()
+                    });
+                }
+                this.connection.Close();
+                return configs;
+            }
+        }
+
         public DbConnectionConfig ConfigValue
         {
             get
             {
                 if (!this.IsTableExists("config"))
                 {
-                    this.connection.Open();
-                    //string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
-                    string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, depcod VARCHAR(10) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
-                    SQLiteCommand cmd = new SQLiteCommand(sql, this.connection);
-                    cmd.ExecuteNonQuery();
+                    //this.connection.Open();
+                    //string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, branch VARCHAR(254) NOT NULL, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, depcod VARCHAR(10) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
+                    //SQLiteCommand cmd = new SQLiteCommand(sql, this.connection);
+                    //cmd.ExecuteNonQuery();
 
-                    //sql = "INSERT INTO config (servername, db_prefix, dbname, port, uid, passwordhash) VALUES('', '', '', '', 3306, '', '')";
-                    sql = "INSERT INTO config (servername, db_prefix, dbname, depcod, port, uid, passwordhash) VALUES('', '', '', '', 3306, '', '')";
-                    cmd = new SQLiteCommand(sql, this.connection);
-                    cmd.ExecuteNonQuery();
+                    //sql = "INSERT INTO config (branch, servername, db_prefix, dbname, depcod, port, uid, passwordhash) VALUES('', '', '', '', '', 3306, '', '')";
+                    //cmd = new SQLiteCommand(sql, this.connection);
+                    //cmd.ExecuteNonQuery();
 
-                    this.connection.Close();
+                    //this.connection.Close();
+                    this.CreateFirstRow();
                 }
 
                 this.connection.Open();
@@ -70,9 +122,11 @@ namespace XPump.Model
                     config = new Model.DbConnectionConfig
                     {
                         id = Convert.ToInt32(reader["id"]),
+                        branch = reader["branch"].ToString(),
                         servername = reader["servername"].ToString(),
                         db_prefix = reader["db_prefix"].ToString(),
                         dbname = reader["dbname"].ToString(),
+                        depcod = reader["depcod"].ToString(),
                         port = Convert.ToInt32(reader["port"]),
                         uid = reader["uid"].ToString(),
                         passwordhash = reader["passwordhash"].ToString()
@@ -107,6 +161,7 @@ namespace XPump.Model
     public partial class DbConnectionConfig
     {
         public int id { get; set; }
+        public string branch { get; set; }
         public string servername { get; set; }
         public string db_prefix { get; set; }
         public string dbname { get; set; }

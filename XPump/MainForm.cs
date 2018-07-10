@@ -153,11 +153,6 @@ namespace XPump
                 var x = DbfTable.Istab(this.working_express_db).ToIstabList().Where(t => t.tabtyp == "50").ToList();
                 Console.WriteLine(x.Count());
             }
-
-
-            //this.scacclv_list = this.GetScacclv(this.loged_in_status.loged_in_user_name);
-            //this.SetMenuAccessible(menuStrip1.Items);
-
         }
 
         private List<scacclvVM> GetScacclv(string user_name)
@@ -264,6 +259,12 @@ namespace XPump
 
             DialogSettings setting = new DialogSettings(this, scacclv);
             setting.ShowDialog();
+        }
+
+        private void mnuBranch_Click(object sender, EventArgs e)
+        {
+            DialogBranch br = new DialogBranch(this);
+            br.ShowDialog();
         }
 
         private void mnuDailyClose_Click(object sender, EventArgs e)

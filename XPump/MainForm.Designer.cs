@@ -35,6 +35,7 @@
             this.mnuDailyClose = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuBranch = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTankSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuShift = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuIstab = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,6 +99,7 @@
             // 
             this.mnuSetup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuSettings,
+            this.mnuBranch,
             this.mnuTankSetup,
             this.mnuShift,
             this.mnuIstab});
@@ -111,6 +113,12 @@
             resources.ApplyResources(this.mnuSettings, "mnuSettings");
             this.mnuSettings.Tag = "21";
             this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
+            // 
+            // mnuBranch
+            // 
+            this.mnuBranch.Name = "mnuBranch";
+            resources.ApplyResources(this.mnuBranch, "mnuBranch");
+            this.mnuBranch.Click += new System.EventHandler(this.mnuBranch_Click);
             // 
             // mnuTankSetup
             // 
@@ -333,6 +341,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuEventLog;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem mnuBranch;
     }
 }
 
