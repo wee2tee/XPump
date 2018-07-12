@@ -469,7 +469,7 @@ namespace XPump.Misc
                 if(this.main_form.working_express_db != null)
                 {
                     LocalDbConfig loc = new LocalDbConfig(this.main_form.working_express_db);
-                    return loc.ConfigValue.uid;
+                    return loc.ConfigValue != null ? loc.ConfigValue.uid : string.Empty;
                 }
                 return string.Empty;
             }

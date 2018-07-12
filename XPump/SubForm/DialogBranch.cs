@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using XPump.Misc;
 using XPump.Model;
+using CC;
 
 namespace XPump.SubForm
 {
@@ -16,10 +17,9 @@ namespace XPump.SubForm
         public const string modcod = "21";
         private MainForm main_form;
         //private scacclvVM scacclv;
-        private BindingList<DbConnectionConfig> conn_list;
-        private DbConnectionConfig curr_conn;
-        private DbConnectionConfig temp_conn;
-        private FORM_MODE form_mode;
+        private BindingList<dbconnVM> conn_list;
+        public DbConnectionConfig curr_conn_config;
+        private DbConnectionConfig temp_conn_config;
         //private List<shiftVM> shift_list;
         //private shift curr_shift; // current focused row
         //private shiftVM temp_shift; // model for add/edit shift
@@ -35,24 +35,19 @@ namespace XPump.SubForm
             this.LoadBranchListToDataGrid();
         }
 
-        private void ResetFormState(FORM_MODE form_mode)
-        {
-            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, form_mode);
-            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, form_mode);
-            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, form_mode);
-            this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ_ITEM }, form_mode);
-        }
-
         private void LoadBranchListToDataGrid()
         {
-            this.conn_list = new BindingList<DbConnectionConfig>(new LocalDbConfig(this.main_form.working_express_db).BranchList);
-            this.xDatagrid1.DataSource = this.conn_list;
+            this.conn_list = new BindingList<dbconnVM>(new LocalDbConfig(this.main_form.working_express_db).BranchList.ToDbconnVM(this.main_form.working_express_db));
+            this.dgv.DataSource = this.conn_list;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            DialogSettings s = new DialogSettings(this.main_form, new scacclvVM());
-            s.ShowDialog();
+            DialogDbConfig s = new DialogDbConfig(this.main_form, null);
+            if(s.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -65,9 +60,12 @@ namespace XPump.SubForm
 
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void dgv_SelectionChanged(object sender, EventArgs e)
         {
-            this.LoadBranchListToDataGrid();
+            if (((XDatagrid)sender).CurrentCell == null)
+                return;
+
+            this.curr_conn_config = (DbConnectionConfig)((XDatagrid)sender).Rows[((XDatagrid)sender).CurrentCell.RowIndex].Cells[this.col_db_connection_config.Name].Value;
         }
     }
 }

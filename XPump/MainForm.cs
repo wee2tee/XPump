@@ -29,6 +29,7 @@ namespace XPump
         public const string helpfile = "Help.chm";
         public CultureInfo c_info = CultureInfo.GetCultureInfo("th-TH");
         public List<MsgTemplate> msg_template = new List<MsgTemplate>();
+        public DbConnectionConfig db_conn_config = null;
 
         public MainForm()
         {
@@ -146,12 +147,12 @@ namespace XPump
             this.mnuChangeCompany.PerformClick();
 
             // CREATE SETTINGS FOR THIS COMPANY IF NOT EXIST
-            if(this.working_express_db != null)
+            if(this.working_express_db != null && this.db_conn_config != null)
             {
                 DialogSettings.CreateSettingsProfile(this.working_express_db);
                 /* Getting Department */
-                var x = DbfTable.Istab(this.working_express_db).ToIstabList().Where(t => t.tabtyp == "50").ToList();
-                Console.WriteLine(x.Count());
+                //var x = DbfTable.Istab(this.working_express_db).ToIstabList().Where(t => t.tabtyp == "50").ToList();
+                //Console.WriteLine(x.Count());
             }
         }
 
@@ -371,20 +372,42 @@ namespace XPump
                 sccomp = sccomp.Where(s => comp_codes.Contains(s.compcod)).ToList();
             }
 
+            var previous_working_express_db = this.working_express_db;
+
             DialogSccompSelection sel = new DialogSccompSelection(this, sccomp, string.Empty);
             if (sel.ShowDialog() == DialogResult.OK)
             {
-                if (this.working_express_db == null)
+                if (this.working_express_db == null) // select company first entry
                 {
                     this.working_express_db = sel.selected_sccomp;
+                    this.db_conn_config = this.ShowBranchSelection();
+                    if(this.db_conn_config == null)
+                    {
+                        this.Close();
+                    }
+
+
                     this.islog.SelectCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
+
                 }
-                else
+                else // change company
                 {
                     this.working_express_db = sel.selected_sccomp;
+                    var db_config = this.ShowBranchSelection();
+                    if(db_config != null)
+                    {
+                        this.db_conn_config = db_config;
+                    }
+                    else // select comp but not select branch
+                    {
+                        //this.Close();
+                        this.working_express_db = previous_working_express_db;
+                    }
+
                     this.islog.ChangeCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
                 }
 
+                this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), this.db_conn_config, this.loged_in_status.loged_in_user_name);
                 this.scacclv_list = this.GetScacclv(this.loged_in_status.loged_in_user_name);
                 var x = this.menuStrip1.Items;
                 this.SetMenuAccessible(this.menuStrip1.Items);
@@ -400,45 +423,92 @@ namespace XPump
             }
             this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), null, null);
 
-            LocalDbConfig local_db = new LocalDbConfig(this.working_express_db);
-            if (local_db.ConfigValue.servername.Trim().Length == 0)
-            {
-                DialogDbConfig config = new DialogDbConfig(this);
-                if (config.ShowDialog() != DialogResult.OK)
-                {
-                    this.Close();
-                    return;
-                }
-            }
-            else
-            {
-                MySqlConnectionResult test_connect = local_db.ConfigValue.TestMysqlDbConnection(this);
+            //LocalDbConfig local_db = new LocalDbConfig(this.working_express_db);
+            //if(local_db.ConfigValue == null)
+            //{
+            //    return;
+            //}
 
-                if (test_connect.is_connected)
+            //if (local_db.ConfigValue.servername.Trim().Length == 0)
+            //{
+            //    DialogDbConfig config = new DialogDbConfig(this);
+            //    if (config.ShowDialog() != DialogResult.OK)
+            //    {
+            //        this.Close();
+            //        return;
+            //    }
+            //}
+            //else
+            //{
+            //    MySqlConnectionResult test_connect = local_db.ConfigValue.TestMysqlDbConnection(this);
+
+            //    if (test_connect.is_connected)
+            //    {
+            //        this.islog.ConnectMysqlSuccess(local_db.ConfigValue.servername, local_db.ConfigValue.dbname).Save();
+            //    }
+            //    else
+            //    {
+            //        this.islog.ConnectMysqlFail(local_db.ConfigValue.servername, local_db.ConfigValue.dbname, test_connect.err_message).Save();
+            //        XMessageBox.Show(test_connect.err_message + ", กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+
+            //        DialogDbConfig config = new DialogDbConfig(this);
+            //        if (config.ShowDialog() != DialogResult.OK)
+            //        {
+            //            this.Close();
+            //            return;
+            //        }
+            //    }
+
+            //}
+            //this.SetStatusLabelText(null, local_db.ConfigValue.dbname, null);
+        }
+
+        public DbConnectionConfig ShowBranchSelection()
+        {
+            var branch_list = new LocalDbConfig(this.working_express_db).BranchList;
+            if (branch_list.Count == 0)
+            {
+                if (XMessageBox.Show("ยังไม่ได้สร้างรายชื่อสาขา, \n\t - คลิก \"ตกลง\" เพื่อสร้างรายชื่อสาขา \n\t - คลิก \"ยกเลิก\" เพื่อออกจากโปรแกรม", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
-                    this.islog.ConnectMysqlSuccess(local_db.ConfigValue.servername, local_db.ConfigValue.dbname).Save();
+                    DialogDbConfig c = new DialogDbConfig(this, null);
+                    if (c.ShowDialog() == DialogResult.OK)
+                    {
+                        return c.curr_config;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else
                 {
-                    this.islog.ConnectMysqlFail(local_db.ConfigValue.servername, local_db.ConfigValue.dbname, test_connect.err_message).Save();
-                    XMessageBox.Show(test_connect.err_message + ", กรุณาตรวจสอบการกำหนดการเชื่อมต่อ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
-
-                    DialogDbConfig config = new DialogDbConfig(this);
-                    if (config.ShowDialog() != DialogResult.OK)
-                    {
-                        this.Close();
-                        return;
-                    }
+                    return null;
                 }
 
             }
-            this.SetStatusLabelText(null, local_db.ConfigValue.dbname, null);
+            else if (branch_list.Count == 1)
+            {
+                return branch_list[0];
+            }
+            else // branch > 1
+            {
+                MessageBox.Show("There's " + branch_list.Count.ToString() + " branch, Show branch selection dialog now");
+                DialogBranch br = new DialogBranch(this);
+                if (br.ShowDialog() == DialogResult.OK)
+                {
+                    return br.curr_conn_config;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
-        public void SetStatusLabelText(string express_db_path, string mysql_db_name, string user_name)
+        public void SetStatusLabelText(string express_db_path, DbConnectionConfig db_conn, string user_name)
         {
             this.lblExpressDataPath.Text = express_db_path != null ? express_db_path : this.lblExpressDataPath.Text;
-            this.lblMysqlDbName.Text = mysql_db_name != null ? mysql_db_name : this.lblMysqlDbName.Text;
+            this.lblMysqlDbName.Text = db_conn != null ? db_conn.dbname : this.lblMysqlDbName.Text;
             this.lblUserID.Text = user_name != null ? user_name : this.lblUserID.Text;
         }
 
@@ -448,7 +518,7 @@ namespace XPump
                 return string.Empty;
 
             LocalDbConfig loc = new LocalDbConfig(this.working_express_db);
-            return loc != null ? loc.ConfigValue.servername + "." + loc.ConfigValue.db_prefix + "_" + loc.ConfigValue.dbname : string.Empty;
+            return loc.ConfigValue != null ? loc.ConfigValue.servername + "." + loc.ConfigValue.db_prefix + "_" + loc.ConfigValue.dbname : string.Empty;
         }
 
         /* Set menu behavior for on EnableChanged */

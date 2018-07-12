@@ -210,7 +210,7 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            using (xpumpEntities db = DBX.DataSet(this.main_form.db_conn_config))
             {
                 if(this.form_mode == FORM_MODE.ADD_ITEM)
                 {

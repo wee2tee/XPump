@@ -2466,5 +2466,32 @@ namespace XPump.Misc
 
             return str.Substring(start, length);
         }
+
+        // For display branch with db_connection
+        public static dbconnVM ToDbconnVM(this DbConnectionConfig conn, SccompDbf working_express_db)
+        {
+            if (conn == null)
+                return null;
+
+            dbconnVM c = new dbconnVM
+            {
+                working_express_db = working_express_db,
+                db_connection_config = conn
+            };
+
+            return c;
+        }
+
+        public static List<dbconnVM> ToDbconnVM(this IEnumerable<DbConnectionConfig> conn, SccompDbf working_express_db)
+        {
+            List<dbconnVM> c = new List<dbconnVM>();
+
+            foreach (var item in conn)
+            {
+                c.Add(item.ToDbconnVM(working_express_db));
+            }
+
+            return c;
+        }
     }
 }

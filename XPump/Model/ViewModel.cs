@@ -26,6 +26,40 @@ namespace XPump.Model
         public DateTime? chgtime { get { return this.istab.chgtime; } }
     }
 
+    public class dbconnVM
+    {
+        public SccompDbf working_express_db { get; set; }
+        public DbConnectionConfig db_connection_config { get; set; }
+        public string branch
+        {
+            get
+            {
+                return this.db_connection_config.branch;
+            }
+        }
+        public string depcod
+        {
+            get
+            {
+                return this.db_connection_config.depcod;
+            }
+        }
+        public string servername
+        {
+            get
+            {
+                return this.db_connection_config.servername;
+            }
+        }
+        public string dbname
+        {
+            get
+            {
+                return this.db_connection_config.dbname;
+            }
+        }
+    }
+
     public class dotherVM
     {
         public SccompDbf working_express_db { get; set; }

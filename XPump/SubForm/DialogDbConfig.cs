@@ -17,10 +17,10 @@ namespace XPump.SubForm
 {
     public partial class DialogDbConfig : Form
     {
-        //private LocalConfig localConfig;
+        private FORM_MODE form_mode;
         private MainForm main_form;
         private LocalDbConfig localDb;
-        private DbConnectionConfig curr_config;
+        public DbConnectionConfig curr_config;
         private DbConnectionConfig tmp_config;
         private bool FormFreeze
         {
@@ -30,6 +30,8 @@ namespace XPump.SubForm
             }
             set
             {
+                this.txtBranch.Enabled = !value;
+                this.cbDepcod.Enabled = !value;
                 this.txtServerName.Enabled = !value;
                 this.txtDbName.Enabled = !value;
                 this.numPort.Enabled = !value;
@@ -41,8 +43,10 @@ namespace XPump.SubForm
             }
         }
 
-        public DialogDbConfig(MainForm main_form)
+        public DialogDbConfig(MainForm main_form, DbConnectionConfig curr_config = null)
         {
+            this.curr_config = curr_config != null ? curr_config : new DbConnectionConfig { id = -1, branch = string.Empty, dbname = string.Empty, db_prefix = SecureDbHelper.GetDbPrefix(), depcod = string.Empty, passwordhash = string.Empty, port = 3306, servername = string.Empty, uid = string.Empty };
+            
             this.main_form = main_form;
             Thread.CurrentThread.CurrentUICulture = this.main_form.c_info;
             //this.SetUILanguage();
@@ -52,9 +56,10 @@ namespace XPump.SubForm
         private void DialogDbConfig_Load(object sender, EventArgs e)
         {
             this.FormFreeze = false;
+            this.LoadDepcodCombobox();
             this.lblPrefix.Text = SecureDbHelper.GetDbPrefix() + "_";
-            this.curr_config = this.LoadConfig();
-            this.FillForm();
+            //this.curr_config = this.LoadConfig();
+            this.FillForm(this.curr_config);
         }
 
         //public void SetUILanguage()
@@ -86,6 +91,15 @@ namespace XPump.SubForm
             base.OnClosing(e);
         }
 
+        private void LoadDepcodCombobox()
+        {
+            this.cbDepcod.Items.Add(new XDropdownListItem { Text = string.Empty, Value = string.Empty });
+            foreach (var item in DbfTable.Istab(this.main_form.working_express_db).ToIstabList().Where(i => i.tabtyp == "50").ToList())
+            {
+                this.cbDepcod.Items.Add(new XComboBoxItem { Text = item.typcod, Value = item.typcod });
+            }
+        }
+
         private DbConnectionConfig LoadConfig()
         {
             return new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
@@ -95,6 +109,8 @@ namespace XPump.SubForm
         {
             DbConnectionConfig config = config_to_fill != null ? config_to_fill : this.curr_config;
 
+            this.txtBranch.Text = config.branch;
+            this.cbDepcod.Text = config.depcod;
             this.txtServerName.Text = config.servername;
             this.txtDbName.Text = config.dbname;
             this.numPort.Text = config.port.ToString();
@@ -626,6 +642,16 @@ namespace XPump.SubForm
         private void txtPwd_TextChanged(object sender, EventArgs e)
         {
             this.curr_config.passwordhash = ((TextBox)sender).Text.Trim().Encrypted();
+        }
+
+        private void txtBranch_TextChanged(object sender, EventArgs e)
+        {
+            this.curr_config.branch = ((TextBox)sender).Text.Trim();
+        }
+
+        private void cbDepcod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.curr_config.depcod = ((ComboBox)sender).Text;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

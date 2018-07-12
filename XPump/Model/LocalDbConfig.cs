@@ -43,7 +43,7 @@ namespace XPump.Model
             this.connection = new SQLiteConnection("Data Source=" + working_express_db.abs_path + @"\" + this.dbconfig_file_name + ";Version=3");
         }
 
-        private void CreateFirstRow()
+        private void CreateConfigTable()
         {
             this.connection.Open();
             //string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
@@ -52,9 +52,9 @@ namespace XPump.Model
             cmd.ExecuteNonQuery();
 
             //sql = "INSERT INTO config (servername, db_prefix, dbname, port, uid, passwordhash) VALUES('', '', '', '', 3306, '', '')";
-            sql = "INSERT INTO config (branch, servername, db_prefix, dbname, depcod, port, uid, passwordhash) VALUES('" + this.working_express_db.compnam.Trim() + "', '', '', '', '', 3306, '', '')";
-            cmd = new SQLiteCommand(sql, this.connection);
-            cmd.ExecuteNonQuery();
+            //sql = "INSERT INTO config (branch, servername, db_prefix, dbname, depcod, port, uid, passwordhash) VALUES('" + this.working_express_db.compnam.Trim() + "', '', '', '', '', 3306, '', '')";
+            //cmd = new SQLiteCommand(sql, this.connection);
+            //cmd.ExecuteNonQuery();
 
             this.connection.Close();
         }
@@ -65,7 +65,7 @@ namespace XPump.Model
             {
                 if (!this.IsTableExists("config"))
                 {
-                    this.CreateFirstRow();
+                    this.CreateConfigTable();
                 }
 
                 this.connection.Open();
@@ -109,7 +109,7 @@ namespace XPump.Model
                     //cmd.ExecuteNonQuery();
 
                     //this.connection.Close();
-                    this.CreateFirstRow();
+                    this.CreateConfigTable();
                 }
 
                 this.connection.Open();
@@ -181,7 +181,15 @@ namespace XPump.Model
             {
                 LocalDbConfig db = new LocalDbConfig(working_express_db);
                 db.connection.Open();
-                string sql = "UPDATE config SET servername='" + local_config.servername + "', db_prefix='" + local_config.db_prefix + "', dbname='" + local_config.dbname + "', port=" + local_config.port.ToString() + ", uid='" + local_config.uid + "', passwordhash='" + local_config.passwordhash + "' WHERE id = 1";
+                string sql = string.Empty;
+                if(local_config.id == -1) // add
+                {
+                    sql = "Insert into config (branch, servername, db_prefix, dbname, depcod, port, uid, passwordhash) Values('" + local_config.branch + "','" + local_config.servername + "','" + local_config.db_prefix + "','" + local_config.dbname + "','" + local_config.depcod + "'," + local_config.port.ToString() + ",'" + local_config.uid + "','" + local_config.passwordhash + "')";
+                }
+                else // update
+                {
+                    sql = "UPDATE config SET branch='" + local_config.branch + "', depcod='" + local_config.depcod + "', servername='" + local_config.servername + "', db_prefix='" + local_config.db_prefix + "', dbname='" + local_config.dbname + "', port=" + local_config.port.ToString() + ", uid='" + local_config.uid + "', passwordhash='" + local_config.passwordhash + "' WHERE id = " + local_config.id.ToString();
+                }
                 SQLiteCommand cmd = new SQLiteCommand(sql, db.connection);
                 cmd.ExecuteNonQuery();
                 db.connection.Close();
@@ -267,15 +275,17 @@ namespace XPump.Model
 
         public static string GetDbPrefix(SccompDbf working_express_db)
         {
-            var config = new LocalDbConfig(working_express_db).ConfigValue;
-            if(config.db_prefix.Trim().Length > 0)
-            {
-                return config.db_prefix;
-            }
-            else
-            {
-                return SecureDbHelper.GetDbPrefix();
-            }
+            return SecureDbHelper.GetDbPrefix();
+
+            //var config = new LocalDbConfig(working_express_db).ConfigValue;
+            //if(config.db_prefix.Trim().Length > 0)
+            //{
+            //    return config.db_prefix;
+            //}
+            //else
+            //{
+            //    return SecureDbHelper.GetDbPrefix();
+            //}
         }
     }
 
