@@ -34,6 +34,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.inline_qty = new CC.XNumEdit();
             this.dgv = new CC.XDatagrid();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.col_sttak_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sttak_takdat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sttak_section_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,9 +47,6 @@
             this.col_sttak_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sttak_sttak = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sttak_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -155,96 +155,6 @@
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
             // 
-            // col_sttak_id
-            // 
-            this.col_sttak_id.DataPropertyName = "id";
-            this.col_sttak_id.HeaderText = "ID";
-            this.col_sttak_id.Name = "col_sttak_id";
-            this.col_sttak_id.ReadOnly = true;
-            this.col_sttak_id.Visible = false;
-            // 
-            // col_sttak_takdat
-            // 
-            this.col_sttak_takdat.DataPropertyName = "takdat";
-            this.col_sttak_takdat.HeaderText = "วันที่";
-            this.col_sttak_takdat.MinimumWidth = 80;
-            this.col_sttak_takdat.Name = "col_sttak_takdat";
-            this.col_sttak_takdat.ReadOnly = true;
-            this.col_sttak_takdat.Visible = false;
-            this.col_sttak_takdat.Width = 80;
-            // 
-            // col_sttak_section_id
-            // 
-            this.col_sttak_section_id.DataPropertyName = "section_id";
-            this.col_sttak_section_id.HeaderText = "Section ID";
-            this.col_sttak_section_id.Name = "col_sttak_section_id";
-            this.col_sttak_section_id.ReadOnly = true;
-            this.col_sttak_section_id.Visible = false;
-            // 
-            // col_sttak_tank_name
-            // 
-            this.col_sttak_tank_name.DataPropertyName = "tank_name";
-            this.col_sttak_tank_name.HeaderText = "รหัสแท๊งค์";
-            this.col_sttak_tank_name.MinimumWidth = 140;
-            this.col_sttak_tank_name.Name = "col_sttak_tank_name";
-            this.col_sttak_tank_name.ReadOnly = true;
-            this.col_sttak_tank_name.Width = 140;
-            // 
-            // col_sttak_section_name
-            // 
-            this.col_sttak_section_name.DataPropertyName = "section_name";
-            this.col_sttak_section_name.HeaderText = "เลขที่ถัง";
-            this.col_sttak_section_name.MinimumWidth = 140;
-            this.col_sttak_section_name.Name = "col_sttak_section_name";
-            this.col_sttak_section_name.ReadOnly = true;
-            this.col_sttak_section_name.Width = 140;
-            // 
-            // col_sttak_stkcod
-            // 
-            this.col_sttak_stkcod.DataPropertyName = "stkcod";
-            this.col_sttak_stkcod.HeaderText = "รหัสสินค้า";
-            this.col_sttak_stkcod.MinimumWidth = 140;
-            this.col_sttak_stkcod.Name = "col_sttak_stkcod";
-            this.col_sttak_stkcod.ReadOnly = true;
-            this.col_sttak_stkcod.Width = 140;
-            // 
-            // col_sttak_stkdes
-            // 
-            this.col_sttak_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_sttak_stkdes.DataPropertyName = "stkdes";
-            this.col_sttak_stkdes.HeaderText = "รายละเอียด";
-            this.col_sttak_stkdes.Name = "col_sttak_stkdes";
-            this.col_sttak_stkdes.ReadOnly = true;
-            // 
-            // col_sttak_qty
-            // 
-            this.col_sttak_qty.DataPropertyName = "qty";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.col_sttak_qty.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_sttak_qty.HeaderText = "ปริมาณที่วัดได้ (ลิตร)";
-            this.col_sttak_qty.MinimumWidth = 140;
-            this.col_sttak_qty.Name = "col_sttak_qty";
-            this.col_sttak_qty.ReadOnly = true;
-            this.col_sttak_qty.Width = 140;
-            // 
-            // col_sttak_sttak
-            // 
-            this.col_sttak_sttak.DataPropertyName = "shiftsttak";
-            this.col_sttak_sttak.HeaderText = "Shift Sttak";
-            this.col_sttak_sttak.Name = "col_sttak_sttak";
-            this.col_sttak_sttak.ReadOnly = true;
-            this.col_sttak_sttak.Visible = false;
-            // 
-            // col_sttak_working_express_db
-            // 
-            this.col_sttak_working_express_db.DataPropertyName = "working_express_db";
-            this.col_sttak_working_express_db.HeaderText = "Working Express DB";
-            this.col_sttak_working_express_db.Name = "col_sttak_working_express_db";
-            this.col_sttak_working_express_db.ReadOnly = true;
-            this.col_sttak_working_express_db.Visible = false;
-            // 
             // btnSave
             // 
             this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -286,6 +196,97 @@
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
+            // col_sttak_id
+            // 
+            this.col_sttak_id.DataPropertyName = "id";
+            this.col_sttak_id.HeaderText = "ID";
+            this.col_sttak_id.Name = "col_sttak_id";
+            this.col_sttak_id.ReadOnly = true;
+            this.col_sttak_id.Visible = false;
+            // 
+            // col_sttak_takdat
+            // 
+            this.col_sttak_takdat.DataPropertyName = "takdat";
+            this.col_sttak_takdat.HeaderText = "วันที่";
+            this.col_sttak_takdat.MinimumWidth = 80;
+            this.col_sttak_takdat.Name = "col_sttak_takdat";
+            this.col_sttak_takdat.ReadOnly = true;
+            this.col_sttak_takdat.Visible = false;
+            this.col_sttak_takdat.Width = 80;
+            // 
+            // col_sttak_section_id
+            // 
+            this.col_sttak_section_id.DataPropertyName = "section_id";
+            this.col_sttak_section_id.HeaderText = "Section ID";
+            this.col_sttak_section_id.Name = "col_sttak_section_id";
+            this.col_sttak_section_id.ReadOnly = true;
+            this.col_sttak_section_id.Visible = false;
+            // 
+            // col_sttak_tank_name
+            // 
+            this.col_sttak_tank_name.DataPropertyName = "tank_name";
+            this.col_sttak_tank_name.HeaderText = "รหัสแท๊งค์";
+            this.col_sttak_tank_name.MinimumWidth = 170;
+            this.col_sttak_tank_name.Name = "col_sttak_tank_name";
+            this.col_sttak_tank_name.ReadOnly = true;
+            this.col_sttak_tank_name.Width = 170;
+            // 
+            // col_sttak_section_name
+            // 
+            this.col_sttak_section_name.DataPropertyName = "section_name";
+            this.col_sttak_section_name.HeaderText = "เลขที่ถัง";
+            this.col_sttak_section_name.MinimumWidth = 170;
+            this.col_sttak_section_name.Name = "col_sttak_section_name";
+            this.col_sttak_section_name.ReadOnly = true;
+            this.col_sttak_section_name.Width = 170;
+            // 
+            // col_sttak_stkcod
+            // 
+            this.col_sttak_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_sttak_stkcod.DataPropertyName = "stkcod";
+            this.col_sttak_stkcod.HeaderText = "รหัสสินค้า";
+            this.col_sttak_stkcod.MinimumWidth = 140;
+            this.col_sttak_stkcod.Name = "col_sttak_stkcod";
+            this.col_sttak_stkcod.ReadOnly = true;
+            // 
+            // col_sttak_stkdes
+            // 
+            this.col_sttak_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_sttak_stkdes.DataPropertyName = "stkdes";
+            this.col_sttak_stkdes.HeaderText = "รายละเอียด";
+            this.col_sttak_stkdes.Name = "col_sttak_stkdes";
+            this.col_sttak_stkdes.ReadOnly = true;
+            this.col_sttak_stkdes.Visible = false;
+            // 
+            // col_sttak_qty
+            // 
+            this.col_sttak_qty.DataPropertyName = "qty";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.col_sttak_qty.DefaultCellStyle = dataGridViewCellStyle2;
+            this.col_sttak_qty.HeaderText = "ปริมาณที่วัดได้ (ลิตร)";
+            this.col_sttak_qty.MinimumWidth = 140;
+            this.col_sttak_qty.Name = "col_sttak_qty";
+            this.col_sttak_qty.ReadOnly = true;
+            this.col_sttak_qty.Width = 140;
+            // 
+            // col_sttak_sttak
+            // 
+            this.col_sttak_sttak.DataPropertyName = "shiftsttak";
+            this.col_sttak_sttak.HeaderText = "Shift Sttak";
+            this.col_sttak_sttak.Name = "col_sttak_sttak";
+            this.col_sttak_sttak.ReadOnly = true;
+            this.col_sttak_sttak.Visible = false;
+            // 
+            // col_sttak_working_express_db
+            // 
+            this.col_sttak_working_express_db.DataPropertyName = "working_express_db";
+            this.col_sttak_working_express_db.HeaderText = "Working Express DB";
+            this.col_sttak_working_express_db.Name = "col_sttak_working_express_db";
+            this.col_sttak_working_express_db.ReadOnly = true;
+            this.col_sttak_working_express_db.Visible = false;
+            // 
             // DialogShiftSttak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -316,6 +317,10 @@
 
         private System.Windows.Forms.Panel panel1;
         private CC.XDatagrid dgv;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnCancel;
+        private CC.XNumEdit inline_qty;
+        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_takdat;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_section_id;
@@ -326,9 +331,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_qty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_sttak;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sttak_working_express_db;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnCancel;
-        private CC.XNumEdit inline_qty;
-        private System.Windows.Forms.Button btnEdit;
     }
 }

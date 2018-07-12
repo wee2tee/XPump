@@ -1,0 +1,892 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C9F1BF0B-306D-4FB0-B873-7CC1A80DFB6D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XPump</RootNamespace>
+    <AssemblyName>XPump</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Express\ExpressIxxxxx\XPump\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Nozzle.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net40\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.8.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.8.8\lib\net40\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySqlBackup, Version=2.0.9.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySqlBackup.NET.2.0.9.5\lib\net40\MySqlBackup.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.104.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.104.0\lib\net40\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.104.0\lib\net40\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Misc\Helper.cs" />
+    <Compile Include="Misc\Log.cs" />
+    <Compile Include="Misc\StringEnh.cs" />
+    <Compile Include="Misc\StringResource.cs" />
+    <Compile Include="Model\affdata.cs">
+      <DependentUpon>SecureModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dayend.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\daysttak.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dbver.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\dother.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\islog.cs">
+      <DependentUpon>SecureModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\istab.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LocalDbConfig.cs" />
+    <Compile Include="Model\DbfTable.cs" />
+    <Compile Include="Model\DBX.cs" />
+    <Compile Include="Model\LocalSecureDbConfig.cs" />
+    <Compile Include="Model\MenuIdClass.cs" />
+    <Compile Include="Model\MsgTemplate.cs" />
+    <Compile Include="Model\MiscResource.cs" />
+    <Compile Include="Model\nozzle.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\pricelist.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\saleshistory.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\salessummary.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\scacclv.cs">
+      <DependentUpon>SecureModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\scmodul.cs">
+      <DependentUpon>SecureModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\section.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SecureModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecureModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SecureModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecureModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SecureModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecureModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\settings.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\shift.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\shiftsales.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\shiftsttak.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\tank.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\tanksetup.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModel.cs" />
+    <Compile Include="Model\XPumpModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XPumpModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\XPumpModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\XPumpModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XPumpModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubForm\DialogBackupData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogBackupData.Designer.cs">
+      <DependentUpon>DialogBackupData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogBranch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogBranch.Designer.cs">
+      <DependentUpon>DialogBranch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogChangeStkcod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogChangeStkcod.Designer.cs">
+      <DependentUpon>DialogChangeStkcod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogConnectDbServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogConnectDbServer.Designer.cs">
+      <DependentUpon>DialogConnectDbServer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogDataInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDataInfo.Designer.cs">
+      <DependentUpon>DialogDataInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogDateRangeSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDateRangeSelector.Designer.cs">
+      <DependentUpon>DialogDateRangeSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogDateSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDateSelector.Designer.cs">
+      <DependentUpon>DialogDateSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogDayendEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDayendEdit.Designer.cs">
+      <DependentUpon>DialogDayendEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogDayendItemEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDayendItemEdit.Designer.cs">
+      <DependentUpon>DialogDayendItemEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogDbConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDbConfig.Designer.cs">
+      <DependentUpon>DialogDbConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogDbConfig2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDbConfig2.Designer.cs">
+      <DependentUpon>DialogDbConfig2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogDother.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDother.Designer.cs">
+      <DependentUpon>DialogDother.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogEditPrice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogEditPrice.Designer.cs">
+      <DependentUpon>DialogEditPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogImportStmasConfirmReplace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogImportStmasConfirmReplace.Designer.cs">
+      <DependentUpon>DialogImportStmasConfirmReplace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogInlineSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogInlineSearch.Designer.cs">
+      <DependentUpon>DialogInlineSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogInquiry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogInquiry.Designer.cs">
+      <DependentUpon>DialogInquiry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogIslogCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogIslogCondition.Designer.cs">
+      <DependentUpon>DialogIslogCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogLoccodSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogLoccodSelection.Designer.cs">
+      <DependentUpon>DialogLoccodSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogLogIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogLogIn.Designer.cs">
+      <DependentUpon>DialogLogIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogNozzle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogNozzle.Designer.cs">
+      <DependentUpon>DialogNozzle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogNozzleSalesHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogNozzleSalesHistory.Designer.cs">
+      <DependentUpon>DialogNozzleSalesHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogPrice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogPrice.Designer.cs">
+      <DependentUpon>DialogPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogPrintSetupA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogPrintSetupA.Designer.cs">
+      <DependentUpon>DialogPrintSetupA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogPrintSetupB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogPrintSetupB.Designer.cs">
+      <DependentUpon>DialogPrintSetupB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogPrintSetupC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogPrintSetupC.Designer.cs">
+      <DependentUpon>DialogPrintSetupC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogRestoreData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogRestoreData.Designer.cs">
+      <DependentUpon>DialogRestoreData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogSalesHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSalesHistory.Designer.cs">
+      <DependentUpon>DialogSalesHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogSccompSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSccompSelection.Designer.cs">
+      <DependentUpon>DialogSccompSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogSearchShiftTransaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSearchShiftTransaction.Designer.cs">
+      <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSettings.Designer.cs">
+      <DependentUpon>DialogSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogShiftSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogShiftSelector.Designer.cs">
+      <DependentUpon>DialogShiftSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogShiftSttak.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogShiftSttak.Designer.cs">
+      <DependentUpon>DialogShiftSttak.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogSimpleSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSimpleSearch.Designer.cs">
+      <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogValidateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogValidateUser.Designer.cs">
+      <DependentUpon>DialogValidateUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogYearEnd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogYearEnd.Designer.cs">
+      <DependentUpon>DialogYearEnd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormDailyClose.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormDailyClose.Designer.cs">
+      <DependentUpon>FormDailyClose.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormIslog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormIslog.Designer.cs">
+      <DependentUpon>FormIslog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormIstab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormIstab.Designer.cs">
+      <DependentUpon>FormIstab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormPrintPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormPrintPreview.Designer.cs">
+      <DependentUpon>FormPrintPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormSecure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormSecure.Designer.cs">
+      <DependentUpon>FormSecure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormShiftTransaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormShiftTransaction.Designer.cs">
+      <DependentUpon>FormShiftTransaction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormSttak.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormSttak.Designer.cs">
+      <DependentUpon>FormSttak.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormTankConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormTankConfig.Designer.cs">
+      <DependentUpon>FormTankConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\LoadingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\LoadingForm.Designer.cs">
+      <DependentUpon>LoadingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\FormShift.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormShift.Designer.cs">
+      <DependentUpon>FormShift.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\_testpwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\_testpwd.Designer.cs">
+      <DependentUpon>_testpwd.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="MainForm.en-UM.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.en-US.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.th-TH.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SubForm\DialogBackupData.en-US.resx">
+      <DependentUpon>DialogBackupData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogBackupData.resx">
+      <DependentUpon>DialogBackupData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogBranch.resx">
+      <DependentUpon>DialogBranch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogChangeStkcod.resx">
+      <DependentUpon>DialogChangeStkcod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogConnectDbServer.resx">
+      <DependentUpon>DialogConnectDbServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDataInfo.resx">
+      <DependentUpon>DialogDataInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDateRangeSelector.resx">
+      <DependentUpon>DialogDateRangeSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDateSelector.resx">
+      <DependentUpon>DialogDateSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDayendEdit.resx">
+      <DependentUpon>DialogDayendEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDayendItemEdit.resx">
+      <DependentUpon>DialogDayendItemEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDbConfig.en-US.resx">
+      <DependentUpon>DialogDbConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDbConfig.resx">
+      <DependentUpon>DialogDbConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDbConfig.th-TH.resx">
+      <DependentUpon>DialogDbConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDbConfig2.resx">
+      <DependentUpon>DialogDbConfig2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDother.resx">
+      <DependentUpon>DialogDother.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogEditPrice.resx">
+      <DependentUpon>DialogEditPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogImportStmasConfirmReplace.resx">
+      <DependentUpon>DialogImportStmasConfirmReplace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogInlineSearch.resx">
+      <DependentUpon>DialogInlineSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogInquiry.en-US.resx">
+      <DependentUpon>DialogInquiry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogInquiry.resx">
+      <DependentUpon>DialogInquiry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogIslogCondition.resx">
+      <DependentUpon>DialogIslogCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogLoccodSelection.resx">
+      <DependentUpon>DialogLoccodSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogLogIn.resx">
+      <DependentUpon>DialogLogIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogNozzle.resx">
+      <DependentUpon>DialogNozzle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogNozzleSalesHistory.resx">
+      <DependentUpon>DialogNozzleSalesHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogPrice.resx">
+      <DependentUpon>DialogPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogPrintSetupA.resx">
+      <DependentUpon>DialogPrintSetupA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogPrintSetupB.resx">
+      <DependentUpon>DialogPrintSetupB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogPrintSetupC.resx">
+      <DependentUpon>DialogPrintSetupC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogRestoreData.en-US.resx">
+      <DependentUpon>DialogRestoreData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogRestoreData.resx">
+      <DependentUpon>DialogRestoreData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSalesHistory.resx">
+      <DependentUpon>DialogSalesHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSccompSelection.en-US.resx">
+      <DependentUpon>DialogSccompSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSccompSelection.resx">
+      <DependentUpon>DialogSccompSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSearchShiftTransaction.resx">
+      <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSettings.en-US.resx">
+      <DependentUpon>DialogSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSettings.resx">
+      <DependentUpon>DialogSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSettings.th-TH.resx">
+      <DependentUpon>DialogSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogShiftSelector.resx">
+      <DependentUpon>DialogShiftSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogShiftSttak.resx">
+      <DependentUpon>DialogShiftSttak.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSimpleSearch.en-US.resx">
+      <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSimpleSearch.resx">
+      <DependentUpon>DialogSimpleSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogValidateUser.resx">
+      <DependentUpon>DialogValidateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogYearEnd.en-US.resx">
+      <DependentUpon>DialogYearEnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogYearEnd.resx">
+      <DependentUpon>DialogYearEnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormDailyClose.resx">
+      <DependentUpon>FormDailyClose.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormIslog.en-US.resx">
+      <DependentUpon>FormIslog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormIslog.resx">
+      <DependentUpon>FormIslog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormIstab.resx">
+      <DependentUpon>FormIstab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormPrintPreview.resx">
+      <DependentUpon>FormPrintPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormSecure.en-US.resx">
+      <DependentUpon>FormSecure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormSecure.resx">
+      <DependentUpon>FormSecure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormShiftTransaction.resx">
+      <DependentUpon>FormShiftTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormSttak.resx">
+      <DependentUpon>FormSttak.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormTankConfig.en-US.resx">
+      <DependentUpon>FormTankConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormTankConfig.resx">
+      <DependentUpon>FormTankConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\LoadingForm.resx">
+      <DependentUpon>LoadingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormShift.resx">
+      <DependentUpon>FormShift.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\_testpwd.resx">
+      <DependentUpon>_testpwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <EntityDeploy Include="Model\XPumpModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>XPumpModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="Model\SecureModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SecureModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\SecureModel.edmx.diagram">
+      <DependentUpon>SecureModel.edmx</DependentUpon>
+    </None>
+    <None Include="Model\XPumpModel.edmx.diagram">
+      <DependentUpon>XPumpModel.edmx</DependentUpon>
+    </None>
+    <None Include="msg.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CC\CC.csproj">
+      <Project>{e5fa93da-db64-46a5-b36d-a1e574dd2c42}</Project>
+      <Name>CC</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom.png" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\previous.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\loading-small.gif" />
+    <None Include="Resources\loading.gif" />
+    <None Include="Resources\last.png" />
+    <None Include="Resources\item.png" />
+    <None Include="Resources\first.png" />
+    <None Include="Resources\find.png" />
+    <None Include="Resources\copy.png" />
+    <None Include="Resources\change_scope.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_16x16.png" />
+    <None Include="Resources\trash_16x16.png" />
+    <None Include="Resources\stop_16x16.png" />
+    <None Include="Resources\save_16x16.png" />
+    <None Include="Resources\reload_16x16.png" />
+    <None Include="Resources\plus_16x16.png" />
+    <None Include="Resources\edit_16x16.png" />
+    <None Include="Resources\delete_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nozzle2_16.png" />
+    <None Include="Resources\nozzle_16.png" />
+    <None Include="Resources\delete_16.png" />
+    <None Include="Resources\stop_16.png" />
+    <None Include="Resources\save_16.png" />
+    <None Include="Resources\edit_16.png" />
+    <None Include="Resources\add_16.png" />
+    <None Include="Resources\Add Property-20.png" />
+    <None Include="Resources\add_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_list_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rename1.png" />
+    <None Include="Resources\rename.png" />
+    <None Include="Resources\db_import.png" />
+    <None Include="Resources\import_data1.png" />
+    <None Include="Resources\import_data.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_split_none_16.png" />
+    <None Include="Resources\page_split4_16.png" />
+    <None Include="Resources\page_split2_16.png" />
+    <None Include="Resources\zoom_fit_16.png" />
+    <None Include="Resources\last_16.png" />
+    <None Include="Resources\next_16.png" />
+    <None Include="Resources\previous_16.png" />
+    <None Include="Resources\first_16.png" />
+    <None Include="Resources\zoom_out_16.png" />
+    <None Include="Resources\zoom_in_16.png" />
+    <None Include="Resources\printer_small.png" />
+    <None Include="Resources\printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\down_16.png" />
+    <None Include="Resources\up_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lock_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Local\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exclaimation_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unapprove.png" />
+    <None Include="Resources\approve.png" />
+    <None Include="Resources\sync_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\approve_multiple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sync_gray_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_16.png" />
+    <None Include="Resources\edit_list_gray_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icons\icon-purple.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Model\SecureModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SecureModel.edmx</DependentUpon>
+      <LastGenOutput>SecureModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\SecureModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SecureModel.edmx</DependentUpon>
+      <LastGenOutput>SecureModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\XPumpModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>XPumpModel.edmx</DependentUpon>
+      <LastGenOutput>XPumpModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\XPumpModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>XPumpModel.edmx</DependentUpon>
+      <LastGenOutput>XPumpModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Nozzle.ico" />
+    <None Include="Resources\edit_gray_16.png" />
+    <None Include="Resources\trash.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

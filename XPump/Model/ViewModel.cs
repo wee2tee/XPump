@@ -981,14 +981,15 @@ namespace XPump.Model
                 }
             }
         }
-        public string stkdes
-        {
-            get
-            {
-                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
-                return st != null ? st.stkdes.Trim() : string.Empty;
-            }
-        }
+        public string stkdes { get; set; }
+        //public string stkdes
+        //{
+        //    get
+        //    {
+        //        var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+        //        return st != null ? st.stkdes.Trim() : string.Empty;
+        //    }
+        //}
         public decimal qty { get { return this.shiftsttak.qty; } }
         public shiftsttak shiftsttak { get; set; }
     }

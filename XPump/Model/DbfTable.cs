@@ -1026,6 +1026,7 @@ namespace XPump.Model
 
     public class SccompDbf
     {
+        public DbConnectionConfig db_conn_config;
         public string compnam { get; set; }
         public string compcod { get; set; }
         public string path { get; set; }

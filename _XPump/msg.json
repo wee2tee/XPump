@@ -1,0 +1,143 @@
+﻿[
+  {
+    "id"  : "0001",
+    "th"  : "ข้อมูลที่กำลังเพิ่ม/แก้ไข จะไม่ถูกบันทึก, ยืนยันทำต่อ?",
+    "en"  : "Data will not be saved, Do you want to continue?"
+  },
+  {
+    "id": "0002",
+    "th": "กรุณายืนยันรหัสผ่านให้ถูกต้อง",
+    "en": "Password confirm not match"
+  },
+  {
+    "id": "0003",
+    "th": "ไม่พบเซิร์ฟเวอร์ชื่อ \"{0}\"",
+    "en": "Server \"{0}\" not found"
+  },
+  {
+    "id": "0004",
+    "th": "ไม่พบฐานข้อมูลชื่อ \"{0}\"",
+    "en": "Database \"{0}\" not found"
+  },
+  {
+    "id": "0005",
+    "th": "ไม่พบฐานข้อมูลชื่อ \"{0}\", ต้องการสร้างฐานข้อมูลดังกล่าวขึ้นมาใหม่หรือไม่?",
+    "en": "Database \"{0}\" not found, continue to create a new database?"
+  },
+  {
+    "id": "0006",
+    "th": "รหัสผู้ใช้/รหัสผ่านที่ระบุไว้ ไม่สามารถใช้งานฐานข้อมูล \"{0}\" ได้",
+    "en": "Access to database \"{0}\" is denied for specified User ID/Password"
+  },
+  {
+    "id": "0007",
+    "th": "กรุณากำหนดค่าการเชื่อมต่อฐานข้อมูล MySql ให้เรียบร้อยก่อน",
+    "en": "Please configure mysql connection"
+  },
+  {
+    "id": "0008",
+    "th": "กรุณาระบุวันที่เริ่มรอบบัญชี และ วันสิ้นรอบบัญชี",
+    "en": "Please specify beginning date and ending date of fiscal year"
+  },
+  {
+    "id": "0009",
+    "th": "คำเตือน !\n การเปลี่ยนรอบบัญชีอาจส่งผลให้การแสดงตัวเลขในรายงานเปลี่ยนแปลงไปจากเดิม(ที่เคยพิมพ์เก็บไว้), ทำต่อหรือไม่?",
+    "en": "Warning !\n Changing a fiscal year can cause an error in report, Do you want to continue?",
+  },
+  {
+    "id": "0010",
+    "th": "ในขั้นตอนการสำรองข้อมูลนี้ ต้องให้ผู้ใช้งานรายอื่นออกจากระบบก่อน",
+    "en": "This process other users must logout"
+  },
+  {
+    "id": "0011",
+    "th": "สำรองข้อมูลไปไว้ที่ \"{0}\", ทำต่อหรือไม่?",
+    "en": "Backup data to \"{0}\", Do you want to continue?",
+  },
+  {
+    "id": "0012",
+    "th": "แฟ้ม \"{0}\" มีอยู่แล้ว, ต้องการแทนที่ด้วยแฟ้มใหม่นี้ใช่หรือไม่?",
+    "en": "The file \"{0}\" is already exist, Do you want to replace it",
+  },
+  {
+    "id": "0013",
+    "th": "สำรองข้อมูลเสร็จเรียบร้อย",
+    "en": "Backup data completed"
+  },
+  {
+    "id": "0014",
+    "th": "นำข้อมูลสำรองจาก \"{0}\" มาใช้ โดยนำมาลงที่ฐานข้อมูล \"{1}\", ทำต่อหรือไม่?",
+    "en": "Restore data from backup file \"{0}\" to database \"{1}\", continue?",
+  },
+  {
+    "id": "0015",
+    "th": "นำข้อมูลสำรองมาใช้เสร็จเรียบร้อย",
+    "en": "Restore data completed"
+  },
+  {
+    "id": "0016",
+    "th": "ลบข้อมูลนี้หรือไม่",
+    "en": "Delete Record?"
+  },
+  {
+    "id": "0017",
+    "th": "ข้อมูลที่ต้องการลบไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว",
+    "en": "This record does not exist, Maybe deleted by another users"
+  },
+  {
+    "id": "0018",
+    "th": "กรุณาระบุรหัสข้อมูล",
+    "en": "Please specify Data Code"
+  },
+  {
+    "id": "0019",
+    "th": "กรุณาระบุเมนู",
+    "en": "Please specify Menu"
+  },
+  {
+    "id": "0020",
+    "th": "เมนู \"{0}\" ถูกกำหนดไว้แล้วสำหรับข้อมูล \"{1}\"",
+    "en": "Menu \"{0}\" is already assigned for Data Code \"{1}\""
+  },
+  {
+    "id": "0021",
+    "th": "ข้อมูลที่ต้องการแก้ไขไม่มีอยู่ในระบบ, อาจมีผู้ใช้งานรายอื่นลบออกไปแล้ว",
+    "en": "This record does not exist, Maybe deleted by another users"
+  },
+  {
+    "id": "0022",
+    "th": "ค้นหารหัสผู้ใช้ \"{0}\" ไม่พบ",
+    "en": "User ID \"{0}\" not found"
+  },
+  {
+    "id": "0023",
+    "th": "ยังไม่สามารถปิดประมวลผลสิ้นปีได้ เนื่องจากรายการขายของวันที่ {0} ยังไม่ได้บันทึกปิดยอดขายประจำวัน",
+    "en": "Year-End Processing cannot start right now, Because transaction in {0} not summary yet"
+  },
+  {
+    "id": "0024",
+    "th": "ประมวลผลสิ้นปีเสร็จเรียบร้อย",
+    "en": "Year-End Processing completed"
+  },
+  {
+    "id": "0025",
+    "th": "กรุณาระบุวันที่ให้เรียบร้อย",
+    "en": "Please fill in the date"
+  },
+  {
+    "id": "0026",
+    "th": "ลบรายการก่อนวันที่ {0}, ทำต่อหรือไม่?",
+    "en": "Delete transaction before {0}, Do you want to continue?"
+  },
+
+
+
+
+
+
+  {
+    "id": "0999",
+    "th": "โปรแกรมจะปิดหน้าต่างงานที่เปิดอยู่ทั้งหมดให้ก่อน, ทำต่อหรือไม่?",
+    "en": "All open windows will be closing, Do you want to continue?",
+  }
+]

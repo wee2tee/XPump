@@ -29,7 +29,7 @@ namespace XPump
         public const string helpfile = "Help.chm";
         public CultureInfo c_info = CultureInfo.GetCultureInfo("th-TH");
         public List<MsgTemplate> msg_template = new List<MsgTemplate>();
-        public DbConnectionConfig db_conn_config = null;
+        //public DbConnectionConfig db_conn_config = null;
 
         public MainForm()
         {
@@ -147,7 +147,7 @@ namespace XPump
             this.mnuChangeCompany.PerformClick();
 
             // CREATE SETTINGS FOR THIS COMPANY IF NOT EXIST
-            if(this.working_express_db != null && this.db_conn_config != null)
+            if(this.working_express_db != null && this.working_express_db.db_conn_config != null)
             {
                 DialogSettings.CreateSettingsProfile(this.working_express_db);
                 /* Getting Department */
@@ -380,8 +380,8 @@ namespace XPump
                 if (this.working_express_db == null) // select company first entry
                 {
                     this.working_express_db = sel.selected_sccomp;
-                    this.db_conn_config = this.ShowBranchSelection();
-                    if(this.db_conn_config == null)
+                    this.working_express_db.db_conn_config = this.ShowBranchSelection();
+                    if(this.working_express_db.db_conn_config == null)
                     {
                         this.Close();
                     }
@@ -396,7 +396,7 @@ namespace XPump
                     var db_config = this.ShowBranchSelection();
                     if(db_config != null)
                     {
-                        this.db_conn_config = db_config;
+                        this.working_express_db.db_conn_config = db_config;
                     }
                     else // select comp but not select branch
                     {
@@ -407,7 +407,7 @@ namespace XPump
                     this.islog.ChangeCompany(this.working_express_db.abs_path, this.working_express_db.compnam).Save();
                 }
 
-                this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), this.db_conn_config, this.loged_in_status.loged_in_user_name);
+                this.SetStatusLabelText(this.working_express_db.abs_path.TrimEnd('\\'), this.working_express_db.db_conn_config, this.loged_in_status.loged_in_user_name);
                 this.scacclv_list = this.GetScacclv(this.loged_in_status.loged_in_user_name);
                 var x = this.menuStrip1.Items;
                 this.SetMenuAccessible(this.menuStrip1.Items);

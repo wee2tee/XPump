@@ -565,7 +565,7 @@ namespace XPump.Misc
             return sales_vm;
         }
 
-        public static shiftsttakVM ToViewModel(this shiftsttak sttak, SccompDbf working_express_db)
+        public static shiftsttakVM ToViewModel(this shiftsttak sttak, SccompDbf working_express_db/*, IEnumerable<StmasDbf> stmas_dbf_list = null*/)
         {
             if (sttak == null)
                 return null;
@@ -573,19 +573,22 @@ namespace XPump.Misc
             shiftsttakVM s = new shiftsttakVM
             {
                 working_express_db = working_express_db,
-                shiftsttak = sttak
+                shiftsttak = sttak,
             };
+            //s.stkdes = stmas_dbf_list != null ? (stmas_dbf_list.Where(st => st.stkcod.Trim() == s.stkcod.Trim()).FirstOrDefault() != null ? stmas_dbf_list.Where(st => st.stkcod.Trim() == s.stkcod.Trim()).FirstOrDefault().stkdes.Trim() : string.Empty) : string.Empty;
 
             return s;
         }
 
         public static List<shiftsttakVM> ToViewModel(this IEnumerable<shiftsttak> sttak_list, SccompDbf working_express_db)
         {
+            //var stmas_dbf_list = DbfTable.Stmas(working_express_db).ToStmasList();
+
             List<shiftsttakVM> s = new List<shiftsttakVM>();
 
             foreach (var item in sttak_list)
             {
-                s.Add(item.ToViewModel(working_express_db));
+                s.Add(item.ToViewModel(working_express_db/*, stmas_dbf_list*/));
             }
 
             return s;
