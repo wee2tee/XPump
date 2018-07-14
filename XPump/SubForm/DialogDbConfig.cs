@@ -45,6 +45,8 @@ namespace XPump.SubForm
 
         public DialogDbConfig(MainForm main_form, DbConnectionConfig curr_config = null)
         {
+            this.form_mode = curr_config != null ? FORM_MODE.EDIT : FORM_MODE.ADD;
+
             this.curr_config = curr_config != null ? curr_config : new DbConnectionConfig { id = -1, branch = string.Empty, dbname = string.Empty, db_prefix = SecureDbHelper.GetDbPrefix(), depcod = string.Empty, passwordhash = string.Empty, port = 3306, servername = string.Empty, uid = string.Empty };
             
             this.main_form = main_form;
@@ -59,7 +61,7 @@ namespace XPump.SubForm
             this.LoadDepcodCombobox();
             this.lblPrefix.Text = SecureDbHelper.GetDbPrefix() + "_";
             //this.curr_config = this.LoadConfig();
-            this.FillForm(this.curr_config);
+            this.FillForm(/*this.curr_config*/);
         }
 
         //public void SetUILanguage()
@@ -105,18 +107,18 @@ namespace XPump.SubForm
             return new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
         }
 
-        private void FillForm(DbConnectionConfig config_to_fill = null)
+        private void FillForm(/*DbConnectionConfig config_to_fill = null*/)
         {
-            DbConnectionConfig config = config_to_fill != null ? config_to_fill : this.curr_config;
+            //DbConnectionConfig config = config_to_fill != null ? config_to_fill : this.curr_config;
 
-            this.txtBranch.Text = config.branch;
-            this.cbDepcod.Text = config.depcod;
-            this.txtServerName.Text = config.servername;
-            this.txtDbName.Text = config.dbname;
-            this.numPort.Text = config.port.ToString();
-            this.txtUserId.Text = config.uid;
-            this.txtPwd.Text = config.passwordhash.Decrypted();
-            this.txtConfPwd.Text = config.passwordhash.Decrypted();
+            this.txtBranch.Text = this.curr_config.branch;
+            this.cbDepcod.Text = this.curr_config.depcod;
+            this.txtServerName.Text = this.curr_config.servername;
+            this.txtDbName.Text = this.curr_config.dbname;
+            this.numPort.Text = this.curr_config.port.ToString();
+            this.txtUserId.Text = this.curr_config.uid;
+            this.txtPwd.Text = this.curr_config.passwordhash.Decrypted();
+            this.txtConfPwd.Text = this.curr_config.passwordhash.Decrypted();
         }
 
         private void btnSave_Click(object sender, EventArgs e)

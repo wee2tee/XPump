@@ -122,6 +122,38 @@ namespace XPump.Model
             return dt;
         }
 
+        public static DataTable StmasByStkcod(SccompDbf working_express_db, string stkcod)
+        {
+            string data_path = working_express_db.abs_path; //GetExpressDataPath();
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "stmas.dbf")))
+            {
+                XMessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                return new DataTable();
+            }
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = new OleDbConnection(
+                @"Provider=VFPOLEDB.1;Data Source=" + data_path);
+
+            conn.Open();
+
+            if (conn.State == ConnectionState.Open)
+            {
+                string mySQL = "select * from Stmas Where TRIM(stkcod) = '" + stkcod + "'";
+
+                OleDbCommand cmd = new OleDbCommand(mySQL, conn);
+                OleDbDataAdapter DA = new OleDbDataAdapter(cmd);
+
+                DA.Fill(dt);
+
+                conn.Close();
+            }
+
+            return dt;
+        }
+
         public static DataTable Scuser()
         {
             string secure_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\secure\";

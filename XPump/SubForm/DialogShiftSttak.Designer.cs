@@ -60,7 +60,7 @@
             this.panel1.Controls.Add(this.dgv);
             this.panel1.Location = new System.Drawing.Point(2, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(697, 190);
+            this.panel1.Size = new System.Drawing.Size(756, 190);
             this.panel1.TabIndex = 0;
             // 
             // inline_qty
@@ -90,7 +90,7 @@
             this.inline_qty.BackColor = System.Drawing.Color.White;
             this.inline_qty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inline_qty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.inline_qty.Location = new System.Drawing.Point(554, 35);
+            this.inline_qty.Location = new System.Drawing.Point(613, 35);
             this.inline_qty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inline_qty.Name = "inline_qty";
             this.inline_qty.Size = new System.Drawing.Size(140, 23);
@@ -146,7 +146,7 @@
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(697, 190);
+            this.dgv.Size = new System.Drawing.Size(756, 190);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 1;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
@@ -161,7 +161,7 @@
             this.btnSave.Enabled = false;
             this.btnSave.Image = global::XPump.Properties.Resources.save_16;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(236, 205);
+            this.btnSave.Location = new System.Drawing.Point(265, 205);
             this.btnSave.Name = "btnSave";
             this.btnSave.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.btnSave.Size = new System.Drawing.Size(112, 31);
@@ -177,7 +177,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::XPump.Properties.Resources.stop_16;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(354, 205);
+            this.btnCancel.Location = new System.Drawing.Point(383, 205);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             this.btnCancel.Size = new System.Drawing.Size(112, 31);
@@ -226,28 +226,27 @@
             // 
             this.col_sttak_tank_name.DataPropertyName = "tank_name";
             this.col_sttak_tank_name.HeaderText = "รหัสแท๊งค์";
-            this.col_sttak_tank_name.MinimumWidth = 170;
+            this.col_sttak_tank_name.MinimumWidth = 100;
             this.col_sttak_tank_name.Name = "col_sttak_tank_name";
             this.col_sttak_tank_name.ReadOnly = true;
-            this.col_sttak_tank_name.Width = 170;
             // 
             // col_sttak_section_name
             // 
             this.col_sttak_section_name.DataPropertyName = "section_name";
             this.col_sttak_section_name.HeaderText = "เลขที่ถัง";
-            this.col_sttak_section_name.MinimumWidth = 170;
+            this.col_sttak_section_name.MinimumWidth = 140;
             this.col_sttak_section_name.Name = "col_sttak_section_name";
             this.col_sttak_section_name.ReadOnly = true;
-            this.col_sttak_section_name.Width = 170;
+            this.col_sttak_section_name.Width = 140;
             // 
             // col_sttak_stkcod
             // 
-            this.col_sttak_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.col_sttak_stkcod.DataPropertyName = "stkcod";
             this.col_sttak_stkcod.HeaderText = "รหัสสินค้า";
             this.col_sttak_stkcod.MinimumWidth = 140;
             this.col_sttak_stkcod.Name = "col_sttak_stkcod";
             this.col_sttak_stkcod.ReadOnly = true;
+            this.col_sttak_stkcod.Width = 140;
             // 
             // col_sttak_stkdes
             // 
@@ -256,7 +255,6 @@
             this.col_sttak_stkdes.HeaderText = "รายละเอียด";
             this.col_sttak_stkdes.Name = "col_sttak_stkdes";
             this.col_sttak_stkdes.ReadOnly = true;
-            this.col_sttak_stkdes.Visible = false;
             // 
             // col_sttak_qty
             // 
@@ -291,7 +289,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 248);
+            this.ClientSize = new System.Drawing.Size(761, 248);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);

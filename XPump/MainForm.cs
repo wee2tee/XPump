@@ -264,8 +264,19 @@ namespace XPump
 
         private void mnuBranch_Click(object sender, EventArgs e)
         {
-            DialogBranch br = new DialogBranch(this);
-            br.ShowDialog();
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormBranch)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormBranch)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormBranch)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+                return;
+            }
+
+            var scacclv = this.GetSubFormAccessControl(FormBranch.modcod);
+
+            FormBranch br = new FormBranch(this);
+            br.MdiParent = this;
+            br.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = br, docPrefix = string.Empty });
         }
 
         private void mnuDailyClose_Click(object sender, EventArgs e)
@@ -492,8 +503,8 @@ namespace XPump
             }
             else // branch > 1
             {
-                MessageBox.Show("There's " + branch_list.Count.ToString() + " branch, Show branch selection dialog now");
-                DialogBranch br = new DialogBranch(this);
+                //MessageBox.Show("There's " + branch_list.Count.ToString() + " branch, Show branch selection dialog now");
+                DialogBranchSelection br = new DialogBranchSelection(this);
                 if (br.ShowDialog() == DialogResult.OK)
                 {
                     return br.curr_conn_config;

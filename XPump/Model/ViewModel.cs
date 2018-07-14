@@ -238,7 +238,8 @@ namespace XPump.Model
         {
             get
             {
-                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.section.stkcod).FirstOrDefault();
+                //var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.section.stkcod).FirstOrDefault();
+                var st = DbfTable.StmasByStkcod(this.working_express_db, this.stkcod).ToStmasList().FirstOrDefault();
                 return st != null ? st.stkdes : string.Empty;
             }
         }
@@ -409,30 +410,20 @@ namespace XPump.Model
         {
             get
             {
-                //var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
-                //return st != null ? st.stkdes.Trim() : string.Empty;
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    //var section = db.section.Include("tank.tanksetup").Where(s => s.tank.tanksetup.startdate.CompareTo(this.price_date.Value) <= 0).OrderByDescending(s => s.tank.tanksetup.startdate).FirstOrDefault();
-                    //if (section == null)
-                    //{
-                    //    return string.Empty;
-                    //}
-                    //else
-                    //{
-                    //    return section.stkdes;
-                    //}
-
-                    var section = db.section.Where(s => s.stkcod == this.stkcod).FirstOrDefault();
-                    if(section != null)
-                    {
-                        return section.stkdes;
-                    }
-                    else
-                    {
-                        return string.Empty;
-                    }
-                }
+                var st = DbfTable.StmasByStkcod(this.working_express_db, this.stkcod).ToStmasList().FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
+                //using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                //{
+                //    var section = db.section.Where(s => s.stkcod == this.stkcod).FirstOrDefault();
+                //    if(section != null)
+                //    {
+                //        return section.stkdes;
+                //    }
+                //    else
+                //    {
+                //        return string.Empty;
+                //    }
+                //}
             }
         }
     }
@@ -503,22 +494,24 @@ namespace XPump.Model
         {
             get
             {
-                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
-                {
-                    var sales = db.saleshistory.Include("nozzle").Where(s => s.salessummary_id == this.salessummary.id).FirstOrDefault();
-                    if (sales == null)
-                        return string.Empty;
+                var st = DbfTable.StmasByStkcod(this.working_express_db, this.stkcod).ToStmasList().FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
+                //using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                //{
+                //    var sales = db.saleshistory.Include("nozzle").Where(s => s.salessummary_id == this.salessummary.id).FirstOrDefault();
+                //    if (sales == null)
+                //        return string.Empty;
 
-                    var section = db.section.Where(s => s.id == sales.nozzle.section_id).FirstOrDefault();
-                    if (section != null)
-                    {
-                        return section.stkdes;
-                    }
-                    else
-                    {
-                        return string.Empty;
-                    }
-                }
+                //    var section = db.section.Where(s => s.id == sales.nozzle.section_id).FirstOrDefault();
+                //    if (section != null)
+                //    {
+                //        return section.stkdes;
+                //    }
+                //    else
+                //    {
+                //        return string.Empty;
+                //    }
+                //}
             }
         }
         public decimal totqty
@@ -799,8 +792,14 @@ namespace XPump.Model
         {
             get
             {
-                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                //var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                var st = DbfTable.StmasByStkcod(this.working_express_db, this.stkcod).ToStmasList().FirstOrDefault();
                 return st != null ? st.stkdes.Trim() : string.Empty;
+                //using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                //{
+                //    var sec = db.section.Where(s => s.stkcod.Trim() == this.stkcod.Trim()).FirstOrDefault();
+                //    return sec != null ? sec.stkdes : string.Empty;
+                //}
             }
         }
         public saleshistory saleshistory { get; set; }
@@ -899,7 +898,8 @@ namespace XPump.Model
         {
             get
             {
-                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                //var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                var st = DbfTable.StmasByStkcod(this.working_express_db, this.stkcod).ToStmasList().FirstOrDefault();
                 return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
@@ -914,7 +914,8 @@ namespace XPump.Model
         {
             get
             {
-                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                //var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                var st = DbfTable.StmasByStkcod(this.working_express_db, this.stkcod).ToStmasList().FirstOrDefault();
                 return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
@@ -981,15 +982,14 @@ namespace XPump.Model
                 }
             }
         }
-        public string stkdes { get; set; }
-        //public string stkdes
-        //{
-        //    get
-        //    {
-        //        var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
-        //        return st != null ? st.stkdes.Trim() : string.Empty;
-        //    }
-        //}
+        public string stkdes
+        {
+            get
+            {
+                var st = DbfTable.StmasByStkcod(this.working_express_db, this.stkcod).ToStmasList().FirstOrDefault();
+                return st != null ? st.stkdes.Trim() : string.Empty;
+            }
+        }
         public decimal qty { get { return this.shiftsttak.qty; } }
         public shiftsttak shiftsttak { get; set; }
     }
@@ -1004,7 +1004,8 @@ namespace XPump.Model
         {
             get
             {
-                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                //var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                var st = DbfTable.StmasByStkcod(this.working_express_db, this.stkcod).ToStmasList().FirstOrDefault();
                 return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
@@ -1445,7 +1446,8 @@ namespace XPump.Model
         {
             get
             {
-                var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                //var st = DbfTable.Stmas(this.working_express_db).ToStmasList().Where(s => s.stkcod.Trim() == this.stkcod).FirstOrDefault();
+                var st = DbfTable.StmasByStkcod(this.working_express_db, this.stkcod).ToStmasList().FirstOrDefault();
                 return st != null ? st.stkdes.Trim() : string.Empty;
             }
         }
