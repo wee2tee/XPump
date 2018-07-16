@@ -25,7 +25,7 @@ namespace XPump.SubForm
 
     public partial class DialogSettings : Form
     {
-        public const string modcod = "21";
+        public const string modcod = "22";
         private MainForm main_form;
         public scacclvVM scacclv;
         private DbConnectionConfig localconfig;
@@ -166,7 +166,7 @@ namespace XPump.SubForm
 
                     db.settings.Add(new settings
                     {
-                        orgname = string.Empty,
+                        orgname = working_express_db.db_conn_config.branch,
                         shiftprintmet = "0",
                         shiftauthlev = 0,
                         dayprintmet = "0",

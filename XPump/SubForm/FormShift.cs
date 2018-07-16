@@ -19,7 +19,7 @@ namespace XPump.SubForm
 {
     public partial class FormShift : Form
     {
-        public const string modcod = "23";
+        public const string modcod = "24";
         private MainForm main_form;
         private scacclvVM scacclv;
         private BindingSource bs;

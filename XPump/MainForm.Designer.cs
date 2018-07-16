@@ -98,8 +98,8 @@
             // mnuSetup
             // 
             this.mnuSetup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuSettings,
             this.mnuBranch,
+            this.mnuSettings,
             this.mnuTankSetup,
             this.mnuShift,
             this.mnuIstab});

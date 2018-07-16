@@ -71,8 +71,8 @@
             // 
             // toolStrip1
             // 
-            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnEdit,
@@ -82,24 +82,24 @@
             // 
             // btnEdit
             // 
-            resources.ApplyResources(this.btnEdit, "btnEdit");
             this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnEdit.Image = global::XPump.Properties.Resources.edit;
+            resources.ApplyResources(this.btnEdit, "btnEdit");
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSave
             // 
-            resources.ApplyResources(this.btnSave, "btnSave");
             this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.btnSave, "btnSave");
             this.btnSave.Image = global::XPump.Properties.Resources.save;
             this.btnSave.Name = "btnSave";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnStop
             // 
-            resources.ApplyResources(this.btnStop, "btnStop");
             this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.btnStop, "btnStop");
             this.btnStop.Image = global::XPump.Properties.Resources.stop;
             this.btnStop.Name = "btnStop";
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
@@ -160,9 +160,9 @@
             // 
             this.dtPeriodTo._ReadOnly = false;
             this.dtPeriodTo._SelectedDate = null;
-            resources.ApplyResources(this.dtPeriodTo, "dtPeriodTo");
             this.dtPeriodTo.BackColor = System.Drawing.Color.White;
             this.dtPeriodTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.dtPeriodTo, "dtPeriodTo");
             this.dtPeriodTo.Name = "dtPeriodTo";
             this.dtPeriodTo._SelectedDateChanged += new System.EventHandler(this.dtPeriodTo__SelectedDateChanged);
             this.dtPeriodTo._DoubleClicked += new System.EventHandler(this.PerformEdit);
@@ -171,9 +171,9 @@
             // 
             this.dtPeriodFrom._ReadOnly = false;
             this.dtPeriodFrom._SelectedDate = null;
-            resources.ApplyResources(this.dtPeriodFrom, "dtPeriodFrom");
             this.dtPeriodFrom.BackColor = System.Drawing.Color.White;
             this.dtPeriodFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.dtPeriodFrom, "dtPeriodFrom");
             this.dtPeriodFrom.Name = "dtPeriodFrom";
             this.dtPeriodFrom._SelectedDateChanged += new System.EventHandler(this.dtPeriodFrom__SelectedDateChanged);
             this.dtPeriodFrom._DoubleClicked += new System.EventHandler(this.PerformEdit);
@@ -186,9 +186,9 @@
             this.numDayAuthLevel._ReadOnly = false;
             this.numDayAuthLevel._Text = "";
             this.numDayAuthLevel._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            resources.ApplyResources(this.numDayAuthLevel, "numDayAuthLevel");
             this.numDayAuthLevel.BackColor = System.Drawing.Color.White;
             this.numDayAuthLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.numDayAuthLevel, "numDayAuthLevel");
             this.numDayAuthLevel.Name = "numDayAuthLevel";
             this.numDayAuthLevel._TextChanged += new System.EventHandler(this.numDayAuthLevel__TextChanged);
             this.numDayAuthLevel._DoubleClicked += new System.EventHandler(this.PerformEdit);
@@ -201,9 +201,9 @@
             this.numShiftAuthLevel._ReadOnly = false;
             this.numShiftAuthLevel._Text = "";
             this.numShiftAuthLevel._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            resources.ApplyResources(this.numShiftAuthLevel, "numShiftAuthLevel");
             this.numShiftAuthLevel.BackColor = System.Drawing.Color.White;
             this.numShiftAuthLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.numShiftAuthLevel, "numShiftAuthLevel");
             this.numShiftAuthLevel.Name = "numShiftAuthLevel";
             this.numShiftAuthLevel._TextChanged += new System.EventHandler(this.numShiftAuthLevel__TextChanged);
             this.numShiftAuthLevel._DoubleClicked += new System.EventHandler(this.PerformEdit);
@@ -213,8 +213,8 @@
             this.drDayPrintMethod._ReadOnly = false;
             this.drDayPrintMethod._SelectedItem = null;
             this.drDayPrintMethod._Text = "";
-            resources.ApplyResources(this.drDayPrintMethod, "drDayPrintMethod");
             this.drDayPrintMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.drDayPrintMethod, "drDayPrintMethod");
             this.drDayPrintMethod.Name = "drDayPrintMethod";
             this.drDayPrintMethod._SelectedItemChanged += new System.EventHandler(this.drDayPrintMethod__SelectedItemChanged);
             this.drDayPrintMethod._DoubleClicked += new System.EventHandler(this.PerformEdit);
@@ -224,8 +224,8 @@
             this.drShiftPrintMethod._ReadOnly = false;
             this.drShiftPrintMethod._SelectedItem = null;
             this.drShiftPrintMethod._Text = "";
-            resources.ApplyResources(this.drShiftPrintMethod, "drShiftPrintMethod");
             this.drShiftPrintMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.drShiftPrintMethod, "drShiftPrintMethod");
             this.drShiftPrintMethod.Name = "drShiftPrintMethod";
             this.drShiftPrintMethod._SelectedItemChanged += new System.EventHandler(this.drShiftPrintMethod__SelectedItemChanged);
             this.drShiftPrintMethod._DoubleClicked += new System.EventHandler(this.PerformEdit);
@@ -293,9 +293,9 @@
             this.txtOrgname._ReadOnly = false;
             this.txtOrgname._Text = "";
             this.txtOrgname._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            resources.ApplyResources(this.txtOrgname, "txtOrgname");
             this.txtOrgname.BackColor = System.Drawing.Color.White;
             this.txtOrgname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.txtOrgname, "txtOrgname");
             this.txtOrgname.Name = "txtOrgname";
             this.txtOrgname._TextChanged += new System.EventHandler(this.txtOrgname__TextChanged);
             this.txtOrgname._DoubleClicked += new System.EventHandler(this.PerformEdit);
@@ -332,22 +332,22 @@
             // 
             // btnEditMysqlConnection
             // 
-            resources.ApplyResources(this.btnEditMysqlConnection, "btnEditMysqlConnection");
             this.btnEditMysqlConnection.Image = global::XPump.Properties.Resources.edit_16;
+            resources.ApplyResources(this.btnEditMysqlConnection, "btnEditMysqlConnection");
             this.btnEditMysqlConnection.Name = "btnEditMysqlConnection";
             this.btnEditMysqlConnection.UseVisualStyleBackColor = true;
             this.btnEditMysqlConnection.Click += new System.EventHandler(this.btnEditMysqlConnection_Click);
             // 
             // lblNotConnect
             // 
-            resources.ApplyResources(this.lblNotConnect, "lblNotConnect");
             this.lblNotConnect.Image = global::XPump.Properties.Resources.exclaimation_16;
+            resources.ApplyResources(this.lblNotConnect, "lblNotConnect");
             this.lblNotConnect.Name = "lblNotConnect";
             // 
             // lblConnected
             // 
-            resources.ApplyResources(this.lblConnected, "lblConnected");
             this.lblConnected.Image = global::XPump.Properties.Resources.ok_16;
+            resources.ApplyResources(this.lblConnected, "lblConnected");
             this.lblConnected.Name = "lblConnected";
             // 
             // DialogSettings
@@ -355,10 +355,10 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.btnEditMysqlConnection);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.lblNotConnect);
             this.Controls.Add(this.lblConnected);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

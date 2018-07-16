@@ -15,7 +15,7 @@ namespace XPump.SubForm
 {
     public partial class FormTankConfig : Form
     {
-        public const string modcod = "22";
+        public const string modcod = "23";
         public scacclvVM scacclv; 
         private MainForm main_form;
         private FORM_MODE form_mode;

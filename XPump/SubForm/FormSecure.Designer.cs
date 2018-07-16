@@ -32,9 +32,24 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnStop = new System.Windows.Forms.ToolStripButton();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnFirst = new System.Windows.Forms.ToolStripButton();
+            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
+            this.btnNext = new System.Windows.Forms.ToolStripButton();
+            this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.inline_approve = new CC.XDropdownList();
@@ -46,6 +61,21 @@
             this.inline_add = new CC.XDropdownList();
             this.inline_read = new CC.XDropdownList();
             this.dgv = new CC.XDatagrid();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_modcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_moddesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_moddesc_en = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scacclv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scmodul = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_scmodul_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteItem = new System.Windows.Forms.Button();
             this.btnEditItem = new System.Windows.Forms.Button();
             this.btnAddItem = new System.Windows.Forms.Button();
@@ -66,36 +96,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtLanguage = new System.Windows.Forms.TextBox();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_datacod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_modcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_moddesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_moddesc_en = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_read = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_add = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_edit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_print = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_approve = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scacclv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scmodul = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_scmodul_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnEdit = new System.Windows.Forms.ToolStripButton();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
-            this.btnStop = new System.Windows.Forms.ToolStripButton();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
-            this.btnFirst = new System.Windows.Forms.ToolStripButton();
-            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
-            this.btnNext = new System.Windows.Forms.ToolStripButton();
-            this.btnLast = new System.Windows.Forms.ToolStripButton();
-            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -123,20 +123,138 @@
             this.btnRefresh});
             this.toolStrip1.Name = "toolStrip1";
             // 
+            // btnEdit
+            // 
+            resources.ApplyResources(this.btnEdit, "btnEdit");
+            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnEdit.Image = global::XPump.Properties.Resources.edit;
+            this.btnEdit.Name = "btnEdit";
+            // 
+            // btnDelete
+            // 
+            resources.ApplyResources(this.btnDelete, "btnDelete");
+            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
+            this.btnDelete.Name = "btnDelete";
+            // 
             // toolStripSeparator3
             // 
             resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
+            // 
+            // btnStop
+            // 
+            resources.ApplyResources(this.btnStop, "btnStop");
+            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnStop.Image = global::XPump.Properties.Resources.stop;
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnSave
+            // 
+            resources.ApplyResources(this.btnSave, "btnSave");
+            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSave.Image = global::XPump.Properties.Resources.save;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // toolStripSeparator1
             // 
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             // 
+            // btnFirst
+            // 
+            resources.ApplyResources(this.btnFirst, "btnFirst");
+            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFirst.Image = global::XPump.Properties.Resources.first;
+            this.btnFirst.Name = "btnFirst";
+            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
+            // 
+            // btnPrevious
+            // 
+            resources.ApplyResources(this.btnPrevious, "btnPrevious");
+            this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // btnNext
+            // 
+            resources.ApplyResources(this.btnNext, "btnNext");
+            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNext.Image = global::XPump.Properties.Resources.next;
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnLast
+            // 
+            resources.ApplyResources(this.btnLast, "btnLast");
+            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnLast.Image = global::XPump.Properties.Resources.last;
+            this.btnLast.Name = "btnLast";
+            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
+            // 
+            // btnSearch
+            // 
+            resources.ApplyResources(this.btnSearch, "btnSearch");
+            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSearch.DropDownButtonWidth = 15;
+            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnInquiryAll,
+            this.btnInquiryRest});
+            this.btnSearch.Image = global::XPump.Properties.Resources.search;
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
+            // 
+            // btnInquiryAll
+            // 
+            resources.ApplyResources(this.btnInquiryAll, "btnInquiryAll");
+            this.btnInquiryAll.Name = "btnInquiryAll";
+            this.btnInquiryAll.Click += new System.EventHandler(this.btnInquiryAll_Click);
+            // 
+            // btnInquiryRest
+            // 
+            resources.ApplyResources(this.btnInquiryRest, "btnInquiryRest");
+            this.btnInquiryRest.Name = "btnInquiryRest";
+            this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
+            // 
             // toolStripSeparator2
             // 
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
+            // 
+            // btnItem
+            // 
+            resources.ApplyResources(this.btnItem, "btnItem");
+            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnItemF8,
+            this.btnItemF7});
+            this.btnItem.Image = global::XPump.Properties.Resources.item;
+            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.btnItem.Name = "btnItem";
+            // 
+            // btnItemF8
+            // 
+            resources.ApplyResources(this.btnItemF8, "btnItemF8");
+            this.btnItemF8.Name = "btnItemF8";
+            this.btnItemF8.Click += new System.EventHandler(this.btnItemF8_Click);
+            // 
+            // btnItemF7
+            // 
+            resources.ApplyResources(this.btnItemF7, "btnItemF7");
+            this.btnItemF7.Name = "btnItemF7";
+            this.btnItemF7.Click += new System.EventHandler(this.btnItemF7_Click);
+            // 
+            // btnRefresh
+            // 
+            resources.ApplyResources(this.btnRefresh, "btnRefresh");
+            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // tabControl1
             // 
@@ -325,6 +443,113 @@
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
             // 
+            // col_id
+            // 
+            this.col_id.DataPropertyName = "id";
+            resources.ApplyResources(this.col_id, "col_id");
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            // 
+            // col_username
+            // 
+            this.col_username.DataPropertyName = "username";
+            resources.ApplyResources(this.col_username, "col_username");
+            this.col_username.Name = "col_username";
+            this.col_username.ReadOnly = true;
+            // 
+            // col_datacod
+            // 
+            this.col_datacod.DataPropertyName = "datacod";
+            resources.ApplyResources(this.col_datacod, "col_datacod");
+            this.col_datacod.Name = "col_datacod";
+            this.col_datacod.ReadOnly = true;
+            // 
+            // col_modcod
+            // 
+            this.col_modcod.DataPropertyName = "modcod";
+            resources.ApplyResources(this.col_modcod, "col_modcod");
+            this.col_modcod.Name = "col_modcod";
+            this.col_modcod.ReadOnly = true;
+            // 
+            // col_moddesc
+            // 
+            this.col_moddesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_moddesc.DataPropertyName = "moddesc";
+            resources.ApplyResources(this.col_moddesc, "col_moddesc");
+            this.col_moddesc.Name = "col_moddesc";
+            this.col_moddesc.ReadOnly = true;
+            // 
+            // col_moddesc_en
+            // 
+            this.col_moddesc_en.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_moddesc_en.DataPropertyName = "moddesc_en";
+            resources.ApplyResources(this.col_moddesc_en, "col_moddesc_en");
+            this.col_moddesc_en.Name = "col_moddesc_en";
+            this.col_moddesc_en.ReadOnly = true;
+            // 
+            // col_read
+            // 
+            this.col_read.DataPropertyName = "read";
+            resources.ApplyResources(this.col_read, "col_read");
+            this.col_read.Name = "col_read";
+            this.col_read.ReadOnly = true;
+            // 
+            // col_add
+            // 
+            this.col_add.DataPropertyName = "add";
+            resources.ApplyResources(this.col_add, "col_add");
+            this.col_add.Name = "col_add";
+            this.col_add.ReadOnly = true;
+            // 
+            // col_edit
+            // 
+            this.col_edit.DataPropertyName = "edit";
+            resources.ApplyResources(this.col_edit, "col_edit");
+            this.col_edit.Name = "col_edit";
+            this.col_edit.ReadOnly = true;
+            // 
+            // col_delete
+            // 
+            this.col_delete.DataPropertyName = "delete";
+            resources.ApplyResources(this.col_delete, "col_delete");
+            this.col_delete.Name = "col_delete";
+            this.col_delete.ReadOnly = true;
+            // 
+            // col_print
+            // 
+            this.col_print.DataPropertyName = "print";
+            resources.ApplyResources(this.col_print, "col_print");
+            this.col_print.Name = "col_print";
+            this.col_print.ReadOnly = true;
+            // 
+            // col_approve
+            // 
+            this.col_approve.DataPropertyName = "approve";
+            resources.ApplyResources(this.col_approve, "col_approve");
+            this.col_approve.Name = "col_approve";
+            this.col_approve.ReadOnly = true;
+            // 
+            // col_scacclv
+            // 
+            this.col_scacclv.DataPropertyName = "scacclv";
+            resources.ApplyResources(this.col_scacclv, "col_scacclv");
+            this.col_scacclv.Name = "col_scacclv";
+            this.col_scacclv.ReadOnly = true;
+            // 
+            // col_scmodul
+            // 
+            this.col_scmodul.DataPropertyName = "scmodul";
+            resources.ApplyResources(this.col_scmodul, "col_scmodul");
+            this.col_scmodul.Name = "col_scmodul";
+            this.col_scmodul.ReadOnly = true;
+            // 
+            // col_scmodul_id
+            // 
+            this.col_scmodul_id.DataPropertyName = "scmodul_id";
+            resources.ApplyResources(this.col_scmodul_id, "col_scmodul_id");
+            this.col_scmodul_id.Name = "col_scmodul_id";
+            this.col_scmodul_id.ReadOnly = true;
+            // 
             // btnDeleteItem
             // 
             resources.ApplyResources(this.btnDeleteItem, "btnDeleteItem");
@@ -450,231 +675,6 @@
             this.txtLanguage.Name = "txtLanguage";
             this.txtLanguage.ReadOnly = true;
             this.txtLanguage.TabStop = false;
-            // 
-            // col_id
-            // 
-            this.col_id.DataPropertyName = "id";
-            resources.ApplyResources(this.col_id, "col_id");
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            // 
-            // col_username
-            // 
-            this.col_username.DataPropertyName = "username";
-            resources.ApplyResources(this.col_username, "col_username");
-            this.col_username.Name = "col_username";
-            this.col_username.ReadOnly = true;
-            // 
-            // col_datacod
-            // 
-            this.col_datacod.DataPropertyName = "datacod";
-            resources.ApplyResources(this.col_datacod, "col_datacod");
-            this.col_datacod.Name = "col_datacod";
-            this.col_datacod.ReadOnly = true;
-            // 
-            // col_modcod
-            // 
-            this.col_modcod.DataPropertyName = "modcod";
-            resources.ApplyResources(this.col_modcod, "col_modcod");
-            this.col_modcod.Name = "col_modcod";
-            this.col_modcod.ReadOnly = true;
-            // 
-            // col_moddesc
-            // 
-            this.col_moddesc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_moddesc.DataPropertyName = "moddesc";
-            resources.ApplyResources(this.col_moddesc, "col_moddesc");
-            this.col_moddesc.Name = "col_moddesc";
-            this.col_moddesc.ReadOnly = true;
-            // 
-            // col_moddesc_en
-            // 
-            this.col_moddesc_en.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_moddesc_en.DataPropertyName = "moddesc_en";
-            resources.ApplyResources(this.col_moddesc_en, "col_moddesc_en");
-            this.col_moddesc_en.Name = "col_moddesc_en";
-            this.col_moddesc_en.ReadOnly = true;
-            // 
-            // col_read
-            // 
-            this.col_read.DataPropertyName = "read";
-            resources.ApplyResources(this.col_read, "col_read");
-            this.col_read.Name = "col_read";
-            this.col_read.ReadOnly = true;
-            // 
-            // col_add
-            // 
-            this.col_add.DataPropertyName = "add";
-            resources.ApplyResources(this.col_add, "col_add");
-            this.col_add.Name = "col_add";
-            this.col_add.ReadOnly = true;
-            // 
-            // col_edit
-            // 
-            this.col_edit.DataPropertyName = "edit";
-            resources.ApplyResources(this.col_edit, "col_edit");
-            this.col_edit.Name = "col_edit";
-            this.col_edit.ReadOnly = true;
-            // 
-            // col_delete
-            // 
-            this.col_delete.DataPropertyName = "delete";
-            resources.ApplyResources(this.col_delete, "col_delete");
-            this.col_delete.Name = "col_delete";
-            this.col_delete.ReadOnly = true;
-            // 
-            // col_print
-            // 
-            this.col_print.DataPropertyName = "print";
-            resources.ApplyResources(this.col_print, "col_print");
-            this.col_print.Name = "col_print";
-            this.col_print.ReadOnly = true;
-            // 
-            // col_approve
-            // 
-            this.col_approve.DataPropertyName = "approve";
-            resources.ApplyResources(this.col_approve, "col_approve");
-            this.col_approve.Name = "col_approve";
-            this.col_approve.ReadOnly = true;
-            // 
-            // col_scacclv
-            // 
-            this.col_scacclv.DataPropertyName = "scacclv";
-            resources.ApplyResources(this.col_scacclv, "col_scacclv");
-            this.col_scacclv.Name = "col_scacclv";
-            this.col_scacclv.ReadOnly = true;
-            // 
-            // col_scmodul
-            // 
-            this.col_scmodul.DataPropertyName = "scmodul";
-            resources.ApplyResources(this.col_scmodul, "col_scmodul");
-            this.col_scmodul.Name = "col_scmodul";
-            this.col_scmodul.ReadOnly = true;
-            // 
-            // col_scmodul_id
-            // 
-            this.col_scmodul_id.DataPropertyName = "scmodul_id";
-            resources.ApplyResources(this.col_scmodul_id, "col_scmodul_id");
-            this.col_scmodul_id.Name = "col_scmodul_id";
-            this.col_scmodul_id.ReadOnly = true;
-            // 
-            // btnEdit
-            // 
-            resources.ApplyResources(this.btnEdit, "btnEdit");
-            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnEdit.Image = global::XPump.Properties.Resources.edit;
-            this.btnEdit.Name = "btnEdit";
-            // 
-            // btnDelete
-            // 
-            resources.ApplyResources(this.btnDelete, "btnDelete");
-            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
-            this.btnDelete.Name = "btnDelete";
-            // 
-            // btnStop
-            // 
-            resources.ApplyResources(this.btnStop, "btnStop");
-            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnStop.Image = global::XPump.Properties.Resources.stop;
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
-            // btnSave
-            // 
-            resources.ApplyResources(this.btnSave, "btnSave");
-            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSave.Image = global::XPump.Properties.Resources.save;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnFirst
-            // 
-            resources.ApplyResources(this.btnFirst, "btnFirst");
-            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFirst.Image = global::XPump.Properties.Resources.first;
-            this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
-            // 
-            // btnPrevious
-            // 
-            resources.ApplyResources(this.btnPrevious, "btnPrevious");
-            this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
-            // 
-            // btnNext
-            // 
-            resources.ApplyResources(this.btnNext, "btnNext");
-            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnNext.Image = global::XPump.Properties.Resources.next;
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnLast
-            // 
-            resources.ApplyResources(this.btnLast, "btnLast");
-            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnLast.Image = global::XPump.Properties.Resources.last;
-            this.btnLast.Name = "btnLast";
-            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
-            // 
-            // btnSearch
-            // 
-            resources.ApplyResources(this.btnSearch, "btnSearch");
-            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSearch.DropDownButtonWidth = 15;
-            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnInquiryAll,
-            this.btnInquiryRest});
-            this.btnSearch.Image = global::XPump.Properties.Resources.search;
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
-            // 
-            // btnInquiryAll
-            // 
-            resources.ApplyResources(this.btnInquiryAll, "btnInquiryAll");
-            this.btnInquiryAll.Name = "btnInquiryAll";
-            this.btnInquiryAll.Click += new System.EventHandler(this.btnInquiryAll_Click);
-            // 
-            // btnInquiryRest
-            // 
-            resources.ApplyResources(this.btnInquiryRest, "btnInquiryRest");
-            this.btnInquiryRest.Name = "btnInquiryRest";
-            this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
-            // 
-            // btnItem
-            // 
-            resources.ApplyResources(this.btnItem, "btnItem");
-            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnItemF8,
-            this.btnItemF7});
-            this.btnItem.Image = global::XPump.Properties.Resources.item;
-            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.btnItem.Name = "btnItem";
-            // 
-            // btnItemF8
-            // 
-            resources.ApplyResources(this.btnItemF8, "btnItemF8");
-            this.btnItemF8.Name = "btnItemF8";
-            this.btnItemF8.Click += new System.EventHandler(this.btnItemF8_Click);
-            // 
-            // btnItemF7
-            // 
-            resources.ApplyResources(this.btnItemF7, "btnItemF7");
-            this.btnItemF7.Name = "btnItemF7";
-            this.btnItemF7.Click += new System.EventHandler(this.btnItemF7_Click);
-            // 
-            // btnRefresh
-            // 
-            resources.ApplyResources(this.btnRefresh, "btnRefresh");
-            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // FormSecure
             // 

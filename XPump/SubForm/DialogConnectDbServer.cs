@@ -309,10 +309,11 @@ namespace XPump.SubForm
                     sec.scmodul.Add(new scmodul { modcod = "11", p_modcod = "1", description = "บันทึกรายการประจำผลัด", description_en = "Shift Transaction" });
                     sec.scmodul.Add(new scmodul { modcod = "12", p_modcod = "1", description = "ปิดยอดขายประจำวัน", description_en = "Daily Summary" });
                     sec.scmodul.Add(new scmodul { modcod = "2", p_modcod = "ALLMENU", description = "เริ่มระบบ", description_en = "Setup" });
-                    sec.scmodul.Add(new scmodul { modcod = "21", p_modcod = "2", description = "ตั้งค่าระบบ", description_en = "Main Configuration" });
-                    sec.scmodul.Add(new scmodul { modcod = "22", p_modcod = "2", description = "กำหนดแท๊งค์เก็บน้ำมัน", description_en = "Tank Setup" });
-                    sec.scmodul.Add(new scmodul { modcod = "23", p_modcod = "2", description = "กำหนดผลัดพนักงาน", description_en = "Shift File" });
-                    sec.scmodul.Add(new scmodul { modcod = "24", p_modcod = "2", description = "ตารางข้อมูล", description_en = "Category Table" });
+                    sec.scmodul.Add(new scmodul { modcod = "21", p_modcod = "2", description = "กำหนดสาขาสถานีบริการ", description_en = "Branch File" });
+                    sec.scmodul.Add(new scmodul { modcod = "22", p_modcod = "2", description = "ตั้งค่าระบบ", description_en = "Main Configuration" });
+                    sec.scmodul.Add(new scmodul { modcod = "23", p_modcod = "2", description = "กำหนดแท๊งค์เก็บน้ำมัน", description_en = "Tank Setup" });
+                    sec.scmodul.Add(new scmodul { modcod = "24", p_modcod = "2", description = "กำหนดผลัดพนักงาน", description_en = "Shift File" });
+                    sec.scmodul.Add(new scmodul { modcod = "25", p_modcod = "2", description = "ตารางข้อมูล", description_en = "Category Table" });
                     sec.scmodul.Add(new scmodul { modcod = "3", p_modcod = "ALLMENU", description = "อื่น ๆ", description_en = "Others" });
                     sec.scmodul.Add(new scmodul { modcod = "31", p_modcod = "3", description = "จัดการฐานข้อมูล", description_en = "Database Management" });
                     sec.scmodul.Add(new scmodul { modcod = "311", p_modcod = "31", description = "สำรองข้อมูล", description_en = "Backup Data" });

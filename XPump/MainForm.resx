@@ -145,30 +145,26 @@
   <data name="mnuDaily.Text" xml:space="preserve">
     <value>รายการประจำวัน</value>
   </data>
-  <data name="mnuSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="mnuSettings.Text" xml:space="preserve">
-    <value>ตั้งค่าระบบ</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="mnuSettings.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="mnuBranch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>255, 22</value>
   </data>
   <data name="mnuBranch.Text" xml:space="preserve">
-    <value>กำหนดสาขา(แผนก)</value>
+    <value>กำหนดสาขาสถานีบริการฯ(แผนก)</value>
+  </data>
+  <data name="mnuSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>255, 22</value>
+  </data>
+  <data name="mnuSettings.Text" xml:space="preserve">
+    <value>กำหนดค่าเริ่มต้น</value>
   </data>
   <data name="mnuTankSetup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>255, 22</value>
   </data>
   <data name="mnuTankSetup.Text" xml:space="preserve">
     <value>กำหนดแท๊งค์เก็บน้ำมัน</value>
   </data>
   <data name="mnuShift.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>255, 22</value>
   </data>
   <data name="mnuShift.Text" xml:space="preserve">
     <value>กำหนดผลัดพนักงาน</value>
@@ -180,7 +176,7 @@
     <value>รายการหักยอดขาย (อื่น ๆ)</value>
   </data>
   <data name="mnuIstab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>255, 22</value>
   </data>
   <data name="mnuIstab.Text" xml:space="preserve">
     <value>ตารางข้อมูล</value>
@@ -257,6 +253,7 @@
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>964, 24</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>

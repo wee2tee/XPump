@@ -2212,6 +2212,9 @@ namespace XPump.SubForm
             {
                 if(this.form_mode == FORM_MODE.READ)
                 {
+                    if (this.curr_dayend == null)
+                        return false;
+
                     using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                     {
                         var data_info = db.dayend.Find(this.curr_dayend.id);

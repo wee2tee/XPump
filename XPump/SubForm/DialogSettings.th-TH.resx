@@ -124,4 +124,22 @@
   <data name="label2.Text" xml:space="preserve">
     <value>1. ชื่อสถานีบริการฯ (สาขา)</value>
   </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 77</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>219, 77</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 60</value>
+  </data>
+  <data name="btnEditMysqlConnection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>347, 70</value>
+  </data>
+  <data name="lblNotConnect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>236, 77</value>
+  </data>
+  <data name="lblConnected.Location" type="System.Drawing.Point, System.Drawing">
+    <value>236, 77</value>
+  </data>
 </root>

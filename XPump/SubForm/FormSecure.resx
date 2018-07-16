@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
-    <value>toolStripSeparator3</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>Manual</value>
@@ -165,9 +162,6 @@
   <data name="&gt;&gt;inline_read.Name" xml:space="preserve">
     <value>inline_read</value>
   </data>
-  <data name="&gt;&gt;inline_menu.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="btnStop.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -176,6 +170,9 @@
   </data>
   <data name="&gt;&gt;inline_edit.Name" xml:space="preserve">
     <value>inline_edit</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>868, 570</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -194,9 +191,6 @@
   </data>
   <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
-  </data>
-  <data name="inline_approve.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
   </data>
   <data name="txtLevel.Location" type="System.Drawing.Point, System.Drawing">
     <value>116, 108</value>
@@ -222,11 +216,20 @@
   <data name="col_moddesc.HeaderText" xml:space="preserve">
     <value>รายละเอียด</value>
   </data>
+  <data name="&gt;&gt;btnAddItem.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
   <data name="inline_add.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
   <data name="col_scacclv.HeaderText" xml:space="preserve">
     <value>Scacclv</value>
+  </data>
+  <data name="btnAddItem.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="txtGroup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>116, 83</value>
   </data>
   <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -234,26 +237,17 @@
   <data name="txtUserName.Size" type="System.Drawing.Size, System.Drawing">
     <value>285, 23</value>
   </data>
-  <data name="&gt;&gt;btnDeleteItem.Name" xml:space="preserve">
-    <value>btnDeleteItem</value>
+  <data name="btnItemF8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 22</value>
   </data>
   <data name="tabPage1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
   </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
   <data name="inline_menu.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
   </data>
-  <data name="&gt;&gt;txtLevel.Name" xml:space="preserve">
-    <value>txtLevel</value>
-  </data>
   <data name="&gt;&gt;inline_datacod.Parent" xml:space="preserve">
     <value>tabPage1</value>
-  </data>
-  <data name="inline_menu.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
   </data>
   <data name="&gt;&gt;btnDeleteItem.ZOrder" xml:space="preserve">
     <value>9</value>
@@ -270,11 +264,14 @@
   <data name="inline_add.Location" type="System.Drawing.Point, System.Drawing">
     <value>600, 15</value>
   </data>
+  <data name="&gt;&gt;col_add.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;btnItemF8.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btnNext.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 40</value>
+  <data name="&gt;&gt;txtLanguage.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.Parent" xml:space="preserve">
     <value>$this</value>
@@ -282,8 +279,11 @@
   <data name="btnNext.Text" xml:space="preserve">
     <value>ข้อมูลถัดไป &lt;PageDown&gt;</value>
   </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 184</value>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="btnPrevious.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="btnEdit.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 40</value>
@@ -309,9 +309,6 @@
   <data name="btnSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 40</value>
   </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 43</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
     <value>toolStripSeparator1</value>
   </data>
@@ -324,8 +321,8 @@
   <data name="inline_add.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;inline_edit.Type" xml:space="preserve">
-    <value>CC.XDropdownList, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>212, 111</value>
   </data>
   <data name="&gt;&gt;inline_approve.Parent" xml:space="preserve">
     <value>tabPage1</value>
@@ -336,6 +333,9 @@
   <data name="btnDeleteItem.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 16</value>
+  </data>
   <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 230</value>
   </data>
@@ -345,8 +345,8 @@
   <data name="col_approve.HeaderText" xml:space="preserve">
     <value>รับรอง</value>
   </data>
-  <data name="&gt;&gt;btnItemF7.Name" xml:space="preserve">
-    <value>btnItemF7</value>
+  <data name="&gt;&gt;btnRefresh.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="btnPrevious.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 40</value>
@@ -363,8 +363,8 @@
   <data name="&gt;&gt;label7.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btnSearch.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
+  <data name="col_id.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="btnSave.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
@@ -378,6 +378,9 @@
   <data name="inline_datacod.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 23</value>
   </data>
+  <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
+    <value>btnSave</value>
+  </data>
   <data name="col_approve.Width" type="System.Int32, mscorlib">
     <value>50</value>
   </data>
@@ -389,9 +392,6 @@
   </data>
   <data name="&gt;&gt;inline_approve.Type" xml:space="preserve">
     <value>CC.XDropdownList, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;txtUserId.Name" xml:space="preserve">
-    <value>txtUserId</value>
   </data>
   <data name="&gt;&gt;txtSecure.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -417,6 +417,9 @@
   <data name="dgv.ColumnHeadersHeight" type="System.Int32, mscorlib">
     <value>28</value>
   </data>
+  <data name="col_id.HeaderText" xml:space="preserve">
+    <value>ID</value>
+  </data>
   <data name="&gt;&gt;inline_approve.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
@@ -431,6 +434,9 @@
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>15</value>
+  </data>
+  <data name="col_modcod.MinimumWidth" type="System.Int32, mscorlib">
+    <value>120</value>
   </data>
   <data name="inline_add.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
@@ -492,9 +498,6 @@
   <data name="&gt;&gt;col_approve.Name" xml:space="preserve">
     <value>col_approve</value>
   </data>
-  <data name="btnInquiryRest.Text" xml:space="preserve">
-    <value>เรียกดูข้อมูล ตั้งแต่รายการนี้ &lt;Alt+L&gt;</value>
-  </data>
   <data name="txtUserName.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
@@ -522,9 +525,6 @@
   <data name="&gt;&gt;inline_edit.Parent" xml:space="preserve">
     <value>tabPage1</value>
   </data>
-  <data name="&gt;&gt;btnEditItem.Name" xml:space="preserve">
-    <value>btnEditItem</value>
-  </data>
   <data name="inline_read.Location" type="System.Drawing.Point, System.Drawing">
     <value>550, 15</value>
   </data>
@@ -534,14 +534,20 @@
   <data name="&gt;&gt;txtSecure.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="col_print.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
   <data name="inline_edit.Location" type="System.Drawing.Point, System.Drawing">
     <value>650, 15</value>
   </data>
-  <data name="inline_read.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 9.75pt</value>
+  <data name="&gt;&gt;col_print.Name" xml:space="preserve">
+    <value>col_print</value>
   </data>
   <data name="txtSecure.Location" type="System.Drawing.Point, System.Drawing">
     <value>116, 133</value>
+  </data>
+  <data name="lblUserGroup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>212, 86</value>
   </data>
   <data name="&gt;&gt;inline_add.Type" xml:space="preserve">
     <value>CC.XDropdownList, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
@@ -549,8 +555,8 @@
   <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
+  <data name="btnNext.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="&gt;&gt;col_id.Name" xml:space="preserve">
     <value>col_id</value>
@@ -567,7 +573,7 @@
   <data name="&gt;&gt;inline_delete.Name" xml:space="preserve">
     <value>inline_delete</value>
   </data>
-  <data name="&gt;&gt;btnAddItem.Parent" xml:space="preserve">
+  <data name="&gt;&gt;inline_delete.Parent" xml:space="preserve">
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
@@ -575,6 +581,12 @@
   </data>
   <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
     <value>tabPage2</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>หมายเหตุ : รหัสผู้ใช้งาน และ รายละเอียดต่าง ๆ ข้างบนนี้ถูกกำหนดไว้ในโปรแกรมเอ็กซ์เพรส</value>
+  </data>
+  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;lblUserGroup.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -600,8 +612,8 @@
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
     <value>label8</value>
   </data>
-  <data name="btnDeleteItem.Location" type="System.Drawing.Point, System.Drawing">
-    <value>426, 15</value>
+  <data name="col_add.HeaderText" xml:space="preserve">
+    <value>เพิ่ม</value>
   </data>
   <data name="btnDelete.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -618,8 +630,14 @@
   <data name="btnRefresh.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="inline_edit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 23</value>
+  </data>
   <data name="&gt;&gt;txtUserId.ZOrder" xml:space="preserve">
     <value>7</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>14</value>
   </data>
   <data name="inline_menu.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -639,14 +657,11 @@
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="&gt;&gt;inline_delete.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+  <data name="&gt;&gt;txtUserName.Name" xml:space="preserve">
+    <value>txtUserName</value>
   </data>
   <data name="btnRefresh.Text" xml:space="preserve">
     <value>โหลดข้อมูลปัจจุบันใหม่ &lt;Ctrl+F5&gt;</value>
-  </data>
-  <data name="inline_approve.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 9.75pt</value>
   </data>
   <data name="&gt;&gt;btnDelete.Name" xml:space="preserve">
     <value>btnDelete</value>
@@ -678,11 +693,11 @@
   <data name="&gt;&gt;col_modcod.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="inline_print.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="txtUserId.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
   <data name="inline_delete.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 23</value>
@@ -723,11 +738,17 @@
   <data name="inline_delete.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
   <data name="btnItem.Text" xml:space="preserve">
     <value>เมนูที่อนุญาตให้ผู้ใช้รายนี้ &lt;F8&gt;</value>
   </data>
   <data name="&gt;&gt;col_modcod.Name" xml:space="preserve">
     <value>col_modcod</value>
+  </data>
+  <data name="inline_read.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
   </data>
   <data name="&gt;&gt;btnAddItem.Name" xml:space="preserve">
     <value>btnAddItem</value>
@@ -735,8 +756,8 @@
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>68, 16</value>
   </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 136</value>
+  <data name="&gt;&gt;inline_edit.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>868, 43</value>
@@ -744,11 +765,11 @@
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
   </data>
+  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>854, 311</value>
+  </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 43</value>
-  </data>
-  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>854, 311</value>
   </data>
   <data name="btnEdit.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -765,6 +786,12 @@
   <data name="&gt;&gt;txtSecure.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="&gt;&gt;col_approve.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 184</value>
+  </data>
   <data name="&gt;&gt;dgv.Name" xml:space="preserve">
     <value>dgv</value>
   </data>
@@ -780,32 +807,20 @@
   <data name="col_read.HeaderText" xml:space="preserve">
     <value>อ่าน</value>
   </data>
-  <data name="&gt;&gt;txtGroup.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="btnStop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 40</value>
-  </data>
   <data name="inline_print.Location" type="System.Drawing.Point, System.Drawing">
     <value>751, 15</value>
   </data>
-  <data name="&gt;&gt;btnSearch.Name" xml:space="preserve">
-    <value>btnSearch</value>
-  </data>
-  <data name="&gt;&gt;btnEditItem.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+  <data name="inline_menu.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>กลุ่มของผู้ใช้</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>ระดับอนุมัติ</value>
-  </data>
   <data name="btnEditItem.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;col_print.Name" xml:space="preserve">
-    <value>col_print</value>
+  <data name="&gt;&gt;col_edit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="inline_print.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -813,14 +828,8 @@
   <data name="&gt;&gt;btnInquiryRest.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;inline_print.Parent" xml:space="preserve">
-    <value>tabPage1</value>
-  </data>
   <data name="btnDelete.Size" type="System.Drawing.Size, System.Drawing">
     <value>36, 40</value>
-  </data>
-  <data name="col_add.MinimumWidth" type="System.Int32, mscorlib">
-    <value>50</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -843,8 +852,8 @@
   <data name="&gt;&gt;col_username.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btnItemF7.Text" xml:space="preserve">
-    <value>ข้อมูล และเมนูที่อนุญาตให้กลุ่มของผู้ใช้ &lt;F7&gt;</value>
+  <data name="inline_print.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
   </data>
   <data name="inline_datacod.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
@@ -855,9 +864,6 @@
   <data name="btnAddItem.Location" type="System.Drawing.Point, System.Drawing">
     <value>324, 15</value>
   </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
   <data name="&gt;&gt;btnRefresh.Name" xml:space="preserve">
     <value>btnRefresh</value>
   </data>
@@ -866,9 +872,6 @@
   </data>
   <data name="dgv.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
-  </data>
-  <data name="&gt;&gt;inline_delete.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -909,6 +912,9 @@
   <data name="col_delete.Width" type="System.Int32, mscorlib">
     <value>50</value>
   </data>
+  <data name="&gt;&gt;col_moddesc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="btnInquiryRest.Size" type="System.Drawing.Size, System.Drawing">
     <value>245, 22</value>
   </data>
@@ -923,6 +929,9 @@
   </data>
   <data name="inline_read.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
+  </data>
+  <data name="&gt;&gt;txtLanguage.Name" xml:space="preserve">
+    <value>txtLanguage</value>
   </data>
   <data name="txtLanguage.Location" type="System.Drawing.Point, System.Drawing">
     <value>439, 158</value>
@@ -987,6 +996,9 @@
   <data name="&gt;&gt;btnEdit.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;btnEditItem.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
   <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -1014,20 +1026,14 @@
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="&gt;&gt;inline_edit.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;btnSearch.Name" xml:space="preserve">
+    <value>btnSearch</value>
   </data>
   <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="col_datacod.MinimumWidth" type="System.Int32, mscorlib">
-    <value>120</value>
-  </data>
-  <data name="inline_delete.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
   </data>
   <data name="col_scmodul.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -1038,32 +1044,32 @@
   <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="btnEditItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 22</value>
+  </data>
   <data name="inline_edit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
   <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="col_add.HeaderText" xml:space="preserve">
-    <value>เพิ่ม</value>
+  <data name="&gt;&gt;btnDeleteItem.Name" xml:space="preserve">
+    <value>btnDeleteItem</value>
   </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
+  <data name="&gt;&gt;btnInquiryAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dgv.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+  <data name="btnDeleteItem.Location" type="System.Drawing.Point, System.Drawing">
+    <value>426, 15</value>
   </data>
   <data name="tabControl1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt</value>
   </data>
-  <data name="&gt;&gt;col_approve.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="inline_print.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="&gt;&gt;inline_menu.Parent" xml:space="preserve">
     <value>tabPage1</value>
-  </data>
-  <data name="txtLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 23</value>
   </data>
   <data name="dgv.Size" type="System.Drawing.Size, System.Drawing">
     <value>844, 261</value>
@@ -1071,11 +1077,11 @@
   <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="txtGroup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>116, 83</value>
+  <data name="col_datacod.MinimumWidth" type="System.Int32, mscorlib">
+    <value>120</value>
   </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>หมายเหตุ : รหัสผู้ใช้งาน และ รายละเอียดต่าง ๆ ข้างบนนี้ถูกกำหนดไว้ในโปรแกรมเอ็กซ์เพรส</value>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 43</value>
   </data>
   <data name="&gt;&gt;inline_read.Type" xml:space="preserve">
     <value>CC.XDropdownList, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
@@ -1089,20 +1095,20 @@
   <data name="&gt;&gt;btnItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="&gt;&gt;txtUserId.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnEditItem.Parent" xml:space="preserve">
+    <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;col_scmodul_id.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;inline_read.Parent" xml:space="preserve">
     <value>tabPage1</value>
   </data>
-  <data name="&gt;&gt;col_add.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;inline_delete.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1110,17 +1116,14 @@
   <data name="&gt;&gt;txtGroup.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;col_edit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;inline_edit.Type" xml:space="preserve">
+    <value>CC.XDropdownList, CC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;label5.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="btnNext.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
   </data>
   <data name="&gt;&gt;btnPrevious.Name" xml:space="preserve">
     <value>btnPrevious</value>
@@ -1128,8 +1131,8 @@
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 111</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>ระดับอนุมัติ</value>
   </data>
   <data name="inline_approve.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -1152,23 +1155,23 @@
   <data name="inline_print.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 23</value>
   </data>
-  <data name="inline_edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 23</value>
+  <data name="&gt;&gt;dgv.Parent" xml:space="preserve">
+    <value>tabPage1</value>
   </data>
-  <data name="inline_print.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 9.75pt</value>
+  <data name="inline_delete.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+  <data name="col_add.MinimumWidth" type="System.Int32, mscorlib">
+    <value>50</value>
   </data>
   <data name="&gt;&gt;btnAddItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>14</value>
+  <data name="btnSearch.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
   </data>
-  <data name="btnNext.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
+  <data name="btnStop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 40</value>
   </data>
   <data name="&gt;&gt;btnInquiryRest.Name" xml:space="preserve">
     <value>btnInquiryRest</value>
@@ -1176,8 +1179,8 @@
   <data name="txtLevel.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 23</value>
   </data>
-  <data name="&gt;&gt;btnEditItem.ZOrder" xml:space="preserve">
-    <value>10</value>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 136</value>
   </data>
   <data name="&gt;&gt;label4.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1191,11 +1194,11 @@
   <data name="&gt;&gt;txtStatus.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;txtLanguage.Name" xml:space="preserve">
-    <value>txtLanguage</value>
+  <data name="&gt;&gt;col_scmodul_id.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;col_add.Name" xml:space="preserve">
-    <value>col_add</value>
+  <data name="&gt;&gt;btnItemF7.Name" xml:space="preserve">
+    <value>btnItemF7</value>
   </data>
   <data name="btnSave.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -1203,17 +1206,17 @@
   <data name="tabPage2.Text" xml:space="preserve">
     <value>ข้อมูล และเมนูที่อนุญาตให้กลุ่มของผู้ใช้ &lt;F7&gt;</value>
   </data>
-  <data name="&gt;&gt;txtUserName.Name" xml:space="preserve">
-    <value>txtUserName</value>
+  <data name="&gt;&gt;txtGroup.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
-  <data name="&gt;&gt;lblUserGroup.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;inline_print.Parent" xml:space="preserve">
+    <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;txtLevel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="col_modcod.MinimumWidth" type="System.Int32, mscorlib">
-    <value>120</value>
+  <data name="&gt;&gt;inline_menu.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="btnEdit.Text" xml:space="preserve">
     <value>แก้ไขข้อมูล &lt;Alt+E&gt;</value>
@@ -1254,14 +1257,11 @@
   <data name="btnInquiryAll.Text" xml:space="preserve">
     <value>เรียกดูข้อมูล ตั้งแต่ต้น &lt;Ctrl+L&gt;</value>
   </data>
-  <data name="&gt;&gt;txtGroup.Name" xml:space="preserve">
-    <value>txtGroup</value>
+  <data name="&gt;&gt;txtLevel.Name" xml:space="preserve">
+    <value>txtLevel</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>868, 570</value>
-  </data>
-  <data name="txtUserId.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="&gt;&gt;lblUserGroup.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
@@ -1275,8 +1275,8 @@
   <data name="btnItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="col_id.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;txtUserId.Name" xml:space="preserve">
+    <value>txtUserId</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>กำหนดสิทธิ์ผู้ใช้งาน</value>
@@ -1287,8 +1287,8 @@
   <data name="&gt;&gt;txtUserName.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 16</value>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
   </data>
   <data name="col_scmodul_id.HeaderText" xml:space="preserve">
     <value>Scmodul ID</value>
@@ -1302,8 +1302,8 @@
   <data name="&gt;&gt;label8.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnInquiryAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="inline_approve.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9.75pt</value>
   </data>
   <data name="lblUserGroup.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 16</value>
@@ -1317,11 +1317,11 @@
   <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>854, 311</value>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
   </data>
-  <data name="lblUserGroup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 86</value>
+  <data name="&gt;&gt;col_add.Name" xml:space="preserve">
+    <value>col_add</value>
   </data>
   <data name="dgv.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 45</value>
@@ -1344,14 +1344,14 @@
   <data name="col_moddesc.MinimumWidth" type="System.Int32, mscorlib">
     <value>120</value>
   </data>
-  <data name="btnPrevious.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
+  <data name="&gt;&gt;btnEditItem.Name" xml:space="preserve">
+    <value>btnEditItem</value>
   </data>
   <data name="col_moddesc_en.HeaderText" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="btnAddItem.Text" xml:space="preserve">
-    <value>Add</value>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
   </data>
   <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
@@ -1368,8 +1368,8 @@
   <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btnItemF8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 22</value>
+  <data name="&gt;&gt;txtGroup.Name" xml:space="preserve">
+    <value>txtGroup</value>
   </data>
   <data name="txtSecure.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 23</value>
@@ -1377,11 +1377,11 @@
   <data name="&gt;&gt;col_delete.Name" xml:space="preserve">
     <value>col_delete</value>
   </data>
-  <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
-    <value>btnSave</value>
+  <data name="btnItemF7.Text" xml:space="preserve">
+    <value>ข้อมูล และเมนูที่อนุญาตให้กลุ่มของผู้ใช้ &lt;F7&gt;</value>
   </data>
-  <data name="&gt;&gt;txtUserId.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="inline_approve.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="btnItemF7.Size" type="System.Drawing.Size, System.Drawing">
     <value>287, 22</value>
@@ -1392,17 +1392,17 @@
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
     <value>355, 161</value>
   </data>
-  <data name="btnEditItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 22</value>
+  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>854, 311</value>
   </data>
-  <data name="col_id.HeaderText" xml:space="preserve">
-    <value>ID</value>
+  <data name="txtLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 23</value>
   </data>
   <data name="&gt;&gt;col_print.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;col_moddesc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
   </data>
   <data name="txtUserName.Location" type="System.Drawing.Point, System.Drawing">
     <value>210, 58</value>
@@ -1422,8 +1422,8 @@
   <data name="&gt;&gt;label3.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="col_print.Width" type="System.Int32, mscorlib">
-    <value>50</value>
+  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
+    <value>toolStripSeparator3</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
@@ -1434,8 +1434,8 @@
   <data name="col_read.MinimumWidth" type="System.Int32, mscorlib">
     <value>50</value>
   </data>
-  <data name="&gt;&gt;btnRefresh.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
   </data>
   <data name="col_print.HeaderText" xml:space="preserve">
     <value>พิมพ์</value>
@@ -1443,8 +1443,8 @@
   <data name="col_delete.MinimumWidth" type="System.Int32, mscorlib">
     <value>50</value>
   </data>
-  <data name="&gt;&gt;txtLanguage.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="btnInquiryRest.Text" xml:space="preserve">
+    <value>เรียกดูข้อมูล ตั้งแต่รายการนี้ &lt;Alt+L&gt;</value>
   </data>
   <metadata name="label3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1467,20 +1467,20 @@
   <metadata name="btnEditItem.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="col_username.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="inline_read.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="inline_edit.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="label4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="dgv.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="col_approve.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="tabPage1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>en-US</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1506,16 +1506,16 @@
   <metadata name="txtUserId.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="txtLevel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="inline_print.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="inline_menu.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="label7.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="col_add.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="col_moddesc.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="txtLanguage.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1545,7 +1545,7 @@
   <metadata name="inline_delete.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="tabControl1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="col_approve.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="tabPage2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1554,7 +1554,7 @@
   <metadata name="label5.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="col_edit.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="col_add.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="btnDeleteItem.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1566,7 +1566,7 @@
   <metadata name="col_modcod.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="txtLevel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="label4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="btnAddItem.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1575,10 +1575,7 @@
   <metadata name="col_print.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="col_moddesc_en.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tabPage1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="tabControl1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="txtGroup.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1587,13 +1584,13 @@
   <metadata name="col_scacclv.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="col_username.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="col_edit.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="dgv.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="col_moddesc_en.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="inline_menu.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="col_moddesc.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

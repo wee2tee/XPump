@@ -57,6 +57,7 @@ namespace XPump.SubForm
 
         private void DialogDbConfig_Load(object sender, EventArgs e)
         {
+            this.ActiveControl = this.txtBranch;
             this.FormFreeze = false;
             this.LoadDepcodCombobox();
             this.lblPrefix.Text = SecureDbHelper.GetDbPrefix() + "_";

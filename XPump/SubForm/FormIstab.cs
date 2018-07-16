@@ -15,7 +15,7 @@ namespace XPump.SubForm
 {
     public partial class FormIstab : Form
     {
-        public const string modcod = "24";
+        public const string modcod = "25";
         private MainForm main_form;
         public scacclvVM scacclv;
         private FORM_MODE form_mode;

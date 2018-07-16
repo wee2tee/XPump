@@ -67,6 +67,25 @@ namespace XPump.Model
                 {
                     this.CreateConfigTable();
                 }
+                else
+                {
+                    if(!IsColumnExists("config", "branch"))
+                    {
+                        this.connection.Open();
+                        SQLiteCommand cmd = new SQLiteCommand("Alter Table config Add Column branch VARCHAR(254) DEFAULT '' NOT NULL;", this.connection);
+                        cmd.ExecuteNonQuery();
+                        cmd = new SQLiteCommand("Update config Set branch = '" + working_express_db.compnam + "' Where id = 1;", this.connection);
+                        cmd.ExecuteNonQuery();
+                        this.connection.Close();
+                    }
+                    if (!IsColumnExists("config", "depcod"))
+                    {
+                        this.connection.Open();
+                        SQLiteCommand cmd = new SQLiteCommand("Alter Table config Add Column depcod VARCHAR(10) DEFAULT '' NOT NULL;", this.connection);
+                        cmd.ExecuteNonQuery();
+                        this.connection.Close();
+                    }
+                }
 
                 this.connection.Open();
                 string sql_select = "SELECT * from config";
@@ -91,6 +110,36 @@ namespace XPump.Model
                 this.connection.Close();
                 return configs;
             }
+        }
+
+        public LocalConfigManageResult DeleteBranch(int id)
+        {
+            LocalConfigManageResult result = new LocalConfigManageResult();
+            try
+            {
+                this.connection.Open();
+                string sql_delete = "Delete From config Where id = " + id.ToString();
+                SQLiteCommand cmd = new SQLiteCommand(sql_delete, this.connection);
+                var delete_result = cmd.ExecuteNonQuery();
+                if (delete_result > 0)
+                {
+                    result.success = true;
+                    result.error_message = string.Empty;
+                }
+                else
+                {
+                    result.success = false;
+                    result.error_message = "ค้นหาข้อมูลที่ต้องการลบไม่พบ";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.success = false;
+                result.error_message = ex.Message;
+            }
+
+            return result;
         }
 
         public DbConnectionConfig ConfigValue
@@ -156,6 +205,33 @@ namespace XPump.Model
 
             return is_table_exist;
         }
+
+        private bool IsColumnExists(string tableName, string columnName)
+        {
+            this.connection.Open();
+            var cmd = this.connection.CreateCommand();
+            cmd.CommandText = string.Format("PRAGMA table_info({0})", tableName);
+
+            var reader = cmd.ExecuteReader();
+            int nameIndex = reader.GetOrdinal("Name");
+            while (reader.Read())
+            {
+                if (reader.GetString(nameIndex).Equals(columnName))
+                {
+                    this.connection.Close();
+                    return true;
+                }
+            }
+
+            this.connection.Close();
+            return false;
+        }
+    }
+
+    public class LocalConfigManageResult
+    {
+        public bool success { get; set; }
+        public string error_message { get; set; }
     }
 
     public partial class DbConnectionConfig
