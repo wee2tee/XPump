@@ -46,15 +46,9 @@ namespace XPump.Model
         private void CreateConfigTable()
         {
             this.connection.Open();
-            //string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
             string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, branch VARCHAR(254) NOT NULL, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, depcod VARCHAR(10) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
             SQLiteCommand cmd = new SQLiteCommand(sql, this.connection);
             cmd.ExecuteNonQuery();
-
-            //sql = "INSERT INTO config (servername, db_prefix, dbname, port, uid, passwordhash) VALUES('', '', '', '', 3306, '', '')";
-            //sql = "INSERT INTO config (branch, servername, db_prefix, dbname, depcod, port, uid, passwordhash) VALUES('" + this.working_express_db.compnam.Trim() + "', '', '', '', '', 3306, '', '')";
-            //cmd = new SQLiteCommand(sql, this.connection);
-            //cmd.ExecuteNonQuery();
 
             this.connection.Close();
         }
@@ -148,16 +142,6 @@ namespace XPump.Model
             {
                 if (!this.IsTableExists("config"))
                 {
-                    //this.connection.Open();
-                    //string sql = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, branch VARCHAR(254) NOT NULL, servername VARCHAR(254) NOT NULL, db_prefix VARCHAR(30) NOT NULL, dbname VARCHAR(50) NOT NULL, depcod VARCHAR(10) NOT NULL, port INTEGER(9) NOT NULL, uid VARCHAR(50) NOT NULL, passwordhash VARCHAR(254) NOT NULL)";
-                    //SQLiteCommand cmd = new SQLiteCommand(sql, this.connection);
-                    //cmd.ExecuteNonQuery();
-
-                    //sql = "INSERT INTO config (branch, servername, db_prefix, dbname, depcod, port, uid, passwordhash) VALUES('', '', '', '', '', 3306, '', '')";
-                    //cmd = new SQLiteCommand(sql, this.connection);
-                    //cmd.ExecuteNonQuery();
-
-                    //this.connection.Close();
                     this.CreateConfigTable();
                 }
 

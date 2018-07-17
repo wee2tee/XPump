@@ -154,6 +154,38 @@ namespace XPump.Model
             return dt;
         }
 
+        public static DataTable GetDataBySql(SccompDbf working_express_db, string sql, string tableName)
+        {
+            string data_path = working_express_db.abs_path; //GetExpressDataPath();
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + tableName + ".dbf")))
+            {
+                XMessageBox.Show("ค้นหาแฟ้ม " + tableName + ".dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                return new DataTable();
+            }
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = new OleDbConnection(
+                @"Provider=VFPOLEDB.1;Data Source=" + data_path);
+
+            conn.Open();
+
+            if (conn.State == ConnectionState.Open)
+            {
+                string mySQL = sql;
+
+                OleDbCommand cmd = new OleDbCommand(mySQL, conn);
+                OleDbDataAdapter DA = new OleDbDataAdapter(cmd);
+
+                DA.Fill(dt);
+
+                conn.Close();
+            }
+
+            return dt;
+        }
+
         public static DataTable Scuser()
         {
             string secure_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\secure\";

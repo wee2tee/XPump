@@ -1285,6 +1285,7 @@ namespace XPump.Model
                         return 0m;
 
                     var xtrnqty = DbfTable.Stcrd(working_express_db).ToStcrdList()
+                            .Where(s => s.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
                             .Where(s => s.docdat.HasValue)
                             .Where(s => s.docdat.Value.CompareTo(dayend.saldat) == 0)
                             .Where(s => s.posopr == "0")
@@ -1512,12 +1513,21 @@ namespace XPump.Model
             {
                 if (DbfTable.IsDataFileExist("Stcrd.dbf", this.working_express_db))
                 {
-                    var xtrnqty = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
-                            .Where(s => s.docdat.HasValue)
-                            .Where(s => s.docdat.Value.CompareTo(this.first_date) >= 0 && s.docdat.Value.CompareTo(this.last_date) <= 0)
-                            .Where(s => s.posopr.Trim() == "0")
-                            .Where(s => s.stkcod.Trim() == this.stkcod.Trim())
-                            .Sum(s => s.xtrnqty);
+                    var sql = "Select * From stcrd Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                    sql += "And docdat IS NOT NULL ";
+                    sql += "And docdat >= {^" + this.first_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} And docdat <= {^" + this.last_date.ToString("", CultureInfo.GetCultureInfo("En-Us")) + "} ";
+                    sql += "And TRIM(posopr) = '0' ";
+                    sql += "And TRIM(stkcod) = '" + this.stkcod.Trim() + "' ";
+
+                    var xtrnqty = DbfTable.GetDataBySql(this.working_express_db, sql, "Stcrd").ToStcrdList().Sum(s => s.xtrnqty);
+
+                    //var xtrnqty = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
+                    //        .Where(s => s.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
+                    //        .Where(s => s.docdat.HasValue)
+                    //        .Where(s => s.docdat.Value.CompareTo(this.first_date) >= 0 && s.docdat.Value.CompareTo(this.last_date) <= 0)
+                    //        .Where(s => s.posopr.Trim() == "0")
+                    //        .Where(s => s.stkcod.Trim() == this.stkcod.Trim())
+                    //        .Sum(s => s.xtrnqty);
 
                     var rcv = Convert.ToDecimal(xtrnqty);
                     return rcv;
@@ -1901,6 +1911,7 @@ namespace XPump.Model
                 //var express_version = Helper.GetExpressVersion();
                 var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList();
                 aptrn = aptrn.Where(a => a.docdat.HasValue)
+                        .Where(a => a.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
                         .Where(a => a.docdat.Value == this.reportDate)
                         .Where(a => (a.docnum.Substring(0, 2) == this.shift.phpprefix || a.docnum.Substring(0, 2) == this.shift.prrprefix)).ToList();
 
@@ -1908,9 +1919,11 @@ namespace XPump.Model
                 //var artrn = express_version == 1 ? DbfTable.Artrn(this.working_express_db).ToArtrnList() : DbfTable.Artrn(this.working_express_db).ToList<ArtrnDbf>();
                 var artrn = DbfTable.Artrn(this.working_express_db).ToArtrnList();
                 artrn = artrn.Where(a => a.docdat.HasValue)
+                        .Where(a => a.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
                         .Where(a => a.docdat.Value == this.reportDate)
                         .Where(a => (a.docnum.Substring(0, 2) == this.shift.shsprefix || a.docnum.Substring(0, 2) == this.shift.sivprefix)).ToList();
                 var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
+                        .Where(s => s.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
                         .Where(s => s.docdat.HasValue)
                         .Where(s => s.docdat.Value == this.reportDate)
                         .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum.Trim()) || artrn.Select(a => a.docnum).Contains(s.docnum.Trim()))
@@ -1963,6 +1976,7 @@ namespace XPump.Model
                 //var artrn_svat = express_version == 1 ? DbfTable.Artrn(this.working_express_db).ToArtrnList() : DbfTable.Artrn(this.working_express_db).ToList<ArtrnDbf>();
                 var artrn_svat = DbfTable.Artrn(this.working_express_db).ToArtrnList();
                 var svat_docs = artrn_svat
+                                .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
                                 .Where(a => stcrd.Select(s => s.docnum).Contains(a.docnum))
                                 .ToList();
                 this.sales_vatdoc = new List<VatTransDbfVM>();
@@ -2024,11 +2038,13 @@ namespace XPump.Model
                     }
                     var apmas = DbfTable.Apmas(this.working_express_db).ToApmasList();
                     var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
+                                .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
                                 .Where(a => a.docdat.HasValue)
                                 .Where(a => a.docdat.Value == this.reportDate)
                                 .Where(a => doc_hp.Contains(a.docnum.Substring(0, 2)) || doc_rr.Contains(a.docnum.Substring(0, 2)))
                                 .OrderBy(a => a.docnum).ToList();
                     var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
+                                .Where(s => s.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
                                 .Where(s => s.docdat.HasValue)
                                 .Where(s => s.docdat.Value == this.reportDate)
                                 .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum))
@@ -2049,6 +2065,7 @@ namespace XPump.Model
                     //this.purvattransVM = purvattrans.ToList();
 
                     this.pur_vatdocs = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
+                                        .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
                                         .Where(a => stcrd.Select(s => s.docnum.Trim()).Contains(a.docnum.Trim()))
                                         .Select(a => new VatTransDbfVM
                                         {
@@ -2124,11 +2141,13 @@ namespace XPump.Model
                     }
                     var apmas = DbfTable.Apmas(this.working_express_db).ToApmasList();
                     var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
+                                .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
                                 .Where(a => a.docdat.HasValue)
                                 .Where(a => a.docdat.Value.CompareTo(this.first_date) >= 0 && a.docdat.Value.CompareTo(this.last_date) <= 0)
                                 .Where(a => doc_hp.Contains(a.docnum.Substring(0, 2)) || doc_rr.Contains(a.docnum.Substring(0, 2)))
                                 .OrderBy(a => a.docnum).ToList();
                     var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
+                                .Where(s => s.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
                                 .Where(s => s.docdat.HasValue)
                                 .Where(s => s.docdat.Value.CompareTo(this.first_date) >= 0 && s.docdat.Value.CompareTo(this.last_date) <= 0)
                                 .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum))
@@ -2147,6 +2166,7 @@ namespace XPump.Model
                     //                    }).OrderBy(s => s.docdat).ThenBy(s => s.docnum).ToList();
 
                     this.pur_vatdocs = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
+                                        .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
                                         .Where(a => stcrd.Select(s => s.docnum.Trim()).Contains(a.docnum.Trim()))
                                         .Select(a => new VatTransDbfVM
                                         {

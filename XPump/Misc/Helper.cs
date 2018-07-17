@@ -478,9 +478,10 @@ namespace XPump.Misc
                 DateTime saldat = salessummary.saldat;
 
                 var locs = db.saleshistory.Include("nozzle.section").Where(s => s.salessummary_id == sales.id).GroupBy(s => s.nozzle.section.loccod).Select(g => g.Key).ToList();
-                    //.Select(s => s.nozzle.section.loccod).ToList();
+                //.Select(s => s.nozzle.section.loccod).ToList();
 
                 var purvat = DbfTable.Stcrd(working_express_db).ToStcrdList()
+                            .Where(s => s.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
                             .Where(s => s.docdat.HasValue)
                             .Where(s => s.docdat.Value == saldat)
                             .Where(s => s.posopr.Trim() == "0")

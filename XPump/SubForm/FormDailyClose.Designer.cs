@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -48,14 +48,14 @@
             this.btnFirst = new System.Windows.Forms.ToolStripButton();
             this.btnPrevious = new System.Windows.Forms.ToolStripButton();
             this.btnNext = new System.Windows.Forms.ToolStripButton();
-            this.btnPrint = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnPrintB = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPrintC = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLast = new System.Windows.Forms.ToolStripButton();
             this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
             this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
             this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPrint = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnPrintB = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrintC = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
             this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
@@ -227,34 +227,6 @@
             this.btnNext.Text = "ข้อมูลถัดไป <PageDown>";
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
-            // btnPrint
-            // 
-            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnPrintB,
-            this.btnPrintC});
-            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
-            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnPrint.Size = new System.Drawing.Size(51, 40);
-            this.btnPrint.Text = "พิมพ์รายงานส่วน ข.";
-            // 
-            // btnPrintB
-            // 
-            this.btnPrintB.Name = "btnPrintB";
-            this.btnPrintB.Size = new System.Drawing.Size(217, 22);
-            this.btnPrintB.Text = "พิมพ์รายงานส่วน ข. <Alt + P>";
-            this.btnPrintB.Click += new System.EventHandler(this.btnPrintB_Click);
-            // 
-            // btnPrintC
-            // 
-            this.btnPrintC.Name = "btnPrintC";
-            this.btnPrintC.Size = new System.Drawing.Size(217, 22);
-            this.btnPrintC.Text = "พิมพ์รายงานส่วน ค. <Ctrl + P>";
-            this.btnPrintC.Click += new System.EventHandler(this.btnPrintC_Click);
-            // 
             // btnLast
             // 
             this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -300,6 +272,34 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnPrintB,
+            this.btnPrintC});
+            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
+            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnPrint.Size = new System.Drawing.Size(51, 40);
+            this.btnPrint.Text = "พิมพ์รายงานส่วน ข.";
+            // 
+            // btnPrintB
+            // 
+            this.btnPrintB.Name = "btnPrintB";
+            this.btnPrintB.Size = new System.Drawing.Size(217, 22);
+            this.btnPrintB.Text = "พิมพ์รายงานส่วน ข. <Alt + P>";
+            this.btnPrintB.Click += new System.EventHandler(this.btnPrintB_Click);
+            // 
+            // btnPrintC
+            // 
+            this.btnPrintC.Name = "btnPrintC";
+            this.btnPrintC.Size = new System.Drawing.Size(217, 22);
+            this.btnPrintC.Text = "พิมพ์รายงานส่วน ค. <Ctrl + P>";
+            this.btnPrintC.Click += new System.EventHandler(this.btnPrintC_Click);
             // 
             // toolStripSeparator4
             // 
@@ -428,14 +428,14 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dgv.ColumnHeadersHeight = 28;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -462,14 +462,14 @@
             this.col_chgtime,
             this.col_apprby,
             this.col_apprtime});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle18;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
@@ -528,10 +528,10 @@
             // col_endbal
             // 
             this.col_endbal.DataPropertyName = "endbal";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.col_endbal.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N2";
+            dataGridViewCellStyle11.NullValue = null;
+            this.col_endbal.DefaultCellStyle = dataGridViewCellStyle11;
             this.col_endbal.HeaderText = "ยอดตรวจวัด-สิ้นงวด";
             this.col_endbal.MinimumWidth = 130;
             this.col_endbal.Name = "col_endbal";
@@ -551,10 +551,10 @@
             // col_begbal
             // 
             this.col_begbal.DataPropertyName = "begbal";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.col_begbal.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N2";
+            dataGridViewCellStyle12.NullValue = null;
+            this.col_begbal.DefaultCellStyle = dataGridViewCellStyle12;
             this.col_begbal.HeaderText = "ยอดตรวจวัด-ต้นงวด";
             this.col_begbal.MinimumWidth = 130;
             this.col_begbal.Name = "col_begbal";
@@ -564,10 +564,10 @@
             // col_rcvqty
             // 
             this.col_rcvqty.DataPropertyName = "rcvqty";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.col_rcvqty.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N2";
+            dataGridViewCellStyle13.NullValue = null;
+            this.col_rcvqty.DefaultCellStyle = dataGridViewCellStyle13;
             this.col_rcvqty.HeaderText = "ยอดรับระหว่างวัน";
             this.col_rcvqty.MinimumWidth = 120;
             this.col_rcvqty.Name = "col_rcvqty";
@@ -577,10 +577,10 @@
             // col_salqty
             // 
             this.col_salqty.DataPropertyName = "salqty";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.col_salqty.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N2";
+            dataGridViewCellStyle14.NullValue = null;
+            this.col_salqty.DefaultCellStyle = dataGridViewCellStyle14;
             this.col_salqty.HeaderText = "ยอดขายระหว่างวัน";
             this.col_salqty.MinimumWidth = 120;
             this.col_salqty.Name = "col_salqty";
@@ -600,10 +600,10 @@
             // col_dother
             // 
             this.col_dother.DataPropertyName = "dother";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.col_dother.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.col_dother.DefaultCellStyle = dataGridViewCellStyle15;
             this.col_dother.HeaderText = "หักอื่น ๆ";
             this.col_dother.MinimumWidth = 80;
             this.col_dother.Name = "col_dother";
@@ -613,10 +613,10 @@
             // col_accbal
             // 
             this.col_accbal.DataPropertyName = "accbal";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.col_accbal.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle16.Format = "N2";
+            dataGridViewCellStyle16.NullValue = null;
+            this.col_accbal.DefaultCellStyle = dataGridViewCellStyle16;
             this.col_accbal.HeaderText = "ยอดคงเหลือตามบัญชี";
             this.col_accbal.MinimumWidth = 140;
             this.col_accbal.Name = "col_accbal";
@@ -626,10 +626,10 @@
             // col_difqty
             // 
             this.col_difqty.DataPropertyName = "difqty";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = null;
-            this.col_difqty.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle17.Format = "N2";
+            dataGridViewCellStyle17.NullValue = null;
+            this.col_difqty.DefaultCellStyle = dataGridViewCellStyle17;
             this.col_difqty.HeaderText = "ส่วนต่าง";
             this.col_difqty.MinimumWidth = 80;
             this.col_difqty.Name = "col_difqty";
