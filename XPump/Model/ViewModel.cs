@@ -1284,15 +1284,14 @@ namespace XPump.Model
                     if (dayend == null || section == null)
                         return 0m;
 
-                    var xtrnqty = DbfTable.Stcrd(working_express_db).ToStcrdList()
-                            .Where(s => s.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
-                            .Where(s => s.docdat.HasValue)
-                            .Where(s => s.docdat.Value.CompareTo(dayend.saldat) == 0)
-                            .Where(s => s.posopr == "0")
-                            .Where(s => s.stkcod.Trim() == dayend.stkcod.Trim())
-                            .Where(s => s.loccod.Trim() == section.loccod.Trim())
-                            .ToList()
-                            .Sum(s => s.xtrnqty);
+                    var sql = "Select * from stcrd Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                    sql += "And docdat IS NOT NULL ";
+                    sql += "And docdat = {^" + dayend.saldat.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} ";
+                    sql += "And TRIM(posopr) = '0' ";
+                    sql += "And TRIM(stkcod) = '" + dayend.stkcod.Trim() + "' ";
+                    sql += "And TRIM(loccod) = '" + section.loccod.Trim() + "'";
+
+                    var xtrnqty = DbfTable.GetDataBySql(this.working_express_db, sql, "Stcrd").ToStcrdList().Sum(s => s.xtrnqty);
 
                     return Convert.ToDecimal(xtrnqty);
                 }
@@ -1769,7 +1768,8 @@ namespace XPump.Model
         {
             get
             {
-                return DbfTable.Istab(this.working_express_db).ToIstabList().Where(i => i.tabtyp.Trim() == "21" && i.typcod.Trim() == this.loccod.Trim()).FirstOrDefault();
+                var sql = "Select * From istab Where TRIM(tabtyp) = '21' And TRIM(typcod) = '" + this.loccod.Trim() + "'";
+                return DbfTable.GetDataBySql(this.working_express_db, sql, "Istab").ToIstabList().FirstOrDefault();
             }
         }
     }
@@ -1891,10 +1891,108 @@ namespace XPump.Model
         public List<VatTransDbfVM> shsvattransVM;
         public List<VatTransDbfVM> sivvattransVM;
         public List<VatTransDbfVM> sales_vatdoc;
-        //public List<pricelistVM> pricelistVM_list { get; set; }
-        //public List<salessummaryVM> salessummaryVM_list { get; set; }
         public List<salessummaryVM> salessummaryVM_list;
         public List<saleshistoryVM> saleshistoryVM_list;
+
+        //public ReportAModel(shiftsales shiftsales, SccompDbf working_express_db)
+        //{
+        //    this.working_express_db = working_express_db;
+        //    this.shiftsales = shiftsales;
+
+        //    using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+        //    {
+        //        this.reportDate = this.shiftsales.saldat;
+        //        this.isinfoDbfVM = DbfTable.Isinfo(this.working_express_db).Rows.Count > 0 ? DbfTable.Isinfo(this.working_express_db).ToList<IsinfoDbf>().First().ToViewModel(this.working_express_db) : new IsinfoDbfVM { compnam = string.Empty, addr = string.Empty, telnum = string.Empty, taxid = string.Empty };
+        //        this.shift = db.shift.Find(this.shiftsales.shift_id);
+
+        //        /*** Get neccessary data from express ***/
+        //        var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList();
+        //        aptrn = aptrn.Where(a => a.docdat.HasValue)
+        //                .Where(a => a.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
+        //                .Where(a => a.docdat.Value == this.reportDate)
+        //                .Where(a => (a.docnum.Substring(0, 2) == this.shift.phpprefix || a.docnum.Substring(0, 2) == this.shift.prrprefix)).ToList();
+
+
+        //        var artrn = DbfTable.Artrn(this.working_express_db).ToArtrnList();
+        //        artrn = artrn.Where(a => a.docdat.HasValue)
+        //                .Where(a => a.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
+        //                .Where(a => a.docdat.Value == this.reportDate)
+        //                .Where(a => (a.docnum.Substring(0, 2) == this.shift.shsprefix || a.docnum.Substring(0, 2) == this.shift.sivprefix)).ToList();
+        //        var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
+        //                .Where(s => s.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
+        //                .Where(s => s.docdat.HasValue)
+        //                .Where(s => s.docdat.Value == this.reportDate)
+        //                .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum.Trim()) || artrn.Select(a => a.docnum).Contains(s.docnum.Trim()))
+        //                .OrderBy(s => s.docnum).ToList();
+
+        //        this.phpvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == this.shift.phpprefix)
+        //            .Select(s => new VatTransDbfVM
+        //            {
+        //                docnum = s.docnum.Trim(),
+        //                docdat = s.docdat.Value,
+        //                people = s.people.Trim(),
+        //                stkcod = s.stkcod.Trim(),
+        //                netval = s.netval,
+        //                vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+        //            }).OrderBy(s => s.docnum).ToList();
+
+        //        this.prrvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == this.shift.prrprefix)
+        //            .Select(s => new VatTransDbfVM
+        //            {
+        //                docnum = s.docnum.Trim(),
+        //                docdat = s.docdat.Value,
+        //                people = s.people.Trim(),
+        //                stkcod = s.stkcod.Trim(),
+        //                netval = s.netval,
+        //                vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+        //            }).OrderBy(s => s.docnum).ToList();
+
+        //        this.shsvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == this.shift.shsprefix)
+        //            .Select(s => new VatTransDbfVM
+        //            {
+        //                docnum = s.docnum.Trim(),
+        //                docdat = s.docdat.Value,
+        //                people = s.people.Trim(),
+        //                stkcod = s.stkcod.Trim(),
+        //                netval = s.netval,
+        //                vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+        //            }).OrderBy(s => s.docnum).ToList();
+
+        //        this.sivvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == this.shift.sivprefix)
+        //            .Select(s => new VatTransDbfVM
+        //            {
+        //                docnum = s.docnum.Trim(),
+        //                docdat = s.docdat.Value,
+        //                people = s.people.Trim(),
+        //                stkcod = s.stkcod.Trim(),
+        //                netval = s.netval,
+        //                vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
+        //            }).OrderBy(s => s.docnum).ToList();
+
+        //        var artrn_svat = DbfTable.Artrn(this.working_express_db).ToArtrnList();
+        //        var svat_docs = artrn_svat
+        //                        .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
+        //                        .Where(a => stcrd.Select(s => s.docnum).Contains(a.docnum))
+        //                        .ToList();
+        //        this.sales_vatdoc = new List<VatTransDbfVM>();
+        //        foreach (var item in svat_docs)
+        //        {
+        //            this.sales_vatdoc.Add(new VatTransDbfVM
+        //            {
+        //                docnum = item.docnum.Trim(),
+        //                docdat = item.docdat.Value,
+        //                people = item.cuscod.Trim(),
+        //                stkcod = string.Empty,
+        //                netval = item.netval,
+        //                vatamt = item.vatamt
+        //            });
+        //        }
+        //        /*****************************************/
+        //        this.salessummaryVM_list = db.salessummary.Include("dother").Where(s => s.shiftsales_id == this.shiftsales.id).ToViewModel(this.working_express_db).OrderBy(s => s.stkcod).ToList();
+        //        int[] salessummary_ids = db.salessummary.Where(s => s.shiftsales_id == this.shiftsales.id).Select(s => s.id).ToArray<int>();
+        //        this.saleshistoryVM_list = db.saleshistory.Where(s => salessummary_ids.Contains<int>(s.salessummary_id)).ToViewModel(this.working_express_db).ToList();
+        //    }
+        //}
 
         public ReportAModel(shiftsales shiftsales, SccompDbf working_express_db)
         {
@@ -1908,26 +2006,61 @@ namespace XPump.Model
                 this.shift = db.shift.Find(this.shiftsales.shift_id);
 
                 /*** Get neccessary data from express ***/
-                //var express_version = Helper.GetExpressVersion();
-                var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList();
-                aptrn = aptrn.Where(a => a.docdat.HasValue)
-                        .Where(a => a.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
-                        .Where(a => a.docdat.Value == this.reportDate)
-                        .Where(a => (a.docnum.Substring(0, 2) == this.shift.phpprefix || a.docnum.Substring(0, 2) == this.shift.prrprefix)).ToList();
+                /**** Aptrn ****/
+                //var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList();
+                //aptrn = aptrn.Where(a => a.docdat.HasValue)
+                //        .Where(a => a.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
+                //        .Where(a => a.docdat.Value == this.reportDate)
+                //        .Where(a => (a.docnum.Substring(0, 2) == this.shift.phpprefix || a.docnum.Substring(0, 2) == this.shift.prrprefix)).ToList();
 
 
-                //var artrn = express_version == 1 ? DbfTable.Artrn(this.working_express_db).ToArtrnList() : DbfTable.Artrn(this.working_express_db).ToList<ArtrnDbf>();
-                var artrn = DbfTable.Artrn(this.working_express_db).ToArtrnList();
-                artrn = artrn.Where(a => a.docdat.HasValue)
-                        .Where(a => a.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
-                        .Where(a => a.docdat.Value == this.reportDate)
-                        .Where(a => (a.docnum.Substring(0, 2) == this.shift.shsprefix || a.docnum.Substring(0, 2) == this.shift.sivprefix)).ToList();
-                var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
-                        .Where(s => s.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
-                        .Where(s => s.docdat.HasValue)
-                        .Where(s => s.docdat.Value == this.reportDate)
-                        .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum.Trim()) || artrn.Select(a => a.docnum).Contains(s.docnum.Trim()))
-                        .OrderBy(s => s.docnum).ToList();
+                var sql = "Select * From aptrn Where docdat IS NOT NULL ";
+                sql += "And TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                sql += "And docdat = {^" + this.reportDate.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} ";
+                sql += "And (SUBSTR(docnum,1,2) = '" + this.shift.phpprefix + "' OR SUBSTR(docnum,1,2) = '" + this.shift.prrprefix + "')";
+
+                var aptrn = DbfTable.GetDataBySql(this.working_express_db, sql, "Aptrn").ToAptrnList();
+                /****************/
+
+                /**** Artrn ****/
+                //var artrn = DbfTable.Artrn(this.working_express_db).ToArtrnList();
+                //artrn = artrn.Where(a => a.docdat.HasValue)
+                //        .Where(a => a.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
+                //        .Where(a => a.docdat.Value == this.reportDate)
+                //        .Where(a => (a.docnum.Substring(0, 2) == this.shift.shsprefix || a.docnum.Substring(0, 2) == this.shift.sivprefix)).ToList();
+
+                sql = "Select * From artrn Where docdat IS NOT NULL ";
+                sql += "And TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                sql += "And docdat = {^" + this.reportDate.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} ";
+                sql += "And (SUBSTR(docnum,1,2) = '" + this.shift.shsprefix + "' OR SUBSTR(docnum,1,2) = '" + this.shift.sivprefix + "')";
+                var artrn = DbfTable.GetDataBySql(this.working_express_db, sql, "Artrn").ToArtrnList();
+                /****************/
+
+                /**** Stcrd ****/
+                //var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
+                //        .Where(s => s.depcod.Trim() == working_express_db.db_conn_config.depcod.Trim())
+                //        .Where(s => s.docdat.HasValue)
+                //        .Where(s => s.docdat.Value == this.reportDate)
+                //        .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum.Trim()) || artrn.Select(a => a.docnum).Contains(s.docnum.Trim()))
+                //        .OrderBy(s => s.docnum).ToList();
+
+                var stcrd = new List<StcrdDbf>();
+                aptrn.ForEach(ap =>
+                {
+                    sql = "Select * From stcrd Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                    sql += "And TRIM(docnum) = '" + ap.docnum.Trim() + "'";
+                    var st = DbfTable.GetDataBySql(this.working_express_db, sql, "Stcrd").ToStcrdList();
+                    stcrd.AddRange(st);
+                });
+                artrn.ForEach(ar =>
+                {
+                    sql = "Select * From stcrd Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                    sql += "And TRIM(docnum) = '" + ar.docnum.Trim() + "'";
+                    var st = DbfTable.GetDataBySql(this.working_express_db, sql, "Stcrd").ToStcrdList();
+                    stcrd.AddRange(st);
+                });
+                
+                /****************/
 
                 this.phpvattransVM = stcrd.Where(s => s.docnum.Substring(0, 2) == this.shift.phpprefix)
                     .Select(s => new VatTransDbfVM
@@ -1973,12 +2106,22 @@ namespace XPump.Model
                         vatamt = Convert.ToDouble(string.Format("{0:0.00}", (s.netval * 7) / 100))
                     }).OrderBy(s => s.docnum).ToList();
 
-                //var artrn_svat = express_version == 1 ? DbfTable.Artrn(this.working_express_db).ToArtrnList() : DbfTable.Artrn(this.working_express_db).ToList<ArtrnDbf>();
-                var artrn_svat = DbfTable.Artrn(this.working_express_db).ToArtrnList();
-                var svat_docs = artrn_svat
-                                .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
-                                .Where(a => stcrd.Select(s => s.docnum).Contains(a.docnum))
-                                .ToList();
+                /**** Artrn (vat) ****/
+                //var artrn_svat = DbfTable.Artrn(this.working_express_db).ToArtrnList();
+                //var svat_docs = artrn_svat
+                //                .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
+                //                .Where(a => stcrd.Select(s => s.docnum).Contains(a.docnum))
+                //                .ToList();
+
+                var svat_docs = new List<ArtrnDbf>();
+                stcrd.GroupBy(st => st.docnum).ToList().ForEach(st =>
+                {
+                    sql = "Select * From artrn Where TRIM(docnum) = '" + st.Key + "' ";
+                    svat_docs.AddRange(DbfTable.GetDataBySql(this.working_express_db, sql, "Artrn").ToArtrnList());
+                });
+
+                /****************/
+
                 this.sales_vatdoc = new List<VatTransDbfVM>();
                 foreach (var item in svat_docs)
                 {
@@ -2005,7 +2148,6 @@ namespace XPump.Model
         private SccompDbf working_express_db;
         public DateTime reportDate;
         public IsinfoDbfVM isinfoDbfVM;
-        //public List<VatTransDbfVM> purvattransVM;
         public List<VatTransDbfVM> pur_vatdocs;
         public List<dayend> dayend;
 
@@ -2029,6 +2171,7 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
+                    var sql = string.Empty;
                     List<string> doc_hp = new List<string>();
                     List<string> doc_rr = new List<string>();
                     foreach (shift s in db.shift.ToList())
@@ -2036,52 +2179,106 @@ namespace XPump.Model
                         doc_hp.Add(s.phpprefix);
                         doc_rr.Add(s.prrprefix);
                     }
-                    var apmas = DbfTable.Apmas(this.working_express_db).ToApmasList();
-                    var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
-                                .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
-                                .Where(a => a.docdat.HasValue)
-                                .Where(a => a.docdat.Value == this.reportDate)
-                                .Where(a => doc_hp.Contains(a.docnum.Substring(0, 2)) || doc_rr.Contains(a.docnum.Substring(0, 2)))
-                                .OrderBy(a => a.docnum).ToList();
-                    var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
-                                .Where(s => s.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
-                                .Where(s => s.docdat.HasValue)
-                                .Where(s => s.docdat.Value == this.reportDate)
-                                .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum))
-                                .OrderBy(s => s.docnum).ToList();
 
-                    //var purvattrans = stcrd.Where(s => doc_hp.Contains(s.docnum.Substring(0, 2)) || doc_rr.Contains(s.docnum.Substring(0, 2)))
-                    //            .GroupBy(s => s.docnum.Trim())
-                    //            .Select(s => new VatTransDbfVM
-                    //            {
-                    //                docnum = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docnum.Trim(),
-                    //                docdat = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docdat.Value,
-                    //                people = apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().supnam.Trim() : string.Empty,
-                    //                stkcod = stcrd.Where(st => st.docnum.Trim() == s.Key).First().stkcod.Trim(),
-                    //                netval = stcrd.Where(st => st.docnum.Trim() == s.Key).Sum(st => st.netval),
-                    //                vatamt = Convert.ToDouble(string.Format("{0:0.00}", (stcrd.Where(st => st.docnum.Trim() == s.Key).Sum(st => (st.netval * 7) / 100))))
-                    //            }).OrderBy(s => s.docdat).ThenBy(s => s.docnum).ToList();
+                    //var apmas = DbfTable.Apmas(this.working_express_db).ToApmasList();
 
-                    //this.purvattransVM = purvattrans.ToList();
+                    /**** Aptrn ****/
+                    //var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
+                    //            .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
+                    //            .Where(a => a.docdat.HasValue)
+                    //            .Where(a => a.docdat.Value == this.reportDate)
+                    //            .Where(a => doc_hp.Contains(a.docnum.Substring(0, 2)) || doc_rr.Contains(a.docnum.Substring(0, 2)))
+                    //            .OrderBy(a => a.docnum).ToList();
 
-                    this.pur_vatdocs = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
-                                        .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
-                                        .Where(a => stcrd.Select(s => s.docnum.Trim()).Contains(a.docnum.Trim()))
-                                        .Select(a => new VatTransDbfVM
-                                        {
-                                            docnum = a.docnum.Trim(),
-                                            docdat = a.docdat.Value,
-                                            people = apmas.Where(ap => ap.supcod.Trim() == a.supcod.Trim()).FirstOrDefault() != null ? apmas.Where(ap => ap.supcod.Trim() == a.supcod.Trim()).First().supnam.Trim() : string.Empty,
-                                            stkcod = string.Empty,
-                                            netval = a.netval,
-                                            vatamt = a.vatamt
-                                        })
-                                        .ToList();
+                    var aptrn = new List<AptrnDbf>();
+                    doc_hp.GroupBy(hp => hp).ToList().ForEach(hp =>
+                    {
+                        sql = "Select * From aptrn Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                        sql += "And docdat IS NOT NULL ";
+                        sql += "And docdat = {^" + this.reportDate.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} ";
+                        sql += "And SUBSTR(docnum,1,2) = '" + hp.Key + "' ";
+                        //sql += "Order By docnum";
+                        aptrn.AddRange(DbfTable.GetDataBySql(this.working_express_db, sql, "Aptrn").ToAptrnList());
+                    });
+                    doc_rr.GroupBy(rr => rr).ToList().ForEach(rr =>
+                    {
+                        sql = "Select * From aptrn Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                        sql += "And docdat IS NOT NULL ";
+                        sql += "And docdat = {^" + this.reportDate.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} ";
+                        sql += "And SUBSTR(docnum,1,2) = '" + rr.Key + "' ";
+                        //sql += "Order By docnum";
+                        aptrn.AddRange(DbfTable.GetDataBySql(this.working_express_db, sql, "Aptrn").ToAptrnList());
+                    });
+                    aptrn = aptrn.OrderBy(ap => ap.docnum).ToList();
+                    
+                    /***************/
+
+                    /**** Stcrd ****/
+                    //var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
+                    //            .Where(s => s.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
+                    //            .Where(s => s.docdat.HasValue)
+                    //            .Where(s => s.docdat.Value == this.reportDate)
+                    //            .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum))
+                    //            .OrderBy(s => s.docnum).ToList();
+
+                    var stcrd = new List<StcrdDbf>();
+                    aptrn.ForEach(ap =>
+                    {
+                        sql = "Select * From stcrd Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                        sql += "And docdat IS NOT NULL ";
+                        sql += "And docdat = {^" + this.reportDate.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} ";
+                        sql += "And docnum = '" + ap.docnum + "' ";
+                        stcrd.AddRange(DbfTable.GetDataBySql(this.working_express_db, sql, "Stcrd").ToStcrdList());
+                    });
+                    stcrd = stcrd.OrderBy(st => st.docnum).ToList();
+                    
+                    /***************/
+
+                    /**** Aptrn (vat) ****/
+                    //this.pur_vatdocs = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
+                    //                    .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
+                    //                    .Where(a => stcrd.Select(s => s.docnum.Trim()).Contains(a.docnum.Trim()))
+                    //                    .Select(a => new VatTransDbfVM
+                    //                    {
+                    //                        docnum = a.docnum.Trim(),
+                    //                        docdat = a.docdat.Value,
+                    //                        people = apmas.Where(ap => ap.supcod.Trim() == a.supcod.Trim()).FirstOrDefault() != null ? apmas.Where(ap => ap.supcod.Trim() == a.supcod.Trim()).First().supnam.Trim() : string.Empty,
+                    //                        stkcod = string.Empty,
+                    //                        netval = a.netval,
+                    //                        vatamt = a.vatamt
+                    //                    })
+                    //                    .ToList();
+
+                    var aptrn_vat = new List<AptrnDbf>();
+                    stcrd.GroupBy(st => st.docnum).ToList().ForEach(st =>
+                    {
+                        sql = "Select * From aptrn Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                        sql += "And TRIM(docnum) = '" + st.Key + "' ";
+                        aptrn_vat.AddRange(DbfTable.GetDataBySql(this.working_express_db, sql, "Aptrn").ToAptrnList());
+                    });
+
+                    this.pur_vatdocs = new List<VatTransDbfVM>();
+                    aptrn_vat.ForEach(ap =>
+                    {
+                        sql = "Select * From apmas Where TRIM(supcod) = '" + ap.supcod.Trim() + "'";
+                        var sup = DbfTable.GetDataBySql(this.working_express_db, sql, "Apmas").ToApmasList().FirstOrDefault();
+
+                        this.pur_vatdocs.Add(new VatTransDbfVM
+                        {
+                            docnum = ap.docnum.Trim(),
+                            docdat = ap.docdat.Value,
+                            people = sup != null ? sup.supnam.Trim() : string.Empty,
+                            stkcod = string.Empty,
+                            netval = ap.netval,
+                            vatamt = ap.vatamt
+                        });
+                    });
+                    
+                    /**************/
                 }
             }
             else
             {
-                //this.purvattransVM = new List<VatTransDbfVM>();
                 this.pur_vatdocs = new List<VatTransDbfVM>();
             }
 
@@ -2101,7 +2298,6 @@ namespace XPump.Model
 
         public DateTime reportDate;
         public IsinfoDbfVM isinfoDbfVM;
-        //public List<VatTransDbfVM> purvattransVM;
         public List<VatTransDbfVM> pur_vatdocs;
         public List<monthendVM> monthend;
 
@@ -2110,10 +2306,6 @@ namespace XPump.Model
             this.first_date = first_date;
             this.last_date = last_date;
             this.working_express_db = working_express_db;
-            //DbfTable.Isinfo(this.working_express_db);
-            //DbfTable.Apmas(this.working_express_db);
-            //DbfTable.Aptrn(this.working_express_db);
-            //DbfTable.Stcrd(this.working_express_db);
 
             this.reportDate = this.last_date;
 
@@ -2132,6 +2324,7 @@ namespace XPump.Model
             {
                 using (xpumpEntities db = DBX.DataSet(this.working_express_db))
                 {
+                    var sql = string.Empty;
                     List<string> doc_hp = new List<string>();
                     List<string> doc_rr = new List<string>();
                     foreach (shift s in db.shift.ToList())
@@ -2140,49 +2333,97 @@ namespace XPump.Model
                         doc_rr.Add(s.prrprefix);
                     }
                     var apmas = DbfTable.Apmas(this.working_express_db).ToApmasList();
-                    var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
-                                .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
-                                .Where(a => a.docdat.HasValue)
-                                .Where(a => a.docdat.Value.CompareTo(this.first_date) >= 0 && a.docdat.Value.CompareTo(this.last_date) <= 0)
-                                .Where(a => doc_hp.Contains(a.docnum.Substring(0, 2)) || doc_rr.Contains(a.docnum.Substring(0, 2)))
-                                .OrderBy(a => a.docnum).ToList();
-                    var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
-                                .Where(s => s.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
-                                .Where(s => s.docdat.HasValue)
-                                .Where(s => s.docdat.Value.CompareTo(this.first_date) >= 0 && s.docdat.Value.CompareTo(this.last_date) <= 0)
-                                .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum))
-                                .OrderBy(s => s.docnum).ToList();
 
-                    //this.purvattransVM = stcrd.Where(s => doc_hp.Contains(s.docnum.Substring(0, 2)) || doc_rr.Contains(s.docnum.Substring(0, 2)))
-                    //                    .GroupBy(s => s.docnum.Trim())
-                    //                    .Select(s => new VatTransDbfVM
+                    /**** Aptrn ****/
+                    //var aptrn = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
+                    //            .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
+                    //            .Where(a => a.docdat.HasValue)
+                    //            .Where(a => a.docdat.Value.CompareTo(this.first_date) >= 0 && a.docdat.Value.CompareTo(this.last_date) <= 0)
+                    //            .Where(a => doc_hp.Contains(a.docnum.Substring(0, 2)) || doc_rr.Contains(a.docnum.Substring(0, 2)))
+                    //            .OrderBy(a => a.docnum).ToList();
+
+                    var aptrn = new List<AptrnDbf>();
+                    doc_hp.GroupBy(hp => hp).ToList().ForEach(hp =>
+                    {
+                        sql = "Select * From Aptrn Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                        sql += "And docdat IS NOT NULL ";
+                        sql += "And docdat >= {^" + this.first_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} And docdat <= {^" + this.last_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} ";
+                        sql += "And SUBSTR(docnum,1,2) = '" + hp.Key + "' ";
+                        aptrn.AddRange(DbfTable.GetDataBySql(this.working_express_db, sql, "Aptrn").ToAptrnList());
+                    });
+                    doc_rr.GroupBy(rr => rr).ToList().ForEach(rr =>
+                    {
+                        sql = "Select * From Aptrn Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                        sql += "And docdat IS NOT NULL ";
+                        sql += "And docdat >= {^" + this.first_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} And docdat <= {^" + this.last_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} ";
+                        sql += "And SUBSTR(docnum,1,2) = '" + rr.Key + "' ";
+                        aptrn.AddRange(DbfTable.GetDataBySql(this.working_express_db, sql, "Aptrn").ToAptrnList());
+                    });
+                    aptrn = aptrn.OrderBy(ap => ap.docnum).ToList();
+                    /***************/
+
+                    /**** Stcrd ****/
+                    //var stcrd = DbfTable.Stcrd(this.working_express_db).ToStcrdList()
+                    //            .Where(s => s.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
+                    //            .Where(s => s.docdat.HasValue)
+                    //            .Where(s => s.docdat.Value.CompareTo(this.first_date) >= 0 && s.docdat.Value.CompareTo(this.last_date) <= 0)
+                    //            .Where(s => aptrn.Select(a => a.docnum).Contains(s.docnum))
+                    //            .OrderBy(s => s.docnum).ToList();
+
+                    var stcrd = new List<StcrdDbf>();
+                    aptrn.ForEach(ap =>
+                    {
+                        sql = "Select * From Stcrd Where TRIM(depcod) = '" + this.working_express_db.db_conn_config.depcod.Trim() + "' ";
+                        sql += "And docdat IS NOT NULL ";
+                        sql += "And docdat >= {^" + this.first_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} And docdat <= {^" + this.last_date.ToString("yyyy-MM-dd", CultureInfo.GetCultureInfo("En-Us")) + "} ";
+                        sql += "And TRIM(docnum) = '" + ap.docnum.Trim() + "'";
+                        stcrd.AddRange(DbfTable.GetDataBySql(this.working_express_db, sql, "Stcrd").ToStcrdList());
+                    });
+                    stcrd = stcrd.OrderBy(st => st.docnum).ToList();
+                    /***************/
+
+                    /**** Aptrn (vat) ****/
+                    //this.pur_vatdocs = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
+                    //                    .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
+                    //                    .Where(a => stcrd.Select(s => s.docnum.Trim()).Contains(a.docnum.Trim()))
+                    //                    .Select(a => new VatTransDbfVM
                     //                    {
-                    //                        docnum = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docnum.Trim(),
-                    //                        docdat = stcrd.Where(st => st.docnum.Trim() == s.Key).First().docdat.Value,
-                    //                        people = apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).FirstOrDefault() != null ? apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().prenam.Trim() + " " + apmas.Where(a => a.supcod.Trim() == stcrd.Where(st => st.docnum.Trim() == s.Key).First().people.Trim()).First().supnam.Trim() : string.Empty,
-                    //                        stkcod = stcrd.Where(st => st.docnum.Trim() == s.Key).First().stkcod.Trim(),
-                    //                        netval = stcrd.Where(st => st.docnum.Trim() == s.Key).ToList().Sum(st => st.netval),
-                    //                        vatamt = Convert.ToDouble(string.Format("{0:0.00}", (stcrd.Where(st => st.docnum.Trim() == s.Key).Sum(st => st.netval) * 7) / 100))
-                    //                    }).OrderBy(s => s.docdat).ThenBy(s => s.docnum).ToList();
+                    //                        docnum = a.docnum.Trim(),
+                    //                        docdat = a.docdat.Value,
+                    //                        people = apmas.Where(ap => ap.supcod.Trim() == a.supcod.Trim()).FirstOrDefault() != null ? apmas.Where(ap => ap.supcod.Trim() == a.supcod.Trim()).First().supnam.Trim() : string.Empty,
+                    //                        stkcod = string.Empty,
+                    //                        netval = a.netval,
+                    //                        vatamt = a.vatamt
+                    //                    })
+                    //                    .ToList();
 
-                    this.pur_vatdocs = DbfTable.Aptrn(this.working_express_db).ToAptrnList()
-                                        .Where(a => a.depcod.Trim() == this.working_express_db.db_conn_config.depcod.Trim())
-                                        .Where(a => stcrd.Select(s => s.docnum.Trim()).Contains(a.docnum.Trim()))
-                                        .Select(a => new VatTransDbfVM
-                                        {
-                                            docnum = a.docnum.Trim(),
-                                            docdat = a.docdat.Value,
-                                            people = apmas.Where(ap => ap.supcod.Trim() == a.supcod.Trim()).FirstOrDefault() != null ? apmas.Where(ap => ap.supcod.Trim() == a.supcod.Trim()).First().supnam.Trim() : string.Empty,
-                                            stkcod = string.Empty,
-                                            netval = a.netval,
-                                            vatamt = a.vatamt
-                                        })
-                                        .ToList();
+                    this.pur_vatdocs = new List<VatTransDbfVM>();
+                    var aptrn_vat = new List<AptrnDbf>();
+                    stcrd.GroupBy(st => st.docnum).ToList().ForEach(st =>
+                    {
+                        sql = "Select * From Aptrn Where TRIM(docnum) = '" + st.Key + "'";
+                        aptrn_vat.AddRange(DbfTable.GetDataBySql(this.working_express_db, sql, "Aptrn").ToAptrnList());
+                    });
+                    aptrn_vat.ForEach(ap =>
+                    {
+                        sql = "Select * From Apmas Where TRIM(supcod) = '" + ap.supcod.Trim() + "'";
+                        var sup = DbfTable.GetDataBySql(this.working_express_db, sql, "Apmas").ToApmasList().FirstOrDefault();
+
+                        this.pur_vatdocs.Add(new VatTransDbfVM
+                        {
+                            docnum = ap.docnum.Trim(),
+                            docdat = ap.docdat.Value,
+                            people = sup != null ? sup.supnam.Trim() : string.Empty,
+                            stkcod = string.Empty,
+                            netval = ap.netval,
+                            vatamt = ap.vatamt
+                        });
+                    });
+                    /***************/
                 }
             }
             else
             {
-                //this.purvattransVM = new List<VatTransDbfVM>();
                 this.pur_vatdocs = new List<VatTransDbfVM>();
             }
 
@@ -2194,7 +2435,6 @@ namespace XPump.Model
                 var monthend = new List<monthendVM>();
                 foreach (var stkcod in stkcod_movement_in_month)
                 {
-                    //var me = db.stmas.Find(stmas_id).GetMonthEndVM(this.first_date, this.last_date, this.working_express_db);
                     monthendVM me = new monthendVM { stkcod = stkcod, first_date = this.first_date, last_date = this.last_date, working_express_db = this.working_express_db };
                     monthend.Add(me);
                 }
