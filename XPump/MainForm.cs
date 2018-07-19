@@ -149,6 +149,24 @@ namespace XPump
             // CREATE SETTINGS FOR THIS COMPANY IF NOT EXIST
             if(this.working_express_db != null && this.working_express_db.db_conn_config != null)
             {
+                var test_connection = this.working_express_db.db_conn_config.TestMysqlDbConnection(this);
+
+                if (!test_connection.is_connected)
+                {
+                    MessageBox.Show("ไม่สามารถติดต่อกับฐานข้อมูล " + this.working_express_db.db_conn_config.dbname + " ได้, กรุณาตรวจสอบการตั้งค่าการเชื่อมต่อฐานข้อมูล");
+                    //this.mnuBranch.PerformClick();
+                    DialogDbConfig db_conn = new DialogDbConfig(this, this.working_express_db.db_conn_config);
+                    if(db_conn.ShowDialog() == DialogResult.OK)
+                    {
+                        this.working_express_db.db_conn_config = db_conn.curr_config;
+                    }
+                    else
+                    {
+                        //XMessageBox.Show("โปรแกรมจะปิดการทำงาน");
+                        this.Close();
+                        return;
+                    }
+                }
                 DialogSettings.CreateSettingsProfile(this.working_express_db);
                 /* Getting Department */
                 //var x = DbfTable.Istab(this.working_express_db).ToIstabList().Where(t => t.tabtyp == "50").ToList();
