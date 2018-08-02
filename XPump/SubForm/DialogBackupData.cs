@@ -81,7 +81,7 @@ namespace XPump.SubForm
                         return;
                 }
 
-                DbConnectionConfig config = new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
+                DbConnectionConfig config = this.main_form.working_express_db.db_conn_config; //new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
 
                 string conn_string = "server=" + config.servername + ";user=" + config.uid + ";pwd=" + config.passwordhash.Decrypted() + ";database=" + config.db_prefix + "_" + config.dbname + ";charset=utf8;";
                 using (MySqlConnection conn = new MySqlConnection(conn_string))

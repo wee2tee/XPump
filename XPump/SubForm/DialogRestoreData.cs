@@ -61,7 +61,7 @@ namespace XPump.SubForm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            DbConnectionConfig config = new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
+            DbConnectionConfig config = this.main_form.working_express_db.db_conn_config; //new LocalDbConfig(this.main_form.working_express_db).ConfigValue;
 
             if (XMessageBox.Show(string.Format(this.main_form.GetMessage("0014"), this.backup_file_path, config.dbname), "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                 return;

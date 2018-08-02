@@ -125,10 +125,13 @@ namespace XPump.Model
                     result.success = false;
                     result.error_message = "ค้นหาข้อมูลที่ต้องการลบไม่พบ";
                 }
+                this.connection.Close();
 
             }
             catch (Exception ex)
             {
+                if (this.connection.State == ConnectionState.Open)
+                    this.connection.Close();
                 result.success = false;
                 result.error_message = ex.Message;
             }
