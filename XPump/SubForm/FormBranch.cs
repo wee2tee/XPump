@@ -76,6 +76,16 @@ namespace XPump.SubForm
             }
         }
 
+        private void btnViewDb_Click(object sender, EventArgs e)
+        {
+            DialogViewDbConnection dbconn = new DialogViewDbConnection();
+            if(dbconn.ShowDialog() == DialogResult.OK)
+            {
+                DialogViewDb dbview = new DialogViewDb(dbconn.db_name_list);
+                dbview.ShowDialog();
+            }
+        }
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             this.LoadConnToDatagrid();

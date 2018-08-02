@@ -261,7 +261,8 @@ namespace XPump.SubForm
         {
             this.saleshistory = this.salessummary.saleshistory.ToList();
             this.bs_sales.ResetBindings(true);
-            var sh_list = this.saleshistory.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ThenBy(s => s.nozzle_name).ToList();
+            //var sh_list = this.saleshistory.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.tank_name).ThenBy(s => s.section_name).ThenBy(s => s.nozzle_name).ToList();
+            var sh_list = this.saleshistory.ToViewModel(this.main_form.working_express_db).OrderBy(s => s.nozzle_name).ToList();
             this.bs_sales.DataSource = sh_list;
         }
 

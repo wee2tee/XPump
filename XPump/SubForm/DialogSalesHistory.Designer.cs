@@ -238,8 +238,8 @@
             this.inline_mit_start._DecimalDigit = 2;
             this.inline_mit_start._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
             this.inline_mit_start._MaximumValue = new decimal(new int[] {
-            999999999,
-            0,
+            1215752191,
+            23,
             0,
             131072});
             this.inline_mit_start._MaxLength = 30;
@@ -273,8 +273,8 @@
             this.inline_mit_end._DecimalDigit = 2;
             this.inline_mit_end._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
             this.inline_mit_end._MaximumValue = new decimal(new int[] {
-            999999999,
-            0,
+            1215752191,
+            23,
             0,
             131072});
             this.inline_mit_end._MaxLength = 30;

@@ -422,6 +422,18 @@
     <Compile Include="SubForm\DialogValidateUser.Designer.cs">
       <DependentUpon>DialogValidateUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogViewDb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogViewDb.Designer.cs">
+      <DependentUpon>DialogViewDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogViewDbConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogViewDbConnection.Designer.cs">
+      <DependentUpon>DialogViewDbConnection.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogYearEnd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -650,6 +662,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogValidateUser.resx">
       <DependentUpon>DialogValidateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogViewDb.resx">
+      <DependentUpon>DialogViewDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogViewDbConnection.resx">
+      <DependentUpon>DialogViewDbConnection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogYearEnd.en-US.resx">
       <DependentUpon>DialogYearEnd.cs</DependentUpon>
@@ -880,6 +898,7 @@
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
     <Content Include="Nozzle.ico" />
+    <None Include="Resources\db_search.png" />
     <None Include="Resources\edit_gray_16.png" />
     <None Include="Resources\trash.png" />
   </ItemGroup>
