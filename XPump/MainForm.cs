@@ -202,6 +202,23 @@ namespace XPump
             }
         }
 
+        private void mnuSellRecord_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSellRecord)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSellRecord)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSellRecord)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+                return;
+            }
+
+            var sfac = this.GetSubFormAccessControl(FormSellRecord.modcod);
+            FormSellRecord sell = new FormSellRecord(this, sfac);
+            sell.MdiParent = this;
+            sell.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            sell.Show();
+            this.opened_child_form.Add(new ChildFormDetail { form = sell, docPrefix = string.Empty });
+        }
+
         private void MnuShift_Click(object sender, EventArgs e)
         {
             if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShift)).FirstOrDefault() != null)

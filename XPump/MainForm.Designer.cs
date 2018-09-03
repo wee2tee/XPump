@@ -31,11 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mnuDaily = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSellRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuShiftTransaction = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDailyClose = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSetup = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBranch = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTankSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuShift = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuIstab = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +60,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -75,11 +77,19 @@
             // mnuDaily
             // 
             this.mnuDaily.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuSellRecord,
+            this.toolStripSeparator3,
             this.mnuShiftTransaction,
             this.mnuDailyClose});
             this.mnuDaily.Name = "mnuDaily";
             resources.ApplyResources(this.mnuDaily, "mnuDaily");
             this.mnuDaily.Tag = "1";
+            // 
+            // mnuSellRecord
+            // 
+            this.mnuSellRecord.Name = "mnuSellRecord";
+            resources.ApplyResources(this.mnuSellRecord, "mnuSellRecord");
+            this.mnuSellRecord.Click += new System.EventHandler(this.mnuSellRecord_Click);
             // 
             // mnuShiftTransaction
             // 
@@ -107,18 +117,18 @@
             resources.ApplyResources(this.mnuSetup, "mnuSetup");
             this.mnuSetup.Tag = "2";
             // 
+            // mnuBranch
+            // 
+            this.mnuBranch.Name = "mnuBranch";
+            resources.ApplyResources(this.mnuBranch, "mnuBranch");
+            this.mnuBranch.Click += new System.EventHandler(this.mnuBranch_Click);
+            // 
             // mnuSettings
             // 
             this.mnuSettings.Name = "mnuSettings";
             resources.ApplyResources(this.mnuSettings, "mnuSettings");
             this.mnuSettings.Tag = "21";
             this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
-            // 
-            // mnuBranch
-            // 
-            this.mnuBranch.Name = "mnuBranch";
-            resources.ApplyResources(this.mnuBranch, "mnuBranch");
-            this.mnuBranch.Click += new System.EventHandler(this.mnuBranch_Click);
             // 
             // mnuTankSetup
             // 
@@ -289,6 +299,11 @@
             resources.ApplyResources(this.lblVersion, "lblVersion");
             this.lblVersion.Spring = true;
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -342,6 +357,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem mnuBranch;
+        private System.Windows.Forms.ToolStripMenuItem mnuSellRecord;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 
