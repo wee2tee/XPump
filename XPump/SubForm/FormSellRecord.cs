@@ -34,5 +34,6 @@ namespace XPump.SubForm
             base.OnFormClosed(e);
         }
 
+        //private List<stmasPriceVM> 
     }
 }

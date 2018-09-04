@@ -95,6 +95,7 @@ namespace XPump.SubForm
             this.dgv.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnUp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnDown.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnChangeCode.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             if(this.form_mode == FORM_MODE.READ)
             {
@@ -666,6 +667,12 @@ namespace XPump.SubForm
                 return true;
             }
 
+            if(keyData == (Keys.Control | Keys.G))
+            {
+                this.btnChangeCode.PerformClick();
+                return true;
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -936,6 +943,21 @@ namespace XPump.SubForm
                 {
                     XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void btnChangeCode_Click(object sender, EventArgs e)
+        {
+            if (this.curr_shift == null)
+                return;
+
+            DialogChangeCode d = new DialogChangeCode(this.main_form, this.curr_shift);
+            d.txtOldCode.Text = this.curr_shift.name;
+
+            if(d.ShowDialog() == DialogResult.OK)
+            {
+                this.btnRefresh.PerformClick();
+                this.dgv.Rows.Cast<DataGridViewRow>().Where(r => (int)r.Cells[this.col_id.Name].Value == this.curr_shift.id).First().Cells[this.col_name.Name].Selected = true;
             }
         }
     }

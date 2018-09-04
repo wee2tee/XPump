@@ -48,6 +48,7 @@
             this.btnNext = new System.Windows.Forms.ToolStripButton();
             this.btnLast = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnChangeCode = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.inline_siv = new CC.XDropdownList();
@@ -106,6 +107,7 @@
             this.btnNext,
             this.btnLast,
             this.toolStripSeparator2,
+            this.btnChangeCode,
             this.btnRefresh});
             this.toolStrip1.Name = "toolStrip1";
             // 
@@ -191,6 +193,15 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            // 
+            // btnChangeCode
+            // 
+            this.btnChangeCode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnChangeCode.Image = global::XPump.Properties.Resources.rename;
+            resources.ApplyResources(this.btnChangeCode, "btnChangeCode");
+            this.btnChangeCode.Margin = new System.Windows.Forms.Padding(2, 1, 1, 2);
+            this.btnChangeCode.Name = "btnChangeCode";
+            this.btnChangeCode.Click += new System.EventHandler(this.btnChangeCode_Click);
             // 
             // btnRefresh
             // 
@@ -347,7 +358,7 @@
             this.dgv.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -378,7 +389,7 @@
             this.col_chgtime});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9.75F);
             dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
@@ -621,5 +632,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_cretime;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_chgby;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_chgtime;
+        private System.Windows.Forms.ToolStripButton btnChangeCode;
     }
 }

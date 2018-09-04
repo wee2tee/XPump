@@ -32,6 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mnuDaily = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSellRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuShiftTransaction = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDailyClose = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSetup = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +61,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -90,6 +90,11 @@
             this.mnuSellRecord.Name = "mnuSellRecord";
             resources.ApplyResources(this.mnuSellRecord, "mnuSellRecord");
             this.mnuSellRecord.Click += new System.EventHandler(this.mnuSellRecord_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // mnuShiftTransaction
             // 
@@ -298,11 +303,6 @@
             this.lblVersion.Name = "lblVersion";
             resources.ApplyResources(this.lblVersion, "lblVersion");
             this.lblVersion.Spring = true;
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // MainForm
             // 
