@@ -398,6 +398,12 @@
     <Compile Include="SubForm\DialogSearchShiftTransaction.Designer.cs">
       <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\FormArmas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormArmas.Designer.cs">
+      <DependentUpon>FormArmas.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\FormSellRecord.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -653,6 +659,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSearchShiftTransaction.resx">
       <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormArmas.resx">
+      <DependentUpon>FormArmas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormSellRecord.resx">
       <DependentUpon>FormSellRecord.cs</DependentUpon>

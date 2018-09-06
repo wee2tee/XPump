@@ -715,6 +715,13 @@ namespace XPump
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        private void mnuArmas_Click(object sender, EventArgs e)
+        {
+            FormArmas fa = new FormArmas(this);
+            fa.MdiParent = this;
+            fa.Show();
+        }
     }
 
     public class ChildFormDetail

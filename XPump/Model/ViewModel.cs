@@ -398,6 +398,22 @@ namespace XPump.Model
     //    }
     //}
 
+    //public class stmasSellPrice
+    //{
+    //    public SccompDbf working_express_db { get; set; }
+    //    public string stkcod { get; set; }
+    //    public string stkdes
+    //    {
+    //        get
+    //        {
+    //            var st = DbfTable.StmasByStkcod(this.working_express_db, this.stkcod).ToStmasList().FirstOrDefault();
+    //            return st != null ? st.stkdes.Trim() : string.Empty;
+    //        }
+    //    }
+    //    public int price_id { get; set; }
+    //    public decimal price { get; set; }
+    //}
+
     public class stmasPriceVM
     {
         public SccompDbf working_express_db { get; set; }

@@ -34,6 +34,12 @@ namespace XPump.SubForm
             base.OnFormClosed(e);
         }
 
-        //private List<stmasPriceVM> 
+        //private List<stmasPriceVM> GetStmas(bool oil_only = true)
+        //{
+        //    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+        //    {
+
+        //    }
+        //}
     }
 }

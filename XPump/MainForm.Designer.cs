@@ -61,6 +61,8 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.mnuArmas = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -80,7 +82,9 @@
             this.mnuSellRecord,
             this.toolStripSeparator3,
             this.mnuShiftTransaction,
-            this.mnuDailyClose});
+            this.mnuDailyClose,
+            this.toolStripSeparator4,
+            this.mnuArmas});
             this.mnuDaily.Name = "mnuDaily";
             resources.ApplyResources(this.mnuDaily, "mnuDaily");
             this.mnuDaily.Tag = "1";
@@ -304,6 +308,17 @@
             resources.ApplyResources(this.lblVersion, "lblVersion");
             this.lblVersion.Spring = true;
             // 
+            // mnuArmas
+            // 
+            this.mnuArmas.Name = "mnuArmas";
+            resources.ApplyResources(this.mnuArmas, "mnuArmas");
+            this.mnuArmas.Click += new System.EventHandler(this.mnuArmas_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -359,6 +374,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnuBranch;
         private System.Windows.Forms.ToolStripMenuItem mnuSellRecord;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem mnuArmas;
     }
 }
 
