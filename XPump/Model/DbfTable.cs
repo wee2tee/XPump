@@ -31,6 +31,14 @@ namespace XPump.Model
         //    return data_path;
         //}
 
+        public enum RECORD_FLAG
+        {
+            FIRST,
+            LAST,
+            NEXT,
+            PREVIOUS
+        }
+
         public static bool IsSecureFileExist(string file_name)
         {
             string secure_path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\secure\";
@@ -542,12 +550,179 @@ namespace XPump.Model
             return dt;
         }
 
-        public static List<ArmasDbf> Armas(SccompDbf working_express_db)
+        public static ArmasDbf Armas(SccompDbf working_express_db, string cuscod)
         {
             string data_path = working_express_db.abs_path;
-            List<ArmasDbf> armas = new List<ArmasDbf>();
 
             if(!(Directory.Exists(data_path) && File.Exists(data_path + "armas.dbf")))
+            {
+                XMessageBox.Show("ค้นหาแฟ้ม Armas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                return null;
+            }
+
+            using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + data_path))
+            {
+                DataTable dt = new DataTable();
+
+                conn.Open();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Select * From armas Where TRIM(cuscod) = ?";
+                    cmd.Parameters.AddWithValue("@Cuscod", cuscod.Trim());
+                    using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                        conn.Close();
+
+                        return new DbfTable().ConvertDatatableToArmas(dt);
+                    }
+                }
+            }
+        }
+
+        public static ArmasDbf Armas(SccompDbf working_express_db, RECORD_FLAG rec_flag = RECORD_FLAG.FIRST)
+        {
+            string data_path = working_express_db.abs_path;
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "armas.dbf")))
+            {
+                XMessageBox.Show("ค้นหาแฟ้ม Armas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                return null;
+            }
+
+            using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + data_path))
+            {
+                DataTable dt = new DataTable();
+
+                conn.Open();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    if(rec_flag == RECORD_FLAG.FIRST)
+                    {
+                        cmd.CommandText = "Select * From armas Order By cuscod ASC Top 1";
+                    }
+                    else if(rec_flag == RECORD_FLAG.LAST)
+                    {
+                        cmd.CommandText = "Select * From armas Order By cuscod DESC Top 1";
+                    }
+                    else
+                    {
+                        cmd.CommandText = "Select * From armas Order By cuscod ASC Top 1";
+                    }
+                    
+                    using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                        conn.Close();
+
+                        return new DbfTable().ConvertDatatableToArmas(dt);
+                    }
+                }
+            }
+        }
+
+        //public static ArmasDbf Armas(SccompDbf working_express_db, RECORD_FLAG rec_flag, string curr_cuscod)
+        //{
+        //    string data_path = working_express_db.abs_path;
+
+        //    if (!(Directory.Exists(data_path) && File.Exists(data_path + "armas.dbf")))
+        //    {
+        //        XMessageBox.Show("ค้นหาแฟ้ม Armas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+        //        return null;
+        //    }
+
+        //    using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + data_path))
+        //    {
+        //        DataTable dt = new DataTable();
+
+        //        conn.Open();
+        //        using (OleDbCommand cmd = conn.CreateCommand())
+        //        {
+        //            if (rec_flag == RECORD_FLAG.NEXT)
+        //            {
+        //                cmd.CommandText = "Select * From armas Order By cuscod ASC Top 1";
+        //            }
+        //            else if (rec_flag == RECORD_FLAG.PREVIOUS)
+        //            {
+        //                cmd.CommandText = "Select * From armas Order By cuscod DESC Top 1";
+        //            }
+        //            else
+        //            {
+        //                cmd.CommandText = "Select * From armas Order By cuscod ASC Top 1";
+        //            }
+
+        //            using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+        //            {
+        //                da.Fill(dt);
+        //                conn.Close();
+
+        //                return new DbfTable().ConvertDatatableToArmas(dt);
+        //            }
+        //        }
+        //    }
+        //}
+
+        private ArmasDbf ConvertDatatableToArmas(DataTable dt)
+        {
+            ArmasDbf armas = null;
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                int dummy_int;
+                var org = !dt.Rows[i].IsNull("orgnum") ? Int32.TryParse(dt.Rows[i]["orgnum"].ToString(), out dummy_int) ? dummy_int : 0 : 0;
+
+                armas = new ArmasDbf
+                {
+                    accnum = !dt.Rows[i].IsNull("accnum") ? dt.Rows[i]["accnum"].ToString().TrimEnd() : string.Empty,
+                    addr01 = !dt.Rows[i].IsNull("addr01") ? dt.Rows[i]["addr01"].ToString().TrimEnd() : string.Empty,
+                    addr02 = !dt.Rows[i].IsNull("addr02") ? dt.Rows[i]["addr02"].ToString().TrimEnd() : string.Empty,
+                    addr03 = !dt.Rows[i].IsNull("addr03") ? dt.Rows[i]["addr03"].ToString().TrimEnd() : string.Empty,
+                    areacod = !dt.Rows[i].IsNull("areacod") ? dt.Rows[i]["areacod"].ToString().TrimEnd() : string.Empty,
+                    balance = !dt.Rows[i].IsNull("balance") ? Convert.ToDouble(dt.Rows[i]["balance"]) : 0,
+                    chgdat = !dt.Rows[i].IsNull("chgdat") ? (DateTime?)dt.Rows[i]["chgdat"] : null,
+                    chqrcv = !dt.Rows[i].IsNull("chqrcv") ? Convert.ToDouble(dt.Rows[i]["chqrcv"]) : 0,
+                    contact = !dt.Rows[i].IsNull("contact") ? dt.Rows[i]["contact"].ToString().TrimEnd() : string.Empty,
+                    creby = !dt.Rows[i].IsNull("creby") ? dt.Rows[i]["creby"].ToString().TrimEnd() : string.Empty,
+                    credat = !dt.Rows[i].IsNull("credat") ? (DateTime?)dt.Rows[i]["credat"] : null,
+                    crline = !dt.Rows[i].IsNull("crline") ? Convert.ToDouble(dt.Rows[i]["crline"]) : 0,
+                    cuscod = !dt.Rows[i].IsNull("cuscod") ? dt.Rows[i]["cuscod"].ToString().TrimEnd() : string.Empty,
+                    cusnam = !dt.Rows[i].IsNull("cusnam") ? dt.Rows[i]["cusnam"].ToString().TrimEnd() : string.Empty,
+                    cusnam2 = !dt.Rows[i].IsNull("cusnam2") ? dt.Rows[i]["cusnam2"].ToString().TrimEnd() : string.Empty,
+                    custyp = !dt.Rows[i].IsNull("custyp") ? dt.Rows[i]["custyp"].ToString().TrimEnd() : string.Empty,
+                    disc = !dt.Rows[i].IsNull("disc") ? dt.Rows[i]["disc"].ToString() : string.Empty,
+                    dlvby = !dt.Rows[i].IsNull("dlvby") ? dt.Rows[i]["dlvby"].ToString() : string.Empty,
+                    inactdat = !dt.Rows[i].IsNull("inactdat") ? (DateTime?)dt.Rows[i]["inactdat"] : null,
+                    lasivc = !dt.Rows[i].IsNull("lasivc") ? (DateTime?)dt.Rows[i]["lasivc"] : null,
+                    orgnum = org,
+                    paycond = !dt.Rows[i].IsNull("paycond") ? dt.Rows[i]["paycond"].ToString() : string.Empty,
+                    payer = !dt.Rows[i].IsNull("payer") ? dt.Rows[i]["payer"].ToString() : string.Empty,
+                    paytrm = !dt.Rows[i].IsNull("paytrm") ? Convert.ToInt32(dt.Rows[i]["paytrm"]) : 0,
+                    prenam = !dt.Rows[i].IsNull("prenam") ? dt.Rows[i]["prenam"].ToString() : string.Empty,
+                    remark = !dt.Rows[i].IsNull("remark") ? dt.Rows[i]["remark"].ToString() : string.Empty,
+                    shipto = !dt.Rows[i].IsNull("shipto") ? dt.Rows[i]["shipto"].ToString() : string.Empty,
+                    slmcod = !dt.Rows[i].IsNull("slmcod") ? dt.Rows[i]["slmcod"].ToString() : string.Empty,
+                    status = !dt.Rows[i].IsNull("status") ? dt.Rows[i]["status"].ToString() : string.Empty,
+                    tabpr = !dt.Rows[i].IsNull("tabpr") ? dt.Rows[i]["tabpr"].ToString() : string.Empty,
+                    taxcond = !dt.Rows[i].IsNull("taxcond") ? dt.Rows[i]["taxcond"].ToString() : string.Empty,
+                    taxgrp = !dt.Rows[i].IsNull("taxgrp") ? dt.Rows[i]["taxgrp"].ToString() : string.Empty,
+                    taxid = !dt.Rows[i].IsNull("taxid") ? dt.Rows[i]["taxid"].ToString() : string.Empty,
+                    taxrat = !dt.Rows[i].IsNull("taxrat") ? Convert.ToDecimal(dt.Rows[i]["taxrat"]) : 0,
+                    taxtyp = !dt.Rows[i].IsNull("taxtyp") ? dt.Rows[i]["taxtyp"].ToString() : string.Empty,
+                    telnum = !dt.Rows[i].IsNull("telnum") ? dt.Rows[i]["telnum"].ToString() : string.Empty,
+                    tracksal = !dt.Rows[i].IsNull("tracksal") ? dt.Rows[i]["tracksal"].ToString() : string.Empty,
+                    userid = !dt.Rows[i].IsNull("userid") ? dt.Rows[i]["userid"].ToString() : string.Empty,
+                    zipcod = !dt.Rows[i].IsNull("zipcod") ? dt.Rows[i]["zipcod"].ToString() : string.Empty,
+                };
+            }
+            return armas;
+        }
+
+        public static List<string> ArmasCuscodList(SccompDbf working_express_db, bool is_decending = false)
+        {
+            string data_path = working_express_db.abs_path;
+            List<string> armas = new List<string>();
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "armas.dbf")))
             {
                 XMessageBox.Show("ค้นหาแฟ้ม Armas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                 return armas;
@@ -560,7 +735,15 @@ namespace XPump.Model
                 conn.Open();
                 using (OleDbCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "Select * From armas Order By cuscod";
+                    if (is_decending)
+                    {
+                        cmd.CommandText = "Select cuscod From armas Order By cuscod DESC";
+                    }
+                    else
+                    {
+                        cmd.CommandText = "Select cuscod From armas Order By cuscod ASC";
+                    }
+                    
                     using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
                     {
                         da.Fill(dt);
@@ -568,51 +751,8 @@ namespace XPump.Model
 
                         for (int i = 0; i < dt.Rows.Count; i++)
                         {
-                            int dummy_int;
-                            var org = !dt.Rows[i].IsNull("orgnum") ? Int32.TryParse(dt.Rows[i]["orgnum"].ToString(), out dummy_int) ? dummy_int : 0 : 0;
-
-                            armas.Add(new ArmasDbf
-                            {
-                                accnum = !dt.Rows[i].IsNull("accnum") ? dt.Rows[i]["accnum"].ToString().TrimEnd() : string.Empty,
-                                addr01 = !dt.Rows[i].IsNull("addr01") ? dt.Rows[i]["addr01"].ToString().TrimEnd() : string.Empty,
-                                addr02 = !dt.Rows[i].IsNull("addr02") ? dt.Rows[i]["addr02"].ToString().TrimEnd() : string.Empty,
-                                addr03 = !dt.Rows[i].IsNull("addr03") ? dt.Rows[i]["addr03"].ToString().TrimEnd() : string.Empty,
-                                areacod = !dt.Rows[i].IsNull("areacod") ? dt.Rows[i]["areacod"].ToString().TrimEnd() : string.Empty,
-                                balance = !dt.Rows[i].IsNull("balance") ? Convert.ToDouble(dt.Rows[i]["balance"]) : 0,
-                                chgdat = !dt.Rows[i].IsNull("chgdat") ? (DateTime?)dt.Rows[i]["chgdat"] : null,
-                                chqrcv = !dt.Rows[i].IsNull("chqrcv") ? Convert.ToDouble(dt.Rows[i]["chqrcv"]) : 0,
-                                contact = !dt.Rows[i].IsNull("contact") ? dt.Rows[i]["contact"].ToString().TrimEnd() : string.Empty,
-                                creby = !dt.Rows[i].IsNull("creby") ? dt.Rows[i]["creby"].ToString().TrimEnd() : string.Empty,
-                                credat = !dt.Rows[i].IsNull("credat") ? (DateTime?)dt.Rows[i]["credat"] : null,
-                                crline = !dt.Rows[i].IsNull("crline") ? Convert.ToDouble(dt.Rows[i]["crline"]) : 0,
-                                cuscod = !dt.Rows[i].IsNull("cuscod") ? dt.Rows[i]["cuscod"].ToString().TrimEnd() : string.Empty,
-                                cusnam = !dt.Rows[i].IsNull("cusnam") ? dt.Rows[i]["cusnam"].ToString().TrimEnd() : string.Empty,
-                                cusnam2 = !dt.Rows[i].IsNull("cusnam2") ? dt.Rows[i]["cusnam2"].ToString().TrimEnd() : string.Empty,
-                                custyp = !dt.Rows[i].IsNull("custyp") ? dt.Rows[i]["custyp"].ToString().TrimEnd() : string.Empty,
-                                disc = !dt.Rows[i].IsNull("disc") ? dt.Rows[i]["disc"].ToString() : string.Empty,
-                                dlvby = !dt.Rows[i].IsNull("dlvby") ? dt.Rows[i]["dlvby"].ToString() : string.Empty,
-                                inactdat = !dt.Rows[i].IsNull("inactdat") ? (DateTime?)dt.Rows[i]["inactdat"] : null,
-                                lasivc = !dt.Rows[i].IsNull("lasivc") ? (DateTime?)dt.Rows[i]["lasivc"] : null,
-                                orgnum = org,
-                                paycond = !dt.Rows[i].IsNull("paycond") ? dt.Rows[i]["paycond"].ToString() : string.Empty,
-                                payer = !dt.Rows[i].IsNull("payer") ? dt.Rows[i]["payer"].ToString() : string.Empty,
-                                paytrm = !dt.Rows[i].IsNull("paytrm") ? Convert.ToInt32(dt.Rows[i]["paytrm"]) : 0,
-                                prenam = !dt.Rows[i].IsNull("prenam") ? dt.Rows[i]["prenam"].ToString() : string.Empty,
-                                remark = !dt.Rows[i].IsNull("remark") ? dt.Rows[i]["remark"].ToString() : string.Empty,
-                                shipto = !dt.Rows[i].IsNull("shipto") ? dt.Rows[i]["shipto"].ToString() : string.Empty,
-                                slmcod = !dt.Rows[i].IsNull("slmcod") ? dt.Rows[i]["slmcod"].ToString() : string.Empty,
-                                status = !dt.Rows[i].IsNull("status") ? dt.Rows[i]["status"].ToString() : string.Empty,
-                                tabpr = !dt.Rows[i].IsNull("tabpr") ? dt.Rows[i]["tabpr"].ToString() : string.Empty,
-                                taxcond = !dt.Rows[i].IsNull("taxcond") ? dt.Rows[i]["taxcond"].ToString() : string.Empty,
-                                taxgrp = !dt.Rows[i].IsNull("taxgrp") ? dt.Rows[i]["taxgrp"].ToString() : string.Empty,
-                                taxid = !dt.Rows[i].IsNull("taxid") ? dt.Rows[i]["taxid"].ToString() : string.Empty,
-                                taxrat = !dt.Rows[i].IsNull("taxrat") ? Convert.ToDecimal(dt.Rows[i]["taxrat"]) : 0,
-                                taxtyp = !dt.Rows[i].IsNull("taxtyp") ? dt.Rows[i]["taxtyp"].ToString() : string.Empty,
-                                telnum = !dt.Rows[i].IsNull("telnum") ? dt.Rows[i]["telnum"].ToString() : string.Empty,
-                                tracksal = !dt.Rows[i].IsNull("tracksal") ? dt.Rows[i]["tracksal"].ToString() : string.Empty,
-                                userid = !dt.Rows[i].IsNull("userid") ? dt.Rows[i]["userid"].ToString() : string.Empty,
-                                zipcod = !dt.Rows[i].IsNull("zipcod") ? dt.Rows[i]["zipcod"].ToString() : string.Empty,
-                            });
+                            var cuscod = !dt.Rows[i].IsNull("cuscod") ? dt.Rows[i]["cuscod"].ToString().TrimEnd() : string.Empty;
+                            armas.Add(cuscod);
                         }
 
                         return armas;
@@ -673,6 +813,7 @@ namespace XPump.Model
                 }
             }
         }
+
     }
 
     public class IsprdDbf

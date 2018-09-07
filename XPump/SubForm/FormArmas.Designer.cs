@@ -55,60 +55,60 @@
             this.cPrenam = new CC.XBrowseBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cRemark = new CC.XBrowseBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.cCustyp = new CC.XBrowseBox();
-            this.cAccnum = new CC.XBrowseBox();
-            this.cSlmcod = new CC.XBrowseBox();
-            this.cArea = new CC.XBrowseBox();
-            this.cDlvby = new CC.XBrowseBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.cPaycond = new CC.XBrowseBox();
-            this.cCrline = new CC.XNumEdit();
+            this.xTabpr = new CC.XDropdownList();
+            this.cDisc = new CC.XTextEdit();
             this.cPaytrm = new CC.XNumEdit();
-            this.cBranch = new CC.XNumEdit();
+            this.cCrline = new CC.XNumEdit();
+            this.label16 = new System.Windows.Forms.Label();
+            this.cDlvby = new CC.XBrowseBox();
+            this.cArea = new CC.XBrowseBox();
+            this.cSlmcod = new CC.XBrowseBox();
+            this.cPaycond = new CC.XBrowseBox();
+            this.cAccnum = new CC.XBrowseBox();
+            this.cCustyp = new CC.XBrowseBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.xStatus = new CC.XDropdownList();
+            this.cTaxid = new CC.XTextEdit();
+            this.cAddr03 = new CC.XTextEdit();
+            this.cContact = new CC.XTextEdit();
+            this.cTelnum = new CC.XTextEdit();
+            this.cAddr02 = new CC.XTextEdit();
+            this.cAddr01 = new CC.XTextEdit();
             this.cZipcod = new CC.XNumTextEdit();
+            this.cBranch = new CC.XNumEdit();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cRemark = new CC.XBrowseBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.cCuscod = new CC.XTextEdit();
             this.cCusnam = new CC.XTextEdit();
-            this.cAddr01 = new CC.XTextEdit();
-            this.cAddr02 = new CC.XTextEdit();
-            this.cAddr03 = new CC.XTextEdit();
-            this.cTelnum = new CC.XTextEdit();
-            this.cContact = new CC.XTextEdit();
-            this.cTaxid = new CC.XTextEdit();
-            this.cDisc = new CC.XTextEdit();
-            this.xStatus = new CC.XDropdownList();
-            this.xTabpr = new CC.XDropdownList();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -206,6 +206,7 @@
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(36, 40);
             this.btnFirst.Text = "ข้อมูลแรก <Ctrl+Home>";
+            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
             // 
             // btnPrevious
             // 
@@ -216,6 +217,7 @@
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(36, 40);
             this.btnPrevious.Text = "ข้อมูลที่แล้ว <PageUp>";
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // btnNext
             // 
@@ -226,6 +228,7 @@
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(36, 40);
             this.btnNext.Text = "ข้อมูลถัดไป <PageDown>";
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnLast
             // 
@@ -236,6 +239,7 @@
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(36, 40);
             this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
+            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
             // 
             // btnSearch
             // 
@@ -361,7 +365,6 @@
             this.cPrenam.Name = "cPrenam";
             this.cPrenam.Size = new System.Drawing.Size(118, 23);
             this.cPrenam.TabIndex = 10;
-            this.cPrenam.TabStop = false;
             // 
             // tabControl1
             // 
@@ -387,126 +390,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "รายละเอียด";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(110, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 16);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "ที่อยู่";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(434, 73);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 16);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "รหัสไปรษณีย์";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(88, 98);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 16);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "โทรศัพท์";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(79, 123);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(64, 16);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "ชื่อผู้ติดต่อ";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(85, 148);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 16);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "หมายเหตุ";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(16, 173);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(127, 16);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "เลขประจำตัวผู้เสียภาษี";
-            // 
-            // cRemark
-            // 
-            this.cRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cRemark._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cRemark._ReadOnly = true;
-            this.cRemark._Text = "";
-            this.cRemark._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cRemark._UseImage = true;
-            this.cRemark.BackColor = System.Drawing.Color.White;
-            this.cRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cRemark.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cRemark.Location = new System.Drawing.Point(154, 144);
-            this.cRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cRemark.Name = "cRemark";
-            this.cRemark.Size = new System.Drawing.Size(444, 23);
-            this.cRemark.TabIndex = 10;
-            this.cRemark.TabStop = false;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(380, 173);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(36, 16);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "สาขา";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(487, 173);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(156, 16);
-            this.label11.TabIndex = 8;
-            this.label11.Text = "[0=สำนักงานใหญ่, -1=ว่าง]";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.xStatus);
-            this.groupBox1.Controls.Add(this.cTaxid);
-            this.groupBox1.Controls.Add(this.cAddr03);
-            this.groupBox1.Controls.Add(this.cContact);
-            this.groupBox1.Controls.Add(this.cTelnum);
-            this.groupBox1.Controls.Add(this.cAddr02);
-            this.groupBox1.Controls.Add(this.cAddr01);
-            this.groupBox1.Controls.Add(this.cZipcod);
-            this.groupBox1.Controls.Add(this.cBranch);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.cRemark);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.label22);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(12, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(784, 206);
-            this.groupBox1.TabIndex = 12;
-            this.groupBox1.TabStop = false;
             // 
             // groupBox2
             // 
@@ -542,305 +425,37 @@
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             // 
-            // label12
+            // xTabpr
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(64, 22);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(79, 16);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "ประเภทลูกค้า";
+            this.xTabpr._ReadOnly = true;
+            this.xTabpr._SelectedItem = null;
+            this.xTabpr._Text = "";
+            this.xTabpr.BackColor = System.Drawing.Color.White;
+            this.xTabpr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.xTabpr.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.xTabpr.Location = new System.Drawing.Point(601, 68);
+            this.xTabpr.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.xTabpr.Name = "xTabpr";
+            this.xTabpr.Size = new System.Drawing.Size(151, 23);
+            this.xTabpr.TabIndex = 15;
+            this.xTabpr.TabStop = false;
             // 
-            // label13
+            // cDisc
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(79, 46);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(64, 16);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "เลขที่บัญชี";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(68, 71);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(75, 16);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "พนักงานขาย";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(73, 97);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(70, 16);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "เขตการขาย";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(83, 121);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(60, 16);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "ขนส่งโดย";
-            // 
-            // cCustyp
-            // 
-            this.cCustyp._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCustyp._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCustyp._ReadOnly = true;
-            this.cCustyp._Text = "";
-            this.cCustyp._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cCustyp._UseImage = true;
-            this.cCustyp.BackColor = System.Drawing.Color.White;
-            this.cCustyp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCustyp.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cCustyp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCustyp.Location = new System.Drawing.Point(154, 18);
-            this.cCustyp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cCustyp.Name = "cCustyp";
-            this.cCustyp.Size = new System.Drawing.Size(63, 23);
-            this.cCustyp.TabIndex = 10;
-            this.cCustyp.TabStop = false;
-            // 
-            // cAccnum
-            // 
-            this.cAccnum._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAccnum._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cAccnum._ReadOnly = true;
-            this.cAccnum._Text = "";
-            this.cAccnum._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cAccnum._UseImage = true;
-            this.cAccnum.BackColor = System.Drawing.Color.White;
-            this.cAccnum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAccnum.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cAccnum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cAccnum.Location = new System.Drawing.Point(154, 43);
-            this.cAccnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cAccnum.Name = "cAccnum";
-            this.cAccnum.Size = new System.Drawing.Size(131, 23);
-            this.cAccnum.TabIndex = 10;
-            this.cAccnum.TabStop = false;
-            // 
-            // cSlmcod
-            // 
-            this.cSlmcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cSlmcod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cSlmcod._ReadOnly = true;
-            this.cSlmcod._Text = "";
-            this.cSlmcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cSlmcod._UseImage = true;
-            this.cSlmcod.BackColor = System.Drawing.Color.White;
-            this.cSlmcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cSlmcod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cSlmcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cSlmcod.Location = new System.Drawing.Point(154, 68);
-            this.cSlmcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cSlmcod.Name = "cSlmcod";
-            this.cSlmcod.Size = new System.Drawing.Size(131, 23);
-            this.cSlmcod.TabIndex = 10;
-            this.cSlmcod.TabStop = false;
-            // 
-            // cArea
-            // 
-            this.cArea._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cArea._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cArea._ReadOnly = true;
-            this.cArea._Text = "";
-            this.cArea._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cArea._UseImage = true;
-            this.cArea.BackColor = System.Drawing.Color.White;
-            this.cArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cArea.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cArea.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cArea.Location = new System.Drawing.Point(154, 93);
-            this.cArea.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cArea.Name = "cArea";
-            this.cArea.Size = new System.Drawing.Size(93, 23);
-            this.cArea.TabIndex = 10;
-            this.cArea.TabStop = false;
-            // 
-            // cDlvby
-            // 
-            this.cDlvby._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDlvby._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cDlvby._ReadOnly = true;
-            this.cDlvby._Text = "";
-            this.cDlvby._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cDlvby._UseImage = true;
-            this.cDlvby.BackColor = System.Drawing.Color.White;
-            this.cDlvby.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDlvby.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cDlvby.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDlvby.Location = new System.Drawing.Point(154, 118);
-            this.cDlvby.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cDlvby.Name = "cDlvby";
-            this.cDlvby.Size = new System.Drawing.Size(63, 23);
-            this.cDlvby.TabIndex = 10;
-            this.cDlvby.TabStop = false;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(223, 22);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(79, 16);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "ประเภทลูกค้า";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(291, 46);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(79, 16);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "ประเภทลูกค้า";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(291, 71);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(79, 16);
-            this.label19.TabIndex = 0;
-            this.label19.Text = "ประเภทลูกค้า";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(255, 97);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(79, 16);
-            this.label20.TabIndex = 0;
-            this.label20.Text = "ประเภทลูกค้า";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(223, 121);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(79, 16);
-            this.label21.TabIndex = 0;
-            this.label21.Text = "ประเภทลูกค้า";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(604, 148);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(44, 16);
-            this.label22.TabIndex = 8;
-            this.label22.Text = "สถานะ";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(553, 22);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(42, 16);
-            this.label23.TabIndex = 0;
-            this.label23.Text = "เครดิต";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(486, 46);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(109, 16);
-            this.label24.TabIndex = 0;
-            this.label24.Text = "เงื่อนไขการรับชำระ";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(529, 71);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(66, 16);
-            this.label25.TabIndex = 0;
-            this.label25.Text = "ตารางราคา";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(549, 97);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(46, 16);
-            this.label26.TabIndex = 0;
-            this.label26.Text = "ส่วนลด";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(525, 121);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(70, 16);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "วงเงินอนุมัติ";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(654, 22);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(22, 16);
-            this.label28.TabIndex = 0;
-            this.label28.Text = "วัน";
-            // 
-            // cPaycond
-            // 
-            this.cPaycond._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cPaycond._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cPaycond._ReadOnly = true;
-            this.cPaycond._Text = "";
-            this.cPaycond._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cPaycond._UseImage = true;
-            this.cPaycond.BackColor = System.Drawing.Color.White;
-            this.cPaycond.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cPaycond.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cPaycond.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cPaycond.Location = new System.Drawing.Point(601, 43);
-            this.cPaycond.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cPaycond.Name = "cPaycond";
-            this.cPaycond.Size = new System.Drawing.Size(176, 23);
-            this.cPaycond.TabIndex = 10;
-            this.cPaycond.TabStop = false;
-            // 
-            // cCrline
-            // 
-            this.cCrline._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCrline._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCrline._DecimalDigit = 2;
-            this.cCrline._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
-            this.cCrline._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.cCrline._MaxLength = 30;
-            this.cCrline._ReadOnly = true;
-            this.cCrline._SelectionLength = 0;
-            this.cCrline._SelectionStart = 4;
-            this.cCrline._Text = "0.00";
-            this.cCrline._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.cCrline._UseThoundsandSeparate = true;
-            this.cCrline._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.cCrline.BackColor = System.Drawing.Color.White;
-            this.cCrline.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCrline.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCrline.Location = new System.Drawing.Point(601, 118);
-            this.cCrline.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cCrline.Name = "cCrline";
-            this.cCrline.Size = new System.Drawing.Size(110, 23);
-            this.cCrline.TabIndex = 13;
-            this.cCrline.TabStop = false;
+            this.cDisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDisc._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cDisc._MaxLength = 32767;
+            this.cDisc._ReadOnly = true;
+            this.cDisc._Text = "";
+            this.cDisc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cDisc.BackColor = System.Drawing.Color.White;
+            this.cDisc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDisc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cDisc.Location = new System.Drawing.Point(601, 93);
+            this.cDisc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cDisc.Name = "cDisc";
+            this.cDisc.Size = new System.Drawing.Size(110, 23);
+            this.cDisc.TabIndex = 14;
             // 
             // cPaytrm
             // 
@@ -873,7 +488,453 @@
             this.cPaytrm.Name = "cPaytrm";
             this.cPaytrm.Size = new System.Drawing.Size(47, 23);
             this.cPaytrm.TabIndex = 13;
-            this.cPaytrm.TabStop = false;
+            // 
+            // cCrline
+            // 
+            this.cCrline._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCrline._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCrline._DecimalDigit = 2;
+            this.cCrline._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
+            this.cCrline._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.cCrline._MaxLength = 30;
+            this.cCrline._ReadOnly = true;
+            this.cCrline._SelectionLength = 0;
+            this.cCrline._SelectionStart = 4;
+            this.cCrline._Text = "0.00";
+            this.cCrline._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.cCrline._UseThoundsandSeparate = true;
+            this.cCrline._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.cCrline.BackColor = System.Drawing.Color.White;
+            this.cCrline.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCrline.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCrline.Location = new System.Drawing.Point(601, 118);
+            this.cCrline.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cCrline.Name = "cCrline";
+            this.cCrline.Size = new System.Drawing.Size(110, 23);
+            this.cCrline.TabIndex = 13;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(83, 121);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(60, 16);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "ขนส่งโดย";
+            // 
+            // cDlvby
+            // 
+            this.cDlvby._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDlvby._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cDlvby._ReadOnly = true;
+            this.cDlvby._Text = "";
+            this.cDlvby._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cDlvby._UseImage = true;
+            this.cDlvby.BackColor = System.Drawing.Color.White;
+            this.cDlvby.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDlvby.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cDlvby.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cDlvby.Location = new System.Drawing.Point(154, 118);
+            this.cDlvby.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cDlvby.Name = "cDlvby";
+            this.cDlvby.Size = new System.Drawing.Size(63, 23);
+            this.cDlvby.TabIndex = 10;
+            // 
+            // cArea
+            // 
+            this.cArea._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cArea._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cArea._ReadOnly = true;
+            this.cArea._Text = "";
+            this.cArea._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cArea._UseImage = true;
+            this.cArea.BackColor = System.Drawing.Color.White;
+            this.cArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cArea.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cArea.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cArea.Location = new System.Drawing.Point(154, 93);
+            this.cArea.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cArea.Name = "cArea";
+            this.cArea.Size = new System.Drawing.Size(93, 23);
+            this.cArea.TabIndex = 10;
+            // 
+            // cSlmcod
+            // 
+            this.cSlmcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cSlmcod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cSlmcod._ReadOnly = true;
+            this.cSlmcod._Text = "";
+            this.cSlmcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cSlmcod._UseImage = true;
+            this.cSlmcod.BackColor = System.Drawing.Color.White;
+            this.cSlmcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cSlmcod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cSlmcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cSlmcod.Location = new System.Drawing.Point(154, 68);
+            this.cSlmcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cSlmcod.Name = "cSlmcod";
+            this.cSlmcod.Size = new System.Drawing.Size(131, 23);
+            this.cSlmcod.TabIndex = 10;
+            // 
+            // cPaycond
+            // 
+            this.cPaycond._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cPaycond._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cPaycond._ReadOnly = true;
+            this.cPaycond._Text = "";
+            this.cPaycond._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cPaycond._UseImage = true;
+            this.cPaycond.BackColor = System.Drawing.Color.White;
+            this.cPaycond.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cPaycond.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cPaycond.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cPaycond.Location = new System.Drawing.Point(601, 43);
+            this.cPaycond.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cPaycond.Name = "cPaycond";
+            this.cPaycond.Size = new System.Drawing.Size(176, 23);
+            this.cPaycond.TabIndex = 10;
+            // 
+            // cAccnum
+            // 
+            this.cAccnum._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAccnum._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cAccnum._ReadOnly = true;
+            this.cAccnum._Text = "";
+            this.cAccnum._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cAccnum._UseImage = true;
+            this.cAccnum.BackColor = System.Drawing.Color.White;
+            this.cAccnum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAccnum.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cAccnum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cAccnum.Location = new System.Drawing.Point(154, 43);
+            this.cAccnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cAccnum.Name = "cAccnum";
+            this.cAccnum.Size = new System.Drawing.Size(131, 23);
+            this.cAccnum.TabIndex = 10;
+            // 
+            // cCustyp
+            // 
+            this.cCustyp._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCustyp._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCustyp._ReadOnly = true;
+            this.cCustyp._Text = "";
+            this.cCustyp._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cCustyp._UseImage = true;
+            this.cCustyp.BackColor = System.Drawing.Color.White;
+            this.cCustyp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCustyp.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cCustyp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCustyp.Location = new System.Drawing.Point(154, 18);
+            this.cCustyp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cCustyp.Name = "cCustyp";
+            this.cCustyp.Size = new System.Drawing.Size(63, 23);
+            this.cCustyp.TabIndex = 10;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(73, 97);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(70, 16);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "เขตการขาย";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(68, 71);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 16);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "พนักงานขาย";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(79, 46);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(64, 16);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "เลขที่บัญชี";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(223, 121);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(79, 16);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "ประเภทลูกค้า";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(255, 97);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(79, 16);
+            this.label20.TabIndex = 0;
+            this.label20.Text = "ประเภทลูกค้า";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(291, 71);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(79, 16);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "ประเภทลูกค้า";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(291, 46);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(79, 16);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "ประเภทลูกค้า";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(223, 22);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(79, 16);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "ประเภทลูกค้า";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(525, 121);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(70, 16);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "วงเงินอนุมัติ";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(549, 97);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(46, 16);
+            this.label26.TabIndex = 0;
+            this.label26.Text = "ส่วนลด";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(529, 71);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(66, 16);
+            this.label25.TabIndex = 0;
+            this.label25.Text = "ตารางราคา";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(486, 46);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(109, 16);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "เงื่อนไขการรับชำระ";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(654, 22);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(22, 16);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "วัน";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(553, 22);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(42, 16);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "เครดิต";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(64, 22);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(79, 16);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "ประเภทลูกค้า";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.xStatus);
+            this.groupBox1.Controls.Add(this.cTaxid);
+            this.groupBox1.Controls.Add(this.cAddr03);
+            this.groupBox1.Controls.Add(this.cContact);
+            this.groupBox1.Controls.Add(this.cTelnum);
+            this.groupBox1.Controls.Add(this.cAddr02);
+            this.groupBox1.Controls.Add(this.cAddr01);
+            this.groupBox1.Controls.Add(this.cZipcod);
+            this.groupBox1.Controls.Add(this.cBranch);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.cRemark);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label22);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Location = new System.Drawing.Point(12, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(784, 206);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            // 
+            // xStatus
+            // 
+            this.xStatus._ReadOnly = true;
+            this.xStatus._SelectedItem = null;
+            this.xStatus._Text = "";
+            this.xStatus.BackColor = System.Drawing.Color.White;
+            this.xStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.xStatus.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.xStatus.Location = new System.Drawing.Point(654, 144);
+            this.xStatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.xStatus.Name = "xStatus";
+            this.xStatus.Size = new System.Drawing.Size(123, 23);
+            this.xStatus.TabIndex = 15;
+            this.xStatus.TabStop = false;
+            // 
+            // cTaxid
+            // 
+            this.cTaxid._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cTaxid._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cTaxid._MaxLength = 32767;
+            this.cTaxid._ReadOnly = true;
+            this.cTaxid._Text = "";
+            this.cTaxid._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cTaxid.BackColor = System.Drawing.Color.White;
+            this.cTaxid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cTaxid.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cTaxid.Location = new System.Drawing.Point(154, 169);
+            this.cTaxid.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cTaxid.Name = "cTaxid";
+            this.cTaxid.Size = new System.Drawing.Size(216, 23);
+            this.cTaxid.TabIndex = 12;
+            // 
+            // cAddr03
+            // 
+            this.cAddr03._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAddr03._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cAddr03._MaxLength = 32767;
+            this.cAddr03._ReadOnly = true;
+            this.cAddr03._Text = "";
+            this.cAddr03._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cAddr03.BackColor = System.Drawing.Color.White;
+            this.cAddr03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAddr03.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cAddr03.Location = new System.Drawing.Point(154, 69);
+            this.cAddr03.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cAddr03.Name = "cAddr03";
+            this.cAddr03.Size = new System.Drawing.Size(216, 23);
+            this.cAddr03.TabIndex = 12;
+            // 
+            // cContact
+            // 
+            this.cContact._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cContact._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cContact._MaxLength = 32767;
+            this.cContact._ReadOnly = true;
+            this.cContact._Text = "";
+            this.cContact._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cContact.BackColor = System.Drawing.Color.White;
+            this.cContact.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cContact.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cContact.Location = new System.Drawing.Point(154, 119);
+            this.cContact.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cContact.Name = "cContact";
+            this.cContact.Size = new System.Drawing.Size(444, 23);
+            this.cContact.TabIndex = 12;
+            // 
+            // cTelnum
+            // 
+            this.cTelnum._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cTelnum._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cTelnum._MaxLength = 32767;
+            this.cTelnum._ReadOnly = true;
+            this.cTelnum._Text = "";
+            this.cTelnum._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cTelnum.BackColor = System.Drawing.Color.White;
+            this.cTelnum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cTelnum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cTelnum.Location = new System.Drawing.Point(154, 94);
+            this.cTelnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cTelnum.Name = "cTelnum";
+            this.cTelnum.Size = new System.Drawing.Size(444, 23);
+            this.cTelnum.TabIndex = 12;
+            // 
+            // cAddr02
+            // 
+            this.cAddr02._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAddr02._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cAddr02._MaxLength = 32767;
+            this.cAddr02._ReadOnly = true;
+            this.cAddr02._Text = "";
+            this.cAddr02._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cAddr02.BackColor = System.Drawing.Color.White;
+            this.cAddr02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAddr02.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cAddr02.Location = new System.Drawing.Point(154, 44);
+            this.cAddr02.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cAddr02.Name = "cAddr02";
+            this.cAddr02.Size = new System.Drawing.Size(444, 23);
+            this.cAddr02.TabIndex = 12;
+            // 
+            // cAddr01
+            // 
+            this.cAddr01._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAddr01._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cAddr01._MaxLength = 32767;
+            this.cAddr01._ReadOnly = true;
+            this.cAddr01._Text = "";
+            this.cAddr01._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cAddr01.BackColor = System.Drawing.Color.White;
+            this.cAddr01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAddr01.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cAddr01.Location = new System.Drawing.Point(154, 19);
+            this.cAddr01.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cAddr01.Name = "cAddr01";
+            this.cAddr01.Size = new System.Drawing.Size(444, 23);
+            this.cAddr01.TabIndex = 12;
+            // 
+            // cZipcod
+            // 
+            this.cZipcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cZipcod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cZipcod._MaxLength = 5;
+            this.cZipcod._ReadOnly = true;
+            this.cZipcod._Text = "";
+            this.cZipcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cZipcod.BackColor = System.Drawing.Color.White;
+            this.cZipcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cZipcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cZipcod.Location = new System.Drawing.Point(520, 69);
+            this.cZipcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cZipcod.Name = "cZipcod";
+            this.cZipcod.Size = new System.Drawing.Size(78, 23);
+            this.cZipcod.TabIndex = 14;
             // 
             // cBranch
             // 
@@ -906,25 +967,105 @@
             this.cBranch.Name = "cBranch";
             this.cBranch.Size = new System.Drawing.Size(68, 23);
             this.cBranch.TabIndex = 13;
-            this.cBranch.TabStop = false;
             // 
-            // cZipcod
+            // label5
             // 
-            this.cZipcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cZipcod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cZipcod._MaxLength = 5;
-            this.cZipcod._ReadOnly = true;
-            this.cZipcod._Text = "";
-            this.cZipcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cZipcod.BackColor = System.Drawing.Color.White;
-            this.cZipcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cZipcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cZipcod.Location = new System.Drawing.Point(520, 69);
-            this.cZipcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cZipcod.Name = "cZipcod";
-            this.cZipcod.Size = new System.Drawing.Size(78, 23);
-            this.cZipcod.TabIndex = 14;
-            this.cZipcod.TabStop = false;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(434, 73);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 16);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "รหัสไปรษณีย์";
+            // 
+            // cRemark
+            // 
+            this.cRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cRemark._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cRemark._ReadOnly = true;
+            this.cRemark._Text = "";
+            this.cRemark._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cRemark._UseImage = true;
+            this.cRemark.BackColor = System.Drawing.Color.White;
+            this.cRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cRemark.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cRemark.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cRemark.Location = new System.Drawing.Point(154, 144);
+            this.cRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cRemark.Name = "cRemark";
+            this.cRemark.Size = new System.Drawing.Size(444, 23);
+            this.cRemark.TabIndex = 10;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(487, 173);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(156, 16);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "[0=สำนักงานใหญ่, -1=ว่าง]";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(604, 148);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(44, 16);
+            this.label22.TabIndex = 8;
+            this.label22.Text = "สถานะ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(380, 173);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(36, 16);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "สาขา";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(16, 173);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(127, 16);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "เลขประจำตัวผู้เสียภาษี";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(85, 148);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(58, 16);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "หมายเหตุ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(110, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 16);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "ที่อยู่";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(79, 123);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(64, 16);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "ชื่อผู้ติดต่อ";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(88, 98);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 16);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "โทรศัพท์";
             // 
             // cCuscod
             // 
@@ -942,7 +1083,6 @@
             this.cCuscod.Name = "cCuscod";
             this.cCuscod.Size = new System.Drawing.Size(101, 23);
             this.cCuscod.TabIndex = 12;
-            this.cCuscod.TabStop = false;
             // 
             // cCusnam
             // 
@@ -960,163 +1100,6 @@
             this.cCusnam.Name = "cCusnam";
             this.cCusnam.Size = new System.Drawing.Size(393, 23);
             this.cCusnam.TabIndex = 12;
-            this.cCusnam.TabStop = false;
-            // 
-            // cAddr01
-            // 
-            this.cAddr01._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAddr01._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cAddr01._MaxLength = 32767;
-            this.cAddr01._ReadOnly = true;
-            this.cAddr01._Text = "";
-            this.cAddr01._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cAddr01.BackColor = System.Drawing.Color.White;
-            this.cAddr01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAddr01.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cAddr01.Location = new System.Drawing.Point(154, 19);
-            this.cAddr01.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cAddr01.Name = "cAddr01";
-            this.cAddr01.Size = new System.Drawing.Size(444, 23);
-            this.cAddr01.TabIndex = 12;
-            this.cAddr01.TabStop = false;
-            // 
-            // cAddr02
-            // 
-            this.cAddr02._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAddr02._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cAddr02._MaxLength = 32767;
-            this.cAddr02._ReadOnly = true;
-            this.cAddr02._Text = "";
-            this.cAddr02._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cAddr02.BackColor = System.Drawing.Color.White;
-            this.cAddr02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAddr02.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cAddr02.Location = new System.Drawing.Point(154, 44);
-            this.cAddr02.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cAddr02.Name = "cAddr02";
-            this.cAddr02.Size = new System.Drawing.Size(444, 23);
-            this.cAddr02.TabIndex = 12;
-            this.cAddr02.TabStop = false;
-            // 
-            // cAddr03
-            // 
-            this.cAddr03._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAddr03._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cAddr03._MaxLength = 32767;
-            this.cAddr03._ReadOnly = true;
-            this.cAddr03._Text = "";
-            this.cAddr03._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cAddr03.BackColor = System.Drawing.Color.White;
-            this.cAddr03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAddr03.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cAddr03.Location = new System.Drawing.Point(154, 69);
-            this.cAddr03.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cAddr03.Name = "cAddr03";
-            this.cAddr03.Size = new System.Drawing.Size(216, 23);
-            this.cAddr03.TabIndex = 12;
-            this.cAddr03.TabStop = false;
-            // 
-            // cTelnum
-            // 
-            this.cTelnum._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cTelnum._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cTelnum._MaxLength = 32767;
-            this.cTelnum._ReadOnly = true;
-            this.cTelnum._Text = "";
-            this.cTelnum._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cTelnum.BackColor = System.Drawing.Color.White;
-            this.cTelnum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cTelnum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cTelnum.Location = new System.Drawing.Point(154, 94);
-            this.cTelnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cTelnum.Name = "cTelnum";
-            this.cTelnum.Size = new System.Drawing.Size(444, 23);
-            this.cTelnum.TabIndex = 12;
-            this.cTelnum.TabStop = false;
-            // 
-            // cContact
-            // 
-            this.cContact._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cContact._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cContact._MaxLength = 32767;
-            this.cContact._ReadOnly = true;
-            this.cContact._Text = "";
-            this.cContact._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cContact.BackColor = System.Drawing.Color.White;
-            this.cContact.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cContact.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cContact.Location = new System.Drawing.Point(154, 119);
-            this.cContact.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cContact.Name = "cContact";
-            this.cContact.Size = new System.Drawing.Size(444, 23);
-            this.cContact.TabIndex = 12;
-            this.cContact.TabStop = false;
-            // 
-            // cTaxid
-            // 
-            this.cTaxid._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cTaxid._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cTaxid._MaxLength = 32767;
-            this.cTaxid._ReadOnly = true;
-            this.cTaxid._Text = "";
-            this.cTaxid._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cTaxid.BackColor = System.Drawing.Color.White;
-            this.cTaxid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cTaxid.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cTaxid.Location = new System.Drawing.Point(154, 169);
-            this.cTaxid.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cTaxid.Name = "cTaxid";
-            this.cTaxid.Size = new System.Drawing.Size(216, 23);
-            this.cTaxid.TabIndex = 12;
-            this.cTaxid.TabStop = false;
-            // 
-            // cDisc
-            // 
-            this.cDisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDisc._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cDisc._MaxLength = 32767;
-            this.cDisc._ReadOnly = true;
-            this.cDisc._Text = "";
-            this.cDisc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cDisc.BackColor = System.Drawing.Color.White;
-            this.cDisc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDisc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDisc.Location = new System.Drawing.Point(601, 93);
-            this.cDisc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cDisc.Name = "cDisc";
-            this.cDisc.Size = new System.Drawing.Size(110, 23);
-            this.cDisc.TabIndex = 14;
-            this.cDisc.TabStop = false;
-            // 
-            // xStatus
-            // 
-            this.xStatus._ReadOnly = true;
-            this.xStatus._SelectedItem = null;
-            this.xStatus._Text = "";
-            this.xStatus.BackColor = System.Drawing.Color.White;
-            this.xStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xStatus.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xStatus.Location = new System.Drawing.Point(654, 144);
-            this.xStatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xStatus.Name = "xStatus";
-            this.xStatus.Size = new System.Drawing.Size(123, 23);
-            this.xStatus.TabIndex = 15;
-            this.xStatus.TabStop = false;
-            // 
-            // xTabpr
-            // 
-            this.xTabpr._ReadOnly = true;
-            this.xTabpr._SelectedItem = null;
-            this.xTabpr._Text = "";
-            this.xTabpr.BackColor = System.Drawing.Color.White;
-            this.xTabpr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.xTabpr.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.xTabpr.Location = new System.Drawing.Point(601, 68);
-            this.xTabpr.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.xTabpr.Name = "xTabpr";
-            this.xTabpr.Size = new System.Drawing.Size(151, 23);
-            this.xTabpr.TabIndex = 15;
-            this.xTabpr.TabStop = false;
             // 
             // FormArmas
             // 
@@ -1140,14 +1123,15 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "รายละเอียดลูกค้า";
             this.Load += new System.EventHandler(this.FormArmas_Load);
+            this.Shown += new System.EventHandler(this.FormArmas_Shown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
