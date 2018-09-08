@@ -26,6 +26,19 @@ namespace CC
             }
         }
 
+        private int _maxlength = 50;
+        public int _MaxLength
+        {
+            get
+            {
+                return this._maxlength;
+            }
+            set
+            {
+                this._maxlength = value;
+            }
+        }
+
         private bool _readonly = false;
         public bool _ReadOnly
         {

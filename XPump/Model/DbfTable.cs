@@ -567,7 +567,13 @@ namespace XPump.Model
                 conn.Open();
                 using (OleDbCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"Select * From armas Where TRIM(cuscod) = ?";
+                    cmd.CommandText = @"Select ar.*, acc.accnam as accnam, custyp.typdes as custypdesc, area.typdes as areadesc, dlv.typdes as dlvbydesc, slm.slmnam as slmnam From armas ar ";
+                    cmd.CommandText += @"Left Join glacc acc On ar.accnum = acc.accnum ";
+                    cmd.CommandText += @"Left Join istab custyp On ar.custyp = custyp.typcod and custyp.tabtyp = '45' ";
+                    cmd.CommandText += @"Left Join istab area On ar.areacod = area.typcod and area.tabtyp = '40' ";
+                    cmd.CommandText += @"Left Join istab dlv On ar.dlvby = dlv.typcod and dlv.tabtyp = '41' ";
+                    cmd.CommandText += @"Left Join oeslm slm On ar.slmcod = slm.slmcod ";
+                    cmd.CommandText += @"Where TRIM(ar.cuscod) = ?";
                     cmd.Parameters.AddWithValue("@Cuscod", cuscod.Trim());
                     using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
                     {
@@ -599,17 +605,35 @@ namespace XPump.Model
                 {
                     if(rec_flag == RECORD_FLAG.FIRST)
                     {
-                        cmd.CommandText = "Select * From armas Order By cuscod ASC Top 1";
+                        cmd.CommandText = @"Select ar.*, acc.accnam as accnam, custyp.typdes as custypdesc, area.typdes as areadesc, dlv.typdes as dlvbydesc, slm.slmnam as slmnam From armas ar ";
+                        cmd.CommandText += @"Left Join glacc acc On ar.accnum = acc.accnum ";
+                        cmd.CommandText += @"Left Join istab custyp On ar.custyp = custyp.typcod and custyp.tabtyp = '45' ";
+                        cmd.CommandText += @"Left Join istab area On ar.areacod = area.typcod and area.tabtyp = '40' ";
+                        cmd.CommandText += @"Left Join istab dlv On ar.dlvby = dlv.typcod and dlv.tabtyp = '41' ";
+                        cmd.CommandText += @"Left Join oeslm slm On ar.slmcod = slm.slmcod ";
+                        cmd.CommandText += @"Order By cuscod ASC Top 1";
                     }
                     else if(rec_flag == RECORD_FLAG.LAST)
                     {
-                        cmd.CommandText = "Select * From armas Order By cuscod DESC Top 1";
+                        cmd.CommandText = @"Select ar.*, acc.accnam as accnam, custyp.typdes as custypdesc, area.typdes as areadesc, dlv.typdes as dlvbydesc, slm.slmnam as slmnam From armas ar ";
+                        cmd.CommandText += @"Left Join glacc acc On ar.accnum = acc.accnum ";
+                        cmd.CommandText += @"Left Join istab custyp On ar.custyp = custyp.typcod and custyp.tabtyp = '45' ";
+                        cmd.CommandText += @"Left Join istab area On ar.areacod = area.typcod and area.tabtyp = '40' ";
+                        cmd.CommandText += @"Left Join istab dlv On ar.dlvby = dlv.typcod and dlv.tabtyp = '41' ";
+                        cmd.CommandText += @"Left Join oeslm slm On ar.slmcod = slm.slmcod ";
+                        cmd.CommandText += @"Order By cuscod DESC Top 1";
                     }
                     else
                     {
-                        cmd.CommandText = "Select * From armas Order By cuscod ASC Top 1";
+                        cmd.CommandText = @"Select ar.*, acc.accnam as accnam, custyp.typdes as custypdesc, area.typdes as areadesc, dlv.typdes as dlvbydesc, slm.slmnam as slmnam From armas ar ";
+                        cmd.CommandText += @"Left Join glacc acc On ar.accnum = acc.accnum ";
+                        cmd.CommandText += @"Left Join istab custyp On ar.custyp = custyp.typcod and custyp.tabtyp = '45' ";
+                        cmd.CommandText += @"Left Join istab area On ar.areacod = area.typcod and area.tabtyp = '40' ";
+                        cmd.CommandText += @"Left Join istab dlv On ar.dlvby = dlv.typcod and dlv.tabtyp = '41' ";
+                        cmd.CommandText += @"Left Join oeslm slm On ar.slmcod = slm.slmcod ";
+                        cmd.CommandText += @"Order By cuscod ASC Top 1";
                     }
-                    
+
                     using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
                     {
                         da.Fill(dt);
@@ -712,6 +736,11 @@ namespace XPump.Model
                     tracksal = !dt.Rows[i].IsNull("tracksal") ? dt.Rows[i]["tracksal"].ToString() : string.Empty,
                     userid = !dt.Rows[i].IsNull("userid") ? dt.Rows[i]["userid"].ToString() : string.Empty,
                     zipcod = !dt.Rows[i].IsNull("zipcod") ? dt.Rows[i]["zipcod"].ToString() : string.Empty,
+                    _accnam = !dt.Rows[i].IsNull("accnam") ? dt.Rows[i]["accnam"].ToString() : string.Empty,
+                    _custypdesc = !dt.Rows[i].IsNull("custypdesc") ? dt.Rows[i]["custypdesc"].ToString() : string.Empty,
+                    _areadesc = !dt.Rows[i].IsNull("areadesc") ? dt.Rows[i]["areadesc"].ToString() : string.Empty,
+                    _dlvbydesc = !dt.Rows[i].IsNull("dlvbydesc") ? dt.Rows[i]["dlvbydesc"].ToString() : string.Empty,
+                    _slmnam = !dt.Rows[i].IsNull("slmnam") ? dt.Rows[i]["slmnam"].ToString() : string.Empty
                 };
             }
             return armas;
@@ -1750,6 +1779,13 @@ namespace XPump.Model
         public DateTime? chgdat { get; set; }
         public string status { get; set; }
         public DateTime? inactdat { get; set; }
+
+        /* Some field in join table */
+        public string _accnam { get; set; }
+        public string _custypdesc { get; set; }
+        public string _slmnam { get; set; }
+        public string _areadesc { get; set; }
+        public string _dlvbydesc { get; set; }
     }
 
     public class ArmasList
