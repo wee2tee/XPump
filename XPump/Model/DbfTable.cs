@@ -714,33 +714,33 @@ namespace XPump.Model
                     cusnam2 = !dt.Rows[i].IsNull("cusnam2") ? dt.Rows[i]["cusnam2"].ToString().TrimEnd() : string.Empty,
                     custyp = !dt.Rows[i].IsNull("custyp") ? dt.Rows[i]["custyp"].ToString().TrimEnd() : string.Empty,
                     disc = !dt.Rows[i].IsNull("disc") ? dt.Rows[i]["disc"].ToString() : string.Empty,
-                    dlvby = !dt.Rows[i].IsNull("dlvby") ? dt.Rows[i]["dlvby"].ToString() : string.Empty,
+                    dlvby = !dt.Rows[i].IsNull("dlvby") ? dt.Rows[i]["dlvby"].ToString().TrimEnd() : string.Empty,
                     inactdat = !dt.Rows[i].IsNull("inactdat") ? (DateTime?)dt.Rows[i]["inactdat"] : null,
                     lasivc = !dt.Rows[i].IsNull("lasivc") ? (DateTime?)dt.Rows[i]["lasivc"] : null,
                     orgnum = org,
-                    paycond = !dt.Rows[i].IsNull("paycond") ? dt.Rows[i]["paycond"].ToString() : string.Empty,
-                    payer = !dt.Rows[i].IsNull("payer") ? dt.Rows[i]["payer"].ToString() : string.Empty,
+                    paycond = !dt.Rows[i].IsNull("paycond") ? dt.Rows[i]["paycond"].ToString().TrimEnd() : string.Empty,
+                    payer = !dt.Rows[i].IsNull("payer") ? dt.Rows[i]["payer"].ToString().TrimEnd() : string.Empty,
                     paytrm = !dt.Rows[i].IsNull("paytrm") ? Convert.ToInt32(dt.Rows[i]["paytrm"]) : 0,
-                    prenam = !dt.Rows[i].IsNull("prenam") ? dt.Rows[i]["prenam"].ToString() : string.Empty,
-                    remark = !dt.Rows[i].IsNull("remark") ? dt.Rows[i]["remark"].ToString() : string.Empty,
-                    shipto = !dt.Rows[i].IsNull("shipto") ? dt.Rows[i]["shipto"].ToString() : string.Empty,
-                    slmcod = !dt.Rows[i].IsNull("slmcod") ? dt.Rows[i]["slmcod"].ToString() : string.Empty,
+                    prenam = !dt.Rows[i].IsNull("prenam") ? dt.Rows[i]["prenam"].ToString().TrimEnd() : string.Empty,
+                    remark = !dt.Rows[i].IsNull("remark") ? dt.Rows[i]["remark"].ToString().TrimEnd() : string.Empty,
+                    shipto = !dt.Rows[i].IsNull("shipto") ? dt.Rows[i]["shipto"].ToString().TrimEnd() : string.Empty,
+                    slmcod = !dt.Rows[i].IsNull("slmcod") ? dt.Rows[i]["slmcod"].ToString().TrimEnd() : string.Empty,
                     status = !dt.Rows[i].IsNull("status") ? dt.Rows[i]["status"].ToString() : string.Empty,
                     tabpr = !dt.Rows[i].IsNull("tabpr") ? dt.Rows[i]["tabpr"].ToString() : string.Empty,
                     taxcond = !dt.Rows[i].IsNull("taxcond") ? dt.Rows[i]["taxcond"].ToString() : string.Empty,
                     taxgrp = !dt.Rows[i].IsNull("taxgrp") ? dt.Rows[i]["taxgrp"].ToString() : string.Empty,
-                    taxid = !dt.Rows[i].IsNull("taxid") ? dt.Rows[i]["taxid"].ToString() : string.Empty,
+                    taxid = !dt.Rows[i].IsNull("taxid") ? dt.Rows[i]["taxid"].ToString().TrimEnd() : string.Empty,
                     taxrat = !dt.Rows[i].IsNull("taxrat") ? Convert.ToDecimal(dt.Rows[i]["taxrat"]) : 0,
                     taxtyp = !dt.Rows[i].IsNull("taxtyp") ? dt.Rows[i]["taxtyp"].ToString() : string.Empty,
-                    telnum = !dt.Rows[i].IsNull("telnum") ? dt.Rows[i]["telnum"].ToString() : string.Empty,
+                    telnum = !dt.Rows[i].IsNull("telnum") ? dt.Rows[i]["telnum"].ToString().TrimEnd() : string.Empty,
                     tracksal = !dt.Rows[i].IsNull("tracksal") ? dt.Rows[i]["tracksal"].ToString() : string.Empty,
                     userid = !dt.Rows[i].IsNull("userid") ? dt.Rows[i]["userid"].ToString() : string.Empty,
                     zipcod = !dt.Rows[i].IsNull("zipcod") ? dt.Rows[i]["zipcod"].ToString() : string.Empty,
                     _accnam = !dt.Rows[i].IsNull("accnam") ? dt.Rows[i]["accnam"].ToString() : string.Empty,
-                    _custypdesc = !dt.Rows[i].IsNull("custypdesc") ? dt.Rows[i]["custypdesc"].ToString() : string.Empty,
-                    _areadesc = !dt.Rows[i].IsNull("areadesc") ? dt.Rows[i]["areadesc"].ToString() : string.Empty,
-                    _dlvbydesc = !dt.Rows[i].IsNull("dlvbydesc") ? dt.Rows[i]["dlvbydesc"].ToString() : string.Empty,
-                    _slmnam = !dt.Rows[i].IsNull("slmnam") ? dt.Rows[i]["slmnam"].ToString() : string.Empty
+                    _custypdesc = !dt.Rows[i].IsNull("custypdesc") ? dt.Rows[i]["custypdesc"].ToString().TrimEnd() : string.Empty,
+                    _areadesc = !dt.Rows[i].IsNull("areadesc") ? dt.Rows[i]["areadesc"].ToString().TrimEnd() : string.Empty,
+                    _dlvbydesc = !dt.Rows[i].IsNull("dlvbydesc") ? dt.Rows[i]["dlvbydesc"].ToString().TrimEnd() : string.Empty,
+                    _slmnam = !dt.Rows[i].IsNull("slmnam") ? dt.Rows[i]["slmnam"].ToString().TrimEnd() : string.Empty
                 };
             }
             return armas;
@@ -790,10 +790,10 @@ namespace XPump.Model
             }
         }
 
-        public static List<ArmasList> ArmasList(SccompDbf working_express_db)
+        public static List<ArmasDbfList> ArmasList(SccompDbf working_express_db)
         {
             string data_path = working_express_db.abs_path;
-            List<ArmasList> armas = new List<ArmasList>();
+            List<ArmasDbfList> armas = new List<ArmasDbfList>();
 
             if (!(Directory.Exists(data_path) && File.Exists(data_path + "armas.dbf")))
             {
@@ -819,7 +819,7 @@ namespace XPump.Model
                             int dummy_int;
                             var org = !dt.Rows[i].IsNull("orgnum") ? Int32.TryParse(dt.Rows[i]["orgnum"].ToString(), out dummy_int) ? dummy_int : 0 : 0;
 
-                            armas.Add(new ArmasList
+                            armas.Add(new ArmasDbfList
                             {
                                 accnum = !dt.Rows[i].IsNull("accnum") ? dt.Rows[i]["accnum"].ToString().TrimEnd() : string.Empty,
                                 areacod = !dt.Rows[i].IsNull("areacod") ? dt.Rows[i]["areacod"].ToString().TrimEnd() : string.Empty,
@@ -843,6 +843,125 @@ namespace XPump.Model
             }
         }
 
+        public static List<OeslmDbfList> OeslmList(SccompDbf working_express_db)
+        {
+            string data_path = working_express_db.abs_path;
+            List<OeslmDbfList> oeslm = new List<OeslmDbfList>();
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "oeslm.dbf")))
+            {
+                XMessageBox.Show("ค้นหาแฟ้ม Oeslm.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                return oeslm;
+            }
+
+            using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + data_path))
+            {
+                conn.Open();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "Select slmcod, slmnam From oeslm Order By slmcod ASC";
+
+                    using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            oeslm.Add(new OeslmDbfList
+                            {
+                                slmcod = !dt.Rows[i].IsNull("slmcod") ? dt.Rows[i]["slmcod"].ToString().TrimEnd() : string.Empty,
+                                slmnam = !dt.Rows[i].IsNull("slmnam") ? dt.Rows[i]["slmnam"].ToString().TrimEnd() : string.Empty
+                            });
+                        }
+
+                        conn.Close();
+                        return oeslm;
+                    }
+                }
+            }
+        }
+
+        public static List<IstabDbf> IstabList(SccompDbf working_express_db, TABTYP tabtyp)
+        {
+            string data_path = working_express_db.abs_path;
+            List<IstabDbf> istab = new List<IstabDbf>();
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "istab.dbf")))
+            {
+                XMessageBox.Show("ค้นหาแฟ้ม Istab.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                return istab;
+            }
+
+            using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + data_path))
+            {
+                conn.Open();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    switch (tabtyp)
+                    {
+                        case TABTYP.PRENAM:
+                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='51' and TRIM(typcod)='06' Order By typdes ASC";
+                            break;
+                        case TABTYP.REMARK_AR:
+                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='51' and TRIM(typcod)='18' Order By typdes ASC";
+                            break;
+                        case TABTYP.CUSTYP:
+                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='45' Order By typcod ASC";
+                            break;
+                        case TABTYP.AREA:
+                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='40' Order By typcod ASC";
+                            break;
+                        case TABTYP.DLVBY:
+                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='41' Order By typcod ASC";
+                            break;
+                        case TABTYP.PAYCOND:
+                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='51' and TRIM(typcod)='17' Order By typdes ASC";
+                            break;
+                        default:
+                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)=''";
+                            break;
+                    }
+
+                    using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            istab.Add(new IstabDbf
+                            {
+                                depcod = !dt.Rows[i].IsNull("depcod") ? dt.Rows[i]["depcod"].ToString().TrimEnd() : string.Empty,
+                                fld01 = !dt.Rows[i].IsNull("fld01") ? dt.Rows[i]["fld01"].ToString().TrimEnd() : string.Empty,
+                                fld02 = !dt.Rows[i].IsNull("fld02") ? Convert.ToDouble(dt.Rows[i]["fld02"]) : 0,
+                                shortnam = !dt.Rows[i].IsNull("shortnam") ? dt.Rows[i]["shortnam"].ToString().TrimEnd() : string.Empty,
+                                shortnam2 = !dt.Rows[i].IsNull("shortnam2") ? dt.Rows[i]["shortnam2"].ToString().TrimEnd() : string.Empty,
+                                status = !dt.Rows[i].IsNull("status") ? dt.Rows[i]["status"].ToString().TrimEnd() : string.Empty,
+                                tabtyp = !dt.Rows[i].IsNull("tabtyp") ? dt.Rows[i]["tabtyp"].ToString().TrimEnd() : string.Empty,
+                                typcod = !dt.Rows[i].IsNull("typcod") ? dt.Rows[i]["typcod"].ToString().TrimEnd() : string.Empty,
+                                typdes = !dt.Rows[i].IsNull("typdes") ? dt.Rows[i]["typdes"].ToString().TrimEnd() : string.Empty,
+                                typdes2 = !dt.Rows[i].IsNull("typdes2") ? dt.Rows[i]["typdes2"].ToString().TrimEnd() : string.Empty
+                            });
+                        }
+
+                        conn.Close();
+                        return istab;
+                    }
+                }
+            }
+        }
+    }
+    
+
+    public enum TABTYP
+    {
+        PRENAM,
+        REMARK_AR,
+        CUSTYP,
+        AREA,
+        DLVBY,
+        PAYCOND
     }
 
     public class IsprdDbf
@@ -1738,7 +1857,7 @@ namespace XPump.Model
         public string orgstr { get; set; }
     }
 
-    public class ArmasDbf
+    public class ArmasDbf : ICloneable
     {
         public string cuscod { get; set; }
         public string custyp { get; set; }
@@ -1786,9 +1905,14 @@ namespace XPump.Model
         public string _slmnam { get; set; }
         public string _areadesc { get; set; }
         public string _dlvbydesc { get; set; }
+
+        public virtual object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 
-    public class ArmasList
+    public class ArmasDbfList
     {
         public string cuscod { get; set; }
         public string cusnam { get; set; }
@@ -1803,5 +1927,58 @@ namespace XPump.Model
         public string areacod { get; set; }
         public string dlvby { get; set; }
         public string accnum { get; set; }
+    }
+
+    public class OeslmDbf
+    {
+        public string slmcod { get; set; }
+        public string slmnam { get; set; }
+        public string slmtyp { get; set; }
+        public decimal comrate { get; set; }
+        public string areacod { get; set; }
+        public string taxid { get; set; }
+        public string positn { get; set; }
+        public string socialid { get; set; }
+        public string addr01 { get; set; }
+        public string addr02 { get; set; }
+        public string addr03 { get; set; }
+        public string zipcod { get; set; }
+        public string telnum { get; set; }
+        public double tar1 { get; set; }
+        public double tar2 { get; set; }
+        public double tar3 { get; set; }
+        public double tar4 { get; set; }
+        public double tar5 { get; set; }
+        public double tar6 { get; set; }
+        public double tar7 { get; set; }
+        public double tar8 { get; set; }
+        public double tar9 { get; set; }
+        public double tar10 { get; set; }
+        public double tar11 { get; set; }
+        public double tar12 { get; set; }
+        public double tar1ny { get; set; }
+        public double tar2ny { get; set; }
+        public double tar3ny { get; set; }
+        public double tar4ny { get; set; }
+        public double tar5ny { get; set; }
+        public double tar6ny { get; set; }
+        public double tar7ny { get; set; }
+        public double tar8ny { get; set; }
+        public double tar9ny { get; set; }
+        public double tar10ny { get; set; }
+        public double tar11ny { get; set; }
+        public double tar12ny { get; set; }
+        public string userid { get; set; }
+        public DateTime? chgdat { get; set; }
+        public DateTime? create { get; set; }
+        public string status { get; set; }
+        public DateTime? inactdat { get; set; }
+    }
+
+    public class OeslmDbfList
+    {
+        public string slmcod { get; set; }
+        public string slmnam { get; set; }
+
     }
 }

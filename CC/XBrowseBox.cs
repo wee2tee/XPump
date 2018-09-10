@@ -36,6 +36,7 @@ namespace CC
             set
             {
                 this._maxlength = value;
+                this._textBox.MaxLength = this._maxlength;
             }
         }
 

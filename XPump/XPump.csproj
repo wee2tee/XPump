@@ -230,6 +230,12 @@
     <Compile Include="SubForm\DialogBranchSelection.Designer.cs">
       <DependentUpon>DialogBranchSelection.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogBrowseBoxSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogBrowseBoxSelector.Designer.cs">
+      <DependentUpon>DialogBrowseBoxSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogChangeCode.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -560,6 +566,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogBranchSelection.resx">
       <DependentUpon>DialogBranchSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogBrowseBoxSelector.resx">
+      <DependentUpon>DialogBrowseBoxSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogChangeCode.resx">
       <DependentUpon>DialogChangeCode.cs</DependentUpon>

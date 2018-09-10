@@ -332,6 +332,23 @@ namespace XPump
             this.opened_child_form.Add(new ChildFormDetail() { form = daily, docPrefix = string.Empty });
         }
 
+        private void mnuArmas_Click(object sender, EventArgs e)
+        {
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormArmas)).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormArmas)).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormArmas)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+                return;
+            }
+
+
+            FormArmas fa = new FormArmas(this);
+            fa.MdiParent = this;
+            fa.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            fa.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = fa, docPrefix = string.Empty });
+        }
+
         private void mnuSecure_Click(object sender, EventArgs e)
         {
            
@@ -716,12 +733,6 @@ namespace XPump
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void mnuArmas_Click(object sender, EventArgs e)
-        {
-            FormArmas fa = new FormArmas(this);
-            fa.MdiParent = this;
-            fa.Show();
-        }
     }
 
     public class ChildFormDetail
