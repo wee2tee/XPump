@@ -29,16 +29,38 @@
         private void InitializeComponent()
         {
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnAdd = new System.Windows.Forms.ToolStripButton();
+            this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnStop = new System.Windows.Forms.ToolStripButton();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnFirst = new System.Windows.Forms.ToolStripButton();
+            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
+            this.btnNext = new System.Windows.Forms.ToolStripButton();
+            this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPrint = new System.Windows.Forms.ToolStripButton();
+            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cTabpr = new CC.XDropdownList();
+            this.cDisc = new CC.XTextEdit();
+            this.cPaytrm = new CC.XNumEdit();
+            this.cCrline = new CC.XNumEdit();
             this.label16 = new System.Windows.Forms.Label();
+            this.cPaycond = new CC.XBrowseBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -55,45 +77,6 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnAdd = new System.Windows.Forms.ToolStripButton();
-            this.btnEdit = new System.Windows.Forms.ToolStripButton();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
-            this.btnStop = new System.Windows.Forms.ToolStripButton();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
-            this.btnFirst = new System.Windows.Forms.ToolStripButton();
-            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
-            this.btnNext = new System.Windows.Forms.ToolStripButton();
-            this.btnLast = new System.Windows.Forms.ToolStripButton();
-            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPrint = new System.Windows.Forms.ToolStripButton();
-            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
-            this.cCusnam = new CC.XTextEdit();
-            this.cCuscod = new CC.XTextEdit();
-            this.cPrenam = new CC.XBrowseBox();
-            this.cTabpr = new CC.XDropdownList();
-            this.cDisc = new CC.XTextEdit();
-            this.cPaytrm = new CC.XNumEdit();
-            this.cCrline = new CC.XNumEdit();
-            this.cDlvby = new CC.XBrowseBox();
-            this.cAreacod = new CC.XBrowseBox();
-            this.cSlmcod = new CC.XBrowseBox();
-            this.cPaycond = new CC.XBrowseBox();
-            this.cAccnum = new CC.XBrowseBox();
-            this.cCustyp = new CC.XBrowseBox();
             this.cStatus = new CC.XDropdownList();
             this.cTaxid = new CC.XTextEdit();
             this.cAddr03 = new CC.XTextEdit();
@@ -103,7 +86,24 @@
             this.cAddr01 = new CC.XTextEdit();
             this.cZipcod = new CC.XNumTextEdit();
             this.cOrgnum = new CC.XNumEdit();
+            this.label5 = new System.Windows.Forms.Label();
             this.cRemark = new CC.XBrowseBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cCusnam = new CC.XTextEdit();
+            this.cCuscod = new CC.XTextEdit();
+            this.cPrenam = new CC.XBrowseBox();
+            this.cAreacod = new XPump.CustomControls.BrowseBoxIstabFixed();
+            this.cDlvby = new XPump.CustomControls.BrowseBoxIstabFixed();
+            this.cCustyp = new XPump.CustomControls.BrowseBoxIstabFixed();
+            this.cAccnum = new XPump.CustomControls.BrowseBoxAccnum();
+            this.cSlmcod = new XPump.CustomControls.BrowseBoxSlm();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -137,20 +137,198 @@
             this.toolStrip1.Size = new System.Drawing.Size(837, 43);
             this.toolStrip1.TabIndex = 7;
             // 
+            // btnAdd
+            // 
+            this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAdd.Image = global::XPump.Properties.Resources.add;
+            this.btnAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(36, 40);
+            this.btnAdd.Text = "เพิ่มข้อมูล <Alt+A>";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnEdit.Image = global::XPump.Properties.Resources.edit;
+            this.btnEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(36, 40);
+            this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
+            this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(36, 40);
+            this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 43);
+            // 
+            // btnStop
+            // 
+            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnStop.Image = global::XPump.Properties.Resources.stop;
+            this.btnStop.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(36, 40);
+            this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSave.Image = global::XPump.Properties.Resources.save;
+            this.btnSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(36, 40);
+            this.btnSave.Text = "บันทึกข้อมูล <F9>";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 43);
             // 
+            // btnFirst
+            // 
+            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFirst.Image = global::XPump.Properties.Resources.first;
+            this.btnFirst.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFirst.Name = "btnFirst";
+            this.btnFirst.Size = new System.Drawing.Size(36, 40);
+            this.btnFirst.Text = "ข้อมูลแรก <Ctrl+Home>";
+            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
+            this.btnPrevious.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(36, 40);
+            this.btnPrevious.Text = "ข้อมูลที่แล้ว <PageUp>";
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNext.Image = global::XPump.Properties.Resources.next;
+            this.btnNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(36, 40);
+            this.btnNext.Text = "ข้อมูลถัดไป <PageDown>";
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnLast
+            // 
+            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnLast.Image = global::XPump.Properties.Resources.last;
+            this.btnLast.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnLast.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnLast.Name = "btnLast";
+            this.btnLast.Size = new System.Drawing.Size(36, 40);
+            this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
+            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSearch.DropDownButtonWidth = 15;
+            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnInquiryAll,
+            this.btnInquiryRest});
+            this.btnSearch.Image = global::XPump.Properties.Resources.search;
+            this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(52, 40);
+            this.btnSearch.Text = "ค้นหา <Alt+S>";
+            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
+            // 
+            // btnInquiryAll
+            // 
+            this.btnInquiryAll.Name = "btnInquiryAll";
+            this.btnInquiryAll.Size = new System.Drawing.Size(245, 22);
+            this.btnInquiryAll.Text = "เรียกดูข้อมูล ตั้งแต่ต้น <Ctrl+L>";
+            this.btnInquiryAll.Click += new System.EventHandler(this.btnInquiryAll_Click);
+            // 
+            // btnInquiryRest
+            // 
+            this.btnInquiryRest.Name = "btnInquiryRest";
+            this.btnInquiryRest.Size = new System.Drawing.Size(245, 22);
+            this.btnInquiryRest.Text = "เรียกดูข้อมูล ตั้งแต่รายการนี้ <Alt+L>";
+            this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
+            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnPrint.Size = new System.Drawing.Size(42, 40);
+            this.btnPrint.Text = "พิมพ์รายงานส่วน ข.";
+            this.btnPrint.Visible = false;
+            // 
+            // btnItem
+            // 
+            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnItemF8,
+            this.btnItemF7});
+            this.btnItem.Image = global::XPump.Properties.Resources.item;
+            this.btnItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.btnItem.Name = "btnItem";
+            this.btnItem.Size = new System.Drawing.Size(45, 40);
+            this.btnItem.Visible = false;
+            // 
+            // btnItemF8
+            // 
+            this.btnItemF8.Name = "btnItemF8";
+            this.btnItemF8.Size = new System.Drawing.Size(267, 22);
+            this.btnItemF8.Text = "บันทึกรายการขาย <F8>";
+            // 
+            // btnItemF7
+            // 
+            this.btnItemF7.Name = "btnItemF7";
+            this.btnItemF7.Size = new System.Drawing.Size(267, 22);
+            this.btnItemF7.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้จริง <F7>";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
+            this.btnRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(36, 40);
+            this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // label1
             // 
@@ -207,17 +385,17 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cAreacod);
+            this.groupBox2.Controls.Add(this.cDlvby);
+            this.groupBox2.Controls.Add(this.cCustyp);
+            this.groupBox2.Controls.Add(this.cAccnum);
+            this.groupBox2.Controls.Add(this.cSlmcod);
             this.groupBox2.Controls.Add(this.cTabpr);
             this.groupBox2.Controls.Add(this.cDisc);
             this.groupBox2.Controls.Add(this.cPaytrm);
             this.groupBox2.Controls.Add(this.cCrline);
             this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.cDlvby);
-            this.groupBox2.Controls.Add(this.cAreacod);
-            this.groupBox2.Controls.Add(this.cSlmcod);
             this.groupBox2.Controls.Add(this.cPaycond);
-            this.groupBox2.Controls.Add(this.cAccnum);
-            this.groupBox2.Controls.Add(this.cCustyp);
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label13);
@@ -239,6 +417,102 @@
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             // 
+            // cTabpr
+            // 
+            this.cTabpr._ReadOnly = true;
+            this.cTabpr._SelectedItem = null;
+            this.cTabpr._Text = "";
+            this.cTabpr.BackColor = System.Drawing.Color.White;
+            this.cTabpr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cTabpr.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cTabpr.Location = new System.Drawing.Point(601, 68);
+            this.cTabpr.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cTabpr.Name = "cTabpr";
+            this.cTabpr.Size = new System.Drawing.Size(110, 23);
+            this.cTabpr.TabIndex = 15;
+            this.cTabpr.TabStop = false;
+            // 
+            // cDisc
+            // 
+            this.cDisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDisc._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cDisc._MaxLength = 10;
+            this.cDisc._ReadOnly = true;
+            this.cDisc._Text = "";
+            this.cDisc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cDisc.BackColor = System.Drawing.Color.White;
+            this.cDisc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDisc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cDisc.Location = new System.Drawing.Point(601, 93);
+            this.cDisc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cDisc.Name = "cDisc";
+            this.cDisc.Size = new System.Drawing.Size(110, 23);
+            this.cDisc.TabIndex = 14;
+            // 
+            // cPaytrm
+            // 
+            this.cPaytrm._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cPaytrm._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cPaytrm._DecimalDigit = 0;
+            this.cPaytrm._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
+            this.cPaytrm._MaximumValue = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.cPaytrm._MaxLength = 30;
+            this.cPaytrm._ReadOnly = true;
+            this.cPaytrm._SelectionLength = 0;
+            this.cPaytrm._SelectionStart = 1;
+            this.cPaytrm._Text = "0";
+            this.cPaytrm._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.cPaytrm._UseThoundsandSeparate = true;
+            this.cPaytrm._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.cPaytrm.BackColor = System.Drawing.Color.White;
+            this.cPaytrm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cPaytrm.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cPaytrm.Location = new System.Drawing.Point(601, 18);
+            this.cPaytrm.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cPaytrm.Name = "cPaytrm";
+            this.cPaytrm.Size = new System.Drawing.Size(47, 23);
+            this.cPaytrm.TabIndex = 13;
+            // 
+            // cCrline
+            // 
+            this.cCrline._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCrline._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCrline._DecimalDigit = 2;
+            this.cCrline._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
+            this.cCrline._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.cCrline._MaxLength = 30;
+            this.cCrline._ReadOnly = true;
+            this.cCrline._SelectionLength = 0;
+            this.cCrline._SelectionStart = 4;
+            this.cCrline._Text = "0.00";
+            this.cCrline._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.cCrline._UseThoundsandSeparate = true;
+            this.cCrline._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.cCrline.BackColor = System.Drawing.Color.White;
+            this.cCrline.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCrline.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCrline.Location = new System.Drawing.Point(601, 118);
+            this.cCrline.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cCrline.Name = "cCrline";
+            this.cCrline.Size = new System.Drawing.Size(110, 23);
+            this.cCrline.TabIndex = 13;
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -247,6 +521,26 @@
             this.label16.Size = new System.Drawing.Size(60, 16);
             this.label16.TabIndex = 0;
             this.label16.Text = "ขนส่งโดย";
+            // 
+            // cPaycond
+            // 
+            this.cPaycond._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cPaycond._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cPaycond._MaxLength = 25;
+            this.cPaycond._ReadOnly = true;
+            this.cPaycond._Text = "";
+            this.cPaycond._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cPaycond._UseImage = true;
+            this.cPaycond.BackColor = System.Drawing.Color.White;
+            this.cPaycond.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cPaycond.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cPaycond.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cPaycond.Location = new System.Drawing.Point(601, 43);
+            this.cPaycond.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cPaycond.Name = "cPaycond";
+            this.cPaycond.Size = new System.Drawing.Size(176, 23);
+            this.cPaycond.TabIndex = 10;
+            this.cPaycond._ButtonClick += new System.EventHandler(this.cPaycond__ButtonClick);
             // 
             // label15
             // 
@@ -281,7 +575,7 @@
             this.cDlvbyDesc.Name = "cDlvbyDesc";
             this.cDlvbyDesc.Size = new System.Drawing.Size(259, 18);
             this.cDlvbyDesc.TabIndex = 0;
-            this.cDlvbyDesc.Text = "ประเภทลูกค้า";
+            this.cDlvbyDesc.Text = "_dlvbydesc";
             // 
             // cAreaDesc
             // 
@@ -289,7 +583,7 @@
             this.cAreaDesc.Name = "cAreaDesc";
             this.cAreaDesc.Size = new System.Drawing.Size(233, 18);
             this.cAreaDesc.TabIndex = 0;
-            this.cAreaDesc.Text = "ประเภทลูกค้า";
+            this.cAreaDesc.Text = "_areadesc";
             // 
             // cSlmnam
             // 
@@ -297,7 +591,7 @@
             this.cSlmnam.Name = "cSlmnam";
             this.cSlmnam.Size = new System.Drawing.Size(189, 18);
             this.cSlmnam.TabIndex = 0;
-            this.cSlmnam.Text = "ประเภทลูกค้า";
+            this.cSlmnam.Text = "_slmnam";
             // 
             // cAccnam
             // 
@@ -305,7 +599,7 @@
             this.cAccnam.Name = "cAccnam";
             this.cAccnam.Size = new System.Drawing.Size(189, 18);
             this.cAccnam.TabIndex = 0;
-            this.cAccnam.Text = "ประเภทลูกค้า";
+            this.cAccnam.Text = "_accnam";
             // 
             // cCustypDesc
             // 
@@ -313,7 +607,7 @@
             this.cCustypDesc.Name = "cCustypDesc";
             this.cCustypDesc.Size = new System.Drawing.Size(259, 18);
             this.cCustypDesc.TabIndex = 0;
-            this.cCustypDesc.Text = "ประเภทลูกค้า";
+            this.cCustypDesc.Text = "_custypdesc";
             // 
             // label27
             // 
@@ -404,536 +698,6 @@
             this.groupBox1.Size = new System.Drawing.Size(784, 206);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(434, 73);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 16);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "รหัสไปรษณีย์";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(487, 173);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(156, 16);
-            this.label11.TabIndex = 8;
-            this.label11.Text = "[0=สำนักงานใหญ่, -1=ว่าง]";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(604, 148);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(44, 16);
-            this.label22.TabIndex = 8;
-            this.label22.Text = "สถานะ";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(380, 173);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(36, 16);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "สาขา";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(16, 173);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(127, 16);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "เลขประจำตัวผู้เสียภาษี";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(85, 148);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 16);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "หมายเหตุ";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(110, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 16);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "ที่อยู่";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(79, 123);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(64, 16);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "ชื่อผู้ติดต่อ";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(88, 98);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 16);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "โทรศัพท์";
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnAdd.Image = global::XPump.Properties.Resources.add;
-            this.btnAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(36, 40);
-            this.btnAdd.Text = "เพิ่มข้อมูล <Alt+A>";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnEdit.Image = global::XPump.Properties.Resources.edit;
-            this.btnEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(36, 40);
-            this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
-            this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(36, 40);
-            this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnStop
-            // 
-            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnStop.Image = global::XPump.Properties.Resources.stop;
-            this.btnStop.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(36, 40);
-            this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSave.Image = global::XPump.Properties.Resources.save;
-            this.btnSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(36, 40);
-            this.btnSave.Text = "บันทึกข้อมูล <F9>";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnFirst
-            // 
-            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFirst.Image = global::XPump.Properties.Resources.first;
-            this.btnFirst.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Size = new System.Drawing.Size(36, 40);
-            this.btnFirst.Text = "ข้อมูลแรก <Ctrl+Home>";
-            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
-            // 
-            // btnPrevious
-            // 
-            this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
-            this.btnPrevious.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(36, 40);
-            this.btnPrevious.Text = "ข้อมูลที่แล้ว <PageUp>";
-            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnNext.Image = global::XPump.Properties.Resources.next;
-            this.btnNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(36, 40);
-            this.btnNext.Text = "ข้อมูลถัดไป <PageDown>";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnLast
-            // 
-            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnLast.Image = global::XPump.Properties.Resources.last;
-            this.btnLast.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnLast.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnLast.Name = "btnLast";
-            this.btnLast.Size = new System.Drawing.Size(36, 40);
-            this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
-            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSearch.DropDownButtonWidth = 15;
-            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnInquiryAll,
-            this.btnInquiryRest});
-            this.btnSearch.Image = global::XPump.Properties.Resources.search;
-            this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(52, 40);
-            this.btnSearch.Text = "ค้นหา <Alt+S>";
-            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
-            // 
-            // btnInquiryAll
-            // 
-            this.btnInquiryAll.Name = "btnInquiryAll";
-            this.btnInquiryAll.Size = new System.Drawing.Size(245, 22);
-            this.btnInquiryAll.Text = "เรียกดูข้อมูล ตั้งแต่ต้น <Ctrl+L>";
-            this.btnInquiryAll.Click += new System.EventHandler(this.btnInquiryAll_Click);
-            // 
-            // btnInquiryRest
-            // 
-            this.btnInquiryRest.Name = "btnInquiryRest";
-            this.btnInquiryRest.Size = new System.Drawing.Size(245, 22);
-            this.btnInquiryRest.Text = "เรียกดูข้อมูล ตั้งแต่รายการนี้ <Alt+L>";
-            this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
-            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnPrint.Size = new System.Drawing.Size(42, 40);
-            this.btnPrint.Text = "พิมพ์รายงานส่วน ข.";
-            this.btnPrint.Visible = false;
-            // 
-            // btnItem
-            // 
-            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnItemF8,
-            this.btnItemF7});
-            this.btnItem.Image = global::XPump.Properties.Resources.item;
-            this.btnItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.btnItem.Name = "btnItem";
-            this.btnItem.Size = new System.Drawing.Size(45, 40);
-            this.btnItem.Visible = false;
-            // 
-            // btnItemF8
-            // 
-            this.btnItemF8.Name = "btnItemF8";
-            this.btnItemF8.Size = new System.Drawing.Size(267, 22);
-            this.btnItemF8.Text = "บันทึกรายการขาย <F8>";
-            // 
-            // btnItemF7
-            // 
-            this.btnItemF7.Name = "btnItemF7";
-            this.btnItemF7.Size = new System.Drawing.Size(267, 22);
-            this.btnItemF7.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้จริง <F7>";
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
-            this.btnRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(36, 40);
-            this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // cCusnam
-            // 
-            this.cCusnam._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCusnam._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCusnam._MaxLength = 60;
-            this.cCusnam._ReadOnly = true;
-            this.cCusnam._Text = "";
-            this.cCusnam._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cCusnam.BackColor = System.Drawing.Color.White;
-            this.cCusnam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCusnam.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCusnam.Location = new System.Drawing.Point(319, 78);
-            this.cCusnam.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cCusnam.Name = "cCusnam";
-            this.cCusnam.Size = new System.Drawing.Size(393, 23);
-            this.cCusnam.TabIndex = 12;
-            // 
-            // cCuscod
-            // 
-            this.cCuscod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCuscod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCuscod._MaxLength = 10;
-            this.cCuscod._ReadOnly = true;
-            this.cCuscod._Text = "";
-            this.cCuscod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cCuscod.BackColor = System.Drawing.Color.White;
-            this.cCuscod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCuscod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCuscod.Location = new System.Drawing.Point(97, 53);
-            this.cCuscod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cCuscod.Name = "cCuscod";
-            this.cCuscod.Size = new System.Drawing.Size(101, 23);
-            this.cCuscod.TabIndex = 12;
-            this.cCuscod.Leave += new System.EventHandler(this.cCuscod_Leave);
-            // 
-            // cPrenam
-            // 
-            this.cPrenam._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cPrenam._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cPrenam._MaxLength = 15;
-            this.cPrenam._ReadOnly = true;
-            this.cPrenam._Text = "";
-            this.cPrenam._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cPrenam._UseImage = true;
-            this.cPrenam.BackColor = System.Drawing.Color.White;
-            this.cPrenam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cPrenam.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cPrenam.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cPrenam.Location = new System.Drawing.Point(319, 53);
-            this.cPrenam.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cPrenam.Name = "cPrenam";
-            this.cPrenam.Size = new System.Drawing.Size(118, 23);
-            this.cPrenam.TabIndex = 10;
-            this.cPrenam._ButtonClick += new System.EventHandler(this.cPrenam__ButtonClick);
-            // 
-            // cTabpr
-            // 
-            this.cTabpr._ReadOnly = true;
-            this.cTabpr._SelectedItem = null;
-            this.cTabpr._Text = "";
-            this.cTabpr.BackColor = System.Drawing.Color.White;
-            this.cTabpr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cTabpr.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cTabpr.Location = new System.Drawing.Point(601, 68);
-            this.cTabpr.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cTabpr.Name = "cTabpr";
-            this.cTabpr.Size = new System.Drawing.Size(110, 23);
-            this.cTabpr.TabIndex = 15;
-            this.cTabpr.TabStop = false;
-            // 
-            // cDisc
-            // 
-            this.cDisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDisc._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cDisc._MaxLength = 32767;
-            this.cDisc._ReadOnly = true;
-            this.cDisc._Text = "";
-            this.cDisc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cDisc.BackColor = System.Drawing.Color.White;
-            this.cDisc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDisc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDisc.Location = new System.Drawing.Point(601, 93);
-            this.cDisc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cDisc.Name = "cDisc";
-            this.cDisc.Size = new System.Drawing.Size(110, 23);
-            this.cDisc.TabIndex = 14;
-            // 
-            // cPaytrm
-            // 
-            this.cPaytrm._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cPaytrm._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cPaytrm._DecimalDigit = 0;
-            this.cPaytrm._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
-            this.cPaytrm._MaximumValue = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.cPaytrm._MaxLength = 30;
-            this.cPaytrm._ReadOnly = true;
-            this.cPaytrm._SelectionLength = 0;
-            this.cPaytrm._SelectionStart = 1;
-            this.cPaytrm._Text = "0";
-            this.cPaytrm._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.cPaytrm._UseThoundsandSeparate = true;
-            this.cPaytrm._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.cPaytrm.BackColor = System.Drawing.Color.White;
-            this.cPaytrm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cPaytrm.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cPaytrm.Location = new System.Drawing.Point(601, 18);
-            this.cPaytrm.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cPaytrm.Name = "cPaytrm";
-            this.cPaytrm.Size = new System.Drawing.Size(47, 23);
-            this.cPaytrm.TabIndex = 13;
-            // 
-            // cCrline
-            // 
-            this.cCrline._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCrline._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCrline._DecimalDigit = 2;
-            this.cCrline._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
-            this.cCrline._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.cCrline._MaxLength = 30;
-            this.cCrline._ReadOnly = true;
-            this.cCrline._SelectionLength = 0;
-            this.cCrline._SelectionStart = 4;
-            this.cCrline._Text = "0.00";
-            this.cCrline._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.cCrline._UseThoundsandSeparate = true;
-            this.cCrline._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.cCrline.BackColor = System.Drawing.Color.White;
-            this.cCrline.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCrline.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCrline.Location = new System.Drawing.Point(601, 118);
-            this.cCrline.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cCrline.Name = "cCrline";
-            this.cCrline.Size = new System.Drawing.Size(110, 23);
-            this.cCrline.TabIndex = 13;
-            // 
-            // cDlvby
-            // 
-            this.cDlvby._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDlvby._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cDlvby._MaxLength = 2;
-            this.cDlvby._ReadOnly = true;
-            this.cDlvby._Text = "";
-            this.cDlvby._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cDlvby._UseImage = true;
-            this.cDlvby.BackColor = System.Drawing.Color.White;
-            this.cDlvby.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDlvby.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cDlvby.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDlvby.Location = new System.Drawing.Point(154, 118);
-            this.cDlvby.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cDlvby.Name = "cDlvby";
-            this.cDlvby.Size = new System.Drawing.Size(61, 23);
-            this.cDlvby.TabIndex = 10;
-            this.cDlvby._ButtonClick += new System.EventHandler(this.cDlvby__ButtonClick);
-            // 
-            // cAreacod
-            // 
-            this.cAreacod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAreacod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cAreacod._MaxLength = 4;
-            this.cAreacod._ReadOnly = true;
-            this.cAreacod._Text = "";
-            this.cAreacod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cAreacod._UseImage = true;
-            this.cAreacod.BackColor = System.Drawing.Color.White;
-            this.cAreacod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAreacod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cAreacod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cAreacod.Location = new System.Drawing.Point(154, 93);
-            this.cAreacod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cAreacod.Name = "cAreacod";
-            this.cAreacod.Size = new System.Drawing.Size(87, 23);
-            this.cAreacod.TabIndex = 10;
-            this.cAreacod._ButtonClick += new System.EventHandler(this.cAreacod__ButtonClick);
-            // 
-            // cSlmcod
-            // 
-            this.cSlmcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cSlmcod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cSlmcod._MaxLength = 10;
-            this.cSlmcod._ReadOnly = true;
-            this.cSlmcod._Text = "";
-            this.cSlmcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cSlmcod._UseImage = true;
-            this.cSlmcod.BackColor = System.Drawing.Color.White;
-            this.cSlmcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cSlmcod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cSlmcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cSlmcod.Location = new System.Drawing.Point(154, 68);
-            this.cSlmcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cSlmcod.Name = "cSlmcod";
-            this.cSlmcod.Size = new System.Drawing.Size(131, 23);
-            this.cSlmcod.TabIndex = 10;
-            this.cSlmcod._ButtonClick += new System.EventHandler(this.cSlmcod__ButtonClick);
-            // 
-            // cPaycond
-            // 
-            this.cPaycond._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cPaycond._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cPaycond._MaxLength = 25;
-            this.cPaycond._ReadOnly = true;
-            this.cPaycond._Text = "";
-            this.cPaycond._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cPaycond._UseImage = true;
-            this.cPaycond.BackColor = System.Drawing.Color.White;
-            this.cPaycond.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cPaycond.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cPaycond.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cPaycond.Location = new System.Drawing.Point(601, 43);
-            this.cPaycond.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cPaycond.Name = "cPaycond";
-            this.cPaycond.Size = new System.Drawing.Size(176, 23);
-            this.cPaycond.TabIndex = 10;
-            this.cPaycond._ButtonClick += new System.EventHandler(this.cPaycond__ButtonClick);
-            // 
-            // cAccnum
-            // 
-            this.cAccnum._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAccnum._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cAccnum._MaxLength = 15;
-            this.cAccnum._ReadOnly = true;
-            this.cAccnum._Text = "";
-            this.cAccnum._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cAccnum._UseImage = true;
-            this.cAccnum.BackColor = System.Drawing.Color.White;
-            this.cAccnum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAccnum.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cAccnum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cAccnum.Location = new System.Drawing.Point(154, 43);
-            this.cAccnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cAccnum.Name = "cAccnum";
-            this.cAccnum.Size = new System.Drawing.Size(131, 23);
-            this.cAccnum.TabIndex = 10;
-            this.cAccnum._ButtonClick += new System.EventHandler(this.cAccnum__ButtonClick);
-            // 
-            // cCustyp
-            // 
-            this.cCustyp._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCustyp._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCustyp._MaxLength = 2;
-            this.cCustyp._ReadOnly = true;
-            this.cCustyp._Text = "";
-            this.cCustyp._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cCustyp._UseImage = true;
-            this.cCustyp.BackColor = System.Drawing.Color.White;
-            this.cCustyp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCustyp.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cCustyp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCustyp.Location = new System.Drawing.Point(154, 18);
-            this.cCustyp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cCustyp.Name = "cCustyp";
-            this.cCustyp.Size = new System.Drawing.Size(61, 23);
-            this.cCustyp.TabIndex = 10;
-            this.cCustyp._ButtonClick += new System.EventHandler(this.cCustyp__ButtonClick);
             // 
             // cStatus
             // 
@@ -1101,6 +865,15 @@
             this.cOrgnum.Size = new System.Drawing.Size(68, 23);
             this.cOrgnum.TabIndex = 13;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(434, 73);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 16);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "รหัสไปรษณีย์";
+            // 
             // cRemark
             // 
             this.cRemark._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -1120,6 +893,247 @@
             this.cRemark.Size = new System.Drawing.Size(444, 23);
             this.cRemark.TabIndex = 10;
             this.cRemark._ButtonClick += new System.EventHandler(this.cRemark__ButtonClick);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(487, 173);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(156, 16);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "[0=สำนักงานใหญ่, -1=ว่าง]";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(604, 148);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(44, 16);
+            this.label22.TabIndex = 8;
+            this.label22.Text = "สถานะ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(380, 173);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(36, 16);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "สาขา";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(16, 173);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(127, 16);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "เลขประจำตัวผู้เสียภาษี";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(85, 148);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(58, 16);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "หมายเหตุ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(110, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 16);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "ที่อยู่";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(79, 123);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(64, 16);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "ชื่อผู้ติดต่อ";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(88, 98);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 16);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "โทรศัพท์";
+            // 
+            // cCusnam
+            // 
+            this.cCusnam._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCusnam._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCusnam._MaxLength = 60;
+            this.cCusnam._ReadOnly = true;
+            this.cCusnam._Text = "";
+            this.cCusnam._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cCusnam.BackColor = System.Drawing.Color.White;
+            this.cCusnam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCusnam.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCusnam.Location = new System.Drawing.Point(319, 78);
+            this.cCusnam.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cCusnam.Name = "cCusnam";
+            this.cCusnam.Size = new System.Drawing.Size(393, 23);
+            this.cCusnam.TabIndex = 12;
+            // 
+            // cCuscod
+            // 
+            this.cCuscod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCuscod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCuscod._MaxLength = 10;
+            this.cCuscod._ReadOnly = true;
+            this.cCuscod._Text = "";
+            this.cCuscod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cCuscod.BackColor = System.Drawing.Color.White;
+            this.cCuscod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCuscod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCuscod.Location = new System.Drawing.Point(97, 53);
+            this.cCuscod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cCuscod.Name = "cCuscod";
+            this.cCuscod.Size = new System.Drawing.Size(101, 23);
+            this.cCuscod.TabIndex = 12;
+            this.cCuscod.Leave += new System.EventHandler(this.cCuscod_Leave);
+            // 
+            // cPrenam
+            // 
+            this.cPrenam._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cPrenam._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cPrenam._MaxLength = 15;
+            this.cPrenam._ReadOnly = true;
+            this.cPrenam._Text = "";
+            this.cPrenam._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cPrenam._UseImage = true;
+            this.cPrenam.BackColor = System.Drawing.Color.White;
+            this.cPrenam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cPrenam.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cPrenam.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cPrenam.Location = new System.Drawing.Point(319, 53);
+            this.cPrenam.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cPrenam.Name = "cPrenam";
+            this.cPrenam.Size = new System.Drawing.Size(118, 23);
+            this.cPrenam.TabIndex = 10;
+            this.cPrenam._ButtonClick += new System.EventHandler(this.cPrenam__ButtonClick);
+            // 
+            // cAreacod
+            // 
+            this.cAreacod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAreacod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cAreacod._DataPath = null;
+            this.cAreacod._MaxLength = 4;
+            this.cAreacod._ReadOnly = true;
+            this.cAreacod._TabTyp = "40";
+            this.cAreacod._Text = "";
+            this.cAreacod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cAreacod._UseImage = true;
+            this.cAreacod.BackColor = System.Drawing.Color.White;
+            this.cAreacod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAreacod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cAreacod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cAreacod.Location = new System.Drawing.Point(154, 93);
+            this.cAreacod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cAreacod.Name = "cAreacod";
+            this.cAreacod.Size = new System.Drawing.Size(87, 23);
+            this.cAreacod.TabIndex = 20;
+            this.cAreacod._SelectedIstabChanged += new System.EventHandler(this.cAreacod__SelectedIstabChanged);
+            this.cAreacod._Leave += new System.EventHandler(this.cAreacod__Leave);
+            // 
+            // cDlvby
+            // 
+            this.cDlvby._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDlvby._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cDlvby._DataPath = null;
+            this.cDlvby._MaxLength = 2;
+            this.cDlvby._ReadOnly = true;
+            this.cDlvby._TabTyp = "41";
+            this.cDlvby._Text = "";
+            this.cDlvby._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cDlvby._UseImage = true;
+            this.cDlvby.BackColor = System.Drawing.Color.White;
+            this.cDlvby.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDlvby.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cDlvby.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cDlvby.Location = new System.Drawing.Point(154, 118);
+            this.cDlvby.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cDlvby.Name = "cDlvby";
+            this.cDlvby.Size = new System.Drawing.Size(61, 23);
+            this.cDlvby.TabIndex = 19;
+            this.cDlvby._SelectedIstabChanged += new System.EventHandler(this.cDlvby__SelectedIstabChanged);
+            this.cDlvby._Leave += new System.EventHandler(this.cDlvby__Leave);
+            // 
+            // cCustyp
+            // 
+            this.cCustyp._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCustyp._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCustyp._DataPath = null;
+            this.cCustyp._MaxLength = 2;
+            this.cCustyp._ReadOnly = true;
+            this.cCustyp._TabTyp = "45";
+            this.cCustyp._Text = "";
+            this.cCustyp._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cCustyp._UseImage = true;
+            this.cCustyp.BackColor = System.Drawing.Color.White;
+            this.cCustyp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCustyp.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cCustyp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCustyp.Location = new System.Drawing.Point(154, 18);
+            this.cCustyp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cCustyp.Name = "cCustyp";
+            this.cCustyp.Size = new System.Drawing.Size(61, 23);
+            this.cCustyp.TabIndex = 18;
+            this.cCustyp._SelectedIstabChanged += new System.EventHandler(this.cCustyp__SelectedIstabChanged);
+            this.cCustyp._Leave += new System.EventHandler(this.cCustyp__Leave);
+            // 
+            // cAccnum
+            // 
+            this.cAccnum._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAccnum._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cAccnum._DataPath = null;
+            this.cAccnum._MaxLength = 15;
+            this.cAccnum._OnlyPostAccount = true;
+            this.cAccnum._ReadOnly = true;
+            this.cAccnum._Text = "";
+            this.cAccnum._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cAccnum._UseImage = true;
+            this.cAccnum.BackColor = System.Drawing.Color.White;
+            this.cAccnum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAccnum.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cAccnum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cAccnum.Location = new System.Drawing.Point(154, 43);
+            this.cAccnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cAccnum.Name = "cAccnum";
+            this.cAccnum.Size = new System.Drawing.Size(132, 23);
+            this.cAccnum.TabIndex = 17;
+            this.cAccnum._SelectedAccnumChanged += new System.EventHandler(this.cAccnum__SelectedAccnumChanged);
+            this.cAccnum._Leave += new System.EventHandler(this.cAccnum__Leave);
+            // 
+            // cSlmcod
+            // 
+            this.cSlmcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cSlmcod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cSlmcod._DataPath = null;
+            this.cSlmcod._MaxLength = 10;
+            this.cSlmcod._ReadOnly = true;
+            this.cSlmcod._Text = "";
+            this.cSlmcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cSlmcod._UseImage = true;
+            this.cSlmcod.BackColor = System.Drawing.Color.White;
+            this.cSlmcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cSlmcod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cSlmcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cSlmcod.Location = new System.Drawing.Point(154, 68);
+            this.cSlmcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cSlmcod.Name = "cSlmcod";
+            this.cSlmcod.Size = new System.Drawing.Size(132, 23);
+            this.cSlmcod.TabIndex = 16;
+            this.cSlmcod._SelectedSlmcodChanged += new System.EventHandler(this.cSlmcod__SelectedSlmcodChanged);
+            this.cSlmcod._Leave += new System.EventHandler(this.cSlmcod__Leave);
             // 
             // FormArmas
             // 
@@ -1202,11 +1216,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private CC.XBrowseBox cDlvby;
-        private CC.XBrowseBox cAreacod;
-        private CC.XBrowseBox cSlmcod;
-        private CC.XBrowseBox cAccnum;
-        private CC.XBrowseBox cCustyp;
         private System.Windows.Forms.Label cDlvbyDesc;
         private System.Windows.Forms.Label cAreaDesc;
         private System.Windows.Forms.Label cSlmnam;
@@ -1235,5 +1244,10 @@
         private CC.XTextEdit cAddr01;
         private CC.XDropdownList cStatus;
         private CC.XDropdownList cTabpr;
+        private CustomControls.BrowseBoxSlm cSlmcod;
+        private CustomControls.BrowseBoxAccnum cAccnum;
+        private CustomControls.BrowseBoxIstabFixed cCustyp;
+        private CustomControls.BrowseBoxIstabFixed cDlvby;
+        private CustomControls.BrowseBoxIstabFixed cAreacod;
     }
 }

@@ -901,10 +901,10 @@ namespace XPump.Model
                     switch (tabtyp)
                     {
                         case TABTYP.PRENAM:
-                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='51' and TRIM(typcod)='06' Order By typdes ASC";
+                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='51' and TRIM(typcod)='06' Order By typcod ASC";
                             break;
                         case TABTYP.REMARK_AR:
-                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='51' and TRIM(typcod)='18' Order By typdes ASC";
+                            cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='51' and TRIM(typcod)='18' Order By typcod ASC";
                             break;
                         case TABTYP.CUSTYP:
                             cmd.CommandText = "Select * From istab Where TRIM(tabtyp)='45' Order By typcod ASC";
@@ -951,8 +951,80 @@ namespace XPump.Model
                 }
             }
         }
+
+        public static List<GlaccDbfList> GlaccDbfList(SccompDbf working_express_db)
+        {
+            string data_path = working_express_db.abs_path;
+            List<GlaccDbfList> glacc = new List<GlaccDbfList>();
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "glacc.dbf")))
+            {
+                XMessageBox.Show("ค้นหาแฟ้ม Glacc.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                return glacc;
+            }
+
+            using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + data_path))
+            {
+                conn.Open();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    //cmd.CommandText = "Select accnum,accnam,?,level,acctyp,parent From  glacc Where acctyp=?";
+                    //cmd.Parameters.AddWithValue("@Group", "group");
+                    //cmd.Parameters.AddWithValue("@Acctyp", "0");
+                    cmd.CommandText = "Select * From  glacc Where acctyp='0'";
+
+                    using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        conn.Close();
+
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            string group = string.Empty;
+                            if (!dt.Rows[i].IsNull("group"))
+                            {
+                                switch (dt.Rows[i]["group"].ToString().Trim())
+                                {
+                                    case "1":
+                                        group = "สินทรัพย์";
+                                        break;
+                                    case "2":
+                                        group = "หนี้สิน";
+                                        break;
+                                    case "3":
+                                        group = "ทุน";
+                                        break;
+                                    case "4":
+                                        group = "รายได้";
+                                        break;
+                                    case "5":
+                                        group = "ค่าใช้จ่าย";
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+
+                            glacc.Add(new Model.GlaccDbfList
+                            {
+                                accnam = !dt.Rows[i].IsNull("accnam") ? dt.Rows[i]["accnam"].ToString().TrimEnd() : string.Empty,
+                                accnum = !dt.Rows[i].IsNull("accnum") ? dt.Rows[i]["accnum"].ToString().TrimEnd() : string.Empty,
+                                acctyp = !dt.Rows[i].IsNull("acctyp") ? (dt.Rows[i]["acctyp"].ToString().Trim() == "0" ? "POS" : "SUM") : string.Empty,
+                                group = group,
+                                level = !dt.Rows[i].IsNull("level") ? Convert.ToInt32(dt.Rows[i]["level"]) : 0,
+                                parent = !dt.Rows[i].IsNull("parent") ? dt.Rows[i]["parent"].ToString().TrimEnd() : string.Empty
+                            });
+                        }
+
+                        return glacc;
+                    }
+                }
+            }
+        }
     }
     
+
 
     public enum TABTYP
     {
@@ -1605,6 +1677,13 @@ namespace XPump.Model
 
     }
 
+    public class IstabDbfList
+    {
+        public string typcod { get; set; }
+        public string shortnam { get; set; }
+        public string typdes { get; set; }
+    }
+
     public class IsinfoDbf
     {
         public string thinam { get; set; }
@@ -1979,6 +2058,35 @@ namespace XPump.Model
     {
         public string slmcod { get; set; }
         public string slmnam { get; set; }
+    }
 
+    public class GlaccDbf
+    {
+        public string accnum { get; set; }
+        public string accnam { get; set; }
+        public string accnam2 { get; set; }
+        public int level { get; set; }
+        public string parent { get; set; }
+        public string group { get; set; }
+        public string acctyp { get; set; }
+        public string usedep { get; set; }
+        public string usejob { get; set; }
+        public string nature { get; set; }
+        public string consol { get; set; }
+        public string status { get; set; }
+        public string creby { get; set; }
+        public DateTime? credat { get; set; }
+        public string userid { get; set; }
+        public DateTime? chgdat { get; set; }
+    }
+
+    public class GlaccDbfList
+    {
+        public string accnum { get; set; }
+        public string accnam { get; set; }
+        public string group { get; set; }
+        public int level { get; set; }
+        public string acctyp { get; set; }
+        public string parent { get; set; }
     }
 }

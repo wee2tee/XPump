@@ -108,6 +108,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomControls\BrowseBoxAccnum.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\BrowseBoxAccnum.Designer.cs">
+      <DependentUpon>BrowseBoxAccnum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\BrowseBoxIstabFixed.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\BrowseBoxIstabFixed.Designer.cs">
+      <DependentUpon>BrowseBoxIstabFixed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\BrowseBoxSlm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\BrowseBoxSlm.Designer.cs">
+      <DependentUpon>BrowseBoxSlm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -536,6 +554,15 @@
     <Compile Include="SubForm\_testpwd.Designer.cs">
       <DependentUpon>_testpwd.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CustomControls\BrowseBoxAccnum.resx">
+      <DependentUpon>BrowseBoxAccnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\BrowseBoxIstabFixed.resx">
+      <DependentUpon>BrowseBoxIstabFixed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\BrowseBoxSlm.resx">
+      <DependentUpon>BrowseBoxSlm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.en-UM.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

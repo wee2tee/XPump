@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using XPump.Misc;
 using XPump.Model;
 using CC;
+using XPump.CustomControls;
+using System.Text.RegularExpressions;
 
 namespace XPump.SubForm
 {
@@ -29,10 +31,12 @@ namespace XPump.SubForm
 
         private void FormArmas_Load(object sender, EventArgs e)
         {
-            //Console.WriteLine("Start at " + DateTime.Now.ToString());
-            //this.armas = DbfTable.ArmasList(this.main_form.working_express_db);
-            //Console.WriteLine("Finish at ==> " + DateTime.Now.ToString());
             this.ApplyDropdownSelection();
+            this.cSlmcod._DataPath = this.main_form.working_express_db.abs_path;
+            this.cAccnum._DataPath = this.main_form.working_express_db.abs_path;
+            this.cCustyp._DataPath = this.main_form.working_express_db.abs_path;
+            this.cDlvby._DataPath = this.main_form.working_express_db.abs_path;
+            this.cAreacod._DataPath = this.main_form.working_express_db.abs_path;
         }
 
         private void FormArmas_Shown(object sender, EventArgs e)
@@ -262,7 +266,7 @@ namespace XPump.SubForm
 
             var datasource = DbfTable.IstabList(this.main_form.working_express_db, TABTYP.PRENAM).Select(i => new { shortnam = i.shortnam, typdes = i.typdes }).ToList();
 
-            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(this.main_form, cols, datasource, col_typdes.Name, ((XBrowseBox)sender)._Text.TrimEnd());
+            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(/*this.main_form, */cols, datasource, col_typdes.Name, ((XBrowseBox)sender)._Text.TrimEnd());
             br.SetBounds(((XBrowseBox)sender).PointToScreen(Point.Empty).X - 5, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y + ((XBrowseBox)sender).Height, br.Width, br.Height);
 
             if (br.ShowDialog() == DialogResult.OK)
@@ -300,205 +304,13 @@ namespace XPump.SubForm
 
             var datasource = DbfTable.IstabList(this.main_form.working_express_db, TABTYP.REMARK_AR).Select(i => new { shortnam = i.shortnam, typdes = i.typdes }).ToList();
 
-            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(this.main_form, cols, datasource, col_typdes.Name, ((XBrowseBox)sender)._Text.TrimEnd());
+            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(/*this.main_form, */cols, datasource, col_typdes.Name, ((XBrowseBox)sender)._Text.TrimEnd());
             br.SetBounds(((XBrowseBox)sender).PointToScreen(Point.Empty).X - 5, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y + ((XBrowseBox)sender).Height, br.Width, br.Height);
 
             if (br.ShowDialog() == DialogResult.OK)
             {
                 string typdes = br.selected_row.Cells[col_typdes.Name].Value.ToString();
                 ((XBrowseBox)sender)._Text = typdes;
-            }
-        }
-
-        private void cCustyp__ButtonClick(object sender, EventArgs e)
-        {
-            DataGridViewTextBoxColumn col_typcod = new DataGridViewTextBoxColumn
-            {
-                Name = "col_typcod",
-                HeaderText = "รหัส",
-                DataPropertyName = "typcod",
-                Width = 80,
-                MinimumWidth = 80,
-            };
-            DataGridViewTextBoxColumn col_shortnam = new DataGridViewTextBoxColumn
-            {
-                Name = "col_shortnam",
-                HeaderText = "คำย่อ",
-                DataPropertyName = "shortnam",
-                Width = 160,
-                MinimumWidth = 160,
-            };
-            DataGridViewTextBoxColumn col_typdes = new DataGridViewTextBoxColumn
-            {
-                Name = "col_typdes",
-                HeaderText = "รายละเอียด",
-                DataPropertyName = "typdes",
-                Width = 160,
-                MinimumWidth = 160,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            };
-
-            DataGridViewColumn[] cols = new DataGridViewColumn[]
-            {
-                col_typcod,
-                col_shortnam,
-                col_typdes
-            };
-
-            var datasource = DbfTable.IstabList(this.main_form.working_express_db, TABTYP.CUSTYP).Select(i => new { typcod = i.typcod, shortnam = i.shortnam, typdes = i.typdes }).ToList();
-
-            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(this.main_form, cols, datasource, col_typcod.Name, ((XBrowseBox)sender)._Text.TrimEnd());
-            br.SetBounds(((XBrowseBox)sender).PointToScreen(Point.Empty).X - 5, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y + ((XBrowseBox)sender).Height, br.Width, br.Height);
-
-            if (br.ShowDialog() == DialogResult.OK)
-            {
-                string typcod = br.selected_row.Cells[col_typcod.Name].Value.ToString();
-                string typdes = br.selected_row.Cells[col_typdes.Name].Value.ToString();
-                ((XBrowseBox)sender)._Text = typcod;
-                this.cCustypDesc.Text = typdes;
-            }
-        }
-
-        private void cAccnum__ButtonClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cSlmcod__ButtonClick(object sender, EventArgs e)
-        {
-            DataGridViewTextBoxColumn col_slmcod = new DataGridViewTextBoxColumn
-            {
-                Name = "col_slmcod",
-                HeaderText = "รหัส",
-                DataPropertyName = "slmcod",
-                Width = 120,
-                MinimumWidth = 120,
-            };
-            DataGridViewTextBoxColumn col_slmnam = new DataGridViewTextBoxColumn
-            {
-                Name = "col_slmnam",
-                HeaderText = "ชื่อพนักงานขาย",
-                DataPropertyName = "slmnam",
-                Width = 160,
-                MinimumWidth = 160,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            };
-
-            DataGridViewColumn[] cols = new DataGridViewColumn[]
-            {
-                col_slmcod,
-                col_slmnam
-            };
-
-            var datasource = DbfTable.OeslmList(this.main_form.working_express_db).Select(i => new { slmcod = i.slmcod, slmnam = i.slmnam }).ToList();
-
-            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(this.main_form, cols, datasource, col_slmcod.Name, ((XBrowseBox)sender)._Text.TrimEnd());
-            br.SetBounds(((XBrowseBox)sender).PointToScreen(Point.Empty).X - 5, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y + ((XBrowseBox)sender).Height, br.Width, br.Height);
-
-            if (br.ShowDialog() == DialogResult.OK)
-            {
-                string slmcod = br.selected_row.Cells[col_slmcod.Name].Value.ToString();
-                string slmnam = br.selected_row.Cells[col_slmnam.Name].Value.ToString();
-                ((XBrowseBox)sender)._Text = slmcod;
-                this.cSlmnam.Text = slmnam;
-            }
-        }
-
-        private void cAreacod__ButtonClick(object sender, EventArgs e)
-        {
-            DataGridViewTextBoxColumn col_typcod = new DataGridViewTextBoxColumn
-            {
-                Name = "col_typcod",
-                HeaderText = "รหัส",
-                DataPropertyName = "typcod",
-                Width = 80,
-                MinimumWidth = 80,
-            };
-            DataGridViewTextBoxColumn col_shortnam = new DataGridViewTextBoxColumn
-            {
-                Name = "col_shortnam",
-                HeaderText = "คำย่อ",
-                DataPropertyName = "shortnam",
-                Width = 160,
-                MinimumWidth = 160,
-            };
-            DataGridViewTextBoxColumn col_typdes = new DataGridViewTextBoxColumn
-            {
-                Name = "col_typdes",
-                HeaderText = "รายละเอียด",
-                DataPropertyName = "typdes",
-                Width = 160,
-                MinimumWidth = 160,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            };
-
-            DataGridViewColumn[] cols = new DataGridViewColumn[]
-            {
-                col_typcod,
-                col_shortnam,
-                col_typdes
-            };
-
-            var datasource = DbfTable.IstabList(this.main_form.working_express_db, TABTYP.AREA).Select(i => new { typcod = i.typcod, shortnam = i.shortnam, typdes = i.typdes }).ToList();
-
-            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(this.main_form, cols, datasource, col_typcod.Name, ((XBrowseBox)sender)._Text.TrimEnd());
-            br.SetBounds(((XBrowseBox)sender).PointToScreen(Point.Empty).X - 5, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y + ((XBrowseBox)sender).Height, br.Width, br.Height);
-
-            if (br.ShowDialog() == DialogResult.OK)
-            {
-                string typcod = br.selected_row.Cells[col_typcod.Name].Value.ToString();
-                string typdes = br.selected_row.Cells[col_typdes.Name].Value.ToString();
-                ((XBrowseBox)sender)._Text = typcod;
-                this.cAreaDesc.Text = typdes;
-            }
-        }
-
-        private void cDlvby__ButtonClick(object sender, EventArgs e)
-        {
-            DataGridViewTextBoxColumn col_typcod = new DataGridViewTextBoxColumn
-            {
-                Name = "col_typcod",
-                HeaderText = "รหัส",
-                DataPropertyName = "typcod",
-                Width = 80,
-                MinimumWidth = 80,
-            };
-            DataGridViewTextBoxColumn col_shortnam = new DataGridViewTextBoxColumn
-            {
-                Name = "col_shortnam",
-                HeaderText = "คำย่อ",
-                DataPropertyName = "shortnam",
-                Width = 160,
-                MinimumWidth = 160,
-            };
-            DataGridViewTextBoxColumn col_typdes = new DataGridViewTextBoxColumn
-            {
-                Name = "col_typdes",
-                HeaderText = "รายละเอียด",
-                DataPropertyName = "typdes",
-                Width = 160,
-                MinimumWidth = 160,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            };
-
-            DataGridViewColumn[] cols = new DataGridViewColumn[]
-            {
-                col_typcod,
-                col_shortnam,
-                col_typdes
-            };
-
-            var datasource = DbfTable.IstabList(this.main_form.working_express_db, TABTYP.DLVBY).Select(i => new { typcod = i.typcod, shortnam = i.shortnam, typdes = i.typdes }).ToList();
-
-            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(this.main_form, cols, datasource, col_typcod.Name, ((XBrowseBox)sender)._Text.TrimEnd());
-            br.SetBounds(((XBrowseBox)sender).PointToScreen(Point.Empty).X - 5, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y + ((XBrowseBox)sender).Height, br.Width, br.Height);
-
-            if (br.ShowDialog() == DialogResult.OK)
-            {
-                string typcod = br.selected_row.Cells[col_typcod.Name].Value.ToString();
-                string typdes = br.selected_row.Cells[col_typdes.Name].Value.ToString();
-                ((XBrowseBox)sender)._Text = typcod;
-                this.cDlvbyDesc.Text = typdes;
             }
         }
 
@@ -530,7 +342,7 @@ namespace XPump.SubForm
 
             var datasource = DbfTable.IstabList(this.main_form.working_express_db, TABTYP.PAYCOND).Select(i => new { shortnam = i.shortnam, typdes = i.typdes }).ToList();
 
-            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(this.main_form, cols, datasource, col_typdes.Name, ((XBrowseBox)sender)._Text.TrimEnd());
+            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(/*this.main_form, */cols, datasource, col_typdes.Name, ((XBrowseBox)sender)._Text.TrimEnd());
             br.SetBounds(((XBrowseBox)sender).PointToScreen(Point.Empty).X - 5, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y + ((XBrowseBox)sender).Height, br.Width, br.Height);
 
             if (br.ShowDialog() == DialogResult.OK)
@@ -538,6 +350,56 @@ namespace XPump.SubForm
                 string typdes = br.selected_row.Cells[col_typdes.Name].Value.ToString();
                 ((XBrowseBox)sender)._Text = typdes;
             }
+        }
+
+        private void cSlmcod__Leave(object sender, EventArgs e)
+        {
+            this.cSlmnam.Text = ((BrowseBoxSlm)sender).selected_slmnam;
+        }
+
+        private void cSlmcod__SelectedSlmcodChanged(object sender, EventArgs e)
+        {
+            this.cSlmnam.Text = ((BrowseBoxSlm)sender).selected_slmnam;
+        }
+
+        private void cAccnum__Leave(object sender, EventArgs e)
+        {
+            this.cAccnam.Text = ((BrowseBoxAccnum)sender).selected_accnam;
+        }
+
+        private void cAccnum__SelectedAccnumChanged(object sender, EventArgs e)
+        {
+            this.cAccnam.Text = ((BrowseBoxAccnum)sender).selected_accnam;
+        }
+
+        private void cCustyp__Leave(object sender, EventArgs e)
+        {
+            this.cCustypDesc.Text = ((BrowseBoxIstabFixed)sender).selected_typdes;
+        }
+
+        private void cCustyp__SelectedIstabChanged(object sender, EventArgs e)
+        {
+            this.cCustypDesc.Text = ((BrowseBoxIstabFixed)sender).selected_typdes;
+        }
+
+        private void cDlvby__Leave(object sender, EventArgs e)
+        {
+            this.cDlvbyDesc.Text = ((BrowseBoxIstabFixed)sender).selected_typdes;
+        }
+
+        private void cDlvby__SelectedIstabChanged(object sender, EventArgs e)
+        {
+            this.cDlvbyDesc.Text = ((BrowseBoxIstabFixed)sender).selected_typdes;
+        }
+
+        private void cAreacod__Leave(object sender, EventArgs e)
+        {
+            this.cAreaDesc.Text = ((BrowseBoxIstabFixed)sender).selected_typdes;
+        }
+
+        private void cAreacod__SelectedIstabChanged(object sender, EventArgs e)
+        {
+            this.cAreaDesc.Text = ((BrowseBoxIstabFixed)sender).selected_typdes;
         }
     }
 }
