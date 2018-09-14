@@ -66,6 +66,22 @@ namespace XPump.Model
             }
         }
 
+        //public static OleDbConnection GetDbConnection(SccompDbf working_express_db)
+        //{
+        //    string data_path = working_express_db.abs_path;
+
+        //    try
+        //    {
+        //        OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + data_path);
+        //        return conn;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+        //        return null;
+        //    }
+        //}
+
         public static DataTable Isprd(SccompDbf working_express_db)
         {
             string data_path = working_express_db.abs_path;
@@ -713,7 +729,7 @@ namespace XPump.Model
                     cusnam = !dt.Rows[i].IsNull("cusnam") ? dt.Rows[i]["cusnam"].ToString().TrimEnd() : string.Empty,
                     cusnam2 = !dt.Rows[i].IsNull("cusnam2") ? dt.Rows[i]["cusnam2"].ToString().TrimEnd() : string.Empty,
                     custyp = !dt.Rows[i].IsNull("custyp") ? dt.Rows[i]["custyp"].ToString().TrimEnd() : string.Empty,
-                    disc = !dt.Rows[i].IsNull("disc") ? dt.Rows[i]["disc"].ToString() : string.Empty,
+                    disc = !dt.Rows[i].IsNull("disc") ? (dt.Rows[i]["disc"].ToString().Trim().Length > 0 ? dt.Rows[i]["disc"].ToString() : string.Empty) : string.Empty,
                     dlvby = !dt.Rows[i].IsNull("dlvby") ? dt.Rows[i]["dlvby"].ToString().TrimEnd() : string.Empty,
                     inactdat = !dt.Rows[i].IsNull("inactdat") ? (DateTime?)dt.Rows[i]["inactdat"] : null,
                     lasivc = !dt.Rows[i].IsNull("lasivc") ? (DateTime?)dt.Rows[i]["lasivc"] : null,

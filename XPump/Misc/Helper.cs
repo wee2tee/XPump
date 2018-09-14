@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -2496,6 +2497,92 @@ namespace XPump.Misc
             }
 
             return c;
+        }
+
+        public static bool IsInUse(this FileInfo file)
+        {
+            FileStream stream = null;
+
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
+            }
+            catch (IOException ex)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                Console.WriteLine(ex.Message);
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            //file is not locked
+            return false;
+        }
+
+        public static bool Reindex(SccompDbf working_express_db, DBF_FILENAME_FLAG dbf_file_flag)
+        {
+            //ReIndexResult result = new ReIndexResult { success = false, err_message = string.Empty };
+            string express_dir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName + @"\";
+            FileInfo file_dbinf = new FileInfo(express_dir + "dbinf.dbf");
+
+            string file_name = dbf_file_flag.ToString() + ".dbf"; //dbf_file_name.ToLower().Contains(".dbf") ? dbf_file_name : dbf_file_name + ".dbf";
+            FileInfo data_file = new FileInfo(working_express_db.abs_path + file_name);
+
+            if (!File.Exists(express_dir + "dbinf.dbf"))
+            {
+                XMessageBox.Show("File Not Found DBINF.DBF", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                return false;
+            }
+            if (file_dbinf.IsInUse())
+            {
+                XMessageBox.Show("Permission Error File DBINF.DBF", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                return false;
+            }
+            if (data_file.IsInUse())
+            {
+                XMessageBox.Show("Permission Error File ARTRNRM.DBF", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                return false;
+            }
+
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.WorkingDirectory = express_dir;
+            startInfo.UseShellExecute = false;
+            startInfo.CreateNoWindow = true;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
+            startInfo.RedirectStandardInput = true;
+
+            startInfo.FileName = express_dir + "adm32.exe";
+            startInfo.Arguments = working_express_db.abs_path;
+
+            Process process = new Process();
+            process.StartInfo = startInfo;
+            process.Start();
+
+            process.StandardInput.WriteLine(((int)dbf_file_flag).ToString());
+
+            StringBuilder message = new StringBuilder();
+            while (!process.StandardOutput.EndOfStream)
+            {
+                char[] buffer = new char[200];
+                int chars = process.StandardOutput.Read(buffer, 0, buffer.Length);
+                message.Append(buffer, 0, chars);
+            }
+
+            return true;
+        }
+
+        public enum DBF_FILENAME_FLAG : int
+        {
+            ARMAS = 9
         }
     }
 }

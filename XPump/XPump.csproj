@@ -126,6 +126,12 @@
     <Compile Include="CustomControls\BrowseBoxSlm.Designer.cs">
       <DependentUpon>BrowseBoxSlm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\TextEditDisc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\TextEditDisc.Designer.cs">
+      <DependentUpon>TextEditDisc.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -562,6 +568,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\BrowseBoxSlm.resx">
       <DependentUpon>BrowseBoxSlm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\TextEditDisc.resx">
+      <DependentUpon>TextEditDisc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.en-UM.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

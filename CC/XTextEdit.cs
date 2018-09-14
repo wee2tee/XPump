@@ -116,6 +116,9 @@ namespace CC
         public event EventHandler _GotFocus;
         public event EventHandler _Leave;
         public event EventHandler _DoubleClicked;
+        public event KeyEventHandler _KeyDown;
+        public event KeyEventHandler _KeyUp;
+        public event KeyPressEventHandler _KeyPress;
 
         public XTextEdit()
         {
@@ -335,6 +338,30 @@ namespace CC
             if (this._ReadOnly)
             {
                 SendKeys.Send("{TAB}");
+            }
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(this._KeyDown != null)
+            {
+                this._KeyDown(sender, e);
+            }
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(this._KeyPress != null)
+            {
+                this._KeyPress(sender, e);
+            }
+        }
+
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(this._KeyUp != null)
+            {
+                this._KeyUp(sender, e);
             }
         }
     }

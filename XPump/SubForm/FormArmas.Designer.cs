@@ -55,8 +55,12 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cAreacod = new XPump.CustomControls.BrowseBoxIstabFixed();
+            this.cDlvby = new XPump.CustomControls.BrowseBoxIstabFixed();
+            this.cCustyp = new XPump.CustomControls.BrowseBoxIstabFixed();
+            this.cAccnum = new XPump.CustomControls.BrowseBoxAccnum();
+            this.cSlmcod = new XPump.CustomControls.BrowseBoxSlm();
             this.cTabpr = new CC.XDropdownList();
-            this.cDisc = new CC.XTextEdit();
             this.cPaytrm = new CC.XNumEdit();
             this.cCrline = new CC.XNumEdit();
             this.label16 = new System.Windows.Forms.Label();
@@ -78,7 +82,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cStatus = new CC.XDropdownList();
-            this.cTaxid = new CC.XTextEdit();
             this.cAddr03 = new CC.XTextEdit();
             this.cContact = new CC.XTextEdit();
             this.cTelnum = new CC.XTextEdit();
@@ -99,11 +102,8 @@
             this.cCusnam = new CC.XTextEdit();
             this.cCuscod = new CC.XTextEdit();
             this.cPrenam = new CC.XBrowseBox();
-            this.cAreacod = new XPump.CustomControls.BrowseBoxIstabFixed();
-            this.cDlvby = new XPump.CustomControls.BrowseBoxIstabFixed();
-            this.cCustyp = new XPump.CustomControls.BrowseBoxIstabFixed();
-            this.cAccnum = new XPump.CustomControls.BrowseBoxAccnum();
-            this.cSlmcod = new XPump.CustomControls.BrowseBoxSlm();
+            this.cDisc = new XPump.CustomControls.TextEditDisc();
+            this.cTaxid = new CC.XNumTextEdit();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -385,13 +385,13 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cDisc);
             this.groupBox2.Controls.Add(this.cAreacod);
             this.groupBox2.Controls.Add(this.cDlvby);
             this.groupBox2.Controls.Add(this.cCustyp);
             this.groupBox2.Controls.Add(this.cAccnum);
             this.groupBox2.Controls.Add(this.cSlmcod);
             this.groupBox2.Controls.Add(this.cTabpr);
-            this.groupBox2.Controls.Add(this.cDisc);
             this.groupBox2.Controls.Add(this.cPaytrm);
             this.groupBox2.Controls.Add(this.cCrline);
             this.groupBox2.Controls.Add(this.label16);
@@ -417,6 +417,125 @@
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             // 
+            // cAreacod
+            // 
+            this.cAreacod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAreacod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cAreacod._DataPath = null;
+            this.cAreacod._MaxLength = 4;
+            this.cAreacod._ReadOnly = true;
+            this.cAreacod._TabTyp = "40";
+            this.cAreacod._Text = "";
+            this.cAreacod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cAreacod._UseImage = true;
+            this.cAreacod.BackColor = System.Drawing.Color.White;
+            this.cAreacod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAreacod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cAreacod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cAreacod.Location = new System.Drawing.Point(154, 93);
+            this.cAreacod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cAreacod.Name = "cAreacod";
+            this.cAreacod.Size = new System.Drawing.Size(87, 23);
+            this.cAreacod.TabIndex = 16;
+            this.cAreacod._SelectedIstabChanged += new System.EventHandler(this.cAreacod__SelectedIstabChanged);
+            this.cAreacod._Leave += new System.EventHandler(this.cAreacod__Leave);
+            this.cAreacod._TextChanged += new System.EventHandler(this.cAreacod__TextChanged);
+            // 
+            // cDlvby
+            // 
+            this.cDlvby._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDlvby._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cDlvby._DataPath = null;
+            this.cDlvby._MaxLength = 2;
+            this.cDlvby._ReadOnly = true;
+            this.cDlvby._TabTyp = "41";
+            this.cDlvby._Text = "";
+            this.cDlvby._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cDlvby._UseImage = true;
+            this.cDlvby.BackColor = System.Drawing.Color.White;
+            this.cDlvby.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDlvby.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cDlvby.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cDlvby.Location = new System.Drawing.Point(154, 118);
+            this.cDlvby.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cDlvby.Name = "cDlvby";
+            this.cDlvby.Size = new System.Drawing.Size(61, 23);
+            this.cDlvby.TabIndex = 17;
+            this.cDlvby._SelectedIstabChanged += new System.EventHandler(this.cDlvby__SelectedIstabChanged);
+            this.cDlvby._Leave += new System.EventHandler(this.cDlvby__Leave);
+            this.cDlvby._TextChanged += new System.EventHandler(this.cDlvby__TextChanged);
+            // 
+            // cCustyp
+            // 
+            this.cCustyp._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCustyp._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCustyp._DataPath = null;
+            this.cCustyp._MaxLength = 2;
+            this.cCustyp._ReadOnly = true;
+            this.cCustyp._TabTyp = "45";
+            this.cCustyp._Text = "";
+            this.cCustyp._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cCustyp._UseImage = true;
+            this.cCustyp.BackColor = System.Drawing.Color.White;
+            this.cCustyp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCustyp.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cCustyp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCustyp.Location = new System.Drawing.Point(154, 18);
+            this.cCustyp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cCustyp.Name = "cCustyp";
+            this.cCustyp.Size = new System.Drawing.Size(61, 23);
+            this.cCustyp.TabIndex = 13;
+            this.cCustyp._SelectedIstabChanged += new System.EventHandler(this.cCustyp__SelectedIstabChanged);
+            this.cCustyp._Leave += new System.EventHandler(this.cCustyp__Leave);
+            this.cCustyp._TextChanged += new System.EventHandler(this.cCustyp__TextChanged);
+            // 
+            // cAccnum
+            // 
+            this.cAccnum._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAccnum._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cAccnum._DataPath = null;
+            this.cAccnum._MaxLength = 15;
+            this.cAccnum._OnlyPostAccount = true;
+            this.cAccnum._ReadOnly = true;
+            this.cAccnum._Text = "";
+            this.cAccnum._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cAccnum._UseImage = true;
+            this.cAccnum.BackColor = System.Drawing.Color.White;
+            this.cAccnum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cAccnum.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cAccnum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cAccnum.Location = new System.Drawing.Point(154, 43);
+            this.cAccnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cAccnum.Name = "cAccnum";
+            this.cAccnum.Size = new System.Drawing.Size(132, 23);
+            this.cAccnum.TabIndex = 14;
+            this.cAccnum._SelectedAccnumChanged += new System.EventHandler(this.cAccnum__SelectedAccnumChanged);
+            this.cAccnum._Leave += new System.EventHandler(this.cAccnum__Leave);
+            this.cAccnum._TextChanged += new System.EventHandler(this.cAccnum__TextChanged);
+            // 
+            // cSlmcod
+            // 
+            this.cSlmcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cSlmcod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cSlmcod._DataPath = null;
+            this.cSlmcod._MaxLength = 10;
+            this.cSlmcod._ReadOnly = true;
+            this.cSlmcod._Text = "";
+            this.cSlmcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cSlmcod._UseImage = true;
+            this.cSlmcod.BackColor = System.Drawing.Color.White;
+            this.cSlmcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cSlmcod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cSlmcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cSlmcod.Location = new System.Drawing.Point(154, 68);
+            this.cSlmcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cSlmcod.Name = "cSlmcod";
+            this.cSlmcod.Size = new System.Drawing.Size(132, 23);
+            this.cSlmcod.TabIndex = 15;
+            this.cSlmcod._SelectedSlmcodChanged += new System.EventHandler(this.cSlmcod__SelectedSlmcodChanged);
+            this.cSlmcod._Leave += new System.EventHandler(this.cSlmcod__Leave);
+            this.cSlmcod._TextChanged += new System.EventHandler(this.cSlmcod__TextChanged);
+            // 
             // cTabpr
             // 
             this.cTabpr._ReadOnly = true;
@@ -429,25 +548,9 @@
             this.cTabpr.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cTabpr.Name = "cTabpr";
             this.cTabpr.Size = new System.Drawing.Size(110, 23);
-            this.cTabpr.TabIndex = 15;
+            this.cTabpr.TabIndex = 20;
             this.cTabpr.TabStop = false;
-            // 
-            // cDisc
-            // 
-            this.cDisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDisc._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cDisc._MaxLength = 10;
-            this.cDisc._ReadOnly = true;
-            this.cDisc._Text = "";
-            this.cDisc._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cDisc.BackColor = System.Drawing.Color.White;
-            this.cDisc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDisc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDisc.Location = new System.Drawing.Point(601, 93);
-            this.cDisc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cDisc.Name = "cDisc";
-            this.cDisc.Size = new System.Drawing.Size(110, 23);
-            this.cDisc.TabIndex = 14;
+            this.cTabpr._SelectedItemChanged += new System.EventHandler(this.cTabpr__SelectedItemChanged);
             // 
             // cPaytrm
             // 
@@ -479,7 +582,8 @@
             this.cPaytrm.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cPaytrm.Name = "cPaytrm";
             this.cPaytrm.Size = new System.Drawing.Size(47, 23);
-            this.cPaytrm.TabIndex = 13;
+            this.cPaytrm.TabIndex = 18;
+            this.cPaytrm._ValueChanged += new System.EventHandler(this.cPaytrm__ValueChanged);
             // 
             // cCrline
             // 
@@ -511,7 +615,8 @@
             this.cCrline.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cCrline.Name = "cCrline";
             this.cCrline.Size = new System.Drawing.Size(110, 23);
-            this.cCrline.TabIndex = 13;
+            this.cCrline.TabIndex = 22;
+            this.cCrline._ValueChanged += new System.EventHandler(this.cCrline__ValueChanged);
             // 
             // label16
             // 
@@ -539,8 +644,9 @@
             this.cPaycond.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cPaycond.Name = "cPaycond";
             this.cPaycond.Size = new System.Drawing.Size(176, 23);
-            this.cPaycond.TabIndex = 10;
+            this.cPaycond.TabIndex = 19;
             this.cPaycond._ButtonClick += new System.EventHandler(this.cPaycond__ButtonClick);
+            this.cPaycond._TextChanged += new System.EventHandler(this.cPaycond__TextChanged);
             // 
             // label15
             // 
@@ -674,8 +780,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cStatus);
             this.groupBox1.Controls.Add(this.cTaxid);
+            this.groupBox1.Controls.Add(this.cStatus);
             this.groupBox1.Controls.Add(this.cAddr03);
             this.groupBox1.Controls.Add(this.cContact);
             this.groupBox1.Controls.Add(this.cTelnum);
@@ -711,25 +817,9 @@
             this.cStatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cStatus.Name = "cStatus";
             this.cStatus.Size = new System.Drawing.Size(123, 23);
-            this.cStatus.TabIndex = 15;
+            this.cStatus.TabIndex = 12;
             this.cStatus.TabStop = false;
-            // 
-            // cTaxid
-            // 
-            this.cTaxid._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cTaxid._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cTaxid._MaxLength = 13;
-            this.cTaxid._ReadOnly = true;
-            this.cTaxid._Text = "";
-            this.cTaxid._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cTaxid.BackColor = System.Drawing.Color.White;
-            this.cTaxid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cTaxid.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cTaxid.Location = new System.Drawing.Point(154, 169);
-            this.cTaxid.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cTaxid.Name = "cTaxid";
-            this.cTaxid.Size = new System.Drawing.Size(148, 23);
-            this.cTaxid.TabIndex = 12;
+            this.cStatus._SelectedItemChanged += new System.EventHandler(this.cStatus__SelectedItemChanged);
             // 
             // cAddr03
             // 
@@ -746,7 +836,8 @@
             this.cAddr03.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cAddr03.Name = "cAddr03";
             this.cAddr03.Size = new System.Drawing.Size(216, 23);
-            this.cAddr03.TabIndex = 12;
+            this.cAddr03.TabIndex = 5;
+            this.cAddr03._TextChanged += new System.EventHandler(this.cAddr03__TextChanged);
             // 
             // cContact
             // 
@@ -763,7 +854,8 @@
             this.cContact.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cContact.Name = "cContact";
             this.cContact.Size = new System.Drawing.Size(444, 23);
-            this.cContact.TabIndex = 12;
+            this.cContact.TabIndex = 8;
+            this.cContact._TextChanged += new System.EventHandler(this.cContact__TextChanged);
             // 
             // cTelnum
             // 
@@ -780,7 +872,8 @@
             this.cTelnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cTelnum.Name = "cTelnum";
             this.cTelnum.Size = new System.Drawing.Size(444, 23);
-            this.cTelnum.TabIndex = 12;
+            this.cTelnum.TabIndex = 7;
+            this.cTelnum._TextChanged += new System.EventHandler(this.cTelnum__TextChanged);
             // 
             // cAddr02
             // 
@@ -797,7 +890,8 @@
             this.cAddr02.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cAddr02.Name = "cAddr02";
             this.cAddr02.Size = new System.Drawing.Size(444, 23);
-            this.cAddr02.TabIndex = 12;
+            this.cAddr02.TabIndex = 4;
+            this.cAddr02._TextChanged += new System.EventHandler(this.cAddr02__TextChanged);
             // 
             // cAddr01
             // 
@@ -814,7 +908,8 @@
             this.cAddr01.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cAddr01.Name = "cAddr01";
             this.cAddr01.Size = new System.Drawing.Size(444, 23);
-            this.cAddr01.TabIndex = 12;
+            this.cAddr01.TabIndex = 3;
+            this.cAddr01._TextChanged += new System.EventHandler(this.cAddr01__TextChanged);
             // 
             // cZipcod
             // 
@@ -831,7 +926,8 @@
             this.cZipcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cZipcod.Name = "cZipcod";
             this.cZipcod.Size = new System.Drawing.Size(78, 23);
-            this.cZipcod.TabIndex = 14;
+            this.cZipcod.TabIndex = 6;
+            this.cZipcod._TextChanged += new System.EventHandler(this.cZipcod__TextChanged);
             // 
             // cOrgnum
             // 
@@ -863,7 +959,8 @@
             this.cOrgnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cOrgnum.Name = "cOrgnum";
             this.cOrgnum.Size = new System.Drawing.Size(68, 23);
-            this.cOrgnum.TabIndex = 13;
+            this.cOrgnum.TabIndex = 11;
+            this.cOrgnum._ValueChanged += new System.EventHandler(this.cOrgnum__ValueChanged);
             // 
             // label5
             // 
@@ -891,8 +988,9 @@
             this.cRemark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cRemark.Name = "cRemark";
             this.cRemark.Size = new System.Drawing.Size(444, 23);
-            this.cRemark.TabIndex = 10;
+            this.cRemark.TabIndex = 9;
             this.cRemark._ButtonClick += new System.EventHandler(this.cRemark__ButtonClick);
+            this.cRemark._TextChanged += new System.EventHandler(this.cRemark__TextChanged);
             // 
             // label11
             // 
@@ -981,7 +1079,8 @@
             this.cCusnam.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cCusnam.Name = "cCusnam";
             this.cCusnam.Size = new System.Drawing.Size(393, 23);
-            this.cCusnam.TabIndex = 12;
+            this.cCusnam.TabIndex = 2;
+            this.cCusnam._TextChanged += new System.EventHandler(this.cCusnam__TextChanged);
             // 
             // cCuscod
             // 
@@ -998,7 +1097,8 @@
             this.cCuscod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cCuscod.Name = "cCuscod";
             this.cCuscod.Size = new System.Drawing.Size(101, 23);
-            this.cCuscod.TabIndex = 12;
+            this.cCuscod.TabIndex = 0;
+            this.cCuscod._TextChanged += new System.EventHandler(this.cCuscod__TextChanged);
             this.cCuscod.Leave += new System.EventHandler(this.cCuscod_Leave);
             // 
             // cPrenam
@@ -1018,122 +1118,46 @@
             this.cPrenam.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cPrenam.Name = "cPrenam";
             this.cPrenam.Size = new System.Drawing.Size(118, 23);
-            this.cPrenam.TabIndex = 10;
+            this.cPrenam.TabIndex = 1;
             this.cPrenam._ButtonClick += new System.EventHandler(this.cPrenam__ButtonClick);
+            this.cPrenam._TextChanged += new System.EventHandler(this.cPrenam__TextChanged);
             // 
-            // cAreacod
+            // cDisc
             // 
-            this.cAreacod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAreacod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cAreacod._DataPath = null;
-            this.cAreacod._MaxLength = 4;
-            this.cAreacod._ReadOnly = true;
-            this.cAreacod._TabTyp = "40";
-            this.cAreacod._Text = "";
-            this.cAreacod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cAreacod._UseImage = true;
-            this.cAreacod.BackColor = System.Drawing.Color.White;
-            this.cAreacod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAreacod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cAreacod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cAreacod.Location = new System.Drawing.Point(154, 93);
-            this.cAreacod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cAreacod.Name = "cAreacod";
-            this.cAreacod.Size = new System.Drawing.Size(87, 23);
-            this.cAreacod.TabIndex = 20;
-            this.cAreacod._SelectedIstabChanged += new System.EventHandler(this.cAreacod__SelectedIstabChanged);
-            this.cAreacod._Leave += new System.EventHandler(this.cAreacod__Leave);
+            this.cDisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDisc._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cDisc._MaxLength = 10;
+            this.cDisc._ReadOnly = true;
+            this.cDisc._Text = "";
+            this.cDisc._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.cDisc.BackColor = System.Drawing.Color.White;
+            this.cDisc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDisc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cDisc.Location = new System.Drawing.Point(601, 93);
+            this.cDisc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cDisc.Name = "cDisc";
+            this.cDisc.Size = new System.Drawing.Size(110, 23);
+            this.cDisc.TabIndex = 21;
+            this.cDisc.TabStop = false;
+            this.cDisc._TextChanged += new System.EventHandler(this.cDisc__TextChanged);
             // 
-            // cDlvby
+            // cTaxid
             // 
-            this.cDlvby._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDlvby._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cDlvby._DataPath = null;
-            this.cDlvby._MaxLength = 2;
-            this.cDlvby._ReadOnly = true;
-            this.cDlvby._TabTyp = "41";
-            this.cDlvby._Text = "";
-            this.cDlvby._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cDlvby._UseImage = true;
-            this.cDlvby.BackColor = System.Drawing.Color.White;
-            this.cDlvby.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDlvby.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cDlvby.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDlvby.Location = new System.Drawing.Point(154, 118);
-            this.cDlvby.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cDlvby.Name = "cDlvby";
-            this.cDlvby.Size = new System.Drawing.Size(61, 23);
-            this.cDlvby.TabIndex = 19;
-            this.cDlvby._SelectedIstabChanged += new System.EventHandler(this.cDlvby__SelectedIstabChanged);
-            this.cDlvby._Leave += new System.EventHandler(this.cDlvby__Leave);
-            // 
-            // cCustyp
-            // 
-            this.cCustyp._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCustyp._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCustyp._DataPath = null;
-            this.cCustyp._MaxLength = 2;
-            this.cCustyp._ReadOnly = true;
-            this.cCustyp._TabTyp = "45";
-            this.cCustyp._Text = "";
-            this.cCustyp._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cCustyp._UseImage = true;
-            this.cCustyp.BackColor = System.Drawing.Color.White;
-            this.cCustyp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCustyp.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cCustyp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCustyp.Location = new System.Drawing.Point(154, 18);
-            this.cCustyp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cCustyp.Name = "cCustyp";
-            this.cCustyp.Size = new System.Drawing.Size(61, 23);
-            this.cCustyp.TabIndex = 18;
-            this.cCustyp._SelectedIstabChanged += new System.EventHandler(this.cCustyp__SelectedIstabChanged);
-            this.cCustyp._Leave += new System.EventHandler(this.cCustyp__Leave);
-            // 
-            // cAccnum
-            // 
-            this.cAccnum._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAccnum._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cAccnum._DataPath = null;
-            this.cAccnum._MaxLength = 15;
-            this.cAccnum._OnlyPostAccount = true;
-            this.cAccnum._ReadOnly = true;
-            this.cAccnum._Text = "";
-            this.cAccnum._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cAccnum._UseImage = true;
-            this.cAccnum.BackColor = System.Drawing.Color.White;
-            this.cAccnum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cAccnum.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cAccnum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cAccnum.Location = new System.Drawing.Point(154, 43);
-            this.cAccnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cAccnum.Name = "cAccnum";
-            this.cAccnum.Size = new System.Drawing.Size(132, 23);
-            this.cAccnum.TabIndex = 17;
-            this.cAccnum._SelectedAccnumChanged += new System.EventHandler(this.cAccnum__SelectedAccnumChanged);
-            this.cAccnum._Leave += new System.EventHandler(this.cAccnum__Leave);
-            // 
-            // cSlmcod
-            // 
-            this.cSlmcod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cSlmcod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cSlmcod._DataPath = null;
-            this.cSlmcod._MaxLength = 10;
-            this.cSlmcod._ReadOnly = true;
-            this.cSlmcod._Text = "";
-            this.cSlmcod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cSlmcod._UseImage = true;
-            this.cSlmcod.BackColor = System.Drawing.Color.White;
-            this.cSlmcod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cSlmcod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cSlmcod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cSlmcod.Location = new System.Drawing.Point(154, 68);
-            this.cSlmcod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cSlmcod.Name = "cSlmcod";
-            this.cSlmcod.Size = new System.Drawing.Size(132, 23);
-            this.cSlmcod.TabIndex = 16;
-            this.cSlmcod._SelectedSlmcodChanged += new System.EventHandler(this.cSlmcod__SelectedSlmcodChanged);
-            this.cSlmcod._Leave += new System.EventHandler(this.cSlmcod__Leave);
+            this.cTaxid._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cTaxid._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cTaxid._MaxLength = 13;
+            this.cTaxid._ReadOnly = false;
+            this.cTaxid._Text = "";
+            this.cTaxid._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cTaxid.BackColor = System.Drawing.Color.White;
+            this.cTaxid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cTaxid.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cTaxid.Location = new System.Drawing.Point(154, 169);
+            this.cTaxid.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cTaxid.Name = "cTaxid";
+            this.cTaxid.Size = new System.Drawing.Size(155, 23);
+            this.cTaxid.TabIndex = 10;
+            this.cTaxid._TextChanged += new System.EventHandler(this.cTaxid__TextChanged);
             // 
             // FormArmas
             // 
@@ -1235,8 +1259,6 @@
         private CC.XNumTextEdit cZipcod;
         private CC.XTextEdit cCuscod;
         private CC.XTextEdit cCusnam;
-        private CC.XTextEdit cDisc;
-        private CC.XTextEdit cTaxid;
         private CC.XTextEdit cAddr03;
         private CC.XTextEdit cContact;
         private CC.XTextEdit cTelnum;
@@ -1249,5 +1271,7 @@
         private CustomControls.BrowseBoxIstabFixed cCustyp;
         private CustomControls.BrowseBoxIstabFixed cDlvby;
         private CustomControls.BrowseBoxIstabFixed cAreacod;
+        private CustomControls.TextEditDisc cDisc;
+        private CC.XNumTextEdit cTaxid;
     }
 }
