@@ -133,13 +133,10 @@
   <data name="mnuSellRecord.Text" xml:space="preserve">
     <value>บันทึกรายการขายหน้าลาน</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="mnuSellRecord.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 6</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="toolStripSeparator3.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -199,6 +196,12 @@
   </data>
   <data name="mnuDotherMessage.Text" xml:space="preserve">
     <value>รายการหักยอดขาย (อื่น ๆ)</value>
+  </data>
+  <data name="mnuStkgrp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 22</value>
+  </data>
+  <data name="mnuStkgrp.Text" xml:space="preserve">
+    <value>หมวดสินค้า</value>
   </data>
   <data name="mnuIstab.Size" type="System.Drawing.Size, System.Drawing">
     <value>255, 22</value>
@@ -2098,6 +2101,18 @@
   <data name="&gt;&gt;mnuDailyClose.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
+    <value>toolStripSeparator4</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuArmas.Name" xml:space="preserve">
+    <value>mnuArmas</value>
+  </data>
+  <data name="&gt;&gt;mnuArmas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;mnuSetup.Name" xml:space="preserve">
     <value>mnuSetup</value>
   </data>
@@ -2138,6 +2153,12 @@
     <value>mnuDotherMessage</value>
   </data>
   <data name="&gt;&gt;mnuDotherMessage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuStkgrp.Name" xml:space="preserve">
+    <value>mnuStkgrp</value>
+  </data>
+  <data name="&gt;&gt;mnuStkgrp.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;mnuOther.Name" xml:space="preserve">
@@ -2247,18 +2268,6 @@
   </data>
   <data name="&gt;&gt;lblVersion.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mnuArmas.Name" xml:space="preserve">
-    <value>mnuArmas</value>
-  </data>
-  <data name="&gt;&gt;mnuArmas.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
-    <value>toolStripSeparator4</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

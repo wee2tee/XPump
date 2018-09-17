@@ -82,7 +82,6 @@
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
             this.dgv.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_DataBindingComplete);
-            this.dgv.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgv_KeyPress);
             // 
             // btnOK
             // 
@@ -138,6 +137,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.DialogBrowseBoxSelector_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DialogBrowseBoxSelector_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
 

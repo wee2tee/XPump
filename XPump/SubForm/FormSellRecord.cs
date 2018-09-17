@@ -34,6 +34,12 @@ namespace XPump.SubForm
             base.OnFormClosed(e);
         }
 
+        private void btnManageStkgrp_Click(object sender, EventArgs e)
+        {
+            DialogStkgrp sg = new DialogStkgrp(this.main_form);
+            sg.ShowDialog();
+        }
+
         //private List<stmasPriceVM> GetStmas(bool oil_only = true)
         //{
         //    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))

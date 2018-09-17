@@ -128,7 +128,7 @@ namespace XPump.SubForm
             }
         }
 
-        private void dgv_KeyPress(object sender, KeyPressEventArgs e)
+        private void DialogBrowseBoxSelector_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Back)
                 return;

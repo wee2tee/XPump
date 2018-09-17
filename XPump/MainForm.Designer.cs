@@ -35,6 +35,8 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuShiftTransaction = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDailyClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuArmas = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBranch = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +44,7 @@
             this.mnuShift = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuIstab = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDotherMessage = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuStkgrp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuOther = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDataManage = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBackup = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,8 +64,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.mnuArmas = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -114,6 +115,17 @@
             this.mnuDailyClose.Tag = "12";
             this.mnuDailyClose.Click += new System.EventHandler(this.mnuDailyClose_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            // 
+            // mnuArmas
+            // 
+            this.mnuArmas.Name = "mnuArmas";
+            resources.ApplyResources(this.mnuArmas, "mnuArmas");
+            this.mnuArmas.Click += new System.EventHandler(this.mnuArmas_Click);
+            // 
             // mnuSetup
             // 
             this.mnuSetup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -156,7 +168,8 @@
             // mnuIstab
             // 
             this.mnuIstab.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuDotherMessage});
+            this.mnuDotherMessage,
+            this.mnuStkgrp});
             this.mnuIstab.Name = "mnuIstab";
             resources.ApplyResources(this.mnuIstab, "mnuIstab");
             this.mnuIstab.Tag = "24";
@@ -166,6 +179,12 @@
             this.mnuDotherMessage.Name = "mnuDotherMessage";
             resources.ApplyResources(this.mnuDotherMessage, "mnuDotherMessage");
             this.mnuDotherMessage.Click += new System.EventHandler(this.mnuDotherMessage_Click);
+            // 
+            // mnuStkgrp
+            // 
+            this.mnuStkgrp.Name = "mnuStkgrp";
+            resources.ApplyResources(this.mnuStkgrp, "mnuStkgrp");
+            this.mnuStkgrp.Click += new System.EventHandler(this.mnuStkgrp_Click);
             // 
             // mnuOther
             // 
@@ -308,17 +327,6 @@
             resources.ApplyResources(this.lblVersion, "lblVersion");
             this.lblVersion.Spring = true;
             // 
-            // mnuArmas
-            // 
-            this.mnuArmas.Name = "mnuArmas";
-            resources.ApplyResources(this.mnuArmas, "mnuArmas");
-            this.mnuArmas.Click += new System.EventHandler(this.mnuArmas_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
-            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -376,6 +384,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem mnuArmas;
+        private System.Windows.Forms.ToolStripMenuItem mnuStkgrp;
     }
 }
 

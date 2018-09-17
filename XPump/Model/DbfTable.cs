@@ -1038,9 +1038,53 @@ namespace XPump.Model
                 }
             }
         }
+
+        public static List<StkgrpBillMethodList> StkgrpBillMethodList(SccompDbf working_express_db)
+        {
+            string data_path = working_express_db.abs_path;
+            List<StkgrpBillMethodList> istab = new List<StkgrpBillMethodList>();
+
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "istab.dbf")))
+            {
+                XMessageBox.Show("ค้นหาแฟ้ม Istab.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                return istab;
+            }
+
+            using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + data_path))
+            {
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    DataTable dt = new DataTable();
+
+                    cmd.CommandText = "Sele * From istab Where tabtyp=? Order By typcod ASC";
+                    cmd.Parameters.AddWithValue("@tabtyp", "22");
+                    conn.Open();
+                    using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                        conn.Close();
+
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            istab.Add(new StkgrpBillMethodList
+                            {
+                                typcod = !dt.Rows[i].IsNull("typcod") ? dt.Rows[i]["typcod"].ToString().TrimEnd() : string.Empty,
+                                shortnam = !dt.Rows[i].IsNull("shortnam") ? dt.Rows[i]["shortnam"].ToString().TrimEnd() : string.Empty,
+                                typdes = !dt.Rows[i].IsNull("typdes") ? dt.Rows[i]["typdes"].ToString().TrimEnd() : string.Empty,
+                                stktyp = !dt.Rows[i].IsNull("shortnam2") ? (dt.Rows[i]["shortnam2"].ToString().Contains(STKGRP.FUEL.ToString()) ? STKGRP.FUEL.ToString() : STKGRP.OTHER.ToString()) : STKGRP.OTHER.ToString(),
+                                bill_method = !dt.Rows[i].IsNull("shortnam2") ? (dt.Rows[i]["shortnam2"].ToString().Contains(BILL_METHOD.APPLY_WITH_VALUE.ToString()) ? BILL_METHOD.APPLY_WITH_VALUE.ToString() : BILL_METHOD.APPLY_WITH_QTY.ToString()) : BILL_METHOD.APPLY_WITH_QTY.ToString()
+                            });
+                        }
+
+                        return istab;
+                    }
+                }
+            }
+
+        }
     }
     
-
+    
 
     public enum TABTYP
     {
@@ -1050,6 +1094,18 @@ namespace XPump.Model
         AREA,
         DLVBY,
         PAYCOND
+    }
+
+    public enum STKGRP
+    {
+        FUEL,
+        OTHER
+    }
+
+    public enum BILL_METHOD
+    {
+        APPLY_WITH_QTY,
+        APPLY_WITH_VALUE
     }
 
     public class IsprdDbf
@@ -1523,14 +1579,14 @@ namespace XPump.Model
 
         public string authid { get; set; }
         public DateTime? approve { get; set; }
-        
+        public string billto { get; set; }
+        public decimal orgnum { get; set; }
+
         /* V.2 + ponum */
         public string ponum { get; set; }
         /***************/
 
-        public string billto { get; set; }
-        public decimal orgnum { get; set; }
-
+        /* V.2 */
         public string c_type { get; set; }
         public DateTime? c_date { get; set; }
         public string c_ref { get; set; }
@@ -2104,5 +2160,14 @@ namespace XPump.Model
         public int level { get; set; }
         public string acctyp { get; set; }
         public string parent { get; set; }
+    }
+
+    public class StkgrpBillMethodList
+    {
+        public string typcod { get; set; }
+        public string shortnam { get; set; }
+        public string typdes { get; set; }
+        public string stktyp { get; set; }
+        public string bill_method { get; set; }
     }
 }

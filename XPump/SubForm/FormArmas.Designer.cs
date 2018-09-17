@@ -55,6 +55,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cDisc = new XPump.CustomControls.TextEditDisc();
             this.cAreacod = new XPump.CustomControls.BrowseBoxIstabFixed();
             this.cDlvby = new XPump.CustomControls.BrowseBoxIstabFixed();
             this.cCustyp = new XPump.CustomControls.BrowseBoxIstabFixed();
@@ -81,6 +82,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cTaxid = new CC.XNumTextEdit();
             this.cStatus = new CC.XDropdownList();
             this.cAddr03 = new CC.XTextEdit();
             this.cContact = new CC.XTextEdit();
@@ -102,8 +104,6 @@
             this.cCusnam = new CC.XTextEdit();
             this.cCuscod = new CC.XTextEdit();
             this.cPrenam = new CC.XBrowseBox();
-            this.cDisc = new XPump.CustomControls.TextEditDisc();
-            this.cTaxid = new CC.XNumTextEdit();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -417,6 +417,25 @@
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             // 
+            // cDisc
+            // 
+            this.cDisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDisc._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cDisc._MaxLength = 10;
+            this.cDisc._ReadOnly = true;
+            this.cDisc._Text = "";
+            this.cDisc._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.cDisc.BackColor = System.Drawing.Color.White;
+            this.cDisc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDisc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cDisc.Location = new System.Drawing.Point(601, 93);
+            this.cDisc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cDisc.Name = "cDisc";
+            this.cDisc.Size = new System.Drawing.Size(110, 23);
+            this.cDisc.TabIndex = 21;
+            this.cDisc._TextChanged += new System.EventHandler(this.cDisc__TextChanged);
+            this.cDisc._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
             // cAreacod
             // 
             this.cAreacod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -439,6 +458,7 @@
             this.cAreacod.TabIndex = 16;
             this.cAreacod._SelectedIstabChanged += new System.EventHandler(this.cAreacod__SelectedIstabChanged);
             this.cAreacod._Leave += new System.EventHandler(this.cAreacod__Leave);
+            this.cAreacod._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.cAreacod._TextChanged += new System.EventHandler(this.cAreacod__TextChanged);
             // 
             // cDlvby
@@ -463,6 +483,7 @@
             this.cDlvby.TabIndex = 17;
             this.cDlvby._SelectedIstabChanged += new System.EventHandler(this.cDlvby__SelectedIstabChanged);
             this.cDlvby._Leave += new System.EventHandler(this.cDlvby__Leave);
+            this.cDlvby._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.cDlvby._TextChanged += new System.EventHandler(this.cDlvby__TextChanged);
             // 
             // cCustyp
@@ -487,6 +508,7 @@
             this.cCustyp.TabIndex = 13;
             this.cCustyp._SelectedIstabChanged += new System.EventHandler(this.cCustyp__SelectedIstabChanged);
             this.cCustyp._Leave += new System.EventHandler(this.cCustyp__Leave);
+            this.cCustyp._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.cCustyp._TextChanged += new System.EventHandler(this.cCustyp__TextChanged);
             // 
             // cAccnum
@@ -511,6 +533,7 @@
             this.cAccnum.TabIndex = 14;
             this.cAccnum._SelectedAccnumChanged += new System.EventHandler(this.cAccnum__SelectedAccnumChanged);
             this.cAccnum._Leave += new System.EventHandler(this.cAccnum__Leave);
+            this.cAccnum._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.cAccnum._TextChanged += new System.EventHandler(this.cAccnum__TextChanged);
             // 
             // cSlmcod
@@ -534,6 +557,7 @@
             this.cSlmcod.TabIndex = 15;
             this.cSlmcod._SelectedSlmcodChanged += new System.EventHandler(this.cSlmcod__SelectedSlmcodChanged);
             this.cSlmcod._Leave += new System.EventHandler(this.cSlmcod__Leave);
+            this.cSlmcod._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.cSlmcod._TextChanged += new System.EventHandler(this.cSlmcod__TextChanged);
             // 
             // cTabpr
@@ -551,6 +575,7 @@
             this.cTabpr.TabIndex = 20;
             this.cTabpr.TabStop = false;
             this.cTabpr._SelectedItemChanged += new System.EventHandler(this.cTabpr__SelectedItemChanged);
+            this.cTabpr._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // cPaytrm
             // 
@@ -584,6 +609,7 @@
             this.cPaytrm.Size = new System.Drawing.Size(47, 23);
             this.cPaytrm.TabIndex = 18;
             this.cPaytrm._ValueChanged += new System.EventHandler(this.cPaytrm__ValueChanged);
+            this.cPaytrm._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // cCrline
             // 
@@ -617,6 +643,7 @@
             this.cCrline.Size = new System.Drawing.Size(110, 23);
             this.cCrline.TabIndex = 22;
             this.cCrline._ValueChanged += new System.EventHandler(this.cCrline__ValueChanged);
+            this.cCrline._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // label16
             // 
@@ -646,6 +673,7 @@
             this.cPaycond.Size = new System.Drawing.Size(176, 23);
             this.cPaycond.TabIndex = 19;
             this.cPaycond._ButtonClick += new System.EventHandler(this.cPaycond__ButtonClick);
+            this.cPaycond._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.cPaycond._TextChanged += new System.EventHandler(this.cPaycond__TextChanged);
             // 
             // label15
@@ -805,6 +833,25 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             // 
+            // cTaxid
+            // 
+            this.cTaxid._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cTaxid._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cTaxid._MaxLength = 13;
+            this.cTaxid._ReadOnly = true;
+            this.cTaxid._Text = "";
+            this.cTaxid._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cTaxid.BackColor = System.Drawing.Color.White;
+            this.cTaxid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cTaxid.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cTaxid.Location = new System.Drawing.Point(154, 169);
+            this.cTaxid.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cTaxid.Name = "cTaxid";
+            this.cTaxid.Size = new System.Drawing.Size(155, 23);
+            this.cTaxid.TabIndex = 10;
+            this.cTaxid._TextChanged += new System.EventHandler(this.cTaxid__TextChanged);
+            this.cTaxid._DoubleClicked += new System.EventHandler(this.PerformEdit);
+            // 
             // cStatus
             // 
             this.cStatus._ReadOnly = true;
@@ -820,6 +867,7 @@
             this.cStatus.TabIndex = 12;
             this.cStatus.TabStop = false;
             this.cStatus._SelectedItemChanged += new System.EventHandler(this.cStatus__SelectedItemChanged);
+            this.cStatus._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // cAddr03
             // 
@@ -838,6 +886,7 @@
             this.cAddr03.Size = new System.Drawing.Size(216, 23);
             this.cAddr03.TabIndex = 5;
             this.cAddr03._TextChanged += new System.EventHandler(this.cAddr03__TextChanged);
+            this.cAddr03._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // cContact
             // 
@@ -856,6 +905,7 @@
             this.cContact.Size = new System.Drawing.Size(444, 23);
             this.cContact.TabIndex = 8;
             this.cContact._TextChanged += new System.EventHandler(this.cContact__TextChanged);
+            this.cContact._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // cTelnum
             // 
@@ -874,6 +924,7 @@
             this.cTelnum.Size = new System.Drawing.Size(444, 23);
             this.cTelnum.TabIndex = 7;
             this.cTelnum._TextChanged += new System.EventHandler(this.cTelnum__TextChanged);
+            this.cTelnum._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // cAddr02
             // 
@@ -892,6 +943,7 @@
             this.cAddr02.Size = new System.Drawing.Size(444, 23);
             this.cAddr02.TabIndex = 4;
             this.cAddr02._TextChanged += new System.EventHandler(this.cAddr02__TextChanged);
+            this.cAddr02._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // cAddr01
             // 
@@ -910,6 +962,7 @@
             this.cAddr01.Size = new System.Drawing.Size(444, 23);
             this.cAddr01.TabIndex = 3;
             this.cAddr01._TextChanged += new System.EventHandler(this.cAddr01__TextChanged);
+            this.cAddr01._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // cZipcod
             // 
@@ -928,6 +981,7 @@
             this.cZipcod.Size = new System.Drawing.Size(78, 23);
             this.cZipcod.TabIndex = 6;
             this.cZipcod._TextChanged += new System.EventHandler(this.cZipcod__TextChanged);
+            this.cZipcod._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // cOrgnum
             // 
@@ -961,6 +1015,7 @@
             this.cOrgnum.Size = new System.Drawing.Size(68, 23);
             this.cOrgnum.TabIndex = 11;
             this.cOrgnum._ValueChanged += new System.EventHandler(this.cOrgnum__ValueChanged);
+            this.cOrgnum._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // label5
             // 
@@ -990,6 +1045,7 @@
             this.cRemark.Size = new System.Drawing.Size(444, 23);
             this.cRemark.TabIndex = 9;
             this.cRemark._ButtonClick += new System.EventHandler(this.cRemark__ButtonClick);
+            this.cRemark._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.cRemark._TextChanged += new System.EventHandler(this.cRemark__TextChanged);
             // 
             // label11
@@ -1081,11 +1137,12 @@
             this.cCusnam.Size = new System.Drawing.Size(393, 23);
             this.cCusnam.TabIndex = 2;
             this.cCusnam._TextChanged += new System.EventHandler(this.cCusnam__TextChanged);
+            this.cCusnam._DoubleClicked += new System.EventHandler(this.PerformEdit);
             // 
             // cCuscod
             // 
             this.cCuscod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCuscod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCuscod._CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cCuscod._MaxLength = 10;
             this.cCuscod._ReadOnly = true;
             this.cCuscod._Text = "";
@@ -1099,6 +1156,7 @@
             this.cCuscod.Size = new System.Drawing.Size(101, 23);
             this.cCuscod.TabIndex = 0;
             this.cCuscod._TextChanged += new System.EventHandler(this.cCuscod__TextChanged);
+            this.cCuscod._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.cCuscod.Leave += new System.EventHandler(this.cCuscod_Leave);
             // 
             // cPrenam
@@ -1120,44 +1178,8 @@
             this.cPrenam.Size = new System.Drawing.Size(118, 23);
             this.cPrenam.TabIndex = 1;
             this.cPrenam._ButtonClick += new System.EventHandler(this.cPrenam__ButtonClick);
+            this.cPrenam._DoubleClicked += new System.EventHandler(this.PerformEdit);
             this.cPrenam._TextChanged += new System.EventHandler(this.cPrenam__TextChanged);
-            // 
-            // cDisc
-            // 
-            this.cDisc._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDisc._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cDisc._MaxLength = 10;
-            this.cDisc._ReadOnly = true;
-            this.cDisc._Text = "";
-            this.cDisc._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.cDisc.BackColor = System.Drawing.Color.White;
-            this.cDisc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDisc.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDisc.Location = new System.Drawing.Point(601, 93);
-            this.cDisc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cDisc.Name = "cDisc";
-            this.cDisc.Size = new System.Drawing.Size(110, 23);
-            this.cDisc.TabIndex = 21;
-            this.cDisc.TabStop = false;
-            this.cDisc._TextChanged += new System.EventHandler(this.cDisc__TextChanged);
-            // 
-            // cTaxid
-            // 
-            this.cTaxid._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cTaxid._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cTaxid._MaxLength = 13;
-            this.cTaxid._ReadOnly = false;
-            this.cTaxid._Text = "";
-            this.cTaxid._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cTaxid.BackColor = System.Drawing.Color.White;
-            this.cTaxid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cTaxid.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cTaxid.Location = new System.Drawing.Point(154, 169);
-            this.cTaxid.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cTaxid.Name = "cTaxid";
-            this.cTaxid.Size = new System.Drawing.Size(155, 23);
-            this.cTaxid.TabIndex = 10;
-            this.cTaxid._TextChanged += new System.EventHandler(this.cTaxid__TextChanged);
             // 
             // FormArmas
             // 

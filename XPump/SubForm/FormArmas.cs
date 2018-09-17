@@ -13,6 +13,7 @@ using XPump.CustomControls;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using System.Data.OleDb;
+using System.Globalization;
 
 namespace XPump.SubForm
 {
@@ -23,6 +24,7 @@ namespace XPump.SubForm
         private ArmasDbf curr_armas;
         private ArmasDbf tmp_armas;
         private FORM_MODE form_mode;
+        private string search_keyword = string.Empty;
 
         public FormArmas(MainForm main_form)
         {
@@ -43,7 +45,9 @@ namespace XPump.SubForm
 
         private void FormArmas_Shown(object sender, EventArgs e)
         {
+            this.ResetFormState(FORM_MODE.READ);
             this.btnFirst.PerformClick();
+            this.ActiveControl = this.cStatus;
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -70,6 +74,20 @@ namespace XPump.SubForm
         private void ResetFormState(FORM_MODE form_mode)
         {
             this.form_mode = form_mode;
+
+            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnFirst.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrevious.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnNext.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnLast.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnSearch.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnInquiryAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnInquiryRest.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             this.cCuscod.SetControlState(new FORM_MODE[] { FORM_MODE.ADD }, this.form_mode);
             this.cPrenam.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
@@ -144,6 +162,22 @@ namespace XPump.SubForm
             this.cCrline._Value = Convert.ToDecimal(armas.crline);
         }
 
+        private void PerformEdit(object sender, EventArgs e)
+        {
+            if(this.form_mode == FORM_MODE.READ && this.curr_armas != null)
+            {
+                this.btnEdit.PerformClick();
+                if(((Control)sender).Name == this.cCuscod.Name)
+                {
+                    this.cPrenam.Focus();
+                }
+                else
+                {
+                    ((Control)sender).Focus();
+                }
+            }
+        }
+
         private void btnFirst_Click(object sender, EventArgs e)
         {
             this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, DbfTable.RECORD_FLAG.FIRST);
@@ -152,23 +186,43 @@ namespace XPump.SubForm
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            var cuscod_list = DbfTable.ArmasCuscodList(this.main_form.working_express_db, false);
-            int curr_index = cuscod_list.IndexOf(this.curr_armas.cuscod);
-            if(curr_index > 0)
+            var cuscod_list = DbfTable.ArmasCuscodList(this.main_form.working_express_db, false).OrderByDescending(c => c).ToList();
+            //int curr_index = cuscod_list.IndexOf(this.curr_armas.cuscod);
+            //if(curr_index > 0)
+            //{
+            //    this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, cuscod_list[curr_index - 1]);
+            //    this.FillForm(this.curr_armas);
+            //}
+            var selected_cuscod = cuscod_list.Where(c => c.Trim().CompareTo(this.curr_armas.cuscod.Trim()) < 0).FirstOrDefault();
+            if (selected_cuscod != null)
             {
-                this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, cuscod_list[curr_index - 1]);
+                this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, selected_cuscod);
                 this.FillForm(this.curr_armas);
+            }
+            else
+            {
+                this.btnFirst.PerformClick();
             }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            var cuscod_list = DbfTable.ArmasCuscodList(this.main_form.working_express_db, false);
-            int curr_index = cuscod_list.IndexOf(this.curr_armas.cuscod);
-            if (curr_index < cuscod_list.Count - 1)
+            var cuscod_list = DbfTable.ArmasCuscodList(this.main_form.working_express_db, false).OrderBy(c => c).ToList();
+            //int curr_index = cuscod_list.IndexOf(this.curr_armas.cuscod);
+            //if (curr_index < cuscod_list.Count - 1)
+            //{
+            //    this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, cuscod_list[curr_index + 1]);
+            //    this.FillForm(this.curr_armas);
+            //}
+            var selected_cuscod = cuscod_list.Where(c => c.Trim().CompareTo(this.curr_armas.cuscod.Trim()) > 0).FirstOrDefault();
+            if(selected_cuscod != null)
             {
-                this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, cuscod_list[curr_index + 1]);
+                this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, selected_cuscod);
                 this.FillForm(this.curr_armas);
+            }
+            else
+            {
+                this.btnLast.PerformClick();
             }
         }
 
@@ -241,7 +295,7 @@ namespace XPump.SubForm
 
             this.FillForm(this.tmp_armas);
             this.ResetFormState(FORM_MODE.EDIT);
-            this.cCusnam.Focus();
+            this.cPrenam.Focus();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -264,24 +318,28 @@ namespace XPump.SubForm
                         var row_deleted = cmd.ExecuteNonQuery();
                         if (row_deleted > 0)
                         {
+                            conn.Close();
+                            Helper.Reindex(this.main_form.working_express_db, Helper.DBF_FILENAME_FLAG.ARMAS);
                             this.btnNext.PerformClick();
                         }
                     }
                     catch (Exception ex)
                     {
+                        conn.Close();
                         XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
-
-                    conn.Close();
                 }
             }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            this.ResetFormState(FORM_MODE.READ);
-            this.FillForm(this.curr_armas);
-            this.tmp_armas = null;
+            if(XMessageBox.Show("กรุณายืนยัน เพื่อยกเลิกการเพิ่มหรือแก้ไข", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
+            {
+                this.ResetFormState(FORM_MODE.READ);
+                this.FillForm(this.curr_armas);
+                this.tmp_armas = null;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -376,10 +434,12 @@ namespace XPump.SubForm
                         cmd.ExecuteNonQuery();
                         conn.Close();
 
+                        if(this.form_mode == FORM_MODE.ADD)
+                            Helper.Reindex(this.main_form.working_express_db, Helper.DBF_FILENAME_FLAG.ARMAS);
+
                         this.ResetFormState(FORM_MODE.READ);
                         this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, this.tmp_armas.cuscod.TrimEnd());
                         this.FillForm(this.curr_armas);
-                        Helper.Reindex(this.main_form.working_express_db, Helper.DBF_FILENAME_FLAG.ARMAS);
                     }
                 }
             }
@@ -392,22 +452,200 @@ namespace XPump.SubForm
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
         {
+            DialogSimpleSearch search = new DialogSimpleSearch("รหัสลูกค้า", this.search_keyword, CultureInfo.GetCultureInfo("TH-th"));
+            search.txtKeyword.Width -= 50;
+            search.txtKeyword.MaxLength = 10;
+            search.txtKeyword.CharacterCasing = CharacterCasing.Upper;
+            search.txtKeyword.SelectionStart = search.txtKeyword.Text.Length;
+            if(search.ShowDialog() == DialogResult.OK)
+            {
+                this.search_keyword = search.keyword;
 
+                var searching_cust = DbfTable.Armas(this.main_form.working_express_db, search.keyword.TrimEnd());
+                if(searching_cust == null)
+                {
+                    if(XMessageBox.Show("ค้นหาไม่พบ ... ต้องการข้อมูลถัดไปหรือไม่ (Y/N)", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        var next_cuscod = DbfTable.ArmasCuscodList(this.main_form.working_express_db, false).Where(c => c.TrimEnd().CompareTo(search.keyword.TrimEnd()) > 0).FirstOrDefault();
+                        searching_cust = DbfTable.Armas(this.main_form.working_express_db, next_cuscod);
+                    }
+                }
+
+                if(searching_cust != null)
+                {
+                    this.curr_armas = searching_cust;
+                    this.FillForm(this.curr_armas);
+                }
+            }
+        }
+
+        private DataGridViewColumn[] GetInquiryColumn()
+        {
+            DataGridViewTextBoxColumn col_cuscod = new DataGridViewTextBoxColumn
+            {
+                Name = "col_cuscod",
+                HeaderText = "รหัส",
+                DataPropertyName = "cuscod",
+                Width = 120,
+                MinimumWidth = 120
+            };
+
+            DataGridViewTextBoxColumn col_cusnam = new DataGridViewTextBoxColumn
+            {
+                Name = "col_cusnam",
+                HeaderText = "ชื่อลูกค้า",
+                DataPropertyName = "cusnam",
+                Width = 220,
+                MinimumWidth = 220,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            };
+            DataGridViewTextBoxColumn col_prenam = new DataGridViewTextBoxColumn
+            {
+                Name = "col_prenam",
+                HeaderText = "คำนำหน้า",
+                DataPropertyName = "prenam",
+                Width = 140,
+                MinimumWidth = 140
+            };
+            DataGridViewTextBoxColumn col_contact = new DataGridViewTextBoxColumn
+            {
+                Name = "col_contact",
+                HeaderText = "ชื่อผู้ติดต่อ",
+                DataPropertyName = "contact",
+                Width = 140,
+                MinimumWidth = 140
+            };
+            DataGridViewTextBoxColumn col_paytrm = new DataGridViewTextBoxColumn
+            {
+                Name = "col_paytrm",
+                HeaderText = "เครดิต",
+                DataPropertyName = "paytrm",
+                Width = 60,
+                MinimumWidth = 60,
+                DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight }
+            };
+            DataGridViewTextBoxColumn col_paycond = new DataGridViewTextBoxColumn
+            {
+                Name = "col_paycond",
+                HeaderText = "เงื่อนไข",
+                DataPropertyName = "paycond",
+                Width = 140,
+                MinimumWidth = 140
+            };
+            DataGridViewTextBoxColumn col_tabpr = new DataGridViewTextBoxColumn
+            {
+                Name = "col_tabpr",
+                HeaderText = "ราคา",
+                DataPropertyName = "tabpr",
+                Width = 60,
+                MinimumWidth = 60
+            };
+            DataGridViewTextBoxColumn col_disc = new DataGridViewTextBoxColumn
+            {
+                Name = "col_disc",
+                HeaderText = "ส่วนลด",
+                DataPropertyName = "disc",
+                Width = 100,
+                MinimumWidth = 100,
+                DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight }
+            };
+            DataGridViewTextBoxColumn col_crline = new DataGridViewTextBoxColumn
+            {
+                Name = "col_crline",
+                HeaderText = "วงเงินอนุมัติ",
+                DataPropertyName = "crline",
+                Width = 120,
+                MinimumWidth = 120,
+                DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight, Format = "N2" }
+            };
+            DataGridViewTextBoxColumn col_slmcod = new DataGridViewTextBoxColumn
+            {
+                Name = "col_slmcod",
+                HeaderText = "พนักงานขาย",
+                DataPropertyName = "slmcod",
+                Width = 100,
+                MinimumWidth = 100
+            };
+            DataGridViewTextBoxColumn col_areacod = new DataGridViewTextBoxColumn
+            {
+                Name = "col_areacod",
+                HeaderText = "เขต",
+                DataPropertyName = "areacod",
+                Width = 60,
+                MinimumWidth = 60
+            };
+            DataGridViewTextBoxColumn col_dlvby = new DataGridViewTextBoxColumn
+            {
+                Name = "col_dlvby",
+                HeaderText = "ขนส่ง",
+                DataPropertyName = "dlvby",
+                Width = 80,
+                MinimumWidth = 80
+            };
+            DataGridViewTextBoxColumn col_accnum = new DataGridViewTextBoxColumn
+            {
+                Name = "col_accnum",
+                HeaderText = "เลขที่บัญชี",
+                DataPropertyName = "accnum",
+                Width = 120,
+                MinimumWidth = 120
+            };
+
+            DataGridViewColumn[] cols = new DataGridViewColumn[] { col_cuscod, col_cusnam, col_prenam, col_contact, col_paytrm, col_paycond, col_tabpr, col_disc, col_crline, col_slmcod, col_areacod, col_dlvby, col_accnum };
+            return cols;
         }
 
         private void btnInquiryAll_Click(object sender, EventArgs e)
         {
+            var cust_list = DbfTable.ArmasList(this.main_form.working_express_db);
 
+            string init_cuscod = cust_list.Count > 0 ? cust_list.First().cuscod : null;
+
+            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(this.GetInquiryColumn(), cust_list, "col_cuscod", init_cuscod);
+            br.Width = 1050;
+            br.StartPosition = FormStartPosition.CenterParent;
+            if(br.ShowDialog() == DialogResult.OK)
+            {
+                string selected_cuscod = (string)br.selected_row.Cells["col_cuscod"].Value;
+                var selected_cust = DbfTable.Armas(this.main_form.working_express_db, selected_cuscod);
+
+                if(selected_cuscod != null)
+                {
+                    this.curr_armas = selected_cust;
+                    this.FillForm(this.curr_armas);
+                }
+            }
         }
 
         private void btnInquiryRest_Click(object sender, EventArgs e)
         {
+            var cust_list = DbfTable.ArmasList(this.main_form.working_express_db);
 
+            string init_cuscod = this.curr_armas != null ? this.curr_armas.cuscod : null;
+
+            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(this.GetInquiryColumn(), cust_list, "col_cuscod", init_cuscod);
+            br.Width = 1050;
+            br.StartPosition = FormStartPosition.CenterParent;
+            if (br.ShowDialog() == DialogResult.OK)
+            {
+                string selected_cuscod = (string)br.selected_row.Cells["col_cuscod"].Value;
+                var selected_cust = DbfTable.Armas(this.main_form.working_express_db, selected_cuscod);
+
+                if (selected_cuscod != null)
+                {
+                    this.curr_armas = selected_cust;
+                    this.FillForm(this.curr_armas);
+                }
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-
+            if(this.curr_armas != null)
+            {
+                this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, this.curr_armas.cuscod);
+                this.FillForm(this.curr_armas);
+            }
         }
 
         private void cCuscod_Leave(object sender, EventArgs e)
@@ -735,6 +973,84 @@ namespace XPump.SubForm
                     SendKeys.Send("{TAB}");
                     return true;
                 }
+            }
+
+            if(keyData == (Keys.Alt | Keys.A))
+            {
+                this.btnAdd.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.E))
+            {
+                this.btnEdit.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.D))
+            {
+                this.btnDelete.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnStop.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.F9)
+            {
+                this.btnSave.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.Home))
+            {
+                this.btnFirst.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.PageUp)
+            {
+                this.btnPrevious.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.PageDown)
+            {
+                this.btnNext.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.End))
+            {
+                this.btnLast.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.S))
+            {
+                this.btnSearch.PerformButtonClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.L))
+            {
+                this.btnInquiryAll.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.L))
+            {
+                this.btnInquiryRest.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.F5))
+            {
+                this.btnRefresh.PerformClick();
+                return true;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

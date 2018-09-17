@@ -428,6 +428,12 @@
     <Compile Include="SubForm\DialogSearchShiftTransaction.Designer.cs">
       <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogStkgrp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogStkgrp.Designer.cs">
+      <DependentUpon>DialogStkgrp.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\FormArmas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -705,6 +711,9 @@
     <EmbeddedResource Include="SubForm\DialogSearchShiftTransaction.resx">
       <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogStkgrp.resx">
+      <DependentUpon>DialogStkgrp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormArmas.resx">
       <DependentUpon>FormArmas.cs</DependentUpon>
     </EmbeddedResource>
@@ -973,6 +982,7 @@
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
     <Content Include="Nozzle.ico" />
+    <None Include="Resources\settings.png" />
     <None Include="Resources\rename2.png" />
     <None Include="Resources\db_search.png" />
     <None Include="Resources\edit_gray_16.png" />

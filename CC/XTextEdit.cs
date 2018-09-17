@@ -320,6 +320,20 @@ namespace CC
         private void textBox1_TextAlignChanged(object sender, EventArgs e)
         {
             this.label1.TextAlign = ((TextBox)sender).TextAlign == HorizontalAlignment.Center ? ContentAlignment.TopCenter : (((TextBox)sender).TextAlign == HorizontalAlignment.Right ? ContentAlignment.TopRight : ContentAlignment.TopLeft);
+            if(this.label1.TextAlign == ContentAlignment.TopLeft)
+            {
+                this.label1.SetBounds(0, 2, this.label1.Width, this.label1.Height);
+            }
+            if(this.label1.TextAlign == ContentAlignment.TopCenter)
+            {
+                int diff = this.label1.Width - this.Width;
+                this.label1.SetBounds((diff / 2) * -1, 2, this.label1.Width, this.label1.Height);
+            }
+            if(this.label1.TextAlign == ContentAlignment.TopRight)
+            {
+                int diff = this.label1.Width - this.Width;
+                this.label1.SetBounds(diff * -1, 2, this.label1.Width, this.label1.Height);
+            }
         }
 
         private void label1_DoubleClick(object sender, EventArgs e)

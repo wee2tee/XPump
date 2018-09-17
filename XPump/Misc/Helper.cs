@@ -2547,7 +2547,7 @@ namespace XPump.Misc
             }
             if (data_file.IsInUse())
             {
-                XMessageBox.Show("Permission Error File ARTRNRM.DBF", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                XMessageBox.Show("Permission Error File " + dbf_file_flag.ToString() + ".dbf", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                 return false;
             }
 

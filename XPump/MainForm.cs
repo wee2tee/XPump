@@ -271,6 +271,11 @@ namespace XPump
             this.opened_child_form.Add(new ChildFormDetail() { form = i, docPrefix = string.Empty });
         }
 
+        private void mnuStkgrp_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void MnuShiftTransaction_Click(object sender, EventArgs e)
         {
             if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormShiftTransaction)).FirstOrDefault() != null)
@@ -732,7 +737,6 @@ namespace XPump
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
     }
 
     public class ChildFormDetail
