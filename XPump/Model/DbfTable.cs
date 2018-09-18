@@ -1071,8 +1071,8 @@ namespace XPump.Model
                                 typcod = !dt.Rows[i].IsNull("typcod") ? dt.Rows[i]["typcod"].ToString().TrimEnd() : string.Empty,
                                 shortnam = !dt.Rows[i].IsNull("shortnam") ? dt.Rows[i]["shortnam"].ToString().TrimEnd() : string.Empty,
                                 typdes = !dt.Rows[i].IsNull("typdes") ? dt.Rows[i]["typdes"].ToString().TrimEnd() : string.Empty,
-                                stktyp = !dt.Rows[i].IsNull("shortnam2") ? (dt.Rows[i]["shortnam2"].ToString().Contains(STKGRP.FUEL.ToString()) ? STKGRP.FUEL.ToString() : STKGRP.OTHER.ToString()) : STKGRP.OTHER.ToString(),
-                                bill_method = !dt.Rows[i].IsNull("shortnam2") ? (dt.Rows[i]["shortnam2"].ToString().Contains(BILL_METHOD.APPLY_WITH_VALUE.ToString()) ? BILL_METHOD.APPLY_WITH_VALUE.ToString() : BILL_METHOD.APPLY_WITH_QTY.ToString()) : BILL_METHOD.APPLY_WITH_QTY.ToString()
+                                stktyp = !dt.Rows[i].IsNull("shortnam2") ? (dt.Rows[i]["shortnam2"].ToString().Contains(STKGRP.FUEL.ToString()) ? STKGRP.FUEL.ToStringDescription() : (dt.Rows[i]["shortnam2"].ToString().Contains(STKGRP.OTHER.ToString()) ? STKGRP.OTHER.ToStringDescription() : STKGRP.NA_O.ToStringDescription())) : STKGRP.NA_O.ToStringDescription(),
+                                bill_method = !dt.Rows[i].IsNull("shortnam2") ? (dt.Rows[i]["shortnam2"].ToString().Contains(BILL_METHOD.VAL.ToString()) ? BILL_METHOD.VAL.ToStringDescription() : (dt.Rows[i]["shortnam2"].ToString().Contains(BILL_METHOD.QTY.ToString()) ? BILL_METHOD.QTY.ToStringDescription() : BILL_METHOD.NA_Q.ToStringDescription())) : BILL_METHOD.NA_Q.ToStringDescription()
                             });
                         }
 
@@ -1099,13 +1099,15 @@ namespace XPump.Model
     public enum STKGRP
     {
         FUEL,
-        OTHER
+        OTHER,
+        NA_O
     }
 
     public enum BILL_METHOD
     {
-        APPLY_WITH_QTY,
-        APPLY_WITH_VALUE
+        QTY,
+        VAL,
+        NA_Q
     }
 
     public class IsprdDbf

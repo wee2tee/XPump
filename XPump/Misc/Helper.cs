@@ -2580,6 +2580,36 @@ namespace XPump.Misc
             return true;
         }
 
+        public static string ToStringDescription(this STKGRP stkgrp)
+        {
+            switch (stkgrp)
+            {
+                case STKGRP.FUEL:
+                    return "น้ำมันเชื้อเพลิง (น้ำมันใส)";
+                case STKGRP.OTHER:
+                    return "สินค้าอื่น ๆ";
+                case STKGRP.NA_O:
+                    return "ไม่ได้ระบุ (สินค้าอื่น ๆ)";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string ToStringDescription(this BILL_METHOD bill_method)
+        {
+            switch (bill_method)
+            {
+                case BILL_METHOD.QTY:
+                    return "ป้อนจำนวน";
+                case BILL_METHOD.VAL:
+                    return "ป้อนราคารวม";
+                case BILL_METHOD.NA_Q:
+                    return "ไม่ได้ระบุ (ป้อนจำนวน)";
+                default:
+                    return string.Empty;
+            }
+        }
+
         public enum DBF_FILENAME_FLAG : int
         {
             ARMAS = 9

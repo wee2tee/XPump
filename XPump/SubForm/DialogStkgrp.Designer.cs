@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -41,6 +42,7 @@
             this.btnPrevious = new System.Windows.Forms.ToolStripButton();
             this.btnNext = new System.Windows.Forms.ToolStripButton();
             this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.btnSearch = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnPrint = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -48,8 +50,9 @@
             this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
-            this.btnSearch = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.inlineBillMethod = new CC.XDropdownList();
+            this.inlineStkgrp = new CC.XDropdownList();
             this.dgv = new CC.XDatagrid();
             this.col_typcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_shortnam = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,6 +100,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(36, 40);
             this.btnAdd.Text = "เพิ่มข้อมูล <Alt+A>";
+            this.btnAdd.Visible = false;
             // 
             // btnEdit
             // 
@@ -107,6 +111,7 @@
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(36, 40);
             this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -117,6 +122,7 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(36, 40);
             this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
+            this.btnDelete.Visible = false;
             // 
             // toolStripSeparator3
             // 
@@ -132,6 +138,7 @@
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(36, 40);
             this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnSave
             // 
@@ -142,6 +149,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(36, 40);
             this.btnSave.Text = "บันทึกข้อมูล <F9>";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // toolStripSeparator1
             // 
@@ -191,6 +199,18 @@
             this.btnLast.Size = new System.Drawing.Size(36, 40);
             this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
             this.btnLast.Visible = false;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSearch.Image = global::XPump.Properties.Resources.search;
+            this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(36, 40);
+            this.btnSearch.Text = "ค้นหา <Alt+S>";
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // toolStripSeparator2
             // 
@@ -250,26 +270,48 @@
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(36, 40);
             this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSearch.Image = global::XPump.Properties.Resources.search;
-            this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(36, 40);
-            this.btnSearch.Text = "ค้นหา <Alt+S>";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.inlineBillMethod);
+            this.panel1.Controls.Add(this.inlineStkgrp);
             this.panel1.Controls.Add(this.dgv);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 43);
+            this.panel1.Location = new System.Drawing.Point(7, 48);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(776, 440);
+            this.panel1.Size = new System.Drawing.Size(762, 428);
             this.panel1.TabIndex = 8;
+            // 
+            // inlineBillMethod
+            // 
+            this.inlineBillMethod._ReadOnly = false;
+            this.inlineBillMethod._SelectedItem = null;
+            this.inlineBillMethod._Text = "";
+            this.inlineBillMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inlineBillMethod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inlineBillMethod.Location = new System.Drawing.Point(619, 45);
+            this.inlineBillMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inlineBillMethod.Name = "inlineBillMethod";
+            this.inlineBillMethod.Size = new System.Drawing.Size(94, 23);
+            this.inlineBillMethod.TabIndex = 1;
+            this.inlineBillMethod._SelectedItemChanged += new System.EventHandler(this.inlineBillMethod__SelectedItemChanged);
+            // 
+            // inlineStkgrp
+            // 
+            this.inlineStkgrp._ReadOnly = false;
+            this.inlineStkgrp._SelectedItem = null;
+            this.inlineStkgrp._Text = "";
+            this.inlineStkgrp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inlineStkgrp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.inlineStkgrp.Location = new System.Drawing.Point(493, 45);
+            this.inlineStkgrp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inlineStkgrp.Name = "inlineStkgrp";
+            this.inlineStkgrp.Size = new System.Drawing.Size(94, 23);
+            this.inlineStkgrp.TabIndex = 1;
+            this.inlineStkgrp._SelectedItemChanged += new System.EventHandler(this.inlineStkgrp__SelectedItemChanged);
             // 
             // dgv
             // 
@@ -294,11 +336,19 @@
             this.col_typdes,
             this.col_stktyp,
             this.col_bill_method});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.EnableHeadersVisualStyles = false;
             this.dgv.FillEmptyRow = false;
-            this.dgv.FocusedRowBorderRedLine = false;
+            this.dgv.FocusedRowBorderRedLine = true;
             this.dgv.Location = new System.Drawing.Point(0, 0);
             this.dgv.Margin = new System.Windows.Forms.Padding(0);
             this.dgv.MultiSelect = false;
@@ -307,14 +357,16 @@
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowTemplate.Height = 26;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv.Size = new System.Drawing.Size(776, 440);
+            this.dgv.Size = new System.Drawing.Size(762, 428);
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
+            this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
+            this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
             // 
             // col_typcod
             // 
             this.col_typcod.DataPropertyName = "typcod";
-            this.col_typcod.HeaderText = "รหัส";
+            this.col_typcod.HeaderText = "รหัสหมวด";
             this.col_typcod.MinimumWidth = 70;
             this.col_typcod.Name = "col_typcod";
             this.col_typcod.ReadOnly = true;
@@ -340,11 +392,11 @@
             // col_stktyp
             // 
             this.col_stktyp.DataPropertyName = "stktyp";
-            this.col_stktyp.HeaderText = "ชนิดสินค้า";
-            this.col_stktyp.MinimumWidth = 120;
+            this.col_stktyp.HeaderText = "กลุ่มสินค้า";
+            this.col_stktyp.MinimumWidth = 140;
             this.col_stktyp.Name = "col_stktyp";
             this.col_stktyp.ReadOnly = true;
-            this.col_stktyp.Width = 120;
+            this.col_stktyp.Width = 140;
             // 
             // col_bill_method
             // 
@@ -370,7 +422,7 @@
             this.Name = "DialogStkgrp";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "หมวดสินค้า";
+            this.Text = "จัดกลุ่มสินค้า";
             this.Load += new System.EventHandler(this.DialogStkgrp_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -410,5 +462,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_typdes;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_stktyp;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_bill_method;
+        private CC.XDropdownList inlineBillMethod;
+        private CC.XDropdownList inlineStkgrp;
     }
 }
