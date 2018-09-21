@@ -111,25 +111,26 @@ namespace XPump.SubForm
         {
             this.HideInlineForm();
             this.ResetFormState(FORM_MODE.READ_ITEM);
+            this.ActiveControl = this.dgv;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             if(this.form_mode == FORM_MODE.EDIT_ITEM && this.tmp_stkgrp != null)
             {
-                Console.WriteLine(this.tmp_stkgrp.typcod);
-                Console.WriteLine(this.tmp_stkgrp.stktyp);
-                Console.WriteLine(this.tmp_stkgrp.bill_method);
-                Console.WriteLine(" -------------------------- ");
                 try
                 {
                     using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + this.main_form.working_express_db.abs_path))
                     {
                         using (OleDbCommand cmd = conn.CreateCommand())
                         {
-                            string stkgrp = ((STKGRP)this.inlineStkgrp._Items.Cast<XDropdownListItem>().Where(i => i.Text == this.tmp_stkgrp.stktyp).First().Value).ToString();
-                            string bill_method = ((BILL_METHOD)this.inlineBillMethod._Items.Cast<XDropdownListItem>().Where(i => i.Text == this.tmp_stkgrp.bill_method).First().Value).ToString();
-                            cmd.CommandText = "Update istab Set shortnam2='" + stkgrp + ":" + bill_method + "' Where tabtyp=? and typcod=?";
+                            var selected_stkgrp = (STKGRP)this.inlineStkgrp._Items.Cast<XDropdownListItem>().Where(i => i.Text == this.tmp_stkgrp.stktyp).First().Value;
+                            //string stkgrp = selected_stkgrp == STKGRP.NA_O ? string.Empty : selected_stkgrp.ToString();
+                            var selected_bill_method = (BILL_METHOD)this.inlineBillMethod._Items.Cast<XDropdownListItem>().Where(i => i.Text == this.tmp_stkgrp.bill_method).First().Value;
+                            //string bill_method = selected_bill_method == BILL_METHOD.NA_Q ? string.Empty : selected_bill_method.ToString();
+                            string shortnam2 = selected_stkgrp == STKGRP.NA_O && selected_bill_method == BILL_METHOD.NA_Q ? string.Empty : selected_stkgrp.ToString() + ":" + selected_bill_method.ToString();
+
+                            cmd.CommandText = "Update istab Set shortnam2='" + shortnam2 + "' Where tabtyp=? and typcod=?";
                             cmd.Parameters.AddWithValue("@tabtyp", "22");
                             cmd.Parameters.AddWithValue("@typcod", this.tmp_stkgrp.typcod);
 
@@ -144,6 +145,8 @@ namespace XPump.SubForm
                                 var selected_row = this.dgv.Rows.Cast<DataGridViewRow>().Where(r => r.Cells[this.col_typcod.Name].Value.ToString() == curr_typcod).FirstOrDefault();
                                 if (selected_row != null)
                                     selected_row.Cells[this.col_typcod.Name].Selected = true;
+
+                                this.ActiveControl = this.dgv;
                             }
 
                             conn.Close();
@@ -206,6 +209,76 @@ namespace XPump.SubForm
                 //this.btnSave.PerformClick();
 
                 //this.btnEdit.PerformClick();
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == (Keys.Alt | Keys.E))
+            {
+                this.btnEdit.PerformClick();
+                return true;
+            }
+            
+            if(keyData == Keys.Escape)
+            {
+                this.btnStop.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.F9)
+            {
+                this.btnSave.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.S))
+            {
+                this.btnSearch.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.F5))
+            {
+                this.btnRefresh.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dgv_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+                if (row_index == -1)
+                    return;
+
+                ((XDatagrid)sender).Rows[row_index].Cells[this.col_typcod.Name].Selected = true;
+
+                ContextMenu cm = new ContextMenu();
+                MenuItem mnu_edit = new MenuItem("แก้ไข <Alt+E>");
+                mnu_edit.Click += delegate
+                {
+                    this.btnEdit.PerformClick();
+                };
+                cm.MenuItems.Add(mnu_edit);
+
+                cm.Show((XDatagrid)sender, new Point(e.X, e.Y));
+            }
+        }
+
+        private void dgv_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left && this.form_mode == FORM_MODE.READ_ITEM)
+            {
+                int row_index = ((XDatagrid)sender).HitTest(e.X, e.Y).RowIndex;
+                if (row_index == -1)
+                    return;
+
+                ((XDatagrid)sender).Rows[row_index].Cells[this.col_typcod.Name].Selected = true;
+                this.btnEdit.PerformClick();
             }
         }
     }

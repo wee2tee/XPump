@@ -598,6 +598,100 @@ namespace XPump.SubForm
 
                 // ** Upgrade DB Version here ** //
 
+                // Artrn Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`artrn` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`rectyp` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`docnum` VARCHAR(12) NOT NULL,";
+                cmd.CommandText += "`docdat` DATE NOT NULL,";
+                cmd.CommandText += "`postgl` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`sonum` VARCHAR(12) NOT NULL,";
+                cmd.CommandText += "`cntyp` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`depcod` VARCHAR(4) NOT NULL,";
+                cmd.CommandText += "`flgvat` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`slmcod` VARCHAR(10) NOT NULL,";
+                cmd.CommandText += "`cuscod` VARCHAR(10) NOT NULL,";
+                cmd.CommandText += "`shipto` VARCHAR(10) NOT NULL,";
+                cmd.CommandText += "`youref` VARCHAR(30) NOT NULL,";
+                cmd.CommandText += "`areacod` VARCHAR(4) NOT NULL,";
+                cmd.CommandText += "`paytrm` INT(3) NOT NULL,";
+                cmd.CommandText += "`duedat` DATE NOT NULL,";
+                cmd.CommandText += "`bilnum` VARCHAR(12) NOT NULL,";
+                cmd.CommandText += "`nxtseq` VARCHAR(3) NOT NULL,";
+                cmd.CommandText += "`amount` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`disc` VARCHAR(10) NOT NULL,";
+                cmd.CommandText += "`discamt` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`aftdisc` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`advnum` VARCHAR(12) NOT NULL,";
+                cmd.CommandText += "`advamt` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`total` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`amtrat0` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`vatrat` DECIMAL(8, 2) NOT NULL,";
+                cmd.CommandText += "`vatamt` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`netamt` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`netval` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`rcvamt` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`remamt` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`comamt` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`cmplapp` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`cmpldat` DATE NOT NULL,";
+                cmd.CommandText += "`docstat` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`cshrcv` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`chqrcv` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`intrcv` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`beftax` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`taxrat` DECIMAL(8, 2) NOT NULL,";
+                cmd.CommandText += "`taxcond` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`tax` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`ivcamt` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`chqpas` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`vatdat` DATE NOT NULL,";
+                cmd.CommandText += "`vatprd` DATE NOT NULL,";
+                cmd.CommandText += "`vatlate` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`srv_vattyp` VARCHAR(1) NOT NULL,";
+                cmd.CommandText += "`dlvby` VARCHAR(2) NOT NULL,";
+                cmd.CommandText += "`reserve` DATE NOT NULL,";
+                cmd.CommandText += "`userid` VARCHAR(8) NOT NULL,";
+                cmd.CommandText += "`chgdat` DATE NOT NULL,";
+                cmd.CommandText += "`userprn` VARCHAR(8) NOT NULL,";
+                cmd.CommandText += "`prndat` DATE NOT NULL,";
+                cmd.CommandText += "`prncnt` INT(2) NOT NULL,";
+                cmd.CommandText += "`prntim` VARCHAR(8) NOT NULL,";
+                cmd.CommandText += "`authid` VARCHAR(8) NOT NULL,";
+                cmd.CommandText += "`approve` DATE NOT NULL,";
+                cmd.CommandText += "`billto` VARCHAR(10) NOT NULL,";
+                cmd.CommandText += "`orgnum` INT(5) NOT NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "UNIQUE INDEX `unq-saleshistory` (`salessummary_id` ASC, `nozzle_id` ASC),";
+                cmd.CommandText += "INDEX `ndx-saleshistory-nozzle_id` (`nozzle_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - saleshistory - salessummary_id` (`salessummary_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - nozzle_id` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - salessummary_id` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                //cmd.ExecuteNonQuery();
+
+                // Stcrd Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`stcrd` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`saldat` DATE NOT NULL,";
+                cmd.CommandText += "`mitbeg` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`mitend` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`salqty` DECIMAL(14, 2) NOT NULL,";
+                //cmd.CommandText += "`salval` DECIMAL(14, 2) NOT NULL,";
+                cmd.CommandText += "`nozzle_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`salessummary_id` INT(11) NOT NULL,";
+                cmd.CommandText += "`creby` VARCHAR(20) NOT NULL DEFAULT '',";
+                cmd.CommandText += "`cretime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,";
+                cmd.CommandText += "`chgby` VARCHAR(20) NULL,";
+                cmd.CommandText += "`chgtime` DATETIME NULL,";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "UNIQUE INDEX `unq-saleshistory` (`salessummary_id` ASC, `nozzle_id` ASC),";
+                cmd.CommandText += "INDEX `ndx-saleshistory-nozzle_id` (`nozzle_id` ASC),";
+                cmd.CommandText += "INDEX `ndx - saleshistory - salessummary_id` (`salessummary_id` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - nozzle_id` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
+                cmd.CommandText += "CONSTRAINT `fk - saleshistory - salessummary_id` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                //cmd.ExecuteNonQuery();
             }
             catch (MySqlException ex)
             {

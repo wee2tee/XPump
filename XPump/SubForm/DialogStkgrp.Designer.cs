@@ -361,6 +361,8 @@
             this.dgv.StandardTab = true;
             this.dgv.TabIndex = 0;
             this.dgv.CurrentCellChanged += new System.EventHandler(this.dgv_CurrentCellChanged);
+            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
+            this.dgv.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseDoubleClick);
             this.dgv.Resize += new System.EventHandler(this.dgv_Resize);
             // 
             // col_typcod

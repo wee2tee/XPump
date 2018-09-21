@@ -744,7 +744,7 @@ namespace XPump.Model
                     status = !dt.Rows[i].IsNull("status") ? dt.Rows[i]["status"].ToString() : string.Empty,
                     tabpr = !dt.Rows[i].IsNull("tabpr") ? dt.Rows[i]["tabpr"].ToString() : string.Empty,
                     taxcond = !dt.Rows[i].IsNull("taxcond") ? dt.Rows[i]["taxcond"].ToString() : string.Empty,
-                    taxgrp = !dt.Rows[i].IsNull("taxgrp") ? dt.Rows[i]["taxgrp"].ToString() : string.Empty,
+                    //taxgrp = !dt.Rows[i].IsNull("taxgrp") ? dt.Rows[i]["taxgrp"].ToString() : string.Empty,
                     taxid = !dt.Rows[i].IsNull("taxid") ? dt.Rows[i]["taxid"].ToString().TrimEnd() : string.Empty,
                     taxrat = !dt.Rows[i].IsNull("taxrat") ? Convert.ToDecimal(dt.Rows[i]["taxrat"]) : 0,
                     taxtyp = !dt.Rows[i].IsNull("taxtyp") ? dt.Rows[i]["taxtyp"].ToString() : string.Empty,
@@ -2027,7 +2027,8 @@ namespace XPump.Model
         public int orgnum { get; set; }
         public string taxtyp { get; set; }
         public decimal taxrat { get; set; }
-        public string taxgrp { get; set; }
+        //public string taxgrp { get; set; }  // V.1
+        public string taxdes { get; set; }  // V.2
         public string taxcond { get; set; }
         public string shipto { get; set; }
         public string slmcod { get; set; }
@@ -2171,5 +2172,18 @@ namespace XPump.Model
         public string typdes { get; set; }
         public string stktyp { get; set; }
         public string bill_method { get; set; }
+    }
+
+    public class StmasDbfPrice
+    {
+        public string stkcod { get; set; }
+        public string stkdes { get; set; }
+        public decimal sellpr1 { get; set; }
+        public decimal sellpr2 { get; set; }
+        public decimal sellpr3 { get; set; }
+        public decimal sellpr4 { get; set; }
+        public decimal sellpr5 { get; set; }
+        public STKGRP stkgrp { get; set; }
+        public BILL_METHOD bill_method { get; set; }
     }
 }

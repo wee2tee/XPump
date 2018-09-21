@@ -269,7 +269,8 @@ namespace XPump.SubForm
                 payer = string.Empty,
                 shipto = string.Empty,
                 taxcond = string.Empty,
-                taxgrp = string.Empty,
+                //taxgrp = string.Empty,
+                taxdes = string.Empty,
                 taxtyp = string.Empty,
                 tracksal = string.Empty,
                 balance = 0,
@@ -370,7 +371,7 @@ namespace XPump.SubForm
                                 }
                             }
 
-                            cmd.CommandText = "Insert into Armas (cuscod, prenam, cusnam, addr01, addr02, addr03, zipcod, telnum, contact, remark, taxid, orgnum, status, custyp, accnum, slmcod, areacod, dlvby, paytrm, paycond, tabpr, disc, crline, cusnam2, payer, shipto, taxcond, taxgrp, taxtyp, tracksal, balance, chqrcv, taxrat, inactdat, lasivc, creby, credat, userid, chgdat) Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,{},{},?,?,?,?)";
+                            cmd.CommandText = "Insert into Armas (cuscod, prenam, cusnam, addr01, addr02, addr03, zipcod, telnum, contact, remark, taxid, orgnum, status, custyp, accnum, slmcod, areacod, dlvby, paytrm, paycond, tabpr, disc, crline, cusnam2, payer, shipto, taxcond, taxtyp, tracksal, balance, chqrcv, taxrat, taxdes, inactdat, lasivc, creby, credat, userid, chgdat) Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,{},{},?,?,?,?)";
                         }
 
                         if (this.form_mode == FORM_MODE.EDIT)
@@ -413,12 +414,14 @@ namespace XPump.SubForm
                             cmd.Parameters.AddWithValue("@payer", this.tmp_armas.payer);
                             cmd.Parameters.AddWithValue("@shipto", this.tmp_armas.shipto);
                             cmd.Parameters.AddWithValue("@taxcond", this.tmp_armas.taxcond);
-                            cmd.Parameters.AddWithValue("@taxgrp", this.tmp_armas.taxgrp);
+                            //cmd.Parameters.AddWithValue("@taxgrp", this.tmp_armas.taxgrp);
                             cmd.Parameters.AddWithValue("@taxtyp", this.tmp_armas.taxtyp);
                             cmd.Parameters.AddWithValue("@tracksal", this.tmp_armas.tracksal);
                             cmd.Parameters.AddWithValue("@balance", this.tmp_armas.balance);
                             cmd.Parameters.AddWithValue("@chqrcv", this.tmp_armas.chqrcv);
-                            cmd.Parameters.AddWithValue("@taxrat", this.tmp_armas.taxrat); cmd.Parameters.AddWithValue("@creby", this.main_form.loged_in_status.loged_in_user_name);
+                            cmd.Parameters.AddWithValue("@taxrat", this.tmp_armas.taxrat);
+                            cmd.Parameters.AddWithValue("@taxdes", this.tmp_armas.taxdes);
+                            cmd.Parameters.AddWithValue("@creby", this.main_form.loged_in_status.loged_in_user_name);
                             cmd.Parameters.AddWithValue("@credat", DateTime.Now);
                             cmd.Parameters.AddWithValue("@userid", this.main_form.loged_in_status.loged_in_user_name);
                             cmd.Parameters.AddWithValue("@chgdat", DateTime.Now);
