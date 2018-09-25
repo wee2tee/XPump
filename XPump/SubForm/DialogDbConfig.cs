@@ -668,7 +668,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "CONSTRAINT `fk - saleshistory - nozzle_id` FOREIGN KEY (`nozzle_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`nozzle` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,";
                 cmd.CommandText += "CONSTRAINT `fk - saleshistory - salessummary_id` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
-                //cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
 
                 // Stcrd Table
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`stcrd` ";

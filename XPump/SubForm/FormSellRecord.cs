@@ -8,7 +8,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using XPump.Misc;
 using XPump.Model;
+using CC;
 
 namespace XPump.SubForm
 {
@@ -19,6 +21,7 @@ namespace XPump.SubForm
         private scacclvVM scacclv;
         private BindingList<StmasDbfPrice> stmas1;
         private BindingList<StmasDbfPrice> stmas2;
+        private FORM_MODE form_mode;
 
         public FormSellRecord(MainForm main_form, scacclvVM scacclv)
         {
@@ -31,12 +34,38 @@ namespace XPump.SubForm
         {
             this.BackColor = MiscResource.WIND_BG;
             this.LoadStmasDgv();
+            this.ResetFormState(FORM_MODE.READ);
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             this.main_form.opened_child_form.Remove(this.main_form.opened_child_form.Where(f => f.form.GetType() == this.GetType()).First());
             base.OnFormClosed(e);
+        }
+
+        private void ResetFormState(FORM_MODE form_mode)
+        {
+            this.form_mode = form_mode;
+
+            this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnFirst.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrevious.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnNext.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnLast.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnSearch.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnInquiryAll.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnInquiryRest.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+
+            this.cCuscod.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.cDocdat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.cNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.cCshrcv.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
         }
 
         private void LoadStmasDgv()
@@ -64,7 +93,9 @@ namespace XPump.SubForm
                         cmd.CommandText += "Left Join istab tab On tab.typcod=st.stkgrp and tab.tabtyp=? ";
                         if(stkgrp == STKGRP.NA_O)
                         {
-                            cmd.CommandText += "Where shortnam2 like '%" + stkgrp.ToString() + "%' or LEN(TRIM(shortnam2)) = 0 ";
+                            cmd.CommandText += "Where shortnam2 LIKE '%" + stkgrp.ToString() + "%' or LEN(TRIM(shortnam2)) = 0 ";
+                            cmd.CommandText += "or (shortnam2 NOT LIKE '%" + STKGRP.FUEL.ToString() + "%' and shortnam2 NOT LIKE '%" + STKGRP.OTHER.ToString() + "%' and shortnam2 NOT LIKE '%" + STKGRP.NA_O.ToString() + "%')";
+                            //cmd.CommandText += "Where (shortnam2 NOT LIKE '%" + STKGRP.FUEL.ToString() + "%')";
                         }
                         else
                         {
@@ -131,6 +162,14 @@ namespace XPump.SubForm
             }
         }
 
+        private void dgvGoods1_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index && e.RowIndex > -1)
+            {
+                ((XDatagrid)sender).Cursor = Cursors.Default;
+            }
+        }
+
         private void dgvGoods1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if(e.RowIndex > -1)
@@ -144,6 +183,71 @@ namespace XPump.SubForm
                     }
                 }
             }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFirst_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLast_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSearch_ButtonClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnInquiryAll_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnInquiryRest_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+
         }
 
         //private List<stmasPriceVM> GetStmas(bool oil_only = true)

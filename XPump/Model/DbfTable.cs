@@ -743,8 +743,9 @@ namespace XPump.Model
                     slmcod = !dt.Rows[i].IsNull("slmcod") ? dt.Rows[i]["slmcod"].ToString().TrimEnd() : string.Empty,
                     status = !dt.Rows[i].IsNull("status") ? dt.Rows[i]["status"].ToString() : string.Empty,
                     tabpr = !dt.Rows[i].IsNull("tabpr") ? dt.Rows[i]["tabpr"].ToString() : string.Empty,
+                    taxdes = !dt.Rows[i].IsNull("taxdes") ? dt.Rows[i]["taxdes"].ToString() : string.Empty, // V.2
                     taxcond = !dt.Rows[i].IsNull("taxcond") ? dt.Rows[i]["taxcond"].ToString() : string.Empty,
-                    //taxgrp = !dt.Rows[i].IsNull("taxgrp") ? dt.Rows[i]["taxgrp"].ToString() : string.Empty,
+                    //taxgrp = !dt.Rows[i].IsNull("taxgrp") ? dt.Rows[i]["taxgrp"].ToString() : string.Empty, // V.1
                     taxid = !dt.Rows[i].IsNull("taxid") ? dt.Rows[i]["taxid"].ToString().TrimEnd() : string.Empty,
                     taxrat = !dt.Rows[i].IsNull("taxrat") ? Convert.ToDecimal(dt.Rows[i]["taxrat"]) : 0,
                     taxtyp = !dt.Rows[i].IsNull("taxtyp") ? dt.Rows[i]["taxtyp"].ToString() : string.Empty,
@@ -752,6 +753,14 @@ namespace XPump.Model
                     tracksal = !dt.Rows[i].IsNull("tracksal") ? dt.Rows[i]["tracksal"].ToString() : string.Empty,
                     userid = !dt.Rows[i].IsNull("userid") ? dt.Rows[i]["userid"].ToString() : string.Empty,
                     zipcod = !dt.Rows[i].IsNull("zipcod") ? dt.Rows[i]["zipcod"].ToString() : string.Empty,
+                    dat1 = !dt.Rows[i].IsNull("dat1") ? (DateTime?)dt.Rows[i]["dat1"] : null, // V.2
+                    dat2 = !dt.Rows[i].IsNull("dat2") ? (DateTime?)dt.Rows[i]["dat2"] : null, // V.2
+                    num1 = !dt.Rows[i].IsNull("num1") ? Convert.ToDecimal(dt.Rows[i]["num1"]) : 0, // V.2
+                    str1 = !dt.Rows[i].IsNull("str1") ? dt.Rows[i]["str1"].ToString() : string.Empty, // V.2
+                    str2 = !dt.Rows[i].IsNull("str2") ? dt.Rows[i]["str2"].ToString() : string.Empty, // V.2
+                    str3 = !dt.Rows[i].IsNull("str3") ? dt.Rows[i]["str3"].ToString() : string.Empty, // V.2
+                    str4 = !dt.Rows[i].IsNull("str4") ? dt.Rows[i]["str4"].ToString() : string.Empty, // V.2
+                    c_type = !dt.Rows[i].IsNull("c_type") ? dt.Rows[i]["c_type"].ToString() : string.Empty, // V.2
                     _accnam = !dt.Rows[i].IsNull("accnam") ? dt.Rows[i]["accnam"].ToString() : string.Empty,
                     _custypdesc = !dt.Rows[i].IsNull("custypdesc") ? dt.Rows[i]["custypdesc"].ToString().TrimEnd() : string.Empty,
                     _areadesc = !dt.Rows[i].IsNull("areadesc") ? dt.Rows[i]["areadesc"].ToString().TrimEnd() : string.Empty,
@@ -2010,6 +2019,7 @@ namespace XPump.Model
         public string orgstr { get; set; }
     }
 
+    /* Only Support Express V.2 */
     public class ArmasDbf : ICloneable
     {
         public string cuscod { get; set; }
@@ -2025,10 +2035,10 @@ namespace XPump.Model
         public string cusnam2 { get; set; }
         public string taxid { get; set; }
         public int orgnum { get; set; }
-        public string taxtyp { get; set; }
+        public string taxdes { get; set; }  // V.2
         public decimal taxrat { get; set; }
         //public string taxgrp { get; set; }  // V.1
-        public string taxdes { get; set; }  // V.2
+        public string taxtyp { get; set; }
         public string taxcond { get; set; }
         public string shipto { get; set; }
         public string slmcod { get; set; }
@@ -2046,12 +2056,20 @@ namespace XPump.Model
         public string remark { get; set; }
         public string dlvby { get; set; }
         public string tracksal { get; set; }
+        public DateTime? dat1 { get; set; } // V.2
+        public DateTime? dat2 { get; set; } // V.2
+        public decimal num1 { get; set; } // V.2
+        public string str1 { get; set; } // V.2
+        public string str2 { get; set; } // V.2
+        public string str3 { get; set; } // V.2
+        public string str4 { get; set; } // V.2
         public string creby { get; set; }
         public DateTime? credat { get; set; }
         public string userid { get; set; }
         public DateTime? chgdat { get; set; }
         public string status { get; set; }
         public DateTime? inactdat { get; set; }
+        public string c_type { get; set; } // V.2
 
         /* Some field in join table */
         public string _accnam { get; set; }

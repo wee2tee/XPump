@@ -186,22 +186,47 @@ namespace XPump.SubForm
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            var cuscod_list = DbfTable.ArmasCuscodList(this.main_form.working_express_db, false).OrderByDescending(c => c).ToList();
+            //var cuscod_list = DbfTable.ArmasCuscodList(this.main_form.working_express_db, false).OrderByDescending(c => c).ToList();
             //int curr_index = cuscod_list.IndexOf(this.curr_armas.cuscod);
-            //if(curr_index > 0)
+            //if (curr_index > 0)
             //{
             //    this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, cuscod_list[curr_index - 1]);
             //    this.FillForm(this.curr_armas);
             //}
-            var selected_cuscod = cuscod_list.Where(c => c.Trim().CompareTo(this.curr_armas.cuscod.Trim()) < 0).FirstOrDefault();
-            if (selected_cuscod != null)
+
+            //var selected_cuscod = cuscod_list.Where(c => c.Trim().CompareTo(this.curr_armas.cuscod.Trim()) < 0).FirstOrDefault();
+            //if (selected_cuscod != null)
+            //{
+            //    this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, selected_cuscod);
+            //    this.FillForm(this.curr_armas);
+            //}
+            //else
+            //{
+            //    this.btnFirst.PerformClick();
+            //}
+
+            using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + this.main_form.working_express_db.abs_path))
             {
-                this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, selected_cuscod);
-                this.FillForm(this.curr_armas);
-            }
-            else
-            {
-                this.btnFirst.PerformClick();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    string prev_cuscod = null;
+                    cmd.CommandText = "Select cuscod From armas Where (cuscod < '" + this.curr_armas.cuscod.TrimEnd() + "') and cuscod != '" + this.curr_armas.cuscod.TrimEnd() + "' Order By cuscod DESC Top 1"; //cuscod like '" + this.curr_armas.cuscod.TrimEnd() + "%' or 
+                    conn.Open();
+                    using (OleDbDataAdapter da =new OleDbDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        if (dt.Rows.Count > 0)
+                            prev_cuscod = !dt.Rows[0].IsNull("cuscod") ? dt.Rows[0]["cuscod"].ToString() : null;
+
+                        if(prev_cuscod != null)
+                        {
+                            this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, prev_cuscod);
+                            this.FillForm(this.curr_armas);
+                        }
+                    }
+                }
             }
         }
 
@@ -214,15 +239,40 @@ namespace XPump.SubForm
             //    this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, cuscod_list[curr_index + 1]);
             //    this.FillForm(this.curr_armas);
             //}
-            var selected_cuscod = cuscod_list.Where(c => c.Trim().CompareTo(this.curr_armas.cuscod.Trim()) > 0).FirstOrDefault();
-            if(selected_cuscod != null)
+
+            //var selected_cuscod = cuscod_list.Where(c => c.Trim().CompareTo(this.curr_armas.cuscod.Trim()) > 0).FirstOrDefault();
+            //if(selected_cuscod != null)
+            //{
+            //    this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, selected_cuscod);
+            //    this.FillForm(this.curr_armas);
+            //}
+            //else
+            //{
+            //    this.btnLast.PerformClick();
+            //}
+
+            using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + this.main_form.working_express_db.abs_path))
             {
-                this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, selected_cuscod);
-                this.FillForm(this.curr_armas);
-            }
-            else
-            {
-                this.btnLast.PerformClick();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    string prev_cuscod = null;
+                    cmd.CommandText = "Select cuscod From armas Where (cuscod > '" + this.curr_armas.cuscod.TrimEnd() + "') and cuscod != '" + this.curr_armas.cuscod.TrimEnd() + "' Order By cuscod ASC Top 1"; //cuscod like '" + this.curr_armas.cuscod.TrimEnd() + "%' or 
+                    conn.Open();
+                    using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                            
+                        if (dt.Rows.Count > 0)
+                            prev_cuscod = !dt.Rows[0].IsNull("cuscod") ? dt.Rows[0]["cuscod"].ToString() : null;
+
+                        if (prev_cuscod != null)
+                        {
+                            this.curr_armas = DbfTable.Armas(this.main_form.working_express_db, prev_cuscod);
+                            this.FillForm(this.curr_armas);
+                        }
+                    }
+                }
             }
         }
 
@@ -269,8 +319,15 @@ namespace XPump.SubForm
                 payer = string.Empty,
                 shipto = string.Empty,
                 taxcond = string.Empty,
-                //taxgrp = string.Empty,
-                taxdes = string.Empty,
+                //taxgrp = string.Empty, // V.1
+                taxdes = string.Empty, // V.2
+                dat1 = null,
+                dat2 = null,
+                num1 = 0,
+                str1 = string.Empty,
+                str2 = string.Empty,
+                str3 = string.Empty,
+                str4 = string.Empty,
                 taxtyp = string.Empty,
                 tracksal = string.Empty,
                 balance = 0,
@@ -371,7 +428,7 @@ namespace XPump.SubForm
                                 }
                             }
 
-                            cmd.CommandText = "Insert into Armas (cuscod, prenam, cusnam, addr01, addr02, addr03, zipcod, telnum, contact, remark, taxid, orgnum, status, custyp, accnum, slmcod, areacod, dlvby, paytrm, paycond, tabpr, disc, crline, cusnam2, payer, shipto, taxcond, taxtyp, tracksal, balance, chqrcv, taxrat, taxdes, inactdat, lasivc, creby, credat, userid, chgdat) Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,{},{},?,?,?,?)";
+                            cmd.CommandText = "Insert into Armas (cuscod, prenam, cusnam, addr01, addr02, addr03, zipcod, telnum, contact, remark, taxid, orgnum, status, custyp, accnum, slmcod, areacod, dlvby, paytrm, paycond, tabpr, disc, crline, cusnam2, payer, shipto, taxcond, taxtyp, tracksal, balance, chqrcv, taxrat, taxdes, dat1, dat2, num1, str1, str2, str3, str4, c_type, inactdat, lasivc, creby, credat, userid, chgdat) Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,{},{},?,?,?,?,?,?,{},{},?,?,?,?)";
                         }
 
                         if (this.form_mode == FORM_MODE.EDIT)
@@ -414,13 +471,21 @@ namespace XPump.SubForm
                             cmd.Parameters.AddWithValue("@payer", this.tmp_armas.payer);
                             cmd.Parameters.AddWithValue("@shipto", this.tmp_armas.shipto);
                             cmd.Parameters.AddWithValue("@taxcond", this.tmp_armas.taxcond);
-                            //cmd.Parameters.AddWithValue("@taxgrp", this.tmp_armas.taxgrp);
+                            //cmd.Parameters.AddWithValue("@taxgrp", this.tmp_armas.taxgrp); // V.1
                             cmd.Parameters.AddWithValue("@taxtyp", this.tmp_armas.taxtyp);
                             cmd.Parameters.AddWithValue("@tracksal", this.tmp_armas.tracksal);
                             cmd.Parameters.AddWithValue("@balance", this.tmp_armas.balance);
                             cmd.Parameters.AddWithValue("@chqrcv", this.tmp_armas.chqrcv);
                             cmd.Parameters.AddWithValue("@taxrat", this.tmp_armas.taxrat);
-                            cmd.Parameters.AddWithValue("@taxdes", this.tmp_armas.taxdes);
+                            cmd.Parameters.AddWithValue("@taxdes", this.tmp_armas.taxdes); // V.2
+                            //cmd.Parameters.AddWithValue("@dat1", this.tmp_armas.dat1); // V.2
+                            //cmd.Parameters.AddWithValue("@dat2", this.tmp_armas.dat2); // V.2
+                            cmd.Parameters.AddWithValue("@num1", this.tmp_armas.num1); // V.2
+                            cmd.Parameters.AddWithValue("@str1", this.tmp_armas.str1); // V.2
+                            cmd.Parameters.AddWithValue("@str2", this.tmp_armas.str2); // V.2
+                            cmd.Parameters.AddWithValue("@str3", this.tmp_armas.str3); // V.2
+                            cmd.Parameters.AddWithValue("@str4", this.tmp_armas.str4); // V.2
+                            cmd.Parameters.AddWithValue("@c_type", this.tmp_armas.c_type); // V.2
                             cmd.Parameters.AddWithValue("@creby", this.main_form.loged_in_status.loged_in_user_name);
                             cmd.Parameters.AddWithValue("@credat", DateTime.Now);
                             cmd.Parameters.AddWithValue("@userid", this.main_form.loged_in_status.loged_in_user_name);
