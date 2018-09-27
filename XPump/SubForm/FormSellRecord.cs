@@ -22,6 +22,9 @@ namespace XPump.SubForm
         private BindingList<StmasDbfPrice> stmas1;
         private BindingList<StmasDbfPrice> stmas2;
         private FORM_MODE form_mode;
+        private artrn tmp_artrn = null;
+        private IsrunDbf curr_docprefix = null;
+        private artrn curr_artrn = null;
 
         public FormSellRecord(MainForm main_form, scacclvVM scacclv)
         {
@@ -33,7 +36,10 @@ namespace XPump.SubForm
         private void FormSellRecord_Load(object sender, EventArgs e)
         {
             this.BackColor = MiscResource.WIND_BG;
+
+            this.curr_docprefix = this.GetIsrunInvoiceDoc().Where(i => i.doctyp.TrimEnd() == "HS").First();
             this.LoadStmasDgv();
+            this.lblDocType.Text = this.curr_docprefix.prefix + " : " + this.curr_docprefix.posdes;
             this.ResetFormState(FORM_MODE.READ);
         }
 
@@ -62,10 +68,17 @@ namespace XPump.SubForm
             this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
+            this.btnManageStkgrp.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnChangeDocTyp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.cCuscod.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.cDocdat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.cNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.cCshrcv.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+        }
+
+        private List<IsrunDbf> GetIsrunInvoiceDoc()
+        {
+            return DbfTable.Isrun(this.main_form.working_express_db).ToIsrunList().Where(i => i.doctyp.TrimEnd() == "IV" || i.doctyp.TrimEnd() == "HS").OrderBy(i => i.doctyp).ThenBy(i => i.prefix).ToList();
         }
 
         private void LoadStmasDgv()
@@ -77,6 +90,16 @@ namespace XPump.SubForm
             this.tabGoods1.Text = "น้ำมันใส (" + stmas1.Count.ToString() + ")";
             this.dgvGoods2.DataSource = stmas2;
             this.tabGoods2.Text = "อื่น ๆ (" + stmas2.Count.ToString() + ")";
+        }
+
+        private void FillForm(artrn artrn_to_fill)
+        {
+            if(artrn_to_fill != null)
+            {
+                this.cDocnum._Text = artrn_to_fill.docnum;
+                this.cDocdat._SelectedDate = artrn_to_fill.docdat;
+                this.cCuscod._Text = artrn_to_fill.cuscod;
+            }
         }
 
         private List<StmasDbfPrice> GetStmasDbfPrice(STKGRP[] stkgroups)
@@ -152,13 +175,20 @@ namespace XPump.SubForm
 
         private void dgvGoods1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index && e.RowIndex > -1)
+            try
             {
-                ((XDatagrid)sender).Cursor = Cursors.Hand;
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index && e.RowIndex > -1)
+                {
+                    ((XDatagrid)sender).Cursor = Cursors.Hand;
+                }
+                else
+                {
+                    ((XDatagrid)sender).Cursor = Cursors.Default;
+                }
             }
-            else
+            catch (Exception)
             {
-                ((XDatagrid)sender).Cursor = Cursors.Default;
+                return;
             }
         }
 
@@ -188,6 +218,19 @@ namespace XPump.SubForm
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
+            List<XDropdownListItem> items = new List<XDropdownListItem>();
+            this.GetIsrunInvoiceDoc().ForEach(i => items.Add(new XDropdownListItem { Text = i.prefix.TrimEnd() + " : " + i.posdes.TrimEnd(), Value = i }));
+            DialogDropdownlistSelector dr = new DialogDropdownlistSelector("เลือกประเภทรายการขาย", "ประเภทการขาย", items, this.curr_docprefix);
+            if (dr.ShowDialog() == DialogResult.OK)
+            {
+                this.lblDocType.Text = dr.selected_item.Text;
+                this.curr_docprefix = (IsrunDbf)dr.selected_item.Value;
+
+                this.tmp_artrn = new artrn { docnum = this.curr_docprefix + "**NEW**", docdat = DateTime.Now };
+                this.ResetFormState(FORM_MODE.ADD);
+                this.FillForm(this.tmp_artrn);
+
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -248,6 +291,34 @@ namespace XPump.SubForm
         private void btnPrint_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cCuscod__ButtonClick(object sender, EventArgs e)
+        {
+            DataGridViewTextBoxColumn col_cuscod = new DataGridViewTextBoxColumn
+            {
+                Name = "col_cuscod",
+                DataPropertyName = "cuscod",
+                Width = 100,
+                MinimumWidth = 100,
+            };
+
+            //DataGridViewColumn[] cols = new DataGridViewColumn[] { };
+            var armas_list = DbfTable.ArmasList(this.main_form.working_express_db);
+
+            //DialogBrowseBoxSelector br = new DialogBrowseBoxSelector()
+        }
+
+        private void btnChangeDocTyp_Click(object sender, EventArgs e)
+        {
+            List<XDropdownListItem> items = new List<XDropdownListItem>();
+            this.GetIsrunInvoiceDoc().ForEach(i => items.Add(new XDropdownListItem { Text = i.prefix.TrimEnd() + " : " + i.posdes.TrimEnd(), Value = i }));
+            DialogDropdownlistSelector dr = new DialogDropdownlistSelector("เลือกประเภทรายการขาย", "ประเภทการขาย", items, this.curr_docprefix);
+            if (dr.ShowDialog() == DialogResult.OK)
+            {
+                this.lblDocType.Text = dr.selected_item.Text;
+                this.curr_docprefix = (IsrunDbf)dr.selected_item.Value;
+            }
         }
 
         //private List<stmasPriceVM> GetStmas(bool oil_only = true)

@@ -1743,6 +1743,10 @@ namespace XPump.Model
         public string reserve2 { get; set; }
         public double reserve3 { get; set; }
 
+        public override string ToString()
+        {
+            return this.prefix;
+        }
     }
 
     public class IstabDbf

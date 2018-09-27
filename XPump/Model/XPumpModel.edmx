@@ -4,7 +4,100 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="xpumpModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="artrn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rectyp" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="docnum" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="docdat" Type="date" Nullable="false" />
+          <Property Name="postgl" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="sonum" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="cntyp" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="depcod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="flgvat" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="slmcod" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cuscod" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="shipto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="youref" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="areacod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="paytrm" Type="int" Nullable="false" />
+          <Property Name="duedat" Type="date" Nullable="false" />
+          <Property Name="bilnum" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="nxtseq" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="disc" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="discamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="aftdisc" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="advnum" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="advamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="amtrat0" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="vatrat" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="vatamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="netamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="netval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="rcvamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="remamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="comamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="cmplapp" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="cmpldat" Type="date" />
+          <Property Name="docstat" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="cshrcv" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="chqrcv" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="intrcv" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="beftax" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="taxrat" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="taxcond" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="tax" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="ivcamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="chqpas" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="vatdat" Type="date" />
+          <Property Name="vatprd" Type="date" />
+          <Property Name="vatlate" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="srv_vattyp" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="dlvby" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="reserve" Type="date" />
+          <Property Name="creby" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="credat" Type="date" Nullable="false" />
+          <Property Name="userid" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="chgdat" Type="date" Nullable="false" />
+          <Property Name="userprn" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="prndat" Type="date" />
+          <Property Name="prncnt" Type="int" Nullable="false" />
+          <Property Name="authid" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="approve" Type="date" />
+          <Property Name="ponum" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="billto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="orgnum" Type="int" Nullable="false" />
+          <Property Name="c_type" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="c_date" Type="date" />
+          <Property Name="c_ref" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="c_rate" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_fixrate" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="c_ratio" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_amount" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_disc" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="c_discamt" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_aftdisc" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_advamt" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_total" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_netamt" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_netval" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_ivcamt" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_difamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="c_rcvamt" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_remamt" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="link" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="dat1" Type="date" />
+          <Property Name="dat2" Type="date" />
+          <Property Name="num1" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="num2" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="str1" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="str2" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="dayend">
           <Key>
             <PropertyRef Name="id" />
@@ -231,6 +324,87 @@
           <Property Name="chgby" Type="varchar" MaxLength="20" />
           <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
+        <EntityType Name="stcrd">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stkcod" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="loccod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="docnum" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="seqnum" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="docdat" Type="date" Nullable="false" />
+          <Property Name="rdocnum" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="refnum" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="depcod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="posopr" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="free" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="vatcod" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="people" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="slmcod" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="flag" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="trnqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="tqucod" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="tfactor" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="unitpr" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="disc" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="discamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="trnval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="phybal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="retstk" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="xtrnqty" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="xunitpr" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="xtrnval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="xsalval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="netval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="mlotnum" Type="varchar" MaxLength="24" Nullable="false" />
+          <Property Name="mrembal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="mremval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="balchg" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="valchg" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="lotbal" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="lotval" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="lunitpr" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="pstkcod" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="accnumdr" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="accnumcr" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="stkdes" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="packing" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="jobcod" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="phase" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="coscod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="reimburse" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="creby" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="credat" Type="date" Nullable="false" />
+          <Property Name="userid" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="chgdat" Type="date" Nullable="false" />
+          <Property Name="authid" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="approve" Type="date" />
+          <Property Name="xcoscod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="xdepcod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="xjobcod" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="xphase" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="xaccnum" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="accchgdr" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="accchgcr" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="ispi" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="vatgrp" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="lot_qty" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="lot_val" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="warmonth" Type="decimal" Precision="14" Scale="3" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="old_status" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="c_unitpr" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_disc" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="c_discamt" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_trnval" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="c_netval" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="lotseq" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="billxx" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="retqty" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="retval" Type="decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="artrn_id" Type="int" />
+        </EntityType>
         <EntityType Name="tank">
           <Key>
             <PropertyRef Name="id" />
@@ -301,6 +475,18 @@
             </Principal>
             <Dependent Role="saleshistory">
               <PropertyRef Name="salessummary_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk - stcrd - artrn_id">
+          <End Role="artrn" Type="Self.artrn" Multiplicity="0..1" />
+          <End Role="stcrd" Type="Self.stcrd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artrn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stcrd">
+              <PropertyRef Name="artrn_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -460,23 +646,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="xpumpModelStoreContainer">
-          <EntitySet Name="dayend" EntityType="Self.dayend" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="daysttak" EntityType="Self.daysttak" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="dbver" EntityType="Self.dbver" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="dother" EntityType="Self.dother" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="istab" EntityType="Self.istab" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="nozzle" EntityType="Self.nozzle" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="pricelist" EntityType="Self.pricelist" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="saleshistory" EntityType="Self.saleshistory" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="salessummary" EntityType="Self.salessummary" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="section" EntityType="Self.section" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="settings" EntityType="Self.settings" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="shift" EntityType="Self.shift" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="shiftsales" EntityType="Self.shiftsales" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="shiftsttak" EntityType="Self.shiftsttak" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="tank" EntityType="Self.tank" Schema="xpump" store:Type="Tables" />
-          <EntitySet Name="tanksetup" EntityType="Self.tanksetup" Schema="xpump" store:Type="Tables" />
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="artrn" EntityType="Self.artrn" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="dayend" EntityType="Self.dayend" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="daysttak" EntityType="Self.daysttak" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="dbver" EntityType="Self.dbver" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="dother" EntityType="Self.dother" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="istab" EntityType="Self.istab" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="nozzle" EntityType="Self.nozzle" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="pricelist" EntityType="Self.pricelist" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="saleshistory" EntityType="Self.saleshistory" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="salessummary" EntityType="Self.salessummary" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="section" EntityType="Self.section" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="settings" EntityType="Self.settings" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="shift" EntityType="Self.shift" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="shiftsales" EntityType="Self.shiftsales" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="shiftsttak" EntityType="Self.shiftsttak" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="stcrd" EntityType="Self.stcrd" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="tank" EntityType="Self.tank" Schema="t-20e-090016_test" store:Type="Tables" />
+          <EntitySet Name="tanksetup" EntityType="Self.tanksetup" Schema="t-20e-090016_test" store:Type="Tables" />
           <AssociationSet Name="fk - daysttak - dayend_id" Association="Self.fk - daysttak - dayend_id">
             <End Role="dayend" EntitySet="dayend" />
             <End Role="daysttak" EntitySet="daysttak" />
@@ -492,6 +680,10 @@
           <AssociationSet Name="fk - saleshistory - salessummary_id" Association="Self.fk - saleshistory - salessummary_id">
             <End Role="salessummary" EntitySet="salessummary" />
             <End Role="saleshistory" EntitySet="saleshistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk - stcrd - artrn_id" Association="Self.fk - stcrd - artrn_id">
+            <End Role="artrn" EntitySet="artrn" />
+            <End Role="stcrd" EntitySet="stcrd" />
           </AssociationSet>
           <AssociationSet Name="fk_dother_dayend1" Association="Self.fk_dother_dayend1">
             <End Role="dayend" EntitySet="dayend" />
@@ -550,7 +742,101 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="xpumpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="artrn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rectyp" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="docnum" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="docdat" Type="DateTime" Nullable="false" />
+          <Property Name="postgl" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sonum" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cntyp" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="depcod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flgvat" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="slmcod" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cuscod" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="shipto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="youref" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="areacod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="paytrm" Type="Int32" Nullable="false" />
+          <Property Name="duedat" Type="DateTime" Nullable="false" />
+          <Property Name="bilnum" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nxtseq" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="amount" Type="Decimal" Nullable="false" />
+          <Property Name="disc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="discamt" Type="Decimal" Nullable="false" />
+          <Property Name="aftdisc" Type="Decimal" Nullable="false" />
+          <Property Name="advnum" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="advamt" Type="Decimal" Nullable="false" />
+          <Property Name="total" Type="Decimal" Nullable="false" />
+          <Property Name="amtrat0" Type="Decimal" Nullable="false" />
+          <Property Name="vatrat" Type="Decimal" Nullable="false" />
+          <Property Name="vatamt" Type="Decimal" Nullable="false" />
+          <Property Name="netamt" Type="Decimal" Nullable="false" />
+          <Property Name="netval" Type="Decimal" Nullable="false" />
+          <Property Name="rcvamt" Type="Decimal" Nullable="false" />
+          <Property Name="remamt" Type="Decimal" Nullable="false" />
+          <Property Name="comamt" Type="Decimal" Nullable="false" />
+          <Property Name="cmplapp" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cmpldat" Type="DateTime" />
+          <Property Name="docstat" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cshrcv" Type="Decimal" Nullable="false" />
+          <Property Name="chqrcv" Type="Decimal" Nullable="false" />
+          <Property Name="intrcv" Type="Decimal" Nullable="false" />
+          <Property Name="beftax" Type="Decimal" Nullable="false" />
+          <Property Name="taxrat" Type="Decimal" Nullable="false" />
+          <Property Name="taxcond" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tax" Type="Decimal" Nullable="false" />
+          <Property Name="ivcamt" Type="Decimal" Nullable="false" />
+          <Property Name="chqpas" Type="Decimal" Nullable="false" />
+          <Property Name="vatdat" Type="DateTime" />
+          <Property Name="vatprd" Type="DateTime" />
+          <Property Name="vatlate" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="srv_vattyp" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dlvby" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reserve" Type="DateTime" />
+          <Property Name="creby" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="credat" Type="DateTime" Nullable="false" />
+          <Property Name="userid" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="chgdat" Type="DateTime" Nullable="false" />
+          <Property Name="userprn" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prndat" Type="DateTime" />
+          <Property Name="prncnt" Type="Int32" Nullable="false" />
+          <Property Name="authid" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="approve" Type="DateTime" />
+          <Property Name="ponum" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="billto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="orgnum" Type="Int32" Nullable="false" />
+          <Property Name="c_type" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="c_date" Type="DateTime" />
+          <Property Name="c_ref" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="c_rate" Type="Decimal" Nullable="false" />
+          <Property Name="c_fixrate" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="c_ratio" Type="Decimal" Nullable="false" />
+          <Property Name="c_amount" Type="Decimal" Nullable="false" />
+          <Property Name="c_disc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="c_discamt" Type="Decimal" Nullable="false" />
+          <Property Name="c_aftdisc" Type="Decimal" Nullable="false" />
+          <Property Name="c_advamt" Type="Decimal" Nullable="false" />
+          <Property Name="c_total" Type="Decimal" Nullable="false" />
+          <Property Name="c_netamt" Type="Decimal" Nullable="false" />
+          <Property Name="c_netval" Type="Decimal" Nullable="false" />
+          <Property Name="c_ivcamt" Type="Decimal" Nullable="false" />
+          <Property Name="c_difamt" Type="Decimal" Nullable="false" />
+          <Property Name="c_rcvamt" Type="Decimal" Nullable="false" />
+          <Property Name="c_remamt" Type="Decimal" Nullable="false" />
+          <Property Name="link" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dat1" Type="DateTime" />
+          <Property Name="dat2" Type="DateTime" />
+          <Property Name="num1" Type="Decimal" Nullable="false" />
+          <Property Name="num2" Type="Decimal" Nullable="false" />
+          <Property Name="str1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="str2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="stcrd" Relationship="Self.fk___stcrd___artrn_id" FromRole="artrn" ToRole="stcrd" />
+        </EntityType>
         <EntityType Name="dayend">
           <Key>
             <PropertyRef Name="id" />
@@ -808,6 +1094,88 @@
           <NavigationProperty Name="section" Relationship="Self.fk_sttak_section_id" FromRole="shiftsttak" ToRole="section" />
           <NavigationProperty Name="shiftsales" Relationship="Self.fk_sttak_shiftsales_id" FromRole="shiftsttak" ToRole="shiftsales" />
         </EntityType>
+        <EntityType Name="stcrd">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stkcod" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="loccod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="docnum" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seqnum" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="docdat" Type="DateTime" Nullable="false" />
+          <Property Name="rdocnum" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="refnum" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="depcod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="posopr" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="free" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="vatcod" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="people" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="slmcod" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="flag" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="trnqty" Type="Decimal" Nullable="false" />
+          <Property Name="tqucod" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tfactor" Type="Decimal" Nullable="false" />
+          <Property Name="unitpr" Type="Decimal" Nullable="false" />
+          <Property Name="disc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="discamt" Type="Decimal" Nullable="false" />
+          <Property Name="trnval" Type="Decimal" Nullable="false" />
+          <Property Name="phybal" Type="Decimal" Nullable="false" />
+          <Property Name="retstk" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xtrnqty" Type="Decimal" Nullable="false" />
+          <Property Name="xunitpr" Type="Decimal" Nullable="false" />
+          <Property Name="xtrnval" Type="Decimal" Nullable="false" />
+          <Property Name="xsalval" Type="Decimal" Nullable="false" />
+          <Property Name="netval" Type="Decimal" Nullable="false" />
+          <Property Name="mlotnum" Type="String" MaxLength="24" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mrembal" Type="Decimal" Nullable="false" />
+          <Property Name="mremval" Type="Decimal" Nullable="false" />
+          <Property Name="balchg" Type="Decimal" Nullable="false" />
+          <Property Name="valchg" Type="Decimal" Nullable="false" />
+          <Property Name="lotbal" Type="Decimal" Nullable="false" />
+          <Property Name="lotval" Type="Decimal" Nullable="false" />
+          <Property Name="lunitpr" Type="Decimal" Nullable="false" />
+          <Property Name="pstkcod" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="accnumdr" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="accnumcr" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stkdes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="packing" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="jobcod" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phase" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coscod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reimburse" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="creby" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="credat" Type="DateTime" Nullable="false" />
+          <Property Name="userid" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="chgdat" Type="DateTime" Nullable="false" />
+          <Property Name="authid" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="approve" Type="DateTime" />
+          <Property Name="xcoscod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xdepcod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xjobcod" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xphase" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xaccnum" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="accchgdr" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="accchgcr" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ispi" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="vatgrp" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lot_qty" Type="Decimal" Nullable="false" />
+          <Property Name="lot_val" Type="Decimal" Nullable="false" />
+          <Property Name="warmonth" Type="Decimal" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="old_status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="c_unitpr" Type="Decimal" Nullable="false" />
+          <Property Name="c_disc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="c_discamt" Type="Decimal" Nullable="false" />
+          <Property Name="c_trnval" Type="Decimal" Nullable="false" />
+          <Property Name="c_netval" Type="Decimal" Nullable="false" />
+          <Property Name="lotseq" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="billxx" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="retqty" Type="Decimal" Nullable="false" />
+          <Property Name="retval" Type="Decimal" Nullable="false" />
+          <Property Name="artrn_id" Type="Int32" />
+          <NavigationProperty Name="artrn" Relationship="Self.fk___stcrd___artrn_id" FromRole="stcrd" ToRole="artrn" />
+        </EntityType>
         <EntityType Name="tank">
           <Key>
             <PropertyRef Name="id" />
@@ -836,6 +1204,18 @@
           <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="tank" Relationship="Self.fk_tank_tanksetup_id" FromRole="tanksetup" ToRole="tank" />
         </EntityType>
+        <Association Name="fk___stcrd___artrn_id">
+          <End Role="artrn" Type="Self.artrn" Multiplicity="0..1" />
+          <End Role="stcrd" Type="Self.stcrd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artrn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stcrd">
+              <PropertyRef Name="artrn_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk___daysttak___dayend_id">
           <End Role="dayend" Type="Self.dayend" Multiplicity="1" />
           <End Role="daysttak" Type="Self.daysttak" Multiplicity="*" />
@@ -1041,6 +1421,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="xpumpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="artrn" EntityType="Self.artrn" />
           <EntitySet Name="dayend" EntityType="Self.dayend" />
           <EntitySet Name="daysttak" EntityType="Self.daysttak" />
           <EntitySet Name="dbver" EntityType="Self.dbver" />
@@ -1055,8 +1436,13 @@
           <EntitySet Name="shift" EntityType="Self.shift" />
           <EntitySet Name="shiftsales" EntityType="Self.shiftsales" />
           <EntitySet Name="shiftsttak" EntityType="Self.shiftsttak" />
+          <EntitySet Name="stcrd" EntityType="Self.stcrd" />
           <EntitySet Name="tank" EntityType="Self.tank" />
           <EntitySet Name="tanksetup" EntityType="Self.tanksetup" />
+          <AssociationSet Name="fk___stcrd___artrn_id" Association="Self.fk___stcrd___artrn_id">
+            <End Role="artrn" EntitySet="artrn" />
+            <End Role="stcrd" EntitySet="stcrd" />
+          </AssociationSet>
           <AssociationSet Name="fk___daysttak___dayend_id" Association="Self.fk___daysttak___dayend_id">
             <End Role="dayend" EntitySet="dayend" />
             <End Role="daysttak" EntitySet="daysttak" />
@@ -1131,9 +1517,103 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="xpumpModelStoreContainer" CdmEntityContainer="xpumpEntities">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="xpumpEntities">
+          <EntitySetMapping Name="artrn">
+            <EntityTypeMapping TypeName="Model.artrn">
+              <MappingFragment StoreEntitySet="artrn">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rectyp" ColumnName="rectyp" />
+                <ScalarProperty Name="docnum" ColumnName="docnum" />
+                <ScalarProperty Name="docdat" ColumnName="docdat" />
+                <ScalarProperty Name="postgl" ColumnName="postgl" />
+                <ScalarProperty Name="sonum" ColumnName="sonum" />
+                <ScalarProperty Name="cntyp" ColumnName="cntyp" />
+                <ScalarProperty Name="depcod" ColumnName="depcod" />
+                <ScalarProperty Name="flgvat" ColumnName="flgvat" />
+                <ScalarProperty Name="slmcod" ColumnName="slmcod" />
+                <ScalarProperty Name="cuscod" ColumnName="cuscod" />
+                <ScalarProperty Name="shipto" ColumnName="shipto" />
+                <ScalarProperty Name="youref" ColumnName="youref" />
+                <ScalarProperty Name="areacod" ColumnName="areacod" />
+                <ScalarProperty Name="paytrm" ColumnName="paytrm" />
+                <ScalarProperty Name="duedat" ColumnName="duedat" />
+                <ScalarProperty Name="bilnum" ColumnName="bilnum" />
+                <ScalarProperty Name="nxtseq" ColumnName="nxtseq" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="disc" ColumnName="disc" />
+                <ScalarProperty Name="discamt" ColumnName="discamt" />
+                <ScalarProperty Name="aftdisc" ColumnName="aftdisc" />
+                <ScalarProperty Name="advnum" ColumnName="advnum" />
+                <ScalarProperty Name="advamt" ColumnName="advamt" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="amtrat0" ColumnName="amtrat0" />
+                <ScalarProperty Name="vatrat" ColumnName="vatrat" />
+                <ScalarProperty Name="vatamt" ColumnName="vatamt" />
+                <ScalarProperty Name="netamt" ColumnName="netamt" />
+                <ScalarProperty Name="netval" ColumnName="netval" />
+                <ScalarProperty Name="rcvamt" ColumnName="rcvamt" />
+                <ScalarProperty Name="remamt" ColumnName="remamt" />
+                <ScalarProperty Name="comamt" ColumnName="comamt" />
+                <ScalarProperty Name="cmplapp" ColumnName="cmplapp" />
+                <ScalarProperty Name="cmpldat" ColumnName="cmpldat" />
+                <ScalarProperty Name="docstat" ColumnName="docstat" />
+                <ScalarProperty Name="cshrcv" ColumnName="cshrcv" />
+                <ScalarProperty Name="chqrcv" ColumnName="chqrcv" />
+                <ScalarProperty Name="intrcv" ColumnName="intrcv" />
+                <ScalarProperty Name="beftax" ColumnName="beftax" />
+                <ScalarProperty Name="taxrat" ColumnName="taxrat" />
+                <ScalarProperty Name="taxcond" ColumnName="taxcond" />
+                <ScalarProperty Name="tax" ColumnName="tax" />
+                <ScalarProperty Name="ivcamt" ColumnName="ivcamt" />
+                <ScalarProperty Name="chqpas" ColumnName="chqpas" />
+                <ScalarProperty Name="vatdat" ColumnName="vatdat" />
+                <ScalarProperty Name="vatprd" ColumnName="vatprd" />
+                <ScalarProperty Name="vatlate" ColumnName="vatlate" />
+                <ScalarProperty Name="srv_vattyp" ColumnName="srv_vattyp" />
+                <ScalarProperty Name="dlvby" ColumnName="dlvby" />
+                <ScalarProperty Name="reserve" ColumnName="reserve" />
+                <ScalarProperty Name="creby" ColumnName="creby" />
+                <ScalarProperty Name="credat" ColumnName="credat" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="chgdat" ColumnName="chgdat" />
+                <ScalarProperty Name="userprn" ColumnName="userprn" />
+                <ScalarProperty Name="prndat" ColumnName="prndat" />
+                <ScalarProperty Name="prncnt" ColumnName="prncnt" />
+                <ScalarProperty Name="authid" ColumnName="authid" />
+                <ScalarProperty Name="approve" ColumnName="approve" />
+                <ScalarProperty Name="ponum" ColumnName="ponum" />
+                <ScalarProperty Name="billto" ColumnName="billto" />
+                <ScalarProperty Name="orgnum" ColumnName="orgnum" />
+                <ScalarProperty Name="c_type" ColumnName="c_type" />
+                <ScalarProperty Name="c_date" ColumnName="c_date" />
+                <ScalarProperty Name="c_ref" ColumnName="c_ref" />
+                <ScalarProperty Name="c_rate" ColumnName="c_rate" />
+                <ScalarProperty Name="c_fixrate" ColumnName="c_fixrate" />
+                <ScalarProperty Name="c_ratio" ColumnName="c_ratio" />
+                <ScalarProperty Name="c_amount" ColumnName="c_amount" />
+                <ScalarProperty Name="c_disc" ColumnName="c_disc" />
+                <ScalarProperty Name="c_discamt" ColumnName="c_discamt" />
+                <ScalarProperty Name="c_aftdisc" ColumnName="c_aftdisc" />
+                <ScalarProperty Name="c_advamt" ColumnName="c_advamt" />
+                <ScalarProperty Name="c_total" ColumnName="c_total" />
+                <ScalarProperty Name="c_netamt" ColumnName="c_netamt" />
+                <ScalarProperty Name="c_netval" ColumnName="c_netval" />
+                <ScalarProperty Name="c_ivcamt" ColumnName="c_ivcamt" />
+                <ScalarProperty Name="c_difamt" ColumnName="c_difamt" />
+                <ScalarProperty Name="c_rcvamt" ColumnName="c_rcvamt" />
+                <ScalarProperty Name="c_remamt" ColumnName="c_remamt" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="dat1" ColumnName="dat1" />
+                <ScalarProperty Name="dat2" ColumnName="dat2" />
+                <ScalarProperty Name="num1" ColumnName="num1" />
+                <ScalarProperty Name="num2" ColumnName="num2" />
+                <ScalarProperty Name="str1" ColumnName="str1" />
+                <ScalarProperty Name="str2" ColumnName="str2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="dayend">
-            <EntityTypeMapping TypeName="xpumpModel.dayend">
+            <EntityTypeMapping TypeName="Model.dayend">
               <MappingFragment StoreEntitySet="dayend">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
@@ -1151,7 +1631,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="daysttak">
-            <EntityTypeMapping TypeName="xpumpModel.daysttak">
+            <EntityTypeMapping TypeName="Model.daysttak">
               <MappingFragment StoreEntitySet="daysttak">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="takqty" ColumnName="takqty" />
@@ -1169,7 +1649,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="dbver">
-            <EntityTypeMapping TypeName="xpumpModel.dbver">
+            <EntityTypeMapping TypeName="Model.dbver">
               <MappingFragment StoreEntitySet="dbver">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
@@ -1179,7 +1659,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="dother">
-            <EntityTypeMapping TypeName="xpumpModel.dother">
+            <EntityTypeMapping TypeName="Model.dother">
               <MappingFragment StoreEntitySet="dother">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="qty" ColumnName="qty" />
@@ -1196,7 +1676,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="istab">
-            <EntityTypeMapping TypeName="xpumpModel.istab">
+            <EntityTypeMapping TypeName="Model.istab">
               <MappingFragment StoreEntitySet="istab">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="tabtyp" ColumnName="tabtyp" />
@@ -1215,7 +1695,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="nozzle">
-            <EntityTypeMapping TypeName="xpumpModel.nozzle">
+            <EntityTypeMapping TypeName="Model.nozzle">
               <MappingFragment StoreEntitySet="nozzle">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -1231,7 +1711,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="pricelist">
-            <EntityTypeMapping TypeName="xpumpModel.pricelist">
+            <EntityTypeMapping TypeName="Model.pricelist">
               <MappingFragment StoreEntitySet="pricelist">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date" ColumnName="date" />
@@ -1245,7 +1725,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="saleshistory">
-            <EntityTypeMapping TypeName="xpumpModel.saleshistory">
+            <EntityTypeMapping TypeName="Model.saleshistory">
               <MappingFragment StoreEntitySet="saleshistory">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
@@ -1262,7 +1742,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="salessummary">
-            <EntityTypeMapping TypeName="xpumpModel.salessummary">
+            <EntityTypeMapping TypeName="Model.salessummary">
               <MappingFragment StoreEntitySet="salessummary">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
@@ -1280,7 +1760,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="section">
-            <EntityTypeMapping TypeName="xpumpModel.section">
+            <EntityTypeMapping TypeName="Model.section">
               <MappingFragment StoreEntitySet="section">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -1300,7 +1780,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="settings">
-            <EntityTypeMapping TypeName="xpumpModel.settings">
+            <EntityTypeMapping TypeName="Model.settings">
               <MappingFragment StoreEntitySet="settings">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="orgname" ColumnName="orgname" />
@@ -1316,7 +1796,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="shift">
-            <EntityTypeMapping TypeName="xpumpModel.shift">
+            <EntityTypeMapping TypeName="Model.shift">
               <MappingFragment StoreEntitySet="shift">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="seq" ColumnName="seq" />
@@ -1339,7 +1819,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="shiftsales">
-            <EntityTypeMapping TypeName="xpumpModel.shiftsales">
+            <EntityTypeMapping TypeName="Model.shiftsales">
               <MappingFragment StoreEntitySet="shiftsales">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="saldat" ColumnName="saldat" />
@@ -1358,7 +1838,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="shiftsttak">
-            <EntityTypeMapping TypeName="xpumpModel.shiftsttak">
+            <EntityTypeMapping TypeName="Model.shiftsttak">
               <MappingFragment StoreEntitySet="shiftsttak">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="takdat" ColumnName="takdat" />
@@ -1372,8 +1852,90 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="stcrd">
+            <EntityTypeMapping TypeName="Model.stcrd">
+              <MappingFragment StoreEntitySet="stcrd">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="stkcod" ColumnName="stkcod" />
+                <ScalarProperty Name="loccod" ColumnName="loccod" />
+                <ScalarProperty Name="docnum" ColumnName="docnum" />
+                <ScalarProperty Name="seqnum" ColumnName="seqnum" />
+                <ScalarProperty Name="docdat" ColumnName="docdat" />
+                <ScalarProperty Name="rdocnum" ColumnName="rdocnum" />
+                <ScalarProperty Name="refnum" ColumnName="refnum" />
+                <ScalarProperty Name="depcod" ColumnName="depcod" />
+                <ScalarProperty Name="posopr" ColumnName="posopr" />
+                <ScalarProperty Name="free" ColumnName="free" />
+                <ScalarProperty Name="vatcod" ColumnName="vatcod" />
+                <ScalarProperty Name="people" ColumnName="people" />
+                <ScalarProperty Name="slmcod" ColumnName="slmcod" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="trnqty" ColumnName="trnqty" />
+                <ScalarProperty Name="tqucod" ColumnName="tqucod" />
+                <ScalarProperty Name="tfactor" ColumnName="tfactor" />
+                <ScalarProperty Name="unitpr" ColumnName="unitpr" />
+                <ScalarProperty Name="disc" ColumnName="disc" />
+                <ScalarProperty Name="discamt" ColumnName="discamt" />
+                <ScalarProperty Name="trnval" ColumnName="trnval" />
+                <ScalarProperty Name="phybal" ColumnName="phybal" />
+                <ScalarProperty Name="retstk" ColumnName="retstk" />
+                <ScalarProperty Name="xtrnqty" ColumnName="xtrnqty" />
+                <ScalarProperty Name="xunitpr" ColumnName="xunitpr" />
+                <ScalarProperty Name="xtrnval" ColumnName="xtrnval" />
+                <ScalarProperty Name="xsalval" ColumnName="xsalval" />
+                <ScalarProperty Name="netval" ColumnName="netval" />
+                <ScalarProperty Name="mlotnum" ColumnName="mlotnum" />
+                <ScalarProperty Name="mrembal" ColumnName="mrembal" />
+                <ScalarProperty Name="mremval" ColumnName="mremval" />
+                <ScalarProperty Name="balchg" ColumnName="balchg" />
+                <ScalarProperty Name="valchg" ColumnName="valchg" />
+                <ScalarProperty Name="lotbal" ColumnName="lotbal" />
+                <ScalarProperty Name="lotval" ColumnName="lotval" />
+                <ScalarProperty Name="lunitpr" ColumnName="lunitpr" />
+                <ScalarProperty Name="pstkcod" ColumnName="pstkcod" />
+                <ScalarProperty Name="accnumdr" ColumnName="accnumdr" />
+                <ScalarProperty Name="accnumcr" ColumnName="accnumcr" />
+                <ScalarProperty Name="stkdes" ColumnName="stkdes" />
+                <ScalarProperty Name="packing" ColumnName="packing" />
+                <ScalarProperty Name="jobcod" ColumnName="jobcod" />
+                <ScalarProperty Name="phase" ColumnName="phase" />
+                <ScalarProperty Name="coscod" ColumnName="coscod" />
+                <ScalarProperty Name="reimburse" ColumnName="reimburse" />
+                <ScalarProperty Name="creby" ColumnName="creby" />
+                <ScalarProperty Name="credat" ColumnName="credat" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="chgdat" ColumnName="chgdat" />
+                <ScalarProperty Name="authid" ColumnName="authid" />
+                <ScalarProperty Name="approve" ColumnName="approve" />
+                <ScalarProperty Name="xcoscod" ColumnName="xcoscod" />
+                <ScalarProperty Name="xdepcod" ColumnName="xdepcod" />
+                <ScalarProperty Name="xjobcod" ColumnName="xjobcod" />
+                <ScalarProperty Name="xphase" ColumnName="xphase" />
+                <ScalarProperty Name="xaccnum" ColumnName="xaccnum" />
+                <ScalarProperty Name="accchgdr" ColumnName="accchgdr" />
+                <ScalarProperty Name="accchgcr" ColumnName="accchgcr" />
+                <ScalarProperty Name="ispi" ColumnName="ispi" />
+                <ScalarProperty Name="vatgrp" ColumnName="vatgrp" />
+                <ScalarProperty Name="lot_qty" ColumnName="lot_qty" />
+                <ScalarProperty Name="lot_val" ColumnName="lot_val" />
+                <ScalarProperty Name="warmonth" ColumnName="warmonth" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="old_status" ColumnName="old_status" />
+                <ScalarProperty Name="c_unitpr" ColumnName="c_unitpr" />
+                <ScalarProperty Name="c_disc" ColumnName="c_disc" />
+                <ScalarProperty Name="c_discamt" ColumnName="c_discamt" />
+                <ScalarProperty Name="c_trnval" ColumnName="c_trnval" />
+                <ScalarProperty Name="c_netval" ColumnName="c_netval" />
+                <ScalarProperty Name="lotseq" ColumnName="lotseq" />
+                <ScalarProperty Name="billxx" ColumnName="billxx" />
+                <ScalarProperty Name="retqty" ColumnName="retqty" />
+                <ScalarProperty Name="retval" ColumnName="retval" />
+                <ScalarProperty Name="artrn_id" ColumnName="artrn_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tank">
-            <EntityTypeMapping TypeName="xpumpModel.tank">
+            <EntityTypeMapping TypeName="Model.tank">
               <MappingFragment StoreEntitySet="tank">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -1388,7 +1950,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tanksetup">
-            <EntityTypeMapping TypeName="xpumpModel.tanksetup">
+            <EntityTypeMapping TypeName="Model.tanksetup">
               <MappingFragment StoreEntitySet="tanksetup">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="startdate" ColumnName="startdate" />

@@ -145,6 +145,9 @@
     <Compile Include="Model\affdata.cs">
       <DependentUpon>SecureModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\artrn.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\dayend.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
@@ -216,6 +219,9 @@
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\shiftsttak.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\stcrd.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\tank.cs">
@@ -325,6 +331,12 @@
     </Compile>
     <Compile Include="SubForm\DialogDother.Designer.cs">
       <DependentUpon>DialogDother.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogDropdownlistSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogDropdownlistSelector.Designer.cs">
+      <DependentUpon>DialogDropdownlistSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm\DialogEditPrice.cs">
       <SubType>Form</SubType>
@@ -651,6 +663,9 @@
     <EmbeddedResource Include="SubForm\DialogDother.resx">
       <DependentUpon>DialogDother.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogDropdownlistSelector.resx">
+      <DependentUpon>DialogDropdownlistSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogEditPrice.resx">
       <DependentUpon>DialogEditPrice.cs</DependentUpon>
     </EmbeddedResource>
@@ -805,10 +820,6 @@
       <DependentUpon>_testpwd.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
-    <EntityDeploy Include="Model\XPumpModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>XPumpModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="Model\SecureModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SecureModel.Designer.cs</LastGenOutput>
@@ -816,6 +827,10 @@
     <None Include="Model\SecureModel.edmx.diagram">
       <DependentUpon>SecureModel.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Model\XPumpModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>XPumpModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Model\XPumpModel.edmx.diagram">
       <DependentUpon>XPumpModel.edmx</DependentUpon>
     </None>

@@ -144,10 +144,9 @@
         }
 
         #endregion
-
-        private CC.XDatagrid dgv;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSearch;
+        public CC.XDatagrid dgv;
     }
 }
