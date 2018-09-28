@@ -778,10 +778,22 @@ namespace XPump.SubForm
                 cmd.CommandText += "`artrn_id` INT(11),";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "UNIQUE INDEX `unq-stcrd` (`docnum` ASC, `seqnum` ASC),";
-                //cmd.CommandText += "INDEX `ndx-saleshistory-nozzle_id` (`nozzle_id` ASC),";
-                //cmd.CommandText += "INDEX `ndx - saleshistory - salessummary_id` (`salessummary_id` ASC),";
                 cmd.CommandText += "CONSTRAINT `fk - stcrd - artrn_id` FOREIGN KEY (`artrn_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`artrn` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
-                //cmd.CommandText += "CONSTRAINT `fk - saleshistory - salessummary_id` FOREIGN KEY (`salessummary_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`salessummary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
+
+                // Arrcpcq Table
+                cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`arrcpcq` ";
+                cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
+                cmd.CommandText += "`rcpnum` VARCHAR(12) NOT NULL,";
+                cmd.CommandText += "`chqnum` varchar(12) not null,";
+                cmd.CommandText += "`rcvamt` decimal(14, 2) not null,";
+                cmd.CommandText += "`userid` varchar(8) not null,";
+                cmd.CommandText += "`chgdat` datetime null,";
+                cmd.CommandText += "`artrn_id` INT(11),";
+                cmd.CommandText += "PRIMARY KEY (`id`),";
+                cmd.CommandText += "UNIQUE INDEX `unq-arrcpcq` (`rcpnum` ASC, `chqnum` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk - arrcpcq - artrn_id` FOREIGN KEY (`artrn_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`artrn` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
             }

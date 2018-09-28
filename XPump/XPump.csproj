@@ -145,6 +145,9 @@
     <Compile Include="Model\affdata.cs">
       <DependentUpon>SecureModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\arrcpcq.cs">
+      <DependentUpon>XPumpModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\artrn.cs">
       <DependentUpon>XPumpModel.tt</DependentUpon>
     </Compile>

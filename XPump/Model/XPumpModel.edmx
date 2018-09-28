@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="arrcpcq">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rcpnum" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="chqnum" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="rcvamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="userid" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="chgdat" Type="datetime" Precision="0" />
+          <Property Name="artrn_id" Type="int" />
+        </EntityType>
         <EntityType Name="artrn">
           <Key>
             <PropertyRef Name="id" />
@@ -430,6 +442,18 @@
           <Property Name="chgby" Type="varchar" MaxLength="20" />
           <Property Name="chgtime" Type="datetime" Precision="0" />
         </EntityType>
+        <Association Name="fk - arrcpcq - artrn_id">
+          <End Role="artrn" Type="Self.artrn" Multiplicity="0..1" />
+          <End Role="arrcpcq" Type="Self.arrcpcq" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artrn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="arrcpcq">
+              <PropertyRef Name="artrn_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk - daysttak - dayend_id">
           <End Role="dayend" Type="Self.dayend" Multiplicity="1" />
           <End Role="daysttak" Type="Self.daysttak" Multiplicity="*" />
@@ -647,6 +671,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="arrcpcq" EntityType="Self.arrcpcq" Schema="t-20e-090016_test" store:Type="Tables" />
           <EntitySet Name="artrn" EntityType="Self.artrn" Schema="t-20e-090016_test" store:Type="Tables" />
           <EntitySet Name="dayend" EntityType="Self.dayend" Schema="t-20e-090016_test" store:Type="Tables" />
           <EntitySet Name="daysttak" EntityType="Self.daysttak" Schema="t-20e-090016_test" store:Type="Tables" />
@@ -665,6 +690,10 @@
           <EntitySet Name="stcrd" EntityType="Self.stcrd" Schema="t-20e-090016_test" store:Type="Tables" />
           <EntitySet Name="tank" EntityType="Self.tank" Schema="t-20e-090016_test" store:Type="Tables" />
           <EntitySet Name="tanksetup" EntityType="Self.tanksetup" Schema="t-20e-090016_test" store:Type="Tables" />
+          <AssociationSet Name="fk - arrcpcq - artrn_id" Association="Self.fk - arrcpcq - artrn_id">
+            <End Role="artrn" EntitySet="artrn" />
+            <End Role="arrcpcq" EntitySet="arrcpcq" />
+          </AssociationSet>
           <AssociationSet Name="fk - daysttak - dayend_id" Association="Self.fk - daysttak - dayend_id">
             <End Role="dayend" EntitySet="dayend" />
             <End Role="daysttak" EntitySet="daysttak" />
@@ -743,6 +772,19 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="arrcpcq">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rcpnum" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="chqnum" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rcvamt" Type="Decimal" Nullable="false" />
+          <Property Name="userid" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="chgdat" Type="DateTime" />
+          <Property Name="artrn_id" Type="Int32" />
+          <NavigationProperty Name="artrn" Relationship="Self.fk___arrcpcq___artrn_id" FromRole="arrcpcq" ToRole="artrn" />
+        </EntityType>
         <EntityType Name="artrn">
           <Key>
             <PropertyRef Name="id" />
@@ -835,6 +877,7 @@
           <Property Name="num2" Type="Decimal" Nullable="false" />
           <Property Name="str1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="str2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="arrcpcq" Relationship="Self.fk___arrcpcq___artrn_id" FromRole="artrn" ToRole="arrcpcq" />
           <NavigationProperty Name="stcrd" Relationship="Self.fk___stcrd___artrn_id" FromRole="artrn" ToRole="stcrd" />
         </EntityType>
         <EntityType Name="dayend">
@@ -1204,6 +1247,18 @@
           <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="tank" Relationship="Self.fk_tank_tanksetup_id" FromRole="tanksetup" ToRole="tank" />
         </EntityType>
+        <Association Name="fk___arrcpcq___artrn_id">
+          <End Role="artrn" Type="Self.artrn" Multiplicity="0..1" />
+          <End Role="arrcpcq" Type="Self.arrcpcq" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artrn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="arrcpcq">
+              <PropertyRef Name="artrn_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk___stcrd___artrn_id">
           <End Role="artrn" Type="Self.artrn" Multiplicity="0..1" />
           <End Role="stcrd" Type="Self.stcrd" Multiplicity="*" />
@@ -1421,6 +1476,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="xpumpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="arrcpcq" EntityType="Self.arrcpcq" />
           <EntitySet Name="artrn" EntityType="Self.artrn" />
           <EntitySet Name="dayend" EntityType="Self.dayend" />
           <EntitySet Name="daysttak" EntityType="Self.daysttak" />
@@ -1439,6 +1495,10 @@
           <EntitySet Name="stcrd" EntityType="Self.stcrd" />
           <EntitySet Name="tank" EntityType="Self.tank" />
           <EntitySet Name="tanksetup" EntityType="Self.tanksetup" />
+          <AssociationSet Name="fk___arrcpcq___artrn_id" Association="Self.fk___arrcpcq___artrn_id">
+            <End Role="artrn" EntitySet="artrn" />
+            <End Role="arrcpcq" EntitySet="arrcpcq" />
+          </AssociationSet>
           <AssociationSet Name="fk___stcrd___artrn_id" Association="Self.fk___stcrd___artrn_id">
             <End Role="artrn" EntitySet="artrn" />
             <End Role="stcrd" EntitySet="stcrd" />
@@ -1518,6 +1578,19 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="xpumpEntities">
+          <EntitySetMapping Name="arrcpcq">
+            <EntityTypeMapping TypeName="Model.arrcpcq">
+              <MappingFragment StoreEntitySet="arrcpcq">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rcpnum" ColumnName="rcpnum" />
+                <ScalarProperty Name="chqnum" ColumnName="chqnum" />
+                <ScalarProperty Name="rcvamt" ColumnName="rcvamt" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="chgdat" ColumnName="chgdat" />
+                <ScalarProperty Name="artrn_id" ColumnName="artrn_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="artrn">
             <EntityTypeMapping TypeName="Model.artrn">
               <MappingFragment StoreEntitySet="artrn">

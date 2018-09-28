@@ -17,6 +17,7 @@ namespace XPump.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public artrn()
         {
+            this.arrcpcq = new HashSet<arrcpcq>();
             this.stcrd = new HashSet<stcrd>();
 
             this.advamt = 0;
@@ -198,6 +199,8 @@ namespace XPump.Model
         public string str1 { get; set; }
         public string str2 { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<arrcpcq> arrcpcq { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<stcrd> stcrd { get; set; }
     }

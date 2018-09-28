@@ -73,7 +73,7 @@ namespace XPump.SubForm
             this.cCuscod.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.cDocdat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.cNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
-            this.cCshrcv.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            //this.cCshrcv.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
         }
 
         private List<IsrunDbf> GetIsrunInvoiceDoc()
@@ -94,12 +94,17 @@ namespace XPump.SubForm
 
         private void FillForm(artrn artrn_to_fill)
         {
-            if(artrn_to_fill != null)
-            {
-                this.cDocnum._Text = artrn_to_fill.docnum;
-                this.cDocdat._SelectedDate = artrn_to_fill.docdat;
-                this.cCuscod._Text = artrn_to_fill.cuscod;
-            }
+            artrn artrn = artrn_to_fill != null ? artrn_to_fill : new artrn();
+            
+            var cus = DbfTable.Armas(this.main_form.working_express_db, artrn.cuscod.TrimEnd());
+
+            this.cDocnum._Text = artrn.docnum;
+            this.cDocdat._SelectedDate = artrn.docdat;
+            this.cCuscod._Text = artrn.cuscod;
+            this.lblCusnam.Text = cus != null ? cus.cusnam.TrimEnd() : string.Empty;
+            this.cCshrcv._Value = artrn.cshrcv;
+
+            this.dgvStcrd.DataSource = artrn.stcrd;
         }
 
         private List<StmasDbfPrice> GetStmasDbfPrice(STKGRP[] stkgroups)
@@ -217,7 +222,6 @@ namespace XPump.SubForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
             List<XDropdownListItem> items = new List<XDropdownListItem>();
             this.GetIsrunInvoiceDoc().ForEach(i => items.Add(new XDropdownListItem { Text = i.prefix.TrimEnd() + " : " + i.posdes.TrimEnd(), Value = i }));
             DialogDropdownlistSelector dr = new DialogDropdownlistSelector("เลือกประเภทรายการขาย", "ประเภทการขาย", items, this.curr_docprefix);
@@ -226,7 +230,23 @@ namespace XPump.SubForm
                 this.lblDocType.Text = dr.selected_item.Text;
                 this.curr_docprefix = (IsrunDbf)dr.selected_item.Value;
 
-                this.tmp_artrn = new artrn { docnum = this.curr_docprefix + "**NEW**", docdat = DateTime.Now };
+                this.tmp_artrn = new artrn
+                {
+                    rectyp = this.curr_docprefix.doctyp.TrimEnd() == "HS" ? "1" : (this.curr_docprefix.doctyp.TrimEnd() == "IV" ? "3" : ""),
+                    docnum = this.curr_docprefix + "**NEW**",
+                    docdat = DateTime.Now,
+                    flgvat = this.curr_docprefix.flgvat,
+                    duedat = DateTime.Now,
+                    bilnum = "~",
+                    vatrat = this.curr_docprefix.vatrat,
+                    docstat = "N",
+                    creby = this.main_form.loged_in_status.loged_in_user_name,
+                    credat = DateTime.Now,
+                    userid = this.main_form.loged_in_status.loged_in_user_name,
+                    chgdat = DateTime.Now,
+                    //stcrd = new List<stcrd> { new stcrd { stkcod = "01-INTL-CL-600" }, new stcrd { stkcod = "01-INTL-PT-750" } }
+                };
+
                 this.ResetFormState(FORM_MODE.ADD);
                 this.FillForm(this.tmp_artrn);
 

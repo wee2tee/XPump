@@ -14,6 +14,85 @@ namespace XPump.Model
     
     public partial class stcrd
     {
+        public stcrd()
+        {
+            this.accchgcr = string.Empty;
+            this.accchgdr = string.Empty;
+            this.accnumcr = string.Empty;
+            this.accnumdr = string.Empty;
+            this.approve = null;
+            this.authid = string.Empty;
+            this.balchg = 0;
+            this.billxx = string.Empty;
+            this.chgdat = DateTime.Now;
+            this.coscod = string.Empty;
+            this.creby = string.Empty;
+            this.credat = DateTime.Now;
+            this.c_disc = string.Empty;
+            this.c_discamt = 0;
+            this.c_netval = 0;
+            this.c_trnval = 0;
+            this.c_unitpr = 0;
+            this.depcod = string.Empty;
+            this.disc = string.Empty;
+            this.discamt = 0;
+            this.docdat = DateTime.Now;
+            this.docnum = string.Empty;
+            this.flag = string.Empty;
+            this.free = string.Empty;
+            this.id = -1;
+            this.ispi = string.Empty;
+            this.jobcod = string.Empty;
+            this.loccod = string.Empty;
+            this.lotbal = 0;
+            this.lotseq = string.Empty;
+            this.lotval = 0;
+            this.lot_qty = 0;
+            this.lot_val = 0;
+            this.lunitpr = 0;
+            this.mlotnum = string.Empty;
+            this.mrembal = 0;
+            this.mremval = 0;
+            this.netval = 0;
+            this.old_status = string.Empty;
+            this.packing = string.Empty;
+            this.people = string.Empty;
+            this.phase = string.Empty;
+            this.phybal = 0;
+            this.posopr = string.Empty;
+            this.pstkcod = string.Empty;
+            this.rdocnum = string.Empty;
+            this.refnum = string.Empty;
+            this.reimburse = string.Empty;
+            this.retqty = 0;
+            this.retstk = string.Empty;
+            this.retval = 0;
+            this.seqnum = string.Empty;
+            this.slmcod = string.Empty;
+            this.status = string.Empty;
+            this.stkcod = string.Empty;
+            this.stkdes = string.Empty;
+            this.tfactor = 0;
+            this.tqucod = string.Empty;
+            this.trnqty = 0;
+            this.trnval = 0;
+            this.unitpr = 0;
+            this.userid = string.Empty;
+            this.valchg = 0;
+            this.vatcod = string.Empty;
+            this.vatgrp = string.Empty;
+            this.warmonth = 0;
+            this.xaccnum = string.Empty;
+            this.xcoscod = string.Empty;
+            this.xdepcod = string.Empty;
+            this.xjobcod = string.Empty;
+            this.xphase = string.Empty;
+            this.xsalval = 0;
+            this.xtrnqty = 0;
+            this.xtrnval = 0;
+            this.xunitpr = 0;
+        }
+
         public int id { get; set; }
         public string stkcod { get; set; }
         public string loccod { get; set; }

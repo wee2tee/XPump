@@ -19,18 +19,19 @@ namespace XPump.Model
             : base("name=xpumpEntities")
         {
         }
-    
+
         public xpumpEntities(string connection_string)
             : base(connection_string)
         {
 
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<arrcpcq> arrcpcq { get; set; }
         public virtual DbSet<artrn> artrn { get; set; }
         public virtual DbSet<dayend> dayend { get; set; }
         public virtual DbSet<daysttak> daysttak { get; set; }
