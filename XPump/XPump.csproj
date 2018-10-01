@@ -114,6 +114,12 @@
     <Compile Include="CustomControls\BrowseBoxAccnum.Designer.cs">
       <DependentUpon>BrowseBoxAccnum.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\BrowseBoxCuscod.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\BrowseBoxCuscod.Designer.cs">
+      <DependentUpon>BrowseBoxCuscod.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\BrowseBoxIstabFixed.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -583,6 +589,9 @@
     </Compile>
     <EmbeddedResource Include="CustomControls\BrowseBoxAccnum.resx">
       <DependentUpon>BrowseBoxAccnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\BrowseBoxCuscod.resx">
+      <DependentUpon>BrowseBoxCuscod.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\BrowseBoxIstabFixed.resx">
       <DependentUpon>BrowseBoxIstabFixed.cs</DependentUpon>

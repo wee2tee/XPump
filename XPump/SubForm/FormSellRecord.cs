@@ -37,6 +37,7 @@ namespace XPump.SubForm
         {
             this.BackColor = MiscResource.WIND_BG;
 
+            this.browseBoxCuscod1._DataPath = this.main_form.working_express_db.abs_path;
             this.curr_docprefix = this.GetIsrunInvoiceDoc().Where(i => i.doctyp.TrimEnd() == "HS").First();
             this.LoadStmasDgv();
             this.lblDocType.Text = this.curr_docprefix.prefix + " : " + this.curr_docprefix.posdes;
@@ -250,6 +251,7 @@ namespace XPump.SubForm
                 this.ResetFormState(FORM_MODE.ADD);
                 this.FillForm(this.tmp_artrn);
 
+                this.cCuscod.Focus();
             }
         }
 
@@ -315,18 +317,138 @@ namespace XPump.SubForm
 
         private void cCuscod__ButtonClick(object sender, EventArgs e)
         {
-            DataGridViewTextBoxColumn col_cuscod = new DataGridViewTextBoxColumn
-            {
-                Name = "col_cuscod",
-                DataPropertyName = "cuscod",
-                Width = 100,
-                MinimumWidth = 100,
-            };
+            //DataGridViewTextBoxColumn col_cuscod = new DataGridViewTextBoxColumn
+            //{
+            //    Name = "col_cuscod",
+            //    DataPropertyName = "cuscod",
+            //    HeaderText = "รหัส",
+            //    Width = 100,
+            //    MinimumWidth = 100,
+            //};
+            //DataGridViewTextBoxColumn col_cusnam = new DataGridViewTextBoxColumn
+            //{
+            //    Name = "col_cusnam",
+            //    DataPropertyName = "cusnam",
+            //    HeaderText = "ชื่อลูกค้า",
+            //    Width = 160,
+            //    MinimumWidth = 100,
+            //    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            //};
+            //DataGridViewTextBoxColumn col_orgnum = new DataGridViewTextBoxColumn
+            //{
+            //    Name = "col_orgnum",
+            //    DataPropertyName = "orgnum",
+            //    HeaderText = "สาขา#",
+            //    Width = 80,
+            //    MinimumWidth = 80
+            //};
+            //DataGridViewTextBoxColumn col_contact = new DataGridViewTextBoxColumn
+            //{
+            //    Name = "col_contact",
+            //    DataPropertyName = "contact",
+            //    Width = 100,
+            //    MinimumWidth = 100
+            //};
+            //DataGridViewTextBoxColumn col_addr01 = new DataGridViewTextBoxColumn
+            //{
+            //    Name = "col_addr01",
+            //    DataPropertyName = "addr01",
+            //    HeaderText = "ที่อยู่บรรทัดที่1",
+            //    Width = 140,
+            //    MinimumWidth = 100
+            //};
+            //DataGridViewTextBoxColumn col_addr02 = new DataGridViewTextBoxColumn
+            //{
+            //    Name = "col_addr02",
+            //    DataPropertyName = "addr02",
+            //    HeaderText = "ที่อยู่บรรทัดที่2",
+            //    Width = 140,
+            //    MinimumWidth = 100
+            //};
+            //DataGridViewTextBoxColumn col_addr03 = new DataGridViewTextBoxColumn
+            //{
+            //    Name = "col_addr03",
+            //    DataPropertyName = "addr03",
+            //    HeaderText = "ที่อยู่บรรทัดที่3",
+            //    Width = 140,
+            //    MinimumWidth = 100
+            //};
+            //DataGridViewTextBoxColumn col_zipcod = new DataGridViewTextBoxColumn
+            //{
+            //    Name = "col_zipcod",
+            //    DataPropertyName = "zipcod",
+            //    HeaderText = "รหัสไปรษณีย์",
+            //    Width = 80,
+            //    MinimumWidth = 80
+            //};
+            //DataGridViewTextBoxColumn col_status = new DataGridViewTextBoxColumn
+            //{
+            //    Name = "col_status",
+            //    DataPropertyName = "status",
+            //    HeaderText = "สถานะ",
+            //    Width = 60,
+            //    MinimumWidth = 60
+            //};
+            ////DataGridViewTextBoxColumn col_tabpr = new DataGridViewTextBoxColumn
+            ////{
+            ////    Name = "col_tabpr",
+            ////    DataPropertyName = "tabpr",
+            ////    Width = 100,
+            ////    MinimumWidth = 100
+            ////};
+            ////DataGridViewTextBoxColumn col_disc = new DataGridViewTextBoxColumn
+            ////{
+            ////    Name = "col_disc",
+            ////    DataPropertyName = "disc",
+            ////    Width = 80,
+            ////    MinimumWidth = 80
+            ////};
+            ////DataGridViewTextBoxColumn col_crline = new DataGridViewTextBoxColumn
+            ////{
+            ////    Name = "col_crline",
+            ////    DataPropertyName = "crline",
+            ////    Width = 60,
+            ////    MinimumWidth = 60
+            ////};
+            ////DataGridViewTextBoxColumn col_slmcod = new DataGridViewTextBoxColumn
+            ////{
+            ////    Name = "col_slmcod",
+            ////    DataPropertyName = "slmcod",
+            ////    Width = 100,
+            ////    MinimumWidth = 100
+            ////};
+            ////DataGridViewTextBoxColumn col_areacod = new DataGridViewTextBoxColumn
+            ////{
+            ////    Name = "col_areacod",
+            ////    DataPropertyName = "areacod",
+            ////    Width = 60,
+            ////    MinimumWidth = 60
+            ////};
+            ////DataGridViewTextBoxColumn col_dlvby = new DataGridViewTextBoxColumn
+            ////{
+            ////    Name = "col_dlvby",
+            ////    DataPropertyName = "dlvby",
+            ////    Width = 60,
+            ////    MinimumWidth = 60
+            ////};
+            ////DataGridViewTextBoxColumn col_accnum = new DataGridViewTextBoxColumn
+            ////{
+            ////    Name = "col_accnum",
+            ////    DataPropertyName = "accnum",
+            ////    Width = 100,
+            ////    MinimumWidth = 100
+            ////};
 
-            //DataGridViewColumn[] cols = new DataGridViewColumn[] { };
-            var armas_list = DbfTable.ArmasList(this.main_form.working_express_db);
+            //DataGridViewColumn[] cols = new DataGridViewColumn[] { col_cuscod, col_cusnam, col_prenam, col_contact, col_paytrm, col_paycond, col_tabpr, col_disc, col_crline, col_slmcod, col_areacod, col_dlvby, col_accnum };
+            //var armas_list = DbfTable.ArmasList(this.main_form.working_express_db);
 
-            //DialogBrowseBoxSelector br = new DialogBrowseBoxSelector()
+            //DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(cols, armas_list, col_cuscod.Name, ((XBrowseBox)sender)._Text.TrimEnd());
+            //br.SetBounds(((XBrowseBox)sender).PointToScreen(Point.Empty).X, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y + ((XBrowseBox)sender).Height, br.Width * 2, br.Height * 2);
+            //if(br.ShowDialog() == DialogResult.OK)
+            //{
+            //    ((XBrowseBox)sender)._Text = br.selected_row.Cells[col_cuscod.Name].Value.ToString().TrimEnd();
+            //    this.lblCusnam.Text = br.selected_row.Cells[col_cusnam.Name].Value.ToString().TrimEnd();
+            //}
         }
 
         private void btnChangeDocTyp_Click(object sender, EventArgs e)
