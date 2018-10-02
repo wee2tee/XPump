@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using XPump.Misc;
 using XPump.Model;
 using CC;
+using XPump.CustomControls;
 
 namespace XPump.SubForm
 {
@@ -37,7 +38,7 @@ namespace XPump.SubForm
         {
             this.BackColor = MiscResource.WIND_BG;
 
-            this.browseBoxCuscod1._DataPath = this.main_form.working_express_db.abs_path;
+            this.cCuscod._DataPath = this.main_form.working_express_db.abs_path;
             this.curr_docprefix = this.GetIsrunInvoiceDoc().Where(i => i.doctyp.TrimEnd() == "HS").First();
             this.LoadStmasDgv();
             this.lblDocType.Text = this.curr_docprefix.prefix + " : " + this.curr_docprefix.posdes;
@@ -73,7 +74,7 @@ namespace XPump.SubForm
             this.btnChangeDocTyp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.cCuscod.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.cDocdat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
-            this.cNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            //this.cNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             //this.cCshrcv.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
         }
 
@@ -461,6 +462,19 @@ namespace XPump.SubForm
                 this.lblDocType.Text = dr.selected_item.Text;
                 this.curr_docprefix = (IsrunDbf)dr.selected_item.Value;
             }
+        }
+
+        private void cCuscod__SelectedCuscodChanged(object sender, EventArgs e)
+        {
+            this.lblCusnam.Text = this.cCuscod.selected_cusnam;
+            if (this.tmp_artrn != null)
+                this.tmp_artrn.cuscod = ((BrowseBoxCuscod)sender)._Text;
+        }
+
+        private void cDocdat__SelectedDateChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_artrn != null)
+                this.tmp_artrn.docdat = ((XDatePicker)sender)._SelectedDate.Value;
         }
 
         //private List<stmasPriceVM> GetStmas(bool oil_only = true)

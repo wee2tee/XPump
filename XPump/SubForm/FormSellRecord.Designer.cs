@@ -28,44 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnAdd = new System.Windows.Forms.ToolStripButton();
-            this.btnEdit = new System.Windows.Forms.ToolStripButton();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnStop = new System.Windows.Forms.ToolStripButton();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnFirst = new System.Windows.Forms.ToolStripButton();
-            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
-            this.btnNext = new System.Windows.Forms.ToolStripButton();
-            this.btnLast = new System.Windows.Forms.ToolStripButton();
-            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPrint = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabGoods1 = new System.Windows.Forms.TabPage();
             this.tabGoods2 = new System.Windows.Forms.TabPage();
@@ -81,7 +59,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnManageStkgrp = new System.Windows.Forms.Button();
             this.btnChangeDocTyp = new System.Windows.Forms.Button();
             this.lblDocType = new System.Windows.Forms.Label();
             this.cDocnum = new CC.XTextEdit();
@@ -98,8 +75,6 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDocdat = new CC.XDatePicker();
-            this.cNozzle = new CC.XBrowseBox();
-            this.cCuscod = new CC.XBrowseBox();
             this.dgvGoods1 = new CC.XDatagrid();
             this.col_g1_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_g1_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -120,7 +95,26 @@
             this.col_g2_sellpr5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_g2_stkgrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_g2_bill_method = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.browseBoxCuscod1 = new XPump.CustomControls.BrowseBoxCuscod();
+            this.cCuscod = new XPump.CustomControls.BrowseBoxCuscod();
+            this.btnManageStkgrp = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.ToolStripButton();
+            this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
+            this.btnStop = new System.Windows.Forms.ToolStripButton();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
+            this.btnFirst = new System.Windows.Forms.ToolStripButton();
+            this.btnPrevious = new System.Windows.Forms.ToolStripButton();
+            this.btnNext = new System.Windows.Forms.ToolStripButton();
+            this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.btnSearch = new System.Windows.Forms.ToolStripSplitButton();
+            this.btnInquiryAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnInquiryRest = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrint = new System.Windows.Forms.ToolStripButton();
+            this.btnItem = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnItemF8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnItemF7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
+            this.cNozzle = new CC.XTextEdit();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabGoods1.SuspendLayout();
@@ -164,203 +158,25 @@
             this.toolStrip1.Size = new System.Drawing.Size(902, 43);
             this.toolStrip1.TabIndex = 6;
             // 
-            // btnAdd
-            // 
-            this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnAdd.Image = global::XPump.Properties.Resources.add;
-            this.btnAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(36, 40);
-            this.btnAdd.Text = "เพิ่มข้อมูล <Alt+A>";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnEdit.Image = global::XPump.Properties.Resources.edit;
-            this.btnEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(36, 40);
-            this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
-            this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(36, 40);
-            this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 43);
-            // 
-            // btnStop
-            // 
-            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnStop.Image = global::XPump.Properties.Resources.stop;
-            this.btnStop.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(36, 40);
-            this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSave.Image = global::XPump.Properties.Resources.save;
-            this.btnSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(36, 40);
-            this.btnSave.Text = "บันทึกข้อมูล <F9>";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 43);
             // 
-            // btnFirst
-            // 
-            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFirst.Image = global::XPump.Properties.Resources.first;
-            this.btnFirst.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Size = new System.Drawing.Size(36, 40);
-            this.btnFirst.Text = "ข้อมูลแรก <Ctrl+Home>";
-            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
-            // 
-            // btnPrevious
-            // 
-            this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
-            this.btnPrevious.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(36, 40);
-            this.btnPrevious.Text = "ข้อมูลที่แล้ว <PageUp>";
-            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnNext.Image = global::XPump.Properties.Resources.next;
-            this.btnNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(36, 40);
-            this.btnNext.Text = "ข้อมูลถัดไป <PageDown>";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnLast
-            // 
-            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnLast.Image = global::XPump.Properties.Resources.last;
-            this.btnLast.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnLast.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnLast.Name = "btnLast";
-            this.btnLast.Size = new System.Drawing.Size(36, 40);
-            this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
-            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSearch.DropDownButtonWidth = 15;
-            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnInquiryAll,
-            this.btnInquiryRest});
-            this.btnSearch.Image = global::XPump.Properties.Resources.search;
-            this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(52, 40);
-            this.btnSearch.Text = "ค้นหา <Alt+S>";
-            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
-            // 
-            // btnInquiryAll
-            // 
-            this.btnInquiryAll.Name = "btnInquiryAll";
-            this.btnInquiryAll.Size = new System.Drawing.Size(245, 22);
-            this.btnInquiryAll.Text = "เรียกดูข้อมูล ตั้งแต่ต้น <Ctrl+L>";
-            this.btnInquiryAll.Click += new System.EventHandler(this.btnInquiryAll_Click);
-            // 
-            // btnInquiryRest
-            // 
-            this.btnInquiryRest.Name = "btnInquiryRest";
-            this.btnInquiryRest.Size = new System.Drawing.Size(245, 22);
-            this.btnInquiryRest.Text = "เรียกดูข้อมูล ตั้งแต่รายการนี้ <Alt+L>";
-            this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
             // 
-            // btnPrint
-            // 
-            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
-            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnPrint.Size = new System.Drawing.Size(42, 40);
-            this.btnPrint.Text = "พิมพ์รายงานส่วน ข.";
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 43);
-            // 
-            // btnItem
-            // 
-            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnItemF8,
-            this.btnItemF7});
-            this.btnItem.Image = global::XPump.Properties.Resources.item;
-            this.btnItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.btnItem.Name = "btnItem";
-            this.btnItem.Size = new System.Drawing.Size(45, 40);
-            this.btnItem.Visible = false;
-            // 
-            // btnItemF8
-            // 
-            this.btnItemF8.Name = "btnItemF8";
-            this.btnItemF8.Size = new System.Drawing.Size(267, 22);
-            this.btnItemF8.Text = "บันทึกรายการขาย <F8>";
-            // 
-            // btnItemF7
-            // 
-            this.btnItemF7.Name = "btnItemF7";
-            this.btnItemF7.Size = new System.Drawing.Size(267, 22);
-            this.btnItemF7.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้จริง <F7>";
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
-            this.btnRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(36, 40);
-            this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // tabControl1
             // 
@@ -400,7 +216,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.browseBoxCuscod1);
+            this.panel1.Controls.Add(this.cNozzle);
+            this.panel1.Controls.Add(this.cCuscod);
             this.panel1.Controls.Add(this.cDocnum);
             this.panel1.Controls.Add(this.lblCusnam);
             this.panel1.Controls.Add(this.panel2);
@@ -409,8 +226,6 @@
             this.panel1.Controls.Add(this.tabControl2);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.cDocdat);
-            this.panel1.Controls.Add(this.cNozzle);
-            this.panel1.Controls.Add(this.cCuscod);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label7);
@@ -500,7 +315,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(248, 81);
+            this.label3.Location = new System.Drawing.Point(274, 81);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 16);
             this.label3.TabIndex = 1;
@@ -532,19 +347,6 @@
             this.label1.Size = new System.Drawing.Size(38, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "ลูกค้า";
-            // 
-            // btnManageStkgrp
-            // 
-            this.btnManageStkgrp.Image = global::XPump.Properties.Resources.settings;
-            this.btnManageStkgrp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnManageStkgrp.Location = new System.Drawing.Point(275, 51);
-            this.btnManageStkgrp.Name = "btnManageStkgrp";
-            this.btnManageStkgrp.Size = new System.Drawing.Size(112, 27);
-            this.btnManageStkgrp.TabIndex = 1;
-            this.btnManageStkgrp.Text = "จัดกลุ่มสินค้า";
-            this.btnManageStkgrp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnManageStkgrp.UseVisualStyleBackColor = true;
-            this.btnManageStkgrp.Click += new System.EventHandler(this.btnManageStkgrp_Click);
             // 
             // btnChangeDocTyp
             // 
@@ -595,14 +397,14 @@
             this.dgvStcrd.AllowUserToDeleteRows = false;
             this.dgvStcrd.AllowUserToResizeColumns = false;
             this.dgvStcrd.AllowUserToResizeRows = false;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStcrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStcrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvStcrd.ColumnHeadersHeight = 28;
             this.dgvStcrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvStcrd.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -610,14 +412,6 @@
             this.col_st_trnqty,
             this.col_st_unitpr,
             this.col_trnval});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStcrd.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvStcrd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStcrd.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvStcrd.EnableHeadersVisualStyles = false;
@@ -645,10 +439,10 @@
             // col_st_trnqty
             // 
             this.col_st_trnqty.DataPropertyName = "trnqty";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.col_st_trnqty.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N2";
+            dataGridViewCellStyle13.NullValue = null;
+            this.col_st_trnqty.DefaultCellStyle = dataGridViewCellStyle13;
             this.col_st_trnqty.HeaderText = "จำนวน";
             this.col_st_trnqty.MinimumWidth = 80;
             this.col_st_trnqty.Name = "col_st_trnqty";
@@ -713,27 +507,19 @@
             this.dgvRcv1.AllowUserToDeleteRows = false;
             this.dgvRcv1.AllowUserToResizeColumns = false;
             this.dgvRcv1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRcv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRcv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dgvRcv1.ColumnHeadersHeight = 28;
             this.dgvRcv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvRcv1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2});
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRcv1.DefaultCellStyle = dataGridViewCellStyle13;
             this.dgvRcv1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRcv1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvRcv1.EnableHeadersVisualStyles = false;
@@ -761,10 +547,10 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "unitpr";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle12.Format = "N2";
-            dataGridViewCellStyle12.NullValue = null;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridViewTextBoxColumn2.HeaderText = "Price";
             this.dataGridViewTextBoxColumn2.MinimumWidth = 80;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
@@ -778,27 +564,19 @@
             this.dgvRcv2.AllowUserToDeleteRows = false;
             this.dgvRcv2.AllowUserToResizeColumns = false;
             this.dgvRcv2.AllowUserToResizeRows = false;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRcv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRcv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dgvRcv2.ColumnHeadersHeight = 28;
             this.dgvRcv2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvRcv2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRcv2.DefaultCellStyle = dataGridViewCellStyle16;
             this.dgvRcv2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRcv2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvRcv2.EnableHeadersVisualStyles = false;
@@ -826,10 +604,10 @@
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "unitpr";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "N2";
-            dataGridViewCellStyle15.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle17.Format = "N2";
+            dataGridViewCellStyle17.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridViewTextBoxColumn4.HeaderText = "Price";
             this.dataGridViewTextBoxColumn4.MinimumWidth = 80;
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -848,46 +626,7 @@
             this.cDocdat.Name = "cDocdat";
             this.cDocdat.Size = new System.Drawing.Size(103, 23);
             this.cDocdat.TabIndex = 3;
-            // 
-            // cNozzle
-            // 
-            this.cNozzle._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cNozzle._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cNozzle._MaxLength = 50;
-            this.cNozzle._ReadOnly = true;
-            this.cNozzle._Text = "";
-            this.cNozzle._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cNozzle._UseImage = true;
-            this.cNozzle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cNozzle.BackColor = System.Drawing.Color.White;
-            this.cNozzle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cNozzle.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cNozzle.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cNozzle.Location = new System.Drawing.Point(297, 77);
-            this.cNozzle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cNozzle.Name = "cNozzle";
-            this.cNozzle.Size = new System.Drawing.Size(88, 23);
-            this.cNozzle.TabIndex = 2;
-            // 
-            // cCuscod
-            // 
-            this.cCuscod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCuscod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCuscod._MaxLength = 50;
-            this.cCuscod._ReadOnly = true;
-            this.cCuscod._Text = "";
-            this.cCuscod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cCuscod._UseImage = true;
-            this.cCuscod.BackColor = System.Drawing.Color.White;
-            this.cCuscod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCuscod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cCuscod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCuscod.Location = new System.Drawing.Point(54, 12);
-            this.cCuscod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cCuscod.Name = "cCuscod";
-            this.cCuscod.Size = new System.Drawing.Size(125, 23);
-            this.cCuscod.TabIndex = 2;
-            this.cCuscod._ButtonClick += new System.EventHandler(this.cCuscod__ButtonClick);
+            this.cDocdat._SelectedDateChanged += new System.EventHandler(this.cDocdat__SelectedDateChanged);
             // 
             // dgvGoods1
             // 
@@ -896,14 +635,14 @@
             this.dgvGoods1.AllowUserToDeleteRows = false;
             this.dgvGoods1.AllowUserToResizeColumns = false;
             this.dgvGoods1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvGoods1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvGoods1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.dgvGoods1.ColumnHeadersHeight = 28;
             this.dgvGoods1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvGoods1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -916,14 +655,6 @@
             this.col_g1_sellpr5,
             this.col_g1_stkgrp,
             this.col_g1_bill_method});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvGoods1.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvGoods1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvGoods1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvGoods1.EnableHeadersVisualStyles = false;
@@ -964,14 +695,14 @@
             // col_g1_sellpr1
             // 
             this.col_g1_sellpr1.DataPropertyName = "sellpr1";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            this.col_g1_sellpr1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle19.Format = "N2";
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.Black;
+            this.col_g1_sellpr1.DefaultCellStyle = dataGridViewCellStyle19;
             this.col_g1_sellpr1.HeaderText = "ราคา/ลิตร";
             this.col_g1_sellpr1.MinimumWidth = 90;
             this.col_g1_sellpr1.Name = "col_g1_sellpr1";
@@ -1034,14 +765,14 @@
             this.dgvGoods2.AllowUserToDeleteRows = false;
             this.dgvGoods2.AllowUserToResizeColumns = false;
             this.dgvGoods2.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvGoods2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvGoods2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.dgvGoods2.ColumnHeadersHeight = 28;
             this.dgvGoods2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvGoods2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -1054,14 +785,6 @@
             this.col_g2_sellpr5,
             this.col_g2_stkgrp,
             this.col_g2_bill_method});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvGoods2.DefaultCellStyle = dataGridViewCellStyle7;
             this.dgvGoods2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvGoods2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvGoods2.EnableHeadersVisualStyles = false;
@@ -1091,8 +814,8 @@
             // 
             this.col_g2_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.col_g2_stkdes.DataPropertyName = "stkdes";
-            dataGridViewCellStyle5.NullValue = null;
-            this.col_g2_stkdes.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle21.NullValue = null;
+            this.col_g2_stkdes.DefaultCellStyle = dataGridViewCellStyle21;
             this.col_g2_stkdes.HeaderText = "รายละเอียด";
             this.col_g2_stkdes.MinimumWidth = 80;
             this.col_g2_stkdes.Name = "col_g2_stkdes";
@@ -1101,9 +824,9 @@
             // col_g2_sellpr1
             // 
             this.col_g2_sellpr1.DataPropertyName = "sellpr1";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N2";
-            this.col_g2_sellpr1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle22.Format = "N2";
+            this.col_g2_sellpr1.DefaultCellStyle = dataGridViewCellStyle22;
             this.col_g2_sellpr1.HeaderText = "ราคา/หน่วย";
             this.col_g2_sellpr1.MinimumWidth = 90;
             this.col_g2_sellpr1.Name = "col_g2_sellpr1";
@@ -1158,25 +881,235 @@
             this.col_g2_bill_method.ReadOnly = true;
             this.col_g2_bill_method.Visible = false;
             // 
-            // browseBoxCuscod1
+            // cCuscod
             // 
-            this.browseBoxCuscod1._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.browseBoxCuscod1._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.browseBoxCuscod1._DataPath = null;
-            this.browseBoxCuscod1._MaxLength = 50;
-            this.browseBoxCuscod1._ReadOnly = false;
-            this.browseBoxCuscod1._Text = "";
-            this.browseBoxCuscod1._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.browseBoxCuscod1._UseImage = true;
-            this.browseBoxCuscod1.BackColor = System.Drawing.Color.White;
-            this.browseBoxCuscod1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.browseBoxCuscod1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.browseBoxCuscod1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.browseBoxCuscod1.Location = new System.Drawing.Point(147, 276);
-            this.browseBoxCuscod1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.browseBoxCuscod1.Name = "browseBoxCuscod1";
-            this.browseBoxCuscod1.Size = new System.Drawing.Size(116, 26);
-            this.browseBoxCuscod1.TabIndex = 11;
+            this.cCuscod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCuscod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCuscod._DataPath = null;
+            this.cCuscod._MaxLength = 50;
+            this.cCuscod._ReadOnly = false;
+            this.cCuscod._Text = "";
+            this.cCuscod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cCuscod._UseImage = true;
+            this.cCuscod.BackColor = System.Drawing.Color.White;
+            this.cCuscod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCuscod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cCuscod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCuscod.Location = new System.Drawing.Point(54, 12);
+            this.cCuscod.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.cCuscod.Name = "cCuscod";
+            this.cCuscod.Size = new System.Drawing.Size(118, 23);
+            this.cCuscod.TabIndex = 11;
+            this.cCuscod._SelectedCuscodChanged += new System.EventHandler(this.cCuscod__SelectedCuscodChanged);
+            // 
+            // btnManageStkgrp
+            // 
+            this.btnManageStkgrp.Image = global::XPump.Properties.Resources.settings;
+            this.btnManageStkgrp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnManageStkgrp.Location = new System.Drawing.Point(275, 51);
+            this.btnManageStkgrp.Name = "btnManageStkgrp";
+            this.btnManageStkgrp.Size = new System.Drawing.Size(112, 27);
+            this.btnManageStkgrp.TabIndex = 1;
+            this.btnManageStkgrp.Text = "จัดกลุ่มสินค้า";
+            this.btnManageStkgrp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnManageStkgrp.UseVisualStyleBackColor = true;
+            this.btnManageStkgrp.Click += new System.EventHandler(this.btnManageStkgrp_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAdd.Image = global::XPump.Properties.Resources.add;
+            this.btnAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(36, 40);
+            this.btnAdd.Text = "เพิ่มข้อมูล <Alt+A>";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnEdit.Image = global::XPump.Properties.Resources.edit;
+            this.btnEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(36, 40);
+            this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDelete.Image = global::XPump.Properties.Resources.trash;
+            this.btnDelete.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(36, 40);
+            this.btnDelete.Text = "ลบข้อมูล <Alt+D>";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnStop.Image = global::XPump.Properties.Resources.stop;
+            this.btnStop.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(36, 40);
+            this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSave.Image = global::XPump.Properties.Resources.save;
+            this.btnSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(36, 40);
+            this.btnSave.Text = "บันทึกข้อมูล <F9>";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnFirst
+            // 
+            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFirst.Image = global::XPump.Properties.Resources.first;
+            this.btnFirst.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFirst.Name = "btnFirst";
+            this.btnFirst.Size = new System.Drawing.Size(36, 40);
+            this.btnFirst.Text = "ข้อมูลแรก <Ctrl+Home>";
+            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrevious.Image = global::XPump.Properties.Resources.previous;
+            this.btnPrevious.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(36, 40);
+            this.btnPrevious.Text = "ข้อมูลที่แล้ว <PageUp>";
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNext.Image = global::XPump.Properties.Resources.next;
+            this.btnNext.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(36, 40);
+            this.btnNext.Text = "ข้อมูลถัดไป <PageDown>";
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnLast
+            // 
+            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnLast.Image = global::XPump.Properties.Resources.last;
+            this.btnLast.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnLast.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnLast.Name = "btnLast";
+            this.btnLast.Size = new System.Drawing.Size(36, 40);
+            this.btnLast.Text = "ข้อมูลสุดท้าย <Ctrl+End>";
+            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSearch.DropDownButtonWidth = 15;
+            this.btnSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnInquiryAll,
+            this.btnInquiryRest});
+            this.btnSearch.Image = global::XPump.Properties.Resources.search;
+            this.btnSearch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(52, 40);
+            this.btnSearch.Text = "ค้นหา <Alt+S>";
+            this.btnSearch.ButtonClick += new System.EventHandler(this.btnSearch_ButtonClick);
+            // 
+            // btnInquiryAll
+            // 
+            this.btnInquiryAll.Name = "btnInquiryAll";
+            this.btnInquiryAll.Size = new System.Drawing.Size(245, 22);
+            this.btnInquiryAll.Text = "เรียกดูข้อมูล ตั้งแต่ต้น <Ctrl+L>";
+            this.btnInquiryAll.Click += new System.EventHandler(this.btnInquiryAll_Click);
+            // 
+            // btnInquiryRest
+            // 
+            this.btnInquiryRest.Name = "btnInquiryRest";
+            this.btnInquiryRest.Size = new System.Drawing.Size(245, 22);
+            this.btnInquiryRest.Text = "เรียกดูข้อมูล ตั้งแต่รายการนี้ <Alt+L>";
+            this.btnInquiryRest.Click += new System.EventHandler(this.btnInquiryRest_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrint.Image = global::XPump.Properties.Resources.printer;
+            this.btnPrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnPrint.Size = new System.Drawing.Size(42, 40);
+            this.btnPrint.Text = "พิมพ์รายงานส่วน ข.";
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // btnItem
+            // 
+            this.btnItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnItemF8,
+            this.btnItemF7});
+            this.btnItem.Image = global::XPump.Properties.Resources.item;
+            this.btnItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnItem.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.btnItem.Name = "btnItem";
+            this.btnItem.Size = new System.Drawing.Size(45, 40);
+            this.btnItem.Visible = false;
+            // 
+            // btnItemF8
+            // 
+            this.btnItemF8.Name = "btnItemF8";
+            this.btnItemF8.Size = new System.Drawing.Size(267, 22);
+            this.btnItemF8.Text = "บันทึกรายการขาย <F8>";
+            // 
+            // btnItemF7
+            // 
+            this.btnItemF7.Name = "btnItemF7";
+            this.btnItemF7.Size = new System.Drawing.Size(267, 22);
+            this.btnItemF7.Text = "บันทึกปริมาณน้ำมันที่ตรวจนับได้จริง <F7>";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnRefresh.Image = global::XPump.Properties.Resources.refresh;
+            this.btnRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(36, 40);
+            this.btnRefresh.Text = "โหลดข้อมูลปัจจุบันใหม่ <Ctrl+F5>";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // cNozzle
+            // 
+            this.cNozzle._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cNozzle._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cNozzle._MaxLength = 32767;
+            this.cNozzle._ReadOnly = true;
+            this.cNozzle._Text = "";
+            this.cNozzle._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cNozzle.BackColor = System.Drawing.Color.White;
+            this.cNozzle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cNozzle.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cNozzle.Location = new System.Drawing.Point(319, 77);
+            this.cNozzle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cNozzle.Name = "cNozzle";
+            this.cNozzle.Size = new System.Drawing.Size(90, 23);
+            this.cNozzle.TabIndex = 12;
+            this.cNozzle.TabStop = false;
             // 
             // FormSellRecord
             // 
@@ -1249,8 +1182,6 @@
         private CC.XDatagrid dgvGoods1;
         private CC.XDatagrid dgvGoods2;
         private CC.XDatePicker cDocdat;
-        private CC.XBrowseBox cNozzle;
-        private CC.XBrowseBox cCuscod;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -1296,6 +1227,7 @@
         private CC.XTextEdit cDocnum;
         private System.Windows.Forms.Button btnChangeDocTyp;
         private System.Windows.Forms.Label lblDocType;
-        private CustomControls.BrowseBoxCuscod browseBoxCuscod1;
+        private CustomControls.BrowseBoxCuscod cCuscod;
+        private CC.XTextEdit cNozzle;
     }
 }

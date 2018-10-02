@@ -126,6 +126,12 @@
     <Compile Include="CustomControls\BrowseBoxIstabFixed.Designer.cs">
       <DependentUpon>BrowseBoxIstabFixed.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\BrowseBoxNozzle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\BrowseBoxNozzle.Designer.cs">
+      <DependentUpon>BrowseBoxNozzle.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\BrowseBoxSlm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -449,6 +455,12 @@
     <Compile Include="SubForm\DialogSearchShiftTransaction.Designer.cs">
       <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogSellValue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSellValue.Designer.cs">
+      <DependentUpon>DialogSellValue.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogStkgrp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -596,6 +608,9 @@
     <EmbeddedResource Include="CustomControls\BrowseBoxIstabFixed.resx">
       <DependentUpon>BrowseBoxIstabFixed.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\BrowseBoxNozzle.resx">
+      <DependentUpon>BrowseBoxNozzle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\BrowseBoxSlm.resx">
       <DependentUpon>BrowseBoxSlm.cs</DependentUpon>
     </EmbeddedResource>
@@ -737,6 +752,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSearchShiftTransaction.resx">
       <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSellValue.resx">
+      <DependentUpon>DialogSellValue.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogStkgrp.resx">
       <DependentUpon>DialogStkgrp.cs</DependentUpon>

@@ -1,6 +1,6 @@
 ﻿namespace XPump.CustomControls
 {
-    partial class BrowseBoxCuscod
+    partial class BrowseBoxNozzle
     {
         /// <summary> 
         /// Required designer variable.
@@ -34,15 +34,13 @@
             // 
             this._textBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             // 
-            // BrowseBoxCuscod
+            // BrowseBoxNozzle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.Name = "BrowseBoxCuscod";
-            this._ButtonClick += new System.EventHandler(this.BrowseBoxCuscod__ButtonClick);
-            this._Leave += new System.EventHandler(this.BrowseBoxCuscod__Leave);
-            this.Load += new System.EventHandler(this.BrowseBoxCuscod_Load);
+            this.Name = "BrowseBoxNozzle";
+            this.Load += new System.EventHandler(this.BrowseBoxNozzle_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

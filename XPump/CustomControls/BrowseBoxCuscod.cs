@@ -19,7 +19,7 @@ namespace XPump.CustomControls
         private List<CuscodInquiryList> cuscod_list;
         public string selected_cusnam = string.Empty;
 
-        public event EventHandler _SelectedSlmcodChanged;
+        public event EventHandler _SelectedCuscodChanged;
 
         public BrowseBoxCuscod()
         {
@@ -165,7 +165,14 @@ namespace XPump.CustomControls
             DataGridViewColumn[] cols = new DataGridViewColumn[] { col_cuscod, col_cusnam, col_orgnum, col_custyp, col_custypdesc, col_addr01, col_addr02, col_addr03, col_zipcod, col_status };
 
             this.cuscod_list = GetCuscodList(this._DataPath);
-            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(cols, this.cuscod_list);
+            string curr_txt = string.Empty;
+            if(this._Text.Trim().Length > 0)
+            {
+                var cus = this.cuscod_list.Where(c => c.cuscod.CompareTo(this._Text.TrimEnd()) >= 0).FirstOrDefault();
+                curr_txt = cus != null ? cus.cuscod : curr_txt;
+            }
+
+            DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(cols, this.cuscod_list, col_cuscod.Name, curr_txt);
             br.SetBounds(this.PointToScreen(Point.Empty).X, this.PointToScreen(Point.Empty).Y + this.Height, br.Width, br.Height);
             br.dgv.AllowUserToResizeColumns = true;
 
@@ -173,12 +180,42 @@ namespace XPump.CustomControls
             {
                 this._Text = br.selected_row.Cells[col_cuscod.Name].Value.ToString().TrimEnd();
                 this.selected_cusnam = br.selected_row.Cells[col_cusnam.Name].Value.ToString().TrimEnd();
+                if(this._SelectedCuscodChanged != null)
+                {
+                    this._SelectedCuscodChanged(this, e);
+                }
             }
         }
 
         private void BrowseBoxCuscod__Leave(object sender, EventArgs e)
         {
-
+            if(this._Text.Trim().Length == 0)
+            {
+                this._Text = string.Empty;
+                this.selected_cusnam = string.Empty;
+                if(this._SelectedCuscodChanged != null)
+                {
+                    this._SelectedCuscodChanged(this, e);
+                }
+            }
+            else
+            {
+                var selected_cust = GetCuscodList(this._DataPath).Where(c => c.cuscod.TrimEnd() == this._Text.TrimEnd()).FirstOrDefault();
+                if (selected_cust != null)
+                {
+                    this._Text = selected_cust.cuscod;
+                    this.selected_cusnam = selected_cust.cusnam.TrimEnd();
+                    if(this._SelectedCuscodChanged != null)
+                    {
+                        this._SelectedCuscodChanged(this, e);
+                    }
+                }
+                else
+                {
+                    this.Focus();
+                    this.PerformButtonClick();
+                }
+            }
         }
     }
 
