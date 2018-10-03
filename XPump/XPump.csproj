@@ -126,12 +126,6 @@
     <Compile Include="CustomControls\BrowseBoxIstabFixed.Designer.cs">
       <DependentUpon>BrowseBoxIstabFixed.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\BrowseBoxNozzle.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CustomControls\BrowseBoxNozzle.Designer.cs">
-      <DependentUpon>BrowseBoxNozzle.cs</DependentUpon>
-    </Compile>
     <Compile Include="CustomControls\BrowseBoxSlm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -607,9 +601,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\BrowseBoxIstabFixed.resx">
       <DependentUpon>BrowseBoxIstabFixed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CustomControls\BrowseBoxNozzle.resx">
-      <DependentUpon>BrowseBoxNozzle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\BrowseBoxSlm.resx">
       <DependentUpon>BrowseBoxSlm.cs</DependentUpon>

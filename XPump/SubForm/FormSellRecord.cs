@@ -209,12 +209,35 @@ namespace XPump.SubForm
 
         private void dgvGoods1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if(e.RowIndex > -1)
+            if(e.RowIndex > -1 && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT))
             {
                 if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index)
                 {
+                    string stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkcod.Name].Value.ToString();
+                    string stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkdes.Name].Value.ToString();
+                    decimal unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_sellpr1.Name].Value);
+
+                    var tmp_stcrd = new stcrd
+                    {
+                        stkcod = stkcod,
+                        stkdes = stkdes,
+                        unitpr = unitpr,
+                        docdat = this.tmp_artrn.docdat
+                    };
+
+
                     BILL_METHOD bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_bill_method.Name].Value;
                     if (bill_method == BILL_METHOD.VAL)
+                    {
+                        DialogSellValue ds = new DialogSellValue(this.main_form, tmp_stcrd);
+                        if(ds.ShowDialog() == DialogResult.OK)
+                        {
+                            this.tmp_artrn.stcrd.Add(tmp_stcrd);
+                            this.dgvStcrd.DataSource = this.tmp_artrn.stcrd;
+
+                        }
+                    }
+                    else
                     {
 
                     }
