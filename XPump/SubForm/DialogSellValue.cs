@@ -65,7 +65,7 @@ namespace XPump.SubForm
         private void cAmount__ValueChanged(object sender, EventArgs e)
         {
             this.stcrd.trnval = ((XNumEdit)sender)._Value;
-            this.stcrd.trnqty = this.stcrd.trnval / this.stcrd.unitpr;
+            this.stcrd.trnqty = Math.Round(this.stcrd.trnval / this.stcrd.unitpr, 4);
 
             this.btnOK.Enabled = this.selected_nozzle != null && this.stcrd.trnval > 0 ? true : false;
         }

@@ -22,6 +22,7 @@ namespace XPump.SubForm
         private scacclvVM scacclv;
         private BindingList<StmasDbfPrice> stmas1;
         private BindingList<StmasDbfPrice> stmas2;
+        private BindingList<StcrdInvoice> stcrd;
         private FORM_MODE form_mode;
         private artrn tmp_artrn = null;
         private IsrunDbf curr_docprefix = null;
@@ -106,7 +107,8 @@ namespace XPump.SubForm
             this.lblCusnam.Text = cus != null ? cus.cusnam.TrimEnd() : string.Empty;
             this.cCshrcv._Value = artrn.cshrcv;
 
-            this.dgvStcrd.DataSource = artrn.stcrd;
+            this.stcrd = new BindingList<StcrdInvoice>(artrn.stcrd.ToList().ToStcrdInvoice());
+            //this.dgvStcrd.DataSource = artrn.stcrd;
         }
 
         private List<StmasDbfPrice> GetStmasDbfPrice(STKGRP[] stkgroups)
@@ -233,8 +235,9 @@ namespace XPump.SubForm
                         if(ds.ShowDialog() == DialogResult.OK)
                         {
                             this.tmp_artrn.stcrd.Add(tmp_stcrd);
-                            this.dgvStcrd.DataSource = this.tmp_artrn.stcrd;
-
+                            this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToList().ToStcrdInvoice());
+                            this.dgvStcrd.DataSource = this.stcrd;
+                            //Console.WriteLine(" ==> " + this.tmp_artrn.stcrd.Count);
                         }
                     }
                     else
@@ -500,6 +503,46 @@ namespace XPump.SubForm
                 this.tmp_artrn.docdat = ((XDatePicker)sender)._SelectedDate.Value;
         }
 
+        private void dgvStcrd_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            ((XDatagrid)sender).Columns[this.col_st_stkdes.Name].DisplayIndex = 0;
+            ((XDatagrid)sender).Columns[this.col_st_trnqty.Name].DisplayIndex = 1;
+            ((XDatagrid)sender).Columns[this.col_st_unitpr.Name].DisplayIndex = 2;
+            ((XDatagrid)sender).Columns[this.col_st_trnval.Name].DisplayIndex = 3;
+            ((XDatagrid)sender).Columns[this.col_st_edit.Name].DisplayIndex = 4;
+            ((XDatagrid)sender).Columns[this.col_st_delete.Name].DisplayIndex = 5;
+
+        }
+
+        private void dgvStcrd_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if(e.RowIndex > -1)
+            {
+                if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_edit.Name)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    e.Graphics.DrawImage(XPump.Properties.Resources.edit_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_16.Width, XPump.Properties.Resources.edit_16.Height));
+                    e.Handled = true;
+                }
+
+                if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    e.Graphics.DrawImage(XPump.Properties.Resources.close_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.close_16.Width, XPump.Properties.Resources.close_16.Height));
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void dgvStcrd_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
+            {
+
+            }
+
+        }
+
         //private List<stmasPriceVM> GetStmas(bool oil_only = true)
         //{
         //    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
@@ -507,5 +550,16 @@ namespace XPump.SubForm
 
         //    }
         //}
+    }
+
+    public class StcrdInvoice
+    {
+        public stcrd stcrd { get; set; }
+        public string stkcod { get; set; }
+        public string stkdes { get; set; }
+        public decimal trnqty { get; set; }
+        public decimal unitpr { get; set; }
+        public decimal trnval { get; set; }
+
     }
 }

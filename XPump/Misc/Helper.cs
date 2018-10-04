@@ -2499,6 +2499,35 @@ namespace XPump.Misc
             return c;
         }
 
+        public static StcrdInvoice ToStcrdInvoice(this stcrd stcrd)
+        {
+            if (stcrd == null)
+                return null;
+
+            StcrdInvoice st = new StcrdInvoice
+            {
+                stcrd = stcrd,
+                stkcod = stcrd.stkcod,
+                stkdes = stcrd.stkdes,
+                trnqty = stcrd.trnqty,
+                unitpr = stcrd.unitpr,
+                trnval = stcrd.trnval
+            };
+
+            return st;
+        }
+
+        public static List<StcrdInvoice> ToStcrdInvoice(this IEnumerable<stcrd> stcrds)
+        {
+            List<StcrdInvoice> st = new List<StcrdInvoice>();
+
+            foreach (var item in stcrds)
+            {
+                st.Add(item.ToStcrdInvoice());
+            }
+            return st;
+        }
+
         public static bool IsInUse(this FileInfo file)
         {
             FileStream stream = null;
