@@ -213,11 +213,25 @@ namespace XPump.SubForm
         {
             if(e.RowIndex > -1 && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT))
             {
-                if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index)
+                //if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index)
+                if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g2_sellpr1.Name)
                 {
                     string stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkcod.Name].Value.ToString();
                     string stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkdes.Name].Value.ToString();
                     decimal unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_sellpr1.Name].Value);
+
+
+                    if(this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod).Count() > 0)
+                    {
+                        XMessageBox.Show("มีรายการสินค้านี้อยู่ในบิลแล้ว, หากต้องการแก้ไขจำนวน/มูลค่า กรุณาคลิกที่ปุ่มแก้ไขรายการที่ท้ายบรรทัดรายการสินค้านั้น ๆ", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                        return;
+                    }
+
+                    if(this.stcrd.Select(s => s.stkcod).Where(s => this.stmas1.Select(st => st.stkcod).Contains(s)).Count() > 0)
+                    {
+                        XMessageBox.Show("มีรายการน้ำมันใสชนิดอื่นในบิลนี้แล้ว, หากต้องการแก้ไขชนิดน้ำมัน ต้องลบรายการเดิมออกก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                        return;
+                    }
 
                     var tmp_stcrd = new stcrd
                     {
@@ -237,12 +251,19 @@ namespace XPump.SubForm
                             this.tmp_artrn.stcrd.Add(tmp_stcrd);
                             this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToList().ToStcrdInvoice());
                             this.dgvStcrd.DataSource = this.stcrd;
+                            this.cNozzle._Text = ds.selected_nozzle.name;
                             //Console.WriteLine(" ==> " + this.tmp_artrn.stcrd.Count);
                         }
                     }
                     else
                     {
-
+                        DialogSellQty ds = new DialogSellQty(this.main_form, tmp_stcrd);
+                        if(ds.ShowDialog() == DialogResult.OK)
+                        {
+                            this.tmp_artrn.stcrd.Add(tmp_stcrd);
+                            this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToList().ToStcrdInvoice());
+                            this.dgvStcrd.DataSource = this.stcrd;
+                        }
                     }
                 }
             }
@@ -538,9 +559,19 @@ namespace XPump.SubForm
         {
             if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
             {
+                string stkcod_to_del = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stkcod.Name].Value.ToString();
 
+                if(XMessageBox.Show("ลบรายการนี้หรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    this.tmp_artrn.stcrd.Remove(this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod_to_del).First());
+                    this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToStcrdInvoice());
+                    this.dgvStcrd.DataSource = this.stcrd;
+                    if(this.stcrd.Where(s => this.stmas1.Select(st => st.stkcod).Contains(s.stkcod)).Count() == 0)
+                    {
+                        this.cNozzle._Text = string.Empty;
+                    }
+                }
             }
-
         }
 
         //private List<stmasPriceVM> GetStmas(bool oil_only = true)
