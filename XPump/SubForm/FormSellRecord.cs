@@ -106,6 +106,9 @@ namespace XPump.SubForm
             this.cCuscod._Text = artrn.cuscod;
             this.lblCusnam.Text = cus != null ? cus.cusnam.TrimEnd() : string.Empty;
             this.cCshrcv._Value = artrn.cshrcv;
+            this.lblAmount.Text = string.Format("{0:n}", artrn.amount);
+            this.lblVatrat.Text = string.Format("{0:n}", artrn.vatrat) + "%";
+            this.lblNetamt.Text = string.Format("{0:n}", artrn.netamt);
 
             this.stcrd = new BindingList<StcrdInvoice>(artrn.stcrd.ToList().ToStcrdInvoice());
             //this.dgvStcrd.DataSource = artrn.stcrd;
@@ -214,22 +217,39 @@ namespace XPump.SubForm
             if(e.RowIndex > -1 && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT))
             {
                 //if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index)
+                
                 if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g2_sellpr1.Name)
                 {
-                    string stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkcod.Name].Value.ToString();
-                    string stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkdes.Name].Value.ToString();
-                    decimal unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_sellpr1.Name].Value);
+                    bool is_fuel_goods = ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name ? true : false;
+                    string stkcod;
+                    string stkdes;
+                    decimal unitpr;
 
-
-                    if(this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod).Count() > 0)
+                    BILL_METHOD bill_method;
+                    if (is_fuel_goods)
                     {
-                        XMessageBox.Show("มีรายการสินค้านี้อยู่ในบิลแล้ว, หากต้องการแก้ไขจำนวน/มูลค่า กรุณาคลิกที่ปุ่มแก้ไขรายการที่ท้ายบรรทัดรายการสินค้านั้น ๆ", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
-                        return;
+                        stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkcod.Name].Value.ToString();
+                        stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkdes.Name].Value.ToString();
+                        unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_sellpr1.Name].Value);
+
+                        if (this.stcrd.Select(s => s.stkcod).Where(s => this.stmas1.Select(st => st.stkcod).Contains(s)).Count() > 0)
+                        {
+                            XMessageBox.Show("มีรายการน้ำมันใสชนิดอื่นในบิลนี้แล้ว, หากต้องการแก้ไขชนิดน้ำมัน ต้องลบรายการเดิมออกก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                            return;
+                        }
+                        bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_bill_method.Name].Value;
+                    }
+                    else
+                    {
+                        stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_stkcod.Name].Value.ToString();
+                        stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_stkdes.Name].Value.ToString();
+                        unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_sellpr1.Name].Value);
+                        bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_bill_method.Name].Value;
                     }
 
-                    if(this.stcrd.Select(s => s.stkcod).Where(s => this.stmas1.Select(st => st.stkcod).Contains(s)).Count() > 0)
+                    if (this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod).Count() > 0)
                     {
-                        XMessageBox.Show("มีรายการน้ำมันใสชนิดอื่นในบิลนี้แล้ว, หากต้องการแก้ไขชนิดน้ำมัน ต้องลบรายการเดิมออกก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                        XMessageBox.Show("มีรายการสินค้านี้อยู่ในบิลแล้ว, หากต้องการแก้ไขจำนวน/มูลค่า กรุณาคลิกที่ปุ่มแก้ไขรายการที่ท้ายบรรทัดรายการสินค้านั้น ๆ", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
                         return;
                     }
 
@@ -241,8 +261,7 @@ namespace XPump.SubForm
                         docdat = this.tmp_artrn.docdat
                     };
 
-
-                    BILL_METHOD bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_bill_method.Name].Value;
+                    
                     if (bill_method == BILL_METHOD.VAL)
                     {
                         DialogSellValue ds = new DialogSellValue(this.main_form, tmp_stcrd);
@@ -252,7 +271,12 @@ namespace XPump.SubForm
                             this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToList().ToStcrdInvoice());
                             this.dgvStcrd.DataSource = this.stcrd;
                             this.cNozzle._Text = ds.selected_nozzle.name;
-                            //Console.WriteLine(" ==> " + this.tmp_artrn.stcrd.Count);
+
+                            var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+
+                            this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
+                            this.lblVatamt.Text = string.Format("{0:n}", vatamt);
+                            this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
                         }
                     }
                     else
@@ -263,6 +287,12 @@ namespace XPump.SubForm
                             this.tmp_artrn.stcrd.Add(tmp_stcrd);
                             this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToList().ToStcrdInvoice());
                             this.dgvStcrd.DataSource = this.stcrd;
+
+                            var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+
+                            this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
+                            this.lblVatamt.Text = string.Format("{0:n}", vatamt);
+                            this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
                         }
                     }
                 }

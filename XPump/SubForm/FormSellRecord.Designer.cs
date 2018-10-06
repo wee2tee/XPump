@@ -34,11 +34,14 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -85,23 +88,18 @@
             this.col_g2_stkgrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_g2_bill_method = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblNetamt = new System.Windows.Forms.Label();
+            this.lblVatamt = new System.Windows.Forms.Label();
+            this.lblAmount = new System.Windows.Forms.Label();
             this.cNozzle = new CC.XTextEdit();
             this.cDocnum = new CC.XTextEdit();
             this.lblCusnam = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dgvStcrd = new CC.XDatagrid();
-            this.cCshrcv = new CC.XNumEdit();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabCreditCard = new System.Windows.Forms.TabPage();
-            this.dgvRcv1 = new CC.XDatagrid();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabCoupon = new System.Windows.Forms.TabPage();
-            this.dgvRcv2 = new CC.XDatagrid();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblVatrat = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.cDocdat = new CC.XDatePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -119,6 +117,19 @@
             this.col_st_stcrd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_st_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cCuscod = new XPump.CustomControls.BrowseBoxCuscod();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.cCshrcv = new CC.XNumEdit();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabCreditCard = new System.Windows.Forms.TabPage();
+            this.dgvRcv1 = new CC.XDatagrid();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabCoupon = new System.Windows.Forms.TabPage();
+            this.dgvRcv2 = new CC.XDatagrid();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabGoods1.SuspendLayout();
@@ -128,6 +139,7 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStcrd)).BeginInit();
+            this.panel3.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabCreditCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRcv1)).BeginInit();
@@ -159,7 +171,7 @@
             this.btnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(902, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(895, 43);
             this.toolStrip1.TabIndex = 6;
             // 
             // btnAdd
@@ -367,9 +379,10 @@
             this.tabControl1.Controls.Add(this.tabGoods1);
             this.tabControl1.Controls.Add(this.tabGoods2);
             this.tabControl1.Location = new System.Drawing.Point(12, 55);
+            this.tabControl1.MinimumSize = new System.Drawing.Size(378, 439);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(378, 474);
+            this.tabControl1.Size = new System.Drawing.Size(378, 455);
             this.tabControl1.TabIndex = 7;
             // 
             // tabGoods1
@@ -377,7 +390,7 @@
             this.tabGoods1.Controls.Add(this.dgvGoods1);
             this.tabGoods1.Location = new System.Drawing.Point(4, 25);
             this.tabGoods1.Name = "tabGoods1";
-            this.tabGoods1.Size = new System.Drawing.Size(370, 445);
+            this.tabGoods1.Size = new System.Drawing.Size(370, 426);
             this.tabGoods1.TabIndex = 0;
             this.tabGoods1.Text = "  น้ำมัน  ";
             this.tabGoods1.UseVisualStyleBackColor = true;
@@ -421,7 +434,7 @@
             this.dgvGoods1.RowHeadersVisible = false;
             this.dgvGoods1.RowTemplate.Height = 30;
             this.dgvGoods1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvGoods1.Size = new System.Drawing.Size(370, 445);
+            this.dgvGoods1.Size = new System.Drawing.Size(370, 426);
             this.dgvGoods1.StandardTab = true;
             this.dgvGoods1.TabIndex = 0;
             this.dgvGoods1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGoods1_CellMouseClick);
@@ -517,7 +530,7 @@
             this.tabGoods2.Controls.Add(this.dgvGoods2);
             this.tabGoods2.Location = new System.Drawing.Point(4, 25);
             this.tabGoods2.Name = "tabGoods2";
-            this.tabGoods2.Size = new System.Drawing.Size(370, 445);
+            this.tabGoods2.Size = new System.Drawing.Size(370, 457);
             this.tabGoods2.TabIndex = 1;
             this.tabGoods2.Text = "  อื่น ๆ  ";
             this.tabGoods2.UseVisualStyleBackColor = true;
@@ -561,9 +574,10 @@
             this.dgvGoods2.RowHeadersVisible = false;
             this.dgvGoods2.RowTemplate.Height = 26;
             this.dgvGoods2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvGoods2.Size = new System.Drawing.Size(370, 448);
+            this.dgvGoods2.Size = new System.Drawing.Size(370, 457);
             this.dgvGoods2.StandardTab = true;
             this.dgvGoods2.TabIndex = 1;
+            this.dgvGoods2.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGoods1_CellMouseClick);
             // 
             // col_g2_stkcod
             // 
@@ -651,24 +665,64 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lblNetamt);
+            this.panel1.Controls.Add(this.lblVatamt);
+            this.panel1.Controls.Add(this.lblAmount);
             this.panel1.Controls.Add(this.cNozzle);
             this.panel1.Controls.Add(this.cCuscod);
             this.panel1.Controls.Add(this.cDocnum);
             this.panel1.Controls.Add(this.lblCusnam);
             this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.cCshrcv);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.tabControl2);
-            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.lblVatrat);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.cDocdat);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(392, 80);
+            this.panel1.MinimumSize = new System.Drawing.Size(499, 252);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(499, 448);
+            this.panel1.Size = new System.Drawing.Size(499, 252);
             this.panel1.TabIndex = 8;
+            // 
+            // lblNetamt
+            // 
+            this.lblNetamt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNetamt.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblNetamt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNetamt.Location = new System.Drawing.Point(377, 222);
+            this.lblNetamt.Name = "lblNetamt";
+            this.lblNetamt.Size = new System.Drawing.Size(109, 20);
+            this.lblNetamt.TabIndex = 13;
+            this.lblNetamt.Text = "0.00";
+            this.lblNetamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblVatamt
+            // 
+            this.lblVatamt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVatamt.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblVatamt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblVatamt.Location = new System.Drawing.Point(377, 199);
+            this.lblVatamt.Name = "lblVatamt";
+            this.lblVatamt.Size = new System.Drawing.Size(109, 20);
+            this.lblVatamt.TabIndex = 13;
+            this.lblVatamt.Text = "0.00";
+            this.lblVatamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblAmount
+            // 
+            this.lblAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAmount.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblAmount.Location = new System.Drawing.Point(377, 176);
+            this.lblAmount.Name = "lblAmount";
+            this.lblAmount.Size = new System.Drawing.Size(109, 20);
+            this.lblAmount.TabIndex = 13;
+            this.lblAmount.Text = "0.00";
+            this.lblAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cNozzle
             // 
@@ -682,7 +736,7 @@
             this.cNozzle.BackColor = System.Drawing.Color.White;
             this.cNozzle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cNozzle.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cNozzle.Location = new System.Drawing.Point(319, 77);
+            this.cNozzle.Location = new System.Drawing.Point(319, 61);
             this.cNozzle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cNozzle.Name = "cNozzle";
             this.cNozzle.Size = new System.Drawing.Size(90, 23);
@@ -700,7 +754,7 @@
             this.cDocnum.BackColor = System.Drawing.Color.White;
             this.cDocnum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cDocnum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDocnum.Location = new System.Drawing.Point(319, 12);
+            this.cDocnum.Location = new System.Drawing.Point(319, 7);
             this.cDocnum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cDocnum.Name = "cDocnum";
             this.cDocnum.Size = new System.Drawing.Size(119, 23);
@@ -710,7 +764,7 @@
             // 
             this.lblCusnam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCusnam.Location = new System.Drawing.Point(20, 48);
+            this.lblCusnam.Location = new System.Drawing.Point(20, 36);
             this.lblCusnam.Name = "lblCusnam";
             this.lblCusnam.Size = new System.Drawing.Size(460, 19);
             this.lblCusnam.TabIndex = 9;
@@ -722,9 +776,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.dgvStcrd);
-            this.panel2.Location = new System.Drawing.Point(7, 109);
+            this.panel2.Location = new System.Drawing.Point(7, 91);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(484, 159);
+            this.panel2.Size = new System.Drawing.Size(484, 77);
             this.panel2.TabIndex = 8;
             // 
             // dgvStcrd
@@ -753,11 +807,19 @@
             this.col_st_delete,
             this.col_st_stcrd,
             this.col_st_stkcod});
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStcrd.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvStcrd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStcrd.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvStcrd.EnableHeadersVisualStyles = false;
             this.dgvStcrd.FillEmptyRow = false;
-            this.dgvStcrd.FocusedRowBorderRedLine = false;
+            this.dgvStcrd.FocusedRowBorderRedLine = true;
             this.dgvStcrd.Location = new System.Drawing.Point(0, 0);
             this.dgvStcrd.MultiSelect = false;
             this.dgvStcrd.Name = "dgvStcrd";
@@ -765,214 +827,52 @@
             this.dgvStcrd.RowHeadersVisible = false;
             this.dgvStcrd.RowTemplate.Height = 26;
             this.dgvStcrd.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStcrd.Size = new System.Drawing.Size(484, 159);
+            this.dgvStcrd.Size = new System.Drawing.Size(484, 77);
             this.dgvStcrd.StandardTab = true;
             this.dgvStcrd.TabIndex = 1;
             this.dgvStcrd.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvStcrd_CellMouseClick);
             this.dgvStcrd.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvStcrd_CellPainting);
             this.dgvStcrd.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvStcrd_DataBindingComplete);
             // 
-            // cCshrcv
+            // label9
             // 
-            this.cCshrcv._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCshrcv._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCshrcv._DecimalDigit = 2;
-            this.cCshrcv._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
-            this.cCshrcv._MaximumValue = new decimal(new int[] {
-            1874919423,
-            2328306,
-            0,
-            262144});
-            this.cCshrcv._MaxLength = 30;
-            this.cCshrcv._ReadOnly = true;
-            this.cCshrcv._SelectionLength = 0;
-            this.cCshrcv._SelectionStart = 4;
-            this.cCshrcv._Text = "0.00";
-            this.cCshrcv._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.cCshrcv._UseThoundsandSeparate = true;
-            this.cCshrcv._Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            131072});
-            this.cCshrcv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cCshrcv.BackColor = System.Drawing.Color.White;
-            this.cCshrcv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCshrcv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCshrcv.Location = new System.Drawing.Point(380, 300);
-            this.cCshrcv.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cCshrcv.Name = "cCshrcv";
-            this.cCshrcv.Size = new System.Drawing.Size(112, 23);
-            this.cCshrcv.TabIndex = 7;
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(250, 224);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(112, 16);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "จำนวนเงินรวมทั้งสิ้น";
             // 
-            // label5
+            // lblVatrat
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label5.Location = new System.Drawing.Point(329, 304);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 16);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "เงินสด";
+            this.lblVatrat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVatrat.AutoSize = true;
+            this.lblVatrat.Location = new System.Drawing.Point(330, 201);
+            this.lblVatrat.Name = "lblVatrat";
+            this.lblVatrat.Size = new System.Drawing.Size(45, 16);
+            this.lblVatrat.TabIndex = 4;
+            this.lblVatrat.Text = "0.00%";
             // 
-            // tabControl2
+            // label8
             // 
-            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl2.Controls.Add(this.tabCreditCard);
-            this.tabControl2.Controls.Add(this.tabCoupon);
-            this.tabControl2.Location = new System.Drawing.Point(3, 305);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(495, 138);
-            this.tabControl2.TabIndex = 5;
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(250, 201);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(83, 16);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "ภาษีมูลค่าเพิ่ม";
             // 
-            // tabCreditCard
+            // label6
             // 
-            this.tabCreditCard.Controls.Add(this.dgvRcv1);
-            this.tabCreditCard.Location = new System.Drawing.Point(4, 25);
-            this.tabCreditCard.Name = "tabCreditCard";
-            this.tabCreditCard.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCreditCard.Size = new System.Drawing.Size(487, 109);
-            this.tabCreditCard.TabIndex = 0;
-            this.tabCreditCard.Text = "  บัตรเครดิต  ";
-            this.tabCreditCard.UseVisualStyleBackColor = true;
-            // 
-            // dgvRcv1
-            // 
-            this.dgvRcv1.AllowSortByColumnHeaderClicked = false;
-            this.dgvRcv1.AllowUserToAddRows = false;
-            this.dgvRcv1.AllowUserToDeleteRows = false;
-            this.dgvRcv1.AllowUserToResizeColumns = false;
-            this.dgvRcv1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRcv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvRcv1.ColumnHeadersHeight = 28;
-            this.dgvRcv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvRcv1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2});
-            this.dgvRcv1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRcv1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvRcv1.EnableHeadersVisualStyles = false;
-            this.dgvRcv1.FillEmptyRow = false;
-            this.dgvRcv1.FocusedRowBorderRedLine = false;
-            this.dgvRcv1.Location = new System.Drawing.Point(3, 3);
-            this.dgvRcv1.MultiSelect = false;
-            this.dgvRcv1.Name = "dgvRcv1";
-            this.dgvRcv1.ReadOnly = true;
-            this.dgvRcv1.RowHeadersVisible = false;
-            this.dgvRcv1.RowTemplate.Height = 26;
-            this.dgvRcv1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRcv1.Size = new System.Drawing.Size(481, 103);
-            this.dgvRcv1.StandardTab = true;
-            this.dgvRcv1.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "stkdes";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Stkdes";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "unitpr";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Price";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 80;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 80;
-            // 
-            // tabCoupon
-            // 
-            this.tabCoupon.Controls.Add(this.dgvRcv2);
-            this.tabCoupon.Location = new System.Drawing.Point(4, 25);
-            this.tabCoupon.Name = "tabCoupon";
-            this.tabCoupon.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCoupon.Size = new System.Drawing.Size(487, 109);
-            this.tabCoupon.TabIndex = 1;
-            this.tabCoupon.Text = "  คูปอง  ";
-            this.tabCoupon.UseVisualStyleBackColor = true;
-            // 
-            // dgvRcv2
-            // 
-            this.dgvRcv2.AllowSortByColumnHeaderClicked = false;
-            this.dgvRcv2.AllowUserToAddRows = false;
-            this.dgvRcv2.AllowUserToDeleteRows = false;
-            this.dgvRcv2.AllowUserToResizeColumns = false;
-            this.dgvRcv2.AllowUserToResizeRows = false;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRcv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
-            this.dgvRcv2.ColumnHeadersHeight = 28;
-            this.dgvRcv2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvRcv2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            this.dgvRcv2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRcv2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvRcv2.EnableHeadersVisualStyles = false;
-            this.dgvRcv2.FillEmptyRow = false;
-            this.dgvRcv2.FocusedRowBorderRedLine = false;
-            this.dgvRcv2.Location = new System.Drawing.Point(3, 3);
-            this.dgvRcv2.MultiSelect = false;
-            this.dgvRcv2.Name = "dgvRcv2";
-            this.dgvRcv2.ReadOnly = true;
-            this.dgvRcv2.RowHeadersVisible = false;
-            this.dgvRcv2.RowTemplate.Height = 26;
-            this.dgvRcv2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRcv2.Size = new System.Drawing.Size(481, 106);
-            this.dgvRcv2.StandardTab = true;
-            this.dgvRcv2.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "stkdes";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Stkdes";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "unitpr";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle11.Format = "N2";
-            dataGridViewCellStyle11.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Price";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 80;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 80;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 281);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 16);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "ชำระโดย";
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(250, 178);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(68, 16);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "มูลค่าสินค้า";
             // 
             // cDocdat
             // 
@@ -981,7 +881,7 @@
             this.cDocdat.BackColor = System.Drawing.Color.White;
             this.cDocdat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cDocdat.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDocdat.Location = new System.Drawing.Point(54, 77);
+            this.cDocdat.Location = new System.Drawing.Point(54, 61);
             this.cDocdat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cDocdat.Name = "cDocdat";
             this.cDocdat.Size = new System.Drawing.Size(103, 23);
@@ -992,7 +892,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(274, 81);
+            this.label3.Location = new System.Drawing.Point(274, 65);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 16);
             this.label3.TabIndex = 1;
@@ -1001,7 +901,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 81);
+            this.label2.Location = new System.Drawing.Point(17, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 16);
             this.label2.TabIndex = 1;
@@ -1011,7 +911,7 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(264, 16);
+            this.label7.Location = new System.Drawing.Point(264, 11);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 16);
             this.label7.TabIndex = 1;
@@ -1020,7 +920,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 16);
+            this.label1.Location = new System.Drawing.Point(10, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 16);
             this.label1.TabIndex = 1;
@@ -1029,7 +929,7 @@
             // btnChangeDocTyp
             // 
             this.btnChangeDocTyp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChangeDocTyp.Location = new System.Drawing.Point(832, 49);
+            this.btnChangeDocTyp.Location = new System.Drawing.Point(825, 49);
             this.btnChangeDocTyp.Name = "btnChangeDocTyp";
             this.btnChangeDocTyp.Size = new System.Drawing.Size(60, 29);
             this.btnChangeDocTyp.TabIndex = 9;
@@ -1046,7 +946,7 @@
             this.lblDocType.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lblDocType.Location = new System.Drawing.Point(392, 50);
             this.lblDocType.Name = "lblDocType";
-            this.lblDocType.Size = new System.Drawing.Size(438, 27);
+            this.lblDocType.Size = new System.Drawing.Size(431, 27);
             this.lblDocType.TabIndex = 10;
             this.lblDocType.Text = "label8";
             this.lblDocType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1088,6 +988,9 @@
             // col_st_unitpr
             // 
             this.col_st_unitpr.DataPropertyName = "unitpr";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "N2";
+            this.col_st_unitpr.DefaultCellStyle = dataGridViewCellStyle8;
             this.col_st_unitpr.HeaderText = "ราคา/หน่วย";
             this.col_st_unitpr.MinimumWidth = 80;
             this.col_st_unitpr.Name = "col_st_unitpr";
@@ -1097,11 +1000,14 @@
             // col_st_trnval
             // 
             this.col_st_trnval.DataPropertyName = "trnval";
-            this.col_st_trnval.HeaderText = "จำนวนเงิน";
-            this.col_st_trnval.MinimumWidth = 80;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N2";
+            this.col_st_trnval.DefaultCellStyle = dataGridViewCellStyle9;
+            this.col_st_trnval.HeaderText = "จำนวนเงิน(รวม VAT.)";
+            this.col_st_trnval.MinimumWidth = 140;
             this.col_st_trnval.Name = "col_st_trnval";
             this.col_st_trnval.ReadOnly = true;
-            this.col_st_trnval.Width = 80;
+            this.col_st_trnval.Width = 140;
             // 
             // col_st_edit
             // 
@@ -1149,18 +1055,237 @@
             this.cCuscod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cCuscod.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.cCuscod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCuscod.Location = new System.Drawing.Point(54, 12);
+            this.cCuscod.Location = new System.Drawing.Point(54, 7);
             this.cCuscod.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.cCuscod.Name = "cCuscod";
             this.cCuscod.Size = new System.Drawing.Size(118, 23);
             this.cCuscod.TabIndex = 11;
             this.cCuscod._SelectedCuscodChanged += new System.EventHandler(this.cCuscod__SelectedCuscodChanged);
             // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.cCshrcv);
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.tabControl2);
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Location = new System.Drawing.Point(392, 338);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(499, 169);
+            this.panel3.TabIndex = 15;
+            // 
+            // cCshrcv
+            // 
+            this.cCshrcv._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCshrcv._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCshrcv._DecimalDigit = 2;
+            this.cCshrcv._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
+            this.cCshrcv._MaximumValue = new decimal(new int[] {
+            1874919423,
+            2328306,
+            0,
+            262144});
+            this.cCshrcv._MaxLength = 30;
+            this.cCshrcv._ReadOnly = true;
+            this.cCshrcv._SelectionLength = 0;
+            this.cCshrcv._SelectionStart = 4;
+            this.cCshrcv._Text = "0.00";
+            this.cCshrcv._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.cCshrcv._UseThoundsandSeparate = true;
+            this.cCshrcv._Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            131072});
+            this.cCshrcv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cCshrcv.BackColor = System.Drawing.Color.White;
+            this.cCshrcv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCshrcv.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCshrcv.Location = new System.Drawing.Point(382, 34);
+            this.cCshrcv.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cCshrcv.Name = "cCshrcv";
+            this.cCshrcv.Size = new System.Drawing.Size(108, 22);
+            this.cCshrcv.TabIndex = 11;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label5.Location = new System.Drawing.Point(331, 38);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(45, 16);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "เงินสด";
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl2.Controls.Add(this.tabCreditCard);
+            this.tabControl2.Controls.Add(this.tabCoupon);
+            this.tabControl2.Location = new System.Drawing.Point(4, 35);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(488, 127);
+            this.tabControl2.TabIndex = 9;
+            // 
+            // tabCreditCard
+            // 
+            this.tabCreditCard.Controls.Add(this.dgvRcv1);
+            this.tabCreditCard.Location = new System.Drawing.Point(4, 25);
+            this.tabCreditCard.Name = "tabCreditCard";
+            this.tabCreditCard.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCreditCard.Size = new System.Drawing.Size(480, 98);
+            this.tabCreditCard.TabIndex = 0;
+            this.tabCreditCard.Text = "  บัตรเครดิต  ";
+            this.tabCreditCard.UseVisualStyleBackColor = true;
+            // 
+            // dgvRcv1
+            // 
+            this.dgvRcv1.AllowSortByColumnHeaderClicked = false;
+            this.dgvRcv1.AllowUserToAddRows = false;
+            this.dgvRcv1.AllowUserToDeleteRows = false;
+            this.dgvRcv1.AllowUserToResizeColumns = false;
+            this.dgvRcv1.AllowUserToResizeRows = false;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRcv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            this.dgvRcv1.ColumnHeadersHeight = 28;
+            this.dgvRcv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvRcv1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.dgvRcv1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRcv1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvRcv1.EnableHeadersVisualStyles = false;
+            this.dgvRcv1.FillEmptyRow = false;
+            this.dgvRcv1.FocusedRowBorderRedLine = false;
+            this.dgvRcv1.Location = new System.Drawing.Point(3, 3);
+            this.dgvRcv1.MultiSelect = false;
+            this.dgvRcv1.Name = "dgvRcv1";
+            this.dgvRcv1.ReadOnly = true;
+            this.dgvRcv1.RowHeadersVisible = false;
+            this.dgvRcv1.RowTemplate.Height = 26;
+            this.dgvRcv1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRcv1.Size = new System.Drawing.Size(474, 92);
+            this.dgvRcv1.StandardTab = true;
+            this.dgvRcv1.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "stkdes";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Stkdes";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "unitpr";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N2";
+            dataGridViewCellStyle12.NullValue = null;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle12;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Price";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 80;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 80;
+            // 
+            // tabCoupon
+            // 
+            this.tabCoupon.Controls.Add(this.dgvRcv2);
+            this.tabCoupon.Location = new System.Drawing.Point(4, 25);
+            this.tabCoupon.Name = "tabCoupon";
+            this.tabCoupon.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCoupon.Size = new System.Drawing.Size(546, 98);
+            this.tabCoupon.TabIndex = 1;
+            this.tabCoupon.Text = "  คูปอง  ";
+            this.tabCoupon.UseVisualStyleBackColor = true;
+            // 
+            // dgvRcv2
+            // 
+            this.dgvRcv2.AllowSortByColumnHeaderClicked = false;
+            this.dgvRcv2.AllowUserToAddRows = false;
+            this.dgvRcv2.AllowUserToDeleteRows = false;
+            this.dgvRcv2.AllowUserToResizeColumns = false;
+            this.dgvRcv2.AllowUserToResizeRows = false;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRcv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            this.dgvRcv2.ColumnHeadersHeight = 28;
+            this.dgvRcv2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvRcv2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dgvRcv2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRcv2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvRcv2.EnableHeadersVisualStyles = false;
+            this.dgvRcv2.FillEmptyRow = false;
+            this.dgvRcv2.FocusedRowBorderRedLine = false;
+            this.dgvRcv2.Location = new System.Drawing.Point(3, 3);
+            this.dgvRcv2.MultiSelect = false;
+            this.dgvRcv2.Name = "dgvRcv2";
+            this.dgvRcv2.ReadOnly = true;
+            this.dgvRcv2.RowHeadersVisible = false;
+            this.dgvRcv2.RowTemplate.Height = 26;
+            this.dgvRcv2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRcv2.Size = new System.Drawing.Size(540, 92);
+            this.dgvRcv2.StandardTab = true;
+            this.dgvRcv2.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "stkdes";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Stkdes";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "unitpr";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N2";
+            dataGridViewCellStyle14.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle14;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Price";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 80;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 80;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 16);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "ชำระโดย";
+            // 
             // FormSellRecord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 541);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(895, 522);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.lblDocType);
             this.Controls.Add(this.btnChangeDocTyp);
             this.Controls.Add(this.btnManageStkgrp);
@@ -1170,6 +1295,7 @@
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MinimumSize = new System.Drawing.Size(911, 561);
             this.Name = "FormSellRecord";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -1186,6 +1312,8 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStcrd)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabCreditCard.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRcv1)).EndInit();
@@ -1230,18 +1358,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private CC.XNumEdit cCshrcv;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TabControl tabControl2;
-        private System.Windows.Forms.TabPage tabCreditCard;
-        private System.Windows.Forms.TabPage tabCoupon;
-        private System.Windows.Forms.Label label4;
-        private CC.XDatagrid dgvRcv1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private CC.XDatagrid dgvRcv2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Panel panel2;
         private CC.XDatagrid dgvStcrd;
         private System.Windows.Forms.Label lblCusnam;
@@ -1270,6 +1386,13 @@
         private System.Windows.Forms.Label lblDocType;
         private CustomControls.BrowseBoxCuscod cCuscod;
         private CC.XTextEdit cNozzle;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblNetamt;
+        private System.Windows.Forms.Label lblVatamt;
+        private System.Windows.Forms.Label lblAmount;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblVatrat;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_st_stkdes;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_st_trnqty;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_st_unitpr;
@@ -1278,5 +1401,18 @@
         private System.Windows.Forms.DataGridViewButtonColumn col_st_delete;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_st_stcrd;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_st_stkcod;
+        private System.Windows.Forms.Panel panel3;
+        private CC.XNumEdit cCshrcv;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabCreditCard;
+        private CC.XDatagrid dgvRcv1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.TabPage tabCoupon;
+        private CC.XDatagrid dgvRcv2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.Label label4;
     }
 }
