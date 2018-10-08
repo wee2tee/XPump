@@ -12,6 +12,8 @@ namespace CC
 {
     public partial class XNumEdit : XTextEdit
     {
+        //private bool first_time_configure_value = true;
+
         private decimal maximum_value = 999999999999.9999m;
         public decimal _MaximumValue
         {
@@ -91,8 +93,7 @@ namespace CC
             }
             set
             {
-                //if (this.textBox1.Text != null && this.textBox1.Text.Length > value)
-                    this.textBox1.SelectionStart = value;
+                this.textBox1.SelectionStart = value;
             }
         }
 
@@ -107,6 +108,19 @@ namespace CC
                 this.textBox1.SelectionLength = value;
             }
         }
+
+        //private bool set_cursor_positon_to_end = true;
+        //public bool _SetCursorPositionToEnd
+        //{
+        //    get
+        //    {
+        //        return this.set_cursor_positon_to_end;
+        //    }
+        //    set
+        //    {
+        //        this.set_cursor_positon_to_end = value;
+        //    }
+        //}
 
         private string num_format = "{0:0}";
 
@@ -136,6 +150,21 @@ namespace CC
                 }
 
                 this.Refresh();
+
+                //if (this.first_time_configure_value)
+                //{
+                //    if (this.set_cursor_positon_to_end)
+                //    {
+                //        this.textBox1.SelectionStart = this.textBox1.Text.Length;
+                //    }
+                //    else
+                //    {
+                //        this.textBox1.SelectionStart = 0;
+                //        this.textBox1.SelectionLength = this.textBox1.Text.Length;
+                //    }
+
+                //    this.first_time_configure_value = false;
+                //}
             }
         }
 
@@ -170,14 +199,17 @@ namespace CC
 
             this.textBox1.GotFocus += delegate
             {
-                if(this.decimal_digit > 0 && this.textBox1.Text.Contains("."))
-                {
-                    this.textBox1.SelectionStart = this.textBox1.Text.IndexOf(".");
-                }
-                else
-                {
-                    this.textBox1.SelectionStart = this.textBox1.Text.Length;
-                }
+                //if (this.set_cursor_positon_to_end)
+                //{
+                    if (this.decimal_digit > 0 && this.textBox1.Text.Contains("."))
+                    {
+                        this.textBox1.SelectionStart = this.textBox1.Text.IndexOf(".");
+                    }
+                    else
+                    {
+                        this.textBox1.SelectionStart = this.textBox1.Text.Length;
+                    }
+                //}
 
                 if (this._GotFocus != null)
                 {
@@ -185,7 +217,7 @@ namespace CC
                 }
             };
         }
-
+        
         protected override void OnPaint(PaintEventArgs pe)
         {
             this.num_format = this._UseThoundsandSeparate ? "{0:#,#0" : "{0:0";

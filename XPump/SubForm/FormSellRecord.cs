@@ -12,6 +12,7 @@ using XPump.Misc;
 using XPump.Model;
 using CC;
 using XPump.CustomControls;
+using XPump.Misc;
 
 namespace XPump.SubForm
 {
@@ -217,7 +218,13 @@ namespace XPump.SubForm
             if(e.RowIndex > -1 && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT))
             {
                 //if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index)
-                
+                //if(this.tmp_artrn.cuscod.TrimEnd().Length == 0)
+                //{
+                //    this.cCuscod.Focus();
+                //    this.cCuscod.PerformButtonClick();
+                //    return;
+                //}
+
                 if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g2_sellpr1.Name)
                 {
                     bool is_fuel_goods = ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name ? true : false;
@@ -261,7 +268,6 @@ namespace XPump.SubForm
                         docdat = this.tmp_artrn.docdat
                     };
 
-                    
                     if (bill_method == BILL_METHOD.VAL)
                     {
                         DialogSellValue ds = new DialogSellValue(this.main_form, tmp_stcrd);
@@ -393,142 +399,6 @@ namespace XPump.SubForm
 
         }
 
-        private void cCuscod__ButtonClick(object sender, EventArgs e)
-        {
-            //DataGridViewTextBoxColumn col_cuscod = new DataGridViewTextBoxColumn
-            //{
-            //    Name = "col_cuscod",
-            //    DataPropertyName = "cuscod",
-            //    HeaderText = "รหัส",
-            //    Width = 100,
-            //    MinimumWidth = 100,
-            //};
-            //DataGridViewTextBoxColumn col_cusnam = new DataGridViewTextBoxColumn
-            //{
-            //    Name = "col_cusnam",
-            //    DataPropertyName = "cusnam",
-            //    HeaderText = "ชื่อลูกค้า",
-            //    Width = 160,
-            //    MinimumWidth = 100,
-            //    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            //};
-            //DataGridViewTextBoxColumn col_orgnum = new DataGridViewTextBoxColumn
-            //{
-            //    Name = "col_orgnum",
-            //    DataPropertyName = "orgnum",
-            //    HeaderText = "สาขา#",
-            //    Width = 80,
-            //    MinimumWidth = 80
-            //};
-            //DataGridViewTextBoxColumn col_contact = new DataGridViewTextBoxColumn
-            //{
-            //    Name = "col_contact",
-            //    DataPropertyName = "contact",
-            //    Width = 100,
-            //    MinimumWidth = 100
-            //};
-            //DataGridViewTextBoxColumn col_addr01 = new DataGridViewTextBoxColumn
-            //{
-            //    Name = "col_addr01",
-            //    DataPropertyName = "addr01",
-            //    HeaderText = "ที่อยู่บรรทัดที่1",
-            //    Width = 140,
-            //    MinimumWidth = 100
-            //};
-            //DataGridViewTextBoxColumn col_addr02 = new DataGridViewTextBoxColumn
-            //{
-            //    Name = "col_addr02",
-            //    DataPropertyName = "addr02",
-            //    HeaderText = "ที่อยู่บรรทัดที่2",
-            //    Width = 140,
-            //    MinimumWidth = 100
-            //};
-            //DataGridViewTextBoxColumn col_addr03 = new DataGridViewTextBoxColumn
-            //{
-            //    Name = "col_addr03",
-            //    DataPropertyName = "addr03",
-            //    HeaderText = "ที่อยู่บรรทัดที่3",
-            //    Width = 140,
-            //    MinimumWidth = 100
-            //};
-            //DataGridViewTextBoxColumn col_zipcod = new DataGridViewTextBoxColumn
-            //{
-            //    Name = "col_zipcod",
-            //    DataPropertyName = "zipcod",
-            //    HeaderText = "รหัสไปรษณีย์",
-            //    Width = 80,
-            //    MinimumWidth = 80
-            //};
-            //DataGridViewTextBoxColumn col_status = new DataGridViewTextBoxColumn
-            //{
-            //    Name = "col_status",
-            //    DataPropertyName = "status",
-            //    HeaderText = "สถานะ",
-            //    Width = 60,
-            //    MinimumWidth = 60
-            //};
-            ////DataGridViewTextBoxColumn col_tabpr = new DataGridViewTextBoxColumn
-            ////{
-            ////    Name = "col_tabpr",
-            ////    DataPropertyName = "tabpr",
-            ////    Width = 100,
-            ////    MinimumWidth = 100
-            ////};
-            ////DataGridViewTextBoxColumn col_disc = new DataGridViewTextBoxColumn
-            ////{
-            ////    Name = "col_disc",
-            ////    DataPropertyName = "disc",
-            ////    Width = 80,
-            ////    MinimumWidth = 80
-            ////};
-            ////DataGridViewTextBoxColumn col_crline = new DataGridViewTextBoxColumn
-            ////{
-            ////    Name = "col_crline",
-            ////    DataPropertyName = "crline",
-            ////    Width = 60,
-            ////    MinimumWidth = 60
-            ////};
-            ////DataGridViewTextBoxColumn col_slmcod = new DataGridViewTextBoxColumn
-            ////{
-            ////    Name = "col_slmcod",
-            ////    DataPropertyName = "slmcod",
-            ////    Width = 100,
-            ////    MinimumWidth = 100
-            ////};
-            ////DataGridViewTextBoxColumn col_areacod = new DataGridViewTextBoxColumn
-            ////{
-            ////    Name = "col_areacod",
-            ////    DataPropertyName = "areacod",
-            ////    Width = 60,
-            ////    MinimumWidth = 60
-            ////};
-            ////DataGridViewTextBoxColumn col_dlvby = new DataGridViewTextBoxColumn
-            ////{
-            ////    Name = "col_dlvby",
-            ////    DataPropertyName = "dlvby",
-            ////    Width = 60,
-            ////    MinimumWidth = 60
-            ////};
-            ////DataGridViewTextBoxColumn col_accnum = new DataGridViewTextBoxColumn
-            ////{
-            ////    Name = "col_accnum",
-            ////    DataPropertyName = "accnum",
-            ////    Width = 100,
-            ////    MinimumWidth = 100
-            ////};
-
-            //DataGridViewColumn[] cols = new DataGridViewColumn[] { col_cuscod, col_cusnam, col_prenam, col_contact, col_paytrm, col_paycond, col_tabpr, col_disc, col_crline, col_slmcod, col_areacod, col_dlvby, col_accnum };
-            //var armas_list = DbfTable.ArmasList(this.main_form.working_express_db);
-
-            //DialogBrowseBoxSelector br = new DialogBrowseBoxSelector(cols, armas_list, col_cuscod.Name, ((XBrowseBox)sender)._Text.TrimEnd());
-            //br.SetBounds(((XBrowseBox)sender).PointToScreen(Point.Empty).X, ((XBrowseBox)sender).PointToScreen(Point.Empty).Y + ((XBrowseBox)sender).Height, br.Width * 2, br.Height * 2);
-            //if(br.ShowDialog() == DialogResult.OK)
-            //{
-            //    ((XBrowseBox)sender)._Text = br.selected_row.Cells[col_cuscod.Name].Value.ToString().TrimEnd();
-            //    this.lblCusnam.Text = br.selected_row.Cells[col_cusnam.Name].Value.ToString().TrimEnd();
-            //}
-        }
-
         private void btnChangeDocTyp_Click(object sender, EventArgs e)
         {
             List<XDropdownListItem> items = new List<XDropdownListItem>();
@@ -547,6 +417,14 @@ namespace XPump.SubForm
             if (this.tmp_artrn != null)
                 this.tmp_artrn.cuscod = ((BrowseBoxCuscod)sender)._Text;
         }
+
+
+        private void cCuscod__Leave(object sender, EventArgs e)
+        {
+            if (this.tmp_artrn != null && this.tmp_artrn.cuscod.Trim().Length == 0)
+                this.cCuscod.PerformButtonClick();
+        }
+
 
         private void cDocdat__SelectedDateChanged(object sender, EventArgs e)
         {
@@ -591,6 +469,8 @@ namespace XPump.SubForm
             {
                 string stkcod_to_del = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stkcod.Name].Value.ToString();
 
+                ((XDatagrid)sender).Rows[e.RowIndex].DrawDeletingRowOverlay();
+
                 if(XMessageBox.Show("ลบรายการนี้หรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
                 {
                     this.tmp_artrn.stcrd.Remove(this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod_to_del).First());
@@ -600,7 +480,60 @@ namespace XPump.SubForm
                     {
                         this.cNozzle._Text = string.Empty;
                     }
+
+                    var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+
+                    this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
+                    this.lblVatamt.Text = string.Format("{0:n}", vatamt);
+                    this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
                 }
+                else
+                {
+                    ((XDatagrid)sender).Rows[e.RowIndex].ClearDeletingRowOverlay();
+                }
+            }
+            if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_edit.Name)
+            {
+                stcrd stcrd_to_edit = (stcrd)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stcrd.Name].Value;
+                bool is_fuel_goods = this.stmas1.Select(st => st.stkcod).Where(st => st.Contains(stcrd_to_edit.stkcod)).Count() > 0 ? true : false;
+
+                if (is_fuel_goods)
+                {
+                    nozzle nozzle;
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    {
+                        nozzle = db.nozzle.Where(n => n.name == this.cNozzle._Text).FirstOrDefault();
+                    }
+
+                    DialogSellValue ds = new DialogSellValue(this.main_form, stcrd_to_edit, nozzle);
+                    if(ds.ShowDialog() == DialogResult.OK)
+                    {
+                        this.cNozzle._Text = ds.selected_nozzle.name;
+                        this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnqty = ds.stcrd.trnqty;
+                        this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnval = ds.stcrd.trnval;
+                        this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToStcrdInvoice());
+                        this.dgvStcrd.DataSource = this.stcrd;
+                        this.dgvStcrd.Rows.Cast<DataGridViewRow>().Where(r => r.Cells[this.col_st_stkcod.Name].Value.ToString() == stcrd_to_edit.stkcod).First().Selected = true;
+                    }
+                }
+                else
+                {
+                    DialogSellQty ds = new DialogSellQty(this.main_form, stcrd_to_edit);
+                    if(ds.ShowDialog() == DialogResult.OK)
+                    {
+                        this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnqty = ds.stcrd.trnqty;
+                        this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnval = ds.stcrd.trnval;
+                        this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToStcrdInvoice());
+                        this.dgvStcrd.DataSource = this.stcrd;
+                        this.dgvStcrd.Rows.Cast<DataGridViewRow>().Where(r => r.Cells[this.col_st_stkcod.Name].Value.ToString() == stcrd_to_edit.stkcod).First().Selected = true;
+                    }
+                }
+
+                var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+
+                this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
+                this.lblVatamt.Text = string.Format("{0:n}", vatamt);
+                this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
             }
         }
 

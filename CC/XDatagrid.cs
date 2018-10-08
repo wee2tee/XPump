@@ -12,6 +12,12 @@ namespace CC
 {
     public partial class XDatagrid : DataGridView
     {
+        public enum ROW_STATE
+        {
+            NORMAL,
+            DELETING
+        }
+
         private bool row_border_redline;
         public bool FocusedRowBorderRedLine {
             get {
@@ -284,6 +290,21 @@ namespace CC
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
+
+            var deleting_row = this.Rows.Cast<DataGridViewRow>().Where(r => r.Tag != null && r.Tag is ROW_STATE && (ROW_STATE)r.Tag == ROW_STATE.DELETING).FirstOrDefault();
+            if (deleting_row != null)
+            {
+                Rectangle rect = this.GetRowDisplayRectangle(deleting_row.Index, true);
+
+                for (int i = rect.X - 10; i < rect.X + rect.Width; i += 10)
+                {
+                    using (Pen p = new Pen(Color.Red))
+                    {
+                        pe.Graphics.DrawLine(p, new Point(i, rect.Y), new Point(i + 10, rect.Y + rect.Height - 3));
+                    }
+                }
+            }
+            
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -326,5 +347,28 @@ namespace CC
         //        return;
         //    }
         //}
+    }
+
+    public static class XDatagridHelper
+    {
+        public static void DrawDeletingRowOverlay(this DataGridViewRow row)
+        {
+            if (row == null)
+                return;
+
+            row.Tag = XDatagrid.ROW_STATE.DELETING;
+            row.DataGridView.Refresh();
+            row.DataGridView.Rows[row.Index].Cells[row.DataGridView.FirstDisplayedCell.ColumnIndex].Selected = true;
+        }
+
+        public static void ClearDeletingRowOverlay(this DataGridViewRow row)
+        {
+            if (row == null)
+                return;
+
+            row.Tag = null;
+            row.DataGridView.Refresh();
+            row.DataGridView.Rows[row.Index].Cells[row.DataGridView.FirstDisplayedCell.ColumnIndex].Selected = true;
+        }
     }
 }

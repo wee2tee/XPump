@@ -305,7 +305,13 @@ namespace XPump.SubForm
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (this.dgv.CurrentCell == null)
+                return;
+
             var istab = (istab)this.dgv.Rows[this.dgv.CurrentCell.RowIndex].Cells[this.col_istab.Name].Value;
+
+            var deleting_row = this.dgv.Rows[this.dgv.CurrentCell.RowIndex];
+            deleting_row.DrawDeletingRowOverlay();
 
             if(XMessageBox.Show("ลบรหัส \"" + istab.typcod + "\", ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
             {
@@ -340,6 +346,10 @@ namespace XPump.SubForm
                         XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
                     }
                 }
+            }
+            else
+            {
+                deleting_row.ClearDeletingRowOverlay();
             }
         }
 

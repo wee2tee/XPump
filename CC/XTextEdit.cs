@@ -119,6 +119,7 @@ namespace CC
         public event KeyEventHandler _KeyDown;
         public event KeyEventHandler _KeyUp;
         public event KeyPressEventHandler _KeyPress;
+        //public event EventHandler _BindingValueCompleted;
 
         public XTextEdit()
         {

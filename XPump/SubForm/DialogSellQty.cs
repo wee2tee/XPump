@@ -26,6 +26,15 @@ namespace XPump.SubForm
         private void DialogSellQty_Load(object sender, EventArgs e)
         {
             this.lblStkdes.Text = this.stcrd.stkcod.TrimEnd() + " : " + this.stcrd.stkdes.TrimEnd();
+            this.cQty._Value = this.stcrd.trnqty;
+        }
+
+        private void DialogSellQty_Shown(object sender, EventArgs e)
+        {
+            //this.cQty.textBox1.SelectionStart = 0;
+            //this.cQty.textBox1.SelectionLength = this.cQty.textBox1.Text.Length;
+            this.cQty._SelectionStart = 0;
+            this.cQty._SelectionLength = this.cQty._Text.Length;
         }
 
         private void cQty__ValueChanged(object sender, EventArgs e)
@@ -34,6 +43,23 @@ namespace XPump.SubForm
             this.stcrd.trnval = ((XNumEdit)sender)._Value * this.stcrd.unitpr;
 
             this.btnOK.Enabled = this.stcrd.trnqty > 0 ? true : false;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.F5)
+            {
+                this.btnOK.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnCancel.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

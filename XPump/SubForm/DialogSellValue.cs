@@ -18,10 +18,11 @@ namespace XPump.SubForm
         public stcrd stcrd;
         public nozzle selected_nozzle = null;
 
-        public DialogSellValue(MainForm main_form, stcrd stcrd)
+        public DialogSellValue(MainForm main_form, stcrd stcrd, nozzle nozzle = null)
         {
             this.main_form = main_form;
             this.stcrd = stcrd;
+            this.selected_nozzle = nozzle;
             InitializeComponent();
         }
 
@@ -29,11 +30,20 @@ namespace XPump.SubForm
         {
             this.lblSellDate.Text = this.stcrd.docdat.ToString("dd/MM/yy", CultureInfo.GetCultureInfo("th-TH"));
             this.lblStkdes.Text = this.stcrd.stkcod.TrimEnd() + " : " + this.stcrd.stkdes.TrimEnd();
+            this.cAmount._Value = this.stcrd.trnval;
 
             var nozz = GetNozzleList(this.main_form.working_express_db, this.stcrd);
             foreach (var noz in GetNozzleList(this.main_form.working_express_db, this.stcrd))
             {
                 this.cNozzle._Items.Add(new XDropdownListItem { Text = noz.name + " : " + noz.description, Value = noz });
+            }
+
+            if(this.selected_nozzle != null)
+            {
+                var noz = this.cNozzle._Items.Cast<XDropdownListItem>().Where(n => ((nozzle)n.Value).id == this.selected_nozzle.id).FirstOrDefault();
+
+                if (noz != null)
+                    this.cNozzle._SelectedItem = noz;
             }
         }
 
@@ -86,5 +96,6 @@ namespace XPump.SubForm
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
     }
 }

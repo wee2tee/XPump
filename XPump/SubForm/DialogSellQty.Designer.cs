@@ -91,7 +91,7 @@
             // 
             this.cQty._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cQty._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cQty._DecimalDigit = 2;
+            this.cQty._DecimalDigit = 0;
             this.cQty._ForeColorReadOnlyState = System.Drawing.SystemColors.ControlText;
             this.cQty._MaximumValue = new decimal(new int[] {
             1874919423,
@@ -101,23 +101,23 @@
             this.cQty._MaxLength = 30;
             this.cQty._ReadOnly = false;
             this.cQty._SelectionLength = 0;
-            this.cQty._SelectionStart = 4;
-            this.cQty._Text = "0.00";
+            this.cQty._SelectionStart = 1;
+            this.cQty._Text = "0";
             this.cQty._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.cQty._UseThoundsandSeparate = true;
             this.cQty._Value = new decimal(new int[] {
             0,
             0,
             0,
-            131072});
+            0});
             this.cQty.BackColor = System.Drawing.Color.White;
             this.cQty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cQty.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cQty.Location = new System.Drawing.Point(120, 74);
+            this.cQty.Location = new System.Drawing.Point(119, 75);
             this.cQty.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cQty.Name = "cQty";
-            this.cQty.Size = new System.Drawing.Size(127, 23);
-            this.cQty.TabIndex = 6;
+            this.cQty.Size = new System.Drawing.Size(97, 23);
+            this.cQty.TabIndex = 0;
             this.cQty._ValueChanged += new System.EventHandler(this.cQty__ValueChanged);
             // 
             // DialogSellQty
@@ -125,12 +125,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(417, 175);
+            this.Controls.Add(this.cQty);
             this.Controls.Add(this.lblStkdes);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.cQty);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
@@ -142,6 +142,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ป้อนจำนวนขายสินค้า";
             this.Load += new System.EventHandler(this.DialogSellQty_Load);
+            this.Shown += new System.EventHandler(this.DialogSellQty_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
