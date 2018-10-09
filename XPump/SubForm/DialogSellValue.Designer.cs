@@ -191,6 +191,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ป้อนมูลค่าขายสินค้า";
             this.Load += new System.EventHandler(this.DialogSellValue_Load);
+            this.Shown += new System.EventHandler(this.DialogSellValue_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

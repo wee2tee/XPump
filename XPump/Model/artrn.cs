@@ -21,7 +21,7 @@ namespace XPump.Model
             this.stcrd = new HashSet<stcrd>();
 
             this.advamt = 0;
-            this.advnum = string.Empty;
+            this.advnum = "AI";
             this.aftdisc = 0;
             this.amount = 0;
             this.amtrat0 = 0;
@@ -34,7 +34,7 @@ namespace XPump.Model
             this.chgdat = DateTime.Now;
             this.chqpas = 0;
             this.chqrcv = 0;
-            this.cmplapp = string.Empty;
+            this.cmplapp = "N";
             this.cmpldat = null;
             this.cntyp = string.Empty;
             this.comamt = 0;

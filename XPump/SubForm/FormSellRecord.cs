@@ -111,7 +111,7 @@ namespace XPump.SubForm
             this.lblVatrat.Text = string.Format("{0:n}", artrn.vatrat) + "%";
             this.lblNetamt.Text = string.Format("{0:n}", artrn.netamt);
 
-            this.stcrd = new BindingList<StcrdInvoice>(artrn.stcrd.ToList().ToStcrdInvoice());
+            this.stcrd = new BindingList<StcrdInvoice>(artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
             //this.dgvStcrd.DataSource = artrn.stcrd;
         }
 
@@ -217,14 +217,6 @@ namespace XPump.SubForm
         {
             if(e.RowIndex > -1 && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT))
             {
-                //if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index)
-                //if(this.tmp_artrn.cuscod.TrimEnd().Length == 0)
-                //{
-                //    this.cCuscod.Focus();
-                //    this.cCuscod.PerformButtonClick();
-                //    return;
-                //}
-
                 if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g2_sellpr1.Name)
                 {
                     bool is_fuel_goods = ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name ? true : false;
@@ -262,6 +254,7 @@ namespace XPump.SubForm
 
                     var tmp_stcrd = new stcrd
                     {
+                        seqnum = this.tmp_artrn.nxtseq + 1,
                         stkcod = stkcod,
                         stkdes = stkdes,
                         unitpr = unitpr,
@@ -271,35 +264,55 @@ namespace XPump.SubForm
                     if (bill_method == BILL_METHOD.VAL)
                     {
                         DialogSellValue ds = new DialogSellValue(this.main_form, tmp_stcrd);
-                        if(ds.ShowDialog() == DialogResult.OK)
-                        {
-                            this.tmp_artrn.stcrd.Add(tmp_stcrd);
-                            this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToList().ToStcrdInvoice());
-                            this.dgvStcrd.DataSource = this.stcrd;
-                            this.cNozzle._Text = ds.selected_nozzle.name;
+                        if (ds.ShowDialog() != DialogResult.OK)
+                            return;
 
-                            var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+                        this.cNozzle._Text = ds.selected_nozzle.name;
 
-                            this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
-                            this.lblVatamt.Text = string.Format("{0:n}", vatamt);
-                            this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
-                        }
+                        //if(ds.ShowDialog() == DialogResult.OK)
+                        //{
+                        //    this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
+                        //    this.tmp_artrn.stcrd.Add(tmp_stcrd);
+
+                        //    var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+
+                        //    this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
+                        //    this.tmp_artrn.vatamt = vatamt;
+                        //    this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
+                        //    this.tmp_artrn.total = this.tmp_artrn.amount;
+                        //    this.tmp_artrn.netamt = this.tmp_artrn.amount;
+                        //    this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
+
+                        //    this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
+                        //    this.dgvStcrd.DataSource = this.stcrd;
+                        //    this.cNozzle._Text = ds.selected_nozzle.name;
+
+                            
+
+                        //    this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
+                        //    this.lblVatamt.Text = string.Format("{0:n}", vatamt);
+                        //    this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
+                        //}
                     }
                     else
                     {
                         DialogSellQty ds = new DialogSellQty(this.main_form, tmp_stcrd);
-                        if(ds.ShowDialog() == DialogResult.OK)
-                        {
-                            this.tmp_artrn.stcrd.Add(tmp_stcrd);
-                            this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToList().ToStcrdInvoice());
-                            this.dgvStcrd.DataSource = this.stcrd;
+                        if (ds.ShowDialog() != DialogResult.OK)
+                            return;
 
-                            var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+                        //if(ds.ShowDialog() == DialogResult.OK)
+                        //{
+                        //    this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
+                        //    this.tmp_artrn.stcrd.Add(tmp_stcrd);
+                        //    this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
+                        //    this.dgvStcrd.DataSource = this.stcrd;
 
-                            this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
-                            this.lblVatamt.Text = string.Format("{0:n}", vatamt);
-                            this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
-                        }
+                        //    var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+
+                        //    this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
+                        //    this.lblVatamt.Text = string.Format("{0:n}", vatamt);
+                        //    this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
+                        //}
                     }
                 }
             }
@@ -325,6 +338,7 @@ namespace XPump.SubForm
                     bilnum = "~",
                     vatrat = this.curr_docprefix.vatrat,
                     docstat = "N",
+                    srv_vattyp = this.curr_docprefix.srv_vattyp != "" ? this.curr_docprefix.srv_vattyp : "-",
                     creby = this.main_form.loged_in_status.loged_in_user_name,
                     credat = DateTime.Now,
                     userid = this.main_form.loged_in_status.loged_in_user_name,
@@ -413,9 +427,19 @@ namespace XPump.SubForm
 
         private void cCuscod__SelectedCuscodChanged(object sender, EventArgs e)
         {
-            this.lblCusnam.Text = this.cCuscod.selected_cusnam;
+            this.lblCusnam.Text = this.cCuscod.selected_cust != null ? this.cCuscod.selected_cust.cusnam : string.Empty;
+            
             if (this.tmp_artrn != null)
-                this.tmp_artrn.cuscod = ((BrowseBoxCuscod)sender)._Text;
+            {
+                this.tmp_artrn.cuscod = this.cCuscod.selected_cust.cuscod;
+                this.tmp_artrn.areacod = this.cCuscod.selected_cust.areacod;
+                this.tmp_artrn.paytrm = this.cCuscod.selected_cust.paytrm;
+                this.tmp_artrn.duedat = this.tmp_artrn.docdat.AddDays(this.cCuscod.selected_cust.paytrm);
+                this.tmp_artrn.taxrat = this.cCuscod.selected_cust.taxrat;
+                this.tmp_artrn.vatdat = this.tmp_artrn.flgvat != "0" ? (DateTime?)this.tmp_artrn.docdat : null;
+                this.tmp_artrn.dlvby = this.cCuscod.selected_cust.dlvby;
+                this.tmp_artrn.orgnum = this.cCuscod.selected_cust.orgnum;
+            }
         }
 
 
@@ -474,7 +498,7 @@ namespace XPump.SubForm
                 if(XMessageBox.Show("ลบรายการนี้หรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
                 {
                     this.tmp_artrn.stcrd.Remove(this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod_to_del).First());
-                    this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToStcrdInvoice());
+                    this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
                     this.dgvStcrd.DataSource = this.stcrd;
                     if(this.stcrd.Where(s => this.stmas1.Select(st => st.stkcod).Contains(s.stkcod)).Count() == 0)
                     {
@@ -511,7 +535,7 @@ namespace XPump.SubForm
                         this.cNozzle._Text = ds.selected_nozzle.name;
                         this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnqty = ds.stcrd.trnqty;
                         this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnval = ds.stcrd.trnval;
-                        this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToStcrdInvoice());
+                        this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
                         this.dgvStcrd.DataSource = this.stcrd;
                         this.dgvStcrd.Rows.Cast<DataGridViewRow>().Where(r => r.Cells[this.col_st_stkcod.Name].Value.ToString() == stcrd_to_edit.stkcod).First().Selected = true;
                     }
@@ -523,7 +547,7 @@ namespace XPump.SubForm
                     {
                         this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnqty = ds.stcrd.trnqty;
                         this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnval = ds.stcrd.trnval;
-                        this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.ToStcrdInvoice());
+                        this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
                         this.dgvStcrd.DataSource = this.stcrd;
                         this.dgvStcrd.Rows.Cast<DataGridViewRow>().Where(r => r.Cells[this.col_st_stkcod.Name].Value.ToString() == stcrd_to_edit.stkcod).First().Selected = true;
                     }

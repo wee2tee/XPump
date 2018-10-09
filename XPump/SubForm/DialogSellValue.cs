@@ -80,6 +80,12 @@ namespace XPump.SubForm
             this.btnOK.Enabled = this.selected_nozzle != null && this.stcrd.trnval > 0 ? true : false;
         }
 
+        private void DialogSellValue_Shown(object sender, EventArgs e)
+        {
+            this.cAmount._SelectionStart = 0;
+            this.cAmount._SelectionLength = this.cAmount._Text.Length;
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if(keyData == Keys.F5)
@@ -96,6 +102,5 @@ namespace XPump.SubForm
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
     }
 }

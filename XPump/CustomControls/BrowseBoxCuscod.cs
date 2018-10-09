@@ -17,7 +17,8 @@ namespace XPump.CustomControls
     {
         public string _DataPath { get; set; }
         private List<CuscodInquiryList> cuscod_list;
-        public string selected_cusnam = string.Empty;
+        //public string selected_cusnam = string.Empty;
+        public ArmasDbf selected_cust = null;
 
         public event EventHandler _SelectedCuscodChanged;
 
@@ -178,8 +179,9 @@ namespace XPump.CustomControls
 
             if(br.ShowDialog() == DialogResult.OK)
             {
+                this.selected_cust = DbfTable.Armas(this._DataPath, br.selected_row.Cells[col_cuscod.Name].Value.ToString().TrimEnd());
                 this._Text = br.selected_row.Cells[col_cuscod.Name].Value.ToString().TrimEnd();
-                this.selected_cusnam = br.selected_row.Cells[col_cusnam.Name].Value.ToString().TrimEnd();
+                //this.selected_cusnam = br.selected_row.Cells[col_cusnam.Name].Value.ToString().TrimEnd();
                 if(this._SelectedCuscodChanged != null)
                 {
                     this._SelectedCuscodChanged(this, e);
@@ -192,7 +194,8 @@ namespace XPump.CustomControls
             if(this._Text.Trim().Length == 0)
             {
                 this._Text = string.Empty;
-                this.selected_cusnam = string.Empty;
+                this.selected_cust = null;
+                //this.selected_cusnam = string.Empty;
                 if(this._SelectedCuscodChanged != null)
                 {
                     this._SelectedCuscodChanged(this, e);
@@ -204,7 +207,8 @@ namespace XPump.CustomControls
                 if (selected_cust != null)
                 {
                     this._Text = selected_cust.cuscod;
-                    this.selected_cusnam = selected_cust.cusnam.TrimEnd();
+                    this.selected_cust = DbfTable.Armas(this._DataPath, selected_cust.cuscod.TrimEnd());
+                    //this.selected_cusnam = selected_cust.cusnam.TrimEnd();
                     if(this._SelectedCuscodChanged != null)
                     {
                         this._SelectedCuscodChanged(this, e);

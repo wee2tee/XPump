@@ -589,8 +589,43 @@ namespace XPump.Model
                     cmd.CommandText += @"Left Join istab area On ar.areacod = area.typcod and area.tabtyp = '40' ";
                     cmd.CommandText += @"Left Join istab dlv On ar.dlvby = dlv.typcod and dlv.tabtyp = '41' ";
                     cmd.CommandText += @"Left Join oeslm slm On ar.slmcod = slm.slmcod ";
-                    cmd.CommandText += @"Where TRIM(ar.cuscod) = ?";
-                    cmd.Parameters.AddWithValue("@Cuscod", cuscod.Trim());
+                    cmd.CommandText += @"Where RTRIM(ar.cuscod) = ?";
+                    cmd.Parameters.AddWithValue("@Cuscod", cuscod.TrimEnd());
+                    using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                        conn.Close();
+
+                        return new DbfTable().ConvertDatatableToArmas(dt);
+                    }
+                }
+            }
+        }
+
+        public static ArmasDbf Armas(string data_path, string cuscod)
+        {
+            //string data_path = working_express_db.abs_path;
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "armas.dbf")))
+            {
+                XMessageBox.Show("ค้นหาแฟ้ม Armas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                return null;
+            }
+
+            using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + data_path))
+            {
+                DataTable dt = new DataTable();
+
+                conn.Open();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Select ar.*, acc.accnam as accnam, custyp.typdes as custypdesc, area.typdes as areadesc, dlv.typdes as dlvbydesc, slm.slmnam as slmnam From armas ar ";
+                    cmd.CommandText += @"Left Join glacc acc On ar.accnum = acc.accnum ";
+                    cmd.CommandText += @"Left Join istab custyp On ar.custyp = custyp.typcod and custyp.tabtyp = '45' ";
+                    cmd.CommandText += @"Left Join istab area On ar.areacod = area.typcod and area.tabtyp = '40' ";
+                    cmd.CommandText += @"Left Join istab dlv On ar.dlvby = dlv.typcod and dlv.tabtyp = '41' ";
+                    cmd.CommandText += @"Left Join oeslm slm On ar.slmcod = slm.slmcod ";
+                    cmd.CommandText += @"Where RTRIM(ar.cuscod) = ?";
+                    cmd.Parameters.AddWithValue("@Cuscod", cuscod.TrimEnd());
                     using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
                     {
                         da.Fill(dt);
