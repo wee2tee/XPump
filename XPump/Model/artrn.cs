@@ -21,7 +21,7 @@ namespace XPump.Model
             this.stcrd = new HashSet<stcrd>();
 
             this.advamt = 0;
-            this.advnum = "AI";
+            this.advnum = "";
             this.aftdisc = 0;
             this.amount = 0;
             this.amtrat0 = 0;

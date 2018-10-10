@@ -314,6 +314,31 @@ namespace XPump.SubForm
                         //    this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
                         //}
                     }
+
+                    this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
+                    this.tmp_artrn.stcrd.Add(tmp_stcrd);
+
+                    var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+
+                    this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
+                    this.tmp_artrn.vatamt = vatamt;
+                    this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
+                    this.tmp_artrn.total = this.tmp_artrn.amount;
+                    this.tmp_artrn.netamt = this.tmp_artrn.amount;
+                    this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
+                    this.tmp_artrn.rcvamt = this.tmp_artrn.netamt;
+                    this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
+                    this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+                    this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+
+                    this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
+                    this.dgvStcrd.DataSource = this.stcrd;
+
+
+
+                    this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
+                    this.lblVatamt.Text = string.Format("{0:n}", vatamt);
+                    this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
                 }
             }
         }
@@ -343,6 +368,8 @@ namespace XPump.SubForm
                     credat = DateTime.Now,
                     userid = this.main_form.loged_in_status.loged_in_user_name,
                     chgdat = DateTime.Now,
+                    cmplapp = this.curr_docprefix.doctyp == "HS" ? "Y" : "N",
+                    cmpldat = this.curr_docprefix.doctyp == "HS" ? (DateTime?)DateTime.Now : null
                     //stcrd = new List<stcrd> { new stcrd { stkcod = "01-INTL-CL-600" }, new stcrd { stkcod = "01-INTL-PT-750" } }
                 };
 
@@ -434,7 +461,7 @@ namespace XPump.SubForm
                 this.tmp_artrn.cuscod = this.cCuscod.selected_cust.cuscod;
                 this.tmp_artrn.areacod = this.cCuscod.selected_cust.areacod;
                 this.tmp_artrn.paytrm = this.cCuscod.selected_cust.paytrm;
-                this.tmp_artrn.duedat = this.tmp_artrn.docdat.AddDays(this.cCuscod.selected_cust.paytrm);
+                this.tmp_artrn.duedat = this.curr_docprefix.doctyp == "IV" ?  this.tmp_artrn.docdat.AddDays(this.cCuscod.selected_cust.paytrm) : this.tmp_artrn.docdat;
                 this.tmp_artrn.taxrat = this.cCuscod.selected_cust.taxrat;
                 this.tmp_artrn.vatdat = this.tmp_artrn.flgvat != "0" ? (DateTime?)this.tmp_artrn.docdat : null;
                 this.tmp_artrn.dlvby = this.cCuscod.selected_cust.dlvby;
@@ -449,11 +476,14 @@ namespace XPump.SubForm
                 this.cCuscod.PerformButtonClick();
         }
 
-
         private void cDocdat__SelectedDateChanged(object sender, EventArgs e)
         {
             if (this.tmp_artrn != null)
+            {
                 this.tmp_artrn.docdat = ((XDatePicker)sender)._SelectedDate.Value;
+                this.tmp_artrn.duedat = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.docdat : this.tmp_artrn.docdat.AddDays(this.tmp_artrn.paytrm);
+                this.tmp_artrn.cmpldat = this.curr_docprefix.doctyp == "HS" ? (DateTime?)this.tmp_artrn.docdat : null;
+            }
         }
 
         private void dgvStcrd_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
