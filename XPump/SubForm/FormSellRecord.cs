@@ -28,6 +28,7 @@ namespace XPump.SubForm
         private artrn tmp_artrn = null;
         private IsrunDbf curr_docprefix = null;
         private artrn curr_artrn = null;
+        private nozzle curr_nozzle = null;
 
         public FormSellRecord(MainForm main_form, scacclvVM scacclv)
         {
@@ -252,22 +253,34 @@ namespace XPump.SubForm
                         return;
                     }
 
+                    StmasDbf stmas = DbfTable.Stmas(this.main_form.working_express_db.abs_path, stkcod);
+
                     var tmp_stcrd = new stcrd
                     {
                         seqnum = this.tmp_artrn.nxtseq + 1,
                         stkcod = stkcod,
                         stkdes = stkdes,
                         unitpr = unitpr,
-                        docdat = this.tmp_artrn.docdat
+                        docdat = this.tmp_artrn.docdat,
+                        slmcod = this.tmp_artrn.slmcod,
+                        depcod = this.tmp_artrn.depcod,
+                        loccod = this.curr_docprefix.loccod.TrimEnd(),
+                        people = this.tmp_artrn.cuscod,
+                        tqucod = stmas.squcod,
+                        tfactor = Convert.ToDecimal(stmas.sfactor),
+                        posopr = "9",
+
                     };
 
                     if (bill_method == BILL_METHOD.VAL)
                     {
-                        DialogSellValue ds = new DialogSellValue(this.main_form, tmp_stcrd);
+                        DialogSellValue ds = new DialogSellValue(this.main_form, this.tmp_artrn, tmp_stcrd);
                         if (ds.ShowDialog() != DialogResult.OK)
                             return;
 
-                        this.cNozzle._Text = ds.selected_nozzle.name;
+                        this.curr_nozzle = ds.selected_nozzle;
+                        this.cNozzle._Text = this.curr_nozzle != null ? this.curr_nozzle.name : string.Empty;
+                        tmp_stcrd.loccod = this.curr_nozzle != null ? this.curr_nozzle.section.loccod : tmp_stcrd.loccod;
 
                         //if(ds.ShowDialog() == DialogResult.OK)
                         //{
@@ -296,7 +309,7 @@ namespace XPump.SubForm
                     }
                     else
                     {
-                        DialogSellQty ds = new DialogSellQty(this.main_form, tmp_stcrd);
+                        DialogSellQty ds = new DialogSellQty(this.main_form, this.tmp_artrn, tmp_stcrd);
                         if (ds.ShowDialog() != DialogResult.OK)
                             return;
 
@@ -358,6 +371,7 @@ namespace XPump.SubForm
                     rectyp = this.curr_docprefix.doctyp.TrimEnd() == "HS" ? "1" : (this.curr_docprefix.doctyp.TrimEnd() == "IV" ? "3" : ""),
                     docnum = this.curr_docprefix + "**NEW**",
                     docdat = DateTime.Now,
+                    depcod = this.curr_docprefix.depcod,
                     flgvat = this.curr_docprefix.flgvat,
                     duedat = DateTime.Now,
                     bilnum = "~",
@@ -397,7 +411,18 @@ namespace XPump.SubForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                if (this.form_mode == FORM_MODE.ADD)
+                {
+                    db.la
+                }
 
+                if (this.form_mode == FORM_MODE.EDIT)
+                {
+
+                }
+            }
         }
 
         private void btnFirst_Click(object sender, EventArgs e)
@@ -458,14 +483,21 @@ namespace XPump.SubForm
             
             if (this.tmp_artrn != null)
             {
+                if (this.cCuscod.selected_cust == null)
+                    return;
+
                 this.tmp_artrn.cuscod = this.cCuscod.selected_cust.cuscod;
                 this.tmp_artrn.areacod = this.cCuscod.selected_cust.areacod;
                 this.tmp_artrn.paytrm = this.cCuscod.selected_cust.paytrm;
-                this.tmp_artrn.duedat = this.curr_docprefix.doctyp == "IV" ?  this.tmp_artrn.docdat.AddDays(this.cCuscod.selected_cust.paytrm) : this.tmp_artrn.docdat;
+                this.tmp_artrn.duedat = (this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.docdat.AddDays(this.cCuscod.selected_cust.paytrm) : this.tmp_artrn.docdat);
                 this.tmp_artrn.taxrat = this.cCuscod.selected_cust.taxrat;
                 this.tmp_artrn.vatdat = this.tmp_artrn.flgvat != "0" ? (DateTime?)this.tmp_artrn.docdat : null;
                 this.tmp_artrn.dlvby = this.cCuscod.selected_cust.dlvby;
                 this.tmp_artrn.orgnum = this.cCuscod.selected_cust.orgnum;
+                this.tmp_artrn.slmcod = this.cCuscod.selected_cust.slmcod;
+
+                this.tmp_artrn.stcrd.ToList().ForEach(st => st.people = this.cCuscod.selected_cust.cuscod);
+                this.tmp_artrn.stcrd.ToList().ForEach(st => st.slmcod = this.cCuscod.selected_cust.slmcod);
             }
         }
 
@@ -519,7 +551,7 @@ namespace XPump.SubForm
 
         private void dgvStcrd_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
+            if((this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT) && ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
             {
                 string stkcod_to_del = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stkcod.Name].Value.ToString();
 
@@ -546,7 +578,7 @@ namespace XPump.SubForm
                     ((XDatagrid)sender).Rows[e.RowIndex].ClearDeletingRowOverlay();
                 }
             }
-            if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_edit.Name)
+            if((this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT) && ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_edit.Name)
             {
                 stcrd stcrd_to_edit = (stcrd)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stcrd.Name].Value;
                 bool is_fuel_goods = this.stmas1.Select(st => st.stkcod).Where(st => st.Contains(stcrd_to_edit.stkcod)).Count() > 0 ? true : false;
@@ -559,7 +591,7 @@ namespace XPump.SubForm
                         nozzle = db.nozzle.Where(n => n.name == this.cNozzle._Text).FirstOrDefault();
                     }
 
-                    DialogSellValue ds = new DialogSellValue(this.main_form, stcrd_to_edit, nozzle);
+                    DialogSellValue ds = new DialogSellValue(this.main_form, this.tmp_artrn, stcrd_to_edit, nozzle);
                     if(ds.ShowDialog() == DialogResult.OK)
                     {
                         this.cNozzle._Text = ds.selected_nozzle.name;
@@ -572,7 +604,7 @@ namespace XPump.SubForm
                 }
                 else
                 {
-                    DialogSellQty ds = new DialogSellQty(this.main_form, stcrd_to_edit);
+                    DialogSellQty ds = new DialogSellQty(this.main_form, this.tmp_artrn, stcrd_to_edit);
                     if(ds.ShowDialog() == DialogResult.OK)
                     {
                         this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnqty = ds.stcrd.trnqty;

@@ -33,8 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -46,6 +44,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -82,15 +82,6 @@
             this.col_g1_bill_method = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabGoods2 = new System.Windows.Forms.TabPage();
             this.dgvGoods2 = new CC.XDatagrid();
-            this.col_g2_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_g2_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_g2_sellpr1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_g2_sellpr2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_g2_sellpr3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_g2_sellpr4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_g2_sellpr5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_g2_stkgrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_g2_bill_method = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblNetamt = new System.Windows.Forms.Label();
             this.lblVatamt = new System.Windows.Forms.Label();
@@ -134,6 +125,15 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
+            this.col_g2_stkcod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_g2_stkdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_g2_sellpr1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_g2_sellpr2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_g2_sellpr3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_g2_sellpr4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_g2_sellpr5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_g2_stkgrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_g2_bill_method = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabGoods1.SuspendLayout();
@@ -598,86 +598,6 @@
             this.dgvGoods2.StandardTab = true;
             this.dgvGoods2.TabIndex = 1;
             this.dgvGoods2.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGoods1_CellMouseClick);
-            // 
-            // col_g2_stkcod
-            // 
-            this.col_g2_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_g2_stkcod.DataPropertyName = "stkcod";
-            this.col_g2_stkcod.HeaderText = "Stkcod";
-            this.col_g2_stkcod.Name = "col_g2_stkcod";
-            this.col_g2_stkcod.ReadOnly = true;
-            this.col_g2_stkcod.Visible = false;
-            // 
-            // col_g2_stkdes
-            // 
-            this.col_g2_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_g2_stkdes.DataPropertyName = "stkdes";
-            dataGridViewCellStyle5.NullValue = null;
-            this.col_g2_stkdes.DefaultCellStyle = dataGridViewCellStyle5;
-            this.col_g2_stkdes.HeaderText = "รายละเอียด";
-            this.col_g2_stkdes.MinimumWidth = 80;
-            this.col_g2_stkdes.Name = "col_g2_stkdes";
-            this.col_g2_stkdes.ReadOnly = true;
-            // 
-            // col_g2_sellpr1
-            // 
-            this.col_g2_sellpr1.DataPropertyName = "sellpr1";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N2";
-            this.col_g2_sellpr1.DefaultCellStyle = dataGridViewCellStyle6;
-            this.col_g2_sellpr1.HeaderText = "ราคา/หน่วย";
-            this.col_g2_sellpr1.MinimumWidth = 90;
-            this.col_g2_sellpr1.Name = "col_g2_sellpr1";
-            this.col_g2_sellpr1.ReadOnly = true;
-            this.col_g2_sellpr1.Width = 90;
-            // 
-            // col_g2_sellpr2
-            // 
-            this.col_g2_sellpr2.DataPropertyName = "sellpr2";
-            this.col_g2_sellpr2.HeaderText = "Sellpr2";
-            this.col_g2_sellpr2.Name = "col_g2_sellpr2";
-            this.col_g2_sellpr2.ReadOnly = true;
-            this.col_g2_sellpr2.Visible = false;
-            // 
-            // col_g2_sellpr3
-            // 
-            this.col_g2_sellpr3.DataPropertyName = "sellpr3";
-            this.col_g2_sellpr3.HeaderText = "Sellpr3";
-            this.col_g2_sellpr3.Name = "col_g2_sellpr3";
-            this.col_g2_sellpr3.ReadOnly = true;
-            this.col_g2_sellpr3.Visible = false;
-            // 
-            // col_g2_sellpr4
-            // 
-            this.col_g2_sellpr4.DataPropertyName = "sellpr4";
-            this.col_g2_sellpr4.HeaderText = "Sellpr4";
-            this.col_g2_sellpr4.Name = "col_g2_sellpr4";
-            this.col_g2_sellpr4.ReadOnly = true;
-            this.col_g2_sellpr4.Visible = false;
-            // 
-            // col_g2_sellpr5
-            // 
-            this.col_g2_sellpr5.DataPropertyName = "sellpr5";
-            this.col_g2_sellpr5.HeaderText = "Sellpr5";
-            this.col_g2_sellpr5.Name = "col_g2_sellpr5";
-            this.col_g2_sellpr5.ReadOnly = true;
-            this.col_g2_sellpr5.Visible = false;
-            // 
-            // col_g2_stkgrp
-            // 
-            this.col_g2_stkgrp.DataPropertyName = "stkgrp";
-            this.col_g2_stkgrp.HeaderText = "Stkgrp";
-            this.col_g2_stkgrp.Name = "col_g2_stkgrp";
-            this.col_g2_stkgrp.ReadOnly = true;
-            this.col_g2_stkgrp.Visible = false;
-            // 
-            // col_g2_bill_method
-            // 
-            this.col_g2_bill_method.DataPropertyName = "bill_method";
-            this.col_g2_bill_method.HeaderText = "Bill Method";
-            this.col_g2_bill_method.Name = "col_g2_bill_method";
-            this.col_g2_bill_method.ReadOnly = true;
-            this.col_g2_bill_method.Visible = false;
             // 
             // panel1
             // 
@@ -1316,6 +1236,86 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "ชำระโดย";
             // 
+            // col_g2_stkcod
+            // 
+            this.col_g2_stkcod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_g2_stkcod.DataPropertyName = "stkcod";
+            this.col_g2_stkcod.HeaderText = "Stkcod";
+            this.col_g2_stkcod.Name = "col_g2_stkcod";
+            this.col_g2_stkcod.ReadOnly = true;
+            this.col_g2_stkcod.Visible = false;
+            // 
+            // col_g2_stkdes
+            // 
+            this.col_g2_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_g2_stkdes.DataPropertyName = "stkdes";
+            dataGridViewCellStyle5.NullValue = null;
+            this.col_g2_stkdes.DefaultCellStyle = dataGridViewCellStyle5;
+            this.col_g2_stkdes.HeaderText = "รายละเอียด";
+            this.col_g2_stkdes.MinimumWidth = 80;
+            this.col_g2_stkdes.Name = "col_g2_stkdes";
+            this.col_g2_stkdes.ReadOnly = true;
+            // 
+            // col_g2_sellpr1
+            // 
+            this.col_g2_sellpr1.DataPropertyName = "sellpr1";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N2";
+            this.col_g2_sellpr1.DefaultCellStyle = dataGridViewCellStyle6;
+            this.col_g2_sellpr1.HeaderText = "ราคา/หน่วย(1)";
+            this.col_g2_sellpr1.MinimumWidth = 90;
+            this.col_g2_sellpr1.Name = "col_g2_sellpr1";
+            this.col_g2_sellpr1.ReadOnly = true;
+            this.col_g2_sellpr1.Width = 90;
+            // 
+            // col_g2_sellpr2
+            // 
+            this.col_g2_sellpr2.DataPropertyName = "sellpr2";
+            this.col_g2_sellpr2.HeaderText = "ราคา/หน่วย(2)";
+            this.col_g2_sellpr2.Name = "col_g2_sellpr2";
+            this.col_g2_sellpr2.ReadOnly = true;
+            this.col_g2_sellpr2.Visible = false;
+            // 
+            // col_g2_sellpr3
+            // 
+            this.col_g2_sellpr3.DataPropertyName = "sellpr3";
+            this.col_g2_sellpr3.HeaderText = "ราคา/หน่วย(3)";
+            this.col_g2_sellpr3.Name = "col_g2_sellpr3";
+            this.col_g2_sellpr3.ReadOnly = true;
+            this.col_g2_sellpr3.Visible = false;
+            // 
+            // col_g2_sellpr4
+            // 
+            this.col_g2_sellpr4.DataPropertyName = "sellpr4";
+            this.col_g2_sellpr4.HeaderText = "ราคา/หน่วย(4)";
+            this.col_g2_sellpr4.Name = "col_g2_sellpr4";
+            this.col_g2_sellpr4.ReadOnly = true;
+            this.col_g2_sellpr4.Visible = false;
+            // 
+            // col_g2_sellpr5
+            // 
+            this.col_g2_sellpr5.DataPropertyName = "sellpr5";
+            this.col_g2_sellpr5.HeaderText = "ราคา/หน่วย(5)";
+            this.col_g2_sellpr5.Name = "col_g2_sellpr5";
+            this.col_g2_sellpr5.ReadOnly = true;
+            this.col_g2_sellpr5.Visible = false;
+            // 
+            // col_g2_stkgrp
+            // 
+            this.col_g2_stkgrp.DataPropertyName = "stkgrp";
+            this.col_g2_stkgrp.HeaderText = "Stkgrp";
+            this.col_g2_stkgrp.Name = "col_g2_stkgrp";
+            this.col_g2_stkgrp.ReadOnly = true;
+            this.col_g2_stkgrp.Visible = false;
+            // 
+            // col_g2_bill_method
+            // 
+            this.col_g2_bill_method.DataPropertyName = "bill_method";
+            this.col_g2_bill_method.HeaderText = "Bill Method";
+            this.col_g2_bill_method.Name = "col_g2_bill_method";
+            this.col_g2_bill_method.ReadOnly = true;
+            this.col_g2_bill_method.Visible = false;
+            // 
             // FormSellRecord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1409,15 +1409,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_g1_sellpr5;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_g1_stkgrp;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_g1_bill_method;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_stkcod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_stkdes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_sellpr1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_sellpr2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_sellpr3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_sellpr4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_sellpr5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_stkgrp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_bill_method;
         private CC.XTextEdit cDocnum;
         private System.Windows.Forms.Button btnChangeDocTyp;
         private System.Windows.Forms.Label lblDocType;
@@ -1451,5 +1442,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_stkcod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_stkdes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_sellpr1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_sellpr2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_sellpr3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_sellpr4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_sellpr5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_stkgrp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_g2_bill_method;
     }
 }

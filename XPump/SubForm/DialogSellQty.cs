@@ -14,11 +14,13 @@ namespace XPump.SubForm
     public partial class DialogSellQty : Form
     {
         private MainForm main_form;
+        private artrn artrn;
         public stcrd stcrd;
 
-        public DialogSellQty(MainForm main_form, stcrd stcrd)
+        public DialogSellQty(MainForm main_form, artrn artrn, stcrd stcrd)
         {
             this.main_form = main_form;
+            this.artrn = artrn;
             this.stcrd = stcrd;
             InitializeComponent();
         }
@@ -41,6 +43,8 @@ namespace XPump.SubForm
         {
             this.stcrd.trnqty = ((XNumEdit)sender)._Value;
             this.stcrd.trnval = ((XNumEdit)sender)._Value * this.stcrd.unitpr;
+            this.stcrd.xsalval = this.artrn.flgvat == "1" ? Convert.ToDecimal(Math.Round(Convert.ToDouble(this.stcrd.trnval * (100 / (100 + this.artrn.vatrat))), 2)) : Convert.ToDecimal(this.stcrd.trnval);
+            this.stcrd.netval = this.artrn.flgvat == "1" ? Convert.ToDecimal(Math.Round(Convert.ToDouble(this.stcrd.trnval * (100 / (100 + this.artrn.vatrat))), 2)) : Convert.ToDecimal(this.stcrd.trnval);
 
             this.btnOK.Enabled = this.stcrd.trnqty > 0 ? true : false;
         }

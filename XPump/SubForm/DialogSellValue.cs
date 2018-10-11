@@ -15,12 +15,14 @@ namespace XPump.SubForm
     public partial class DialogSellValue : Form
     {
         private MainForm main_form;
+        private artrn artrn;
         public stcrd stcrd;
         public nozzle selected_nozzle = null;
 
-        public DialogSellValue(MainForm main_form, stcrd stcrd, nozzle nozzle = null)
+        public DialogSellValue(MainForm main_form, artrn artrn, stcrd stcrd, nozzle nozzle = null)
         {
             this.main_form = main_form;
+            this.artrn = artrn;
             this.stcrd = stcrd;
             this.selected_nozzle = nozzle;
             InitializeComponent();
@@ -76,6 +78,8 @@ namespace XPump.SubForm
         {
             this.stcrd.trnval = ((XNumEdit)sender)._Value;
             this.stcrd.trnqty = Math.Round(this.stcrd.trnval / this.stcrd.unitpr, 4);
+            this.stcrd.xsalval = this.artrn.flgvat == "1" ? Convert.ToDecimal(Math.Round(Convert.ToDouble(this.stcrd.trnval * (100 / (100 + this.artrn.vatrat))), 2)) : Convert.ToDecimal(this.stcrd.trnval);
+            this.stcrd.netval = this.artrn.flgvat == "1" ? Convert.ToDecimal(Math.Round(Convert.ToDouble(this.stcrd.trnval * (100 / (100 + this.artrn.vatrat))), 2)) : Convert.ToDecimal(this.stcrd.trnval);
 
             this.btnOK.Enabled = this.selected_nozzle != null && this.stcrd.trnval > 0 ? true : false;
         }

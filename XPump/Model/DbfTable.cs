@@ -696,6 +696,40 @@ namespace XPump.Model
             }
         }
 
+        public static StmasDbf Stmas(string data_path, string stkcod)
+        {
+            if (!(Directory.Exists(data_path) && File.Exists(data_path + "stmas.dbf")))
+            {
+                XMessageBox.Show("ค้นหาแฟ้ม Stmas.dbf ในที่เก็บข้อมูล \"" + data_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                return null;
+            }
+
+            using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + data_path))
+            {
+                DataTable dt = new DataTable();
+
+                conn.Open();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Select st.* From stmas st ";
+                    //cmd.CommandText += @"Left Join glacc acc On ar.accnum = acc.accnum ";
+                    //cmd.CommandText += @"Left Join istab custyp On ar.custyp = custyp.typcod and custyp.tabtyp = '45' ";
+                    //cmd.CommandText += @"Left Join istab area On ar.areacod = area.typcod and area.tabtyp = '40' ";
+                    //cmd.CommandText += @"Left Join istab dlv On ar.dlvby = dlv.typcod and dlv.tabtyp = '41' ";
+                    //cmd.CommandText += @"Left Join oeslm slm On ar.slmcod = slm.slmcod ";
+                    cmd.CommandText += @"Where RTRIM(st.stkcod) = ?";
+                    cmd.Parameters.AddWithValue("@Stkcod", stkcod.TrimEnd());
+                    using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                        conn.Close();
+
+                        return dt.ToStmasList().First();
+                    }
+                }
+            }
+        }
+
         //public static ArmasDbf Armas(SccompDbf working_express_db, RECORD_FLAG rec_flag, string curr_cuscod)
         //{
         //    string data_path = working_express_db.abs_path;
