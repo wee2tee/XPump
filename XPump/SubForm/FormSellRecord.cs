@@ -257,7 +257,7 @@ namespace XPump.SubForm
 
                     var tmp_stcrd = new stcrd
                     {
-                        seqnum = this.tmp_artrn.nxtseq + 1,
+                        seqnum = this.tmp_artrn.nxtseq.Trim().Length == 0 ? 1.FillSpaceBeforeNum(3) : (Convert.ToInt32(this.tmp_artrn.nxtseq) + 1).FillSpaceBeforeNum(3),
                         stkcod = stkcod,
                         stkdes = stkdes,
                         unitpr = unitpr,
@@ -269,6 +269,8 @@ namespace XPump.SubForm
                         tqucod = stmas.squcod,
                         tfactor = Convert.ToDecimal(stmas.sfactor),
                         posopr = "9",
+                        creby = this.main_form.loged_in_status.loged_in_user_name,
+                        userid = this.main_form.loged_in_status.loged_in_user_name
 
                     };
 
@@ -339,7 +341,7 @@ namespace XPump.SubForm
                     this.tmp_artrn.total = this.tmp_artrn.amount;
                     this.tmp_artrn.netamt = this.tmp_artrn.amount;
                     this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
-                    this.tmp_artrn.rcvamt = this.tmp_artrn.netamt;
+                    this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "IV" ? 0 : this.tmp_artrn.netamt;
                     this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
                     this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
                     this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
@@ -415,7 +417,13 @@ namespace XPump.SubForm
             {
                 if (this.form_mode == FORM_MODE.ADD)
                 {
-                    db.la
+                    var isrun = DbfTable.Isrun(this.main_form.working_express_db).ToIsrunList().Where(i => i.prefix == this.curr_docprefix.prefix).FirstOrDefault();
+                    this.tmp_artrn.docnum = isrun.GetNextDocnum();
+                    this.tmp_artrn.stcrd.ToList().ForEach(s => s.docnum = this.tmp_artrn.docnum);
+
+                    db.artrn.Add(this.tmp_artrn);
+                    db.SaveChanges();
+
                 }
 
                 if (this.form_mode == FORM_MODE.EDIT)

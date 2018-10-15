@@ -2528,6 +2528,34 @@ namespace XPump.Misc
             return st;
         }
 
+        public static string GetNextDocnum(this IsrunDbf isrun)
+        {
+            //string next_docnum = isrun.prefix + "0000001";
+
+            string next_str = (Convert.ToInt32(isrun.docnum.Trim()) + 1).ToString();
+            int next_str_len = next_str.Length;
+            for (int i = 0; i < 7 - next_str_len; i++)
+            {
+                next_str = "0" + next_str;
+            }
+
+            string next_docnum = isrun.prefix + next_str;
+            return next_docnum;
+        }
+
+        public static string FillSpaceBeforeNum(this int num, int total_digit)
+        {
+            string num_str = num.ToString();
+            int num_str_len = num_str.Length;
+
+            for (int i = 0; i < total_digit - num_str_len; i++)
+            {
+                num_str = " " + num_str;
+            }
+
+            return num_str;
+        }
+
         public static bool IsInUse(this FileInfo file)
         {
             FileStream stream = null;
