@@ -283,51 +283,12 @@ namespace XPump.SubForm
                         this.curr_nozzle = ds.selected_nozzle;
                         this.cNozzle._Text = this.curr_nozzle != null ? this.curr_nozzle.name : string.Empty;
                         tmp_stcrd.loccod = this.curr_nozzle != null ? this.curr_nozzle.section.loccod : tmp_stcrd.loccod;
-
-                        //if(ds.ShowDialog() == DialogResult.OK)
-                        //{
-                        //    this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
-                        //    this.tmp_artrn.stcrd.Add(tmp_stcrd);
-
-                        //    var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
-
-                        //    this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
-                        //    this.tmp_artrn.vatamt = vatamt;
-                        //    this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
-                        //    this.tmp_artrn.total = this.tmp_artrn.amount;
-                        //    this.tmp_artrn.netamt = this.tmp_artrn.amount;
-                        //    this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
-
-                        //    this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
-                        //    this.dgvStcrd.DataSource = this.stcrd;
-                        //    this.cNozzle._Text = ds.selected_nozzle.name;
-
-                            
-
-                        //    this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
-                        //    this.lblVatamt.Text = string.Format("{0:n}", vatamt);
-                        //    this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
-                        //}
                     }
                     else
                     {
                         DialogSellQty ds = new DialogSellQty(this.main_form, this.tmp_artrn, tmp_stcrd);
                         if (ds.ShowDialog() != DialogResult.OK)
                             return;
-
-                        //if(ds.ShowDialog() == DialogResult.OK)
-                        //{
-                        //    this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
-                        //    this.tmp_artrn.stcrd.Add(tmp_stcrd);
-                        //    this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
-                        //    this.dgvStcrd.DataSource = this.stcrd;
-
-                        //    var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
-
-                        //    this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
-                        //    this.lblVatamt.Text = string.Format("{0:n}", vatamt);
-                        //    this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
-                        //}
                     }
 
                     this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
@@ -422,7 +383,10 @@ namespace XPump.SubForm
                     this.tmp_artrn.stcrd.ToList().ForEach(s => s.docnum = this.tmp_artrn.docnum);
 
                     db.artrn.Add(this.tmp_artrn);
-                    db.SaveChanges();
+                    if(db.SaveChanges() > 0)
+                    {
+                        isrun.
+                    }
 
                 }
 

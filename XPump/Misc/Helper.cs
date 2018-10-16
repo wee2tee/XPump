@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Infrastructure;
+using System.Data.OleDb;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -2528,20 +2529,53 @@ namespace XPump.Misc
             return st;
         }
 
-        public static string GetNextDocnum(this IsrunDbf isrun)
+        public static string GetNextDocnum(this IsrunDbf isrun, SccompDbf working_express_db)
         {
             //string next_docnum = isrun.prefix + "0000001";
+            //int num = Convert.ToInt32(isrun.docnum.Trim());
 
-            string next_str = (Convert.ToInt32(isrun.docnum.Trim()) + 1).ToString();
-            int next_str_len = next_str.Length;
-            for (int i = 0; i < 7 - next_str_len; i++)
+            using (xpumpEntities db = DBX.DataSet(working_express_db))
             {
-                next_str = "0" + next_str;
-            }
+                var exist_doc = db.artrn.Where(a => a.docnum.TrimEnd() == isrun.prefix + isrun.docnum.TrimEnd()).FirstOrDefault();
+                if(exist_doc == null)
+                {
+                    return isrun.prefix + isrun.docnum.TrimEnd();
+                }
+                else
+                {
+                    var last_doc = db.artrn.Where(a => a.docnum.Substring(0, 2) == isrun.prefix).OrderByDescending(a => a.docnum).FirstOrDefault();
 
-            string next_docnum = isrun.prefix + next_str;
-            return next_docnum;
+                    if(last_doc != null)
+                    {
+
+                    }
+                    else
+                    {
+                        return isrun.prefix + isrun.docnum.TrimEnd();
+                    }
+
+
+
+                    string next_str = (Convert.ToInt32(isrun.docnum.Trim()) + 1).ToString();
+                    int next_str_len = next_str.Length;
+                    for (int i = 0; i < 7 - next_str_len; i++)
+                    {
+                        next_str = "0" + next_str;
+                    }
+
+                    string next_docnum = isrun.prefix + next_str;
+                    return next_docnum;
+                }
+            }
         }
+
+        //public static bool SetNextDocnum(this IsrunDbf isrun, SccompDbf working_express_db, string next_docnum)
+        //{
+        //    using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + working_express_db.abs_path))
+        //    {
+        //        if(File.Exists())
+        //    }
+        //}
 
         public static string FillSpaceBeforeNum(this int num, int total_digit)
         {
