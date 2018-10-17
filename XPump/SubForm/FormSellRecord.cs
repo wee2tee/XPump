@@ -379,13 +379,23 @@ namespace XPump.SubForm
                 if (this.form_mode == FORM_MODE.ADD)
                 {
                     var isrun = DbfTable.Isrun(this.main_form.working_express_db).ToIsrunList().Where(i => i.prefix == this.curr_docprefix.prefix).FirstOrDefault();
-                    this.tmp_artrn.docnum = isrun.GetNextDocnum();
-                    this.tmp_artrn.stcrd.ToList().ForEach(s => s.docnum = this.tmp_artrn.docnum);
+                    this.tmp_artrn.docnum = isrun.GetNextDocnum(this.main_form.working_express_db);
+                    this.tmp_artrn.credat = DateTime.Now;
+                    this.tmp_artrn.chgdat = DateTime.Now;
+                    this.tmp_artrn.stcrd.ToList().ForEach(s => { s.docnum = this.tmp_artrn.docnum; s.credat = DateTime.Now; s.chgdat = DateTime.Now; });
 
                     db.artrn.Add(this.tmp_artrn);
                     if(db.SaveChanges() > 0)
                     {
-                        isrun.
+                        var next_docnum = Helper.CalNextDocnum(this.tmp_artrn.docnum);
+                        isrun.SetNextDocnum(this.main_form.working_express_db, next_docnum);
+                        //if(!isrun.SetNextDocnum(this.main_form.working_express_db, next_docnum))
+                        //{
+                        //    XMessageBox.Show("การกำหนดเลขที่เอกสารถัดไปใน isrun ยังไม่ถูกต้อง");
+                        //}
+                        this.curr_artrn = db.artrn.Find(this.tmp_artrn.id);
+                        this.FillForm(this.curr_artrn);
+                        this.ResetFormState(FORM_MODE.READ);
                     }
 
                 }

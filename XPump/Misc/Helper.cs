@@ -2547,35 +2547,79 @@ namespace XPump.Misc
 
                     if(last_doc != null)
                     {
+                        string next_str = (Convert.ToInt32(last_doc.docnum.Substring(2, last_doc.docnum.Length - 2).Trim()) + 1).ToString();
+                        int next_str_len = next_str.Length;
+                        for (int i = 0; i < 7 - next_str_len; i++)
+                        {
+                            next_str = "0" + next_str;
+                        }
 
+                        return isrun.prefix + next_str;
                     }
                     else
                     {
                         return isrun.prefix + isrun.docnum.TrimEnd();
                     }
-
-
-
-                    string next_str = (Convert.ToInt32(isrun.docnum.Trim()) + 1).ToString();
-                    int next_str_len = next_str.Length;
-                    for (int i = 0; i < 7 - next_str_len; i++)
-                    {
-                        next_str = "0" + next_str;
-                    }
-
-                    string next_docnum = isrun.prefix + next_str;
-                    return next_docnum;
                 }
             }
         }
 
-        //public static bool SetNextDocnum(this IsrunDbf isrun, SccompDbf working_express_db, string next_docnum)
-        //{
-        //    using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + working_express_db.abs_path))
-        //    {
-        //        if(File.Exists())
-        //    }
-        //}
+        public static string CalNextDocnum(string curr_docnum)
+        {
+            if (curr_docnum.Trim().Length < 3)
+                return string.Empty;
+
+            var next_str = (Convert.ToInt32(curr_docnum.Substring(2, curr_docnum.Trim().Length - 2)) + 1).ToString();
+            int next_str_len = next_str.Length;
+
+            for (int i = 0; i < 7 - next_str_len; i++)
+            {
+                next_str = "0" + next_str;
+            }
+
+            return next_str;
+        }
+
+        public static bool SetNextDocnum(this IsrunDbf isrun, SccompDbf working_express_db, string next_docnum)
+        {
+            try
+            {
+                using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + working_express_db.abs_path))
+                {
+                    if (File.Exists(working_express_db.abs_path + "isrun.dbf"))
+                    {
+                        using (OleDbCommand cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = "Update isrun Set docnum = ? Where prefix = ?";
+                            cmd.Parameters.AddWithValue("@NextDocnum", next_docnum);
+                            cmd.Parameters.AddWithValue("@Prefix", isrun.prefix);
+
+                            conn.Open();
+                            if (cmd.ExecuteNonQuery() > 0)
+                            {
+                                conn.Close();
+                                return true;
+                            }
+                            else
+                            {
+                                conn.Close();
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        XMessageBox.Show("ค้นหาแฟ้ม Isrun.dbf ในที่เก็บข้อมูล \"" + working_express_db.abs_path + "\" ไม่พบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                return false;
+            }
+        }
 
         public static string FillSpaceBeforeNum(this int num, int total_digit)
         {
