@@ -778,7 +778,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`artrn_id` INT(11),";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "UNIQUE INDEX `unq-stcrd` (`docnum` ASC, `seqnum` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - stcrd - artrn_id` FOREIGN KEY (`artrn_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`artrn` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk_stcrd_artrn_id` FOREIGN KEY (`artrn_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`artrn` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
 
@@ -786,14 +786,16 @@ namespace XPump.SubForm
                 cmd.CommandText = "CREATE TABLE IF NOT EXISTS `" + local_config.db_prefix + "_" + local_config.dbname + "`.`arrcpcq` ";
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`rcpnum` VARCHAR(12) NOT NULL,";
-                cmd.CommandText += "`chqnum` varchar(12) not null,";
+                cmd.CommandText += "`cardnum` varchar(30) not null,";
                 cmd.CommandText += "`rcvamt` decimal(14, 2) not null,";
                 cmd.CommandText += "`userid` varchar(8) not null,";
                 cmd.CommandText += "`chgdat` datetime null,";
-                cmd.CommandText += "`artrn_id` INT(11),";
+                cmd.CommandText += "`artrn_id` INT(11) not null,";
+                cmd.CommandText += "`istab_id` INT(11) null,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
-                cmd.CommandText += "UNIQUE INDEX `unq-arrcpcq` (`rcpnum` ASC, `chqnum` ASC),";
-                cmd.CommandText += "CONSTRAINT `fk - arrcpcq - artrn_id` FOREIGN KEY (`artrn_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`artrn` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "UNIQUE INDEX `unq-arrcpcq` (`rcpnum` ASC, `cardnum` ASC),";
+                cmd.CommandText += "CONSTRAINT `fk_arrcpcq_artrn_id` FOREIGN KEY (`artrn_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`artrn` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION, ";
+                cmd.CommandText += "CONSTRAINT `fk_arrcpcq_istab1` FOREIGN KEY (`istab_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
                 cmd.ExecuteNonQuery();
             }

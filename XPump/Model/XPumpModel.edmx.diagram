@@ -4,28 +4,29 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="39b84849615e4764b2eead716c0df829" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.arrcpcq" Width="1.5" PointX="15" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.artrn" Width="1.5" PointX="12.75" PointY="5" IsExpanded="true" />
+      <Diagram DiagramId="711e4c6d4f10488dafddd8ac5a24e123" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.arrcpcq" Width="1.5" PointX="18" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.artrn" Width="1.5" PointX="12.75" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.dayend" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.daysttak" Width="1.5" PointX="7.5" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.dbver" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.dother" Width="1.5" PointX="9.75" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.istab" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.istab" Width="1.5" PointX="7.5" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.nozzle" Width="1.5" PointX="7.5" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.pricelist" Width="1.5" PointX="5.25" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.pricelist" Width="1.5" PointX="5.25" PointY="31.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.saleshistory" Width="1.5" PointX="9.75" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.salessummary" Width="1.5" PointX="7.5" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.salessummary" Width="1.5" PointX="7.5" PointY="30.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.section" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.settings" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.shift" Width="1.5" PointX="6" PointY="25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.shiftsales" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.shiftsttak" Width="1.5" PointX="10.5" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.stcrd" Width="1.5" PointX="15" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.stcrd" Width="1.5" PointX="15" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.tank" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.tanksetup" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
-        <AssociationConnector Association="Model.fk___arrcpcq___artrn_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.fk___stcrd___artrn_id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.fk_arrcpcq_artrn_id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.fk_arrcpcq_istab1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.fk_stcrd_artrn_id" ManuallyRouted="false" />
         <AssociationConnector Association="Model.fk___daysttak___dayend_id" ManuallyRouted="false" />
         <AssociationConnector Association="Model.fk_dother_dayend1" ManuallyRouted="false" />
         <AssociationConnector Association="Model.fk___daysttak___section_id" ManuallyRouted="false" />

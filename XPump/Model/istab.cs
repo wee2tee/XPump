@@ -17,6 +17,7 @@ namespace XPump.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public istab()
         {
+            this.arrcpcq = new HashSet<arrcpcq>();
             this.dother = new HashSet<dother>();
         }
     
@@ -34,6 +35,8 @@ namespace XPump.Model
         public string chgby { get; set; }
         public Nullable<System.DateTime> chgtime { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<arrcpcq> arrcpcq { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<dother> dother { get; set; }
     }

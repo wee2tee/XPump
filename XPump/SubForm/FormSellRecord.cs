@@ -73,10 +73,12 @@ namespace XPump.SubForm
             this.btnPrint.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
-            this.btnManageStkgrp.SetControlState(new FORM_MODE[] { FORM_MODE.READ, FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnManageStkgrp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnChangeDocTyp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.cCuscod.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.cDocdat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnAddCreditCard.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnAddCoupon.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             //this.cNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             //this.cCshrcv.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
         }
@@ -106,14 +108,16 @@ namespace XPump.SubForm
             this.cDocnum._Text = artrn.docnum;
             this.cDocdat._SelectedDate = artrn.docdat;
             this.cCuscod._Text = artrn.cuscod;
+            this.cNozzle._Text = artrn.youref;
             this.lblCusnam.Text = cus != null ? cus.cusnam.TrimEnd() : string.Empty;
             this.cCshrcv._Value = artrn.cshrcv;
             this.lblAmount.Text = string.Format("{0:n}", artrn.amount);
             this.lblVatrat.Text = string.Format("{0:n}", artrn.vatrat) + "%";
-            this.lblNetamt.Text = string.Format("{0:n}", artrn.netamt);
+            this.lblVatamt.Text = string.Format("{0:n}", artrn.vatamt);
+            this.lblNetval.Text = string.Format("{0:n}", artrn.netval);
 
             this.stcrd = new BindingList<StcrdInvoice>(artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
-            //this.dgvStcrd.DataSource = artrn.stcrd;
+            this.dgvStcrd.DataSource = this.stcrd;
         }
 
         private List<StmasDbfPrice> GetStmasDbfPrice(STKGRP[] stkgroups)
@@ -294,7 +298,7 @@ namespace XPump.SubForm
                     this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
                     this.tmp_artrn.stcrd.Add(tmp_stcrd);
 
-                    var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+                    var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
 
                     this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
                     this.tmp_artrn.vatamt = vatamt;
@@ -302,19 +306,20 @@ namespace XPump.SubForm
                     this.tmp_artrn.total = this.tmp_artrn.amount;
                     this.tmp_artrn.netamt = this.tmp_artrn.amount;
                     this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
-                    this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "IV" ? 0 : this.tmp_artrn.netamt;
+                    this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
                     this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
                     this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
-                    this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+                    this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
 
                     this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
                     this.dgvStcrd.DataSource = this.stcrd;
 
 
 
-                    this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
-                    this.lblVatamt.Text = string.Format("{0:n}", vatamt);
-                    this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
+                    this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
+                    this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
+                    this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
+                    this.cCshrcv._Value = this.tmp_artrn.cshrcv;
                 }
             }
         }
@@ -328,6 +333,9 @@ namespace XPump.SubForm
             {
                 this.lblDocType.Text = dr.selected_item.Text;
                 this.curr_docprefix = (IsrunDbf)dr.selected_item.Value;
+
+                this.tabRcv.SelectedTab = this.tabCreditCard;
+                this.panelRcv.Enabled = this.curr_docprefix.doctyp == "HS" ? true : false;
 
                 this.tmp_artrn = new artrn
                 {
@@ -369,7 +377,9 @@ namespace XPump.SubForm
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-
+            this.ResetFormState(FORM_MODE.READ);
+            this.tmp_artrn = null;
+            this.FillForm(this.curr_artrn);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -393,7 +403,7 @@ namespace XPump.SubForm
                         //{
                         //    XMessageBox.Show("การกำหนดเลขที่เอกสารถัดไปใน isrun ยังไม่ถูกต้อง");
                         //}
-                        this.curr_artrn = db.artrn.Find(this.tmp_artrn.id);
+                        this.curr_artrn = db.artrn.Include("stcrd").Where(a => a.id == this.tmp_artrn.id).FirstOrDefault();
                         this.FillForm(this.curr_artrn);
                         this.ResetFormState(FORM_MODE.READ);
                     }
@@ -456,6 +466,8 @@ namespace XPump.SubForm
             {
                 this.lblDocType.Text = dr.selected_item.Text;
                 this.curr_docprefix = (IsrunDbf)dr.selected_item.Value;
+                this.tabRcv.SelectedTab = this.tabCreditCard;
+                this.panelRcv.Enabled = this.curr_docprefix.doctyp == "HS" ? true : false;
             }
         }
 
@@ -549,11 +561,26 @@ namespace XPump.SubForm
                         this.cNozzle._Text = string.Empty;
                     }
 
-                    var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+                    /**********/
+                    var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
 
-                    this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
-                    this.lblVatamt.Text = string.Format("{0:n}", vatamt);
-                    this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
+                    this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
+                    this.tmp_artrn.vatamt = vatamt;
+                    this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
+                    this.tmp_artrn.total = this.tmp_artrn.amount;
+                    this.tmp_artrn.netamt = this.tmp_artrn.amount;
+                    this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
+                    this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
+                    this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
+                    this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+                    this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+
+                    /**********/
+
+
+                    this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
+                    this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
+                    this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
                 }
                 else
                 {
@@ -597,12 +624,42 @@ namespace XPump.SubForm
                     }
                 }
 
-                var vatamt = Math.Round(this.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+                /*******************/
+                var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
 
-                this.lblAmount.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval) - vatamt);
-                this.lblVatamt.Text = string.Format("{0:n}", vatamt);
-                this.lblNetamt.Text = string.Format("{0:n}", this.stcrd.Sum(st => st.trnval));
+                this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
+                this.tmp_artrn.vatamt = vatamt;
+                this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
+                this.tmp_artrn.total = this.tmp_artrn.amount;
+                this.tmp_artrn.netamt = this.tmp_artrn.amount;
+                this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
+                this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
+                this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
+                this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+                this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+
+                /*******************/
+
+                this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
+                this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
+                this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
             }
+        }
+
+        private void cNozzle__TextChanged(object sender, EventArgs e)
+        {
+            if (this.tmp_artrn != null)
+                this.tmp_artrn.youref = ((XTextEdit)sender)._Text;
+        }
+
+        private void btnAddCreditCard_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("add credit card");
+        }
+
+        private void btnAddCoupon_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("add coupon");
         }
 
         //private List<stmasPriceVM> GetStmas(bool oil_only = true)

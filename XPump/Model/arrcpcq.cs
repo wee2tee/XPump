@@ -14,14 +14,28 @@ namespace XPump.Model
     
     public partial class arrcpcq
     {
+        public arrcpcq()
+        {
+            this.id = -1;
+            this.rcpnum = string.Empty;
+            this.cardnum = string.Empty;
+            this.rcvamt = 0;
+            this.userid = string.Empty;
+            this.chgdat = DateTime.Now;
+            this.artrn_id = -1;
+            this.istab_id = null;
+        }
+
         public int id { get; set; }
         public string rcpnum { get; set; }
-        public string chqnum { get; set; }
+        public string cardnum { get; set; }
         public decimal rcvamt { get; set; }
         public string userid { get; set; }
         public Nullable<System.DateTime> chgdat { get; set; }
-        public Nullable<int> artrn_id { get; set; }
+        public int artrn_id { get; set; }
+        public Nullable<int> istab_id { get; set; }
     
         public virtual artrn artrn { get; set; }
+        public virtual istab istab { get; set; }
     }
 }
