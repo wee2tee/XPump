@@ -120,6 +120,9 @@
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="menuStrip1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="menuStrip1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
@@ -189,16 +192,28 @@
     <value>กำหนดผลัดพนักงาน</value>
   </data>
   <data name="mnuDotherMessage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 22</value>
+    <value>227, 22</value>
   </data>
   <data name="mnuDotherMessage.Text" xml:space="preserve">
     <value>รายการหักยอดขาย (อื่น ๆ)</value>
   </data>
   <data name="mnuStkgrp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 22</value>
+    <value>227, 22</value>
   </data>
   <data name="mnuStkgrp.Text" xml:space="preserve">
-    <value>หมวดสินค้า</value>
+    <value>กลุ่มสินค้า</value>
+  </data>
+  <data name="mnuBank.Size" type="System.Drawing.Size, System.Drawing">
+    <value>227, 22</value>
+  </data>
+  <data name="mnuBank.Text" xml:space="preserve">
+    <value>รหัสธนาคารผู้ออกบัตรเครดิต</value>
+  </data>
+  <data name="mnuRcvMethod.Size" type="System.Drawing.Size, System.Drawing">
+    <value>227, 22</value>
+  </data>
+  <data name="mnuRcvMethod.Text" xml:space="preserve">
+    <value>วิธีการรับชำระ</value>
   </data>
   <data name="mnuIstab.Size" type="System.Drawing.Size, System.Drawing">
     <value>255, 22</value>
@@ -299,6 +314,9 @@
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
   </metadata>
+  <metadata name="statusStrip1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="toolStripStatusLabel3.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 19</value>
   </data>
@@ -375,6 +393,9 @@
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
@@ -2259,6 +2280,18 @@
   </data>
   <data name="&gt;&gt;lblVersion.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuBank.Name" xml:space="preserve">
+    <value>mnuBank</value>
+  </data>
+  <data name="&gt;&gt;mnuBank.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuRcvMethod.Name" xml:space="preserve">
+    <value>mnuRcvMethod</value>
+  </data>
+  <data name="&gt;&gt;mnuRcvMethod.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

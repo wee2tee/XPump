@@ -35,6 +35,14 @@ namespace XPump.SubForm
         private void FormIstab_Load(object sender, EventArgs e)
         {
             //this.menu_id = this.GetType().Name;
+            if(this.tabtyp != ISTAB_TABTYP.DOTHER)
+            {
+                this.col_is_dayend.Visible = false;
+                this.col_is_shiftsales.Visible = false;
+                this.inline_isdayend.Enabled = false;
+                this.inline_isshiftsales.Enabled = false;
+            }
+
             this.inline_isdayend._Items.Add(new XDropdownListItem { Text = "Y", Value = true });
             this.inline_isdayend._Items.Add(new XDropdownListItem { Text = "N", Value = false });
             this.inline_isshiftsales._Items.Add(new XDropdownListItem { Text = "Y", Value = true });
@@ -429,7 +437,11 @@ namespace XPump.SubForm
             {
                 if (this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
                 {
-                    if (this.inline_isdayend._Focused)
+                    if(this.tabtyp == ISTAB_TABTYP.DOTHER && this.inline_isdayend._Focused)
+                    {
+                        this.btnSave.PerformClick();
+                    }
+                    else if(this.tabtyp != ISTAB_TABTYP.DOTHER && this.inline_typdes2._Focused)
                     {
                         this.btnSave.PerformClick();
                     }
@@ -627,5 +639,8 @@ namespace XPump.SubForm
     public static class ISTAB_TABTYP
     {
         public const String DOTHER = "01";
+        public const String STKGRP = "02";
+        public const String BANK = "03";
+        public const String RCV_METHOD = "04";
     }
 }

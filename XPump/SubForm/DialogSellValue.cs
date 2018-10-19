@@ -92,7 +92,16 @@ namespace XPump.SubForm
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if(keyData == Keys.F5)
+            if (keyData == Keys.Enter)
+            {
+                if (!(this.btnOK.Focused || this.btnCancel.Focused))
+                {
+                    SendKeys.Send("{TAB}");
+                    return true;
+                }
+            }
+
+            if (keyData == Keys.F5)
             {
                 this.btnOK.PerformClick();
                 return true;

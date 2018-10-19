@@ -39,8 +39,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
@@ -121,17 +121,17 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tabRcv = new System.Windows.Forms.TabControl();
             this.tabCreditCard = new System.Windows.Forms.TabPage();
-            this.dgvRcv1 = new CC.XDatagrid();
-            this.tabCoupon = new System.Windows.Forms.TabPage();
-            this.dgvRcv2 = new CC.XDatagrid();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnAddCreditCard = new System.Windows.Forms.Button();
-            this.btnAddCoupon = new System.Windows.Forms.Button();
+            this.dgvRcv1 = new CC.XDatagrid();
             this.col_rcv1_cardno = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv1_bank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv1_rcvamt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabCoupon = new System.Windows.Forms.TabPage();
+            this.btnAddCoupon = new System.Windows.Forms.Button();
+            this.dgvRcv2 = new CC.XDatagrid();
             this.col_rcv2_coupon_num = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.cCuscod = new XPump.CustomControls.BrowseBoxCuscod();
             this.toolStrip1.SuspendLayout();
@@ -1128,6 +1128,17 @@
             this.tabCreditCard.Text = "  บัตรเครดิต  ";
             this.tabCreditCard.UseVisualStyleBackColor = true;
             // 
+            // btnAddCreditCard
+            // 
+            this.btnAddCreditCard.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAddCreditCard.Location = new System.Drawing.Point(8, 7);
+            this.btnAddCreditCard.Name = "btnAddCreditCard";
+            this.btnAddCreditCard.Size = new System.Drawing.Size(90, 21);
+            this.btnAddCreditCard.TabIndex = 2;
+            this.btnAddCreditCard.Text = "+ เพิ่มรายการ";
+            this.btnAddCreditCard.UseVisualStyleBackColor = true;
+            this.btnAddCreditCard.Click += new System.EventHandler(this.btnAddCreditCard_Click);
+            // 
             // dgvRcv1
             // 
             this.dgvRcv1.AllowSortByColumnHeaderClicked = false;
@@ -1165,6 +1176,37 @@
             this.dgvRcv1.StandardTab = true;
             this.dgvRcv1.TabIndex = 1;
             // 
+            // col_rcv1_cardno
+            // 
+            this.col_rcv1_cardno.DataPropertyName = "card_number";
+            this.col_rcv1_cardno.HeaderText = "                        หมายเลขบัตร";
+            this.col_rcv1_cardno.MinimumWidth = 200;
+            this.col_rcv1_cardno.Name = "col_rcv1_cardno";
+            this.col_rcv1_cardno.ReadOnly = true;
+            this.col_rcv1_cardno.Width = 200;
+            // 
+            // col_rcv1_bank
+            // 
+            this.col_rcv1_bank.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_rcv1_bank.DataPropertyName = "bank";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N2";
+            dataGridViewCellStyle12.NullValue = null;
+            this.col_rcv1_bank.DefaultCellStyle = dataGridViewCellStyle12;
+            this.col_rcv1_bank.HeaderText = "ธนาคาร";
+            this.col_rcv1_bank.MinimumWidth = 80;
+            this.col_rcv1_bank.Name = "col_rcv1_bank";
+            this.col_rcv1_bank.ReadOnly = true;
+            // 
+            // col_rcv1_rcvamt
+            // 
+            this.col_rcv1_rcvamt.DataPropertyName = "rcvamt";
+            this.col_rcv1_rcvamt.HeaderText = "จำนวนเงิน";
+            this.col_rcv1_rcvamt.MinimumWidth = 120;
+            this.col_rcv1_rcvamt.Name = "col_rcv1_rcvamt";
+            this.col_rcv1_rcvamt.ReadOnly = true;
+            this.col_rcv1_rcvamt.Width = 120;
+            // 
             // tabCoupon
             // 
             this.tabCoupon.Controls.Add(this.btnAddCoupon);
@@ -1176,6 +1218,17 @@
             this.tabCoupon.TabIndex = 1;
             this.tabCoupon.Text = "  คูปอง  ";
             this.tabCoupon.UseVisualStyleBackColor = true;
+            // 
+            // btnAddCoupon
+            // 
+            this.btnAddCoupon.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAddCoupon.Location = new System.Drawing.Point(8, 7);
+            this.btnAddCoupon.Name = "btnAddCoupon";
+            this.btnAddCoupon.Size = new System.Drawing.Size(90, 21);
+            this.btnAddCoupon.TabIndex = 3;
+            this.btnAddCoupon.Text = "+ เพิ่มรายการ";
+            this.btnAddCoupon.UseVisualStyleBackColor = true;
+            this.btnAddCoupon.Click += new System.EventHandler(this.btnAddCoupon_Click);
             // 
             // dgvRcv2
             // 
@@ -1213,69 +1266,6 @@
             this.dgvRcv2.StandardTab = true;
             this.dgvRcv2.TabIndex = 1;
             // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 12);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 16);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "ชำระโดย";
-            // 
-            // btnAddCreditCard
-            // 
-            this.btnAddCreditCard.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnAddCreditCard.Location = new System.Drawing.Point(8, 7);
-            this.btnAddCreditCard.Name = "btnAddCreditCard";
-            this.btnAddCreditCard.Size = new System.Drawing.Size(90, 21);
-            this.btnAddCreditCard.TabIndex = 2;
-            this.btnAddCreditCard.Text = "+ เพิ่มรายการ";
-            this.btnAddCreditCard.UseVisualStyleBackColor = true;
-            this.btnAddCreditCard.Click += new System.EventHandler(this.btnAddCreditCard_Click);
-            // 
-            // btnAddCoupon
-            // 
-            this.btnAddCoupon.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnAddCoupon.Location = new System.Drawing.Point(8, 7);
-            this.btnAddCoupon.Name = "btnAddCoupon";
-            this.btnAddCoupon.Size = new System.Drawing.Size(90, 21);
-            this.btnAddCoupon.TabIndex = 3;
-            this.btnAddCoupon.Text = "+ เพิ่มรายการ";
-            this.btnAddCoupon.UseVisualStyleBackColor = true;
-            this.btnAddCoupon.Click += new System.EventHandler(this.btnAddCoupon_Click);
-            // 
-            // col_rcv1_cardno
-            // 
-            this.col_rcv1_cardno.DataPropertyName = "card_number";
-            this.col_rcv1_cardno.HeaderText = "                        หมายเลขบัตร";
-            this.col_rcv1_cardno.MinimumWidth = 200;
-            this.col_rcv1_cardno.Name = "col_rcv1_cardno";
-            this.col_rcv1_cardno.ReadOnly = true;
-            this.col_rcv1_cardno.Width = 200;
-            // 
-            // col_rcv1_bank
-            // 
-            this.col_rcv1_bank.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_rcv1_bank.DataPropertyName = "bank";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle12.Format = "N2";
-            dataGridViewCellStyle12.NullValue = null;
-            this.col_rcv1_bank.DefaultCellStyle = dataGridViewCellStyle12;
-            this.col_rcv1_bank.HeaderText = "ธนาคาร";
-            this.col_rcv1_bank.MinimumWidth = 80;
-            this.col_rcv1_bank.Name = "col_rcv1_bank";
-            this.col_rcv1_bank.ReadOnly = true;
-            // 
-            // col_rcv1_rcvamt
-            // 
-            this.col_rcv1_rcvamt.DataPropertyName = "rcvamt";
-            this.col_rcv1_rcvamt.HeaderText = "จำนวนเงิน";
-            this.col_rcv1_rcvamt.MinimumWidth = 120;
-            this.col_rcv1_rcvamt.Name = "col_rcv1_rcvamt";
-            this.col_rcv1_rcvamt.ReadOnly = true;
-            this.col_rcv1_rcvamt.Width = 120;
-            // 
             // col_rcv2_coupon_num
             // 
             this.col_rcv2_coupon_num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -1297,6 +1287,16 @@
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.Width = 120;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 16);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "ชำระโดย";
             // 
             // label10
             // 
@@ -1352,7 +1352,7 @@
             this.MinimumSize = new System.Drawing.Size(911, 561);
             this.Name = "FormSellRecord";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "บันทึกรายการขายหน้าลาน";
             this.Load += new System.EventHandler(this.FormSellRecord_Load);
             this.toolStrip1.ResumeLayout(false);

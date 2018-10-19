@@ -255,10 +255,10 @@ namespace XPump
 
         private void mnuDotherMessage_Click(object sender, EventArgs e)
         {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab)).FirstOrDefault() != null)
+            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab) && f.docPrefix == ISTAB_TABTYP.DOTHER).FirstOrDefault() != null)
             {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab)).First().form.Activate();
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab) && f.docPrefix == ISTAB_TABTYP.DOTHER).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab) && f.docPrefix == ISTAB_TABTYP.DOTHER).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
                 return;
             }
 
@@ -268,12 +268,46 @@ namespace XPump
             i.MdiParent = this;
             i.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
             i.Show();
-            this.opened_child_form.Add(new ChildFormDetail() { form = i, docPrefix = string.Empty });
+            this.opened_child_form.Add(new ChildFormDetail() { form = i, docPrefix = ISTAB_TABTYP.DOTHER });
         }
 
         private void mnuStkgrp_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void mnuBank_Click(object sender, EventArgs e)
+        {
+            if (this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab) && f.docPrefix == ISTAB_TABTYP.BANK).FirstOrDefault() != null)
+            {
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab) && f.docPrefix == ISTAB_TABTYP.BANK).First().form.Activate();
+                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormIstab) && f.docPrefix == ISTAB_TABTYP.BANK).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+                return;
+            }
+
+            var scacclv = this.GetSubFormAccessControl(FormIstab.modcod);
+
+            FormIstab i = new FormIstab(this, scacclv, ISTAB_TABTYP.BANK, ((ToolStripMenuItem)sender).Text);
+            i.MdiParent = this;
+            i.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            i.Show();
+            this.opened_child_form.Add(new ChildFormDetail() { form = i, docPrefix = ISTAB_TABTYP.BANK });
+        }
+
+        private void mnuRcvMethod_Click(object sender, EventArgs e)
+        {
+            //if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormRcvMethod)).FirstOrDefault() != null)
+            //{
+            //    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormRcvMethod)).First().form.Activate();
+            //    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormRcvMethod)).First().form.WindowState = this.WindowState;
+            //    return;
+            //}
+
+            FormRcvMethod f = new FormRcvMethod(this);
+            //f.MdiParent = this;
+            //f.WindowState = this.WindowState;
+            f.ShowDialog();
+            //this.opened_child_form.Add(new ChildFormDetail() { form = f, docPrefix = string.Empty });
         }
 
         private void MnuShiftTransaction_Click(object sender, EventArgs e)

@@ -473,6 +473,12 @@
     <Compile Include="SubForm\FormArmas.Designer.cs">
       <DependentUpon>FormArmas.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\FormRcvMethod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\FormRcvMethod.Designer.cs">
+      <DependentUpon>FormRcvMethod.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\FormSellRecord.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -761,6 +767,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormArmas.resx">
       <DependentUpon>FormArmas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\FormRcvMethod.resx">
+      <DependentUpon>FormRcvMethod.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormSellRecord.resx">
       <DependentUpon>FormSellRecord.cs</DependentUpon>
