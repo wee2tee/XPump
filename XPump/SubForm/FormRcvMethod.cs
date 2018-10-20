@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using XPump.Model;
 using CC;
 using System.Data.OleDb;
+using XPump.Misc;
 
 namespace XPump.SubForm
 {
@@ -20,6 +21,9 @@ namespace XPump.SubForm
         private List<IsrunRcvMethod> isrun_rcv_method;
         private istab rcvCreditCard = null;
         private istab rcvCoupon = null;
+        private istab tmpRcvCreditCard = null;
+        private istab tmpRcvCoupon = null;
+        private FORM_MODE form_mode;
 
         public FormRcvMethod(MainForm main_form)
         {
@@ -36,6 +40,14 @@ namespace XPump.SubForm
                 this.pairingCoupon._Items.Add(new XDropdownListItem { Text = r.prefix + " : " + r.posdes, Value = r.prefix });
                 this.pairingCreditCard._Items.Add(new XDropdownListItem { Text = r.prefix + " : " + r.posdes, Value = r.prefix });
             });
+
+            var selected_creditcard_pair = this.pairingCreditCard._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.rcvCreditCard.shortnam.TrimEnd()).FirstOrDefault();
+            if (selected_creditcard_pair != null)
+                this.pairingCreditCard._SelectedItem = selected_creditcard_pair;
+
+            var selected_coupon_pair = this.pairingCoupon._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.rcvCoupon.shortnam.TrimEnd()).FirstOrDefault();
+            if (selected_coupon_pair != null)
+                this.pairingCoupon._SelectedItem = selected_coupon_pair;
         }
 
         private void EnsureRcvMethodIsReady()
@@ -122,6 +134,136 @@ namespace XPump.SubForm
                     }
                 }
             }
+        }
+
+        private void ResetFormState(FORM_MODE form_mode)
+        {
+            this.form_mode = form_mode;
+
+            this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+
+            this.pairingCreditCard.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+            this.pairingCoupon.SetControlState(new FORM_MODE[] { FORM_MODE.EDIT }, this.form_mode);
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.tmpRcvCreditCard = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CR").FirstOrDefault();
+                this.tmpRcvCoupon = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CP").FirstOrDefault();
+
+                var selected_creditcard_pair = this.pairingCreditCard._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.tmpRcvCreditCard.shortnam.TrimEnd()).FirstOrDefault();
+                if (selected_creditcard_pair != null)
+                    this.pairingCreditCard._SelectedItem = selected_creditcard_pair;
+
+                var selected_coupon_pair = this.pairingCoupon._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.tmpRcvCoupon.shortnam.TrimEnd()).FirstOrDefault();
+                if (selected_coupon_pair != null)
+                    this.pairingCoupon._SelectedItem = selected_coupon_pair;
+
+                this.ResetFormState(FORM_MODE.EDIT);
+                this.pairingCreditCard.Focus();
+            }
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.rcvCreditCard = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CR").FirstOrDefault();
+                this.rcvCoupon = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CP").FirstOrDefault();
+
+                var selected_creditcard_pair = this.pairingCreditCard._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.rcvCreditCard.shortnam.TrimEnd()).FirstOrDefault();
+                if (selected_creditcard_pair != null)
+                    this.pairingCreditCard._SelectedItem = selected_creditcard_pair;
+
+                var selected_coupon_pair = this.pairingCoupon._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.rcvCoupon.shortnam.TrimEnd()).FirstOrDefault();
+                if (selected_coupon_pair != null)
+                    this.pairingCoupon._SelectedItem = selected_coupon_pair;
+
+                this.tmpRcvCreditCard = null;
+                this.tmpRcvCoupon = null;
+                this.ResetFormState(FORM_MODE.READ);
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    this.rcvCreditCard = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CR").FirstOrDefault();
+                    this.rcvCoupon = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CP").FirstOrDefault();
+
+                    this.rcvCreditCard.shortnam = this.tmpRcvCreditCard.shortnam;
+                    this.rcvCreditCard.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                    this.rcvCreditCard.chgtime = DateTime.Now;
+                    this.rcvCoupon.shortnam = this.tmpRcvCoupon.shortnam;
+                    this.rcvCoupon.chgby = this.main_form.loged_in_status.loged_in_user_name;
+                    this.rcvCoupon.chgtime = DateTime.Now;
+                    db.SaveChanges();
+
+                    var selected_creditcard_pair = this.pairingCreditCard._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.rcvCreditCard.shortnam.TrimEnd()).FirstOrDefault();
+                    if (selected_creditcard_pair != null)
+                        this.pairingCreditCard._SelectedItem = selected_creditcard_pair;
+
+                    var selected_coupon_pair = this.pairingCoupon._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.rcvCoupon.shortnam.TrimEnd()).FirstOrDefault();
+                    if (selected_coupon_pair != null)
+                        this.pairingCoupon._SelectedItem = selected_coupon_pair;
+
+                    this.tmpRcvCreditCard = null;
+                    this.tmpRcvCoupon = null;
+                    this.ResetFormState(FORM_MODE.READ);
+                }
+            }
+            catch (Exception ex)
+            {
+                XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+            }
+        }
+
+        private void pairingCreditCard__SelectedItemChanged(object sender, EventArgs e)
+        {
+            if (this.tmpRcvCreditCard != null && ((XDropdownList)sender)._SelectedItem != null)
+                this.tmpRcvCreditCard.shortnam = ((XDropdownListItem)((XDropdownList)sender)._SelectedItem).Value.ToString();
+        }
+
+        private void pairingCoupon__SelectedItemChanged(object sender, EventArgs e)
+        {
+            if (this.tmpRcvCoupon != null && ((XDropdownList)sender)._SelectedItem != null)
+                this.tmpRcvCoupon.shortnam = ((XDropdownListItem)((XDropdownList)sender)._SelectedItem).Value.ToString();
+        }
+
+        private void performEdit(object sender, EventArgs e)
+        {
+            if (this.form_mode == FORM_MODE.READ)
+                this.btnEdit.PerformClick();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == (Keys.Alt | Keys.E))
+            {
+                this.btnEdit.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnStop.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.F9)
+            {
+                this.btnSave.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 

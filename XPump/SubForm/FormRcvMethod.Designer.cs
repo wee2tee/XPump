@@ -38,9 +38,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -56,7 +56,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 68);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(495, 93);
+            this.panel1.Size = new System.Drawing.Size(546, 93);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -76,32 +76,36 @@
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.groupBox1.Location = new System.Drawing.Point(12, 174);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(495, 75);
+            this.groupBox1.Size = new System.Drawing.Size(546, 75);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ชำระด้วยบัตรเครดิต";
             // 
             // pairingCreditCard
             // 
-            this.pairingCreditCard._ReadOnly = false;
+            this.pairingCreditCard._ReadOnly = true;
             this.pairingCreditCard._SelectedItem = null;
             this.pairingCreditCard._Text = "";
+            this.pairingCreditCard.BackColor = System.Drawing.Color.White;
             this.pairingCreditCard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pairingCreditCard.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.pairingCreditCard.Location = new System.Drawing.Point(162, 29);
+            this.pairingCreditCard.Location = new System.Drawing.Point(302, 29);
             this.pairingCreditCard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pairingCreditCard.Name = "pairingCreditCard";
-            this.pairingCreditCard.Size = new System.Drawing.Size(309, 23);
+            this.pairingCreditCard.Size = new System.Drawing.Size(225, 23);
             this.pairingCreditCard.TabIndex = 3;
+            this.pairingCreditCard.TabStop = false;
+            this.pairingCreditCard._SelectedItemChanged += new System.EventHandler(this.pairingCreditCard__SelectedItemChanged);
+            this.pairingCreditCard._DoubleClicked += new System.EventHandler(this.performEdit);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(21, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(136, 16);
+            this.label2.Size = new System.Drawing.Size(266, 16);
             this.label2.TabIndex = 2;
-            this.label2.Text = "จับคู่กับวิธีการรับชำระ";
+            this.label2.Text = "จับคู่กับวิธีการรับชำระในโปรแกรมเอ็กซ์เพรส";
             // 
             // groupBox2
             // 
@@ -110,32 +114,36 @@
             this.groupBox2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.groupBox2.Location = new System.Drawing.Point(12, 258);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(495, 75);
+            this.groupBox2.Size = new System.Drawing.Size(546, 75);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "ชำระด้วยคูปอง";
             // 
             // pairingCoupon
             // 
-            this.pairingCoupon._ReadOnly = false;
+            this.pairingCoupon._ReadOnly = true;
             this.pairingCoupon._SelectedItem = null;
             this.pairingCoupon._Text = "";
+            this.pairingCoupon.BackColor = System.Drawing.Color.White;
             this.pairingCoupon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pairingCoupon.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.pairingCoupon.Location = new System.Drawing.Point(163, 26);
+            this.pairingCoupon.Location = new System.Drawing.Point(302, 26);
             this.pairingCoupon.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pairingCoupon.Name = "pairingCoupon";
-            this.pairingCoupon.Size = new System.Drawing.Size(309, 23);
+            this.pairingCoupon.Size = new System.Drawing.Size(225, 23);
             this.pairingCoupon.TabIndex = 5;
+            this.pairingCoupon.TabStop = false;
+            this.pairingCoupon._SelectedItemChanged += new System.EventHandler(this.pairingCoupon__SelectedItemChanged);
+            this.pairingCoupon._DoubleClicked += new System.EventHandler(this.performEdit);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(22, 30);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(136, 16);
+            this.label3.Size = new System.Drawing.Size(266, 16);
             this.label3.TabIndex = 4;
-            this.label3.Text = "จับคู่กับวิธีการรับชำระ";
+            this.label3.Text = "จับคู่กับวิธีการรับชำระในโปรแกรมเอ็กซ์เพรส";
             // 
             // toolStrip1
             // 
@@ -148,7 +156,7 @@
             this.btnSave});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(519, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(570, 43);
             this.toolStrip1.TabIndex = 7;
             // 
             // btnEdit
@@ -160,37 +168,42 @@
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(36, 40);
             this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
-            // 
-            // btnStop
-            // 
-            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnStop.Image = global::XPump.Properties.Resources.stop;
-            this.btnStop.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(36, 40);
-            this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
-            // 
-            // btnSave
-            // 
-            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSave.Image = global::XPump.Properties.Resources.save;
-            this.btnSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(36, 40);
-            this.btnSave.Text = "บันทึกข้อมูล <F9>";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 43);
             // 
+            // btnStop
+            // 
+            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnStop.Enabled = false;
+            this.btnStop.Image = global::XPump.Properties.Resources.stop;
+            this.btnStop.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(36, 40);
+            this.btnStop.Text = "ยกเลิกการเพิ่ม/แก้ไขข้อมูล <Esc>";
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSave.Enabled = false;
+            this.btnSave.Image = global::XPump.Properties.Resources.save;
+            this.btnSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(36, 40);
+            this.btnSave.Text = "บันทึกข้อมูล <F9>";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // FormRcvMethod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(519, 344);
+            this.ClientSize = new System.Drawing.Size(570, 344);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
