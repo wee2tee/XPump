@@ -787,16 +787,25 @@ namespace XPump.SubForm
                 cmd.CommandText += "(`id` INT(11) NOT NULL AUTO_INCREMENT,";
                 cmd.CommandText += "`rcpnum` VARCHAR(12) NOT NULL,";
                 cmd.CommandText += "`cardnum` varchar(30) not null,";
+                cmd.CommandText += "`chqnum` varchar(12) not null,";
                 cmd.CommandText += "`rcvamt` decimal(14, 2) not null,";
                 cmd.CommandText += "`userid` varchar(8) not null,";
                 cmd.CommandText += "`chgdat` datetime null,";
                 cmd.CommandText += "`artrn_id` INT(11) not null,";
-                cmd.CommandText += "`istab_id` INT(11) null,";
+                cmd.CommandText += "`bank_id` INT(11) null,";
+                cmd.CommandText += "`rcv_method_id` INT(11) not null,";
                 cmd.CommandText += "PRIMARY KEY (`id`),";
                 cmd.CommandText += "UNIQUE INDEX `unq-arrcpcq` (`rcpnum` ASC, `cardnum` ASC),";
                 cmd.CommandText += "CONSTRAINT `fk_arrcpcq_artrn_id` FOREIGN KEY (`artrn_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`artrn` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION, ";
-                cmd.CommandText += "CONSTRAINT `fk_arrcpcq_istab1` FOREIGN KEY (`istab_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
+                cmd.CommandText += "CONSTRAINT `fk_arrcpcq_istab1` FOREIGN KEY (`bank_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION, ";
+                cmd.CommandText += "CONSTRAINT `fk_arrcpcq_istab2` FOREIGN KEY (`rcv_method_id`) REFERENCES `" + local_config.db_prefix + "_" + local_config.dbname + "`.`istab` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) ";
                 cmd.CommandText += "ENGINE = InnoDB DEFAULT CHARACTER SET = utf8";
+                cmd.ExecuteNonQuery();
+
+                // Add Credit card , Coupon Receive Method in Istab
+                cmd.CommandText = "Insert into `" + local_config.db_prefix + "_" + local_config.dbname + "`.`istab` (tabtyp, typcod, shortnam, shortnam2, typdes, typdes2, is_shiftsales, is_dayend, creby, cretime, chgby, chgtime) ";
+                cmd.CommandText += "Values ('" + ISTAB_TABTYP.RCV_METHOD + "', 'CR', '', 'Credit Card', 'รับชำระด้วยบัตรเครดิต', 'Receive by Credit Card', 0, 0, '" + this.main_form.loged_in_status.loged_in_user_name + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.GetCultureInfo("EN-us")) + "', NULL, NULL), ";
+                cmd.CommandText += "('" + ISTAB_TABTYP.RCV_METHOD + "', 'CP', '', 'Coupon', 'รับชำระด้วยคูปองแทนเงินสด', 'Receive by Coupon', 0, 0, '" + this.main_form.loged_in_status.loged_in_user_name + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.GetCultureInfo("EN-us")) + "', NULL, NULL)";
                 cmd.ExecuteNonQuery();
             }
             catch (MySqlException ex)

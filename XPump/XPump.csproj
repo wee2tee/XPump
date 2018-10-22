@@ -293,6 +293,18 @@
     <Compile Include="SubForm\DialogConnectDbServer.Designer.cs">
       <DependentUpon>DialogConnectDbServer.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogCouponRcv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogCouponRcv.Designer.cs">
+      <DependentUpon>DialogCouponRcv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\DialogCreditCardRcv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogCreditCardRcv.Designer.cs">
+      <DependentUpon>DialogCreditCardRcv.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogDataInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -662,6 +674,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogConnectDbServer.resx">
       <DependentUpon>DialogConnectDbServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogCouponRcv.resx">
+      <DependentUpon>DialogCouponRcv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogCreditCardRcv.resx">
+      <DependentUpon>DialogCreditCardRcv.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogDataInfo.resx">
       <DependentUpon>DialogDataInfo.cs</DependentUpon>

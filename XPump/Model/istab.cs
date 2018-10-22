@@ -18,6 +18,7 @@ namespace XPump.Model
         public istab()
         {
             this.arrcpcq = new HashSet<arrcpcq>();
+            this.arrcpcq1 = new HashSet<arrcpcq>();
             this.dother = new HashSet<dother>();
         }
     
@@ -37,6 +38,8 @@ namespace XPump.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<arrcpcq> arrcpcq { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<arrcpcq> arrcpcq1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<dother> dother { get; set; }
     }

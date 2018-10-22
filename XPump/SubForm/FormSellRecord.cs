@@ -24,6 +24,8 @@ namespace XPump.SubForm
         private BindingList<StmasDbfPrice> stmas1;
         private BindingList<StmasDbfPrice> stmas2;
         private BindingList<StcrdInvoice> stcrd;
+        private BindingList<ArrcpcqInvoice> arrcpcq_credit_card;
+        private BindingList<ArrcpcqInvoice> arrcpcq_coupon;
         private FORM_MODE form_mode;
         private artrn tmp_artrn = null;
         private IsrunDbf curr_docprefix = null;
@@ -372,7 +374,10 @@ namespace XPump.SubForm
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
+            foreach (var c in "ABC".ToCharArray())
+            {
+                Console.WriteLine(" ==> " + c.ToString() + " : " + (int)c);
+            }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -392,7 +397,36 @@ namespace XPump.SubForm
                     this.tmp_artrn.docnum = isrun.GetNextDocnum(this.main_form.working_express_db);
                     this.tmp_artrn.credat = DateTime.Now;
                     this.tmp_artrn.chgdat = DateTime.Now;
-                    this.tmp_artrn.stcrd.ToList().ForEach(s => { s.docnum = this.tmp_artrn.docnum; s.credat = DateTime.Now; s.chgdat = DateTime.Now; });
+                    this.tmp_artrn.stcrd.ToList().ForEach(s => 
+                    {
+                        s.docnum = this.tmp_artrn.docnum;
+                        s.artrn_id = this.tmp_artrn.id;
+                        s.credat = DateTime.Now;
+                        s.chgdat = DateTime.Now;
+                    });
+
+                    int credit_card_method_id = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CR").First().id;
+                    // A = 65, B = 66, C = 67, ...
+                    int cr_count = 64; // counting loop for credit card receive
+                    int cp_count = 64; // counting loop for coupon receive
+
+                    this.tmp_artrn.arrcpcq.ToList().ForEach(a =>
+                    {
+                        bool is_credit_card = a.rcv_method_id == credit_card_method_id ? true : false;
+                        if(is_credit_card)
+                        {
+                            cr_count++;
+                        }
+                        else
+                        {
+                            cp_count++;
+                        }
+
+                        a.chqnum = is_credit_card ? a.chqnum + this.tmp_artrn.docnum + ((char)cr_count).ToString() : a.chqnum + this.tmp_artrn.docnum + ((char)cp_count).ToString();
+                        a.rcpnum = this.tmp_artrn.docnum;
+                        a.artrn_id = this.tmp_artrn.id;
+                        a.chgdat = DateTime.Now;
+                    });
 
                     db.artrn.Add(this.tmp_artrn);
                     if(db.SaveChanges() > 0)
@@ -654,12 +688,55 @@ namespace XPump.SubForm
 
         private void btnAddCreditCard_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("add credit card");
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                arrcpcq tmp_arrcpcq = new arrcpcq
+                {
+                    id = -1,
+                    artrn_id = -1,
+                    cardnum = string.Empty,
+                    chqnum = string.Empty,
+                    bank_id = null,
+                    rcpnum = string.Empty,
+                    rcvamt = 0,
+                    userid = this.main_form.loged_in_status.loged_in_user_name
+                };
+
+                DialogCreditCardRcv rcv = new DialogCreditCardRcv(this.main_form, tmp_arrcpcq);
+                if (rcv.ShowDialog() == DialogResult.OK)
+                {
+                    this.tmp_artrn.arrcpcq.Add(tmp_arrcpcq);
+
+                    var rcv_list = this.tmp_artrn.arrcpcq.Where(i => i.rcv_method_id == tmp_arrcpcq.rcv_method_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
+                    this.arrcpcq_credit_card = new BindingList<ArrcpcqInvoice>(rcv_list);
+
+                    this.dgvRcv1.DataSource = this.arrcpcq_credit_card;
+                }
+            }
         }
 
         private void btnAddCoupon_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("add coupon");
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                arrcpcq tmp_arrcpcq = new arrcpcq
+                {
+                    id = -1,
+                    artrn_id = -1,
+                    cardnum = string.Empty,
+                    chqnum = string.Empty,
+                    bank_id = null,
+                    rcpnum = string.Empty,
+                    rcvamt = 0,
+                    userid = this.main_form.loged_in_status.loged_in_user_name
+                };
+
+                DialogCouponRcv rcv = new DialogCouponRcv(this.main_form, tmp_arrcpcq);
+                if (rcv.ShowDialog() == DialogResult.OK)
+                {
+                    this.tmp_artrn.arrcpcq.Add(tmp_arrcpcq);
+                }
+            }
         }
 
         //private List<stmasPriceVM> GetStmas(bool oil_only = true)
@@ -680,5 +757,24 @@ namespace XPump.SubForm
         public decimal unitpr { get; set; }
         public decimal trnval { get; set; }
 
+    }
+
+    public class ArrcpcqInvoice
+    {
+        public SccompDbf working_express_db { get; set; }
+        public arrcpcq arrcpcq { get; set; }
+        public string cardnum { get { return this.arrcpcq.cardnum; } }
+        public string bank
+        {
+            get
+            {
+                using (xpumpEntities db = DBX.DataSet(this.working_express_db))
+                {
+                    var bnk = db.istab.Where(i => i.id == this.arrcpcq.bank_id).FirstOrDefault();
+                    return bnk != null ? bnk.typcod + " : " + bnk.typdes : string.Empty;
+                }
+            }
+        }
+        public decimal rcvamt { get { return this.arrcpcq.rcvamt; } }
     }
 }

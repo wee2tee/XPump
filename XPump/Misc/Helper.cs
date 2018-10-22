@@ -2529,6 +2529,33 @@ namespace XPump.Misc
             return st;
         }
 
+        //public static ArrcpcqInvoice ToArrcpcqInvoice(this arrcpcq arrcpcq)
+        //{
+        //    if (arrcpcq == null)
+        //        return null;
+
+        //    ArrcpcqInvoice ar = new ArrcpcqInvoice
+        //    {
+        //        arrcpcq = arrcpcq,
+        //        cardnum = arrcpcq.cardnum,
+        //        rcvamt = arrcpcq.rcvamt
+        //    };
+
+        //    return ar;
+        //}
+
+        //public static List<ArrcpcqInvoice> ToArrcpcqInvoice(this IEnumerable<arrcpcq> arrcpcqs)
+        //{
+        //    List<ArrcpcqInvoice> ar = new List<ArrcpcqInvoice>();
+
+        //    foreach (var item in arrcpcqs)
+        //    {
+        //        ar.Add(item.ToArrcpcqInvoice());
+        //    }
+
+        //    return ar;
+        //}
+
         public static string GetNextDocnum(this IsrunDbf isrun, SccompDbf working_express_db)
         {
             //string next_docnum = isrun.prefix + "0000001";

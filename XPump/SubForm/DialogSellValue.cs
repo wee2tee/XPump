@@ -101,7 +101,7 @@ namespace XPump.SubForm
                 }
             }
 
-            if (keyData == Keys.F5)
+            if (keyData == Keys.F9)
             {
                 this.btnOK.PerformClick();
                 return true;

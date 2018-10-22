@@ -12,11 +12,13 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="rcpnum" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="cardnum" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="chqnum" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="rcvamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="userid" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="chgdat" Type="datetime" Precision="0" />
           <Property Name="artrn_id" Type="int" Nullable="false" />
-          <Property Name="istab_id" Type="int" />
+          <Property Name="bank_id" Type="int" />
+          <Property Name="rcv_method_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="artrn">
           <Key>
@@ -511,7 +513,19 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="arrcpcq">
-              <PropertyRef Name="istab_id" />
+              <PropertyRef Name="bank_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_arrcpcq_istab2">
+          <End Role="istab" Type="Self.istab" Multiplicity="1" />
+          <End Role="arrcpcq" Type="Self.arrcpcq" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="istab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="arrcpcq">
+              <PropertyRef Name="rcv_method_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -727,6 +741,10 @@
             <End Role="istab" EntitySet="istab" />
             <End Role="arrcpcq" EntitySet="arrcpcq" />
           </AssociationSet>
+          <AssociationSet Name="fk_arrcpcq_istab2" Association="Self.fk_arrcpcq_istab2">
+            <End Role="istab" EntitySet="istab" />
+            <End Role="arrcpcq" EntitySet="arrcpcq" />
+          </AssociationSet>
           <AssociationSet Name="fk_dother_dayend1" Association="Self.fk_dother_dayend1">
             <End Role="dayend" EntitySet="dayend" />
             <End Role="dother" EntitySet="dother" />
@@ -796,13 +814,16 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="rcpnum" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cardnum" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="chqnum" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="rcvamt" Type="Decimal" Nullable="false" />
           <Property Name="userid" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="chgdat" Type="DateTime" />
           <Property Name="artrn_id" Type="Int32" Nullable="false" />
-          <Property Name="istab_id" Type="Int32" />
+          <Property Name="bank_id" Type="Int32" />
+          <Property Name="rcv_method_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="artrn" Relationship="Self.fk_arrcpcq_artrn_id" FromRole="arrcpcq" ToRole="artrn" />
           <NavigationProperty Name="istab" Relationship="Self.fk_arrcpcq_istab1" FromRole="arrcpcq" ToRole="istab" />
+          <NavigationProperty Name="istab1" Relationship="Self.fk_arrcpcq_istab2" FromRole="arrcpcq" ToRole="istab" />
         </EntityType>
         <EntityType Name="artrn">
           <Key>
@@ -985,6 +1006,7 @@
           <Property Name="chgby" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="chgtime" Type="DateTime" />
           <NavigationProperty Name="arrcpcq" Relationship="Self.fk_arrcpcq_istab1" FromRole="istab" ToRole="arrcpcq" />
+          <NavigationProperty Name="arrcpcq1" Relationship="Self.fk_arrcpcq_istab2" FromRole="istab" ToRole="arrcpcq" />
           <NavigationProperty Name="dother" Relationship="Self.fk_dother_istab1" FromRole="istab" ToRole="dother" />
         </EntityType>
         <EntityType Name="nozzle">
@@ -1287,7 +1309,19 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="arrcpcq">
-              <PropertyRef Name="istab_id" />
+              <PropertyRef Name="bank_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_arrcpcq_istab2">
+          <End Role="istab" Type="Self.istab" Multiplicity="1" />
+          <End Role="arrcpcq" Type="Self.arrcpcq" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="istab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="arrcpcq">
+              <PropertyRef Name="rcv_method_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1535,6 +1569,10 @@
             <End Role="istab" EntitySet="istab" />
             <End Role="arrcpcq" EntitySet="arrcpcq" />
           </AssociationSet>
+          <AssociationSet Name="fk_arrcpcq_istab2" Association="Self.fk_arrcpcq_istab2">
+            <End Role="istab" EntitySet="istab" />
+            <End Role="arrcpcq" EntitySet="arrcpcq" />
+          </AssociationSet>
           <AssociationSet Name="fk_stcrd_artrn_id" Association="Self.fk_stcrd_artrn_id">
             <End Role="artrn" EntitySet="artrn" />
             <End Role="stcrd" EntitySet="stcrd" />
@@ -1620,11 +1658,13 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="rcpnum" ColumnName="rcpnum" />
                 <ScalarProperty Name="cardnum" ColumnName="cardnum" />
+                <ScalarProperty Name="chqnum" ColumnName="chqnum" />
                 <ScalarProperty Name="rcvamt" ColumnName="rcvamt" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="chgdat" ColumnName="chgdat" />
                 <ScalarProperty Name="artrn_id" ColumnName="artrn_id" />
-                <ScalarProperty Name="istab_id" ColumnName="istab_id" />
+                <ScalarProperty Name="bank_id" ColumnName="bank_id" />
+                <ScalarProperty Name="rcv_method_id" ColumnName="rcv_method_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

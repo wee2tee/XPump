@@ -35,6 +35,9 @@ namespace XPump.SubForm
         {
             this.EnsureRcvMethodIsReady();
             this.isrun_rcv_method = GetIsrunRcvMethodList(this.main_form.working_express_db);
+
+            this.pairingCreditCard._Items.Add(new XDropdownListItem { Text = string.Empty, Value = string.Empty });
+            this.pairingCoupon._Items.Add(new XDropdownListItem { Text = string.Empty, Value = string.Empty });
             this.isrun_rcv_method.ForEach(r =>
             {
                 this.pairingCoupon._Items.Add(new XDropdownListItem { Text = r.prefix + " : " + r.posdes, Value = r.prefix });
@@ -157,11 +160,23 @@ namespace XPump.SubForm
 
                 var selected_creditcard_pair = this.pairingCreditCard._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.tmpRcvCreditCard.shortnam.TrimEnd()).FirstOrDefault();
                 if (selected_creditcard_pair != null)
+                {
                     this.pairingCreditCard._SelectedItem = selected_creditcard_pair;
+                }
+                else
+                {
+                    this.pairingCreditCard._SelectedItem = this.pairingCreditCard._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString() == "").First();
+                }
 
                 var selected_coupon_pair = this.pairingCoupon._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.tmpRcvCoupon.shortnam.TrimEnd()).FirstOrDefault();
                 if (selected_coupon_pair != null)
+                {
                     this.pairingCoupon._SelectedItem = selected_coupon_pair;
+                }
+                else
+                {
+                    this.pairingCoupon._SelectedItem = this.pairingCoupon._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString() == "").First();
+                }
 
                 this.ResetFormState(FORM_MODE.EDIT);
                 this.pairingCreditCard.Focus();
@@ -177,11 +192,23 @@ namespace XPump.SubForm
 
                 var selected_creditcard_pair = this.pairingCreditCard._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.rcvCreditCard.shortnam.TrimEnd()).FirstOrDefault();
                 if (selected_creditcard_pair != null)
+                {
                     this.pairingCreditCard._SelectedItem = selected_creditcard_pair;
+                }
+                else
+                {
+                    this.pairingCreditCard._SelectedItem = this.pairingCreditCard._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString() == "").First();
+                }
 
                 var selected_coupon_pair = this.pairingCoupon._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.rcvCoupon.shortnam.TrimEnd()).FirstOrDefault();
                 if (selected_coupon_pair != null)
+                {
                     this.pairingCoupon._SelectedItem = selected_coupon_pair;
+                }
+                else
+                {
+                    this.pairingCoupon._SelectedItem = this.pairingCoupon._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString() == "").First();
+                }
 
                 this.tmpRcvCreditCard = null;
                 this.tmpRcvCoupon = null;
@@ -208,11 +235,23 @@ namespace XPump.SubForm
 
                     var selected_creditcard_pair = this.pairingCreditCard._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.rcvCreditCard.shortnam.TrimEnd()).FirstOrDefault();
                     if (selected_creditcard_pair != null)
+                    {
                         this.pairingCreditCard._SelectedItem = selected_creditcard_pair;
-
+                    }
+                    else
+                    {
+                        this.pairingCreditCard._SelectedItem = this.pairingCreditCard._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString() == "").First();
+                    }
+                        
                     var selected_coupon_pair = this.pairingCoupon._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString().TrimEnd() == this.rcvCoupon.shortnam.TrimEnd()).FirstOrDefault();
                     if (selected_coupon_pair != null)
+                    {
                         this.pairingCoupon._SelectedItem = selected_coupon_pair;
+                    }
+                    else
+                    {
+                        this.pairingCoupon._SelectedItem = this.pairingCoupon._Items.Cast<XDropdownListItem>().Where(i => i.Value.ToString() == "").First();
+                    }
 
                     this.tmpRcvCreditCard = null;
                     this.tmpRcvCoupon = null;

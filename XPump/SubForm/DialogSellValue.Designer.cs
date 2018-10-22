@@ -114,7 +114,7 @@
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(107, 34);
             this.btnOK.TabIndex = 2;
-            this.btnOK.Text = "ตกลง <F5>";
+            this.btnOK.Text = "ตกลง <F9>";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
             // btnCancel
