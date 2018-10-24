@@ -1054,6 +1054,7 @@
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
     <Content Include="Nozzle.ico" />
+    <None Include="Resources\close_gray_16.png" />
     <None Include="Resources\settings.png" />
     <None Include="Resources\rename2.png" />
     <None Include="Resources\db_search.png" />

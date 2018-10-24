@@ -106,6 +106,68 @@ namespace XPump
             this.SetMenuBehavior(this.menuStrip1.Items);
         }
 
+        private void SetMnuSellRecordSubMenu()
+        {
+            var mnu_hs = DbfTable.Isrun(this.working_express_db).ToIsrunList().Where(i => i.doctyp.TrimEnd() == "HS").OrderBy(i => i.prefix).ToList();
+            var mnu_iv = DbfTable.Isrun(this.working_express_db).ToIsrunList().Where(i => i.doctyp.TrimEnd() == "IV").OrderBy(i => i.prefix).ToList();
+
+            foreach (var hs in mnu_hs)
+            {
+                var mnu = new ToolStripMenuItem
+                {
+                    Text = hs.posdes,
+                    Name = "mnuHs" + hs.prefix.TrimEnd()
+                };
+                mnu.Click += delegate
+                {
+                    var existing_form = this.opened_child_form.Where(c => c.form.GetType() == typeof(FormSellRecord) && c.docPrefix == hs.prefix).FirstOrDefault();
+                    if (existing_form != null)
+                    {
+                        existing_form.form.WindowState = this.WindowState;
+                        existing_form.form.Activate();
+                    }
+                    else
+                    {
+                        var sfac = this.GetSubFormAccessControl(FormSellRecord.modcod);
+                        FormSellRecord form = new FormSellRecord(this, hs, sfac);
+                        form.MdiParent = this;
+                        form.Show();
+                        this.opened_child_form.Add(new ChildFormDetail { form = form, docPrefix = hs.prefix });
+                    }
+                };
+                this.mnuSellRecord.DropDownItems.Add(mnu);
+            }
+
+            this.mnuSellRecord.DropDownItems.Add(new ToolStripSeparator());
+
+            foreach (var iv in mnu_iv)
+            {
+                var mnu = new ToolStripMenuItem
+                {
+                    Text = iv.posdes,
+                    Name = "mnuIv" + iv.prefix.TrimEnd()
+                };
+                mnu.Click += delegate
+                {
+                    var existing_form = this.opened_child_form.Where(c => c.form.GetType() == typeof(FormSellRecord) && c.docPrefix == iv.prefix).FirstOrDefault();
+                    if (existing_form != null)
+                    {
+                        existing_form.form.WindowState = this.WindowState;
+                        existing_form.form.Activate();
+                    }
+                    else
+                    {
+                        var sfac = this.GetSubFormAccessControl(FormSellRecord.modcod);
+                        FormSellRecord form = new FormSellRecord(this, iv, sfac);
+                        form.MdiParent = this;
+                        form.Show();
+                        this.opened_child_form.Add(new ChildFormDetail { form = form, docPrefix = iv.prefix });
+                    }
+                };
+                this.mnuSellRecord.DropDownItems.Add(mnu);
+            }
+        }
+
         private void MainForm_Shown(object sender, EventArgs e)
         {
             // CREATE MYSQL DB FOR STORING SECURE DATA
@@ -171,6 +233,8 @@ namespace XPump
                 /* Getting Department */
                 //var x = DbfTable.Istab(this.working_express_db).ToIstabList().Where(t => t.tabtyp == "50").ToList();
                 //Console.WriteLine(x.Count());
+
+                this.SetMnuSellRecordSubMenu();
             }
         }
 
@@ -204,19 +268,19 @@ namespace XPump
 
         private void mnuSellRecord_Click(object sender, EventArgs e)
         {
-            if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSellRecord)).FirstOrDefault() != null)
-            {
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSellRecord)).First().form.Activate();
-                this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSellRecord)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-                return;
-            }
+            //if(this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSellRecord)).FirstOrDefault() != null)
+            //{
+            //    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSellRecord)).First().form.Activate();
+            //    this.opened_child_form.Where(f => f.form.GetType() == typeof(FormSellRecord)).First().form.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            //    return;
+            //}
 
-            var sfac = this.GetSubFormAccessControl(FormSellRecord.modcod);
-            FormSellRecord sell = new FormSellRecord(this, sfac);
-            sell.MdiParent = this;
-            sell.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
-            sell.Show();
-            this.opened_child_form.Add(new ChildFormDetail { form = sell, docPrefix = string.Empty });
+            //var sfac = this.GetSubFormAccessControl(FormSellRecord.modcod);
+            //FormSellRecord sell = new FormSellRecord(this, null, sfac);
+            //sell.MdiParent = this;
+            //sell.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            //sell.Show();
+            //this.opened_child_form.Add(new ChildFormDetail { form = sell, docPrefix = string.Empty });
         }
 
         private void MnuShift_Click(object sender, EventArgs e)

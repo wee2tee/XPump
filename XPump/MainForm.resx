@@ -2173,6 +2173,18 @@
   <data name="&gt;&gt;mnuStkgrp.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;mnuBank.Name" xml:space="preserve">
+    <value>mnuBank</value>
+  </data>
+  <data name="&gt;&gt;mnuBank.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuRcvMethod.Name" xml:space="preserve">
+    <value>mnuRcvMethod</value>
+  </data>
+  <data name="&gt;&gt;mnuRcvMethod.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;mnuOther.Name" xml:space="preserve">
     <value>mnuOther</value>
   </data>
@@ -2280,18 +2292,6 @@
   </data>
   <data name="&gt;&gt;lblVersion.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mnuBank.Name" xml:space="preserve">
-    <value>mnuBank</value>
-  </data>
-  <data name="&gt;&gt;mnuBank.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mnuRcvMethod.Name" xml:space="preserve">
-    <value>mnuRcvMethod</value>
-  </data>
-  <data name="&gt;&gt;mnuRcvMethod.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

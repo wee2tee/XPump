@@ -45,6 +45,8 @@
             this.mnuIstab = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDotherMessage = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuStkgrp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuBank = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRcvMethod = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuOther = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDataManage = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBackup = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,8 +66,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.mnuBank = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuRcvMethod = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -189,6 +189,18 @@
             this.mnuStkgrp.Name = "mnuStkgrp";
             resources.ApplyResources(this.mnuStkgrp, "mnuStkgrp");
             this.mnuStkgrp.Click += new System.EventHandler(this.mnuStkgrp_Click);
+            // 
+            // mnuBank
+            // 
+            this.mnuBank.Name = "mnuBank";
+            resources.ApplyResources(this.mnuBank, "mnuBank");
+            this.mnuBank.Click += new System.EventHandler(this.mnuBank_Click);
+            // 
+            // mnuRcvMethod
+            // 
+            this.mnuRcvMethod.Name = "mnuRcvMethod";
+            resources.ApplyResources(this.mnuRcvMethod, "mnuRcvMethod");
+            this.mnuRcvMethod.Click += new System.EventHandler(this.mnuRcvMethod_Click);
             // 
             // mnuOther
             // 
@@ -330,18 +342,6 @@
             this.lblVersion.Name = "lblVersion";
             resources.ApplyResources(this.lblVersion, "lblVersion");
             this.lblVersion.Spring = true;
-            // 
-            // mnuBank
-            // 
-            this.mnuBank.Name = "mnuBank";
-            resources.ApplyResources(this.mnuBank, "mnuBank");
-            this.mnuBank.Click += new System.EventHandler(this.mnuBank_Click);
-            // 
-            // mnuRcvMethod
-            // 
-            this.mnuRcvMethod.Name = "mnuRcvMethod";
-            resources.ApplyResources(this.mnuRcvMethod, "mnuRcvMethod");
-            this.mnuRcvMethod.Click += new System.EventHandler(this.mnuRcvMethod_Click);
             // 
             // MainForm
             // 

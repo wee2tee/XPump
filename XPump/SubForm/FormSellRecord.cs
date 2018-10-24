@@ -32,9 +32,10 @@ namespace XPump.SubForm
         private artrn curr_artrn = null;
         private nozzle curr_nozzle = null;
 
-        public FormSellRecord(MainForm main_form, scacclvVM scacclv)
+        public FormSellRecord(MainForm main_form, IsrunDbf isrun_doc_prefix, scacclvVM scacclv)
         {
             this.main_form = main_form;
+            this.curr_docprefix = isrun_doc_prefix;
             this.scacclv = scacclv;
             InitializeComponent();
         }
@@ -44,10 +45,15 @@ namespace XPump.SubForm
             this.BackColor = MiscResource.WIND_BG;
 
             this.cCuscod._DataPath = this.main_form.working_express_db.abs_path;
-            this.curr_docprefix = this.GetIsrunInvoiceDoc().Where(i => i.doctyp.TrimEnd() == "HS").First();
             this.LoadStmasDgv();
             this.lblDocType.Text = this.curr_docprefix.prefix + " : " + this.curr_docprefix.posdes;
             this.ResetFormState(FORM_MODE.READ);
+
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.docnum.Substring(0, 2) == this.curr_docprefix.prefix).OrderByDescending(a => a.docnum).FirstOrDefault();
+                this.FillForm(this.curr_artrn);
+            }
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -76,7 +82,7 @@ namespace XPump.SubForm
             this.btnRefresh.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
 
             this.btnManageStkgrp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
-            this.btnChangeDocTyp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            //this.btnChangeDocTyp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.cCuscod.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.cDocdat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.btnAddCreditCard.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
@@ -120,6 +126,20 @@ namespace XPump.SubForm
 
             this.stcrd = new BindingList<StcrdInvoice>(artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
             this.dgvStcrd.DataSource = this.stcrd;
+
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                int credit_card_id = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CR").First().id;
+                int coupon_id = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CP").First().id;
+
+                var rcv_credit_card_list = artrn.arrcpcq.Where(i => i.rcv_method_id == credit_card_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
+                this.arrcpcq_credit_card = new BindingList<ArrcpcqInvoice>(rcv_credit_card_list);
+                this.dgvRcv1.DataSource = this.arrcpcq_credit_card;
+
+                var rcv_coupon_list = artrn.arrcpcq.Where(i => i.rcv_method_id == coupon_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
+                this.arrcpcq_coupon = new BindingList<ArrcpcqInvoice>(rcv_coupon_list);
+                this.dgvRcv2.DataSource = this.arrcpcq_coupon;
+            }
         }
 
         private List<StmasDbfPrice> GetStmasDbfPrice(STKGRP[] stkgroups)
@@ -328,43 +348,71 @@ namespace XPump.SubForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            List<XDropdownListItem> items = new List<XDropdownListItem>();
-            this.GetIsrunInvoiceDoc().ForEach(i => items.Add(new XDropdownListItem { Text = i.prefix.TrimEnd() + " : " + i.posdes.TrimEnd(), Value = i }));
-            DialogDropdownlistSelector dr = new DialogDropdownlistSelector("เลือกประเภทรายการขาย", "ประเภทการขาย", items, this.curr_docprefix);
-            if (dr.ShowDialog() == DialogResult.OK)
+            //List<XDropdownListItem> items = new List<XDropdownListItem>();
+            //this.GetIsrunInvoiceDoc().ForEach(i => items.Add(new XDropdownListItem { Text = i.prefix.TrimEnd() + " : " + i.posdes.TrimEnd(), Value = i }));
+            //DialogDropdownlistSelector dr = new DialogDropdownlistSelector("เลือกประเภทรายการขาย", "ประเภทการขาย", items, this.curr_docprefix);
+            //if (dr.ShowDialog() == DialogResult.OK)
+            //{
+            //    this.lblDocType.Text = dr.selected_item.Text;
+            //    this.curr_docprefix = (IsrunDbf)dr.selected_item.Value;
+
+            //    this.tabRcv.SelectedTab = this.tabCreditCard;
+            //    this.panelRcv.Enabled = this.curr_docprefix.doctyp == "HS" ? true : false;
+
+            //    this.tmp_artrn = new artrn
+            //    {
+            //        rectyp = this.curr_docprefix.doctyp.TrimEnd() == "HS" ? "1" : (this.curr_docprefix.doctyp.TrimEnd() == "IV" ? "3" : ""),
+            //        docnum = this.curr_docprefix + "**NEW**",
+            //        docdat = DateTime.Now,
+            //        depcod = this.curr_docprefix.depcod,
+            //        flgvat = this.curr_docprefix.flgvat,
+            //        duedat = DateTime.Now,
+            //        bilnum = "~",
+            //        vatrat = this.curr_docprefix.vatrat,
+            //        docstat = "N",
+            //        srv_vattyp = this.curr_docprefix.srv_vattyp != "" ? this.curr_docprefix.srv_vattyp : "-",
+            //        creby = this.main_form.loged_in_status.loged_in_user_name,
+            //        credat = DateTime.Now,
+            //        userid = this.main_form.loged_in_status.loged_in_user_name,
+            //        chgdat = DateTime.Now,
+            //        cmplapp = this.curr_docprefix.doctyp == "HS" ? "Y" : "N",
+            //        cmpldat = this.curr_docprefix.doctyp == "HS" ? (DateTime?)DateTime.Now : null
+            //        //stcrd = new List<stcrd> { new stcrd { stkcod = "01-INTL-CL-600" }, new stcrd { stkcod = "01-INTL-PT-750" } }
+            //    };
+
+            //    this.ResetFormState(FORM_MODE.ADD);
+            //    this.FillForm(this.tmp_artrn);
+
+            //    this.cCuscod.Focus();
+            //}
+
+            this.tabRcv.SelectedTab = this.tabCreditCard;
+            this.panelRcv.Enabled = this.curr_docprefix.doctyp == "HS" ? true : false;
+
+            this.tmp_artrn = new artrn
             {
-                this.lblDocType.Text = dr.selected_item.Text;
-                this.curr_docprefix = (IsrunDbf)dr.selected_item.Value;
+                rectyp = this.curr_docprefix.doctyp.TrimEnd() == "HS" ? "1" : (this.curr_docprefix.doctyp.TrimEnd() == "IV" ? "3" : ""),
+                docnum = this.curr_docprefix + "**NEW**",
+                docdat = DateTime.Now,
+                depcod = this.curr_docprefix.depcod,
+                flgvat = this.curr_docprefix.flgvat,
+                duedat = DateTime.Now,
+                bilnum = "~",
+                vatrat = this.curr_docprefix.vatrat,
+                docstat = "N",
+                srv_vattyp = this.curr_docprefix.srv_vattyp != "" ? this.curr_docprefix.srv_vattyp : "-",
+                creby = this.main_form.loged_in_status.loged_in_user_name,
+                credat = DateTime.Now,
+                userid = this.main_form.loged_in_status.loged_in_user_name,
+                chgdat = DateTime.Now,
+                cmplapp = this.curr_docprefix.doctyp == "HS" ? "Y" : "N",
+                cmpldat = this.curr_docprefix.doctyp == "HS" ? (DateTime?)DateTime.Now : null
+            };
 
-                this.tabRcv.SelectedTab = this.tabCreditCard;
-                this.panelRcv.Enabled = this.curr_docprefix.doctyp == "HS" ? true : false;
+            this.ResetFormState(FORM_MODE.ADD);
+            this.FillForm(this.tmp_artrn);
 
-                this.tmp_artrn = new artrn
-                {
-                    rectyp = this.curr_docprefix.doctyp.TrimEnd() == "HS" ? "1" : (this.curr_docprefix.doctyp.TrimEnd() == "IV" ? "3" : ""),
-                    docnum = this.curr_docprefix + "**NEW**",
-                    docdat = DateTime.Now,
-                    depcod = this.curr_docprefix.depcod,
-                    flgvat = this.curr_docprefix.flgvat,
-                    duedat = DateTime.Now,
-                    bilnum = "~",
-                    vatrat = this.curr_docprefix.vatrat,
-                    docstat = "N",
-                    srv_vattyp = this.curr_docprefix.srv_vattyp != "" ? this.curr_docprefix.srv_vattyp : "-",
-                    creby = this.main_form.loged_in_status.loged_in_user_name,
-                    credat = DateTime.Now,
-                    userid = this.main_form.loged_in_status.loged_in_user_name,
-                    chgdat = DateTime.Now,
-                    cmplapp = this.curr_docprefix.doctyp == "HS" ? "Y" : "N",
-                    cmpldat = this.curr_docprefix.doctyp == "HS" ? (DateTime?)DateTime.Now : null
-                    //stcrd = new List<stcrd> { new stcrd { stkcod = "01-INTL-CL-600" }, new stcrd { stkcod = "01-INTL-PT-750" } }
-                };
-
-                this.ResetFormState(FORM_MODE.ADD);
-                this.FillForm(this.tmp_artrn);
-
-                this.cCuscod.Focus();
-            }
+            this.cCuscod.Focus();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -382,9 +430,12 @@ namespace XPump.SubForm
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            this.ResetFormState(FORM_MODE.READ);
-            this.tmp_artrn = null;
-            this.FillForm(this.curr_artrn);
+            if(XMessageBox.Show("ยกเลิกการเพิ่ม/แก้ไขข้อมูล, ทำต่อหรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
+            {
+                this.ResetFormState(FORM_MODE.READ);
+                this.tmp_artrn = null;
+                this.FillForm(this.curr_artrn);
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -437,7 +488,7 @@ namespace XPump.SubForm
                         //{
                         //    XMessageBox.Show("การกำหนดเลขที่เอกสารถัดไปใน isrun ยังไม่ถูกต้อง");
                         //}
-                        this.curr_artrn = db.artrn.Include("stcrd").Where(a => a.id == this.tmp_artrn.id).FirstOrDefault();
+                        this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.tmp_artrn.id).FirstOrDefault();
                         this.FillForm(this.curr_artrn);
                         this.ResetFormState(FORM_MODE.READ);
                     }
@@ -493,16 +544,7 @@ namespace XPump.SubForm
 
         private void btnChangeDocTyp_Click(object sender, EventArgs e)
         {
-            List<XDropdownListItem> items = new List<XDropdownListItem>();
-            this.GetIsrunInvoiceDoc().ForEach(i => items.Add(new XDropdownListItem { Text = i.prefix.TrimEnd() + " : " + i.posdes.TrimEnd(), Value = i }));
-            DialogDropdownlistSelector dr = new DialogDropdownlistSelector("เลือกประเภทรายการขาย", "ประเภทการขาย", items, this.curr_docprefix);
-            if (dr.ShowDialog() == DialogResult.OK)
-            {
-                this.lblDocType.Text = dr.selected_item.Text;
-                this.curr_docprefix = (IsrunDbf)dr.selected_item.Value;
-                this.tabRcv.SelectedTab = this.tabCreditCard;
-                this.panelRcv.Enabled = this.curr_docprefix.doctyp == "HS" ? true : false;
-            }
+            
         }
 
         private void cCuscod__SelectedCuscodChanged(object sender, EventArgs e)
@@ -563,15 +605,67 @@ namespace XPump.SubForm
             {
                 if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_edit.Name)
                 {
-                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                    e.Graphics.DrawImage(XPump.Properties.Resources.edit_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_16.Width, XPump.Properties.Resources.edit_16.Height));
+                    if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                    {
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                        e.Graphics.DrawImage(XPump.Properties.Resources.edit_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_16.Width, XPump.Properties.Resources.edit_16.Height));
+                    }
+                    else
+                    {
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border);
+                        e.Graphics.DrawImage(XPump.Properties.Resources.edit_gray_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_gray_16.Width, XPump.Properties.Resources.edit_gray_16.Height));
+                    }
                     e.Handled = true;
                 }
 
                 if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
                 {
-                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                    e.Graphics.DrawImage(XPump.Properties.Resources.close_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.close_16.Width, XPump.Properties.Resources.close_16.Height));
+                    if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                    {
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                        e.Graphics.DrawImage(XPump.Properties.Resources.close_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.close_16.Width, XPump.Properties.Resources.close_16.Height));
+                    }
+                    else
+                    {
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border);
+                        e.Graphics.DrawImage(XPump.Properties.Resources.close_gray_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.close_gray_16.Width, XPump.Properties.Resources.close_gray_16.Height));
+                    }
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void dgvRcv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv1_edit.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv2_edit.Name)
+                {
+                    if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                    {
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                        e.Graphics.DrawImage(XPump.Properties.Resources.edit_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_16.Width, XPump.Properties.Resources.edit_16.Height));
+                    }
+                    else
+                    {
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border);
+                        e.Graphics.DrawImage(XPump.Properties.Resources.edit_gray_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_gray_16.Width, XPump.Properties.Resources.edit_gray_16.Height));
+                    }
+                    e.Handled = true;
+                }
+
+                if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv1_delete.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv2_delete.Name)
+                {
+                    if (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                    {
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                        e.Graphics.DrawImage(XPump.Properties.Resources.close_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.close_16.Width, XPump.Properties.Resources.close_16.Height));
+                    }
+                    else
+                    {
+                        e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border);
+                        e.Graphics.DrawImage(XPump.Properties.Resources.close_gray_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.close_gray_16.Width, XPump.Properties.Resources.close_gray_16.Height));
+                    }
                     e.Handled = true;
                 }
             }
@@ -735,6 +829,11 @@ namespace XPump.SubForm
                 if (rcv.ShowDialog() == DialogResult.OK)
                 {
                     this.tmp_artrn.arrcpcq.Add(tmp_arrcpcq);
+
+                    var rcv_list = this.tmp_artrn.arrcpcq.Where(i => i.rcv_method_id == tmp_arrcpcq.rcv_method_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
+                    this.arrcpcq_coupon = new BindingList<ArrcpcqInvoice>(rcv_list);
+
+                    this.dgvRcv2.DataSource = this.arrcpcq_coupon;
                 }
             }
         }
