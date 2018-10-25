@@ -639,20 +639,20 @@ namespace XPump.SubForm
         {
             if (e.RowIndex > -1)
             {
-                if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv1_edit.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv2_edit.Name)
-                {
-                    if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
-                    {
-                        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                        e.Graphics.DrawImage(XPump.Properties.Resources.edit_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_16.Width, XPump.Properties.Resources.edit_16.Height));
-                    }
-                    else
-                    {
-                        e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border);
-                        e.Graphics.DrawImage(XPump.Properties.Resources.edit_gray_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_gray_16.Width, XPump.Properties.Resources.edit_gray_16.Height));
-                    }
-                    e.Handled = true;
-                }
+                //if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv1_edit.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv2_edit.Name)
+                //{
+                //    if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                //    {
+                //        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                //        e.Graphics.DrawImage(XPump.Properties.Resources.edit_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_16.Width, XPump.Properties.Resources.edit_16.Height));
+                //    }
+                //    else
+                //    {
+                //        e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border);
+                //        e.Graphics.DrawImage(XPump.Properties.Resources.edit_gray_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_gray_16.Width, XPump.Properties.Resources.edit_gray_16.Height));
+                //    }
+                //    e.Handled = true;
+                //}
 
                 if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv1_delete.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv2_delete.Name)
                 {
@@ -660,11 +660,19 @@ namespace XPump.SubForm
                     {
                         e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                         e.Graphics.DrawImage(XPump.Properties.Resources.close_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.close_16.Width, XPump.Properties.Resources.close_16.Height));
+                        using (SolidBrush brush = new SolidBrush(Color.Red))
+                        {
+                            e.Graphics.DrawString("ลบ", ((XDatagrid)sender).DefaultCellStyle.Font, brush, new Rectangle(e.CellBounds.X + XPump.Properties.Resources.close_16.Width + 7, e.CellBounds.Y + 3, e.CellBounds.Width - XPump.Properties.Resources.close_16.Width, e.CellBounds.Height));
+                        }
                     }
                     else
                     {
                         e.Paint(e.CellBounds, DataGridViewPaintParts.Background | DataGridViewPaintParts.Border);
                         e.Graphics.DrawImage(XPump.Properties.Resources.close_gray_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.close_gray_16.Width, XPump.Properties.Resources.close_gray_16.Height));
+                        using (SolidBrush brush = new SolidBrush(Color.DarkGray))
+                        {
+                            e.Graphics.DrawString("ลบ", ((XDatagrid)sender).DefaultCellStyle.Font, brush, new Rectangle(e.CellBounds.X + XPump.Properties.Resources.close_16.Width + 7, e.CellBounds.Y + 3, e.CellBounds.Width - XPump.Properties.Resources.close_16.Width, e.CellBounds.Height));
+                        }
                     }
                     e.Handled = true;
                 }
@@ -774,6 +782,26 @@ namespace XPump.SubForm
             }
         }
 
+        private void dgvRcv1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex > -1 && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT))
+            {
+                if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv1_delete.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_rcv1_delete.Name)
+                {
+                    ((XDatagrid)sender).Rows[e.RowIndex].DrawDeletingRowOverlay();
+
+                    if(XMessageBox.Show("ลบรายการนี้หรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
+                    {
+
+                    }
+                    else
+                    {
+                        ((XDatagrid)sender).Rows[e.RowIndex].ClearDeletingRowOverlay();
+                    }
+                }
+            }
+        }
+
         private void cNozzle__TextChanged(object sender, EventArgs e)
         {
             if (this.tmp_artrn != null)
@@ -800,7 +828,10 @@ namespace XPump.SubForm
                 if (rcv.ShowDialog() == DialogResult.OK)
                 {
                     this.tmp_artrn.arrcpcq.Add(tmp_arrcpcq);
+                    this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+                    this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
 
+                    this.cCshrcv._Value = this.tmp_artrn.cshrcv;
                     var rcv_list = this.tmp_artrn.arrcpcq.Where(i => i.rcv_method_id == tmp_arrcpcq.rcv_method_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
                     this.arrcpcq_credit_card = new BindingList<ArrcpcqInvoice>(rcv_list);
 
@@ -829,13 +860,22 @@ namespace XPump.SubForm
                 if (rcv.ShowDialog() == DialogResult.OK)
                 {
                     this.tmp_artrn.arrcpcq.Add(tmp_arrcpcq);
+                    this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+                    this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
 
+                    this.cCshrcv._Value = this.tmp_artrn.cshrcv;
                     var rcv_list = this.tmp_artrn.arrcpcq.Where(i => i.rcv_method_id == tmp_arrcpcq.rcv_method_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
                     this.arrcpcq_coupon = new BindingList<ArrcpcqInvoice>(rcv_list);
 
                     this.dgvRcv2.DataSource = this.arrcpcq_coupon;
                 }
             }
+        }
+
+        private void btnRcvOther_Click(object sender, EventArgs e)
+        {
+            DialogRcv rcv = new DialogRcv(this.main_form, this.curr_artrn);
+            rcv.ShowDialog();
         }
 
         //private List<stmasPriceVM> GetStmas(bool oil_only = true)

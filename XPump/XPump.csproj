@@ -437,6 +437,12 @@
     <Compile Include="SubForm\DialogPrintSetupC.Designer.cs">
       <DependentUpon>DialogPrintSetupC.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogRcv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogRcv.Designer.cs">
+      <DependentUpon>DialogRcv.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogRestoreData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -756,6 +762,9 @@
     <EmbeddedResource Include="SubForm\DialogPrintSetupC.resx">
       <DependentUpon>DialogPrintSetupC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogRcv.resx">
+      <DependentUpon>DialogRcv.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogRestoreData.en-US.resx">
       <DependentUpon>DialogRestoreData.cs</DependentUpon>
     </EmbeddedResource>
@@ -1054,6 +1063,7 @@
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
     <Content Include="Nozzle.ico" />
+    <None Include="Resources\plus.png" />
     <None Include="Resources\close_gray_16.png" />
     <None Include="Resources\settings.png" />
     <None Include="Resources\rename2.png" />

@@ -26,6 +26,7 @@ namespace XPump.SubForm
 
         private void DialogCreditCardRcv_Load(object sender, EventArgs e)
         {
+            this.ActiveControl = this.creditCardNum;
             this.LoadBankCodeToCombobox();
 
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
@@ -42,7 +43,8 @@ namespace XPump.SubForm
                 }
 
                 this.arrcpcq.rcv_method_id = istab_cr.id;
-                this.arrcpcq.chqnum = istab_cr.shortnam;
+                this.arrcpcq.chqnum = istab_cr.shortnam + this.arrcpcq.rcpnum;
+                this.chqnum.Text = this.arrcpcq.chqnum;
             }
 
             this.creditCardNum.Text = this.arrcpcq.cardnum;
