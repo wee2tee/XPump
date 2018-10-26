@@ -25,6 +25,8 @@ namespace XPump.SubForm
 
         private void DialogCouponRcv_Load(object sender, EventArgs e)
         {
+            this.ActiveControl = this.couponNum;
+
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 var istab_cr = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CP").FirstOrDefault();
@@ -39,7 +41,8 @@ namespace XPump.SubForm
                 }
 
                 this.arrcpcq.rcv_method_id = istab_cr.id;
-                this.arrcpcq.chqnum = istab_cr.shortnam;
+                this.arrcpcq.chqnum = istab_cr.shortnam + this.arrcpcq.rcpnum;
+                this.chqnum.Text = this.arrcpcq.chqnum;
             }
 
             this.couponNum.Text = this.arrcpcq.cardnum;
@@ -55,6 +58,11 @@ namespace XPump.SubForm
             {
                 this.btnOK.Enabled = false;
             }
+        }
+
+        private void rcvAmount_Enter(object sender, EventArgs e)
+        {
+            ((NumericUpDown)sender).Select(string.Format("{0:N0}", ((NumericUpDown)sender).Value).Length, 0);
         }
 
         private void couponNum_TextChanged(object sender, EventArgs e)

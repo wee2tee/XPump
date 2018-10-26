@@ -99,6 +99,11 @@ namespace XPump.SubForm
             this.arrcpcq.bank_id = (int?)((XDropdownListItem)((ComboBox)sender).SelectedItem).Value;
         }
 
+        private void rcvAmount_Enter(object sender, EventArgs e)
+        {
+            ((NumericUpDown)sender).Select(string.Format("{0:N0}", ((NumericUpDown)sender).Value).Length, 0);
+        }
+
         private void rcvAmount_KeyUp(object sender, KeyEventArgs e)
         {
             this.arrcpcq.rcvamt = ((NumericUpDown)sender).Value;

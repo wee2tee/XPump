@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chqnum = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.bnkCod = new System.Windows.Forms.ComboBox();
             this.creditCardNum = new System.Windows.Forms.MaskedTextBox();
             this.rcvAmount = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.chqnum = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rcvAmount)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +63,14 @@
             this.groupBox1.Size = new System.Drawing.Size(478, 160);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // chqnum
+            // 
+            this.chqnum.Location = new System.Drawing.Point(145, 25);
+            this.chqnum.MaxLength = 12;
+            this.chqnum.Name = "chqnum";
+            this.chqnum.Size = new System.Drawing.Size(127, 23);
+            this.chqnum.TabIndex = 0;
             // 
             // linkLabel1
             // 
@@ -109,7 +117,7 @@
             this.rcvAmount.Size = new System.Drawing.Size(117, 23);
             this.rcvAmount.TabIndex = 3;
             this.rcvAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.rcvAmount.ThousandsSeparator = true;
+            this.rcvAmount.Enter += new System.EventHandler(this.rcvAmount_Enter);
             this.rcvAmount.KeyUp += new System.Windows.Forms.KeyEventHandler(this.rcvAmount_KeyUp);
             this.rcvAmount.Leave += new System.EventHandler(this.rcvAmount_Leave);
             // 
@@ -132,6 +140,16 @@
             this.label2.Size = new System.Drawing.Size(61, 16);
             this.label2.TabIndex = 0;
             this.label2.Text = "จำนวนเงิน";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label4.Location = new System.Drawing.Point(47, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(90, 16);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "เลขรหัสรายการ";
             // 
             // label1
             // 
@@ -165,24 +183,6 @@
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "ยกเลิก <Esc>";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label4.Location = new System.Drawing.Point(47, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 16);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "เลขรหัสรายการ";
-            // 
-            // chqnum
-            // 
-            this.chqnum.Location = new System.Drawing.Point(145, 25);
-            this.chqnum.MaxLength = 12;
-            this.chqnum.Name = "chqnum";
-            this.chqnum.Size = new System.Drawing.Size(127, 23);
-            this.chqnum.TabIndex = 0;
             // 
             // DialogCreditCardRcv
             // 

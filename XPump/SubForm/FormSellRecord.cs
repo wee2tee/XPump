@@ -28,6 +28,7 @@ namespace XPump.SubForm
         private BindingList<ArrcpcqInvoice> arrcpcq_coupon;
         private FORM_MODE form_mode;
         private artrn tmp_artrn = null;
+        private arrcpcq tmp_arrcpcq;
         private IsrunDbf curr_docprefix = null;
         private artrn curr_artrn = null;
         private nozzle curr_nozzle = null;
@@ -43,6 +44,8 @@ namespace XPump.SubForm
         private void FormSellRecord_Load(object sender, EventArgs e)
         {
             this.BackColor = MiscResource.WIND_BG;
+            this.HideInlineForm();
+            this.LoadRcvBankDropdownList();
 
             this.cCuscod._DataPath = this.main_form.working_express_db.abs_path;
             this.LoadStmasDgv();
@@ -85,8 +88,8 @@ namespace XPump.SubForm
             //this.btnChangeDocTyp.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.cCuscod.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             this.cDocdat.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
-            this.btnAddCreditCard.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
-            this.btnAddCoupon.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
+            this.btnAddCreditCard.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnAddCoupon.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             //this.cNozzle.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
             //this.cCshrcv.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT }, this.form_mode);
         }
@@ -94,6 +97,18 @@ namespace XPump.SubForm
         private List<IsrunDbf> GetIsrunInvoiceDoc()
         {
             return DbfTable.Isrun(this.main_form.working_express_db).ToIsrunList().Where(i => i.doctyp.TrimEnd() == "IV" || i.doctyp.TrimEnd() == "HS").OrderBy(i => i.doctyp).ThenBy(i => i.prefix).ToList();
+        }
+
+        private void LoadRcvBankDropdownList()
+        {
+            this.inlineBank._Items.Add(new XDropdownListItem { Text = string.Empty, Value = null });
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                foreach (var item in db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.BANK).OrderBy(i => i.typcod))
+                {
+                    this.inlineBank._Items.Add(new XDropdownListItem { Text = item.typcod + " : " + item.typdes });
+                }
+            }
         }
 
         private void LoadStmasDgv()
@@ -810,72 +825,210 @@ namespace XPump.SubForm
 
         private void btnAddCreditCard_Click(object sender, EventArgs e)
         {
+            //using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            //{
+            //    arrcpcq tmp_arrcpcq = new arrcpcq
+            //    {
+            //        id = -1,
+            //        artrn_id = -1,
+            //        cardnum = string.Empty,
+            //        chqnum = string.Empty,
+            //        bank_id = null,
+            //        rcpnum = string.Empty,
+            //        rcvamt = 0,
+            //        userid = this.main_form.loged_in_status.loged_in_user_name
+            //    };
+
+            //    DialogCreditCardRcv rcv = new DialogCreditCardRcv(this.main_form, tmp_arrcpcq);
+            //    if (rcv.ShowDialog() == DialogResult.OK)
+            //    {
+            //        this.tmp_artrn.arrcpcq.Add(tmp_arrcpcq);
+            //        this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+            //        this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+
+            //        this.cCshrcv._Value = this.tmp_artrn.cshrcv;
+            //        var rcv_list = this.tmp_artrn.arrcpcq.Where(i => i.rcv_method_id == tmp_arrcpcq.rcv_method_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
+            //        this.arrcpcq_credit_card = new BindingList<ArrcpcqInvoice>(rcv_list);
+
+            //        this.dgvRcv1.DataSource = this.arrcpcq_credit_card;
+            //    }
+            //}
+
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                arrcpcq tmp_arrcpcq = new arrcpcq
+                istab credit_card_method = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CR").FirstOrDefault();
+                if(credit_card_method == null)
+                {
+                    XMessageBox.Show("ยังไม่ได้กำหนดวิธีการรับชำระด้วยบัตรเครดิต", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                    return;
+                }
+
+                if(credit_card_method.shortnam.Trim().Length == 0)
+                {
+                    XMessageBox.Show("ท่านจะต้องกำหนดวิธีการรับชำระโดยจับคู่กับวิธีการรับชำระในโปรแกรมเอ็กซ์เพรสให้เรียบร้อยก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                    var rcv_method_form = new FormRcvMethod(this.main_form);
+                    rcv_method_form.ShowDialog();
+                    return;
+                }
+
+                this.tmp_arrcpcq = new arrcpcq
                 {
                     id = -1,
                     artrn_id = -1,
                     cardnum = string.Empty,
-                    chqnum = string.Empty,
+                    chqnum = credit_card_method.shortnam + this.curr_artrn.docnum,
                     bank_id = null,
                     rcpnum = string.Empty,
                     rcvamt = 0,
+                    rcv_method_id = credit_card_method.id,
                     userid = this.main_form.loged_in_status.loged_in_user_name
                 };
 
-                DialogCreditCardRcv rcv = new DialogCreditCardRcv(this.main_form, tmp_arrcpcq);
-                if (rcv.ShowDialog() == DialogResult.OK)
-                {
-                    this.tmp_artrn.arrcpcq.Add(tmp_arrcpcq);
-                    this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
-                    this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
-
-                    this.cCshrcv._Value = this.tmp_artrn.cshrcv;
-                    var rcv_list = this.tmp_artrn.arrcpcq.Where(i => i.rcv_method_id == tmp_arrcpcq.rcv_method_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
-                    this.arrcpcq_credit_card = new BindingList<ArrcpcqInvoice>(rcv_list);
-
-                    this.dgvRcv1.DataSource = this.arrcpcq_credit_card;
-                }
+                ((BindingList<ArrcpcqInvoice>)this.dgvRcv1.DataSource).Add(new ArrcpcqInvoice { arrcpcq = this.tmp_arrcpcq, working_express_db = this.main_form.working_express_db });
+                this.dgvRcv1.Refresh();
+                this.dgvRcv1.Rows.Cast<DataGridViewRow>().Where(r => ((arrcpcq)r.Cells[this.col_rcv1_arrcpcq.Name].Value).id == -1).First().Cells[this.col_rcv1_chqnum.Name].Selected = true;
+                this.ShowInlineRcvForm();
+                this.inlineCardNo.Focus();
             }
         }
 
         private void btnAddCoupon_Click(object sender, EventArgs e)
         {
+            //using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            //{
+            //    arrcpcq tmp_arrcpcq = new arrcpcq
+            //    {
+            //        id = -1,
+            //        artrn_id = -1,
+            //        cardnum = string.Empty,
+            //        chqnum = string.Empty,
+            //        bank_id = null,
+            //        rcpnum = string.Empty,
+            //        rcvamt = 0,
+            //        userid = this.main_form.loged_in_status.loged_in_user_name
+            //    };
+
+            //    DialogCouponRcv rcv = new DialogCouponRcv(this.main_form, tmp_arrcpcq);
+            //    if (rcv.ShowDialog() == DialogResult.OK)
+            //    {
+            //        this.tmp_artrn.arrcpcq.Add(tmp_arrcpcq);
+            //        this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+            //        this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+
+            //        this.cCshrcv._Value = this.tmp_artrn.cshrcv;
+            //        var rcv_list = this.tmp_artrn.arrcpcq.Where(i => i.rcv_method_id == tmp_arrcpcq.rcv_method_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
+            //        this.arrcpcq_coupon = new BindingList<ArrcpcqInvoice>(rcv_list);
+
+            //        this.dgvRcv2.DataSource = this.arrcpcq_coupon;
+            //    }
+            //}
+
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                arrcpcq tmp_arrcpcq = new arrcpcq
+                istab coupon_method = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CP").FirstOrDefault();
+                if (coupon_method == null)
+                {
+                    XMessageBox.Show("ยังไม่ได้กำหนดวิธีการรับชำระด้วยคูปอง", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                    return;
+                }
+
+                if (coupon_method.shortnam.Trim().Length == 0)
+                {
+                    XMessageBox.Show("ท่านจะต้องกำหนดวิธีการรับชำระโดยจับคู่กับวิธีการรับชำระในโปรแกรมเอ็กซ์เพรสให้เรียบร้อยก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                    var rcv_method_form = new FormRcvMethod(this.main_form);
+                    rcv_method_form.ShowDialog();
+                    return;
+                }
+
+                this.tmp_arrcpcq = new arrcpcq
                 {
                     id = -1,
                     artrn_id = -1,
                     cardnum = string.Empty,
-                    chqnum = string.Empty,
+                    chqnum = coupon_method.shortnam + this.curr_artrn.docnum,
                     bank_id = null,
                     rcpnum = string.Empty,
                     rcvamt = 0,
+                    rcv_method_id = coupon_method.id,
                     userid = this.main_form.loged_in_status.loged_in_user_name
                 };
 
-                DialogCouponRcv rcv = new DialogCouponRcv(this.main_form, tmp_arrcpcq);
-                if (rcv.ShowDialog() == DialogResult.OK)
-                {
-                    this.tmp_artrn.arrcpcq.Add(tmp_arrcpcq);
-                    this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
-                    this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+                ((BindingList<ArrcpcqInvoice>)this.dgvRcv2.DataSource).Add(new ArrcpcqInvoice { arrcpcq = this.tmp_arrcpcq, working_express_db = this.main_form.working_express_db });
+                this.dgvRcv2.Refresh();
+                this.dgvRcv2.Rows.Cast<DataGridViewRow>().Where(r => ((arrcpcq)r.Cells[this.col_rcv2_arrcpcq.Name].Value).id == -1).First().Cells[this.col_rcv2_chqnum.Name].Selected = true;
+                this.ShowInlineRcvForm();
+                this.inlineCouponNo.Focus();
+            }
+        }
 
-                    this.cCshrcv._Value = this.tmp_artrn.cshrcv;
-                    var rcv_list = this.tmp_artrn.arrcpcq.Where(i => i.rcv_method_id == tmp_arrcpcq.rcv_method_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
-                    this.arrcpcq_coupon = new BindingList<ArrcpcqInvoice>(rcv_list);
+        /** Receive_By Section *****************************/
 
-                    this.dgvRcv2.DataSource = this.arrcpcq_coupon;
-                }
+        private void HideInlineForm()
+        {
+            this.inlineCardNo.SetBounds(-99999, -99999, 0, 0);
+            this.inlineBank.SetBounds(-99999, -99999, 0, 0);
+            this.inlineAmount1.SetBounds(-99999, -99999, 0, 0);
+            this.inlineCouponNo.SetBounds(-99999, -99999, 0, 0);
+            this.inlineAmount2.SetBounds(-99999, -99999, 0, 0);
+            this.tmp_arrcpcq = null;
+            this.inlineCardNo._ReadOnly = true;
+            this.inlineBank._ReadOnly = true;
+            this.inlineAmount1._ReadOnly = true;
+            this.inlineCouponNo._ReadOnly = true;
+            this.inlineAmount2._ReadOnly = true;
+        }
+
+        private void ShowInlineRcvForm()
+        {
+            if(this.tmp_arrcpcq != null)
+            {
+                XDropdownListItem selected_bank = ((XDropdownList)this.inlineBank)._Items.Cast<XDropdownListItem>().Where(i => (int?)i.Value == this.tmp_arrcpcq.bank_id).FirstOrDefault() != null ? ((XDropdownList)this.inlineBank)._Items.Cast<XDropdownListItem>().Where(i => (int?)i.Value == this.tmp_arrcpcq.bank_id).FirstOrDefault() : ((XDropdownList)this.inlineBank)._Items.Cast<XDropdownListItem>().Where(i => (int?)i.Value == null).FirstOrDefault();
+
+                this.inlineCardNo._Text = this.tmp_arrcpcq.cardnum;
+                this.inlineCouponNo._Text = this.tmp_arrcpcq.cardnum;
+                this.inlineBank._SelectedItem = selected_bank;
+                this.inlineAmount1._Value = this.tmp_arrcpcq.rcvamt;
+                this.inlineAmount2._Value = this.tmp_arrcpcq.rcvamt;
+            }
+
+            this.SetInlineControlPosition();
+        }
+
+        private void SetInlineControlPosition()
+        {
+            if(this.tabRcv.SelectedTab == this.tabCreditCard)
+            {
+                this.inlineCardNo._ReadOnly = false;
+                this.inlineBank._ReadOnly = false;
+                this.inlineAmount1._ReadOnly = false;
+                this.inlineCardNo.SetInlineControlPosition(this.dgvRcv1, this.dgvRcv1.CurrentCell.RowIndex, this.dgvRcv1.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_rcv1_cardno.Name).First().Index);
+                this.inlineBank.SetInlineControlPosition(this.dgvRcv1, this.dgvRcv1.CurrentCell.RowIndex, this.dgvRcv1.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_rcv1_bank.Name).First().Index);
+                this.inlineAmount1.SetInlineControlPosition(this.dgvRcv1, this.dgvRcv1.CurrentCell.RowIndex, this.dgvRcv1.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_rcv1_rcvamt.Name).First().Index);
+                return;
+            }
+            
+            if(this.tabRcv.SelectedTab == this.tabCoupon)
+            {
+                this.inlineCouponNo._ReadOnly = false;
+                this.inlineAmount2._ReadOnly = false;
+                this.inlineCouponNo.SetInlineControlPosition(this.dgvRcv2, this.dgvRcv2.CurrentCell.RowIndex, this.dgvRcv2.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_rcv2_coupon_num.Name).First().Index);
+                this.inlineAmount2.SetInlineControlPosition(this.dgvRcv2, this.dgvRcv2.CurrentCell.RowIndex, this.dgvRcv2.Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_rcv2_rcvamt.Name).First().Index);
+                return;
             }
         }
 
         private void btnRcvOther_Click(object sender, EventArgs e)
         {
-            DialogRcv rcv = new DialogRcv(this.main_form, this.curr_artrn);
-            rcv.ShowDialog();
+            //DialogRcv rcv = new DialogRcv(this.main_form, this.curr_artrn);
+            //rcv.ShowDialog();
+        }
+
+        private void dgvRcv_Resize(object sender, EventArgs e)
+        {
+            if(this.tmp_arrcpcq != null)
+            {
+                this.SetInlineControlPosition();
+            }
         }
 
         //private List<stmasPriceVM> GetStmas(bool oil_only = true)
@@ -902,6 +1055,7 @@ namespace XPump.SubForm
     {
         public SccompDbf working_express_db { get; set; }
         public arrcpcq arrcpcq { get; set; }
+        public string chqnum { get { return this.arrcpcq.chqnum; } }
         public string cardnum { get { return this.arrcpcq.cardnum; } }
         public string bank
         {
