@@ -32,6 +32,13 @@ namespace XPump.SubForm
         private IsrunDbf curr_docprefix = null;
         private artrn curr_artrn = null;
         private nozzle curr_nozzle = null;
+        private ITEM_MODE item_mode;
+
+        private enum ITEM_MODE
+        {
+            STOCK,
+            RECEIVE
+        }
 
         public FormSellRecord(MainForm main_form, IsrunDbf isrun_doc_prefix, scacclvVM scacclv)
         {
@@ -141,6 +148,7 @@ namespace XPump.SubForm
             this.lblVatrat.Text = string.Format("{0:n}", artrn.vatrat) + "%";
             this.lblVatamt.Text = string.Format("{0:n}", artrn.vatamt);
             this.lblNetval.Text = string.Format("{0:n}", artrn.netval);
+            this.lblNotComplete.Visible = artrn.chqrcv + artrn.cshrcv != artrn.amount ? true : false;
 
             this.stcrd = new BindingList<StcrdInvoice>(artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
             this.dgvStcrd.DataSource = this.stcrd;
@@ -260,104 +268,122 @@ namespace XPump.SubForm
 
         private void dgvGoods1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if(e.RowIndex > -1 && (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT))
+            if(e.RowIndex > -1)
             {
-                if(((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g2_sellpr1.Name)
+                if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
                 {
-                    bool is_fuel_goods = ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name ? true : false;
-                    string stkcod;
-                    string stkdes;
-                    decimal unitpr;
+                    //if (this.tmp_artrn.cuscod.Trim().Length == 0)
+                    //    return;
 
-                    BILL_METHOD bill_method;
-                    if (is_fuel_goods)
+                    //if (this.cDocdat._SelectedDate == null)
+                    //{
+                    //    this.cDocdat.Focus();
+                    //    SendKeys.Send("{F6}");
+                    //    return;
+                    //}
+
+                    this.btnSave.PerformClick();
+                }
+
+                if(this.form_mode == FORM_MODE.READ && this.curr_artrn != null && this.curr_artrn.id > -1)
+                {
+                    if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g2_sellpr1.Name)
                     {
-                        stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkcod.Name].Value.ToString();
-                        stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkdes.Name].Value.ToString();
-                        unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_sellpr1.Name].Value);
+                        bool is_fuel_goods = ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name ? true : false;
+                        string stkcod;
+                        string stkdes;
+                        decimal unitpr;
 
-                        if (this.stcrd.Select(s => s.stkcod).Where(s => this.stmas1.Select(st => st.stkcod).Contains(s)).Count() > 0)
+                        BILL_METHOD bill_method;
+                        if (is_fuel_goods)
                         {
-                            XMessageBox.Show("มีรายการน้ำมันใสชนิดอื่นในบิลนี้แล้ว, หากต้องการแก้ไขชนิดน้ำมัน ต้องลบรายการเดิมออกก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                            stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkcod.Name].Value.ToString();
+                            stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkdes.Name].Value.ToString();
+                            unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_sellpr1.Name].Value);
+
+                            if (this.stcrd.Select(s => s.stkcod).Where(s => this.stmas1.Select(st => st.stkcod).Contains(s)).Count() > 0)
+                            {
+                                XMessageBox.Show("มีรายการน้ำมันใสชนิดอื่นในบิลนี้แล้ว, หากต้องการแก้ไขชนิดน้ำมัน ต้องลบรายการเดิมออกก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                                return;
+                            }
+                            bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_bill_method.Name].Value;
+                        }
+                        else
+                        {
+                            stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_stkcod.Name].Value.ToString();
+                            stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_stkdes.Name].Value.ToString();
+                            unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_sellpr1.Name].Value);
+                            bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_bill_method.Name].Value;
+                        }
+
+                        if (this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod).Count() > 0)
+                        {
+                            XMessageBox.Show("มีรายการสินค้านี้อยู่ในบิลแล้ว, หากต้องการแก้ไขจำนวน/มูลค่า กรุณาคลิกที่ปุ่มแก้ไขรายการที่ท้ายบรรทัดรายการสินค้านั้น ๆ", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
                             return;
                         }
-                        bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_bill_method.Name].Value;
+
+                        StmasDbf stmas = DbfTable.Stmas(this.main_form.working_express_db.abs_path, stkcod);
+
+                        var tmp_stcrd = new stcrd
+                        {
+                            seqnum = this.tmp_artrn.nxtseq.Trim().Length == 0 ? 1.FillSpaceBeforeNum(3) : (Convert.ToInt32(this.tmp_artrn.nxtseq) + 1).FillSpaceBeforeNum(3),
+                            stkcod = stkcod,
+                            stkdes = stkdes,
+                            unitpr = unitpr,
+                            docdat = this.tmp_artrn.docdat,
+                            slmcod = this.tmp_artrn.slmcod,
+                            depcod = this.tmp_artrn.depcod,
+                            loccod = this.curr_docprefix.loccod.TrimEnd(),
+                            people = this.tmp_artrn.cuscod,
+                            tqucod = stmas.squcod,
+                            tfactor = Convert.ToDecimal(stmas.sfactor),
+                            posopr = "9",
+                            creby = this.main_form.loged_in_status.loged_in_user_name,
+                            userid = this.main_form.loged_in_status.loged_in_user_name
+
+                        };
+
+                        if (bill_method == BILL_METHOD.VAL)
+                        {
+                            DialogSellValue ds = new DialogSellValue(this.main_form, this.tmp_artrn, tmp_stcrd);
+                            if (ds.ShowDialog() != DialogResult.OK)
+                                return;
+
+                            this.curr_nozzle = ds.selected_nozzle;
+                            this.cNozzle._Text = this.curr_nozzle != null ? this.curr_nozzle.name : string.Empty;
+                            tmp_stcrd.loccod = this.curr_nozzle != null ? this.curr_nozzle.section.loccod : tmp_stcrd.loccod;
+                        }
+                        else
+                        {
+                            DialogSellQty ds = new DialogSellQty(this.main_form, this.tmp_artrn, tmp_stcrd);
+                            if (ds.ShowDialog() != DialogResult.OK)
+                                return;
+                        }
+
+                        this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
+                        this.tmp_artrn.stcrd.Add(tmp_stcrd);
+
+                        var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+
+                        this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
+                        this.tmp_artrn.vatamt = vatamt;
+                        this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
+                        this.tmp_artrn.total = this.tmp_artrn.amount;
+                        this.tmp_artrn.netamt = this.tmp_artrn.amount;
+                        this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
+                        this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
+                        this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
+                        this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+                        this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+
+                        this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
+                        this.dgvStcrd.DataSource = this.stcrd;
+
+                        this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
+                        this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
+                        this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
+                        this.cCshrcv._Value = this.tmp_artrn.cshrcv;
                     }
-                    else
-                    {
-                        stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_stkcod.Name].Value.ToString();
-                        stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_stkdes.Name].Value.ToString();
-                        unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_sellpr1.Name].Value);
-                        bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_bill_method.Name].Value;
-                    }
-
-                    if (this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod).Count() > 0)
-                    {
-                        XMessageBox.Show("มีรายการสินค้านี้อยู่ในบิลแล้ว, หากต้องการแก้ไขจำนวน/มูลค่า กรุณาคลิกที่ปุ่มแก้ไขรายการที่ท้ายบรรทัดรายการสินค้านั้น ๆ", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
-                        return;
-                    }
-
-                    StmasDbf stmas = DbfTable.Stmas(this.main_form.working_express_db.abs_path, stkcod);
-
-                    var tmp_stcrd = new stcrd
-                    {
-                        seqnum = this.tmp_artrn.nxtseq.Trim().Length == 0 ? 1.FillSpaceBeforeNum(3) : (Convert.ToInt32(this.tmp_artrn.nxtseq) + 1).FillSpaceBeforeNum(3),
-                        stkcod = stkcod,
-                        stkdes = stkdes,
-                        unitpr = unitpr,
-                        docdat = this.tmp_artrn.docdat,
-                        slmcod = this.tmp_artrn.slmcod,
-                        depcod = this.tmp_artrn.depcod,
-                        loccod = this.curr_docprefix.loccod.TrimEnd(),
-                        people = this.tmp_artrn.cuscod,
-                        tqucod = stmas.squcod,
-                        tfactor = Convert.ToDecimal(stmas.sfactor),
-                        posopr = "9",
-                        creby = this.main_form.loged_in_status.loged_in_user_name,
-                        userid = this.main_form.loged_in_status.loged_in_user_name
-
-                    };
-
-                    if (bill_method == BILL_METHOD.VAL)
-                    {
-                        DialogSellValue ds = new DialogSellValue(this.main_form, this.tmp_artrn, tmp_stcrd);
-                        if (ds.ShowDialog() != DialogResult.OK)
-                            return;
-
-                        this.curr_nozzle = ds.selected_nozzle;
-                        this.cNozzle._Text = this.curr_nozzle != null ? this.curr_nozzle.name : string.Empty;
-                        tmp_stcrd.loccod = this.curr_nozzle != null ? this.curr_nozzle.section.loccod : tmp_stcrd.loccod;
-                    }
-                    else
-                    {
-                        DialogSellQty ds = new DialogSellQty(this.main_form, this.tmp_artrn, tmp_stcrd);
-                        if (ds.ShowDialog() != DialogResult.OK)
-                            return;
-                    }
-
-                    this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
-                    this.tmp_artrn.stcrd.Add(tmp_stcrd);
-
-                    var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
-
-                    this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
-                    this.tmp_artrn.vatamt = vatamt;
-                    this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
-                    this.tmp_artrn.total = this.tmp_artrn.amount;
-                    this.tmp_artrn.netamt = this.tmp_artrn.amount;
-                    this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
-                    this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
-                    this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
-                    this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
-                    this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
-
-                    this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
-                    this.dgvStcrd.DataSource = this.stcrd;
-
-                    this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
-                    this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
-                    this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
-                    this.cCshrcv._Value = this.tmp_artrn.cshrcv;
                 }
             }
         }
@@ -433,14 +459,51 @@ namespace XPump.SubForm
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (this.curr_artrn == null || this.curr_artrn.id < 0)
+                return;
 
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.tmp_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+
+                if(this.tmp_artrn != null)
+                {
+                    this.FillForm(this.tmp_artrn);
+                    this.ResetFormState(FORM_MODE.EDIT);
+                    this.cCuscod.Focus();
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            foreach (var c in "ABC".ToCharArray())
+            if (this.curr_artrn == null || this.curr_artrn.id < 0)
+                return;
+
+            if (XMessageBox.Show("ลบข้อมูลนี้หรือไม่", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
+                return;
+
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
-                Console.WriteLine(" ==> " + c.ToString() + " : " + (int)c);
+                try
+                {
+                    var artrn_to_delete = db.artrn.Find(this.curr_artrn.id);
+                    db.artrn.Remove(artrn_to_delete);
+
+                    db.stcrd.Where(s => s.artrn_id == this.curr_artrn.id).ToList().ForEach(s => db.stcrd.Remove(s));
+                    db.arrcpcq.Where(s => s.artrn_id == this.curr_artrn.id).ToList().ForEach(s => db.arrcpcq.Remove(s));
+
+                    if(db.SaveChanges() > 0)
+                    {
+                        this.btnNext.PerformClick();
+                        Console.WriteLine(" ==> Deleted.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                    return;
+                }
             }
         }
 
@@ -477,6 +540,19 @@ namespace XPump.SubForm
             {
                 try
                 {
+                    if(this.tmp_artrn.cuscod.Trim().Length == 0)
+                    {
+                        this.cCuscod.Focus();
+                        return;
+                    }
+
+                    if(this.cDocdat._SelectedDate == null)
+                    {
+                        this.cDocdat.Focus();
+                        SendKeys.Send("{F6}");
+                        return;
+                    }
+
                     if (this.form_mode == FORM_MODE.ADD)
                     {
                         var isrun = DbfTable.Isrun(this.main_form.working_express_db).ToIsrunList().Where(i => i.prefix == this.curr_docprefix.prefix).FirstOrDefault();
@@ -490,29 +566,6 @@ namespace XPump.SubForm
                             s.credat = DateTime.Now;
                             s.chgdat = DateTime.Now;
                         });
-
-                        //int credit_card_method_id = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CR").First().id;
-                        //// A = 65, B = 66, C = 67, ...
-                        //int cr_count = 64; // counting loop for credit card receive
-                        //int cp_count = 64; // counting loop for coupon receive
-
-                        //this.tmp_artrn.arrcpcq.ToList().ForEach(a =>
-                        //{
-                        //    bool is_credit_card = a.rcv_method_id == credit_card_method_id ? true : false;
-                        //    if(is_credit_card)
-                        //    {
-                        //        cr_count++;
-                        //    }
-                        //    else
-                        //    {
-                        //        cp_count++;
-                        //    }
-
-                        //    a.chqnum = is_credit_card ? a.chqnum + this.tmp_artrn.docnum + ((char)cr_count).ToString() : a.chqnum + this.tmp_artrn.docnum + ((char)cp_count).ToString();
-                        //    a.rcpnum = this.tmp_artrn.docnum;
-                        //    a.artrn_id = this.tmp_artrn.id;
-                        //    a.chgdat = DateTime.Now;
-                        //});
 
                         db.artrn.Add(this.tmp_artrn);
                         if (db.SaveChanges() > 0)
@@ -531,7 +584,12 @@ namespace XPump.SubForm
 
                     if (this.form_mode == FORM_MODE.EDIT)
                     {
-
+                        var artrn_to_update = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.tmp_artrn.id).FirstOrDefault();
+                        artrn_to_update.stcrd = this.tmp_artrn.stcrd;
+                        if(db.SaveChanges() > 0)
+                        {
+                            Console.WriteLine(" => update complete");
+                        }
                     }
 
                     if (this.form_mode == FORM_MODE.EDIT_ITEM)
@@ -1140,12 +1198,6 @@ namespace XPump.SubForm
             }
         }
 
-        private void btnRcvOther_Click(object sender, EventArgs e)
-        {
-            //DialogRcv rcv = new DialogRcv(this.main_form, this.curr_artrn);
-            //rcv.ShowDialog();
-        }
-
         private void dgvRcv_Resize(object sender, EventArgs e)
         {
             if(this.tmp_arrcpcq != null)
@@ -1201,6 +1253,104 @@ namespace XPump.SubForm
 
         //    }
         //}
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == (Keys.Alt | Keys.A))
+            {
+                this.btnAdd.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.E))
+            {
+                this.btnEdit.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.D))
+            {
+                this.btnDelete.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnStop.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.F9)
+            {
+                this.btnSave.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.Home))
+            {
+                this.btnFirst.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.End))
+            {
+                this.btnLast.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.PageUp)
+            {
+                this.btnPrevious.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.PageDown)
+            {
+                this.btnNext.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.S))
+            {
+                this.btnSearch.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.L))
+            {
+                this.btnInquiryRest.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.L))
+            {
+                this.btnInquiryAll.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Alt | Keys.P))
+            {
+                this.btnPrint.PerformClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.F5))
+            {
+                this.btnRefresh.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Enter)
+            {
+                if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
+                {
+                    SendKeys.Send("{TAB}");
+                    return true;
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 
     public class StcrdInvoice

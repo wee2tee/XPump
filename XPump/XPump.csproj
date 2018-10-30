@@ -1063,6 +1063,7 @@
       <LastGenOutput>XPumpModel.cs</LastGenOutput>
     </Content>
     <Content Include="Nozzle.ico" />
+    <None Include="Resources\void.png" />
     <None Include="Resources\plus.png" />
     <None Include="Resources\close_gray_16.png" />
     <None Include="Resources\settings.png" />

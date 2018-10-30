@@ -118,7 +118,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblDocType = new System.Windows.Forms.Label();
             this.panelRcv = new System.Windows.Forms.Panel();
-            this.btnRcvOther = new System.Windows.Forms.Button();
             this.cCshrcv = new CC.XNumEdit();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -150,8 +149,9 @@
             this.col_rcv2_delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label10 = new System.Windows.Forms.Label();
             this.btnManageStkgrp = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblNotComplete = new System.Windows.Forms.Label();
             this.cCuscod = new XPump.CustomControls.BrowseBoxCuscod();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabGoods1.SuspendLayout();
@@ -176,6 +176,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAdd,
             this.btnEdit,
+            this.toolStripButton1,
             this.btnDelete,
             this.toolStripSeparator3,
             this.btnStop,
@@ -687,7 +688,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.lblNotComplete);
             this.panel1.Controls.Add(this.lblNetval);
             this.panel1.Controls.Add(this.lblVatamt);
             this.panel1.Controls.Add(this.lblAmount);
@@ -1046,7 +1047,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelRcv.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.panelRcv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelRcv.Controls.Add(this.btnRcvOther);
             this.panelRcv.Controls.Add(this.cCshrcv);
             this.panelRcv.Controls.Add(this.label4);
             this.panelRcv.Controls.Add(this.label5);
@@ -1055,18 +1055,6 @@
             this.panelRcv.Name = "panelRcv";
             this.panelRcv.Size = new System.Drawing.Size(604, 178);
             this.panelRcv.TabIndex = 15;
-            // 
-            // btnRcvOther
-            // 
-            this.btnRcvOther.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnRcvOther.Location = new System.Drawing.Point(248, 6);
-            this.btnRcvOther.Name = "btnRcvOther";
-            this.btnRcvOther.Size = new System.Drawing.Size(118, 24);
-            this.btnRcvOther.TabIndex = 12;
-            this.btnRcvOther.Text = "ชำระโดยอื่น ๆ";
-            this.btnRcvOther.UseVisualStyleBackColor = true;
-            this.btnRcvOther.Visible = false;
-            this.btnRcvOther.Click += new System.EventHandler(this.btnRcvOther_Click);
             // 
             // cCshrcv
             // 
@@ -1397,8 +1385,8 @@
             this.inlineAmount2._MaxLength = 30;
             this.inlineAmount2._ReadOnly = true;
             this.inlineAmount2._SelectionLength = 0;
-            this.inlineAmount2._SelectionStart = 4;
-            this.inlineAmount2._Text = "0.00";
+            this.inlineAmount2._SelectionStart = 1;
+            this.inlineAmount2._Text = "0";
             this.inlineAmount2._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.inlineAmount2._UseThoundsandSeparate = true;
             this.inlineAmount2._Value = new decimal(new int[] {
@@ -1478,7 +1466,7 @@
             this.dgvRcv2.RowHeadersVisible = false;
             this.dgvRcv2.RowTemplate.Height = 26;
             this.dgvRcv2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRcv2.Size = new System.Drawing.Size(585, 107);
+            this.dgvRcv2.Size = new System.Drawing.Size(585, 110);
             this.dgvRcv2.StandardTab = true;
             this.dgvRcv2.TabIndex = 1;
             this.dgvRcv2.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRcv_CellMouseClick);
@@ -1572,17 +1560,18 @@
             this.btnManageStkgrp.UseVisualStyleBackColor = true;
             this.btnManageStkgrp.Click += new System.EventHandler(this.btnManageStkgrp_Click);
             // 
-            // label11
+            // lblNotComplete
             // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label11.Location = new System.Drawing.Point(10, 217);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(140, 18);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "ยอดเงินไม่เรียบร้อย";
+            this.lblNotComplete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblNotComplete.AutoSize = true;
+            this.lblNotComplete.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblNotComplete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblNotComplete.Location = new System.Drawing.Point(5, 217);
+            this.lblNotComplete.Name = "lblNotComplete";
+            this.lblNotComplete.Size = new System.Drawing.Size(140, 18);
+            this.lblNotComplete.TabIndex = 14;
+            this.lblNotComplete.Text = "ยอดเงินไม่เรียบร้อย";
+            this.lblNotComplete.Visible = false;
             // 
             // cCuscod
             // 
@@ -1605,6 +1594,16 @@
             this.cCuscod.TabIndex = 11;
             this.cCuscod._SelectedCuscodChanged += new System.EventHandler(this.cCuscod__SelectedCuscodChanged);
             this.cCuscod._Leave += new System.EventHandler(this.cCuscod__Leave);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::XPump.Properties.Resources._void;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(36, 40);
+            this.toolStripButton1.Text = "toolStripButton1";
             // 
             // FormSellRecord
             // 
@@ -1738,7 +1737,6 @@
         private System.Windows.Forms.Button btnAddCreditCard;
         private System.Windows.Forms.Button btnAddCoupon;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button btnRcvOther;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv1_chqnum;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv1_cardno;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv1_bank;
@@ -1759,6 +1757,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv2_working_express_db;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv2_arrcpcq;
         private System.Windows.Forms.DataGridViewButtonColumn col_rcv2_delete;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblNotComplete;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
