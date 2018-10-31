@@ -48,6 +48,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.btnVoid = new System.Windows.Forms.ToolStripButton();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
@@ -91,6 +92,7 @@
             this.col_g2_stkgrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_g2_bill_method = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblNotComplete = new System.Windows.Forms.Label();
             this.lblNetval = new System.Windows.Forms.Label();
             this.lblVatamt = new System.Windows.Forms.Label();
             this.lblAmount = new System.Windows.Forms.Label();
@@ -149,9 +151,7 @@
             this.col_rcv2_delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label10 = new System.Windows.Forms.Label();
             this.btnManageStkgrp = new System.Windows.Forms.Button();
-            this.lblNotComplete = new System.Windows.Forms.Label();
             this.cCuscod = new XPump.CustomControls.BrowseBoxCuscod();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabGoods1.SuspendLayout();
@@ -176,7 +176,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAdd,
             this.btnEdit,
-            this.toolStripButton1,
+            this.btnVoid,
             this.btnDelete,
             this.toolStripSeparator3,
             this.btnStop,
@@ -218,6 +218,16 @@
             this.btnEdit.Size = new System.Drawing.Size(36, 40);
             this.btnEdit.Text = "แก้ไขข้อมูล <Alt+E>";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnVoid
+            // 
+            this.btnVoid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnVoid.Image = global::XPump.Properties.Resources._void;
+            this.btnVoid.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnVoid.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnVoid.Name = "btnVoid";
+            this.btnVoid.Size = new System.Drawing.Size(36, 40);
+            this.btnVoid.Text = "toolStripButton1";
             // 
             // btnDelete
             // 
@@ -460,7 +470,7 @@
             this.dgvGoods1.Size = new System.Drawing.Size(370, 445);
             this.dgvGoods1.StandardTab = true;
             this.dgvGoods1.TabIndex = 0;
-            this.dgvGoods1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGoods1_CellMouseClick);
+            this.dgvGoods1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGoods1_CellMouseDoubleClick);
             this.dgvGoods1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGoods1_CellMouseEnter);
             this.dgvGoods1.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGoods1_CellMouseLeave);
             // 
@@ -597,10 +607,10 @@
             this.dgvGoods2.RowHeadersVisible = false;
             this.dgvGoods2.RowTemplate.Height = 26;
             this.dgvGoods2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvGoods2.Size = new System.Drawing.Size(370, 448);
+            this.dgvGoods2.Size = new System.Drawing.Size(370, 445);
             this.dgvGoods2.StandardTab = true;
             this.dgvGoods2.TabIndex = 1;
-            this.dgvGoods2.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGoods1_CellMouseClick);
+            this.dgvGoods2.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGoods1_CellMouseDoubleClick);
             // 
             // col_g2_stkcod
             // 
@@ -711,6 +721,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(604, 289);
             this.panel1.TabIndex = 8;
+            // 
+            // lblNotComplete
+            // 
+            this.lblNotComplete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblNotComplete.AutoSize = true;
+            this.lblNotComplete.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblNotComplete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblNotComplete.Location = new System.Drawing.Point(5, 217);
+            this.lblNotComplete.Name = "lblNotComplete";
+            this.lblNotComplete.Size = new System.Drawing.Size(140, 18);
+            this.lblNotComplete.TabIndex = 14;
+            this.lblNotComplete.Text = "ยอดเงินไม่เรียบร้อย";
+            this.lblNotComplete.Visible = false;
             // 
             // lblNetval
             // 
@@ -1560,19 +1583,6 @@
             this.btnManageStkgrp.UseVisualStyleBackColor = true;
             this.btnManageStkgrp.Click += new System.EventHandler(this.btnManageStkgrp_Click);
             // 
-            // lblNotComplete
-            // 
-            this.lblNotComplete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblNotComplete.AutoSize = true;
-            this.lblNotComplete.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblNotComplete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblNotComplete.Location = new System.Drawing.Point(5, 217);
-            this.lblNotComplete.Name = "lblNotComplete";
-            this.lblNotComplete.Size = new System.Drawing.Size(140, 18);
-            this.lblNotComplete.TabIndex = 14;
-            this.lblNotComplete.Text = "ยอดเงินไม่เรียบร้อย";
-            this.lblNotComplete.Visible = false;
-            // 
             // cCuscod
             // 
             this.cCuscod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -1594,16 +1604,6 @@
             this.cCuscod.TabIndex = 11;
             this.cCuscod._SelectedCuscodChanged += new System.EventHandler(this.cCuscod__SelectedCuscodChanged);
             this.cCuscod._Leave += new System.EventHandler(this.cCuscod__Leave);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::XPump.Properties.Resources._void;
-            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(36, 40);
-            this.toolStripButton1.Text = "toolStripButton1";
             // 
             // FormSellRecord
             // 
@@ -1758,6 +1758,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv2_arrcpcq;
         private System.Windows.Forms.DataGridViewButtonColumn col_rcv2_delete;
         private System.Windows.Forms.Label lblNotComplete;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btnVoid;
     }
 }

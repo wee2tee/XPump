@@ -78,6 +78,7 @@ namespace XPump.SubForm
 
             this.btnAdd.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnEdit.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
+            this.btnVoid.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnDelete.SetControlState(new FORM_MODE[] { FORM_MODE.READ }, this.form_mode);
             this.btnStop.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
             this.btnSave.SetControlState(new FORM_MODE[] { FORM_MODE.ADD, FORM_MODE.EDIT, FORM_MODE.EDIT_ITEM }, this.form_mode);
@@ -266,11 +267,11 @@ namespace XPump.SubForm
             }
         }
 
-        private void dgvGoods1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvGoods1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if(e.RowIndex > -1)
             {
-                if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                if (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
                 {
                     //if (this.tmp_artrn.cuscod.Trim().Length == 0)
                     //    return;
@@ -285,7 +286,7 @@ namespace XPump.SubForm
                     this.btnSave.PerformClick();
                 }
 
-                if(this.form_mode == FORM_MODE.READ && this.curr_artrn != null && this.curr_artrn.id > -1)
+                if (this.form_mode == FORM_MODE.READ && this.curr_artrn != null && this.curr_artrn.id > -1)
                 {
                     if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g1_sellpr1.Name || ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_g2_sellpr1.Name)
                     {
@@ -295,94 +296,165 @@ namespace XPump.SubForm
                         decimal unitpr;
 
                         BILL_METHOD bill_method;
-                        if (is_fuel_goods)
-                        {
-                            stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkcod.Name].Value.ToString();
-                            stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkdes.Name].Value.ToString();
-                            unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_sellpr1.Name].Value);
 
-                            if (this.stcrd.Select(s => s.stkcod).Where(s => this.stmas1.Select(st => st.stkcod).Contains(s)).Count() > 0)
+                        using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                        {
+                            var artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                            if (artrn == null)
+                                return;
+
+                            if (is_fuel_goods)
                             {
-                                XMessageBox.Show("มีรายการน้ำมันใสชนิดอื่นในบิลนี้แล้ว, หากต้องการแก้ไขชนิดน้ำมัน ต้องลบรายการเดิมออกก่อน", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                                stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkcod.Name].Value.ToString();
+                                stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_stkdes.Name].Value.ToString();
+                                unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_sellpr1.Name].Value);
+
+                                if (artrn.stcrd.Select(s => s.stkcod).Where(s => this.stmas1.Select(st => st.stkcod).Contains(s)).Count() > 0)
+                                {
+                                    XMessageBox.Show("มีรายการน้ำมันใสในบิลนี้แล้ว\n\t- หากต้องการแก้ไขชนิดน้ำมัน ต้องลบรายการเดิมออกก่อน\n\t- หากต้องการแก้ไขจำนวนเงินให้คลิกที่ปุ่มแก้ไขที่ท้ายรายการนั้น ๆ", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                                    return;
+                                }
+                                bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_bill_method.Name].Value;
+                            }
+                            else
+                            {
+                                stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_stkcod.Name].Value.ToString();
+                                stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_stkdes.Name].Value.ToString();
+                                unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_sellpr1.Name].Value);
+                                bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_bill_method.Name].Value;
+                            }
+
+                            if (artrn.stcrd.Where(s => s.stkcod == stkcod).Count() > 0)
+                            {
+                                XMessageBox.Show("มีรายการสินค้านี้อยู่ในบิลแล้ว, หากต้องการแก้ไขจำนวน/มูลค่า กรุณาคลิกที่ปุ่มแก้ไขที่ท้ายรายการนั้น ๆ", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
                                 return;
                             }
-                            bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g1_bill_method.Name].Value;
-                        }
-                        else
-                        {
-                            stkcod = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_stkcod.Name].Value.ToString();
-                            stkdes = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_stkdes.Name].Value.ToString();
-                            unitpr = Convert.ToDecimal(((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_sellpr1.Name].Value);
-                            bill_method = (BILL_METHOD)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_g2_bill_method.Name].Value;
-                        }
 
-                        if (this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod).Count() > 0)
-                        {
-                            XMessageBox.Show("มีรายการสินค้านี้อยู่ในบิลแล้ว, หากต้องการแก้ไขจำนวน/มูลค่า กรุณาคลิกที่ปุ่มแก้ไขรายการที่ท้ายบรรทัดรายการสินค้านั้น ๆ", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
-                            return;
-                        }
 
-                        StmasDbf stmas = DbfTable.Stmas(this.main_form.working_express_db.abs_path, stkcod);
+                            /*************/
+                            StmasDbf stmas = DbfTable.Stmas(this.main_form.working_express_db.abs_path, stkcod);
 
-                        var tmp_stcrd = new stcrd
-                        {
-                            seqnum = this.tmp_artrn.nxtseq.Trim().Length == 0 ? 1.FillSpaceBeforeNum(3) : (Convert.ToInt32(this.tmp_artrn.nxtseq) + 1).FillSpaceBeforeNum(3),
-                            stkcod = stkcod,
-                            stkdes = stkdes,
-                            unitpr = unitpr,
-                            docdat = this.tmp_artrn.docdat,
-                            slmcod = this.tmp_artrn.slmcod,
-                            depcod = this.tmp_artrn.depcod,
-                            loccod = this.curr_docprefix.loccod.TrimEnd(),
-                            people = this.tmp_artrn.cuscod,
-                            tqucod = stmas.squcod,
-                            tfactor = Convert.ToDecimal(stmas.sfactor),
-                            posopr = "9",
-                            creby = this.main_form.loged_in_status.loged_in_user_name,
-                            userid = this.main_form.loged_in_status.loged_in_user_name
+                            var tmp_stcrd = new stcrd
+                            {
+                                docnum = artrn.docnum,
+                                artrn_id = artrn.id,
+                                stkcod = stkcod,
+                                stkdes = stkdes,
+                                unitpr = unitpr,
+                                docdat = artrn.docdat,
+                                slmcod = artrn.slmcod,
+                                depcod = artrn.depcod,
+                                loccod = this.curr_docprefix.loccod.TrimEnd(),
+                                people = artrn.cuscod,
+                                tqucod = stmas.squcod,
+                                tfactor = Convert.ToDecimal(stmas.sfactor),
+                                posopr = "9",
+                                creby = this.main_form.loged_in_status.loged_in_user_name,
+                                userid = this.main_form.loged_in_status.loged_in_user_name
 
-                        };
+                            };
 
-                        if (bill_method == BILL_METHOD.VAL)
-                        {
-                            DialogSellValue ds = new DialogSellValue(this.main_form, this.tmp_artrn, tmp_stcrd);
-                            if (ds.ShowDialog() != DialogResult.OK)
+                            if (bill_method == BILL_METHOD.VAL)
+                            {
+                                DialogSellValue ds = new DialogSellValue(this.main_form, artrn, tmp_stcrd);
+                                if (ds.ShowDialog() != DialogResult.OK)
+                                    return;
+
+                                this.curr_nozzle = ds.selected_nozzle;
+                                this.cNozzle._Text = this.curr_nozzle != null ? this.curr_nozzle.name : string.Empty;
+                                tmp_stcrd.loccod = this.curr_nozzle != null ? this.curr_nozzle.section.loccod : tmp_stcrd.loccod;
+                            }
+                            else
+                            {
+                                DialogSellQty ds = new DialogSellQty(this.main_form, artrn, tmp_stcrd);
+                                if (ds.ShowDialog() != DialogResult.OK)
+                                    return;
+                            }
+
+                            try
+                            {
+                                var artrn_to_update = db.artrn.Include("stcrd").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+
+                                if (artrn_to_update != null)
+                                {
+                                    if (is_fuel_goods)
+                                    {
+                                        if (artrn_to_update.stcrd.Select(s => s.stkcod).Where(s => this.stmas1.Select(st => st.stkcod).Contains(s)).Count() > 0)
+                                        {
+                                            XMessageBox.Show("มีรายการน้ำมันใสในบิลนี้แล้ว\n\t- หากต้องการแก้ไขชนิดน้ำมัน ต้องลบรายการเดิมออกก่อน\n\t- หากต้องการแก้ไขจำนวนเงินให้คลิกที่ปุ่มแก้ไขที่ท้ายรายการนั้น ๆ", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                                            this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                                            this.FillForm(this.curr_artrn);
+                                            return;
+                                        }
+                                    }
+                                    if (artrn_to_update.stcrd.Where(s => s.stkcod == stkcod).Count() > 0)
+                                    {
+                                        XMessageBox.Show("มีรายการสินค้านี้อยู่ในบิลแล้ว, หากต้องการแก้ไขจำนวน/มูลค่า กรุณาคลิกที่ปุ่มแก้ไขที่ท้ายรายการนั้น ๆ", "", MessageBoxButtons.OK, XMessageBoxIcon.Information);
+                                        this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                                        this.FillForm(this.curr_artrn);
+                                        return;
+                                    }
+
+                                    tmp_stcrd.seqnum = artrn_to_update.nxtseq.Trim().Length == 0 ? 1.FillSpaceBeforeNum(3) : (Convert.ToInt32(artrn_to_update.nxtseq) + 1).FillSpaceBeforeNum(3);
+                                    db.stcrd.Add(tmp_stcrd);
+
+                                    var vatamt = Math.Round(artrn_to_update.stcrd.Sum(st => st.trnval) * artrn_to_update.vatrat / (100 + artrn_to_update.vatrat), 2);
+
+                                    artrn_to_update.nxtseq = tmp_stcrd.seqnum;
+                                    artrn_to_update.userid = this.main_form.loged_in_status.loged_in_user_name;
+                                    artrn_to_update.chgdat = DateTime.Now;
+
+                                    artrn_to_update.amount = artrn_to_update.stcrd.Sum(st => st.trnval)/* + tmp_stcrd.trnval*/;
+                                    artrn_to_update.vatamt = vatamt;
+                                    artrn_to_update.aftdisc = artrn.amount;
+                                    artrn_to_update.total = artrn.amount;
+                                    artrn_to_update.netamt = artrn.amount;
+                                    artrn_to_update.netval = artrn.amount - artrn.vatamt;
+                                    artrn_to_update.rcvamt = this.curr_docprefix.doctyp == "HS" ? artrn.netamt : 0;
+                                    artrn_to_update.remamt = this.curr_docprefix.doctyp == "IV" ? artrn.netamt : 0;
+                                    artrn_to_update.chqrcv = artrn.arrcpcq.Sum(q => q.rcvamt);
+                                    artrn_to_update.cshrcv = this.curr_docprefix.doctyp == "HS" ? artrn.netamt - artrn.chqrcv : 0;
+
+                                    if (db.SaveChanges() > 0)
+                                    {
+                                        this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                                        this.FillForm(this.curr_artrn);
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OKCancel, XMessageBoxIcon.Error);
                                 return;
+                            }
 
-                            this.curr_nozzle = ds.selected_nozzle;
-                            this.cNozzle._Text = this.curr_nozzle != null ? this.curr_nozzle.name : string.Empty;
-                            tmp_stcrd.loccod = this.curr_nozzle != null ? this.curr_nozzle.section.loccod : tmp_stcrd.loccod;
-                        }
-                        else
-                        {
-                            DialogSellQty ds = new DialogSellQty(this.main_form, this.tmp_artrn, tmp_stcrd);
-                            if (ds.ShowDialog() != DialogResult.OK)
-                                return;
                         }
 
-                        this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
-                        this.tmp_artrn.stcrd.Add(tmp_stcrd);
 
-                        var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
 
-                        this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
-                        this.tmp_artrn.vatamt = vatamt;
-                        this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
-                        this.tmp_artrn.total = this.tmp_artrn.amount;
-                        this.tmp_artrn.netamt = this.tmp_artrn.amount;
-                        this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
-                        this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
-                        this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
-                        this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
-                        this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+                        //this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
+                        //this.tmp_artrn.stcrd.Add(tmp_stcrd);
 
-                        this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
-                        this.dgvStcrd.DataSource = this.stcrd;
 
-                        this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
-                        this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
-                        this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
-                        this.cCshrcv._Value = this.tmp_artrn.cshrcv;
+
+                        //this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
+                        //this.tmp_artrn.vatamt = vatamt;
+                        //this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
+                        //this.tmp_artrn.total = this.tmp_artrn.amount;
+                        //this.tmp_artrn.netamt = this.tmp_artrn.amount;
+                        //this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
+                        //this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
+                        //this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
+                        //this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+                        //this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+
+                        //this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
+                        //this.dgvStcrd.DataSource = this.stcrd;
+
+                        //this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
+                        //this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
+                        //this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
+                        //this.cCshrcv._Value = this.tmp_artrn.cshrcv;
                     }
                 }
             }
@@ -585,10 +657,32 @@ namespace XPump.SubForm
                     if (this.form_mode == FORM_MODE.EDIT)
                     {
                         var artrn_to_update = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.tmp_artrn.id).FirstOrDefault();
-                        artrn_to_update.stcrd = this.tmp_artrn.stcrd;
+
+                        artrn_to_update.cuscod = this.tmp_artrn.cuscod;
+                        artrn_to_update.orgnum = this.tmp_artrn.orgnum;
+                        artrn_to_update.slmcod = this.tmp_artrn.slmcod;
+                        artrn_to_update.areacod = this.tmp_artrn.areacod;
+                        artrn_to_update.docdat = this.tmp_artrn.docdat;
+                        artrn_to_update.paytrm = this.tmp_artrn.paytrm;
+                        artrn_to_update.duedat = this.tmp_artrn.docdat.AddDays(this.tmp_artrn.paytrm);
+                        artrn_to_update.taxrat = this.tmp_artrn.taxrat;
+                        artrn_to_update.vatdat = this.tmp_artrn.vatdat;
+                        artrn_to_update.dlvby = this.tmp_artrn.dlvby;
+                        artrn_to_update.userid = this.main_form.loged_in_status.loged_in_user_name;
+                        artrn_to_update.chgdat = DateTime.Now;
+                        artrn_to_update.stcrd.ToList().ForEach(st =>
+                        {
+                            st.people = this.tmp_artrn.cuscod;
+                            st.docdat = this.tmp_artrn.docdat;
+                            st.slmcod = this.tmp_artrn.slmcod;
+                        });
+                        
                         if(db.SaveChanges() > 0)
                         {
-                            Console.WriteLine(" => update complete");
+                            this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.tmp_artrn.id).FirstOrDefault();
+
+                            this.ResetFormState(FORM_MODE.READ);
+                            this.FillForm(this.curr_artrn);
                         }
                     }
 
@@ -706,8 +800,8 @@ namespace XPump.SubForm
                 this.tmp_artrn.orgnum = this.cCuscod.selected_cust.orgnum;
                 this.tmp_artrn.slmcod = this.cCuscod.selected_cust.slmcod;
 
-                this.tmp_artrn.stcrd.ToList().ForEach(st => st.people = this.cCuscod.selected_cust.cuscod);
-                this.tmp_artrn.stcrd.ToList().ForEach(st => st.slmcod = this.cCuscod.selected_cust.slmcod);
+                //this.tmp_artrn.stcrd.ToList().ForEach(st => st.people = this.cCuscod.selected_cust.cuscod);
+                //this.tmp_artrn.stcrd.ToList().ForEach(st => st.slmcod = this.cCuscod.selected_cust.slmcod);
             }
         }
 
@@ -745,7 +839,7 @@ namespace XPump.SubForm
             {
                 if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_edit.Name)
                 {
-                    if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                    if(this.form_mode == FORM_MODE.READ)
                     {
                         e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                         e.Graphics.DrawImage(XPump.Properties.Resources.edit_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.edit_16.Width, XPump.Properties.Resources.edit_16.Height));
@@ -760,7 +854,7 @@ namespace XPump.SubForm
 
                 if (((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
                 {
-                    if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
+                    if(this.form_mode == FORM_MODE.READ)
                     {
                         e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                         e.Graphics.DrawImage(XPump.Properties.Resources.close_16, new Rectangle(e.CellBounds.X + 4, e.CellBounds.Y + 4, XPump.Properties.Resources.close_16.Width, XPump.Properties.Resources.close_16.Height));
@@ -821,7 +915,7 @@ namespace XPump.SubForm
 
         private void dgvStcrd_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if((this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT) && ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
+            if(this.form_mode == FORM_MODE.READ && ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
             {
                 string stkcod_to_del = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stkcod.Name].Value.ToString();
 
@@ -829,41 +923,57 @@ namespace XPump.SubForm
 
                 if(XMessageBox.Show("ลบรายการนี้หรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    this.tmp_artrn.stcrd.Remove(this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod_to_del).First());
-                    this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
-                    this.dgvStcrd.DataSource = this.stcrd;
-                    if(this.stcrd.Where(s => this.stmas1.Select(st => st.stkcod).Contains(s.stkcod)).Count() == 0)
+                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                     {
-                        this.cNozzle._Text = string.Empty;
+                        int deleting_id = ((stcrd)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stcrd.Name].Value).id;
+                        var stcrd_to_delete = db.stcrd.Find(deleting_id);
+                        db.stcrd.Remove(stcrd_to_delete);
+
+                        var artrn_to_update = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                        artrn_to_update
+
+                        if(db.SaveChanges() > 0)
+                        {
+                            this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                            this.FillForm(this.curr_artrn);
+                        }
                     }
 
-                    /**********/
-                    var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+                    //this.tmp_artrn.stcrd.Remove(this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod_to_del).First());
+                    //this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
+                    //this.dgvStcrd.DataSource = this.stcrd;
+                    //if(this.stcrd.Where(s => this.stmas1.Select(st => st.stkcod).Contains(s.stkcod)).Count() == 0)
+                    //{
+                    //    this.cNozzle._Text = string.Empty;
+                    //}
 
-                    this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
-                    this.tmp_artrn.vatamt = vatamt;
-                    this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
-                    this.tmp_artrn.total = this.tmp_artrn.amount;
-                    this.tmp_artrn.netamt = this.tmp_artrn.amount;
-                    this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
-                    this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
-                    this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
-                    this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
-                    this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+                    ///**********/
+                    //var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
 
-                    /**********/
+                    //this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
+                    //this.tmp_artrn.vatamt = vatamt;
+                    //this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
+                    //this.tmp_artrn.total = this.tmp_artrn.amount;
+                    //this.tmp_artrn.netamt = this.tmp_artrn.amount;
+                    //this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
+                    //this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
+                    //this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
+                    //this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+                    //this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+
+                    ///**********/
 
 
-                    this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
-                    this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
-                    this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
+                    //this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
+                    //this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
+                    //this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
                 }
                 else
                 {
                     ((XDatagrid)sender).Rows[e.RowIndex].ClearDeletingRowOverlay();
                 }
             }
-            if((this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT) && ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_edit.Name)
+            if(this.form_mode == FORM_MODE.READ && ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_edit.Name)
             {
                 stcrd stcrd_to_edit = (stcrd)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stcrd.Name].Value;
                 bool is_fuel_goods = this.stmas1.Select(st => st.stkcod).Where(st => st.Contains(stcrd_to_edit.stkcod)).Count() > 0 ? true : false;
