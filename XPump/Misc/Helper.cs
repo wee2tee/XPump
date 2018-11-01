@@ -2648,6 +2648,24 @@ namespace XPump.Misc
             }
         }
 
+        public static void CalNeccessaryValue(this artrn artrn_to_update)
+        {
+            var vatamt = Math.Round(artrn_to_update.stcrd.Sum(st => st.trnval) * artrn_to_update.vatrat / (100 + artrn_to_update.vatrat), 2);
+            var nxtseq = artrn_to_update.stcrd.OrderByDescending(s => s.seqnum).FirstOrDefault() != null ? artrn_to_update.stcrd.OrderByDescending(s => s.seqnum).First().seqnum : "";
+
+            artrn_to_update.nxtseq = nxtseq;
+            artrn_to_update.amount = artrn_to_update.stcrd.Sum(st => st.trnval)/* + tmp_stcrd.trnval*/;
+            artrn_to_update.vatamt = vatamt;
+            artrn_to_update.aftdisc = artrn_to_update.amount;
+            artrn_to_update.total = artrn_to_update.amount;
+            artrn_to_update.netamt = artrn_to_update.amount;
+            artrn_to_update.netval = artrn_to_update.amount - artrn_to_update.vatamt;
+            artrn_to_update.rcvamt = artrn_to_update.rectyp == "1" ? artrn_to_update.netamt : 0; /* 1 = 'HS' */
+            artrn_to_update.remamt = artrn_to_update.rectyp == "3" ? artrn_to_update.netamt : 0; /* 3 = 'IV' */
+            artrn_to_update.chqrcv = artrn_to_update.arrcpcq.Sum(q => q.rcvamt);
+            artrn_to_update.cshrcv = artrn_to_update.rectyp == "1" ? (artrn_to_update.chqrcv > artrn_to_update.netamt ? 0 : artrn_to_update.netamt - artrn_to_update.chqrcv) : 0; /* 1 = 'HS' */
+        }
+
         public static string FillSpaceBeforeNum(this int num, int total_digit)
         {
             string num_str = num.ToString();

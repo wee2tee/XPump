@@ -145,6 +145,7 @@ namespace XPump.SubForm
             this.cNozzle._Text = artrn.youref;
             this.lblCusnam.Text = cus != null ? cus.cusnam.TrimEnd() : string.Empty;
             this.cCshrcv._Value = artrn.cshrcv;
+            this.cChqrcv.Text = string.Format("{0:N2}", artrn.chqrcv);
             this.lblAmount.Text = string.Format("{0:n}", artrn.amount);
             this.lblVatrat.Text = string.Format("{0:n}", artrn.vatrat) + "%";
             this.lblVatamt.Text = string.Format("{0:n}", artrn.vatamt);
@@ -273,16 +274,6 @@ namespace XPump.SubForm
             {
                 if (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
                 {
-                    //if (this.tmp_artrn.cuscod.Trim().Length == 0)
-                    //    return;
-
-                    //if (this.cDocdat._SelectedDate == null)
-                    //{
-                    //    this.cDocdat.Focus();
-                    //    SendKeys.Send("{F6}");
-                    //    return;
-                    //}
-
                     this.btnSave.PerformClick();
                 }
 
@@ -354,14 +345,20 @@ namespace XPump.SubForm
 
                             };
 
+                            var artrn_to_update = db.artrn.Include("stcrd").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                            if(artrn_to_update == null)
+                            {
+                                XMessageBox.Show("เอกสารเลขที่ " + this.curr_artrn.docnum + " ไม่มีอยู่ในระบบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                                return;
+                            }
+
                             if (bill_method == BILL_METHOD.VAL)
                             {
                                 DialogSellValue ds = new DialogSellValue(this.main_form, artrn, tmp_stcrd);
                                 if (ds.ShowDialog() != DialogResult.OK)
                                     return;
 
-                                this.curr_nozzle = ds.selected_nozzle;
-                                this.cNozzle._Text = this.curr_nozzle != null ? this.curr_nozzle.name : string.Empty;
+                                artrn_to_update.youref = ds.selected_nozzle.name;
                                 tmp_stcrd.loccod = this.curr_nozzle != null ? this.curr_nozzle.section.loccod : tmp_stcrd.loccod;
                             }
                             else
@@ -373,8 +370,6 @@ namespace XPump.SubForm
 
                             try
                             {
-                                var artrn_to_update = db.artrn.Include("stcrd").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
-
                                 if (artrn_to_update != null)
                                 {
                                     if (is_fuel_goods)
@@ -398,22 +393,9 @@ namespace XPump.SubForm
                                     tmp_stcrd.seqnum = artrn_to_update.nxtseq.Trim().Length == 0 ? 1.FillSpaceBeforeNum(3) : (Convert.ToInt32(artrn_to_update.nxtseq) + 1).FillSpaceBeforeNum(3);
                                     db.stcrd.Add(tmp_stcrd);
 
-                                    var vatamt = Math.Round(artrn_to_update.stcrd.Sum(st => st.trnval) * artrn_to_update.vatrat / (100 + artrn_to_update.vatrat), 2);
-
-                                    artrn_to_update.nxtseq = tmp_stcrd.seqnum;
+                                    artrn_to_update.CalNeccessaryValue();
                                     artrn_to_update.userid = this.main_form.loged_in_status.loged_in_user_name;
                                     artrn_to_update.chgdat = DateTime.Now;
-
-                                    artrn_to_update.amount = artrn_to_update.stcrd.Sum(st => st.trnval)/* + tmp_stcrd.trnval*/;
-                                    artrn_to_update.vatamt = vatamt;
-                                    artrn_to_update.aftdisc = artrn.amount;
-                                    artrn_to_update.total = artrn.amount;
-                                    artrn_to_update.netamt = artrn.amount;
-                                    artrn_to_update.netval = artrn.amount - artrn.vatamt;
-                                    artrn_to_update.rcvamt = this.curr_docprefix.doctyp == "HS" ? artrn.netamt : 0;
-                                    artrn_to_update.remamt = this.curr_docprefix.doctyp == "IV" ? artrn.netamt : 0;
-                                    artrn_to_update.chqrcv = artrn.arrcpcq.Sum(q => q.rcvamt);
-                                    artrn_to_update.cshrcv = this.curr_docprefix.doctyp == "HS" ? artrn.netamt - artrn.chqrcv : 0;
 
                                     if (db.SaveChanges() > 0)
                                     {
@@ -427,34 +409,7 @@ namespace XPump.SubForm
                                 XMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OKCancel, XMessageBoxIcon.Error);
                                 return;
                             }
-
                         }
-
-
-
-                        //this.tmp_artrn.nxtseq = tmp_stcrd.seqnum;
-                        //this.tmp_artrn.stcrd.Add(tmp_stcrd);
-
-
-
-                        //this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
-                        //this.tmp_artrn.vatamt = vatamt;
-                        //this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
-                        //this.tmp_artrn.total = this.tmp_artrn.amount;
-                        //this.tmp_artrn.netamt = this.tmp_artrn.amount;
-                        //this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
-                        //this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
-                        //this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
-                        //this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
-                        //this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
-
-                        //this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
-                        //this.dgvStcrd.DataSource = this.stcrd;
-
-                        //this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
-                        //this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
-                        //this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
-                        //this.cCshrcv._Value = this.tmp_artrn.cshrcv;
                     }
                 }
             }
@@ -612,13 +567,13 @@ namespace XPump.SubForm
             {
                 try
                 {
-                    if(this.tmp_artrn.cuscod.Trim().Length == 0)
+                    if((this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT) && this.tmp_artrn.cuscod.Trim().Length == 0)
                     {
                         this.cCuscod.Focus();
                         return;
                     }
 
-                    if(this.cDocdat._SelectedDate == null)
+                    if((this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT) && this.cDocdat._SelectedDate == null)
                     {
                         this.cDocdat.Focus();
                         SendKeys.Send("{F6}");
@@ -644,10 +599,6 @@ namespace XPump.SubForm
                         {
                             var next_docnum = Helper.CalNextDocnum(this.tmp_artrn.docnum);
                             isrun.SetNextDocnum(this.main_form.working_express_db, next_docnum);
-                            //if(!isrun.SetNextDocnum(this.main_form.working_express_db, next_docnum))
-                            //{
-                            //    XMessageBox.Show("การกำหนดเลขที่เอกสารถัดไปใน isrun ยังไม่ถูกต้อง");
-                            //}
                             this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.tmp_artrn.id).FirstOrDefault();
                             this.FillForm(this.curr_artrn);
                             this.ResetFormState(FORM_MODE.READ);
@@ -915,10 +866,14 @@ namespace XPump.SubForm
 
         private void dgvStcrd_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if(this.form_mode == FORM_MODE.READ && ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
-            {
-                string stkcod_to_del = ((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stkcod.Name].Value.ToString();
 
+
+            stcrd stcrd = (stcrd)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stcrd.Name].Value;
+            bool is_fuel_goods = this.stmas1.Select(st => st.stkcod).Where(st => st.Contains(stcrd.stkcod)).Count() > 0 ? true : false;
+
+
+            if (this.form_mode == FORM_MODE.READ && ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_delete.Name)
+            {
                 ((XDatagrid)sender).Rows[e.RowIndex].DrawDeletingRowOverlay();
 
                 if(XMessageBox.Show("ลบรายการนี้หรือไม่?", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) == DialogResult.OK)
@@ -926,11 +881,16 @@ namespace XPump.SubForm
                     using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                     {
                         int deleting_id = ((stcrd)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stcrd.Name].Value).id;
+
                         var stcrd_to_delete = db.stcrd.Find(deleting_id);
+                        var artrn_to_update = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+
                         db.stcrd.Remove(stcrd_to_delete);
 
-                        var artrn_to_update = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
-                        artrn_to_update
+                        artrn_to_update.CalNeccessaryValue();
+                        artrn_to_update.youref = is_fuel_goods ? string.Empty : artrn_to_update.youref;
+                        artrn_to_update.userid = this.main_form.loged_in_status.loged_in_user_name;
+                        artrn_to_update.chgdat = DateTime.Now;
 
                         if(db.SaveChanges() > 0)
                         {
@@ -938,35 +898,6 @@ namespace XPump.SubForm
                             this.FillForm(this.curr_artrn);
                         }
                     }
-
-                    //this.tmp_artrn.stcrd.Remove(this.tmp_artrn.stcrd.Where(s => s.stkcod == stkcod_to_del).First());
-                    //this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
-                    //this.dgvStcrd.DataSource = this.stcrd;
-                    //if(this.stcrd.Where(s => this.stmas1.Select(st => st.stkcod).Contains(s.stkcod)).Count() == 0)
-                    //{
-                    //    this.cNozzle._Text = string.Empty;
-                    //}
-
-                    ///**********/
-                    //var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
-
-                    //this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
-                    //this.tmp_artrn.vatamt = vatamt;
-                    //this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
-                    //this.tmp_artrn.total = this.tmp_artrn.amount;
-                    //this.tmp_artrn.netamt = this.tmp_artrn.amount;
-                    //this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
-                    //this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
-                    //this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
-                    //this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
-                    //this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
-
-                    ///**********/
-
-
-                    //this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
-                    //this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
-                    //this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
                 }
                 else
                 {
@@ -975,60 +906,69 @@ namespace XPump.SubForm
             }
             if(this.form_mode == FORM_MODE.READ && ((XDatagrid)sender).Columns[e.ColumnIndex].Name == this.col_st_edit.Name)
             {
-                stcrd stcrd_to_edit = (stcrd)((XDatagrid)sender).Rows[e.RowIndex].Cells[this.col_st_stcrd.Name].Value;
-                bool is_fuel_goods = this.stmas1.Select(st => st.stkcod).Where(st => st.Contains(stcrd_to_edit.stkcod)).Count() > 0 ? true : false;
-
-                if (is_fuel_goods)
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                 {
-                    nozzle nozzle;
-                    using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                    var artrn_to_update = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                    if (artrn_to_update == null)
                     {
-                        nozzle = db.nozzle.Where(n => n.name == this.cNozzle._Text).FirstOrDefault();
+                        XMessageBox.Show("เอกสารเลขที่ " + this.curr_artrn.docnum + " ไม่มีอยู่ในระบบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                        return;
                     }
 
-                    DialogSellValue ds = new DialogSellValue(this.main_form, this.tmp_artrn, stcrd_to_edit, nozzle);
-                    if(ds.ShowDialog() == DialogResult.OK)
+                    stcrd stcrd_to_update = db.stcrd.Find(stcrd.id);
+
+                    if (is_fuel_goods)
                     {
-                        this.cNozzle._Text = ds.selected_nozzle.name;
-                        this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnqty = ds.stcrd.trnqty;
-                        this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnval = ds.stcrd.trnval;
-                        this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
-                        this.dgvStcrd.DataSource = this.stcrd;
-                        this.dgvStcrd.Rows.Cast<DataGridViewRow>().Where(r => r.Cells[this.col_st_stkcod.Name].Value.ToString() == stcrd_to_edit.stkcod).First().Selected = true;
+                        nozzle nozzle = db.nozzle.Where(n => n.name == this.cNozzle._Text).FirstOrDefault();
+
+                        DialogSellValue ds = new DialogSellValue(this.main_form, this.curr_artrn, stcrd_to_update, nozzle);
+                        if (ds.ShowDialog() != DialogResult.OK)
+                            return;
+
+                        artrn_to_update.youref = ds.selected_nozzle.name;
+                    }
+                    else
+                    {
+                        DialogSellQty ds = new DialogSellQty(this.main_form, this.curr_artrn, stcrd_to_update);
+                        if (ds.ShowDialog() != DialogResult.OK)
+                            return;
+                    }
+
+                    artrn_to_update.CalNeccessaryValue();
+                    artrn_to_update.userid = this.main_form.loged_in_status.loged_in_user_name;
+                    artrn_to_update.chgdat = DateTime.Now;
+                    stcrd_to_update.userid = this.main_form.loged_in_status.loged_in_user_name;
+                    stcrd_to_update.chgdat = DateTime.Now;
+
+                    if(db.SaveChanges() > 0)
+                    {
+                        this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                        this.FillForm(this.curr_artrn);
                     }
                 }
-                else
-                {
-                    DialogSellQty ds = new DialogSellQty(this.main_form, this.tmp_artrn, stcrd_to_edit);
-                    if(ds.ShowDialog() == DialogResult.OK)
-                    {
-                        this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnqty = ds.stcrd.trnqty;
-                        this.tmp_artrn.stcrd.Where(st => st.stkcod == stcrd_to_edit.stkcod).First().trnval = ds.stcrd.trnval;
-                        this.stcrd = new BindingList<StcrdInvoice>(this.tmp_artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
-                        this.dgvStcrd.DataSource = this.stcrd;
-                        this.dgvStcrd.Rows.Cast<DataGridViewRow>().Where(r => r.Cells[this.col_st_stkcod.Name].Value.ToString() == stcrd_to_edit.stkcod).First().Selected = true;
-                    }
-                }
 
-                /*******************/
-                var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
+                
 
-                this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
-                this.tmp_artrn.vatamt = vatamt;
-                this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
-                this.tmp_artrn.total = this.tmp_artrn.amount;
-                this.tmp_artrn.netamt = this.tmp_artrn.amount;
-                this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
-                this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
-                this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
-                this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
-                this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+                ///*******************/
 
-                /*******************/
+                //var vatamt = Math.Round(this.tmp_artrn.stcrd.Sum(st => st.trnval) * this.tmp_artrn.vatrat / (100 + this.tmp_artrn.vatrat), 2);
 
-                this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
-                this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
-                this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
+                //this.tmp_artrn.amount = this.tmp_artrn.stcrd.Sum(st => st.trnval);
+                //this.tmp_artrn.vatamt = vatamt;
+                //this.tmp_artrn.aftdisc = this.tmp_artrn.amount;
+                //this.tmp_artrn.total = this.tmp_artrn.amount;
+                //this.tmp_artrn.netamt = this.tmp_artrn.amount;
+                //this.tmp_artrn.netval = this.tmp_artrn.amount - this.tmp_artrn.vatamt;
+                //this.tmp_artrn.rcvamt = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt : 0;
+                //this.tmp_artrn.remamt = this.curr_docprefix.doctyp == "IV" ? this.tmp_artrn.netamt : 0;
+                //this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
+                //this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
+
+                ///*******************/
+
+                //this.lblAmount.Text = string.Format("{0:n}", this.tmp_artrn.amount);
+                //this.lblVatamt.Text = string.Format("{0:n}", this.tmp_artrn.vatamt);
+                //this.lblNetval.Text = string.Format("{0:n}", this.tmp_artrn.netval);
             }
         }
 
@@ -1055,14 +995,24 @@ namespace XPump.SubForm
                     {
                         using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
                         {
-                            var artrn_to_update = db.artrn.Find(this.curr_artrn.id);
-                            artrn_to_update.chqrcv -= deleting_arrcpcq.rcvamt;
-                            artrn_to_update.cshrcv += deleting_arrcpcq.rcvamt;
+                            var artrn_to_update = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                            var arrcpcq_to_delete = db.arrcpcq.Find(deleting_arrcpcq.id);
+
+                            if(arrcpcq_to_delete == null)
+                            {
+                                XMessageBox.Show("ค้นหารายการที่ต้องการลบไม่พบ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                                this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                                this.FillForm(this.curr_artrn);
+                                return;
+                            }
+
+                            db.arrcpcq.Remove(arrcpcq_to_delete);
+
+                            //artrn_to_update.chqrcv -= deleting_arrcpcq.rcvamt;
+                            //artrn_to_update.cshrcv += deleting_arrcpcq.rcvamt;
+                            artrn_to_update.CalNeccessaryValue();
                             artrn_to_update.userid = this.main_form.loged_in_status.loged_in_user_name;
                             artrn_to_update.chgdat = DateTime.Now;
-
-                            var arrcpcq_to_delete = db.arrcpcq.Find(deleting_arrcpcq.id);
-                            db.arrcpcq.Remove(arrcpcq_to_delete);
 
                             if(db.SaveChanges() > 0)
                             {

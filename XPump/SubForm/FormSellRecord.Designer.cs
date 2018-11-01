@@ -40,10 +40,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
@@ -130,6 +130,15 @@
             this.inlineCardNo = new CC.XTextEditMasked();
             this.btnAddCreditCard = new System.Windows.Forms.Button();
             this.dgvRcv1 = new CC.XDatagrid();
+            this.tabCoupon = new System.Windows.Forms.TabPage();
+            this.inlineCouponNo = new CC.XTextEdit();
+            this.inlineAmount2 = new CC.XNumEdit();
+            this.btnAddCoupon = new System.Windows.Forms.Button();
+            this.dgvRcv2 = new CC.XDatagrid();
+            this.label10 = new System.Windows.Forms.Label();
+            this.btnManageStkgrp = new System.Windows.Forms.Button();
+            this.cChqrcv = new System.Windows.Forms.Label();
+            this.cCuscod = new XPump.CustomControls.BrowseBoxCuscod();
             this.col_rcv1_chqnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv1_cardno = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv1_bank = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -137,11 +146,6 @@
             this.col_rcv1_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv1_arrcpcq = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv1_delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.tabCoupon = new System.Windows.Forms.TabPage();
-            this.inlineCouponNo = new CC.XTextEdit();
-            this.inlineAmount2 = new CC.XNumEdit();
-            this.btnAddCoupon = new System.Windows.Forms.Button();
-            this.dgvRcv2 = new CC.XDatagrid();
             this.col_rcv2_chqnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv2_coupon_num = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv2_rcvamt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -149,9 +153,6 @@
             this.col_rcv2_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv2_arrcpcq = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv2_delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label10 = new System.Windows.Forms.Label();
-            this.btnManageStkgrp = new System.Windows.Forms.Button();
-            this.cCuscod = new XPump.CustomControls.BrowseBoxCuscod();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabGoods1.SuspendLayout();
@@ -607,7 +608,7 @@
             this.dgvGoods2.RowHeadersVisible = false;
             this.dgvGoods2.RowTemplate.Height = 26;
             this.dgvGoods2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvGoods2.Size = new System.Drawing.Size(370, 445);
+            this.dgvGoods2.Size = new System.Drawing.Size(370, 448);
             this.dgvGoods2.StandardTab = true;
             this.dgvGoods2.TabIndex = 1;
             this.dgvGoods2.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGoods1_CellMouseDoubleClick);
@@ -1070,6 +1071,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelRcv.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.panelRcv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelRcv.Controls.Add(this.cChqrcv);
             this.panelRcv.Controls.Add(this.cCshrcv);
             this.panelRcv.Controls.Add(this.label4);
             this.panelRcv.Controls.Add(this.label5);
@@ -1298,71 +1300,6 @@
             this.dgvRcv1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvRcv_CellPainting);
             this.dgvRcv1.Resize += new System.EventHandler(this.dgvRcv_Resize);
             // 
-            // col_rcv1_chqnum
-            // 
-            this.col_rcv1_chqnum.DataPropertyName = "chqnum";
-            this.col_rcv1_chqnum.HeaderText = "รหัสรายการ";
-            this.col_rcv1_chqnum.MinimumWidth = 120;
-            this.col_rcv1_chqnum.Name = "col_rcv1_chqnum";
-            this.col_rcv1_chqnum.ReadOnly = true;
-            this.col_rcv1_chqnum.Width = 120;
-            // 
-            // col_rcv1_cardno
-            // 
-            this.col_rcv1_cardno.DataPropertyName = "cardnum";
-            this.col_rcv1_cardno.HeaderText = "หมายเลขบัตร";
-            this.col_rcv1_cardno.MinimumWidth = 160;
-            this.col_rcv1_cardno.Name = "col_rcv1_cardno";
-            this.col_rcv1_cardno.ReadOnly = true;
-            this.col_rcv1_cardno.Width = 160;
-            // 
-            // col_rcv1_bank
-            // 
-            this.col_rcv1_bank.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_rcv1_bank.DataPropertyName = "bank";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.Format = "N2";
-            dataGridViewCellStyle12.NullValue = null;
-            this.col_rcv1_bank.DefaultCellStyle = dataGridViewCellStyle12;
-            this.col_rcv1_bank.HeaderText = "ธนาคาร";
-            this.col_rcv1_bank.MinimumWidth = 80;
-            this.col_rcv1_bank.Name = "col_rcv1_bank";
-            this.col_rcv1_bank.ReadOnly = true;
-            // 
-            // col_rcv1_rcvamt
-            // 
-            this.col_rcv1_rcvamt.DataPropertyName = "rcvamt";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.col_rcv1_rcvamt.DefaultCellStyle = dataGridViewCellStyle13;
-            this.col_rcv1_rcvamt.HeaderText = "จำนวนเงิน";
-            this.col_rcv1_rcvamt.MinimumWidth = 100;
-            this.col_rcv1_rcvamt.Name = "col_rcv1_rcvamt";
-            this.col_rcv1_rcvamt.ReadOnly = true;
-            // 
-            // col_rcv1_working_express_db
-            // 
-            this.col_rcv1_working_express_db.DataPropertyName = "working_express_db";
-            this.col_rcv1_working_express_db.HeaderText = "Working Express DB";
-            this.col_rcv1_working_express_db.Name = "col_rcv1_working_express_db";
-            this.col_rcv1_working_express_db.ReadOnly = true;
-            this.col_rcv1_working_express_db.Visible = false;
-            // 
-            // col_rcv1_arrcpcq
-            // 
-            this.col_rcv1_arrcpcq.DataPropertyName = "arrcpcq";
-            this.col_rcv1_arrcpcq.HeaderText = "Arrcpcq";
-            this.col_rcv1_arrcpcq.Name = "col_rcv1_arrcpcq";
-            this.col_rcv1_arrcpcq.ReadOnly = true;
-            this.col_rcv1_arrcpcq.Visible = false;
-            // 
-            // col_rcv1_delete
-            // 
-            this.col_rcv1_delete.HeaderText = "";
-            this.col_rcv1_delete.MinimumWidth = 50;
-            this.col_rcv1_delete.Name = "col_rcv1_delete";
-            this.col_rcv1_delete.ReadOnly = true;
-            this.col_rcv1_delete.Width = 50;
-            // 
             // tabCoupon
             // 
             this.tabCoupon.Controls.Add(this.inlineCouponNo);
@@ -1408,8 +1345,8 @@
             this.inlineAmount2._MaxLength = 30;
             this.inlineAmount2._ReadOnly = true;
             this.inlineAmount2._SelectionLength = 0;
-            this.inlineAmount2._SelectionStart = 1;
-            this.inlineAmount2._Text = "0";
+            this.inlineAmount2._SelectionStart = 4;
+            this.inlineAmount2._Text = "0.00";
             this.inlineAmount2._TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.inlineAmount2._UseThoundsandSeparate = true;
             this.inlineAmount2._Value = new decimal(new int[] {
@@ -1489,12 +1426,136 @@
             this.dgvRcv2.RowHeadersVisible = false;
             this.dgvRcv2.RowTemplate.Height = 26;
             this.dgvRcv2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRcv2.Size = new System.Drawing.Size(585, 110);
+            this.dgvRcv2.Size = new System.Drawing.Size(585, 107);
             this.dgvRcv2.StandardTab = true;
             this.dgvRcv2.TabIndex = 1;
             this.dgvRcv2.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRcv_CellMouseClick);
             this.dgvRcv2.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvRcv_CellPainting);
             this.dgvRcv2.Resize += new System.EventHandler(this.dgvRcv_Resize);
+            // 
+            // label10
+            // 
+            this.label10.BackColor = System.Drawing.Color.White;
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label10.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label10.Location = new System.Drawing.Point(7, 49);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(373, 27);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "รายการสินค้า";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnManageStkgrp
+            // 
+            this.btnManageStkgrp.Image = global::XPump.Properties.Resources.settings;
+            this.btnManageStkgrp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnManageStkgrp.Location = new System.Drawing.Point(269, 77);
+            this.btnManageStkgrp.Name = "btnManageStkgrp";
+            this.btnManageStkgrp.Size = new System.Drawing.Size(112, 27);
+            this.btnManageStkgrp.TabIndex = 1;
+            this.btnManageStkgrp.Text = "จัดกลุ่มสินค้า";
+            this.btnManageStkgrp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnManageStkgrp.UseVisualStyleBackColor = true;
+            this.btnManageStkgrp.Click += new System.EventHandler(this.btnManageStkgrp_Click);
+            // 
+            // cChqrcv
+            // 
+            this.cChqrcv.BackColor = System.Drawing.Color.Gainsboro;
+            this.cChqrcv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cChqrcv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cChqrcv.Location = new System.Drawing.Point(104, 8);
+            this.cChqrcv.Name = "cChqrcv";
+            this.cChqrcv.Size = new System.Drawing.Size(100, 21);
+            this.cChqrcv.TabIndex = 12;
+            this.cChqrcv.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cCuscod
+            // 
+            this.cCuscod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCuscod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCuscod._DataPath = null;
+            this.cCuscod._MaxLength = 50;
+            this.cCuscod._ReadOnly = false;
+            this.cCuscod._Text = "";
+            this.cCuscod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cCuscod._UseImage = true;
+            this.cCuscod.BackColor = System.Drawing.Color.White;
+            this.cCuscod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCuscod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cCuscod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCuscod.Location = new System.Drawing.Point(54, 7);
+            this.cCuscod.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.cCuscod.Name = "cCuscod";
+            this.cCuscod.Size = new System.Drawing.Size(118, 23);
+            this.cCuscod.TabIndex = 11;
+            this.cCuscod._SelectedCuscodChanged += new System.EventHandler(this.cCuscod__SelectedCuscodChanged);
+            this.cCuscod._Leave += new System.EventHandler(this.cCuscod__Leave);
+            // 
+            // col_rcv1_chqnum
+            // 
+            this.col_rcv1_chqnum.DataPropertyName = "chqnum";
+            this.col_rcv1_chqnum.HeaderText = "รหัสรายการ";
+            this.col_rcv1_chqnum.MinimumWidth = 120;
+            this.col_rcv1_chqnum.Name = "col_rcv1_chqnum";
+            this.col_rcv1_chqnum.ReadOnly = true;
+            this.col_rcv1_chqnum.Width = 120;
+            // 
+            // col_rcv1_cardno
+            // 
+            this.col_rcv1_cardno.DataPropertyName = "cardnum";
+            this.col_rcv1_cardno.HeaderText = "หมายเลขบัตร";
+            this.col_rcv1_cardno.MinimumWidth = 160;
+            this.col_rcv1_cardno.Name = "col_rcv1_cardno";
+            this.col_rcv1_cardno.ReadOnly = true;
+            this.col_rcv1_cardno.Width = 160;
+            // 
+            // col_rcv1_bank
+            // 
+            this.col_rcv1_bank.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_rcv1_bank.DataPropertyName = "bank";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.Format = "N2";
+            dataGridViewCellStyle12.NullValue = null;
+            this.col_rcv1_bank.DefaultCellStyle = dataGridViewCellStyle12;
+            this.col_rcv1_bank.HeaderText = "ธนาคาร";
+            this.col_rcv1_bank.MinimumWidth = 80;
+            this.col_rcv1_bank.Name = "col_rcv1_bank";
+            this.col_rcv1_bank.ReadOnly = true;
+            // 
+            // col_rcv1_rcvamt
+            // 
+            this.col_rcv1_rcvamt.DataPropertyName = "rcvamt";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N2";
+            this.col_rcv1_rcvamt.DefaultCellStyle = dataGridViewCellStyle13;
+            this.col_rcv1_rcvamt.HeaderText = "จำนวนเงิน";
+            this.col_rcv1_rcvamt.MinimumWidth = 100;
+            this.col_rcv1_rcvamt.Name = "col_rcv1_rcvamt";
+            this.col_rcv1_rcvamt.ReadOnly = true;
+            // 
+            // col_rcv1_working_express_db
+            // 
+            this.col_rcv1_working_express_db.DataPropertyName = "working_express_db";
+            this.col_rcv1_working_express_db.HeaderText = "Working Express DB";
+            this.col_rcv1_working_express_db.Name = "col_rcv1_working_express_db";
+            this.col_rcv1_working_express_db.ReadOnly = true;
+            this.col_rcv1_working_express_db.Visible = false;
+            // 
+            // col_rcv1_arrcpcq
+            // 
+            this.col_rcv1_arrcpcq.DataPropertyName = "arrcpcq";
+            this.col_rcv1_arrcpcq.HeaderText = "Arrcpcq";
+            this.col_rcv1_arrcpcq.Name = "col_rcv1_arrcpcq";
+            this.col_rcv1_arrcpcq.ReadOnly = true;
+            this.col_rcv1_arrcpcq.Visible = false;
+            // 
+            // col_rcv1_delete
+            // 
+            this.col_rcv1_delete.HeaderText = "";
+            this.col_rcv1_delete.MinimumWidth = 50;
+            this.col_rcv1_delete.Name = "col_rcv1_delete";
+            this.col_rcv1_delete.ReadOnly = true;
+            this.col_rcv1_delete.Width = 50;
             // 
             // col_rcv2_chqnum
             // 
@@ -1557,53 +1618,6 @@
             this.col_rcv2_delete.Name = "col_rcv2_delete";
             this.col_rcv2_delete.ReadOnly = true;
             this.col_rcv2_delete.Width = 50;
-            // 
-            // label10
-            // 
-            this.label10.BackColor = System.Drawing.Color.White;
-            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label10.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label10.Location = new System.Drawing.Point(7, 49);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(373, 27);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "รายการสินค้า";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnManageStkgrp
-            // 
-            this.btnManageStkgrp.Image = global::XPump.Properties.Resources.settings;
-            this.btnManageStkgrp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnManageStkgrp.Location = new System.Drawing.Point(269, 77);
-            this.btnManageStkgrp.Name = "btnManageStkgrp";
-            this.btnManageStkgrp.Size = new System.Drawing.Size(112, 27);
-            this.btnManageStkgrp.TabIndex = 1;
-            this.btnManageStkgrp.Text = "จัดกลุ่มสินค้า";
-            this.btnManageStkgrp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnManageStkgrp.UseVisualStyleBackColor = true;
-            this.btnManageStkgrp.Click += new System.EventHandler(this.btnManageStkgrp_Click);
-            // 
-            // cCuscod
-            // 
-            this.cCuscod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCuscod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCuscod._DataPath = null;
-            this.cCuscod._MaxLength = 50;
-            this.cCuscod._ReadOnly = false;
-            this.cCuscod._Text = "";
-            this.cCuscod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cCuscod._UseImage = true;
-            this.cCuscod.BackColor = System.Drawing.Color.White;
-            this.cCuscod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCuscod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cCuscod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCuscod.Location = new System.Drawing.Point(54, 7);
-            this.cCuscod.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.cCuscod.Name = "cCuscod";
-            this.cCuscod.Size = new System.Drawing.Size(118, 23);
-            this.cCuscod.TabIndex = 11;
-            this.cCuscod._SelectedCuscodChanged += new System.EventHandler(this.cCuscod__SelectedCuscodChanged);
-            this.cCuscod._Leave += new System.EventHandler(this.cCuscod__Leave);
             // 
             // FormSellRecord
             // 
@@ -1737,6 +1751,15 @@
         private System.Windows.Forms.Button btnAddCreditCard;
         private System.Windows.Forms.Button btnAddCoupon;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label4;
+        private CC.XNumEdit inlineAmount1;
+        private CC.XDropdownList inlineBank;
+        private CC.XTextEditMasked inlineCardNo;
+        private CC.XNumEdit inlineAmount2;
+        private CC.XTextEdit inlineCouponNo;
+        private System.Windows.Forms.Label lblNotComplete;
+        private System.Windows.Forms.ToolStripButton btnVoid;
+        private System.Windows.Forms.Label cChqrcv;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv1_chqnum;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv1_cardno;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv1_bank;
@@ -1744,12 +1767,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv1_working_express_db;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv1_arrcpcq;
         private System.Windows.Forms.DataGridViewButtonColumn col_rcv1_delete;
-        private System.Windows.Forms.Label label4;
-        private CC.XNumEdit inlineAmount1;
-        private CC.XDropdownList inlineBank;
-        private CC.XTextEditMasked inlineCardNo;
-        private CC.XNumEdit inlineAmount2;
-        private CC.XTextEdit inlineCouponNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv2_chqnum;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv2_coupon_num;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv2_rcvamt;
@@ -1757,7 +1774,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv2_working_express_db;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rcv2_arrcpcq;
         private System.Windows.Forms.DataGridViewButtonColumn col_rcv2_delete;
-        private System.Windows.Forms.Label lblNotComplete;
-        private System.Windows.Forms.ToolStripButton btnVoid;
     }
 }
