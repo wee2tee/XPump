@@ -150,7 +150,18 @@ namespace XPump.SubForm
             this.lblVatrat.Text = string.Format("{0:n}", artrn.vatrat) + "%";
             this.lblVatamt.Text = string.Format("{0:n}", artrn.vatamt);
             this.lblNetval.Text = string.Format("{0:n}", artrn.netval);
-            this.lblNotComplete.Visible = artrn.chqrcv + artrn.cshrcv != artrn.amount ? true : false;
+            if(artrn.chqrcv + artrn.cshrcv != artrn.amount)
+            {
+                this.lblNotComplete.Text = "ยอดชำระไม่เท่ากับยอดขาย";
+            }
+            else if(artrn.docstat == "C")
+            {
+                this.lblNotComplete.Text = "ถูกยกเลิก";
+            }
+            else
+            {
+                this.lblNotComplete.Text = string.Empty;
+            }
 
             this.stcrd = new BindingList<StcrdInvoice>(artrn.stcrd.OrderBy(st => st.seqnum).ToStcrdInvoice());
             this.dgvStcrd.DataSource = this.stcrd;
@@ -489,6 +500,12 @@ namespace XPump.SubForm
             if (this.curr_artrn == null || this.curr_artrn.id < 0)
                 return;
 
+            if (this.curr_artrn.docstat == "C")
+            {
+                XMessageBox.Show("เอกสารถูกยกเลิกแล้ว");
+                return;
+            }
+
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 this.tmp_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
@@ -502,10 +519,53 @@ namespace XPump.SubForm
             }
         }
 
+        private void btnVoid_Click(object sender, EventArgs e)
+        {
+            if (this.curr_artrn == null || this.curr_artrn.id < 0)
+                return;
+
+            if (XMessageBox.Show("กรุณาเลือกตกลง เพื่อยืนยันให้ยกเลิกเอกสาร", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
+                return;
+
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                var artrn_to_update = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+
+                if(artrn_to_update == null)
+                {
+                    XMessageBox.Show("เอกสารเลขที่ " + this.curr_artrn.docnum + " ไม่มีอยู่ในระบบ", "Error", MessageBoxButtons.OK, XMessageBoxIcon.Error);
+                    return;
+                }
+
+                artrn_to_update.stcrd.ToList().ForEach(s => db.stcrd.Remove(s));
+                artrn_to_update.arrcpcq.ToList().ForEach(a => db.arrcpcq.Remove(a));
+
+                artrn_to_update.docstat = "C";
+                artrn_to_update.cmplapp = "Y";
+                artrn_to_update.cmpldat = DateTime.Now;
+                artrn_to_update.userid = this.main_form.loged_in_status.loged_in_user_name;
+                artrn_to_update.chgdat = DateTime.Now;
+                artrn_to_update.CalNeccessaryValue();
+
+                if(db.SaveChanges() > 0)
+                {
+                    this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                    this.FillForm(this.curr_artrn);
+                    Console.WriteLine(" ==> Void document completed.");
+                }
+            }
+        }
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (this.curr_artrn == null || this.curr_artrn.id < 0)
                 return;
+
+            if(this.curr_artrn.docstat != "C")
+            {
+                XMessageBox.Show("สถานะเอกสารต้องเป็น \"ถูกยกเลิก\" เสียก่อน");
+                return;
+            }
 
             if (XMessageBox.Show("ลบข้อมูลนี้หรือไม่", "", MessageBoxButtons.OKCancel, XMessageBoxIcon.Question) != DialogResult.OK)
                 return;
@@ -641,9 +701,21 @@ namespace XPump.SubForm
                     {
                         if (this.tmp_arrcpcq != null)
                         {
-                            if(this.tmp_arrcpcq.rcvamt > this.curr_artrn.cshrcv)
+                            if(this.curr_artrn.cshrcv == 0)
                             {
-                                XMessageBox.Show("ยอดชำระต้องเท่ากับหรือน้อยกว่า " + String.Format("{0:N2}", this.curr_artrn.cshrcv), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                                XMessageBox.Show("ยอดชำระต้องไม่มากกว่ายอดขายสินค้า", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                                return;
+                            }
+
+                            if(this.tmp_arrcpcq.rcvamt == 0)
+                            {
+                                XMessageBox.Show("ยอดชำระต้องมากกว่า 0.00", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                                return;
+                            }
+
+                            if(this.curr_artrn.cshrcv > 0 && this.tmp_arrcpcq.rcvamt > this.curr_artrn.cshrcv)
+                            {
+                                XMessageBox.Show("ยอดชำระต้องน้อยกว่าหรือเท่ากับ " + String.Format("{0:N2}", this.curr_artrn.cshrcv), "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
                                 return;
                             }
 
@@ -1121,35 +1193,6 @@ namespace XPump.SubForm
 
         private void btnAddCoupon_Click(object sender, EventArgs e)
         {
-            //using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
-            //{
-            //    arrcpcq tmp_arrcpcq = new arrcpcq
-            //    {
-            //        id = -1,
-            //        artrn_id = -1,
-            //        cardnum = string.Empty,
-            //        chqnum = string.Empty,
-            //        bank_id = null,
-            //        rcpnum = string.Empty,
-            //        rcvamt = 0,
-            //        userid = this.main_form.loged_in_status.loged_in_user_name
-            //    };
-
-            //    DialogCouponRcv rcv = new DialogCouponRcv(this.main_form, tmp_arrcpcq);
-            //    if (rcv.ShowDialog() == DialogResult.OK)
-            //    {
-            //        this.tmp_artrn.arrcpcq.Add(tmp_arrcpcq);
-            //        this.tmp_artrn.chqrcv = this.tmp_artrn.arrcpcq.Sum(q => q.rcvamt);
-            //        this.tmp_artrn.cshrcv = this.curr_docprefix.doctyp == "HS" ? this.tmp_artrn.netamt - this.tmp_artrn.chqrcv : 0;
-
-            //        this.cCshrcv._Value = this.tmp_artrn.cshrcv;
-            //        var rcv_list = this.tmp_artrn.arrcpcq.Where(i => i.rcv_method_id == tmp_arrcpcq.rcv_method_id).Select(i => new ArrcpcqInvoice { working_express_db = this.main_form.working_express_db, arrcpcq = i }).ToList();
-            //        this.arrcpcq_coupon = new BindingList<ArrcpcqInvoice>(rcv_list);
-
-            //        this.dgvRcv2.DataSource = this.arrcpcq_coupon;
-            //    }
-            //}
-
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 istab coupon_method = db.istab.Where(i => i.tabtyp == ISTAB_TABTYP.RCV_METHOD && i.typcod == "CP").FirstOrDefault();
@@ -1225,8 +1268,8 @@ namespace XPump.SubForm
             {
                 XDropdownListItem selected_bank = ((XDropdownList)this.inlineBank)._Items.Cast<XDropdownListItem>().Where(i => (int?)i.Value == this.tmp_arrcpcq.bank_id).FirstOrDefault() != null ? ((XDropdownList)this.inlineBank)._Items.Cast<XDropdownListItem>().Where(i => (int?)i.Value == this.tmp_arrcpcq.bank_id).FirstOrDefault() : ((XDropdownList)this.inlineBank)._Items.Cast<XDropdownListItem>().Where(i => (int?)i.Value == null).FirstOrDefault();
 
-                this.inlineCardNo._Text = this.tmp_arrcpcq.cardnum;
-                this.inlineCouponNo._Text = this.tmp_arrcpcq.cardnum;
+                this.inlineCardNo._Text = this.tmp_arrcpcq.cardnum.TrimEnd();
+                this.inlineCouponNo._Text = this.tmp_arrcpcq.cardnum.TrimEnd();
                 this.inlineBank._SelectedItem = selected_bank;
                 this.inlineAmount1._Value = this.tmp_arrcpcq.rcvamt;
                 this.inlineAmount2._Value = this.tmp_arrcpcq.rcvamt;
@@ -1404,8 +1447,16 @@ namespace XPump.SubForm
             {
                 if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
                 {
-                    SendKeys.Send("{TAB}");
-                    return true;
+                    if(this.inlineAmount1._Focused || this.inlineAmount2._Focused)
+                    {
+                        this.btnSave.PerformClick();
+                        return true;
+                    }
+                    else
+                    {
+                        SendKeys.Send("{TAB}");
+                        return true;
+                    }
                 }
             }
 

@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle53 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle54 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle55 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle57 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle61 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle58 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle59 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle60 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle62 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle65 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle63 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle64 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle66 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle68 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle67 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
@@ -120,6 +120,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblDocType = new System.Windows.Forms.Label();
             this.panelRcv = new System.Windows.Forms.Panel();
+            this.cChqrcv = new System.Windows.Forms.Label();
             this.cCshrcv = new CC.XNumEdit();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -130,15 +131,6 @@
             this.inlineCardNo = new CC.XTextEditMasked();
             this.btnAddCreditCard = new System.Windows.Forms.Button();
             this.dgvRcv1 = new CC.XDatagrid();
-            this.tabCoupon = new System.Windows.Forms.TabPage();
-            this.inlineCouponNo = new CC.XTextEdit();
-            this.inlineAmount2 = new CC.XNumEdit();
-            this.btnAddCoupon = new System.Windows.Forms.Button();
-            this.dgvRcv2 = new CC.XDatagrid();
-            this.label10 = new System.Windows.Forms.Label();
-            this.btnManageStkgrp = new System.Windows.Forms.Button();
-            this.cChqrcv = new System.Windows.Forms.Label();
-            this.cCuscod = new XPump.CustomControls.BrowseBoxCuscod();
             this.col_rcv1_chqnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv1_cardno = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv1_bank = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -146,6 +138,11 @@
             this.col_rcv1_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv1_arrcpcq = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv1_delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.tabCoupon = new System.Windows.Forms.TabPage();
+            this.inlineCouponNo = new CC.XTextEdit();
+            this.inlineAmount2 = new CC.XNumEdit();
+            this.btnAddCoupon = new System.Windows.Forms.Button();
+            this.dgvRcv2 = new CC.XDatagrid();
             this.col_rcv2_chqnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv2_coupon_num = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv2_rcvamt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -153,6 +150,9 @@
             this.col_rcv2_working_express_db = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv2_arrcpcq = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rcv2_delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label10 = new System.Windows.Forms.Label();
+            this.btnManageStkgrp = new System.Windows.Forms.Button();
+            this.cCuscod = new XPump.CustomControls.BrowseBoxCuscod();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabGoods1.SuspendLayout();
@@ -229,6 +229,7 @@
             this.btnVoid.Name = "btnVoid";
             this.btnVoid.Size = new System.Drawing.Size(36, 40);
             this.btnVoid.Text = "toolStripButton1";
+            this.btnVoid.Click += new System.EventHandler(this.btnVoid_Click);
             // 
             // btnDelete
             // 
@@ -418,6 +419,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(378, 474);
             this.tabControl1.TabIndex = 7;
+            this.tabControl1.TabStop = false;
             // 
             // tabGoods1
             // 
@@ -436,14 +438,14 @@
             this.dgvGoods1.AllowUserToDeleteRows = false;
             this.dgvGoods1.AllowUserToResizeColumns = false;
             this.dgvGoods1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvGoods1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle52.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle52.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle52.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle52.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle52.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle52.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvGoods1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle52;
             this.dgvGoods1.ColumnHeadersHeight = 28;
             this.dgvGoods1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvGoods1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -496,14 +498,14 @@
             // col_g1_sellpr1
             // 
             this.col_g1_sellpr1.DataPropertyName = "sellpr1";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            this.col_g1_sellpr1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle53.BackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle53.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle53.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle53.Format = "N2";
+            dataGridViewCellStyle53.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle53.SelectionForeColor = System.Drawing.Color.Black;
+            this.col_g1_sellpr1.DefaultCellStyle = dataGridViewCellStyle53;
             this.col_g1_sellpr1.HeaderText = "ราคา/ลิตร";
             this.col_g1_sellpr1.MinimumWidth = 90;
             this.col_g1_sellpr1.Name = "col_g1_sellpr1";
@@ -576,14 +578,14 @@
             this.dgvGoods2.AllowUserToDeleteRows = false;
             this.dgvGoods2.AllowUserToResizeColumns = false;
             this.dgvGoods2.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvGoods2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle54.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle54.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle54.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle54.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle54.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle54.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvGoods2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle54;
             this.dgvGoods2.ColumnHeadersHeight = 28;
             this.dgvGoods2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvGoods2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -626,8 +628,8 @@
             // 
             this.col_g2_stkdes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.col_g2_stkdes.DataPropertyName = "stkdes";
-            dataGridViewCellStyle4.NullValue = null;
-            this.col_g2_stkdes.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle55.NullValue = null;
+            this.col_g2_stkdes.DefaultCellStyle = dataGridViewCellStyle55;
             this.col_g2_stkdes.HeaderText = "รายละเอียด";
             this.col_g2_stkdes.MinimumWidth = 80;
             this.col_g2_stkdes.Name = "col_g2_stkdes";
@@ -636,9 +638,9 @@
             // col_g2_sellpr1
             // 
             this.col_g2_sellpr1.DataPropertyName = "sellpr1";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N2";
-            this.col_g2_sellpr1.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle56.Format = "N2";
+            this.col_g2_sellpr1.DefaultCellStyle = dataGridViewCellStyle56;
             this.col_g2_sellpr1.HeaderText = "ราคา/หน่วย(1)";
             this.col_g2_sellpr1.MinimumWidth = 90;
             this.col_g2_sellpr1.Name = "col_g2_sellpr1";
@@ -730,11 +732,10 @@
             this.lblNotComplete.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lblNotComplete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblNotComplete.Location = new System.Drawing.Point(5, 217);
+            this.lblNotComplete.MinimumSize = new System.Drawing.Size(30, 0);
             this.lblNotComplete.Name = "lblNotComplete";
-            this.lblNotComplete.Size = new System.Drawing.Size(140, 18);
+            this.lblNotComplete.Size = new System.Drawing.Size(30, 18);
             this.lblNotComplete.TabIndex = 14;
-            this.lblNotComplete.Text = "ยอดเงินไม่เรียบร้อย";
-            this.lblNotComplete.Visible = false;
             // 
             // lblNetval
             // 
@@ -836,14 +837,14 @@
             this.dgvStcrd.AllowUserToDeleteRows = false;
             this.dgvStcrd.AllowUserToResizeColumns = false;
             this.dgvStcrd.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStcrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle57.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle57.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle57.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle57.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle57.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle57.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle57.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStcrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle57;
             this.dgvStcrd.ColumnHeadersHeight = 28;
             this.dgvStcrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvStcrd.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -855,14 +856,14 @@
             this.col_st_delete,
             this.col_st_stcrd,
             this.col_st_stkcod});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStcrd.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle61.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle61.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle61.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle61.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle61.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle61.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle61.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStcrd.DefaultCellStyle = dataGridViewCellStyle61;
             this.dgvStcrd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStcrd.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvStcrd.EnableHeadersVisualStyles = false;
@@ -893,10 +894,10 @@
             // col_st_trnqty
             // 
             this.col_st_trnqty.DataPropertyName = "trnqty";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.col_st_trnqty.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle58.Format = "N2";
+            dataGridViewCellStyle58.NullValue = null;
+            this.col_st_trnqty.DefaultCellStyle = dataGridViewCellStyle58;
             this.col_st_trnqty.HeaderText = "จำนวน";
             this.col_st_trnqty.MinimumWidth = 80;
             this.col_st_trnqty.Name = "col_st_trnqty";
@@ -906,9 +907,9 @@
             // col_st_unitpr
             // 
             this.col_st_unitpr.DataPropertyName = "unitpr";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            this.col_st_unitpr.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle59.Format = "N2";
+            this.col_st_unitpr.DefaultCellStyle = dataGridViewCellStyle59;
             this.col_st_unitpr.HeaderText = "ราคา/หน่วย";
             this.col_st_unitpr.MinimumWidth = 80;
             this.col_st_unitpr.Name = "col_st_unitpr";
@@ -918,9 +919,9 @@
             // col_st_trnval
             // 
             this.col_st_trnval.DataPropertyName = "trnval";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N2";
-            this.col_st_trnval.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle60.Format = "N2";
+            this.col_st_trnval.DefaultCellStyle = dataGridViewCellStyle60;
             this.col_st_trnval.HeaderText = "จำนวนเงิน(รวม VAT.)";
             this.col_st_trnval.MinimumWidth = 140;
             this.col_st_trnval.Name = "col_st_trnval";
@@ -1010,7 +1011,7 @@
             this.cDocdat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cDocdat.Name = "cDocdat";
             this.cDocdat.Size = new System.Drawing.Size(103, 23);
-            this.cDocdat.TabIndex = 3;
+            this.cDocdat.TabIndex = 1;
             this.cDocdat._SelectedDateChanged += new System.EventHandler(this.cDocdat__SelectedDateChanged);
             // 
             // label3
@@ -1080,6 +1081,17 @@
             this.panelRcv.Name = "panelRcv";
             this.panelRcv.Size = new System.Drawing.Size(604, 178);
             this.panelRcv.TabIndex = 15;
+            // 
+            // cChqrcv
+            // 
+            this.cChqrcv.BackColor = System.Drawing.Color.Gainsboro;
+            this.cChqrcv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cChqrcv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cChqrcv.Location = new System.Drawing.Point(104, 8);
+            this.cChqrcv.Name = "cChqrcv";
+            this.cChqrcv.Size = new System.Drawing.Size(100, 21);
+            this.cChqrcv.TabIndex = 12;
+            this.cChqrcv.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cCshrcv
             // 
@@ -1193,7 +1205,7 @@
             this.inlineAmount1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineAmount1.Name = "inlineAmount1";
             this.inlineAmount1.Size = new System.Drawing.Size(95, 23);
-            this.inlineAmount1.TabIndex = 5;
+            this.inlineAmount1.TabIndex = 4;
             this.inlineAmount1._ValueChanged += new System.EventHandler(this.inlineAmount1__ValueChanged);
             // 
             // inlineBank
@@ -1208,7 +1220,7 @@
             this.inlineBank.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineBank.Name = "inlineBank";
             this.inlineBank.Size = new System.Drawing.Size(162, 23);
-            this.inlineBank.TabIndex = 4;
+            this.inlineBank.TabIndex = 3;
             this.inlineBank.TabStop = false;
             this.inlineBank._SelectedItemChanged += new System.EventHandler(this.inlineBank__SelectedItemChanged);
             // 
@@ -1228,7 +1240,7 @@
             this.inlineCardNo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineCardNo.Name = "inlineCardNo";
             this.inlineCardNo.Size = new System.Drawing.Size(161, 23);
-            this.inlineCardNo.TabIndex = 3;
+            this.inlineCardNo.TabIndex = 2;
             this.inlineCardNo._TextChanged += new System.EventHandler(this.inlineCardNo__TextChanged);
             // 
             // btnAddCreditCard
@@ -1243,6 +1255,7 @@
             this.btnAddCreditCard.Name = "btnAddCreditCard";
             this.btnAddCreditCard.Size = new System.Drawing.Size(52, 25);
             this.btnAddCreditCard.TabIndex = 2;
+            this.btnAddCreditCard.TabStop = false;
             this.btnAddCreditCard.Text = "เพิ่ม";
             this.btnAddCreditCard.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAddCreditCard.UseVisualStyleBackColor = false;
@@ -1255,14 +1268,14 @@
             this.dgvRcv1.AllowUserToDeleteRows = false;
             this.dgvRcv1.AllowUserToResizeColumns = false;
             this.dgvRcv1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRcv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle62.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle62.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle62.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle62.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle62.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle62.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle62.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRcv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle62;
             this.dgvRcv1.ColumnHeadersHeight = 28;
             this.dgvRcv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvRcv1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -1273,14 +1286,14 @@
             this.col_rcv1_working_express_db,
             this.col_rcv1_arrcpcq,
             this.col_rcv1_delete});
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRcv1.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle65.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle65.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle65.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle65.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle65.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle65.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRcv1.DefaultCellStyle = dataGridViewCellStyle65;
             this.dgvRcv1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRcv1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvRcv1.EnableHeadersVisualStyles = false;
@@ -1299,6 +1312,72 @@
             this.dgvRcv1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRcv_CellMouseClick);
             this.dgvRcv1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvRcv_CellPainting);
             this.dgvRcv1.Resize += new System.EventHandler(this.dgvRcv_Resize);
+            // 
+            // col_rcv1_chqnum
+            // 
+            this.col_rcv1_chqnum.DataPropertyName = "chqnum";
+            this.col_rcv1_chqnum.HeaderText = "รหัสรายการ";
+            this.col_rcv1_chqnum.MinimumWidth = 120;
+            this.col_rcv1_chqnum.Name = "col_rcv1_chqnum";
+            this.col_rcv1_chqnum.ReadOnly = true;
+            this.col_rcv1_chqnum.Width = 120;
+            // 
+            // col_rcv1_cardno
+            // 
+            this.col_rcv1_cardno.DataPropertyName = "cardnum";
+            this.col_rcv1_cardno.HeaderText = "หมายเลขบัตร";
+            this.col_rcv1_cardno.MinimumWidth = 160;
+            this.col_rcv1_cardno.Name = "col_rcv1_cardno";
+            this.col_rcv1_cardno.ReadOnly = true;
+            this.col_rcv1_cardno.Width = 160;
+            // 
+            // col_rcv1_bank
+            // 
+            this.col_rcv1_bank.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_rcv1_bank.DataPropertyName = "bank";
+            dataGridViewCellStyle63.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle63.Format = "N2";
+            dataGridViewCellStyle63.NullValue = null;
+            this.col_rcv1_bank.DefaultCellStyle = dataGridViewCellStyle63;
+            this.col_rcv1_bank.HeaderText = "ธนาคาร";
+            this.col_rcv1_bank.MinimumWidth = 80;
+            this.col_rcv1_bank.Name = "col_rcv1_bank";
+            this.col_rcv1_bank.ReadOnly = true;
+            // 
+            // col_rcv1_rcvamt
+            // 
+            this.col_rcv1_rcvamt.DataPropertyName = "rcvamt";
+            dataGridViewCellStyle64.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle64.Format = "N2";
+            this.col_rcv1_rcvamt.DefaultCellStyle = dataGridViewCellStyle64;
+            this.col_rcv1_rcvamt.HeaderText = "จำนวนเงิน";
+            this.col_rcv1_rcvamt.MinimumWidth = 100;
+            this.col_rcv1_rcvamt.Name = "col_rcv1_rcvamt";
+            this.col_rcv1_rcvamt.ReadOnly = true;
+            // 
+            // col_rcv1_working_express_db
+            // 
+            this.col_rcv1_working_express_db.DataPropertyName = "working_express_db";
+            this.col_rcv1_working_express_db.HeaderText = "Working Express DB";
+            this.col_rcv1_working_express_db.Name = "col_rcv1_working_express_db";
+            this.col_rcv1_working_express_db.ReadOnly = true;
+            this.col_rcv1_working_express_db.Visible = false;
+            // 
+            // col_rcv1_arrcpcq
+            // 
+            this.col_rcv1_arrcpcq.DataPropertyName = "arrcpcq";
+            this.col_rcv1_arrcpcq.HeaderText = "Arrcpcq";
+            this.col_rcv1_arrcpcq.Name = "col_rcv1_arrcpcq";
+            this.col_rcv1_arrcpcq.ReadOnly = true;
+            this.col_rcv1_arrcpcq.Visible = false;
+            // 
+            // col_rcv1_delete
+            // 
+            this.col_rcv1_delete.HeaderText = "";
+            this.col_rcv1_delete.MinimumWidth = 50;
+            this.col_rcv1_delete.Name = "col_rcv1_delete";
+            this.col_rcv1_delete.ReadOnly = true;
+            this.col_rcv1_delete.Width = 50;
             // 
             // tabCoupon
             // 
@@ -1328,7 +1407,7 @@
             this.inlineCouponNo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineCouponNo.Name = "inlineCouponNo";
             this.inlineCouponNo.Size = new System.Drawing.Size(326, 23);
-            this.inlineCouponNo.TabIndex = 6;
+            this.inlineCouponNo.TabIndex = 5;
             this.inlineCouponNo._TextChanged += new System.EventHandler(this.inlineCouponNo__TextChanged);
             // 
             // inlineAmount2
@@ -1361,7 +1440,7 @@
             this.inlineAmount2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inlineAmount2.Name = "inlineAmount2";
             this.inlineAmount2.Size = new System.Drawing.Size(95, 23);
-            this.inlineAmount2.TabIndex = 7;
+            this.inlineAmount2.TabIndex = 6;
             this.inlineAmount2._ValueChanged += new System.EventHandler(this.inlineAmount2__ValueChanged);
             // 
             // btnAddCoupon
@@ -1376,6 +1455,7 @@
             this.btnAddCoupon.Name = "btnAddCoupon";
             this.btnAddCoupon.Size = new System.Drawing.Size(52, 25);
             this.btnAddCoupon.TabIndex = 3;
+            this.btnAddCoupon.TabStop = false;
             this.btnAddCoupon.Text = "เพิ่ม";
             this.btnAddCoupon.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAddCoupon.UseVisualStyleBackColor = false;
@@ -1388,14 +1468,14 @@
             this.dgvRcv2.AllowUserToDeleteRows = false;
             this.dgvRcv2.AllowUserToResizeColumns = false;
             this.dgvRcv2.AllowUserToResizeRows = false;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRcv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle66.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle66.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(207)))), ((int)(((byte)(179)))));
+            dataGridViewCellStyle66.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle66.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle66.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle66.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle66.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRcv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle66;
             this.dgvRcv2.ColumnHeadersHeight = 28;
             this.dgvRcv2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvRcv2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -1406,14 +1486,14 @@
             this.col_rcv2_working_express_db,
             this.col_rcv2_arrcpcq,
             this.col_rcv2_delete});
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRcv2.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle68.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle68.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle68.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle68.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle68.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle68.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle68.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRcv2.DefaultCellStyle = dataGridViewCellStyle68;
             this.dgvRcv2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRcv2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvRcv2.EnableHeadersVisualStyles = false;
@@ -1426,136 +1506,12 @@
             this.dgvRcv2.RowHeadersVisible = false;
             this.dgvRcv2.RowTemplate.Height = 26;
             this.dgvRcv2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRcv2.Size = new System.Drawing.Size(585, 107);
+            this.dgvRcv2.Size = new System.Drawing.Size(585, 110);
             this.dgvRcv2.StandardTab = true;
             this.dgvRcv2.TabIndex = 1;
             this.dgvRcv2.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRcv_CellMouseClick);
             this.dgvRcv2.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvRcv_CellPainting);
             this.dgvRcv2.Resize += new System.EventHandler(this.dgvRcv_Resize);
-            // 
-            // label10
-            // 
-            this.label10.BackColor = System.Drawing.Color.White;
-            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label10.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label10.Location = new System.Drawing.Point(7, 49);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(373, 27);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "รายการสินค้า";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnManageStkgrp
-            // 
-            this.btnManageStkgrp.Image = global::XPump.Properties.Resources.settings;
-            this.btnManageStkgrp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnManageStkgrp.Location = new System.Drawing.Point(269, 77);
-            this.btnManageStkgrp.Name = "btnManageStkgrp";
-            this.btnManageStkgrp.Size = new System.Drawing.Size(112, 27);
-            this.btnManageStkgrp.TabIndex = 1;
-            this.btnManageStkgrp.Text = "จัดกลุ่มสินค้า";
-            this.btnManageStkgrp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnManageStkgrp.UseVisualStyleBackColor = true;
-            this.btnManageStkgrp.Click += new System.EventHandler(this.btnManageStkgrp_Click);
-            // 
-            // cChqrcv
-            // 
-            this.cChqrcv.BackColor = System.Drawing.Color.Gainsboro;
-            this.cChqrcv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cChqrcv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.cChqrcv.Location = new System.Drawing.Point(104, 8);
-            this.cChqrcv.Name = "cChqrcv";
-            this.cChqrcv.Size = new System.Drawing.Size(100, 21);
-            this.cChqrcv.TabIndex = 12;
-            this.cChqrcv.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cCuscod
-            // 
-            this.cCuscod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCuscod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.cCuscod._DataPath = null;
-            this.cCuscod._MaxLength = 50;
-            this.cCuscod._ReadOnly = false;
-            this.cCuscod._Text = "";
-            this.cCuscod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.cCuscod._UseImage = true;
-            this.cCuscod.BackColor = System.Drawing.Color.White;
-            this.cCuscod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cCuscod.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cCuscod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cCuscod.Location = new System.Drawing.Point(54, 7);
-            this.cCuscod.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.cCuscod.Name = "cCuscod";
-            this.cCuscod.Size = new System.Drawing.Size(118, 23);
-            this.cCuscod.TabIndex = 11;
-            this.cCuscod._SelectedCuscodChanged += new System.EventHandler(this.cCuscod__SelectedCuscodChanged);
-            this.cCuscod._Leave += new System.EventHandler(this.cCuscod__Leave);
-            // 
-            // col_rcv1_chqnum
-            // 
-            this.col_rcv1_chqnum.DataPropertyName = "chqnum";
-            this.col_rcv1_chqnum.HeaderText = "รหัสรายการ";
-            this.col_rcv1_chqnum.MinimumWidth = 120;
-            this.col_rcv1_chqnum.Name = "col_rcv1_chqnum";
-            this.col_rcv1_chqnum.ReadOnly = true;
-            this.col_rcv1_chqnum.Width = 120;
-            // 
-            // col_rcv1_cardno
-            // 
-            this.col_rcv1_cardno.DataPropertyName = "cardnum";
-            this.col_rcv1_cardno.HeaderText = "หมายเลขบัตร";
-            this.col_rcv1_cardno.MinimumWidth = 160;
-            this.col_rcv1_cardno.Name = "col_rcv1_cardno";
-            this.col_rcv1_cardno.ReadOnly = true;
-            this.col_rcv1_cardno.Width = 160;
-            // 
-            // col_rcv1_bank
-            // 
-            this.col_rcv1_bank.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_rcv1_bank.DataPropertyName = "bank";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.Format = "N2";
-            dataGridViewCellStyle12.NullValue = null;
-            this.col_rcv1_bank.DefaultCellStyle = dataGridViewCellStyle12;
-            this.col_rcv1_bank.HeaderText = "ธนาคาร";
-            this.col_rcv1_bank.MinimumWidth = 80;
-            this.col_rcv1_bank.Name = "col_rcv1_bank";
-            this.col_rcv1_bank.ReadOnly = true;
-            // 
-            // col_rcv1_rcvamt
-            // 
-            this.col_rcv1_rcvamt.DataPropertyName = "rcvamt";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "N2";
-            this.col_rcv1_rcvamt.DefaultCellStyle = dataGridViewCellStyle13;
-            this.col_rcv1_rcvamt.HeaderText = "จำนวนเงิน";
-            this.col_rcv1_rcvamt.MinimumWidth = 100;
-            this.col_rcv1_rcvamt.Name = "col_rcv1_rcvamt";
-            this.col_rcv1_rcvamt.ReadOnly = true;
-            // 
-            // col_rcv1_working_express_db
-            // 
-            this.col_rcv1_working_express_db.DataPropertyName = "working_express_db";
-            this.col_rcv1_working_express_db.HeaderText = "Working Express DB";
-            this.col_rcv1_working_express_db.Name = "col_rcv1_working_express_db";
-            this.col_rcv1_working_express_db.ReadOnly = true;
-            this.col_rcv1_working_express_db.Visible = false;
-            // 
-            // col_rcv1_arrcpcq
-            // 
-            this.col_rcv1_arrcpcq.DataPropertyName = "arrcpcq";
-            this.col_rcv1_arrcpcq.HeaderText = "Arrcpcq";
-            this.col_rcv1_arrcpcq.Name = "col_rcv1_arrcpcq";
-            this.col_rcv1_arrcpcq.ReadOnly = true;
-            this.col_rcv1_arrcpcq.Visible = false;
-            // 
-            // col_rcv1_delete
-            // 
-            this.col_rcv1_delete.HeaderText = "";
-            this.col_rcv1_delete.MinimumWidth = 50;
-            this.col_rcv1_delete.Name = "col_rcv1_delete";
-            this.col_rcv1_delete.ReadOnly = true;
-            this.col_rcv1_delete.Width = 50;
             // 
             // col_rcv2_chqnum
             // 
@@ -1578,10 +1534,10 @@
             // col_rcv2_rcvamt
             // 
             this.col_rcv2_rcvamt.DataPropertyName = "rcvamt";
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle16.Format = "N2";
-            dataGridViewCellStyle16.NullValue = null;
-            this.col_rcv2_rcvamt.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle67.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle67.Format = "N2";
+            dataGridViewCellStyle67.NullValue = null;
+            this.col_rcv2_rcvamt.DefaultCellStyle = dataGridViewCellStyle67;
             this.col_rcv2_rcvamt.HeaderText = "จำนวนเงิน";
             this.col_rcv2_rcvamt.MinimumWidth = 100;
             this.col_rcv2_rcvamt.Name = "col_rcv2_rcvamt";
@@ -1618,6 +1574,54 @@
             this.col_rcv2_delete.Name = "col_rcv2_delete";
             this.col_rcv2_delete.ReadOnly = true;
             this.col_rcv2_delete.Width = 50;
+            // 
+            // label10
+            // 
+            this.label10.BackColor = System.Drawing.Color.White;
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label10.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label10.Location = new System.Drawing.Point(7, 49);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(373, 27);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "รายการสินค้า";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnManageStkgrp
+            // 
+            this.btnManageStkgrp.Image = global::XPump.Properties.Resources.settings;
+            this.btnManageStkgrp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnManageStkgrp.Location = new System.Drawing.Point(269, 77);
+            this.btnManageStkgrp.Name = "btnManageStkgrp";
+            this.btnManageStkgrp.Size = new System.Drawing.Size(112, 27);
+            this.btnManageStkgrp.TabIndex = 1;
+            this.btnManageStkgrp.TabStop = false;
+            this.btnManageStkgrp.Text = "จัดกลุ่มสินค้า";
+            this.btnManageStkgrp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnManageStkgrp.UseVisualStyleBackColor = true;
+            this.btnManageStkgrp.Click += new System.EventHandler(this.btnManageStkgrp_Click);
+            // 
+            // cCuscod
+            // 
+            this.cCuscod._BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCuscod._CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.cCuscod._DataPath = null;
+            this.cCuscod._MaxLength = 50;
+            this.cCuscod._ReadOnly = false;
+            this.cCuscod._Text = "";
+            this.cCuscod._TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.cCuscod._UseImage = true;
+            this.cCuscod.BackColor = System.Drawing.Color.White;
+            this.cCuscod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cCuscod.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cCuscod.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cCuscod.Location = new System.Drawing.Point(54, 7);
+            this.cCuscod.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.cCuscod.Name = "cCuscod";
+            this.cCuscod.Size = new System.Drawing.Size(118, 23);
+            this.cCuscod.TabIndex = 0;
+            this.cCuscod._SelectedCuscodChanged += new System.EventHandler(this.cCuscod__SelectedCuscodChanged);
+            this.cCuscod._Leave += new System.EventHandler(this.cCuscod__Leave);
             // 
             // FormSellRecord
             // 
