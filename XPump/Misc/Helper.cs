@@ -2648,6 +2648,16 @@ namespace XPump.Misc
             }
         }
 
+        public static string RewriteToTextMask(this string string_to_be_masked)
+        {
+            string mask = string.Empty;
+            foreach (var c in string_to_be_masked.ToCharArray())
+            {
+                mask += "\\" + c.ToString();
+            }
+            return mask;
+        }
+
         public static void CalNeccessaryValue(this artrn artrn_to_update)
         {
             var vatamt = Math.Round(artrn_to_update.stcrd.Sum(st => st.trnval) * artrn_to_update.vatrat / (100 + artrn_to_update.vatrat), 2);

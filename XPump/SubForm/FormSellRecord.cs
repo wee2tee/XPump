@@ -250,6 +250,28 @@ namespace XPump.SubForm
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             this.LoadStmasDgv();
+            if(this.curr_artrn == null || this.curr_artrn.id < 0)
+            {
+                this.btnLast.PerformClick();
+                return;
+            }
+            else
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.docnum.TrimEnd() == this.curr_artrn.docnum.TrimEnd()).FirstOrDefault();
+                    if (artrn != null)
+                    {
+                        this.curr_artrn = artrn;
+                        this.FillForm(this.curr_artrn);
+                    }
+                    else
+                    {
+                        this.btnLast.PerformClick();
+                        return;
+                    }
+                }
+            }
         }
 
         private void dgvGoods1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
@@ -761,27 +783,82 @@ namespace XPump.SubForm
 
         private void btnFirst_Click(object sender, EventArgs e)
         {
-
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").OrderBy(a => a.docnum).Where(a => a.docnum.Substring(0, 2) == this.curr_docprefix.prefix).FirstOrDefault();
+                this.FillForm(this.curr_artrn);
+            }
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
+            if (this.curr_artrn == null || this.curr_artrn.id < 0)
+                return;
 
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").OrderByDescending(a => a.docnum).Where(a => a.docnum.Substring(0, 2) == this.curr_docprefix.prefix && a.docnum.CompareTo(this.curr_artrn.docnum) < 0).FirstOrDefault();
+                if(this.curr_artrn == null)
+                {
+                    this.btnFirst.PerformClick();
+                    return;
+                }
+                else
+                {
+                    this.FillForm(this.curr_artrn);
+                }
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            if (this.curr_artrn == null || this.curr_artrn.id < 0)
+                return;
 
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").OrderBy(a => a.docnum).Where(a => a.docnum.Substring(0, 2) == this.curr_docprefix.prefix && a.docnum.CompareTo(this.curr_artrn.docnum) > 0).FirstOrDefault();
+                if(this.curr_artrn == null)
+                {
+                    this.btnLast.PerformClick();
+                    return;
+                }
+                else
+                {
+                    this.FillForm(this.curr_artrn);
+                }
+            }
         }
 
         private void btnLast_Click(object sender, EventArgs e)
         {
-
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.curr_artrn = db.artrn.Include("stcrd").Include("arrcpcq").OrderByDescending(a => a.docnum).Where(a => a.docnum.Substring(0, 2) == this.curr_docprefix.prefix).FirstOrDefault();
+                this.FillForm(this.curr_artrn);
+            }
         }
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
         {
-
+            //DialogSimpleSearch ds = new DialogSimpleSearch("เลขที่เอกสาร", "");
+            DialogSearchDocnum ds = new DialogSearchDocnum(this.curr_docprefix.prefix.RewriteToTextMask() + "AAAAAAAAAA");
+            if(ds.ShowDialog() == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.docnum.TrimEnd().CompareTo(ds.keyword.TrimEnd()) == 0).FirstOrDefault();
+                    if(artrn != null)
+                    {
+                        this.curr_artrn = artrn;
+                        this.FillForm(this.curr_artrn);
+                    }
+                    else
+                    {
+                        XMessageBox.Show("ค้นหาเอกสารเลขที่ " + ds.keyword + " ไม่พบ", "");
+                    }
+                }
+            }
         }
 
         private void btnInquiryAll_Click(object sender, EventArgs e)

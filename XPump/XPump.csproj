@@ -461,6 +461,12 @@
     <Compile Include="SubForm\DialogSccompSelection.Designer.cs">
       <DependentUpon>DialogSccompSelection.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogSearchDocnum.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogSearchDocnum.Designer.cs">
+      <DependentUpon>DialogSearchDocnum.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\DialogSearchShiftTransaction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -779,6 +785,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSccompSelection.resx">
       <DependentUpon>DialogSccompSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogSearchDocnum.resx">
+      <DependentUpon>DialogSearchDocnum.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogSearchShiftTransaction.resx">
       <DependentUpon>DialogSearchShiftTransaction.cs</DependentUpon>
