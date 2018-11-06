@@ -129,7 +129,7 @@ namespace XPump.SubForm
             {
                 //int sort_col_index = this.dgv.SortColumn;
 
-                DataGridViewRow searched_row = this.dgv.Rows.Cast<DataGridViewRow>().Where(r => ((string)r.Cells[this.col_search_key.Name].Value).CompareTo(dis.keyword) > -1).OrderBy(r => (string)r.Cells[this.col_search_key.Name].Value).FirstOrDefault();
+                DataGridViewRow searched_row = this.dgv.Rows.Cast<DataGridViewRow>().Where(r => r.Cells[this.col_search_key.Name].Value.ToString().CompareTo(dis.keyword) > -1).OrderBy(r => r.Cells[this.col_search_key.Name].Value.ToString()).FirstOrDefault();
 
                 if (searched_row == null)
                 {
@@ -149,7 +149,7 @@ namespace XPump.SubForm
             {
                 //int sort_col_index = this.dgv.SortColumn;
 
-                DataGridViewRow searched_row = this.dgv.Rows.Cast<DataGridViewRow>().Where(r => ((string)r.Cells[this.col_search_key.Name].Value).CompareTo(dis.keyword) > -1).OrderBy(r => (string)r.Cells[this.col_search_key.Name].Value).FirstOrDefault();
+                DataGridViewRow searched_row = this.dgv.Rows.Cast<DataGridViewRow>().Where(r => r.Cells[this.col_search_key.Name].Value.ToString().CompareTo(dis.keyword) > -1).OrderBy(r => r.Cells[this.col_search_key.Name].Value.ToString()).FirstOrDefault();
 
                 if (searched_row == null)
                 {

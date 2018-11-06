@@ -13,6 +13,7 @@ using XPump.Model;
 using CC;
 using XPump.CustomControls;
 using XPump.Misc;
+using System.Drawing.Printing;
 
 namespace XPump.SubForm
 {
@@ -863,22 +864,262 @@ namespace XPump.SubForm
 
         private void btnInquiryAll_Click(object sender, EventArgs e)
         {
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                List<dynamic> list = db.artrn.Where(a => a.docnum.Substring(0, 2) == this.curr_docprefix.prefix).Select(a => new ArtrnInquiry { express_data_path = this.main_form.working_express_db.abs_path, docdat = a.docdat, docnum = a.docnum, cuscod = a.cuscod, amount = a.amount }).ToList<dynamic>();
+                DataGridViewTextBoxColumn col_artrn = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_artrn",
+                    Visible = false,
+                    DataPropertyName = "artrn"
+                };
+                DataGridViewTextBoxColumn col_express_data_path = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_express_data_path",
+                    Visible = false,
+                    DataPropertyName = "express_data_path"
+                };
+                DataGridViewTextBoxColumn col_docdat = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_docdat",
+                    DataPropertyName = "docdat",
+                    HeaderText = "วันที่",
+                    Width = 100,
+                    MinimumWidth = 100
+                };
+                DataGridViewTextBoxColumn col_docnum = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_docnum",
+                    DataPropertyName = "docnum",
+                    HeaderText = "เลขที่",
+                    Width = 120,
+                    MinimumWidth = 120
+                };
+                DataGridViewTextBoxColumn col_cuscod = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_cuscod",
+                    DataPropertyName = "cuscod",
+                    HeaderText = "รหัสลูกค้า",
+                    Width = 140,
+                    MinimumWidth = 140
+                };
+                DataGridViewTextBoxColumn col_cusnam = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_cusnam",
+                    DataPropertyName = "cusnam",
+                    HeaderText = "ชื่อลูกค้า",
+                    Width = 200,
+                    MinimumWidth = 200,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                };
+                DataGridViewTextBoxColumn col_amount = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_amount",
+                    DataPropertyName = "amount",
+                    HeaderText = "จำนวนเงิน",
+                    Width = 140,
+                    MinimumWidth = 140
+                };
+                List<DataGridViewColumn> cols = new List<DataGridViewColumn>()
+                {
+                    col_artrn, col_express_data_path, col_docdat, col_docnum, col_cuscod, col_cusnam, col_amount
+                };
 
+                DialogInquiry di = new DialogInquiry(list, cols, col_docnum);
+                if(di.ShowDialog() == DialogResult.OK)
+                {
+                    string docnum = di.selected_row.Cells[col_docnum.Name].Value.ToString();
+                    var artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.docnum == docnum).FirstOrDefault();
+                    if(artrn != null)
+                    {
+                        this.curr_artrn = artrn;
+                        this.FillForm(this.curr_artrn);
+                    }
+                    else
+                    {
+                        XMessageBox.Show("ค้นหาเอกสารเลขที่ " + docnum + " ไม่พบ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        return;
+                    }
+                }
+            }
         }
 
         private void btnInquiryRest_Click(object sender, EventArgs e)
         {
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                List<dynamic> list = db.artrn.Where(a => a.docnum.Substring(0, 2) == this.curr_docprefix.prefix).Select(a => new ArtrnInquiry { express_data_path = this.main_form.working_express_db.abs_path, docdat = a.docdat, docnum = a.docnum, cuscod = a.cuscod, amount = a.amount }).ToList<dynamic>();
+                DataGridViewTextBoxColumn col_artrn = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_artrn",
+                    Visible = false,
+                    DataPropertyName = "artrn"
+                };
+                DataGridViewTextBoxColumn col_express_data_path = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_express_data_path",
+                    Visible = false,
+                    DataPropertyName = "express_data_path"
+                };
+                DataGridViewTextBoxColumn col_docdat = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_docdat",
+                    DataPropertyName = "docdat",
+                    HeaderText = "วันที่",
+                    Width = 100,
+                    MinimumWidth = 100
+                };
+                DataGridViewTextBoxColumn col_docnum = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_docnum",
+                    DataPropertyName = "docnum",
+                    HeaderText = "เลขที่",
+                    Width = 120,
+                    MinimumWidth = 120
+                };
+                DataGridViewTextBoxColumn col_cuscod = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_cuscod",
+                    DataPropertyName = "cuscod",
+                    HeaderText = "รหัสลูกค้า",
+                    Width = 140,
+                    MinimumWidth = 140
+                };
+                DataGridViewTextBoxColumn col_cusnam = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_cusnam",
+                    DataPropertyName = "cusnam",
+                    HeaderText = "ชื่อลูกค้า",
+                    Width = 200,
+                    MinimumWidth = 200,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                };
+                DataGridViewTextBoxColumn col_amount = new DataGridViewTextBoxColumn
+                {
+                    Name = "col_amount",
+                    DataPropertyName = "amount",
+                    HeaderText = "จำนวนเงิน",
+                    Width = 140,
+                    MinimumWidth = 140
+                };
+                List<DataGridViewColumn> cols = new List<DataGridViewColumn>()
+                {
+                    col_artrn, col_express_data_path, col_docdat, col_docnum, col_cuscod, col_cusnam, col_amount
+                };
 
+                DialogInquiry di;
+                if(this.curr_artrn != null && this.curr_artrn.id > 0)
+                {
+                    di = new DialogInquiry(list, cols, col_docnum, this.curr_artrn.docnum);
+                }
+                else
+                {
+                    di = new DialogInquiry(list, cols, col_docnum, null);
+                }
+
+                if (di.ShowDialog() == DialogResult.OK)
+                {
+                    string docnum = di.selected_row.Cells[col_docnum.Name].Value.ToString();
+                    var artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.docnum == docnum).FirstOrDefault();
+                    if (artrn != null)
+                    {
+                        this.curr_artrn = artrn;
+                        this.FillForm(this.curr_artrn);
+                    }
+                    else
+                    {
+                        XMessageBox.Show("ค้นหาเอกสารเลขที่ " + docnum + " ไม่พบ", "", MessageBoxButtons.OK, XMessageBoxIcon.Stop);
+                        return;
+                    }
+                }
+            }
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            if (this.curr_artrn == null || this.curr_artrn.id < 0)
+                return;
 
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                var artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
+                if(artrn == null)
+                {
+                    XMessageBox.Show("ค้นหาเอกสารเลขที่ " + this.curr_artrn.docnum + " ไม่พบ");
+                    return;
+                }
+
+                int total_page = XPrintPreview.GetTotalPageCount(MakePrintDoc(artrn));
+
+                DialogPrintSetupA ps = new DialogPrintSetupA();
+                if(ps.ShowDialog() == DialogResult.OK)
+                {
+                    PrintDocument print_doc = MakePrintDoc(artrn, total_page);
+
+                    if (ps.output == PRINT_OUTPUT.PRINTER)
+                    {
+                        PrintDialog pd = new PrintDialog();
+                        pd.Document = print_doc;
+                        if(pd.ShowDialog() == DialogResult.OK)
+                        {
+                            pd.Document.Print();
+                        }
+                    }
+
+                    if (ps.output == PRINT_OUTPUT.SCREEN)
+                    {
+                        XPrintPreview xp = new XPrintPreview(print_doc, total_page);
+                        xp.MdiParent = this.main_form;
+                        xp.Show();
+                    }
+                }
+
+            }
         }
 
-        private void btnChangeDocTyp_Click(object sender, EventArgs e)
+        public static PrintDocument MakePrintDoc(artrn artrn_to_print, int? total_page = null)
         {
-            
+            Font fnt_title_bold = new Font("angsana new", 12f, FontStyle.Bold);
+            Font fnt_header_bold = new Font("angsana new", 11f, FontStyle.Bold); // tahoma 8f bold
+            Font fnt_header = new Font("angsana new", 11f, FontStyle.Regular); // tahoma 8f
+            Font fnt_bold = new Font("angsana new", 10f, FontStyle.Bold); // tahoma 7f bold
+            Font fnt = new Font("angsana new", 10f, FontStyle.Regular); // tahoma 7f
+            Pen p = new Pen(Color.Black);
+            SolidBrush brush = new SolidBrush(Color.Black);
+            SolidBrush bg_gray = new SolidBrush(Color.Silver);
+            StringFormat format_left = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+            StringFormat format_right = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+            StringFormat format_center = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center, FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.NoWrap };
+
+            int page = 0;
+            int item_count = 0;
+            int item_per_page = 8;
+
+            PrintDocument pd = new PrintDocument();
+            pd.DefaultPageSettings.Margins = new Margins(20, 20, 30, 30);
+            pd.DefaultPageSettings.Landscape = false;
+            pd.BeginPrint += delegate(object sender, PrintEventArgs e)
+            {
+                page = 0;
+                item_count = 0;
+            };
+
+            pd.PrintPage += delegate (object sender, PrintPageEventArgs e)
+            {
+                int x = e.MarginBounds.Left;
+                int y = e.MarginBounds.Top;
+                int line_height = fnt_header.Height - 2;
+                page++;
+
+                Rectangle rect = new Rectangle(x, y, e.MarginBounds.Width, line_height);
+                for (int i = 0; i < artrn_to_print.stcrd.ToList().Count; i++)
+                {
+                    e.Graphics.DrawString(artrn_to_print.stcrd.ToList()[i].stkdes, fnt_bold, brush, rect);
+                    rect.Y += line_height;
+                }
+            };
+
+            return pd;
         }
 
         private void cCuscod__SelectedCuscodChanged(object sender, EventArgs e)
@@ -1570,5 +1811,44 @@ namespace XPump.SubForm
             }
         }
         public decimal rcvamt { get { return this.arrcpcq.rcvamt; } }
+    }
+
+    public class ArtrnInquiry
+    {
+        public string express_data_path { get; set; }
+
+        public DateTime? docdat { get; set; }
+        public string docnum { get; set; }
+        public string cuscod { get; set; }
+        public string cusnam
+        {
+            get
+            {
+                using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + this.express_data_path))
+                {
+                    using (OleDbCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Select armas.cusnam From armas Where armas.cuscod=?";
+                        cmd.Parameters.AddWithValue("@Cuscod", this.cuscod);
+                        conn.Open();
+                        using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+                            conn.Close();
+                            if (dt.Rows.Count > 0)
+                            {
+                                return dt.Rows[0].Field<string>("cusnam").ToString().TrimEnd();
+                            }
+                            else
+                            {
+                                return string.Empty;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public decimal amount { get; set; }
     }
 }
