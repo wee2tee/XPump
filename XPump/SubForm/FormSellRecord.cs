@@ -14,6 +14,7 @@ using CC;
 using XPump.CustomControls;
 using XPump.Misc;
 using System.Drawing.Printing;
+using System.Globalization;
 
 namespace XPump.SubForm
 {
@@ -1037,30 +1038,35 @@ namespace XPump.SubForm
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            this.btnPrintA4.PerformClick();
+        }
+
+        private void btnPrintA4_Click(object sender, EventArgs e)
+        {
             if (this.curr_artrn == null || this.curr_artrn.id < 0)
                 return;
 
             using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
             {
                 var artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.id == this.curr_artrn.id).FirstOrDefault();
-                if(artrn == null)
+                if (artrn == null)
                 {
                     XMessageBox.Show("ค้นหาเอกสารเลขที่ " + this.curr_artrn.docnum + " ไม่พบ");
                     return;
                 }
 
-                int total_page = XPrintPreview.GetTotalPageCount(MakePrintDoc(artrn));
+                int total_page = XPrintPreview.GetTotalPageCount(MakePrintDoc(artrn, this.main_form.working_express_db, PaperKind.A5));
 
                 DialogPrintSetupA ps = new DialogPrintSetupA();
-                if(ps.ShowDialog() == DialogResult.OK)
+                if (ps.ShowDialog() == DialogResult.OK)
                 {
-                    PrintDocument print_doc = MakePrintDoc(artrn, total_page);
+                    PrintDocument print_doc = MakePrintDoc(artrn, this.main_form.working_express_db, PaperKind.A5, total_page);
 
                     if (ps.output == PRINT_OUTPUT.PRINTER)
                     {
                         PrintDialog pd = new PrintDialog();
                         pd.Document = print_doc;
-                        if(pd.ShowDialog() == DialogResult.OK)
+                        if (pd.ShowDialog() == DialogResult.OK)
                         {
                             pd.Document.Print();
                         }
@@ -1073,12 +1079,29 @@ namespace XPump.SubForm
                         xp.Show();
                     }
                 }
-
             }
         }
 
-        public static PrintDocument MakePrintDoc(artrn artrn_to_print, int? total_page = null)
+        private void btnPrintA5_Click(object sender, EventArgs e)
         {
+
+        }
+
+        public static PrintDocument MakePrintDoc(artrn artrn_to_print, SccompDbf working_express_db, PaperKind paper_kind = PaperKind.A4, int? total_page = null)
+        {
+            string doc_title = artrn_to_print.rectyp == "1" ? "ใบเสร็จรับเงิน/ใบกำกับภาษี" : "ใบแจ้งหนี้/ใบกำกับภาษี";
+            DataTable dt_isinfo = DbfTable.Isinfo(working_express_db);
+            string compnam = !dt_isinfo.Rows[0].IsNull("thinam") ? dt_isinfo.Rows[0].Field<string>("thinam").TrimEnd() : string.Empty;
+            string comp_addr01 = !dt_isinfo.Rows[0].IsNull("addr01") ? dt_isinfo.Rows[0].Field<string>("addr01").TrimEnd() : string.Empty;
+            string comp_addr02 = !dt_isinfo.Rows[0].IsNull("addr02") ? dt_isinfo.Rows[0].Field<string>("addr02").TrimEnd() : string.Empty;
+            string comp_telnum = !dt_isinfo.Rows[0].IsNull("telnum") ? dt_isinfo.Rows[0].Field<string>("telnum").TrimEnd() : string.Empty;
+            string comp_taxid = !dt_isinfo.Rows[0].IsNull("taxid") ? dt_isinfo.Rows[0].Field<string>("taxid").TrimEnd() : string.Empty;
+
+            ArmasDbf armas = DbfTable.Armas(working_express_db, artrn_to_print.cuscod);
+            string cusnam = armas != null ? armas.prenam + " " + armas.cusnam : string.Empty;
+            string addr = armas != null ? armas.addr01 + " " + armas.addr02 + " " + armas.addr03 + " " + armas.zipcod : string.Empty;
+            string telnum = armas != null ? armas.telnum : string.Empty;
+
             Font fnt_title_bold = new Font("angsana new", 12f, FontStyle.Bold);
             Font fnt_header_bold = new Font("angsana new", 11f, FontStyle.Bold); // tahoma 8f bold
             Font fnt_header = new Font("angsana new", 11f, FontStyle.Regular); // tahoma 8f
@@ -1097,6 +1120,8 @@ namespace XPump.SubForm
 
             PrintDocument pd = new PrintDocument();
             pd.DefaultPageSettings.Margins = new Margins(20, 20, 30, 30);
+            PaperSize paper_size = pd.PrinterSettings.PaperSizes.Cast<PaperSize>().First(size => size.Kind == paper_kind);
+            pd.DefaultPageSettings.PaperSize = paper_size;
             pd.DefaultPageSettings.Landscape = false;
             pd.BeginPrint += delegate(object sender, PrintEventArgs e)
             {
@@ -1108,14 +1133,36 @@ namespace XPump.SubForm
             {
                 int x = e.MarginBounds.Left;
                 int y = e.MarginBounds.Top;
+                int page_width = e.MarginBounds.Width;
+
                 int line_height = fnt_header.Height - 2;
                 page++;
 
+                e.Graphics.DrawString(doc_title, fnt_title_bold, brush, new Rectangle(x, y, e.MarginBounds.Width, line_height), format_center);
+                y += line_height;
+
+                e.Graphics.DrawString(compnam, fnt_header, brush, new Rectangle(x, y, e.MarginBounds.Width, line_height), format_left);
+                y += line_height;
+
+                e.Graphics.DrawString(comp_addr01 + " " + comp_addr02, fnt, brush, new Rectangle(x, y, e.MarginBounds.Width, line_height), format_left);
+                y += line_height;
+
+                e.Graphics.DrawString(comp_telnum, fnt, brush, new Rectangle(x, y, e.MarginBounds.Width, line_height), format_left);
+                y += line_height;
+
+                e.Graphics.DrawString("เลขประจำตัวผู้เสียภาษี " + comp_taxid, fnt, brush, new Rectangle(x, y, e.MarginBounds.Width, line_height), format_left);
+                e.Graphics.DrawString("วันที่ " + artrn_to_print.docdat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("TH-th")), fnt, brush, new Rectangle(e.MarginBounds.Width - 300, y, 300, line_height), format_left);
+                y += line_height;
+
+                e.Graphics.DrawString("เลขที่ " + artrn_to_print.docnum, fnt, brush, new Rectangle(e.MarginBounds.Width - 300, y, 300, line_height), format_left);
+
                 Rectangle rect = new Rectangle(x, y, e.MarginBounds.Width, line_height);
-                for (int i = 0; i < artrn_to_print.stcrd.ToList().Count; i++)
+                for (int i = item_count; i < artrn_to_print.stcrd.ToList().Count; i++)
                 {
                     e.Graphics.DrawString(artrn_to_print.stcrd.ToList()[i].stkdes, fnt_bold, brush, rect);
                     rect.Y += line_height;
+
+                    item_count++;
                 }
             };
 
