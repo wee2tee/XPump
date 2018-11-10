@@ -23,20 +23,23 @@ namespace CC
         private int total_page;
         private PRINT_AUTHORIZE_STATE print_authorize_state;
         public event EventHandler _OnOutputToPrinter;
+        private string title_text = string.Empty;
         
         
-        public XPrintPreview(PrintDocument document, int total_page, PRINT_AUTHORIZE_STATE print_authorize_state = PRINT_AUTHORIZE_STATE.READY_TO_PRINT)
+        public XPrintPreview(PrintDocument document, int total_page, PRINT_AUTHORIZE_STATE print_authorize_state = PRINT_AUTHORIZE_STATE.READY_TO_PRINT, string title_text = "")
         {
             InitializeComponent();
             this.printDialog1.Document = document;
             this.printPreviewControl1.Document = document;
             this.total_page = total_page;
             this.print_authorize_state = print_authorize_state;
+            this.title_text = title_text;
             //this.total_page = GetTotalPageCount(document);
         }
 
         private void FormPrintPreview_Load(object sender, EventArgs e)
         {
+            this.Text = this.title_text.Trim().Length == 0 ? "ตัวอย่างก่อนพิมพ์" : this.title_text;
             this.printPreviewControl1.Zoom = 1;
             this.printPreviewControl1.Document.EndPrint += delegate
             {
