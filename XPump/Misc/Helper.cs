@@ -2689,6 +2689,15 @@ namespace XPump.Misc
             return num_str;
         }
 
+        public static string ToBahtText(this decimal parse_value)
+        {
+            string dec2str = parse_value.ToString("0.00");
+
+            string bef_dec = dec2str.Split('.')[0];
+            string aft_dec = dec2str.Split('.')[1];
+
+        }
+
         public static bool IsInUse(this FileInfo file)
         {
             FileStream stream = null;
