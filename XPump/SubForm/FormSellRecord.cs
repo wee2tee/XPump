@@ -52,6 +52,13 @@ namespace XPump.SubForm
 
         private void FormSellRecord_Load(object sender, EventArgs e)
         {
+            //decimal[] dec = new decimal[] { 5678.345m, 200.01m, 121.20m, 101.41m, 120.21m, 1.10m, 31.70m, 21m, 20m, 12m, .25m};
+
+            //foreach (var d in dec)
+            //{
+            //    Console.WriteLine(" ==> " + d + " : " + d.ToBahtText());
+            //}
+
             this.BackColor = MiscResource.WIND_BG;
             this.HideInlineForm();
             this.LoadRcvBankDropdownList();
@@ -1249,6 +1256,7 @@ namespace XPump.SubForm
                 e.Graphics.DrawLine(p, new Point(grid[11 + max_item_row][14].X, grid[11 + max_item_row][14].Y), new Point(grid[11 + max_item_row + 3][14].X, grid[11 + max_item_row + 3][14].Y));
                 e.Graphics.FillRectangle(new SolidBrush(Color.Gainsboro), new Rectangle(grid[11 + max_item_row + 3][0].X, grid[11 + max_item_row + 3][0].Y, col_width * 16, line_height));
                 e.Graphics.DrawRectangle(p, new Rectangle(grid[11 + max_item_row + 3][0].X, grid[11 + max_item_row + 3][0].Y, col_width * 16, line_height));
+                e.Graphics.DrawString(artrn_to_print.amount.ToBahtText(true), fnt_medium_bold, brush, new Rectangle(grid[11 + max_item_row + 3][0].X, grid[11 + max_item_row + 3][0].Y, col_width * 16, line_height));
 
                 e.Graphics.DrawString("ลำดับ", fnt_medium_bold, brush, new Rectangle(grid[11][0].X, grid[11][0].Y, col_width, line_height), format_center);
                 e.Graphics.DrawString("No.", fnt_medium_bold, brush, new Rectangle(grid[12][0].X, grid[12][0].Y, col_width, line_height), format_center);
@@ -1312,9 +1320,6 @@ namespace XPump.SubForm
                 this.tmp_artrn.dlvby = this.cCuscod.selected_cust.dlvby;
                 this.tmp_artrn.orgnum = this.cCuscod.selected_cust.orgnum;
                 this.tmp_artrn.slmcod = this.cCuscod.selected_cust.slmcod;
-
-                //this.tmp_artrn.stcrd.ToList().ForEach(st => st.people = this.cCuscod.selected_cust.cuscod);
-                //this.tmp_artrn.stcrd.ToList().ForEach(st => st.slmcod = this.cCuscod.selected_cust.slmcod);
             }
         }
 

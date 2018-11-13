@@ -2689,13 +2689,129 @@ namespace XPump.Misc
             return num_str;
         }
 
-        public static string ToBahtText(this decimal parse_value)
+        public static string ToBahtText(this decimal parse_value, bool has_bracket)
         {
             string dec2str = parse_value.ToString("0.00");
 
             string bef_dec = dec2str.Split('.')[0];
             string aft_dec = dec2str.Split('.')[1];
 
+            string ret_str = string.Empty;
+            
+            string[] th1 = new string[] { "", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า" };
+            string[] th2 = new string[] { "", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน" };
+            List<string> reverse_str = new List<string>();
+
+            ret_str += has_bracket ? "(" : "";
+            /* int section */
+            if(Convert.ToInt32(bef_dec) > 0)
+            {
+                var reverse_num = bef_dec.ToCharArray().Reverse().ToList();
+                for (int i = 0; i < reverse_num.Count(); i++)
+                {
+                    //if (Convert.ToInt32(reverse_num[i].ToString()) == 0)
+                    //continue;
+
+                    if (i == 0)
+                    {
+                        if (reverse_num.Count > 1 && Convert.ToInt32(reverse_num[0].ToString()) == 1)
+                        {
+                            if (Convert.ToInt32(reverse_num[1].ToString()) > 0)
+                            {
+                                reverse_str.Add("เอ็ดบาท");
+                            }
+                            else
+                            {
+                                reverse_str.Add("หนึ่งบาท");
+                            }
+                        }
+                        else if (reverse_num.Count > 1 && Convert.ToInt32(reverse_num[0].ToString()) == 0)
+                        {
+                            reverse_str.Add("บาท");
+                        }
+                        else if (reverse_num.Count == 1 || (reverse_num.Count > 1 && Convert.ToInt32(reverse_num[0].ToString()) > 1))
+                        {
+                            reverse_str.Add(th1[Convert.ToInt32(reverse_num[0].ToString())] + "บาท");
+                        }
+                        else
+                        {
+                            // do nothing.
+                        }
+                    }
+                    else if (i == 1)
+                    {
+                        if (Convert.ToInt32(reverse_num[1].ToString()) == 1)
+                        {
+                            reverse_str.Add(th2[i]);
+                        }
+                        else if (Convert.ToInt32(reverse_num[1].ToString()) == 2)
+                        {
+                            reverse_str.Add("ยี่" + th2[i]);
+                        }
+                        else if (Convert.ToInt32(reverse_num[1].ToString()) > 2)
+                        {
+                            reverse_str.Add(th1[Convert.ToInt32(reverse_num[1].ToString())] + th2[i]);
+                        }
+                    }
+                    else
+                    {
+                        reverse_str.Add(th1[Convert.ToInt32(reverse_num[i].ToString())] + th2[i]);
+                    }
+                }
+            }
+
+            ret_str += string.Join("", reverse_str.Reverse<string>());
+            ret_str += Convert.ToInt32(aft_dec) == 0 ? "ถ้วน" : "";
+
+            /* dec section */
+            if(Convert.ToInt32(aft_dec) > 0)
+            {
+                var dec_num = aft_dec.ToCharArray().ToList();
+
+                for (int i = 0; i < dec_num.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        if (Convert.ToInt32(dec_num[0].ToString()) == 1)
+                        {
+                            ret_str += "สิบ";
+                        }
+                        else if (Convert.ToInt32(dec_num[0].ToString()) == 2)
+                        {
+                            ret_str += "ยี่สิบ";
+                        }
+                        else if (Convert.ToInt32(dec_num[0].ToString()) > 2)
+                        {
+                            ret_str += th1[Convert.ToInt32(dec_num[0].ToString())] + "สิบ";
+                        }
+
+                        continue;
+                    }
+
+                    if (i == 1)
+                    {
+                        if (Convert.ToInt32(dec_num[1].ToString()) == 1)
+                        {
+                            if (Convert.ToInt32(dec_num[0].ToString()) == 0)
+                            {
+                                ret_str += "หนึ่งสตางค์";
+                            }
+                            else if (Convert.ToInt32(dec_num[0].ToString()) > 0)
+                            {
+                                ret_str += "เอ็ดสตางค์";
+                            }
+                        }
+                        else
+                        {
+                            ret_str += th1[Convert.ToInt32(dec_num[1].ToString())] + "สตางค์";
+                        }
+                    }
+                }
+            }
+
+            ret_str += has_bracket ? ")" : "";
+
+            return ret_str;
         }
 
         public static bool IsInUse(this FileInfo file)
