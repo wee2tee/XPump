@@ -1152,8 +1152,8 @@ namespace XPump.SubForm
             Font fnt_large_bold = paper_kind == PaperKind.A4 ? new Font("angsana new", 18f, FontStyle.Bold) : new Font("angsana new", 14f, FontStyle.Bold);
             Font fnt_medium = paper_kind == PaperKind.A4 ? new Font("angsana new", 14f, FontStyle.Regular) : new Font("angsana new", 10f, FontStyle.Regular);
             Font fnt_medium_bold = paper_kind == PaperKind.A4 ? new Font("angsana new", 14f, FontStyle.Bold) : new Font("angsana new", 10f, FontStyle.Bold);
-            Font fnt_small = paper_kind == PaperKind.A4 ? new Font("angsana new", 10f, FontStyle.Regular) : new Font("angsana new", 6f, FontStyle.Regular);
-            Font fnt_small_bold = paper_kind == PaperKind.A4 ? new Font("angsana new", 10f, FontStyle.Bold) : new Font("angsana new", 6f, FontStyle.Bold);
+            Font fnt_small = paper_kind == PaperKind.A4 ? new Font("angsana new", 12f, FontStyle.Regular) : new Font("angsana new", 8f, FontStyle.Regular);
+            Font fnt_small_bold = paper_kind == PaperKind.A4 ? new Font("angsana new", 12f, FontStyle.Bold) : new Font("angsana new", 8f, FontStyle.Bold);
 
             Pen p = new Pen(Color.Black);
             SolidBrush brush = new SolidBrush(Color.Black);
@@ -1163,13 +1163,12 @@ namespace XPump.SubForm
 
             int page = 0;
             int item_count = 0;
-            //int item_per_page = 8;
 
             PrintDocument pd = new PrintDocument();
-            pd.DefaultPageSettings.Margins = paper_kind == PaperKind.A4 ? new Margins(46, 45, 20, 30) : new Margins(20, 19, 15, 20);
-            PaperSize paper_size = pd.PrinterSettings.PaperSizes.Cast<PaperSize>().First(size => size.Kind == paper_kind);
+            pd.DefaultPageSettings.Margins = paper_kind == PaperKind.A4 ? new Margins(46, 45, 20, 30) : new Margins(33, 620/*30*/, 15, 20);
+            PaperSize paper_size = pd.PrinterSettings.PaperSizes.Cast<PaperSize>().First(size => size.Kind == PaperKind.A4 /*paper_kind*/);
             pd.DefaultPageSettings.PaperSize = paper_size;
-            pd.DefaultPageSettings.Landscape = false;
+            pd.DefaultPageSettings.Landscape = paper_kind == PaperKind.A4 ? false : true;
 
             pd.BeginPrint += delegate(object sender, PrintEventArgs e)
             {
@@ -1181,9 +1180,9 @@ namespace XPump.SubForm
             {
                 int x = e.MarginBounds.Left;
                 int y = e.MarginBounds.Top;
-                int line_height = fnt_medium.Height + 3;
+                int line_height = paper_kind == PaperKind.A4 ? fnt_medium.Height + 3 : fnt_medium.Height + 2;
                 int max_column = 16;
-                int max_item_row = paper_kind == PaperKind.A4 ? 18 : 16;
+                int max_item_row = paper_kind == PaperKind.A4 ? 18 : 18/*16*/;
                 int col_width = e.MarginBounds.Width / max_column;
 
                 List<int> columns = new List<int>();
@@ -1221,6 +1220,9 @@ namespace XPump.SubForm
                 //}
                 //e.Graphics.DrawLine(new Pen(Color.Gainsboro), new Point(grid[0].Last().X + grid[0].Last().Width, e.MarginBounds.Top), new Point(grid[0].Last().X + grid[0].Last().Width, e.MarginBounds.Bottom));
 
+                if (total_page != null)
+                    e.Graphics.DrawString("หน้า " + page.ToString() + " / " + total_page.ToString(), fnt_small_bold, brush, new Rectangle(grid[0][15].X, grid[0][15].Y, col_width * 2, line_height));
+
                 e.Graphics.DrawString(compnam, fnt_large_bold, brush, new Rectangle(grid[2][0].X, grid[2][0].Y - 5, col_width * 11, line_height + 5));
                 e.Graphics.DrawString(comp_addr01 + " " + comp_addr02, fnt_medium, brush, new Rectangle(grid[3][0].X, grid[3][0].Y, col_width * 11, line_height));
                 e.Graphics.DrawString("โทร. " + comp_telnum, fnt_medium, brush, new Rectangle(grid[4][0].X, grid[4][0].Y, col_width * 11, line_height));
@@ -1256,7 +1258,9 @@ namespace XPump.SubForm
                 e.Graphics.DrawLine(p, new Point(grid[11 + max_item_row][14].X, grid[11 + max_item_row][14].Y), new Point(grid[11 + max_item_row + 3][14].X, grid[11 + max_item_row + 3][14].Y));
                 e.Graphics.FillRectangle(new SolidBrush(Color.Gainsboro), new Rectangle(grid[11 + max_item_row + 3][0].X, grid[11 + max_item_row + 3][0].Y, col_width * 16, line_height));
                 e.Graphics.DrawRectangle(p, new Rectangle(grid[11 + max_item_row + 3][0].X, grid[11 + max_item_row + 3][0].Y, col_width * 16, line_height));
-                e.Graphics.DrawString(artrn_to_print.amount.ToBahtText(true), fnt_medium_bold, brush, new Rectangle(grid[11 + max_item_row + 3][0].X, grid[11 + max_item_row + 3][0].Y, col_width * 16, line_height));
+
+                if (total_page != null && page == total_page)
+                    e.Graphics.DrawString(artrn_to_print.amount.ToBahtText(true), fnt_medium_bold, brush, new Rectangle(grid[11 + max_item_row + 3][0].X, grid[11 + max_item_row + 3][0].Y, col_width * 16, line_height));
 
                 e.Graphics.DrawString("ลำดับ", fnt_medium_bold, brush, new Rectangle(grid[11][0].X, grid[11][0].Y, col_width, line_height), format_center);
                 e.Graphics.DrawString("No.", fnt_medium_bold, brush, new Rectangle(grid[12][0].X, grid[12][0].Y, col_width, line_height), format_center);
@@ -1274,20 +1278,31 @@ namespace XPump.SubForm
                 e.Graphics.DrawString("Amount", fnt_medium_bold, brush, new Rectangle(grid[12][14].X, grid[12][14].Y, col_width * 2, line_height), format_center);
 
                 e.Graphics.DrawString("จำนวนเงินรวมทั้งสิ้น", fnt_medium_bold, brush, new Rectangle(grid[11 + max_item_row][11].X, grid[11 + max_item_row][11].Y, col_width * 3, line_height), format_right);
-                e.Graphics.DrawString(string.Format("{0:N2}", artrn_to_print.amount), fnt_medium_bold, brush, new Rectangle(grid[11 + max_item_row][14].X, grid[11 + max_item_row][14].Y, col_width * 2, line_height), format_right);
-
                 e.Graphics.DrawString("ภาษีมูลค่าเพิ่ม", fnt_medium_bold, brush, new Rectangle(grid[11 + max_item_row + 1][11].X, grid[11 + max_item_row + 1][11].Y, col_width * 3, line_height), format_right);
-                e.Graphics.DrawString(string.Format("{0:N2}", artrn_to_print.vatamt), fnt_medium, brush, new Rectangle(grid[11 + max_item_row + 1][14].X, grid[11 + max_item_row + 1][14].Y, col_width * 2, line_height), format_right);
-
                 e.Graphics.DrawString("มูลค่าสินค้าและบริการ", fnt_medium_bold, brush, new Rectangle(grid[11 + max_item_row + 2][11].X, grid[11 + max_item_row + 2][11].Y, col_width * 3, line_height), format_right);
-                e.Graphics.DrawString(string.Format("{0:N2}", artrn_to_print.netval), fnt_medium, brush, new Rectangle(grid[11 + max_item_row + 2][14].X, grid[11 + max_item_row + 2][14].Y, col_width * 2, line_height), format_right);
+                
+                if(total_page != null && page == total_page)
+                {
+                    e.Graphics.DrawString(string.Format("{0:N2}", artrn_to_print.amount), fnt_medium_bold, brush, new Rectangle(grid[11 + max_item_row][14].X, grid[11 + max_item_row][14].Y, col_width * 2, line_height), format_right);
+                    e.Graphics.DrawString(string.Format("{0:N2}", artrn_to_print.vatamt), fnt_medium, brush, new Rectangle(grid[11 + max_item_row + 1][14].X, grid[11 + max_item_row + 1][14].Y, col_width * 2, line_height), format_right);
+                    e.Graphics.DrawString(string.Format("{0:N2}", artrn_to_print.netval), fnt_medium, brush, new Rectangle(grid[11 + max_item_row + 2][14].X, grid[11 + max_item_row + 2][14].Y, col_width * 2, line_height), format_right);
+                }
 
                 e.Graphics.DrawString("ลงชื่อ ________________________________ ผู้รับเงิน", fnt_medium, brush, new Rectangle(grid[lines.Count - 2][0].X, grid[lines.Count - 2][0].Y, col_width * 8, line_height));
 
                 int item_of_page = 0;
                 for (int i = item_count; i < artrn_to_print.stcrd.Count; i++)
                 {
+                    
+
                     int row = 13 + item_of_page;
+
+                    if(grid[row][0].Y > grid[11 + max_item_row - 1][0].Y)
+                    {
+                        e.HasMorePages = true;
+                        return;
+                    }
+                    
                     e.Graphics.DrawString((i + 1).ToString(), fnt_medium, brush, new Rectangle(grid[row][0].X, grid[row][0].Y, col_width, line_height), format_center);
                     e.Graphics.DrawString(artrn_to_print.stcrd.OrderBy(st => st.id).ToList()[i].stkdes, fnt_medium, brush, new Rectangle(grid[row][1].X, grid[row][1].Y, col_width * 9, line_height));
                     e.Graphics.DrawString(string.Format("{0:N2}", artrn_to_print.stcrd.OrderBy(st => st.id).ToList()[i].trnqty), fnt_medium, brush, new Rectangle(grid[row][10].X, grid[row][10].Y, col_width * 2, line_height), format_right);
@@ -1296,6 +1311,12 @@ namespace XPump.SubForm
 
                     item_of_page++;
                     item_count++;
+
+                    //if (i > 0 && (i + 1) % (max_item_row - 2) == 0)
+                    //{
+                    //    e.HasMorePages = true;
+                    //    return;
+                    //}
                 }
             };
 
@@ -1322,7 +1343,6 @@ namespace XPump.SubForm
                 this.tmp_artrn.slmcod = this.cCuscod.selected_cust.slmcod;
             }
         }
-
 
         private void cCuscod__Leave(object sender, EventArgs e)
         {
