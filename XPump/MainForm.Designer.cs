@@ -66,6 +66,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.mnuTransferInvoice = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -208,6 +209,7 @@
             this.mnuDataManage,
             this.mnuSecure,
             this.mnuYearEnd,
+            this.mnuTransferInvoice,
             this.toolStripSeparator2,
             this.mnuChangeCompany});
             this.mnuOther.Name = "mnuOther";
@@ -343,6 +345,12 @@
             resources.ApplyResources(this.lblVersion, "lblVersion");
             this.lblVersion.Spring = true;
             // 
+            // mnuTransferInvoice
+            // 
+            this.mnuTransferInvoice.Name = "mnuTransferInvoice";
+            resources.ApplyResources(this.mnuTransferInvoice, "mnuTransferInvoice");
+            this.mnuTransferInvoice.Click += new System.EventHandler(this.mnuTransferInvoice_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -403,6 +411,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuStkgrp;
         private System.Windows.Forms.ToolStripMenuItem mnuBank;
         private System.Windows.Forms.ToolStripMenuItem mnuRcvMethod;
+        private System.Windows.Forms.ToolStripMenuItem mnuTransferInvoice;
     }
 }
 

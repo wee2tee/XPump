@@ -491,6 +491,12 @@
     <Compile Include="SubForm\DialogStkgrp.Designer.cs">
       <DependentUpon>DialogStkgrp.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\DialogTransferInvoiceData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\DialogTransferInvoiceData.Designer.cs">
+      <DependentUpon>DialogTransferInvoiceData.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\FormArmas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -800,6 +806,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\DialogStkgrp.resx">
       <DependentUpon>DialogStkgrp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\DialogTransferInvoiceData.resx">
+      <DependentUpon>DialogTransferInvoiceData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm\FormArmas.resx">
       <DependentUpon>FormArmas.cs</DependentUpon>

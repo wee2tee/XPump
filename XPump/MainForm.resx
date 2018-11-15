@@ -240,7 +240,7 @@
     <value>นำข้อมูลสำรองมาใช้</value>
   </data>
   <data name="mnuDataManage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
+    <value>242, 22</value>
   </data>
   <data name="mnuDataManage.Text" xml:space="preserve">
     <value>จัดการฐานข้อมูล</value>
@@ -261,22 +261,28 @@
     <value>แฟ้มบันทึกเหตุการณ์ทำงาน</value>
   </data>
   <data name="mnuSecure.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
+    <value>242, 22</value>
   </data>
   <data name="mnuSecure.Text" xml:space="preserve">
     <value>แฟ้มผู้ใช้งานระบบ</value>
   </data>
   <data name="mnuYearEnd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
+    <value>242, 22</value>
   </data>
   <data name="mnuYearEnd.Text" xml:space="preserve">
     <value>การประมวลผลสิ้นปี</value>
   </data>
+  <data name="mnuTransferInvoice.Size" type="System.Drawing.Size, System.Drawing">
+    <value>242, 22</value>
+  </data>
+  <data name="mnuTransferInvoice.Text" xml:space="preserve">
+    <value>โอนข้อมูลบิลขายเข้าเอ็กซ์เพรส</value>
+  </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 6</value>
+    <value>239, 6</value>
   </data>
   <data name="mnuChangeCompany.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
+    <value>242, 22</value>
   </data>
   <data name="mnuChangeCompany.Text" xml:space="preserve">
     <value>เปลี่ยนบริษัท</value>
@@ -2292,6 +2298,12 @@
   </data>
   <data name="&gt;&gt;lblVersion.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuTransferInvoice.Name" xml:space="preserve">
+    <value>mnuTransferInvoice</value>
+  </data>
+  <data name="&gt;&gt;mnuTransferInvoice.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

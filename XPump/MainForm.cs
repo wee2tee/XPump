@@ -629,6 +629,12 @@ namespace XPump
             //this.SetStatusLabelText(null, local_db.ConfigValue.dbname, null);
         }
 
+        private void mnuTransferInvoice_Click(object sender, EventArgs e)
+        {
+            DialogTransferInvoiceData dt = new DialogTransferInvoiceData(this);
+            dt.ShowDialog();
+        }
+
         public DbConnectionConfig ShowBranchSelection()
         {
             var branch_list = new LocalDbConfig(this.working_express_db).BranchList;
