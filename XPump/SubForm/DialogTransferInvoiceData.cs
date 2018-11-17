@@ -9,6 +9,10 @@ using System.Windows.Forms;
 using XPump.Misc;
 using XPump.Model;
 using CC;
+using System.Data.OleDb;
+using System.Threading;
+using System.IO;
+using System.Globalization;
 
 namespace XPump.SubForm
 {
@@ -16,8 +20,11 @@ namespace XPump.SubForm
     {
         private MainForm main_form;
         private List<IsrunDbf> isrun;
+        private List<artrn> artrn;
         private IsrunDbf selected_doctype;
-        private DateTime? selected_date;
+        private DateTime? selected_date_from;
+        private DateTime? selected_date_to;
+        private bool group_bill = false;
 
         public DialogTransferInvoiceData(MainForm main_form)
         {
@@ -41,27 +48,154 @@ namespace XPump.SubForm
             this.SetBtnOkState();
         }
 
-        private void cDate__SelectedDateChanged(object sender, EventArgs e)
+        private void cDateFrom__SelectedDateChanged(object sender, EventArgs e)
         {
-            this.selected_date = ((XDatePicker)sender)._SelectedDate;
+            this.selected_date_from = ((XDatePicker)sender)._SelectedDate;
             this.SetBtnOkState();
         }
 
-        private void cDate__Leave(object sender, EventArgs e)
+        private void cDateFrom__Leave(object sender, EventArgs e)
         {
-            this.selected_date = ((XDatePicker)sender)._SelectedDate;
+            this.selected_date_from = ((XDatePicker)sender)._SelectedDate;
             this.SetBtnOkState();
+        }
+
+        private void cDateTo__SelectedDateChanged(object sender, EventArgs e)
+        {
+            this.selected_date_to = ((XDatePicker)sender)._SelectedDate;
+            this.SetBtnOkState();
+        }
+
+        private void cDateTo__Leave(object sender, EventArgs e)
+        {
+            this.selected_date_to = ((XDatePicker)sender)._SelectedDate;
+            this.SetBtnOkState();
+        }
+
+        private void cGroupBill_CheckedChanged(object sender, EventArgs e)
+        {
+            this.group_bill = ((CheckBox)sender).Checked;
         }
 
         private void SetBtnOkState()
         {
-            this.btnOK.Enabled = this.selected_doctype != null && this.selected_date.HasValue ? true : false;
+            this.btnOK.Enabled = this.selected_doctype != null && this.selected_date_from.HasValue && this.selected_date_to.HasValue ? true : false;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
             Console.WriteLine(" ==> doc.prefix : " + this.selected_doctype.prefix);
-            Console.WriteLine(" ==> selected_date : " + this.selected_date.Value);
+            Console.WriteLine(" ==> selected_date_from : " + this.selected_date_from.Value);
+            Console.WriteLine(" ==> selected_date_to : " + this.selected_date_to.Value);
+            Console.WriteLine(" ==> group_bill : " + this.group_bill);
+
+            using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+            {
+                this.artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.docnum.Substring(0, 2) == this.selected_doctype.prefix && a.docdat.CompareTo(this.selected_date_from.Value) >= 0 && a.docdat.CompareTo(this.selected_date_to.Value) <= 0 && (a.str1 == null || a.str1.Trim().Length == 0)).ToList();
+                if(this.artrn.Count == 0)
+                {
+                    XMessageBox.Show("ไม่มีข้อมูลตามขอบเขตที่กำหนด");
+                    return;
+                }
+
+                if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\Transfer_log"))
+                    Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\Transfer_log");
+
+                DateTime curr_time = DateTime.Now;
+                string log_file_name = curr_time.ToString("yyyy-MM-dd_HH-mm-ss", CultureInfo.GetCultureInfo("EN-us")) + ".txt";
+                using (StreamWriter wr = File.CreateText(AppDomain.CurrentDomain.BaseDirectory + @"\Transfer_log\" + log_file_name))
+                {
+                    wr.WriteLine("Transfer data at " + curr_time.ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("TH-th")));
+                    wr.WriteLine("Document prefix : '" + this.selected_doctype.prefix + "'");
+                    wr.WriteLine("Date range : " + this.selected_date_from.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("TH-th")) + " - " + this.selected_date_to.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("TH-th")));
+                    wr.WriteLine("");
+                    wr.WriteLine("Number\t\tDate\t\tResult");
+                    wr.WriteLine("================================");
+                }
+
+                using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + this.main_form.working_express_db.abs_path))
+                {
+                    if (!this.group_bill)
+                    {
+                        BackgroundWorker wrk = new BackgroundWorker();
+                        wrk.WorkerSupportsCancellation = true;
+                        wrk.WorkerReportsProgress = true;
+
+                        this.progressBar1.Maximum = this.artrn.Count;
+                        this.progressBar1.Value = 0;
+
+                        int completed_row = 0;
+                        wrk.DoWork += delegate(object obj, DoWorkEventArgs ev)
+                        {
+                            this.artrn.ForEach(a =>
+                            {
+                                using (StreamWriter sw = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"\Transfer_log\" + log_file_name))
+                                {
+                                    sw.WriteLine(a.docnum + "\t" + a.docdat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("TH-th")) + "\tcompleted.");
+                                }
+
+                                Thread.Sleep(2000);
+                                wrk.ReportProgress(++completed_row);
+                            });
+                        };
+
+                        wrk.RunWorkerCompleted += delegate (object obj, RunWorkerCompletedEventArgs ev)
+                        {
+                            MessageBox.Show("completed");
+                        };
+
+                        wrk.ProgressChanged += delegate (object obj, ProgressChangedEventArgs ev)
+                        {
+                            this.progressBar1.Value = ev.ProgressPercentage;
+                            var perc = (decimal)(Convert.ToDecimal(ev.ProgressPercentage) / Convert.ToDecimal(this.progressBar1.Maximum)) * 100;
+                            this.lblProgressPercent.Text = perc.ToString("N0") + "%";
+                        };
+                        wrk.RunWorkerAsync();
+
+                        //this.artrn.ForEach(a =>
+                        //{
+                        //    DbfInsertResult result = this.InsertInvoice(conn, a);
+                        //    if (!result.success)
+                        //    {
+
+                        //    }
+                        //});
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
         }
+
+        //private DbfInsertResult InsertInvoice(OleDbConnection conn, artrn artrn)
+        //{
+
+        //}
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.F9)
+            {
+                this.btnOK.Focus();
+                this.btnOK.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.btnCancel.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+    }
+
+    public class DbfInsertResult
+    {
+        public bool success { get; set; }
+        public string err_message { get; set; }
     }
 }
