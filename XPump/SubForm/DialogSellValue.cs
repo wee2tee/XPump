@@ -70,6 +70,7 @@ namespace XPump.SubForm
         private void cNozzle__SelectedItemChanged(object sender, EventArgs e)
         {
             this.selected_nozzle = (nozzle)((XDropdownList)sender)._SelectedItem.Value;
+            this.stcrd.loccod = this.selected_nozzle.section != null ? this.selected_nozzle.section.loccod : this.stcrd.loccod;
 
             this.btnOK.Enabled = this.selected_nozzle != null && this.stcrd.trnval > 0 ? true : false;
         }

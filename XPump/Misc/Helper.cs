@@ -2927,7 +2927,10 @@ namespace XPump.Misc
 
         public enum DBF_FILENAME_FLAG : int
         {
-            ARMAS = 9
+            ARMAS = 9,
+            ARRCPCQ = 10,
+            ARTRN = 13,
+            STCRD = 49
         }
     }
 }

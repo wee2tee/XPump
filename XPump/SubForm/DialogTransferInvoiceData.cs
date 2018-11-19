@@ -146,6 +146,19 @@ namespace XPump.SubForm
 
                             wrk.ReportProgress(++completed_row);
                         });
+
+                        if(!Helper.Reindex(this.main_form.working_express_db, Helper.DBF_FILENAME_FLAG.ARTRN))
+                        {
+                            XMessageBox.Show("แฟ้ม ARTRN ถูกเปิดใช้อยู่ กรุณาสั่งจัดเรียงข้อมูลแฟ้ม ARTRN ในโปรแกรมเอ็กซ์เพรสอีกครั้ง");
+                        }
+                        if(!Helper.Reindex(this.main_form.working_express_db, Helper.DBF_FILENAME_FLAG.STCRD))
+                        {
+                            XMessageBox.Show("แฟ้ม STCRD ถูกเปิดใช้อยู่ กรุณาสั่งจัดเรียงข้อมูลแฟ้ม STCRD ในโปรแกรมเอ็กซ์เพรสอีกครั้ง");
+                        }
+                        if(!Helper.Reindex(this.main_form.working_express_db, Helper.DBF_FILENAME_FLAG.ARRCPCQ))
+                        {
+                            XMessageBox.Show("แฟ้ม ARRCPCQ ถูกเปิดใช้อยู่ กรุณาสั่งจัดเรียงข้อมูลแฟ้ม ARRCPCQ ในโปรแกรมเอ็กซ์เพรสอีกครั้ง");
+                        }
                     };
 
                     wrk.RunWorkerCompleted += delegate (object obj, RunWorkerCompletedEventArgs ev)
@@ -187,20 +200,71 @@ namespace XPump.SubForm
                 {
                     using (OleDbCommand cmd = conn.CreateCommand())
                     {
+                        /* Artrn */
                         cmd.CommandText = "Insert into artrn (";
                         cmd.CommandText += string.Join(",", artrn.GetType().GetProperties().ToList().Where(p => p.Name.ToLower() != "id" && p.Name.ToLower() != "arrcpcq" && p.Name.ToLower() != "stcrd").Select(p => p.Name));
                         cmd.CommandText += ") Values(";
-                        cmd.CommandText += string.Join(",", artrn.GetType().GetProperties().ToList().Where(p => p.Name.ToLower() != "id" && p.Name.ToLower() != "arrcpcq" && p.Name.ToLower() != "stcrd").Select(p => "?"));
+                        cmd.CommandText += string.Join(",", artrn.GetType().GetProperties().ToList().Where(p => p.Name.ToLower() != "id" && p.Name.ToLower() != "arrcpcq" && p.Name.ToLower() != "stcrd").Select(p => p.PropertyType == typeof(DateTime?) && p.GetValue(artrn, null) == null ? "{}" : "?"));
                         cmd.CommandText += ")";
 
                         artrn.GetType().GetProperties().Where(p => p.Name.ToLower() != "id" && p.Name.ToLower() != "arrcpcq" && p.Name.ToLower() != "stcrd").ToList().ForEach(p =>
                         {
-                            cmd.Parameters.AddWithValue("@" + p.Name, p.GetValue(artrn, null));
+                            if(!(p.PropertyType == typeof(System.DateTime?) && p.GetValue(artrn, null) == null))
+                            {
+                                cmd.Parameters.AddWithValue("@" + p.Name, p.GetValue(artrn, null));
+                            }
                         });
 
                         conn.Open();
-                        cmd.ExecuteNonQuery();
+                        if(cmd.ExecuteNonQuery() > 0)
+                        {
+                            using (xpumpEntities db = DBX.DataSet(working_express_db))
+                            {
+                                var artrn_to_update = db.artrn.Find(artrn.id);
+                                artrn_to_update.str1 = artrn.docnum;
+                                db.SaveChanges();
+                            }
+                        }
                         conn.Close();
+
+                        /* Stcrd */
+                        foreach (stcrd stcrd in artrn.stcrd)
+                        {
+                            cmd.CommandText = "Insert into stcrd (";
+                            cmd.CommandText += string.Join(", ", stcrd.GetType().GetProperties().Where(s => s.Name.ToLower() != "id" && s.Name.ToLower() != "artrn" && s.Name.ToLower() != "artrn_id").ToList().Select(s => s.Name));
+                            cmd.CommandText += ") Values(";
+                            cmd.CommandText += string.Join(", ", stcrd.GetType().GetProperties().Where(s => s.Name.ToLower() != "id" && s.Name.ToLower() != "artrn" && s.Name.ToLower() != "artrn_id").ToList().Select(s => s.PropertyType == typeof(DateTime?) && s.GetValue(stcrd, null) == null ? "{}" : "?"));
+                            cmd.CommandText += ")";
+
+                            cmd.Parameters.Clear();
+                            stcrd.GetType().GetProperties().Where(s => s.Name.ToLower() != "id" && s.Name.ToLower() != "artrn" && s.Name.ToLower() != "artrn_id").ToList().ForEach(s =>
+                            {
+                                if (!(s.PropertyType == typeof(System.DateTime?) && s.GetValue(stcrd, null) == null))
+                                {
+                                    cmd.Parameters.AddWithValue("@" + s.Name, s.GetValue(stcrd, null));
+                                }
+                            });
+
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
+
+                        /* Arrcpcq */
+                        foreach (arrcpcq arrcpcq in artrn.arrcpcq)
+                        {
+                            cmd.CommandText = "Insert into arrcpcq (rcpnum, chqnum, rcvamt, userid, chgdat) Values(?, ?, ?, ?, ?)";
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@rcpnum", arrcpcq.rcpnum);
+                            cmd.Parameters.AddWithValue("@chqnum", arrcpcq.chqnum);
+                            cmd.Parameters.AddWithValue("@rcvamt", arrcpcq.rcvamt);
+                            cmd.Parameters.AddWithValue("@userid", arrcpcq.userid);
+                            cmd.Parameters.AddWithValue("@chgdat", arrcpcq.chgdat);
+
+                            conn.Open();
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
 
                         result.success = true;
                     }

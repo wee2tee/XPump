@@ -105,7 +105,7 @@
           <Property Name="c_difamt" Type="decimal" Precision="14" Scale="2" Nullable="false" />
           <Property Name="c_rcvamt" Type="decimal" Precision="14" Scale="4" Nullable="false" />
           <Property Name="c_remamt" Type="decimal" Precision="14" Scale="4" Nullable="false" />
-          <Property Name="link" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="link1" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="dat1" Type="date" />
           <Property Name="dat2" Type="date" />
           <Property Name="num1" Type="decimal" Precision="14" Scale="4" Nullable="false" />
@@ -910,7 +910,7 @@
           <Property Name="c_difamt" Type="Decimal" Nullable="false" />
           <Property Name="c_rcvamt" Type="Decimal" Nullable="false" />
           <Property Name="c_remamt" Type="Decimal" Nullable="false" />
-          <Property Name="link" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="link1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="dat1" Type="DateTime" />
           <Property Name="dat2" Type="DateTime" />
           <Property Name="num1" Type="Decimal" Nullable="false" />
@@ -1752,7 +1752,7 @@
                 <ScalarProperty Name="c_difamt" ColumnName="c_difamt" />
                 <ScalarProperty Name="c_rcvamt" ColumnName="c_rcvamt" />
                 <ScalarProperty Name="c_remamt" ColumnName="c_remamt" />
-                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="link1" ColumnName="link1" />
                 <ScalarProperty Name="dat1" ColumnName="dat1" />
                 <ScalarProperty Name="dat2" ColumnName="dat2" />
                 <ScalarProperty Name="num1" ColumnName="num1" />

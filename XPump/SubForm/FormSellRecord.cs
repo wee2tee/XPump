@@ -152,6 +152,7 @@ namespace XPump.SubForm
             this.cDocdat._SelectedDate = artrn.docdat;
             this.cCuscod._Text = artrn.cuscod;
             this.cNozzle._Text = artrn.youref;
+            this.cStr1.Text = artrn.str1;
             this.lblCusnam.Text = cus != null ? cus.cusnam.TrimEnd() : string.Empty;
             this.cCshrcv._Value = artrn.cshrcv;
             this.cChqrcv.Text = string.Format("{0:N2}", artrn.chqrcv);
@@ -505,7 +506,7 @@ namespace XPump.SubForm
                 rectyp = this.curr_docprefix.doctyp.TrimEnd() == "HS" ? "1" : (this.curr_docprefix.doctyp.TrimEnd() == "IV" ? "3" : ""),
                 docnum = this.curr_docprefix + "**NEW**",
                 docdat = DateTime.Now,
-                depcod = this.curr_docprefix.depcod,
+                depcod = this.curr_docprefix.depcod.Trim() == "-" ? string.Empty : this.curr_docprefix.depcod,
                 flgvat = this.curr_docprefix.flgvat,
                 duedat = DateTime.Now,
                 bilnum = "~",

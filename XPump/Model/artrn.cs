@@ -74,7 +74,7 @@ namespace XPump.Model
             this.id = -1;
             this.intrcv = 0;
             this.ivcamt = 0;
-            this.link = string.Empty;
+            this.link1 = string.Empty;
             this.netamt = 0;
             this.netval = 0;
             this.num1 = 0;
@@ -191,7 +191,7 @@ namespace XPump.Model
         public decimal c_difamt { get; set; }
         public decimal c_rcvamt { get; set; }
         public decimal c_remamt { get; set; }
-        public string link { get; set; }
+        public string link1 { get; set; }
         public Nullable<System.DateTime> dat1 { get; set; }
         public Nullable<System.DateTime> dat2 { get; set; }
         public decimal num1 { get; set; }

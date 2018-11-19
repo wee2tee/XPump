@@ -682,7 +682,7 @@ namespace XPump.SubForm
                 cmd.CommandText += "`c_difamt` DECIMAL(14, 2) NOT NULL,";
                 cmd.CommandText += "`c_rcvamt` DECIMAL(14, 4) NOT NULL,";
                 cmd.CommandText += "`c_remamt` DECIMAL(14, 4) NOT NULL,";
-                cmd.CommandText += "`link` VARCHAR(30) NOT NULL,";
+                cmd.CommandText += "`link1` VARCHAR(30) NOT NULL,";
                 cmd.CommandText += "`dat1` DATE NULL,";
                 cmd.CommandText += "`dat2` DATE NULL,";
                 cmd.CommandText += "`num1` DECIMAL(14, 4) NOT NULL,";
