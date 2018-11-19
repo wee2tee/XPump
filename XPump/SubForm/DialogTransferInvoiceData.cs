@@ -113,66 +113,107 @@ namespace XPump.SubForm
                     wr.WriteLine("================================");
                 }
 
-                using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + this.main_form.working_express_db.abs_path))
+
+                if (!this.group_bill)
                 {
-                    if (!this.group_bill)
+                    BackgroundWorker wrk = new BackgroundWorker();
+                    wrk.WorkerSupportsCancellation = true;
+                    wrk.WorkerReportsProgress = true;
+
+                    this.progressBar1.Maximum = this.artrn.Count;
+                    this.progressBar1.Value = 0;
+
+                    int completed_row = 0;
+                    wrk.DoWork += delegate (object obj, DoWorkEventArgs ev)
                     {
-                        BackgroundWorker wrk = new BackgroundWorker();
-                        wrk.WorkerSupportsCancellation = true;
-                        wrk.WorkerReportsProgress = true;
-
-                        this.progressBar1.Maximum = this.artrn.Count;
-                        this.progressBar1.Value = 0;
-
-                        int completed_row = 0;
-                        wrk.DoWork += delegate(object obj, DoWorkEventArgs ev)
+                        this.artrn.ForEach(a =>
                         {
-                            this.artrn.ForEach(a =>
+                            var insert_result = this.InsertInvoice(this.main_form.working_express_db, a);
+                            if (insert_result.success)
                             {
                                 using (StreamWriter sw = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"\Transfer_log\" + log_file_name))
                                 {
                                     sw.WriteLine(a.docnum + "\t" + a.docdat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("TH-th")) + "\tcompleted.");
                                 }
+                            }
+                            else
+                            {
+                                using (StreamWriter sw = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"\Transfer_log\" + log_file_name))
+                                {
+                                    sw.WriteLine(a.docnum + "\t" + a.docdat.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("TH-th")) + "\tError: " + insert_result.err_message);
+                                }
+                            }
 
-                                Thread.Sleep(2000);
-                                wrk.ReportProgress(++completed_row);
-                            });
-                        };
+                            wrk.ReportProgress(++completed_row);
+                        });
+                    };
 
-                        wrk.RunWorkerCompleted += delegate (object obj, RunWorkerCompletedEventArgs ev)
-                        {
-                            MessageBox.Show("completed");
-                        };
-
-                        wrk.ProgressChanged += delegate (object obj, ProgressChangedEventArgs ev)
-                        {
-                            this.progressBar1.Value = ev.ProgressPercentage;
-                            var perc = (decimal)(Convert.ToDecimal(ev.ProgressPercentage) / Convert.ToDecimal(this.progressBar1.Maximum)) * 100;
-                            this.lblProgressPercent.Text = perc.ToString("N0") + "%";
-                        };
-                        wrk.RunWorkerAsync();
-
-                        //this.artrn.ForEach(a =>
-                        //{
-                        //    DbfInsertResult result = this.InsertInvoice(conn, a);
-                        //    if (!result.success)
-                        //    {
-
-                        //    }
-                        //});
-                    }
-                    else
+                    wrk.RunWorkerCompleted += delegate (object obj, RunWorkerCompletedEventArgs ev)
                     {
+                        MessageBox.Show("completed");
+                    };
 
-                    }
+                    wrk.ProgressChanged += delegate (object obj, ProgressChangedEventArgs ev)
+                    {
+                        this.progressBar1.Value = ev.ProgressPercentage;
+                        var perc = (decimal)(Convert.ToDecimal(ev.ProgressPercentage) / Convert.ToDecimal(this.progressBar1.Maximum)) * 100;
+                        this.lblProgressPercent.Text = perc.ToString("N0") + "%";
+                    };
+                    wrk.RunWorkerAsync();
+
+                    //this.artrn.ForEach(a =>
+                    //{
+                    //    DbfInsertResult result = this.InsertInvoice(conn, a);
+                    //    if (!result.success)
+                    //    {
+
+                    //    }
+                    //});
                 }
+                else
+                {
+
+                }
+
             }
         }
 
-        //private DbfInsertResult InsertInvoice(OleDbConnection conn, artrn artrn)
-        //{
+        private DbfInsertResult InsertInvoice(SccompDbf working_express_db, artrn artrn)
+        {
+            DbfInsertResult result = new DbfInsertResult { success = false, err_message = string.Empty };
+            try
+            {
+                using (OleDbConnection conn = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + working_express_db.abs_path))
+                {
+                    using (OleDbCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Insert into artrn (";
+                        cmd.CommandText += string.Join(",", artrn.GetType().GetProperties().ToList().Where(p => p.Name.ToLower() != "id" && p.Name.ToLower() != "arrcpcq" && p.Name.ToLower() != "stcrd").Select(p => p.Name));
+                        cmd.CommandText += ") Values(";
+                        cmd.CommandText += string.Join(",", artrn.GetType().GetProperties().ToList().Where(p => p.Name.ToLower() != "id" && p.Name.ToLower() != "arrcpcq" && p.Name.ToLower() != "stcrd").Select(p => "?"));
+                        cmd.CommandText += ")";
 
-        //}
+                        artrn.GetType().GetProperties().Where(p => p.Name.ToLower() != "id" && p.Name.ToLower() != "arrcpcq" && p.Name.ToLower() != "stcrd").ToList().ForEach(p =>
+                        {
+                            cmd.Parameters.AddWithValue("@" + p.Name, p.GetValue(artrn, null));
+                        });
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+
+                        result.success = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.success = false;
+                result.err_message = ex.Message;
+            }
+
+            return result;
+        }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
