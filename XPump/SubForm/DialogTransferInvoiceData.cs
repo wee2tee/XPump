@@ -184,12 +184,11 @@ namespace XPump.SubForm
                         {
                             artrn.GroupBy(a1 => a1.docdat).ToList().ForEach(g1 =>
                             {
-                                Console.WriteLine("=> Docdat " + g1.First().docdat);
+                                //Console.WriteLine("=> Docdat " + g1.First().docdat);
                                 g1.ToList().GroupBy(a2 => a2.cuscod).ToList().ForEach(g2 =>
                                 {
-                                    Console.WriteLine("  => Cuscod " + g2.First().cuscod);
+                                    //Console.WriteLine("  => Cuscod " + g2.First().cuscod);
 
-                                    // Add only one row in artrn
                                     var insert_result = this.InsertInvoiceGroup(this.main_form.working_express_db, g2);
                                     if (insert_result.success)
                                     {
@@ -212,19 +211,18 @@ namespace XPump.SubForm
                                         });
                                     }
 
-                                    //g2.ToList().ForEach(a =>
-                                    //{
-                                    //    //Console.WriteLine("     ==> cuscod : " + a.cuscod + " , docdat : " + a.docdat.ToString());
-                                    //    a.docnum = docnum;
-                                    //    int seq = 0;
-                                    //    a.stcrd.ToList().ForEach(s =>
-                                    //    {
-                                    //        s.docnum = docnum;
-                                    //        s.seqnum = (++seq).FillSpaceBeforeNum(3);
-                                    //    });
-
-                                    //    // Add stcrd
-                                    //});
+                                    if (!Helper.Reindex(this.main_form.working_express_db, Helper.DBF_FILENAME_FLAG.ARTRN))
+                                    {
+                                        XMessageBox.Show("แฟ้ม ARTRN ถูกเปิดใช้อยู่ กรุณาสั่งจัดเรียงข้อมูลแฟ้ม ARTRN ในโปรแกรมเอ็กซ์เพรสอีกครั้ง");
+                                    }
+                                    if (!Helper.Reindex(this.main_form.working_express_db, Helper.DBF_FILENAME_FLAG.STCRD))
+                                    {
+                                        XMessageBox.Show("แฟ้ม STCRD ถูกเปิดใช้อยู่ กรุณาสั่งจัดเรียงข้อมูลแฟ้ม STCRD ในโปรแกรมเอ็กซ์เพรสอีกครั้ง");
+                                    }
+                                    if (!Helper.Reindex(this.main_form.working_express_db, Helper.DBF_FILENAME_FLAG.ARRCPCQ))
+                                    {
+                                        XMessageBox.Show("แฟ้ม ARRCPCQ ถูกเปิดใช้อยู่ กรุณาสั่งจัดเรียงข้อมูลแฟ้ม ARRCPCQ ในโปรแกรมเอ็กซ์เพรสอีกครั้ง");
+                                    }
                                 });
                             });
 
@@ -393,6 +391,9 @@ namespace XPump.SubForm
                         dummy_artrn.vatamt = artrns.Sum(a => a.vatamt);
                         dummy_artrn.cshrcv = artrns.Sum(a => a.cshrcv);
                         dummy_artrn.chqrcv = artrns.Sum(a => a.chqrcv);
+                        int nxtseq = 0;
+                        artrns.ToList().ForEach(a => { nxtseq += a.stcrd.Count; });
+                        dummy_artrn.nxtseq = nxtseq.FillSpaceBeforeNum(3);
 
                         cmd.CommandText = "Insert into artrn (";
                         cmd.CommandText += string.Join(",", dummy_artrn.GetType().GetProperties().ToList().Where(p => p.Name.ToLower() != "id" && p.Name.ToLower() != "arrcpcq" && p.Name.ToLower() != "stcrd").Select(p => p.Name));
@@ -417,14 +418,31 @@ namespace XPump.SubForm
                         });
 
                         conn.Open();
-                        cmd.ExecuteNonQuery();
+                        if(cmd.ExecuteNonQuery() > 0)
+                        {
+                            using (xpumpEntities db = DBX.DataSet(working_express_db))
+                            {
+                                db.artrn.ToList().Where(a => artrns.Select(ar => ar.id).ToList<int>().Contains(a.id)).ToList().ForEach(a => Console.WriteLine(" ==> artrn.id : " + a.id));
+                                //artrns.Select(a => a.id).ToList().ForEach(a => Console.WriteLine(" ==> artrns.id : " + a));
+                                //Console.WriteLine(" ****************************** ");
+                                artrns.Select(a => a.id).ToList().ForEach(a =>
+                                {
+                                    var artrn_to_update = db.artrn.Find(a);
+                                    if(artrn_to_update != null)
+                                    {
+                                        artrn_to_update.str1 = result.inserted_docnum;
+                                        db.SaveChanges();
+                                    }
+                                });
+                            }
+                        }
                         conn.Close();
-                        
+
+                        int seq = 0;
                         artrns.ToList().ForEach(a =>
                         {
                             /* Stcrd */
-                            int seq = 0;
-                            a.stcrd.OrderBy(st => st.id).ToList().ForEach(st =>
+                            a.stcrd.OrderBy(st => st.docnum).ThenBy(st => st.id).ToList().ForEach(st =>
                             {
                                 st.seqnum = (++seq).FillSpaceBeforeNum(3);
 
