@@ -113,6 +113,8 @@ namespace XPump.SubForm
                     wr.WriteLine("================================");
                 }
 
+                int completed_row = 0;
+
                 using (BackgroundWorker wrk = new BackgroundWorker())
                 {
                     wrk.WorkerSupportsCancellation = true;
@@ -123,7 +125,6 @@ namespace XPump.SubForm
                         this.progressBar1.Maximum = this.artrn.Count;
                         this.progressBar1.Value = 0;
 
-                        int completed_row = 0;
                         wrk.DoWork += delegate (object obj, DoWorkEventArgs ev)
                         {
                             this.artrn.ForEach(a =>
@@ -177,7 +178,7 @@ namespace XPump.SubForm
                     }
                     else
                     {
-                        this.progressBar1.Maximum = 1;
+                        this.progressBar1.Maximum = artrn.Count;
                         this.progressBar1.Value = 0;
 
                         wrk.DoWork += delegate(object obj, DoWorkEventArgs ev)
@@ -210,6 +211,9 @@ namespace XPump.SubForm
                                             }
                                         });
                                     }
+
+                                    completed_row += g2.Count();
+                                    wrk.ReportProgress(completed_row);
 
                                     if (!Helper.Reindex(this.main_form.working_express_db, Helper.DBF_FILENAME_FLAG.ARTRN))
                                     {
@@ -518,6 +522,15 @@ namespace XPump.SubForm
             {
                 this.btnCancel.PerformClick();
                 return true;
+            }
+
+            if(keyData == Keys.Enter)
+            {
+                if(!(this.btnOK.Focused || this.btnCancel.Focused))
+                {
+                    SendKeys.Send("{TAB}");
+                    return true;
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

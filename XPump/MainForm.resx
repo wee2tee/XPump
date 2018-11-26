@@ -203,6 +203,9 @@
   <data name="mnuStkgrp.Text" xml:space="preserve">
     <value>กลุ่มสินค้า</value>
   </data>
+  <data name="mnuStkgrp.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="mnuBank.Size" type="System.Drawing.Size, System.Drawing">
     <value>227, 22</value>
   </data>
@@ -2245,6 +2248,12 @@
   <data name="&gt;&gt;mnuYearEnd.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;mnuTransferInvoice.Name" xml:space="preserve">
+    <value>mnuTransferInvoice</value>
+  </data>
+  <data name="&gt;&gt;mnuTransferInvoice.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
     <value>toolStripSeparator2</value>
   </data>
@@ -2298,12 +2307,6 @@
   </data>
   <data name="&gt;&gt;lblVersion.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mnuTransferInvoice.Name" xml:space="preserve">
-    <value>mnuTransferInvoice</value>
-  </data>
-  <data name="&gt;&gt;mnuTransferInvoice.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

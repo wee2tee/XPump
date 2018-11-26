@@ -229,6 +229,10 @@ namespace XPump
                         return;
                     }
                 }
+                else
+                {
+                    DialogDbConfig.UpdateDbVer(this, this.working_express_db.db_conn_config);
+                }
                 DialogSettings.CreateSettingsProfile(this.working_express_db);
                 /* Getting Department */
                 //var x = DbfTable.Istab(this.working_express_db).ToIstabList().Where(t => t.tabtyp == "50").ToList();

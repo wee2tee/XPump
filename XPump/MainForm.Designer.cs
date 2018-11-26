@@ -56,6 +56,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuEventLog = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuYearEnd = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuTransferInvoice = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuChangeCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -66,7 +67,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMysqlDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.mnuTransferInvoice = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -275,6 +275,12 @@
             this.mnuYearEnd.Tag = "33";
             this.mnuYearEnd.Click += new System.EventHandler(this.mnuYearEnd_Click);
             // 
+            // mnuTransferInvoice
+            // 
+            this.mnuTransferInvoice.Name = "mnuTransferInvoice";
+            resources.ApplyResources(this.mnuTransferInvoice, "mnuTransferInvoice");
+            this.mnuTransferInvoice.Click += new System.EventHandler(this.mnuTransferInvoice_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -344,12 +350,6 @@
             this.lblVersion.Name = "lblVersion";
             resources.ApplyResources(this.lblVersion, "lblVersion");
             this.lblVersion.Spring = true;
-            // 
-            // mnuTransferInvoice
-            // 
-            this.mnuTransferInvoice.Name = "mnuTransferInvoice";
-            resources.ApplyResources(this.mnuTransferInvoice, "mnuTransferInvoice");
-            this.mnuTransferInvoice.Click += new System.EventHandler(this.mnuTransferInvoice_Click);
             // 
             // MainForm
             // 
