@@ -34,6 +34,7 @@ namespace XPump.SubForm
 
         private void DialogTransferInvoiceData_Load(object sender, EventArgs e)
         {
+            this.lblDataPath.Text = this.main_form.working_express_db.abs_path;
             this.isrun = DbfTable.Isrun(this.main_form.working_express_db).ToIsrunList().Where(i => i.doctyp.TrimEnd() == "HS" || i.doctyp.TrimEnd() == "IV").OrderBy(i => i.doctyp).ThenBy(i => i.prefix).ToList();
             //var mnu_iv = DbfTable.Isrun(this.main_form.working_express_db).ToIsrunList().Where(i => i.doctyp.TrimEnd() == "IV").OrderBy(i => i.prefix).ToList();
             this.isrun.ForEach(i =>
@@ -172,6 +173,8 @@ namespace XPump.SubForm
                         wrk.RunWorkerCompleted += delegate (object obj, RunWorkerCompletedEventArgs ev)
                         {
                             MessageBox.Show("completed");
+                            this.Close();
+                            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Transfer_log\" + log_file_name);
                         };
 
                         wrk.RunWorkerAsync();
@@ -242,6 +245,8 @@ namespace XPump.SubForm
                         wrk.RunWorkerCompleted += delegate(object obj, RunWorkerCompletedEventArgs ev)
                         {
                             MessageBox.Show("completed");
+                            this.Close();
+                            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Transfer_log\" + log_file_name);
                         };
 
                         wrk.RunWorkerAsync();

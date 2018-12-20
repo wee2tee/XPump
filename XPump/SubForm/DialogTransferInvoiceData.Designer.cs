@@ -28,69 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cDocPrefix = new CC.XDropdownList();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cDateFrom = new CC.XDatePicker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.cDateTo = new CC.XDatePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.cGroupBill = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblProgressPercent = new System.Windows.Forms.Label();
             this.lblProgressDocnum = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblDataPath = new System.Windows.Forms.Label();
+            this.cDateTo = new CC.XDatePicker();
+            this.cDateFrom = new CC.XDatePicker();
+            this.cDocPrefix = new CC.XDropdownList();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // cDocPrefix
-            // 
-            this.cDocPrefix._ReadOnly = false;
-            this.cDocPrefix._SelectedItem = null;
-            this.cDocPrefix._Text = "";
-            this.cDocPrefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDocPrefix.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDocPrefix.Location = new System.Drawing.Point(132, 103);
-            this.cDocPrefix.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cDocPrefix.Name = "cDocPrefix";
-            this.cDocPrefix.Size = new System.Drawing.Size(238, 23);
-            this.cDocPrefix.TabIndex = 0;
-            this.cDocPrefix._SelectedItemChanged += new System.EventHandler(this.cDocPrefix__SelectedItemChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 108);
+            this.label1.Location = new System.Drawing.Point(26, 136);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 16);
+            this.label1.Size = new System.Drawing.Size(109, 16);
             this.label1.TabIndex = 1;
-            this.label1.Text = "บิลขายจากเมนู";
+            this.label1.Text = "โอนบิลขายจากเมนู";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 139);
+            this.label2.Location = new System.Drawing.Point(26, 169);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "รายการของวันที่";
-            // 
-            // cDateFrom
-            // 
-            this.cDateFrom._ReadOnly = false;
-            this.cDateFrom._SelectedDate = null;
-            this.cDateFrom.BackColor = System.Drawing.Color.White;
-            this.cDateFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDateFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDateFrom.Location = new System.Drawing.Point(132, 135);
-            this.cDateFrom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cDateFrom.Name = "cDateFrom";
-            this.cDateFrom.Size = new System.Drawing.Size(103, 23);
-            this.cDateFrom.TabIndex = 1;
-            this.cDateFrom._SelectedDateChanged += new System.EventHandler(this.cDateFrom__SelectedDateChanged);
-            this.cDateFrom._Leave += new System.EventHandler(this.cDateFrom__Leave);
             // 
             // panel1
             // 
@@ -101,25 +74,26 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(12, 15);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(392, 66);
+            this.panel1.Size = new System.Drawing.Size(392, 105);
             this.panel1.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(20, 16);
+            this.label3.Location = new System.Drawing.Point(13, 11);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(324, 32);
+            this.label3.Size = new System.Drawing.Size(368, 80);
             this.label3.TabIndex = 0;
-            this.label3.Text = "หมายเหตุ : โปรแกรมจะทำการโอนข้อมูลเฉพาะรายการ\r\nที่ยังไม่เคยโอนเข้าเอ็กซ์เพรสเท่าน" +
-    "ั้น";
+            this.label3.Text = "หมายเหตุ : \r\n    -  ในระหว่างการโอนข้อมูล ต้องไม่มีใครใช้งานที่เก็บข้อมูลนี้ \r\nใน" +
+    "โปรแกรมเอ็กซ์เพรสอยู่\r\n    -  โปรแกรมจะทำการโอนข้อมูลเฉพาะรายการที่ยังไม่เคย\r\nโอ" +
+    "นเข้าเอ็กซ์เพรสเท่านั้น\r\n";
             // 
             // btnOK
             // 
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnOK.Enabled = false;
-            this.btnOK.Location = new System.Drawing.Point(101, 276);
+            this.btnOK.Location = new System.Drawing.Point(101, 304);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(105, 32);
             this.btnOK.TabIndex = 4;
@@ -131,32 +105,17 @@
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(212, 276);
+            this.btnCancel.Location = new System.Drawing.Point(212, 304);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(105, 32);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "ยกเลิก <Esc>";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // cDateTo
-            // 
-            this.cDateTo._ReadOnly = false;
-            this.cDateTo._SelectedDate = null;
-            this.cDateTo.BackColor = System.Drawing.Color.White;
-            this.cDateTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cDateTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cDateTo.Location = new System.Drawing.Point(267, 135);
-            this.cDateTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cDateTo.Name = "cDateTo";
-            this.cDateTo.Size = new System.Drawing.Size(103, 23);
-            this.cDateTo.TabIndex = 2;
-            this.cDateTo._SelectedDateChanged += new System.EventHandler(this.cDateTo__SelectedDateChanged);
-            this.cDateTo._Leave += new System.EventHandler(this.cDateTo__Leave);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(241, 139);
+            this.label4.Location = new System.Drawing.Point(246, 169);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(22, 16);
             this.label4.TabIndex = 1;
@@ -165,24 +124,25 @@
             // cGroupBill
             // 
             this.cGroupBill.AutoSize = true;
-            this.cGroupBill.Location = new System.Drawing.Point(132, 175);
+            this.cGroupBill.Location = new System.Drawing.Point(132, 230);
             this.cGroupBill.Name = "cGroupBill";
             this.cGroupBill.Size = new System.Drawing.Size(176, 20);
             this.cGroupBill.TabIndex = 3;
             this.cGroupBill.Text = "รวมรายการเป็น 1 วัน : 1 บิล";
             this.cGroupBill.UseVisualStyleBackColor = true;
+            this.cGroupBill.Visible = false;
             this.cGroupBill.CheckedChanged += new System.EventHandler(this.cGroupBill_CheckedChanged);
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(36, 237);
+            this.progressBar1.Location = new System.Drawing.Point(36, 274);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(344, 14);
             this.progressBar1.TabIndex = 6;
             // 
             // lblProgressPercent
             // 
-            this.lblProgressPercent.Location = new System.Drawing.Point(325, 218);
+            this.lblProgressPercent.Location = new System.Drawing.Point(325, 255);
             this.lblProgressPercent.Name = "lblProgressPercent";
             this.lblProgressPercent.Size = new System.Drawing.Size(56, 16);
             this.lblProgressPercent.TabIndex = 7;
@@ -191,17 +151,79 @@
             // 
             // lblProgressDocnum
             // 
-            this.lblProgressDocnum.Location = new System.Drawing.Point(139, 218);
+            this.lblProgressDocnum.Location = new System.Drawing.Point(139, 255);
             this.lblProgressDocnum.Name = "lblProgressDocnum";
             this.lblProgressDocnum.Size = new System.Drawing.Size(140, 16);
             this.lblProgressDocnum.TabIndex = 7;
             this.lblProgressDocnum.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(26, 200);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(98, 16);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "ไปยังที่เก็บข้อมูล";
+            // 
+            // lblDataPath
+            // 
+            this.lblDataPath.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblDataPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblDataPath.Location = new System.Drawing.Point(137, 199);
+            this.lblDataPath.Name = "lblDataPath";
+            this.lblDataPath.Size = new System.Drawing.Size(238, 20);
+            this.lblDataPath.TabIndex = 1;
+            // 
+            // cDateTo
+            // 
+            this.cDateTo._ReadOnly = false;
+            this.cDateTo._SelectedDate = null;
+            this.cDateTo.BackColor = System.Drawing.Color.White;
+            this.cDateTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDateTo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cDateTo.Location = new System.Drawing.Point(272, 165);
+            this.cDateTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cDateTo.Name = "cDateTo";
+            this.cDateTo.Size = new System.Drawing.Size(103, 23);
+            this.cDateTo.TabIndex = 2;
+            this.cDateTo._SelectedDateChanged += new System.EventHandler(this.cDateTo__SelectedDateChanged);
+            this.cDateTo._Leave += new System.EventHandler(this.cDateTo__Leave);
+            // 
+            // cDateFrom
+            // 
+            this.cDateFrom._ReadOnly = false;
+            this.cDateFrom._SelectedDate = null;
+            this.cDateFrom.BackColor = System.Drawing.Color.White;
+            this.cDateFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDateFrom.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cDateFrom.Location = new System.Drawing.Point(137, 165);
+            this.cDateFrom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cDateFrom.Name = "cDateFrom";
+            this.cDateFrom.Size = new System.Drawing.Size(103, 23);
+            this.cDateFrom.TabIndex = 1;
+            this.cDateFrom._SelectedDateChanged += new System.EventHandler(this.cDateFrom__SelectedDateChanged);
+            this.cDateFrom._Leave += new System.EventHandler(this.cDateFrom__Leave);
+            // 
+            // cDocPrefix
+            // 
+            this.cDocPrefix._ReadOnly = false;
+            this.cDocPrefix._SelectedItem = null;
+            this.cDocPrefix._Text = "";
+            this.cDocPrefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cDocPrefix.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cDocPrefix.Location = new System.Drawing.Point(137, 133);
+            this.cDocPrefix.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cDocPrefix.Name = "cDocPrefix";
+            this.cDocPrefix.Size = new System.Drawing.Size(238, 23);
+            this.cDocPrefix.TabIndex = 0;
+            this.cDocPrefix._SelectedItemChanged += new System.EventHandler(this.cDocPrefix__SelectedItemChanged);
+            // 
             // DialogTransferInvoiceData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(416, 331);
+            this.ClientSize = new System.Drawing.Size(416, 359);
             this.Controls.Add(this.lblProgressDocnum);
             this.Controls.Add(this.lblProgressPercent);
             this.Controls.Add(this.progressBar1);
@@ -213,6 +235,8 @@
             this.Controls.Add(this.cDateFrom);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblDataPath);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cDocPrefix);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -249,5 +273,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label lblProgressPercent;
         private System.Windows.Forms.Label lblProgressDocnum;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblDataPath;
     }
 }

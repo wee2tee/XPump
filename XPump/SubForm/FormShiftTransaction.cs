@@ -166,6 +166,14 @@ namespace XPump.SubForm
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
+            if(this.form_mode != FORM_MODE.READ && this.form_mode != FORM_MODE.READ_ITEM)
+            {
+                this.form_mode = FORM_MODE.READ;
+                this.ResetControlState();
+
+                this.tmp_shiftsales = null;
+            }
+
             this.main_form.opened_child_form.Remove(this.main_form.opened_child_form.Where(f => f.form.GetType() == this.GetType()).First());
             base.OnFormClosed(e);
         }
@@ -1203,8 +1211,11 @@ namespace XPump.SubForm
                 e.Graphics.DrawString(str, fnt_title_bold, brush, rect, format_center);
 
                 y += line_height; // new line
-                str = "วันที่ " + report_data.reportDate.ToString("d MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + report_data.reportDate.ToString("yyyy", CultureInfo.CurrentCulture);
-                rect = str.GetDisplayRect(fnt_header, (int)Math.Round((double)(e.MarginBounds.Width / 2) + x - (str.Width(fnt_header) / 2)), y);
+                // เพิ่มแสดงชื่อผลัด
+                var shift_desc = report_data.shift.description;
+                str = "วันที่ " + report_data.reportDate.ToString("d MMMM", CultureInfo.CurrentCulture) + " พ.ศ. " + report_data.reportDate.ToString("yyyy", CultureInfo.CurrentCulture) + "  (" + shift_desc + ")";
+                //rect = str.GetDisplayRect(fnt_header, (int)Math.Round((double)(e.MarginBounds.Width / 2) + x - (str.Width(fnt_header) / 2)), y);
+                rect = new Rectangle(x, y, e.MarginBounds.Width, line_height);
                 e.Graphics.DrawString(str, fnt_header, brush, rect, format_center);
 
                 y += line_height; // new line

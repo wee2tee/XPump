@@ -596,7 +596,7 @@ namespace XPump.SubForm
 
                 create_result.is_success = true;
 
-                // ** Upgrade DB Version ** //
+                // ** Update DB Version ** //
                 UpdateDbVer(this.main_form, local_config);
 
                 //// Artrn Table

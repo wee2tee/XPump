@@ -189,6 +189,11 @@ namespace XPump.SubForm
                 this.arrcpcq_coupon = new BindingList<ArrcpcqInvoice>(rcv_coupon_list);
                 this.dgvRcv2.DataSource = this.arrcpcq_coupon;
             }
+
+            /* Set toolstripbutton state for transfered data */
+            this.btnEdit.Enabled = this.form_mode == FORM_MODE.READ && artrn.str1.Trim().Length == 0 ? true : false;
+            this.btnVoid.Enabled = this.form_mode == FORM_MODE.READ && artrn.str1.Trim().Length == 0 ? true : false;
+            this.btnDelete.Enabled = this.form_mode == FORM_MODE.READ && artrn.str1.Trim().Length == 0 ? true : false;
         }
 
         private List<StmasDbfPrice> GetStmasDbfPrice(STKGRP[] stkgroups)
@@ -288,7 +293,7 @@ namespace XPump.SubForm
         {
             try
             {
-                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index && e.RowIndex > -1)
+                if (e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name || c.Name == this.col_g2_sellpr1.Name).First().Index && e.RowIndex > -1)
                 {
                     ((XDatagrid)sender).Cursor = Cursors.Hand;
                 }
@@ -305,7 +310,7 @@ namespace XPump.SubForm
 
         private void dgvGoods1_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name).First().Index && e.RowIndex > -1)
+            if(e.ColumnIndex == ((XDatagrid)sender).Columns.Cast<DataGridViewColumn>().Where(c => c.Name == this.col_g1_sellpr1.Name || c.Name == this.col_g2_sellpr1.Name).First().Index && e.RowIndex > -1)
             {
                 ((XDatagrid)sender).Cursor = Cursors.Default;
             }
@@ -315,6 +320,15 @@ namespace XPump.SubForm
         {
             if(e.RowIndex > -1)
             {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var a = db.artrn.Find(this.curr_artrn.id);
+                    if(a == null || a.str1.Trim().Length > 0)
+                    {
+                        return;
+                    }
+                }
+
                 if (this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT)
                 {
                     this.btnSave.PerformClick();
@@ -507,7 +521,7 @@ namespace XPump.SubForm
                 docnum = this.curr_docprefix + "**NEW**",
                 docdat = DateTime.Now,
                 depcod = this.curr_docprefix.depcod.Trim() == "-" ? string.Empty : this.curr_docprefix.depcod,
-                flgvat = this.curr_docprefix.flgvat,
+                flgvat = this.curr_docprefix.flgvat.Trim() != "" ? this.curr_docprefix.flgvat : "2",
                 duedat = DateTime.Now,
                 bilnum = "~",
                 vatrat = this.curr_docprefix.vatrat,
@@ -525,6 +539,7 @@ namespace XPump.SubForm
             this.FillForm(this.tmp_artrn);
 
             this.cCuscod.Focus();
+            //this.ActiveControl = this.cCuscod;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -851,7 +866,6 @@ namespace XPump.SubForm
 
         private void btnSearch_ButtonClick(object sender, EventArgs e)
         {
-            //DialogSimpleSearch ds = new DialogSimpleSearch("เลขที่เอกสาร", "");
             DialogSearchDocnum ds = new DialogSearchDocnum(this.curr_docprefix.prefix.RewriteToTextMask() + "AAAAAAAAAA");
             if(ds.ShowDialog() == DialogResult.OK)
             {
@@ -1348,7 +1362,10 @@ namespace XPump.SubForm
         private void cCuscod__Leave(object sender, EventArgs e)
         {
             if (this.tmp_artrn != null && this.tmp_artrn.cuscod.Trim().Length == 0)
+            {
+                this.cCuscod.Focus();
                 this.cCuscod.PerformButtonClick();
+            }
         }
 
         private void cDocdat__SelectedDateChanged(object sender, EventArgs e)
@@ -1931,7 +1948,13 @@ namespace XPump.SubForm
 
             if(keyData == (Keys.Alt | Keys.S))
             {
-                this.btnSearch.PerformClick();
+                this.btnSearch.PerformButtonClick();
+                return true;
+            }
+
+            if(keyData == (Keys.Control | Keys.S))
+            {
+                this.btnSearchRefnum.PerformClick();
                 return true;
             }
 
@@ -1949,7 +1972,7 @@ namespace XPump.SubForm
 
             if(keyData == (Keys.Alt | Keys.P))
             {
-                this.btnPrint.PerformClick();
+                this.btnPrintA4.PerformClick();
                 return true;
             }
 
@@ -1963,7 +1986,15 @@ namespace XPump.SubForm
             {
                 if(this.form_mode == FORM_MODE.ADD || this.form_mode == FORM_MODE.EDIT || this.form_mode == FORM_MODE.ADD_ITEM || this.form_mode == FORM_MODE.EDIT_ITEM)
                 {
-                    if(this.inlineAmount1._Focused || this.inlineAmount2._Focused)
+                    if (this.cDocdat._Focused)
+                    {
+                        if (this.tmp_artrn.cuscod != null && this.tmp_artrn.cuscod.Trim().Length > 0 && this.tmp_artrn.docdat != null)
+                        {
+                            this.btnSave.PerformClick();
+                            return true;
+                        }
+                    }
+                    else if(this.inlineAmount1._Focused || this.inlineAmount2._Focused)
                     {
                         this.btnSave.PerformClick();
                         return true;
@@ -1977,6 +2008,36 @@ namespace XPump.SubForm
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void cDocdat_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //if(e.KeyChar == (char)13)
+            //{
+            //    if (this.tmp_artrn.cuscod != null && this.tmp_artrn.cuscod.Trim().Length > 0 && this.tmp_artrn.docdat != null)
+            //        this.btnSave.PerformClick();
+            //}
+        }
+
+        private void btnSearchRefnum_Click(object sender, EventArgs e)
+        {
+            DialogSearchDocnum ds = new DialogSearchDocnum("AAAAAAAAAAAA");
+            if (ds.ShowDialog() == DialogResult.OK)
+            {
+                using (xpumpEntities db = DBX.DataSet(this.main_form.working_express_db))
+                {
+                    var artrn = db.artrn.Include("stcrd").Include("arrcpcq").Where(a => a.str1.TrimEnd().CompareTo(ds.keyword.TrimEnd()) == 0).FirstOrDefault();
+                    if (artrn != null)
+                    {
+                        this.curr_artrn = artrn;
+                        this.FillForm(this.curr_artrn);
+                    }
+                    else
+                    {
+                        XMessageBox.Show("ค้นหาเลขที่เอกสารอ้างอิง " + ds.keyword + " ไม่พบ", "");
+                    }
+                }
+            }
         }
     }
 

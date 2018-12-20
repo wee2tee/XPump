@@ -29,8 +29,11 @@ namespace XPump.SubForm
 
         private void DialogSearchDocnum_Shown(object sender, EventArgs e)
         {
-            this.txtKeyword.SelectionStart = 2;
-            this.txtKeyword.SelectionLength = this.txtKeyword.Text.Length - 2;
+            if(this.txtKeyword.Text.Trim().Length > 2)
+            {
+                this.txtKeyword.SelectionStart = 2;
+                this.txtKeyword.SelectionLength = this.txtKeyword.Text.Length - 2;
+            }
         }
 
         private void txtKeyword_TextChanged(object sender, EventArgs e)
@@ -43,6 +46,13 @@ namespace XPump.SubForm
             if(keyData == Keys.Enter)
             {
                 this.btnGo.PerformClick();
+                return true;
+            }
+
+            if(keyData == Keys.Escape)
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
                 return true;
             }
 
